@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading..</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="icon" href="//res.kingdata.xyz/static/favicon.ico" type="image/svg+xml">
+  <style>
+    *{margin:0;padding:0;border:0}
+    body,html{position:absolute;left:0;top:0;right:0;bottom:0}
+    body{background:#fafafa}
+    @-moz-keyframes rotating {
+      0%{transform:rotate(0)}
+      100%{transform:rotate(1turn)}
+    }
+    @-webkit-keyframes rotating {
+      0%{transform:rotate(0)}
+      100%{transform:rotate(1turn)}
+    }
+    @keyframes rotating{
+      0%{transform:rotate(0)}
+      100%{transform:rotate(1turn)}
+    }
+    .loading{
+      position:absolute;left:50%;top:50%;
+      transform:translate(-50%,-50%);
+      display:inline-block;
+      width:42px;height:42px;
+      border-radius:50%;overflow:hidden;color:#fff}
+    .loading svg {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      -webkit-animation: rotating 2s linear infinite;
+      -o-animation: rotating 2s linear infinite;
+      -moz-animation: rotating 2s linear infinite;
+      animation: rotating 2s linear infinite;
+    }
+    p {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    @-webkit-keyframes loading-dash{0%{stroke-dasharray:1,200;stroke-dashoffset:0}50%{stroke-dasharray:90,150;stroke-dashoffset:-40px}to{stroke-dasharray:90,150;stroke-dashoffset:-120px}}
+    @-moz-keyframes loading-dash{0%{stroke-dasharray:1,200;stroke-dashoffset:0}50%{stroke-dasharray:90,150;stroke-dashoffset:-40px}to{stroke-dasharray:90,150;stroke-dashoffset:-120px}}
+    @keyframes loading-dash{0%{stroke-dasharray:1,200;stroke-dashoffset:0}50%{stroke-dasharray:90,150;stroke-dashoffset:-40px}to{stroke-dasharray:90,150;stroke-dashoffset:-120px}}
+    .loading .path {
+      -webkit-animation: loading-dash 2s ease-in-out infinite;
+      -o-animation: loading-dash 2s ease-in-out infinite;
+      -moz-animation: loading-dash 2s ease-in-out infinite;
+      animation: loading-dash 2s ease-in-out infinite;
+      stroke-dasharray: 90,150;
+      stroke-dashoffset: 0;
+      stroke-width: 2;
+      stroke: #409eff;
+      stroke-linecap: round;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p id="userinfo"></p>
+    <i class="loading">
+      <svg viewBox="25 25 50 50" class="circular">
+        <circle cx="50" cy="50" r="20" fill="none" class="path" stroke="#2b8dff"></circle>
+      </svg>
+    </i>
+  </div>
+  <script>
+    function getDomain(value) {
+      // 如果域名是 ip 地址
+      if (/[0-9]+\.[0-9]+\.[0-9]+.[0-9]+/.test(value)) {
+        return value
+      }
+      if (value === 'localhost') {
+        return value
+      }
+      var hostname = value.split('.');
+      if (hostname.length > 2) {
+        hostname = hostname.slice(1);
+        return hostname.join('.');
+      }
+      return value;
+    }
+    // 设置 cookie
+    function setCookie(name, value) {
+      var domain = getDomain(window.location.hostname);
+      var path = '/';
+      var data = name + '=' + value + '; path=' + path + '; domain=' + domain + ';';
+      document.cookie = data;
+      return data
+    }
+    // 删除 cookie
+    function removeCookie(name) {
+      var date = new Date();
+      date.setTime(date.getTime() - (24 * 60 * 60 * 1000));
+      var expires = "expires=" + date.toUTCString();
+      var domain = getDomain(window.location.hostname);
+      var path = '/';
+      var data = name + '=; path=' + path + '; domain=' + domain + '; ' + expires;
+      document.cookie = data;
+      return data
+    }
+    window.setOrigin = function(value) {
+      if (value) {
+        setCookie('kd_origin', value);
+      } else {
+        removeCookie('kd_origin');
+      }
+    }
+    window.forward = function (token, href) {
+      if (token) {
+        setCookie('auth_token', token);
+      } else {
+        removeCookie('auth_token');
+      }
+      if (href) {
+        window.location.href = href;
+      } else {
+        window.location.href = '/';
+      }
+    }
+  </script>
+</body>
+</html>

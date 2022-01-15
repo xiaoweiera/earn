@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>KingData</title>
+  <link rel="icon" href="/favicon.ico" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html {
+        font-size: 16px;
+    }
+    .twitter-timeline {
+        display: none;
+    }
+  </style>
+  <script src="/libs/jquery.min.js"></script>
+</head>
+<body>
+  <div id="main"></div>
+  <script>
+    function getQueryString(name) {
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+        return unescape(r[2]);
+      }
+      return null;
+    }
+    function main() {
+      var text = getQueryString("text");
+      var $main = $("#main");
+      // https://twitter.com/solar_dex?ref_src=twsrc%5Etfw"
+      var refLink = `https://twitter.com/${text}?ref_src=twsrc%5Etfw`;
+      $main.append('<a class="twitter-timeline" href="'+ refLink +'">Tweets by heroes_td</a>');
+      var widgets = document.createElement('script');
+      widgets.async = true;
+      widgets.src = 'https://platform.twitter.com/widgets.js';
+      widgets.charset = 'utf-8';
+      $main.append(widgets);
+    }
+    main();
+  </script>
+</body>
+</html>

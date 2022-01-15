@@ -1,0 +1,27 @@
+{
+  "restartable": "rs",
+  "delay": 0.5,
+  "ignore": [
+    ".git",
+    ".svn",
+    "dist",
+    "public/*",
+    "pnpm-lock.yaml",
+    "*.json",
+    "*.ts",
+    "node_modules/**/node_modules"
+  ],
+  "verbose": true,
+  "execMap": {
+    "js": "ts-node --project tsconfig.serve.json",
+    "ts": "ts-node --project tsconfig.serve.json"
+  },
+  "watch": [
+    "src/server/**"
+  ],
+  "env": {
+    "mode": "development",
+    "command": "serve"
+  },
+  "ext": "ts"
+}

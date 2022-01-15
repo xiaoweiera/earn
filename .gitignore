@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+dist
+*.local
+.vscode
+.idea
+pnpm-lock.yaml
+components.d.ts
+src/config/iconname.ts

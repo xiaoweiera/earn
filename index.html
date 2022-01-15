@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="{lang}" style="">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Vite App</title>
+  <link rel="icon" href="/favicon.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="ahrefs-site-verification" content="a41a2ea87b23852e5ff4ba882ec1ae7d210002c1f090bc6a9f01bbc8942fed50">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@KingData_com">
+  <meta name="twitter:image" content="https://kingdata.com/assets/kingdata.png">
+  <style>
+    html { font-size: 16px; }
+    #app { display: none }
+  </style>
+</head>
+<body>
+<div id="app">{content}</div>
+<div class="hidden">
+{data}
+</div>
+<script type="module" src="/src/entry-client.ts"></script>
+<script>
+  setTimeout(function () {
+    const app = document.querySelector("#app");
+    app.style.display = "block";
+  });
+</script>
+</body>
+</html>

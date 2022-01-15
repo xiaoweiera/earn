@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>校验</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="icon" href="https://res.ikingdata.com/static/favicon.ico" type="image/svg+xml">
+  <script type="text/javascript" charset="utf-8" src="//g.alicdn.com/sd/ncpc/nc.js?t=2015052012"></script>
+  <style lang='scss'>
+    *{ margin:0;padding:0; border:0; }
+    body,html{position:absolute;left:0;top:0;right:0;bottom:0}
+    .check-box {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .check-box .nc-container {
+      max-width: 500px;
+      width: 100% !important;
+      min-width: 200px;
+    }
+    .check-box .nc_wrapper {
+      width: 100% !important;
+    }
+
+    .nc_scale {
+      background: #e8e8e8 !important;
+      /* 默认背景色 */
+    }
+
+    .nc_scale div.nc_bg {
+      background: #2B8DFE !important;
+      /* 滑过时的背景色 */
+    }
+
+    .nc_scale .scale_text2 {
+      color: #fff !important;
+      /* 滑过时的字体颜色 */
+    }
+
+    .errloading {
+      border: #faf1d5 1px solid !important;
+      color: #e9592d!important;
+    }
+    .nc_iconfont.btn_slide,
+    .nc_iconfont.btn_ok{
+      font-size: 0 !important;
+    }
+    .nc_iconfont.btn_slide:after,
+    .nc_iconfont.btn_ok:after{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      content: "";
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      background-image: url("#{$g-url}/icon/arrow.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .nc_iconfont.btn_ok:after {
+      background-image: url("#{$g-url}/icon/arrow_ok.svg");
+    }
+    .nc_iconfont.icon_warn {
+      color: #e9592d !important; font-size: 18px !important;
+    }
+    .nc_scale {
+      border-radius: 4px;
+      height: 40px !important;
+    }
+    .scale_text {
+      color: #999 !important;
+      line-height: 40px !important;
+    }
+    .nc-container .nc_scale .nc_bg {
+      width: 0;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    .nc-container .nc_scale .btn_ok{
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+    .nc-container .nc_scale span {
+      border-radius: 4px;
+      height: 38px !important;
+      line-height: 38px !important;
+    }
+
+  </style>
+  <script>
+    /**
+     * @file 快速从对象中获取数据
+     * @author svon.me@gmail.com
+     */
+    function getLayer(path) {
+      var layer = path.split('.');
+      var array = [];
+      for(var i = 0, len = layer.length; i < len; i++) {
+        if (layer[i]) {
+          array.push(layer[i]);
+        }
+      }
+      return array;
+    }
+
+    function getArrayLayer(path) {
+      var string = path.replace(/\[/g, '.');
+      var text = string.replace(/\]/g, '');
+      return getLayer(text);
+    }
+
+    function safeGet(instance, path) {
+      if (instance && path) {
+        var layer = getArrayLayer(path);
+        var app = function(data, index) {
+          var key = layer[index];
+          // 如果有下一层
+          if (layer[index + 1]) {
+            return data[key] ? app(data[key], index + 1) : void 0;
+          }
+          return data[key];
+        };
+        return app(instance, 0);
+      }
+      return void 0;
+    }
+  </script>
+  <script>
+    /**
+     * @file 获取 URL 中查询数据
+     * @returns {{}}
+     */
+    function parseSearchParams(){
+      var searchParamsString = window.location.search;
+      if (searchParamsString) {
+        searchParamsString = searchParamsString.slice(1)
+      }
+      var data = searchParamsString.split('&').reduce((searchParams, curKV)=>{
+        var [k, v] = curKV.split('=').map(decodeURIComponent);
+        searchParams[k] = v;
+
+        return searchParams;
+      }, {});
+      return data;
+    }
+  </script>
+</head>
+<body>
+  <div class="check-box">
+    <div id="your-dom-id" class="nc-container"></div>
+  </div>
+  <script type="text/javascript">
+    var getWords = function() {
+      var query = parseSearchParams();
+      var lang = query['lang'] ? query['lang'] : 'en';
+
+      const words = {
+        en: {
+          placeholder: 'Please slide to verify',
+          success: 'Verified',
+          error: 'Error。Click<a href="javascript:__nc.reset()">Refresh</a>Verify again.',
+          network: 'Network is not good，Please<a href="javascript:__nc.reset()">click refresh.</a>'
+        },
+        cn: {
+          placeholder: '请按住滑块，拖动到最右边',
+          success: '验证通过',
+          error: '哎呀，出错了，点击<a href="javascript:__nc.reset()">刷新</a>再来一次',
+          network: '网络不给力，请<a href="javascript:__nc.reset()">点击刷新</a>'
+        }
+      };
+      return words[lang] ? words[lang] : words['en'];
+    }
+
+
+    var getToken = function() {
+      var time = Date.now();
+      var random = Math.random();
+      return ["FFFF0N00000000009FFA", time, random].join(':');
+    }
+    window.ready = function(callback) {
+      var nc_token = getToken();
+      var NC_Opt = {
+        renderTo: "#your-dom-id",
+        appkey: "FFFF0N00000000009FFA",
+        scene: "nc_register",
+        token: nc_token,
+        customWidth: 300,
+        trans:{"key1":"code0"},
+        elementID: ["usernameID"],
+        is_Opt: 0,
+        language: "cn",
+        isEnabled: true,
+        timeout: 3000,
+        times:5,
+        apimap: {},
+        callback: function (data) {
+          if (callback) {
+            callback(data);
+          }
+        }
+      }
+      var nc = new noCaptcha(NC_Opt);
+
+      var words = getWords();
+
+      nc.upLang('cn', {
+        _startTEXT: words.placeholder,
+        _yesTEXT: words.success,
+        _error300: words.error,
+        _errorNetwork: words.network,
+      });
+    }
+    /*
+    var checkCallback = function(data) {
+      // 执行注入到 window 下的回调函数
+      var query = parseSearchParams();
+      var callbackName = query['callback'];
+      // 无回调函数
+      if (!callbackName) {
+        return false;
+      }
+      var fun = safeGet(window, callbackName);
+      if (fun && typeof fun === 'function') {
+        var value = JSON.stringify(data);
+        // 返回验证结果
+        fun(value)
+        return true
+      }
+      // 执行注入到 js 内存中的回调函数
+      try {
+        var value = JSON.stringify(data);
+        var code = "(" + callbackName + "(\""+ value + "\")" + ")";
+        eval(code); // 执行回调函数，返回检查结果
+        return true
+      } catch (e) {
+        // todo
+      }
+
+      var parent = window.parent;
+      if (parent.postMessage && parent.location.pathname !== window.location.pathname) {
+        var result = { event: 'register_check', callbackname: callbackName, data: data };
+        var callFun = safeGet(parent, callbackName);
+        if (callFun) {
+          callFun(result);
+        }
+        return true
+      }
+    }*/
+
+    var checkCallback = function(data) {
+      var value = JSON.stringify(data);
+
+      // web 端交互
+      var parent = window.parent;
+      if (parent.postMessage && parent.location.pathname !== window.location.pathname) {
+        var result = { event: 'register_check', callbackname: callbackName, data: data };
+        var query = parseSearchParams();
+        var callbackName = query['callback'];
+        var callFun = safeGet(parent, callbackName);
+        if (callFun) {
+          callFun(result);
+        }
+        return true
+      }
+
+      // ios 交互
+      try {
+        window.webkit.messageHandlers.registerCheck.postMessage(value);
+        return true;
+      } catch (e) {
+        // todo
+      }
+      // android 交互
+      try {
+        window.kingdata.registerCheck(value);
+        return true;
+      } catch (e) {
+        // todo
+      }
+      return false;
+    }
+
+    setTimeout(function() {
+      ready(checkCallback);
+    });
+  </script>
+</body>
+</html>
