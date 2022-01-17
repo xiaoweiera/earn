@@ -5,13 +5,14 @@
 import path from "path";
 import {createServer} from "vite";
 import Compression from "compression";
-import {Env, production, staticPath} from "src/config";
+import { getLangContent } from "src/plugins/language/";
 import Express, {Router, NextFunction, Request, Response} from "express";
+import {Env, production, staticPath, languageKey, languageName, languageLink} from "src/config";
 
 const Assets = async function(root: string, env: Env) {
 	const router = Router();
 	const name = "favicon.ico";
-	router.all(`${name}`, function (req: Request, res: Response, next: NextFunction) {
+	router.all(`/${name}`, function (req: Request, res: Response, next: NextFunction) {
 		const options = {
 			root: path.join(root, "public"),
 			dotfiles: 'deny',
@@ -25,6 +26,13 @@ const Assets = async function(root: string, env: Env) {
 				next(err);
 			}
 		});
+	});
+
+	router.get(languageLink, function (req: Request, res: Response) {
+		res.type("application/json");
+		const value = getLangContent();
+		const text = `window["${languageName}"] = ${value};`;
+		res.send(text);
 	});
 
 	if (env.mode === production) {

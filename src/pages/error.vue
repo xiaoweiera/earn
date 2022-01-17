@@ -1,0 +1,5 @@
+<template>
+  <div class="text-3xl text-center">
+    <h2>404</h2>
+  </div>
+</template>

@@ -10,24 +10,25 @@ import "virtual:windi-devtools";
 import "src/styles/main.scss";
 
 import {createApp} from "./bootstrap/main";
-import safeGet from "@fengqiaogang/safe-get";
-import Decrypt from "src/plugins/encryption/decrypt";
-import { AppId, languageKey, rootData } from "src/config";
+import { AppId, languageKey, rootData, languageName } from "src/config";
 
 // 设置 Element Ui 中英文
 import ElementPlus from "element-plus";
 import {getParam} from "src/utils/router";
 import Language from "src/types/language";
+import safeGet from "@fengqiaogang/safe-get";
 import zhEn from "element-plus/es/locale/lang/en";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
+import Decrypt from "src/plugins/encryption/decrypt";
 
 
 const main = async function () {
-	// 从页面缓存中读取数据
 	const text = safeGet<string>(window, rootData);
+	const i18ns = safeGet<object>(window, languageName);
 	const data = text ? Decrypt<object>(text) : {};
+	const cacheData = { ...data, [languageName]: i18ns };
 
-	const { app, router } = createApp(data);
+	const { app, router } = createApp(cacheData);
 
 	// 设置 Element Ui 中英文
 	const lang = getParam<Language>(languageKey) || Language.en;

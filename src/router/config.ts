@@ -21,5 +21,6 @@ export const config = {
 	quota: '/indicators', // 指标监控
 	airdrop: '/airdrops', // 最新空投
 	address:'/whaleaddress',
-	portfolio:'/portfolio'
+	portfolio:'/portfolio',
+	E404: '/404',
 }

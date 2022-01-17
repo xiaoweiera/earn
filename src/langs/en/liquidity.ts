@@ -1,0 +1,128 @@
+export default {
+    message:{
+        success:'Success',
+    },
+    share:'Find the flow of smart money, easy to know the ins and outs of liquidity funds',
+    description:'KingData DEX Analysis makes a multi-dimensional and multi-scene detailed analysis of liquidity addition and removing and trading data of MDEX. It is easy to know the behaviors of users, and help users find anomalies in the market in advance, analyze the reasons for price changes and the correlation of different indicators.',
+    numberUnit:{
+        wan:'万',
+        yi:'亿',
+        wanyi:'万亿'
+    },
+    comingsoon:'ComingSoon',
+    noData:'No Data',
+    address:'Address',
+    webTitle:'KingData DEX Analysis',
+    mobile:{
+        select:'Search',
+        selectDes:'Search token',
+        flow:'Liquidity Data',
+        pay:'Trade Data',
+        time:'Time',
+        interval:'Interval',
+        pairDesc:'Related Pairs',
+        pcDes1:'For good use experience',
+        pcDes2:'This function is only accessible on the computer',
+        confirm:'Confirm'
+    },
+    select:{
+        tip:'Search token/pair/address',
+        coinType:'Token',
+        TradingPairs:'Pair',
+        more:'More',
+        history:'History',
+        hot:'Hot ',
+        address:'Address',
+        price:'Price',
+        changePrice:'Rate'
+    },
+    info: {
+        tokenAddress: 'Token Address',
+    },
+    side: {
+        self: 'Optional',
+        pairDesc: 'Related Pairs',
+        tvlNumber:'TVL',
+        pair: 'Pair',
+        tvl: 'TVL($)',
+        price: 'Price',
+        change: 'Change',
+        rate:'Rate',
+    },
+    mainHeader: {
+        liquidity: 'Data aggregation analysis of all related pairs about {token}',
+        payData: 'Only aggregate and analyze data of {pair}',
+        follow:'Follow',
+        analysis:'Data error',
+        week: '1 Week',
+        twoWeek: '2 Week',
+        month: '1 Month',
+        streeMonth: '3 Months',
+        sixMonth:'6 Months',
+        year:'Year',
+        custom: 'Custom',
+        all: 'All',
+        usd: 'USD',
+        coin:'Token',
+        bottom:'Bottom'
+    },
+    titleCofig:{
+        moneyReplaceStr:'Sell',
+        numberReplaceStr:'Sell',
+        money:'Sell {value}',
+        number:'Sell {value}'
+    },
+    mainChart: {
+        moneyInto:{
+            title:'Net Inflow',
+            desc:'Show the net inflow of relevant funds in the selected token or pair. The direction of the net inflow of funds represents to a certain extent the degree of user acceptance of the product, and it also has a greater impact on the market outlook.',
+        },
+        IntoInOutAnalysis:{
+            title:'Inflow and Outflow Detail',
+            desc:'Show the details of the net inflow and outflow of funds related to the selected token or pair, and more intuitively show the funds volume in the long-short game.',
+        },
+        IntoInOutNumber:{
+            title:'Inflow and Outflow Times',
+            desc:'Show the frequency of user operations of the selected token or pair, which can intuitively reflect users enthusiasm for participation',
+        },
+        joinUsersAnalysis:{
+            title:'Users Analysis',
+            desc:'Show the details of the number of participants in the selected token or pair, which can intuitively reflect the user scale of the relevant project.',
+        },
+        addUsersAnalysis:{
+            title:'New Users Analysis',
+            desc:'Show the details of new users of the selected token or pair, which can intuitively reflect the number of new users',
+        },
+    },
+    fullChart:{
+        tip:'* Click on the bar graph to filter the data'
+    },
+    down:{
+        address:'Address',
+        pair:'Pair',
+        netAdd:'Net Add' ,
+        add:'Add',
+        remove:'Remove',
+        times:'Times',
+        addTimes:'Add Times',
+        removeTimes:'Remove Times',
+        addLiquidity:'Add Liquidity',
+        removeLiquidity:'Remove Liquidity',
+        time:'Time',
+        direction:'Direction',
+        netBuy:'Net Buy',
+        buy:'Buy',
+        sell:'Sell',
+        payTimes:'Times',
+        buyTimes:'Buy Times',
+        sellTimes:'Sell Times',
+        value:'Value',
+        details:'Details',
+        chartTip:'Click the list address to filter the chart data',
+        chartTipTwo:'Click the bar chart to filter the data',
+        loading:'Loading...',
+        pull:'Pull up to load more',
+        noMore:'No more'
+    }
+}
+

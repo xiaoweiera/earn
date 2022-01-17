@@ -3,6 +3,8 @@
  * @author svon.me@gmail.com
  */
 
+import { config } from "./config";
+
 import {
 	Router,
 	createWebHistory,
@@ -14,7 +16,19 @@ import {
 const routes = [
 	{
 		path: '/',
-		component: () => import('src/pages/index.vue'),
+		component: () => import('src/pages/layout/index.vue'),
+		children: [
+			{
+				path: '/',
+				component: () => import('src/pages/index.vue'),
+			}, {
+				path: config.E404,
+				component: () => import('src/pages/error.vue'),
+			},{
+				path: '*',
+				component: () => import('src/pages/error.vue'),
+			}
+		]
 	}
 ]
 

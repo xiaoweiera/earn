@@ -6,6 +6,7 @@
 import {basename} from "path";
 import {createApp} from "./bootstrap/main";
 import {renderToString} from "vue/server-renderer";
+import {NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded} from "vue-router";
 
 /**
  * @param url 页面路由
@@ -19,17 +20,22 @@ interface Manifest {
 export const render = async function (url: string, data: object = {}) {
 	const ctx: any = {};
 	const {app, router} = createApp(data);
-	try {
-		await router.push(url);
-		await router.isReady();
-		const html = await renderToString(app, ctx);
-		if (html) {
-			const links = renderPreloadLinks(ctx.modules, {});
-			return [ html, links ];
+	router.beforeEach(function (to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded, next: NavigationGuardNext) {
+		const matched = to.matched;
+		if (matched && matched.length > 0) {
+			next();
+		} else {
+			// 如过无匹配的路由，则触发异常
+			throw new Error("Router Error");
 		}
-	} catch (e) {
-		// todo
-		console.log(e);
+	});
+	console.log("url = ", url);
+	await router.push(url);
+	await router.isReady();
+	const html = await renderToString(app, ctx);
+	if (html) {
+		const links = renderPreloadLinks(ctx.modules, {});
+		return [ html, links ];
 	}
 	return [];
 };

@@ -4,22 +4,29 @@
  */
 
 import _ from "lodash";
-import { rootData } from "src/config";
+import tpl from "./template";
+import htmlEncode from "js-htmlencode";
 import Icons from "src/config/iconfont";
 import Language from "src/types/language";
-import safeGet from "@fengqiaogang/safe-get";
 import Crypto from "src/plugins/encryption/crypto";
+import { rootData, languageLink, languageKey, languageName } from "src/config";
 
 interface Result {
-	data?: object | string;
 	lang: Language;
+	title: string;
 	content: string;
+	keywords: string;
+	description: string;
+	data?: string;
+	libs?: string;
+	[key: string]: any;
 }
 
 const makeScript = function (data: Result): string {
-	const code = `window["${rootData}"] = "${Crypto(data)}";`;
-	// const i18n = `/libs/language.js?lang=${data.lang}`
-	const libs = [...Icons];
+	const value = _.omit(data, [languageName, "content", "title", "keywords", "description", "libs"]);
+	const code = `window["${rootData}"] = "${Crypto(value)}";`;
+	const i18n = `${languageLink}?${languageKey}=${data.lang}`
+	const libs = [i18n, ...Icons];
 	const html = [
 		`<script type="application/javascript" charset="UTF-8">${code}</script>`
 	];
@@ -30,11 +37,11 @@ const makeScript = function (data: Result): string {
 }
 
 const template = function (html: string, result: Result): string {
-	const reg = /{([\w]+)}/g;
-	result.data = makeScript(result);
-	return html.replace(reg,function(variable: string, key: string): string {
-		return safeGet<string>(result, key) || "";
-	});
+	result.libs = makeScript(result);
+	// 处理 Html 中的转译字符
+	result.content = htmlEncode.htmlDecode(result.content);
+	const option = Object.assign({}, result, { languageKey });
+	return tpl(html, option);
 }
 
 export default template;

@@ -9,7 +9,11 @@ import safeSet from "@fengqiaogang/safe-set";
 export const AppId = "app";
 export const rootData = "__rootData";
 
+
 export const languageKey = "lang";
+export const languageName = "__language";
+export const languageLink = "/libs/language.js";
+
 export const production = process.production;
 export const development = process.development;
 
@@ -18,6 +22,8 @@ export const staticPath = "/static";
 export const oss = "https://res.kingdata.xyz";
 export const productionAPI = "https://kingdata.xyz";
 export const developmentAPI = "https://dev.kingdata.work";
+
+export const title = "KingData";
 
 export interface Argv {
 	mode: string;
@@ -51,4 +57,22 @@ export const getEnv = function (argv?: Argv): Env {
 		safeSet(env, "mode", production);
 	}
 	return env as Env;
+}
+
+export const IsSSR = function (): boolean {
+	try {
+		if (typeof window === "undefined") {
+			return true;
+		}
+	} catch (e) {
+		// todo
+	}
+	// try {
+	// 	if (import.meta.env.SSR) {
+	// 		return true;
+	// 	}
+	// } catch (e) {
+	// 	// todo
+	// }
+	return false;
 }
