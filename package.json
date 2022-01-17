@@ -20,8 +20,9 @@
     "@fengqiaogang/safe-set": "^0.1.2",
     "crypto-js": "^4.1.1",
     "element-plus": "^1.0.2-beta.71",
-    "intl-format": "^1.2.0",
     "ramda": "^0.27.2",
+    "url": "^0.11.0",
+    "url-pattern": "^1.0.3",
     "vue": "^3.2.26"
   },
   "devDependencies": {

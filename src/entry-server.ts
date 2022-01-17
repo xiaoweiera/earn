@@ -29,7 +29,6 @@ export const render = async function (url: string, data: object = {}) {
 			throw new Error("Router Error");
 		}
 	});
-	console.log("url = ", url);
 	await router.push(url);
 	await router.isReady();
 	const html = await renderToString(app, ctx);

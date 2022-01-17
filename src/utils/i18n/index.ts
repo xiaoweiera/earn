@@ -8,7 +8,6 @@ import {getKiwi, Kiwi} from "src/plugins/language/i18n";
 
 
 const lang: Language = (process.env.lang || Language.en) as Language;
-console.log("i18n lang = %s", lang);
 let I18n: Kiwi = getKiwi(lang);
 
 export const init = function (lang?: Language) {

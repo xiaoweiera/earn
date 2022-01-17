@@ -16,30 +16,36 @@ export interface I18nFormat {
 	 * 设置对应语言
 	 * @param lang: 切换的对应语言
 	 */
-	setLang(lang: string): void
+	setLang(lang: string): void;
+
+	/**
+	 * 获取当前语言类型
+	 */
+	getLang(): string;
 	/**
 	 * 板填充, 获取对应语言的模板值
 	 * @param value  对应语言的模板
 	 * @param data   模板的参数
 	 */
-	template(value: string, data: Data): string
+	template(value: string, data: Data): string;
 	/**
 	 * 板填充, 获取对应语言的模板值
 	 * @param value  对应语言的模板
 	 * @param index  下标位置
 	 * @param data   模板的参数
 	 */
-	part (value: string, index?: number, data?: Data): string
+	part (value: string, index?: number, data?: Data): string;
 }
 
 function Format(lang: string, langList: object = {}) {
-	console.log("Format - ", lang, Object.keys(langList));
 	let current: string = '';
 	const map = new Map<string, object>();
 	for (const key in langList) {
 		const value = safeGet<object>(langList, key);
 		map.set(key, value);
 	}
+	// @ts-ignore
+	this.getLang = () => current;
 	// @ts-ignore
 	this.setLang =  (lang: string) => {
 		current = lang;

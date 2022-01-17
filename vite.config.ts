@@ -6,10 +6,10 @@
 import path from "path";
 import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
+import { Command } from "./src/config/env";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import {ConfigEnv, defineConfig} from "vite";
 import Components from "unplugin-vue-components/vite";
-import { Command } from "./src/config/env";
 import { production, development, staticPath } from "./src/config";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
@@ -79,5 +79,9 @@ export default defineConfig(function (env: ConfigEnv) {
         ],
       }),
     ],
+    ssr: {
+      external: [],
+      noExternal: ['element-plus','web3']
+    },
   };
 });

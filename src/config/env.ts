@@ -11,5 +11,10 @@ export enum Command {
 export const production = "production";
 export const development = "development";
 
-export const mode = process.env.mode === development ? development : production;
-export const command = process.env.command === Command.serve ? Command.serve : Command.build;
+export const mode = function () {
+	return process.env.mode === development ? development : production;
+}
+
+export const command = function () {
+	return process.env.command === Command.serve ? Command.serve : Command.build;
+}

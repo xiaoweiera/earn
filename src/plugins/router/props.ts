@@ -3,17 +3,30 @@
  * @author svon.me@gmail.com
  */
 
+import { PropType } from "vue";
+
+export enum Name {
+	a = "a",
+	span = "span",
+	div = "div",
+	link = "router-link",
+}
+
+export enum Target {
+	self = "_self",
+	blank = "_blank",
+}
+
 export const props = {
 	name: {
-		type: String,
-		default: () => 'a'
+		type: String as PropType<Name>,
 	},
 	href: {
 		type: [String, Object]
 	},
 	target: {
-		type: String,
-		default: '_self'
+		type: String as PropType<Target>,
+		default: () => Target.self
 	},
 	login: {
 		type: Boolean,

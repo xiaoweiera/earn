@@ -19,12 +19,8 @@ export function createApp(data: object = {}) {
 	set(data);
 
 	const lang = safeGet<Language>(data, languageKey) || Language.en;
-
-	console.log("main - lang = ", lang);
-
-	const I18n = init(lang);
-	console.log("I18n.common.site.name = ", I18n.common.site.name);
-
+	// 初始化 i18n
+	init(lang);
 
 	const app: App = createSSRApp(application);
 	const router = createRouter();

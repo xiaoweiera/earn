@@ -9,6 +9,7 @@ import safeSet from "@fengqiaogang/safe-set";
 export const AppId = "app";
 export const rootData = "__rootData";
 
+export const domain = "kingdata.com";
 
 export const languageKey = "lang";
 
@@ -35,21 +36,18 @@ export interface Env extends Argv {
 	ApiVersion: string;
 }
 
-export const getEnv = function (argv?: Argv): Env {
-	const mode = argv?.mode || process.mode;
-	const command = argv?.command || process.command;
-
+export const getEnv = function (): Env {
+	const mode = process.mode();
 	const env = {
 		mode,
-		command,
 		port: 3333,
 		ApiVersion: "v1",
-		template: "index.html"
+		template: "index.html",
+		command: process.command(),
 	};
 	if (mode === development) {
 		// 开发环境接口
 		safeSet(env, "api", developmentAPI);
-
 	} else {
 		// 正式环境接口
 		safeSet(env, "mode", production);

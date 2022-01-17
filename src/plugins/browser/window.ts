@@ -5,7 +5,7 @@
 
 import { IsSSR } from "src/config/";
 
-let root = {};
+let root: any = {};
 
 if (IsSSR()) {
 	root = {
