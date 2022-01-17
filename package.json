@@ -5,9 +5,9 @@
     "icon": "node build/icon",
     "build:cleant": "vite build --outDir dist/client --ssrManifest --mode production",
     "build:server": "vite build --ssr src/entry-server.ts --outDir dist/server --mode production",
-    "stop": "pm2 delete KingData",
+    "stop": "pm2 delete pm2.json",
     "serve": "pm2 start pm2.json",
-    "dev": "npm run stop && pm2 start --env=dev pm2.json"
+    "dev": "nodemon src/server/start.js"
   },
   "_moduleAliases": {
     "@root": ".",
@@ -36,6 +36,7 @@
     "axios": "^0.24.0",
     "compression": "^1.7.4",
     "express": "^4.17.2",
+    "js-htmlencode": "^0.3.0",
     "lodash": "^4.17.21",
     "module-alias": "^2.2.2",
     "nodemon": "^2.0.15",
