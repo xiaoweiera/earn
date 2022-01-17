@@ -11,8 +11,6 @@ export const rootData = "__rootData";
 
 
 export const languageKey = "lang";
-export const languageName = "__language";
-export const languageLink = "/libs/language.js";
 
 export const production = process.production;
 export const development = process.development;

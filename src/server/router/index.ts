@@ -4,18 +4,15 @@
  */
 
 import _ from "lodash";
+import { Env } from "src/config";
 import SSR from "src/plugins/vue";
 import { config } from "src/router/config";
-import { Env, languageName } from "src/config";
-import { getI18ns } from "src/plugins/language/i18n";
 import { Router as ExpressRouter, Request, Response, NextFunction } from "express";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 
 	const router = ExpressRouter();
 	const ssr: SSR = await new SSR(root, env);
-
-	// await ssr.init();
 
 	router.use(function (req: Request, res: Response, next: NextFunction) {
 		const url = req.originalUrl;
@@ -41,7 +38,6 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 			const data = {
 				...value,
 				...res.locals,
-				[languageName]: getI18ns()
 			};
 			try {
 				const html = await ssr.render(url, data);

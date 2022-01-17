@@ -6,7 +6,7 @@
     "build:cleant": "vite build --outDir dist/client --ssrManifest --mode production",
     "build:server": "vite build --ssr src/entry-server.ts --outDir dist/server --mode production",
     "stop": "pm2 delete pm2.json",
-    "serve": "pm2 start pm2.json",
+    "serve": "scripts/serve.sh",
     "dev": "nodemon src/server/start.js"
   },
   "_moduleAliases": {

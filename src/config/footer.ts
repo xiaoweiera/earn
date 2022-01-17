@@ -6,7 +6,7 @@
 import I18n from "src/utils/i18n";
 import {config} from "src/router/config";
 
-console.log("footer - ", I18n.common.site.name);
+console.log("footer - I18n.common.site.name", I18n.common.site.name);
 
 export interface Footer {
 	label?: string;

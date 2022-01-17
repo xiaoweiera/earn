@@ -21,21 +21,17 @@ export const getI18ns = function () {
 	}
 }
 
-export const getKiwi = function (lang?: Language, value: object = {}): Kiwi {
-	if (lang && value) {
-		// @ts-ignore
-		return new Format(lang as string, value) as Kiwi;
-	}
+export const getKiwi = function (lang: string | Language = Language.en): Kiwi {
 	// @ts-ignore
-	return new Format(Language.en as string, getI18ns()) as Kiwi;
+	return new Format(lang, getI18ns()) as Kiwi;
 }
 
 export const getI18n = function (value: Language | Response) {
 	if (_.isString(value)) {
-		return getKiwi(value, getI18ns());
+		return getKiwi(value);
 	}
 	const lang = safeGet<Language>(value, `locals.${languageKey}`) || Language.en;
-	return getKiwi(lang, getI18ns());
+	return getKiwi(lang);
 }
 
 

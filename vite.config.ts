@@ -18,6 +18,7 @@ export default defineConfig(function (env: ConfigEnv) {
     base: env.mode === development ? "./" : `${staticPath}/`,
     define: {
       "process.env": {
+        lang: "en",
         mode: env.mode === development ? development : production,
         command: env.command === Command.serve ? Command.serve : Command.build,
       }

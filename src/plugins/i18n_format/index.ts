@@ -32,7 +32,8 @@ export interface I18nFormat {
 	part (value: string, index?: number, data?: Data): string
 }
 
-function Format(lang: string, langList: object) {
+function Format(lang: string, langList: object = {}) {
+	console.log("Format - ", lang, Object.keys(langList));
 	let current: string = '';
 	const map = new Map<string, object>();
 	for (const key in langList) {

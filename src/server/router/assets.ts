@@ -5,9 +5,8 @@
 import path from "path";
 import {createServer} from "vite";
 import Compression from "compression";
-import { getLangContent } from "src/plugins/language/";
+import {Env, production, staticPath} from "src/config";
 import Express, {Router, NextFunction, Request, Response} from "express";
-import {Env, production, staticPath, languageKey, languageName, languageLink} from "src/config";
 
 const Assets = async function(root: string, env: Env) {
 	const router = Router();
@@ -26,13 +25,6 @@ const Assets = async function(root: string, env: Env) {
 				next(err);
 			}
 		});
-	});
-
-	router.get(languageLink, function (req: Request, res: Response) {
-		res.type("application/json");
-		const value = getLangContent();
-		const text = `window["${languageName}"] = ${value};`;
-		res.send(text);
 	});
 
 	if (env.mode === production) {

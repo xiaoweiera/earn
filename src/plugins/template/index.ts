@@ -9,7 +9,7 @@ import htmlEncode from "js-htmlencode";
 import Icons from "src/config/iconfont";
 import Language from "src/types/language";
 import Crypto from "src/plugins/encryption/crypto";
-import { rootData, languageLink, languageKey, languageName } from "src/config";
+import { rootData, languageKey } from "src/config";
 
 interface Result {
 	lang: Language;
@@ -23,15 +23,14 @@ interface Result {
 }
 
 const makeScript = function (data: Result): string {
-	const value = _.omit(data, [languageName, "content", "title", "keywords", "description", "libs"]);
+	const value = _.omit(data, ["title", "keywords", "description", "content", "libs"]);
 	const code = `window["${rootData}"] = "${Crypto(value)}";`;
-	const i18n = `${languageLink}?${languageKey}=${data.lang}`
-	const libs = [i18n, ...Icons];
+	const libs = [...Icons];
 	const html = [
-		`<script type="application/javascript" charset="UTF-8">${code}</script>`
+		`<script charset="UTF-8">${code}</script>`
 	];
 	_.each(libs, function (src: string) {
-		html.push(`<script type="application/javascript" charset="UTF-8" src="${src}"></script>`);
+		html.push(`<script charset="UTF-8" src="${src}"></script>`);
 	});
 	return html.join("\n");
 }

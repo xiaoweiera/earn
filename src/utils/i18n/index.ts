@@ -4,25 +4,18 @@
  */
 
 import Language from "src/types/language";
-import getRootData from "src/utils/root/data";
 import {getKiwi, Kiwi} from "src/plugins/language/i18n";
-import {languageKey, languageName} from "src/config";
 
 
-console.log("process - env - href - '%s'", process.env.href);
-let I18n: Kiwi = getKiwi();
+const lang: Language = (process.env.lang || Language.en) as Language;
+console.log("i18n lang = %s", lang);
+let I18n: Kiwi = getKiwi(lang);
 
 export const init = function (lang?: Language) {
 	if (lang) {
-		const value = getRootData<object>(languageName);
-		I18n = getKiwi(lang, value);
-		return I18n;
-	} else {
-		lang = getRootData<Language>(languageKey);
-		const value = getRootData<object>(languageName);
-		I18n = getKiwi(lang, value);
-		return I18n;
+		I18n.setLang(lang as string);
 	}
+	return I18n;
 }
 
 export default I18n;
