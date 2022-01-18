@@ -7,7 +7,7 @@ import * as process from "./env";
 import safeSet from "@fengqiaogang/safe-set";
 
 export const AppId = "app";
-export const rootData = "__rootData";
+export const rootData = "__MlaABWNKPrYLzpbU";
 
 export const domain = "kingdata.com";
 
