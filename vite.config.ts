@@ -26,28 +26,28 @@ export default defineConfig(function (env: ConfigEnv) {
     build: {
 			minify: "terser",
       target: 'modules',
-      chunkSizeWarningLimit: 500,
-      rollupOptions: {
-        output: {
-          inlineDynamicImports: false,
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              const arr = id.toString().split('node_modules')
-              const path_ = arr[arr.length - 1]
-              const node_module = path_.split('/')[1].toString()
-              if (['echarts', 'lodash'].includes(node_module)) {
-                return node_module
-              }
-            }
-          }
-        },
-        external: [
-          // /element-plus/,
-          // /lodash/,
-          // /vue/,
-          // /vue-router/,
-        ],
-      },
+      // chunkSizeWarningLimit: 500,
+      // rollupOptions: {
+      //   output: {
+      //     inlineDynamicImports: false,
+      //     manualChunks(id) {
+      //       if (id.includes('node_modules')) {
+      //         const arr = id.toString().split('node_modules')
+      //         const path_ = arr[arr.length - 1]
+      //         const node_module = path_.split('/')[1].toString()
+      //         if (['echarts', 'lodash'].includes(node_module)) {
+      //           return node_module
+      //         }
+      //       }
+      //     }
+      //   },
+      //   external: [
+      //     // /element-plus/,
+      //     // /lodash/,
+      //     // /vue/,
+      //     // /vue-router/,
+      //   ],
+      // },
       // terserOptions: {
       //   compress: {
       //     drop_console: true,

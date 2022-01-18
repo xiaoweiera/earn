@@ -4,7 +4,6 @@
  */
 
 import { config } from "./config";
-import {config as router} from "src/router/config";
 import {
 	Router,
 	createWebHistory,
@@ -13,6 +12,7 @@ import {
 } from "vue-router";
 
 import DAppList from "./dapp";
+import BlogList from "./blog";
 
 
 const routes = [
@@ -27,12 +27,7 @@ const routes = [
 			},
 
 			...DAppList,
-
-			{
-				path: `${router.blog}/:id`,
-				// @ts-ignore
-				component: () => import("src/pages/blog/detail.vue")
-			},
+			...BlogList,
 
 			{
 				path: config.E404,

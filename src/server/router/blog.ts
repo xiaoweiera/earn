@@ -5,13 +5,19 @@
 
 import {Env} from "src/config";
 import {config} from "src/router/config";
-import { Router as ExpressRouter, Request, Response } from "express";
+import * as blog from "src/controller/blog";
+import { Router as ExpressRouter } from "express";
 
 const Router = async function (root: string, env: Env) {
 	const router = ExpressRouter();
-	router.get(`${config.blog}/:id`, function (req:Request, res: Response) {
-		res.send(`博客 - ${JSON.stringify(req.params)}`);
-	});
+
+	// 列表
+	router.get(config.blog, blog.list);
+
+	// 博客详情
+	router.get(`${config.blog}/detail`, blog.detail);
+	router.get(`${config.blog}/:id`, blog.detail);
+
 	return router;
 }
 

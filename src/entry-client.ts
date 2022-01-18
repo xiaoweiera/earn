@@ -28,6 +28,8 @@ const main = async function () {
 	const text = safeGet<string>(window, rootData);
 	const data = text ? Decrypt<object>(text) : {};
 
+	console.log("root data ", data);
+
 	const { app, router } = createApp(data);
 
 	router.beforeEach(function (to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded, next: NavigationGuardNext) {

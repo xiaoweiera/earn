@@ -1,2 +1,3 @@
 
-export * as dApp from "./dapp/index";
+export * as dApp from "./dapp";
+export * as blog from "./blog"
