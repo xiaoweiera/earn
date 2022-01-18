@@ -4,16 +4,24 @@
  */
 
 import _ from "lodash";
+import Blog from "./blog";
 import { Env } from "src/config";
 import SSR from "src/plugins/vue";
 import { config } from "src/router/config";
+import { menuList } from "src/controller/menu/";
 import { Router as ExpressRouter, Request, Response, NextFunction } from "express";
 
+
+
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
-
 	const router = ExpressRouter();
+	// 博客
+	const blog = await Blog(root, env);
+	// Vue 渲染
 	const ssr: SSR = await new SSR(root, env);
+	router.use(menuList);
 
+	// 封装 send 方法
 	router.use(function (req: Request, res: Response, next: NextFunction) {
 		const url = req.originalUrl;
 		const start = Date.now();
@@ -51,6 +59,9 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 		};
 		return next();
 	});
+	// 装载博客相关路由
+	router.use(blog);
+
 	return router;
 }
 

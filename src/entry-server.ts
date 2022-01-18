@@ -32,11 +32,11 @@ export const render = async function (url: string, data: object = {}) {
 	await router.push(url);
 	await router.isReady();
 	const html = await renderToString(app, ctx);
-	if (html) {
-		const links = renderPreloadLinks(ctx.modules, {});
-		return [ html, links ];
-	}
-	return [];
+	// if (html) {
+	// 	const links = renderPreloadLinks(ctx.modules, {});
+	// 	return [ html, links ];
+	// }
+	return [html];
 };
 
 function renderPreloadLinks(modules: string[], manifest: Manifest) {

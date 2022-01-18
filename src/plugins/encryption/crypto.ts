@@ -4,7 +4,7 @@
  */
 
 import CryptoJS from "crypto-js";
-import { key, secret } from "./secret";
+import { key, a as secret } from "./value";
 
 export const Crypto = function (value: string | object): string {
 	const text = JSON.stringify({ [key]: value });

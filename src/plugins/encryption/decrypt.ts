@@ -4,7 +4,7 @@
  */
 
 import CryptoJS from "crypto-js";
-import { key, secret } from "./secret";
+import { key, a as secret } from "./value";
 import safeGet from "@fengqiaogang/safe-get";
 
 

@@ -60,7 +60,10 @@ const main = async function () {
 			location,
 			keywords: "",
 			description: "",
+			// 标题
 			title: i18n.common.site.name,
+			// 路由参数
+			query: Object.assign({}, req.params, req.query)
 		});
 		next();
 	});
@@ -69,7 +72,7 @@ const main = async function () {
 	app.use(router);
 
 	app.get("*", async function (req: Request, res: Response) {
-		res.send({});
+		res.redirect('/404');
 	});
 
 	const http = await app.listen(config.port, "0.0.0.0");
