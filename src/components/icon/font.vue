@@ -1,9 +1,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import router from "src/plugins/router/index";
+import Icon from "src/plugins/ui/iconfont/index";
 export default defineComponent({
-  name: "VRouter",
-  extends: router
+  name: "IconFont",
+  extends: Icon
 });
 </script>
-

@@ -23,7 +23,7 @@ import { footers } from "src/config/footer";
             <label class="menu-label cursor-pointer block lg:hidden" for="footer-menu-download">
               <span class="select-none w-full flex justify-between items-center">
                 <span class="text-base ">{{ I18n.common.nav.download }}</span>
-<!--                <IconFont class="arrow" type="icon-arrow-down" size="16"/>-->
+                <IconFont class="arrow" type="icon-arrow-down" size="16"/>
               </span>
             </label>
             <div class="pt-3 lg:pt-6 w-27 menu-content">

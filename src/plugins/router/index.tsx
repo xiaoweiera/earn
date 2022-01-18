@@ -4,26 +4,11 @@
  */
 
 import _ from "lodash";
+import { Equals } from "src/utils";
 import {defineComponent} from 'vue';
 import { props, Name, Target } from "./props";
 import { createHref, UtmSource } from "./pack";
 import window from "src/plugins/browser/window";
-
-const Equals = function (...args: Array<string | number>): boolean {
-	const len = args.length;
-	let status = false;
-	for (let i = 1; i < len && len > 1; i++) {
-		const value1 = _.trim(`${args[i - 1]}`);
-		const value2 = _.trim(`${args[i]}`);
-		if (value1 === value2) {
-			status = true;
-		} else {
-			status = false;
-			break;
-		}
-	}
-	return status;
-}
 
 const VRouter = defineComponent({
 	props,

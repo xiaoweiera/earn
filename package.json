@@ -19,6 +19,7 @@
     "@fengqiaogang/safe-get": "^0.1.1",
     "@fengqiaogang/safe-set": "^0.1.2",
     "crypto-js": "^4.1.1",
+    "dayjs": "^1.10.7",
     "element-plus": "^1.0.2-beta.71",
     "ramda": "^0.27.2",
     "url": "^0.11.0",

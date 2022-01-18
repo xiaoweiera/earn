@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {PropType, computed} from "vue";
 import { Footer } from "src/config/footer";
+import { Target } from "src/plugins/router/props";
 const props = defineProps({
   index: {
     type: Number,
@@ -26,7 +27,7 @@ const id = computed<string>(function () {
     <label class="menu-label cursor-pointer block lg:hidden" :for="id">
     <span class="select-none w-full flex justify-between items-center">
       <span class="text-base">{{ data.label }}</span>
-      <!--<IconFont class="arrow" type="icon-arrow-down" size="16"/>-->
+      <IconFont class="arrow" type="icon-arrow-down" size="16"/>
     </span>
     </label>
     <div class="pt-3 lg:pt-6 menu-content">
@@ -34,10 +35,10 @@ const id = computed<string>(function () {
         <!-- 带图标 -->
         <div v-if="item.icon" class="menu-item">
           <span class="text-14-18 block">{{ item.name }}</span>
-          <!--                    <v-router :href="item.href" :target="item.blank ? '_blank': ''"  class="flex items-center text-global-primary mt-0.5">-->
-          <!--                      <IconFont :type="item.icon"/>-->
-          <!--                      <span class="ml-1.5">{{ item.value }}</span>-->
-          <!--                    </v-router>-->
+          <v-router :href="item.href" :target="item.blank ? Target.blank: Target.self"  class="flex items-center text-global-primary mt-0.5">
+            <IconFont :type="item.icon"/>
+            <span class="ml-1.5">{{ item.value }}</span>
+          </v-router>
         </div>
 
         <v-router v-else-if="item.href" class="menu-item text-14-18 hover:text-global-primary" :href="item.href" :target="item.blank ? '_blank': ''">{{ item.name }}</v-router>
