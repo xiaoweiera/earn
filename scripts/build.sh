@@ -1,18 +1,19 @@
 #!/bin/bash
 
-printf "build en\n"
+cd "$(dirname "$0")"
+
+cd ..
+
+lang=$1
+
+if [ ! $lang ]; then
+  lang="en"
+fi
+
+printf "build ${lang}\n"
 
 printf "client\n"
-vite build --mode en --outDir dist/client/en --ssrManifest
+vite build --mode $lang --outDir dist/client/$lang --ssrManifest
 
 printf "server\n"
-vite build --mode en --ssr src/entry-server.ts --outDir dist/server/en
-
-
-printf "build cn\n"
-
-printf "client\n"
-vite build --mode cn --outDir dist/client/cn --ssrManifest
-
-printf "server\n"
-vite build --mode cn --ssr src/entry-server.ts --outDir dist/server/cn
+vite build --mode $lang --ssr src/entry-server.ts --outDir dist/server/$lang

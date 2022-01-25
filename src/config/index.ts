@@ -27,7 +27,6 @@ export interface Argv {
 }
 
 export interface Env extends Argv {
-	port: number;
 	template: string;
 	api: string; // 接口地址
 	ApiVersion: string;
@@ -36,7 +35,6 @@ export interface Env extends Argv {
 export const getEnv = function (): Env {
 	const opt = process.getProcess();
 	const env = {
-		port: 3333,
 		mode: opt.mode,
 		ApiVersion: "v1",
 		template: "index.html",

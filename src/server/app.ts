@@ -14,7 +14,10 @@ const root: string = path.resolve(__dirname, "../..");
 
 const main = async function () {
 	const app = Express();
-	const config = getEnv();
+	const config = Object.assign({}, getEnv(), {
+		port: process.env.port || 3333,
+		host: process.env.host || "0.0.0.0",
+	});
 
 	console.log(config);
 
@@ -46,7 +49,8 @@ const main = async function () {
 
 	const router = await Router(root, config);
 	app.use(router);
-	const http = await app.listen(config.port, "0.0.0.0");
+	// @ts-ignore
+	const http = await app.listen(config.port, config.host);
 	return { app, http };
 }
 
