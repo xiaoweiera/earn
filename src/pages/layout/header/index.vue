@@ -4,8 +4,9 @@ import { ref, computed } from "vue";
 import MenuContentList from "./menu.vue";
 import { MenuItem } from "src/types/menu/";
 import getRootData from "src/utils/root/data";
+import { getMenuList } from "src/logic/common/header";
 const urlActive = getRootData<string>("menuActive");
-const headers = getRootData<MenuItem[]>("headers") || [];
+const headers = getMenuList<MenuItem>(urlActive);
 
 const active = ref<string>("");
 const menuList = ref<MenuItem[]>([]);

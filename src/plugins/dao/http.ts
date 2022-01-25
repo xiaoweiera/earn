@@ -7,6 +7,7 @@ import { getEnv } from "src/config/";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import {JS} from "windicss/types/lang/tokens";
 
 // 用户信息
 const getUserAuth = async function (config: AxiosRequestConfig): Promise<string> {

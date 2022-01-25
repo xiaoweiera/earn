@@ -32,7 +32,8 @@
     "types": [
       "node",
       "vite/client",
-      "vue-router"
+      "vue-router",
+      "src/types/env.d.ts"
     ],
     "paths": {
       "~/*": ["src/*"],

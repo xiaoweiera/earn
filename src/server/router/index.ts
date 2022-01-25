@@ -8,6 +8,7 @@ import Blog from "./blog";
 import { Env } from "src/config";
 import SSR from "src/plugins/vue";
 import { config } from "src/router/config";
+// @ts-ignore
 import { menuList } from "src/controller/menu/";
 import { Router as ExpressRouter, Request, Response, NextFunction } from "express";
 
@@ -19,6 +20,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 	const blog = await Blog(root, env);
 	// Vue 渲染
 	const ssr: SSR = await new SSR(root, env);
+
+	// 导航菜单
 	router.use(menuList);
 
 	// 封装 send 方法

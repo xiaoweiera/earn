@@ -3,18 +3,15 @@
  * @author svon.me@gmail.com
  */
 
-import * as process from "./env";
+import * as process from "./process";
 import safeSet from "@fengqiaogang/safe-set";
+export { languageKey, production, development } from "./process";
+export { IsSSR } from "./ssr";
 
 export const AppId = "app";
 export const rootData = "__MlaABWNKPrYLzpbU";
 
 export const domain = "kingdata.com";
-
-export const languageKey = "lang";
-
-export const production = process.production;
-export const development = process.development;
 
 export const dashboard = "/";
 export const staticPath = "/static";
@@ -37,38 +34,22 @@ export interface Env extends Argv {
 }
 
 export const getEnv = function (): Env {
-	const mode = process.mode();
+	const opt = process.getProcess();
 	const env = {
-		mode,
 		port: 3333,
+		mode: opt.mode,
 		ApiVersion: "v1",
 		template: "index.html",
-		command: process.command(),
+		command: opt.command,
 	};
-	if (mode === development) {
+	if (opt.mode === process.development) {
 		// 开发环境接口
 		safeSet(env, "api", developmentAPI);
 	} else {
 		// 正式环境接口
-		safeSet(env, "mode", production);
+		safeSet(env, "api", productionAPI);
 	}
 	return env as Env;
 }
 
-export const IsSSR = function (): boolean {
-	try {
-		if (typeof window === "undefined") {
-			return true;
-		}
-	} catch (e) {
-		// todo
-	}
-	// try {
-	// 	if (import.meta.env.SSR) {
-	// 		return true;
-	// 	}
-	// } catch (e) {
-	// 	// todo
-	// }
-	return false;
-}
+

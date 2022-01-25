@@ -37,7 +37,7 @@ export interface I18nFormat {
 	part (value: string, index?: number, data?: Data): string;
 }
 
-function Format(lang: string, langList: object = {}) {
+function i18nFormat(lang: string, langList: object = {}) {
 	let current: string = '';
 	const map = new Map<string, object>();
 	for (const key in langList) {
@@ -49,6 +49,7 @@ function Format(lang: string, langList: object = {}) {
 	// @ts-ignore
 	this.setLang =  (lang: string) => {
 		current = lang;
+		console.log("current : ", lang);
 		const data = map.get(lang);
 		if (data) {
 			_.each(data,  (value: object | string, key: string) => {
@@ -83,4 +84,4 @@ function Format(lang: string, langList: object = {}) {
 	}
 }
 
-export default Format;
+export default i18nFormat;

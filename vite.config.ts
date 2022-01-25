@@ -4,56 +4,62 @@
  */
 
 import path from "path";
+import dotenv from "dotenv";
+import Language from "./src/types/language";
+import { staticPath } from "./src/config/";
 import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
-import { Command } from "./src/config/env";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import {ConfigEnv, defineConfig} from "vite";
 import Components from "unplugin-vue-components/vite";
-import { production, development, staticPath } from "./src/config";
+import { Command, production, development } from "./src/config/process";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import safeGet from "@fengqiaogang/safe-get";
 
-export default defineConfig(function (env: ConfigEnv) {
+const getConfig = function (env: ConfigEnv) {
+  if (env.mode === development || env.mode === production) {
+    return env;
+  }
+  const src = path.join(__dirname, `.env.${env.mode}`);
+  const config = dotenv.config({
+    path: src
+  });
+  const data = config.parsed as object;
   return {
-    base: env.mode === development ? "./" : `${staticPath}/`,
+    command: env.command,
+    lang: safeGet<string>(data, "VITE_LANG") || Language.en,
+    mode: safeGet<string>(data, "VITE_NODE") || production,
+  }
+}
+
+
+export default defineConfig(async function (env: ConfigEnv) {
+  const config = getConfig(env);
+  console.log(config);
+  const lang = safeGet<string>(config, "lang") || Language.en;
+  return {
+    base: env.mode === development ? "./" : `${staticPath}/${lang}/`,
     define: {
       "process.env": {
-        lang: "en",
-        mode: env.mode === development ? development : production,
-        command: env.command === Command.serve ? Command.serve : Command.build,
+        lang,
+        mode: config.mode === development ? development : production,
+        command: config.command === Command.serve ? Command.serve : Command.build,
       }
     },
     build: {
 			minify: "terser",
       target: 'modules',
-      // chunkSizeWarningLimit: 500,
-      // rollupOptions: {
-      //   output: {
-      //     inlineDynamicImports: false,
-      //     manualChunks(id) {
-      //       if (id.includes('node_modules')) {
-      //         const arr = id.toString().split('node_modules')
-      //         const path_ = arr[arr.length - 1]
-      //         const node_module = path_.split('/')[1].toString()
-      //         if (['echarts', 'lodash'].includes(node_module)) {
-      //           return node_module
-      //         }
-      //       }
-      //     }
-      //   },
-      //   external: [
-      //     // /element-plus/,
-      //     // /lodash/,
-      //     // /vue/,
-      //     // /vue-router/,
-      //   ],
-      // },
-      // terserOptions: {
-      //   compress: {
-      //     drop_console: true,
-      //     drop_debugger: true
-      //   },
-      // }
+      chunkSizeWarningLimit: 500,
+    },
+    css: {
+      preprocessorOptions: {
+        css: {
+          charset: false
+        },
+        scss: {
+          charset: false
+        }
+      }
     },
     resolve: {
       extensions: [".ts", ".vue", ".js", ".tsx"],
@@ -79,9 +85,9 @@ export default defineConfig(function (env: ConfigEnv) {
         ],
       }),
     ],
-    ssr: {
-      external: [],
-      noExternal: ['element-plus','web3']
-    },
+    // ssr: {
+    //   external: [],
+    //   noExternal: ['element-plus','web3']
+    // },
   };
 });

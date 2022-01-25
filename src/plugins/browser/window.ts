@@ -3,14 +3,17 @@
  * @author svon.me@gmail.com
  */
 
-import { IsSSR } from "src/config/";
+import { IsSSR } from "src/config/ssr";
 
-let root: any = {};
+interface Root {
+	[key: string]: any;
+}
+
+let root: Root = {};
 
 if (IsSSR()) {
 	root = {
 		open: function() {
-			return void 0
 		},
 		screen: {
 			width: 1200
@@ -22,8 +25,10 @@ if (IsSSR()) {
 			hostname: 'kingdata.com',
 			origin: 'https://kingdata.com',
 			search: '',
-			replace: () => null,
-			reload: () => null
+			replace: function() {
+			},
+			reload: function() {
+			}
 		},
 		navigator: {
 			userAgent: ""
@@ -36,7 +41,8 @@ if (IsSSR()) {
 				return Date.now()
 			}
 		},
-		scrollTo: () => null
+		scrollTo: function() {
+		}
 	}
 } else {
 	try {

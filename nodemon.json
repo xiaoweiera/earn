@@ -21,7 +21,8 @@
   ],
   "env": {
     "mode": "development",
-    "command": "serve"
+    "command": "serve",
+    "lang": "cn"
   },
   "ext": "ts"
 }

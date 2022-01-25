@@ -30,6 +30,9 @@ const main = async function () {
 
 	console.log("root data ", data);
 
+	console.log("process env");
+	console.log(process.env);
+
 	const { app, router } = createApp(data);
 
 	router.beforeEach(function (to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded, next: NavigationGuardNext) {

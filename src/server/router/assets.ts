@@ -5,6 +5,7 @@
 import path from "path";
 import {createServer} from "vite";
 import Compression from "compression";
+import { getProcess } from "src/config/process";
 import {Env, production, staticPath} from "src/config";
 import Express, {Router, NextFunction, Request, Response} from "express";
 
@@ -45,6 +46,14 @@ const Assets = async function(root: string, env: Env) {
 		});
 		router.use(vite.middlewares);
 	}
+
+
+	router.get('/process', function(req: Request, res: Response) {
+		const data = JSON.stringify(getProcess());
+		res.type("json");
+		res.send(data);
+	});
+
 	return router;
 }
 
