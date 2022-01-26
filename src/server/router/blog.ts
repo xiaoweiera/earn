@@ -10,13 +10,12 @@ import { Router as ExpressRouter } from "express";
 
 const Router = async function (root: string, env: Env) {
 	const router = ExpressRouter();
+	// 博客详情
+	router.get(`${config.blog}/:id`, blog.detail);
+	router.get(`${config.blog}/detail`, blog.detail);
 
 	// 列表
 	router.get(config.blog, blog.list);
-
-	// 博客详情
-	router.get(`${config.blog}/detail`, blog.detail);
-	router.get(`${config.blog}/:id`, blog.detail);
 
 	return router;
 }

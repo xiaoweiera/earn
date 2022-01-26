@@ -11,10 +11,11 @@ import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import {ConfigEnv, defineConfig} from "vite";
+import safeGet from "@fengqiaogang/safe-get";
 import Components from "unplugin-vue-components/vite";
 import { Command, production, development } from "./src/config/process";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import safeGet from "@fengqiaogang/safe-get";
+
 
 const getConfig = function (env: ConfigEnv) {
   if (env.mode === development || env.mode === production) {
@@ -27,15 +28,15 @@ const getConfig = function (env: ConfigEnv) {
   const data = config.parsed as object;
   return {
     command: env.command,
-    lang: safeGet<string>(data, "VITE_LANG") || Language.en,
     mode: safeGet<string>(data, "VITE_NODE") || production,
+    lang: safeGet<string>(data, "VITE_LANG") || Language.en,
   }
 }
 
 
 export default defineConfig(async function (env: ConfigEnv) {
   const config = getConfig(env);
-  console.log(config);
+  console.log("vite config ", config);
   const lang = safeGet<string>(config, "lang") || Language.en;
   return {
     base: env.mode === development ? "./" : `${staticPath}/${lang}/`,
@@ -49,7 +50,7 @@ export default defineConfig(async function (env: ConfigEnv) {
     build: {
 			minify: "terser",
       target: 'modules',
-      chunkSizeWarningLimit: 500,
+      // chunkSizeWarningLimit: 500,
     },
     css: {
       preprocessorOptions: {
@@ -69,8 +70,8 @@ export default defineConfig(async function (env: ConfigEnv) {
       },
     },
     plugins: [
-      WindCSS(),
       vuePlugin(),
+      WindCSS(),
       vueJsx({}),
       Components({
         dts: true,

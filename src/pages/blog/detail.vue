@@ -1,17 +1,30 @@
 <script setup lang="ts">
+import _ from "lodash";
 import * as API from "src/api";
-import {onMounted} from "vue";
 import I18n from "src/utils/i18n";
 import {useRoute} from "vue-router";
+import {onMounted, toRaw} from "vue";
 import {BlogDetail} from "src/types/blog/";
 import {createReactive} from "src/utils/ssr/ref";
+import safeGet from "@fengqiaogang/safe-get";
 
 const detail = createReactive<BlogDetail>("API.blog.getDetail", {} as BlogDetail);
 
 const $router = useRoute();
 
 const init = async function () {
-  console.log($router.query.value, $router.params.value)
+  const params = toRaw($router.params);
+  const id = safeGet<string>(params, "id");
+  // 如果博客详情数据为空，同时 url 中有博客 id
+  if (id && !detail.id) {
+    const data = await API.blog.getDetail<BlogDetail>(id);
+    if (data) {
+      _.each(data, function (value: any, key: string) {
+        // @ts-ignore
+        detail[key] = value;
+      });
+    }
+  }
 };
 
 onMounted(init);

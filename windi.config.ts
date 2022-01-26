@@ -5,6 +5,7 @@
 import colors from "windicss/colors";
 import {defineConfig} from "vite-plugin-windicss";
 import typography from "windicss/plugin/typography";
+import formsPlugin from 'windicss/plugin/forms';
 
 const cssGlobal = {
 	bgHui: '#F1F3F5',
@@ -42,16 +43,10 @@ const cssGlobal = {
 export default defineConfig({
 	darkMode: 'class',
 	plugins: [
+		formsPlugin,
 		typography(),
 	],
 	theme: {
-		// borderRadius:{
-		//     'kd4px':'4px',
-		//     'kd6px':'6px',
-		//     'kd8px':'8px',
-		//     'kd12px':'12px',
-		//     'kd30px':'30px'
-		// },
 		extend: {
 			borderRadius: {
 				'kd2px': '2px',
@@ -160,9 +155,6 @@ export default defineConfig({
 				green: '#009955',
 				global: cssGlobal,
 			},
-			// opacity: {
-			//     85: '.85',
-			// },
 			typography: {
 				DEFAULT: {
 					css: {

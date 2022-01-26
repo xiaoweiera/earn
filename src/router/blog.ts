@@ -6,18 +6,18 @@ import {config as router} from "~/router/config";
 
 const routes = [
 	{
-		path: router.blog,
-		// @ts-ignore
-		component: () => import("src/pages/blog/list.vue")
+		path: `${router.blog}/:id`,
+		component: () => import("src/pages/blog/detail.vue")
 	},
 	{
 		path: `${router.blog}/detail`,
 		component: () => import("src/pages/blog/detail.vue")
 	},
 	{
-		path: `${router.blog}/:id`,
-		component: () => import("src/pages/blog/detail.vue")
-	}
+		path: router.blog,
+		// @ts-ignore
+		component: () => import("src/pages/blog/list.vue")
+	},
 ];
 
 export default routes;

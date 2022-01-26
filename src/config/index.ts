@@ -21,12 +21,10 @@ export const developmentAPI = "https://dev.kingdata.work";
 
 export const title = "KingData";
 
-export interface Argv {
-	mode: string;
-	command: string;
+export interface Argv extends process.Process{
 }
 
-export interface Env extends Argv {
+export interface Env extends Argv{
 	template: string;
 	api: string; // 接口地址
 	ApiVersion: string;
@@ -39,6 +37,7 @@ export const getEnv = function (): Env {
 		ApiVersion: "v1",
 		template: "index.html",
 		command: opt.command,
+		lang: opt.lang,
 	};
 	if (opt.mode === process.development) {
 		// 开发环境接口

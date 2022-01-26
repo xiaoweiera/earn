@@ -26,17 +26,22 @@ const getEntryHtml = function (root: string, env: Env, lang: Language = Language
 	}
 }
 
-
 class SSR {
 	private readonly env: Env;
 	private readonly root: string;
+	private vite: ViteDevServer | undefined;
 	constructor(root: string, env: Env) {
 		this.env = env;
 		this.root = root;
 	}
-	async createVite (): Promise<ViteDevServer> {
+	async createVite (value:Language | string = Language.en): Promise<ViteDevServer> {
+		const configFile = path.join(this.root, "vite.config.ts");
+		console.log("configFile = ", configFile);
 		return createViteServer({
-			server: { middlewareMode: "ssr" }
+			configFile,
+			server: {
+				middlewareMode: "ssr"
+			}
 		});
 	}
 	protected getHtml(html: string, data: object, result: string[]): string {
@@ -54,13 +59,17 @@ class SSR {
 			delete require.cache[key];
 		});
 	}
-	protected async getVite (lang: string = Language.en): Promise<ViteDevServer> {
-		return await this.createVite();
+	protected async getVite (lang: string | Language): Promise<ViteDevServer> {
+		if (this.vite) {
+			return this.vite;
+		}
+		const value = await this.createVite(lang);
+		this.vite = value;
+		return value;
 	}
 	private async getRender(url: string) {
 		const lang = safeGet<string>(process.env, "lang") || "en";
 		const { entry, html } = getEntryHtml(this.root, this.env, lang as Language);
-		console.log("entry = %s", entry);
 		// 线上环境
 		if (this.env.mode === production) {
 			// const modules = Object.keys(require.cache);
