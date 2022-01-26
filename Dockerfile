@@ -1,3 +1,4 @@
+# 镜像源地址： https://hub.docker.com/repository/docker/svon/kdweb
 FROM svon/kdweb:v1 as build-stage
 
 WORKDIR /build
