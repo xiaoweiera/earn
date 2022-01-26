@@ -14,7 +14,7 @@ export const getI18n = function (lang?: Language): Kiwi {
 		return getKiwi(lang as string);
 	}
 	const env = getProcess();
-	console.log("src/utils/i18n lang = %s", lang);
+	console.log("src/utils/i18n lang = %s", env.lang);
 	return getKiwi(env.lang);
 }
 
