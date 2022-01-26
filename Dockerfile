@@ -1,4 +1,4 @@
-FROM node:lts-alpine as base
+FROM node:latest as base
 
 FROM base as build-stage
 WORKDIR /build
@@ -16,9 +16,9 @@ RUN npm run build:cn
 # 编译 英文环境
 RUN npm run build:en
 
-#FROM nginx:stable-alpine
+FROM nginx:latest
 #COPY --from=build-stage /build/dist /usr/share/nginx/html
-#COPY --from=build-stage /build/default.conf /etc/nginx/conf.d/
+COPY --from=build-stage nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 # 执行程序
 CMD ["npm", "run", "serve"]
