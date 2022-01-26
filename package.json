@@ -2,7 +2,7 @@
   "name": "vite-project",
   "version": "0.0.0",
   "scripts": {
-    "icon": "node build/icon",
+    "icon": "node scripts/icon.js",
     "dev:cn": "scripts/dev.sh cn",
     "dev:en": "scripts/dev.sh en",
     "serve:cn": "scripts/serve.sh cn 3333",
