@@ -11,7 +11,7 @@ _.each(argv, function (value, key) {
 // 获取程序对象
 const { main } = require("./app");
 
-main().then(function ({ http}) {
+main().then(function ({ http, config}) {
   const opt = http.address();
-  console.log("http://localhost:%s", opt?.port || "3333");
+  console.log("http://localhost:%s", config.port);
 });

@@ -51,7 +51,7 @@ const main = async function () {
 	app.use(router);
 	// @ts-ignore
 	const http = await app.listen(config.port, config.host);
-	return { app, http };
+	return { app, http, config };
 }
 
 export { main };
