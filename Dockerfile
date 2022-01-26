@@ -18,7 +18,7 @@ RUN npm run build:en
 
 FROM nginx:latest
 #COPY --from=build-stage /build/dist /usr/share/nginx/html
-COPY --from=build-stage nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 # 执行程序
 CMD ["npm", "run", "serve"]
