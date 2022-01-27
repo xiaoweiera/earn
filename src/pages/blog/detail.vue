@@ -43,7 +43,7 @@ onMounted(init);
       <!-- 博客内容 -->
       <div class="py-8">
         <!-- <div class="blog-content whitespace-pre-line text-global-highTitle" v-html="detail.body"></div> -->
-        <div class="blog-content whitespace-pre-line text-global-highTitle">
+        <div class="blog-content text-global-highTitle">
           <ui-markdown :value="detail.body"/>
         </div>
         <div class="mt-14 text-center text-12-16">

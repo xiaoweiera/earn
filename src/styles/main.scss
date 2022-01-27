@@ -8,3 +8,32 @@ $--color-primary: #006FF7;
 
 /* icon font 相关样式 */
 @import "./iconfont";
+@import "./decorate";
+@import "./markdown";
+@import "./screen";
+@import "./font";
+
+html, body {
+  background-color: white;
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.device {
+  @apply hidden;
+  &.web {
+    @apply block;
+    .is-app {
+      @apply hidden;
+    }
+  }
+  &.app {
+    @apply block;
+    .is-web {
+      @apply hidden;
+    }
+  }
+}

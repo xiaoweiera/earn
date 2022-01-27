@@ -1,0 +1,57 @@
+/**
+ * @file 修饰
+ * @desc new, 广告, top (左上角修饰 icon)
+ */
+
+main {
+  $decorate: ("new", "ad", "sticky");
+  @each $name in $decorate {
+    $size: 14, 16, 24, 26, 30, 40;
+    @each $number in $size {
+      .#{$name}-#{$number} {
+        $size: $number * 1px;
+        &:after {
+          width: $size;
+          height: $size;
+          background-size: $size;
+        }
+      }
+    }
+    [class~=#{$name}-], [class*=#{$name}-] {
+      @apply relative;
+      &:after {
+        content: "";
+        @apply absolute left-0 top-0;
+        background-position: left top;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+
+  [class~=new-], [class*=new-] {
+    &:after {
+      background-image: cdn("/static/images/new.png");
+    }
+  }
+
+  [class~=sticky-], [class*=sticky-] {
+    &:after {
+      background-image: cdn("/static/images/top1.png?r=1");
+      @at-root .cn & {
+        background-image: cdn("/static/images/top3.png");
+      }
+    }
+  }
+
+  [class~=ad-], [class*=ad-] {
+    &:after {
+      background-image: cdn("/static/images/ad.png");
+      @at-root .cn & {
+        background-image: cdn("/static/images/ad2.png");
+      }
+    }
+  }
+}
+
+

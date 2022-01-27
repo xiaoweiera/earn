@@ -20,6 +20,7 @@
     "@fengqiaogang/dblist": "^0.3.98",
     "@fengqiaogang/safe-get": "^0.1.1",
     "@fengqiaogang/safe-set": "^0.1.2",
+    "bignumber.js": "^9.0.2",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.10.7",
     "dotenv": "^14.3.2",
@@ -29,7 +30,8 @@
     "url": "^0.11.0",
     "url-pattern": "^1.0.3",
     "vue": "^3.2.29",
-    "vue-showdown": "^3.1.0"
+    "vue-showdown": "^3.1.0",
+    "prism-theme-vars": "^0.2.2"
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",

@@ -1,0 +1,113 @@
+/*
+ * website: https://github.com/antfu/prism-theme-vars
+ */
+@import "prism-theme-vars/base.css";
+.markdown-container {
+  font-family: 'PingFang SC';
+  color: #4C4E4D;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 0;
+
+  h1 {
+    @apply pb-2 mt-7 mb-4;
+    font-size: 30px;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+  }
+
+  h2 {
+    @apply mt-6 mb-4;
+    font-size: 20px;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+  }
+
+  h3 {
+    @apply mb-4 mt-6;
+    font-weight: bold;
+    line-height: 1.43;
+  }
+
+  h6 {
+    @apply mt-3.25 mb-4;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  ul {
+    line-height: 20px;
+  }
+
+  li {
+    @apply mt-0;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 1px 0;
+  }
+
+  ol {
+    @apply ml-5 pl-6.5;
+    line-height: 20px;
+  }
+
+  blockquote {
+    border-left: 4px solid #ddd;
+    padding-left: 20px;
+    margin-left: 0;
+    font-size: 16px;
+    display: flex;
+  }
+
+  p {
+    margin-bottom: 16px;
+    padding: 2px 3px;
+    vertical-align: middle;
+    font-weight: normal;
+    font-size: 16px;
+  }
+
+  table {
+    padding: 0;
+    word-break: initial;
+  }
+
+  table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+  }
+
+  table tr:nth-child(2n),
+  thead {
+    background-color: #f8f8f8;
+  }
+
+  table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+  }
+
+  table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+  }
+
+  table tr th:first-child,
+  table tr td:first-child {
+    margin-top: 0;
+  }
+
+  table tr th:last-child,
+  table tr td:last-child {
+    margin-bottom: 0;
+  }
+}

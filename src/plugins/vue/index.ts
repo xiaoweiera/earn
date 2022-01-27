@@ -86,7 +86,7 @@ class SSR {
 			const lang = safeGet<string>(process.env, "lang") || "en";
 			const value = Object.assign({}, data, { lang });
 			const result = await render(url, value);
-			return this.getHtml(text, data, result);
+			return this.getHtml(text, value, result);
 		}
 		return "";
 	}

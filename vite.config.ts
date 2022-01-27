@@ -3,13 +3,14 @@
  * @author svon.me@gmail.com
  */
 
+import _ from "lodash";
 import path from "path";
 import dotenv from "dotenv";
-import Language from "./src/types/language";
-import { staticPath } from "./src/config/";
+import {oss, staticPath} from "./src/config/";
 import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import Language from "./src/types/language";
 import {ConfigEnv, defineConfig} from "vite";
 import safeGet from "@fengqiaogang/safe-get";
 import Components from "unplugin-vue-components/vite";
@@ -33,16 +34,38 @@ const getConfig = function (env: ConfigEnv) {
   }
 }
 
+const getSassData = function (env: ConfigEnv) {
+  const root = "./";
+  const lang = safeGet<string>(env, "lang") || Language.en;
+  const staticUrl: string = env.mode === development ? root : `${staticPath}/${lang}/`;
+  const data = {
+    "g-url": oss,
+    "static": staticUrl === root ? "" : staticUrl,
+  }
+  const array: string[] = [];
+  _.each(data, function (value: string, key: string) {
+    const code = `${key}: "${value}";`;
+    array.push('$' + code);
+  });
+  const fun = path.join(__dirname, "src/styles/function");
+  array.push(`@import "${fun}";`);
+  return {
+    lang,
+    staticUrl,
+    sass: array.join("\n"),
+  };
+}
+
 
 export default defineConfig(async function (env: ConfigEnv) {
   const config = getConfig(env);
-  console.log("vite config ", config);
-  const lang = safeGet<string>(config, "lang") || Language.en;
+  const data = getSassData(config);
+  console.log("vite config", config);
   return {
-    base: env.mode === development ? "./" : `${staticPath}/${lang}/`,
+    base: data.staticUrl,
     define: {
       "process.env": {
-        lang,
+        lang: data.lang,
         mode: config.mode === development ? development : production,
         command: config.command === Command.serve ? Command.serve : Command.build,
       }
@@ -58,7 +81,8 @@ export default defineConfig(async function (env: ConfigEnv) {
           charset: false
         },
         scss: {
-          charset: false
+          charset: false,
+          additionalData: data.sass
         }
       }
     },

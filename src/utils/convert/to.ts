@@ -3,10 +3,9 @@
  * @author svon.me@gmail.com
  */
 
-// @ts-ignore
 import dayjs from "dayjs";
 import { isNil } from "ramda";
-// import * as tools from "~/lib/tool";
+import * as tools from "src/lib/tool";
 import {isEmpty, isNumber, isString} from "src/utils/check/is";
 
 export { toLower } from "ramda";
@@ -70,7 +69,7 @@ export const toNumber = function (value: string | number = 0, fixed = 2): number
 }
 
 export const toNumberCeil = function(value: string | number = 0): number {
-	// return tools.formatRulesPrice(value, false)
+	return tools.formatRulesPrice(value, false)
 	// return toNumber(number.toFixed(fixed))
 }
 // 千分位计数
@@ -106,22 +105,22 @@ export const valueFormat = function(value: string | number, unit: string = '', p
 }
 
 export const toNumberCashFormat = function(value?: any, unit: string = '', prefix: string = ''): string {
-	// if (isEmpty(value, true)) {
-	// 	return defaultNumberValue
-	// }
-	// const number = tools.formatRulesNumber(value, false, defaultNumberValue)
-	// if((value<1) || (value<0 && value>-1)){
-	// 	return valueFormat(number, unit, prefix)
-	// }
-	// return valueFormat(toNumberCash(number), unit, prefix)
+	if (isEmpty(value, true)) {
+		return defaultNumberValue
+	}
+	const number = tools.formatRulesNumber(value, false, defaultNumberValue)
+	if((value<1) || (value<0 && value>-1)){
+		return valueFormat(number, unit, prefix)
+	}
+	return valueFormat(toNumberCash(number), unit, prefix)
 }
 
 export const toNumberFormat = function(value?: any, unit: string = '', prefix: string = ''): string {
-	// if (isEmpty(value, true) || isNil(value)) {
-	// 	return defaultNumberValue
-	// }
-	// const number = tools.formatRulesNumber(value, false, defaultNumberValue)
-	// return valueFormat(number, unit, prefix)
+	if (isEmpty(value, true) || isNil(value)) {
+		return defaultNumberValue
+	}
+	const number = tools.formatRulesNumber(value, false, defaultNumberValue)
+	return valueFormat(number, unit, prefix)
 }
 
 export const toInteger = function(value: string | number = 0): number {
@@ -131,7 +130,7 @@ export const toInteger = function(value: string | number = 0): number {
 
 // 格式化数字
 export const numberUint = function(value: number) {
-	// return tools.numberUnitFormat(value)
+	return tools.numberUnitFormat(value)
 }
 //得到百分比
 export const getPercent=(zi?:number,mu?:number)=>{

@@ -16,6 +16,11 @@ export const languageKey = "lang";
 export const production = "production";
 export const development = "development";
 
+export enum Device {
+	web= "web",
+	app = "app"
+}
+
 // 环境变量
 export interface Process {
 	mode: string;

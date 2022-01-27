@@ -1,0 +1,205 @@
+@font-face {
+  font-family: D-DIN Exp;
+  src: static('/assets/font/D-DINExp.otf');
+}
+
+@font-face {
+  font-family: i8n-font-Barlow;
+  src: static('/assets/font/BarlowSemiCondensed-Medium.ttf');
+}
+
+@font-face {
+  font-family: i8n-font-SemiBold;
+  src: static('/assets/font/BarlowSemiCondensed-semiBold.ttf');
+}
+
+@font-face {
+  font-family: i8n-font-inter;
+  src: static('/assets/font/Inter-Regular.otf');
+}
+
+.font-color-theme {
+  color: #2B8DFE;
+}
+
+.text-48 {
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
+.text-36 {
+  font-size: 36px;
+  line-height: 36px;
+}
+
+.text-32 {
+  font-size: 2rem;
+  line-height: 2rem;
+}
+
+.text-26 {
+  font-size: 26px;
+  line-height: 26px;
+}
+
+.text-24 {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+}
+
+.text-24-28 {
+  font-size: 1.5rem;
+  line-height: 28px;
+}
+
+.text-20 {
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+}
+
+.text-18 {
+  font-size: 18px;
+  line-height: 1.5rem;
+}
+
+.text-18-18 {
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.text-18-28 {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.text-16 {
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+.text-16-20 {
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+
+.text-16-24 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-15-22 {
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.text-14 {
+  font-size: 0.875rem;
+  line-height: 18px;
+}
+
+.text-14-16 {
+  font-size: 0.875rem;
+  line-height: 1rem;
+}
+
+.text-14-18 {
+  font-size: 0.875rem;
+  line-height: 18px;
+}
+
+.text-14-20 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-14-22 {
+  font-size: 0.875rem;
+  line-height: 22px;
+}
+
+.text-14-24 {
+  font-size: 0.875rem;
+  line-height: 24px;
+}
+
+.text-12-24 {
+  font-size: 0.75rem;
+  line-height: 24px;
+}
+
+.text-13 {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.text-11 {
+  font-size: 11px;
+  line-height: 11px;
+}
+
+.text-12 {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-12-12 {
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+}
+
+.text-12-14 {
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+}
+
+.text-12-16 {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-12-18 {
+  font-size: 0.75rem;
+  line-height: 18px;
+}
+
+.text-22-22 {
+  font-size: 1.375rem;
+  line-height: 1.375rem;
+}
+
+.text-26-26 {
+  font-size: 1.625rem;
+  line-height: 1.625rem;
+}
+
+[class~=text-], [class*=text-] {
+  &:not([class*=text-number]),
+  &:not([class~=text-number]) {
+    /* 英文字体格式 */
+    @at-root [lang=en] & {
+      @apply font-kdInter;
+    }
+    /* 中文字体格式 */
+    @at-root [lang=cn] & {
+      @apply font-kdFang;
+    }
+  }
+
+  /* 数字字体格式 */
+  &.text-number {
+    @apply font-kdExp;
+  }
+}
+
+.font-kdBarlow {
+  @at-root [lang=en] & {
+    font-family: i8n-font-Barlow !important;
+  }
+}
+
+.font-kdSemiBold {
+  @at-root [lang=en] & {
+    font-family: i8n-font-SemiBold !important;
+  }
+}
+

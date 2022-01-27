@@ -1,0 +1,16 @@
+/**
+ * @file 公共方法
+ * @author svon.me@gmail.com
+ */
+
+
+@function static($url){
+  @if (str-length($static) == 0) {
+    @return $url;
+  }
+  @return url("#{$static}#{$url}");
+}
+
+@function cdn($url){
+  @return url("#{$g-url}#{$url}");
+}
