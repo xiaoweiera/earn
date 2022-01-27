@@ -35,10 +35,7 @@ class SSR {
 		this.root = root;
 	}
 	async createVite (value:Language | string = Language.en): Promise<ViteDevServer> {
-		const configFile = path.join(this.root, "vite.config.ts");
-		console.log("configFile = ", configFile);
 		return createViteServer({
-			configFile,
 			server: {
 				middlewareMode: "ssr"
 			}

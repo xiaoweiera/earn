@@ -7,7 +7,6 @@ import { getEnv } from "src/config/";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import {JS} from "windicss/types/lang/tokens";
 
 // 用户信息
 const getUserAuth = async function (config: AxiosRequestConfig): Promise<string> {
@@ -39,7 +38,7 @@ const Dao = function (option?: AxiosRequestConfig): AxiosInstance {
 
 	service.interceptors.request.use(
 		async (config: AxiosRequestConfig) => {
-			const current = 'en';
+			const current = env.lang;
 			const status = isKindDataDomain(config);
 			if (status) {
 				// 设置 token
