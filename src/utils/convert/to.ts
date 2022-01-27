@@ -5,11 +5,11 @@
 
 // @ts-ignore
 import dayjs from "dayjs";
-import { isNil } from 'ramda';
+import { isNil } from "ramda";
 // import * as tools from "~/lib/tool";
 import {isEmpty, isNumber, isString} from "src/utils/check/is";
 
-export { toLower } from "lodash";
+export { toLower } from "ramda";
 
 export type TimeType = number | string | Date | dayjs.Dayjs;
 

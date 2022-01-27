@@ -10,7 +10,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import { BlogDetail, BlogData } from "src/types/blog/";
 
 export const list = async function (req: Request, res: Response) {
-	res.locals.menuActive = names.blog;
+	res.locals.menuActive = names.blog.blog;
 	const list = await API.blog.getList<BlogData>();
 	const result = {
 		"API.blog.getList": list
@@ -20,7 +20,7 @@ export const list = async function (req: Request, res: Response) {
 
 // 博客详情
 export const detail = async function (req: Request, res: Response) {
-	res.locals.menuActive = names.blog;
+	res.locals.menuActive = names.blog.blog;
 	const id = safeGet<number>(req.params, "id");
 	// 获取详情数据
 	const data = await API.blog.getDetail<BlogDetail>(id);
