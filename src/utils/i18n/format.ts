@@ -9,7 +9,7 @@ import safeSet from "@fengqiaogang/safe-set";
 import template from "src/plugins/template/template";
 
 interface Data {
-	[key: string]: string;
+	[key: string]: any;
 }
 export interface I18nFormat {
 	/**

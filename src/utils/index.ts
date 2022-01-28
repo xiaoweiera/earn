@@ -3,9 +3,12 @@
  * @author svon.me@gmail.com
  */
 
-import _ from "lodash";
+import _, {size} from "lodash";
 export * from "./check/is";
 export * from "./convert/to";
+export * from "./time/index";
+
+export { size };
 
 export const Equals = function (...args: Array<string | number>): boolean {
 	const len = args.length;
@@ -22,3 +25,4 @@ export const Equals = function (...args: Array<string | number>): boolean {
 	}
 	return status;
 }
+

@@ -20,11 +20,13 @@ export const list = async function (req: Request, res: Response) {
 		blog.getHots()
 	]);
 
+	console.log("blog list = ", list.length);
+
 	const result = {
-		"API.blog.getList": list,
-		"API.blog.tabs": tabs,
 		"API.blog.ads": ads,
-		"API.blog.getHots": hots
+		"API.blog.tabs": tabs,
+		"API.blog.getHots": hots,
+		"API.blog.getList": list,
 	};
 	res.send(result);
 }

@@ -51,7 +51,6 @@ onMounted(function () {
 .ui-image {
   i {
     @apply block w-full h-full;
-    background-color: white;
     background-position: center;
     background-repeat: no-repeat;
   }

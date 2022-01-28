@@ -5,24 +5,24 @@
 
 
 import { ref, reactive } from "vue";
-import safeGet from "@fengqiaogang/safe-get";
 import getRootData from "src/utils/root/data";
 
 
-export const createRef = function<T>(key: string, auto: T) {
+export const getValue = function<T>(key: string, auto: T): T {
 	const data = getRootData<T>(key);
 	if (data) {
-		return ref<T>(data);
+		return data;
 	}
-	return ref<T>(auto);
+	return auto;
+}
+
+export const createRef = function<T>(key: string, auto: T) {
+	const value = getValue<T>(key, auto);
+	return ref<T>(value);
 }
 
 export const createReactive = function<T>(key: string, auto: T) {
-	const data = getRootData<T>(key);
-	if (data) {
-		// @ts-ignore
-		return reactive<T>(data);
-	}
+	const value = getValue<T>(key, auto);
 	// @ts-ignore
-	return reactive<T>(auto);
+	return reactive<T>(value);
 }

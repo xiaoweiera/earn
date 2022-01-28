@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PropType } from "vue";
-import { config } from "src/router/config";
+import * as blog from "src/logic/blog";
 import { BlogData } from "src/types/blog/";
 
 const props = defineProps({
@@ -13,16 +13,10 @@ const props = defineProps({
     default: () => false
   }
 });
-
-const getUrl = function (id: string | number) {
-  if (id) {
-    return `${config.blog}/:${id}`;
-  }
-}
 </script>
 
 <template>
-  <v-router :href="getUrl(data.id)" target="_blank" class="block blog-item h-32.75" :class="{'relative': absolute}">
+  <v-router :href="blog.makeDetailLink(data.id)" target="_blank" class="block blog-item h-32.75" :class="{'relative': absolute}">
     <div class="w-full h-full">
       <div class="equal-content w-full h-full">
         <ui-image class="w-full h-full" fit="fill" :src="data.cover"/>

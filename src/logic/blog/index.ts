@@ -3,10 +3,13 @@
  * @author svon.me@gmail.com
  */
 
+import _ from "lodash";
 import * as API from "src/api";
 import I18n from "src/utils/i18n";
-import { isArray, toArray } from "src/utils";
+import {config} from "src/router/config";
+import { isArray, toArray, Equals } from "src/utils";
 import { BlogData, BlogList, BlogTab, AdData } from "src/types/blog/";
+
 
 export const tabAll: BlogTab = {
 	id: 'all',
@@ -23,7 +26,10 @@ export const getAds = async function (): Promise<AdData[]> {
 
 // 获取博客列表
 export const getList = async function (group: string | number = "", page: number = 1, pageSize: number = 20) {
-	const query = { page, page_size: pageSize, group_id: group };
+	const query = { page, page_size: pageSize  };
+	if (group && !Equals(group, tabAll.id as string)) {
+		Object.assign(query, { group_id: group });
+	}
 	try {
 		const result = await API.blog.getList<BlogList>(query);
 		if (result && isArray(result)) {
@@ -49,6 +55,12 @@ export const getTabs = async function (): Promise<BlogTab[]> {
 	return [tabAll];
 }
 
+export const transformTabs = function (list: BlogTab[]) {
+	return _.map(list, function (item: BlogTab) {
+		return { ...item, href: `${config.blog}?group=${item.id}`}
+	})
+}
+
 export const getHots = async function (): Promise<BlogData[]> {
 	try {
 		const result = await API.blog.getHots<BlogList>();
@@ -62,4 +74,10 @@ export const getHots = async function (): Promise<BlogData[]> {
 		// todo
 	}
 	return [];
+}
+
+export const makeDetailLink = function (id: string | number) {
+	if (id) {
+		return `${config.blog}/${id}`;
+	}
 }

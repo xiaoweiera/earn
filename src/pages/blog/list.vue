@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import BlogRow from "./row.vue";
 import {onMounted} from "vue";
 import BlogAd from "./ad.vue";
 import {toArray} from "src/utils";
 import * as blog from "src/logic/blog";
-import {BlogTab} from "src/types/blog/";
-import {createRef} from "src/utils/ssr/ref";
+import {BlogTab, BlogData} from "src/types/blog/";
+import {createRef, getValue} from "src/utils/ssr/ref";
 
 const tabs = createRef<BlogTab[]>("API.blog.tabs", toArray(blog.tabAll));
 
@@ -15,7 +16,16 @@ const init = async function () {
       tabs.value = value;
     }
   }
+  await blog.getList();
 };
+
+const getInitValue = function () {
+  return getValue<BlogData[]>("API.blog.getList", []);
+}
+
+const requestList = async function () {
+  return []
+}
 
 onMounted(init);
 
@@ -30,12 +40,16 @@ onMounted(init);
 
         <div class="px-0 py-3">
           <!-- 分类 -->
-          <ui-tab :list="tabs"></ui-tab>
+          <ui-tab active-name="group" :list="blog.transformTabs(tabs)"></ui-tab>
         </div>
 
         <!-- 博客列表 -->
         <div class="mt-6">
-
+          <ui-pagination :init-value="getInitValue()" :request="requestList">
+            <template #default="scope">
+              <BlogRow v-for="item in scope.list" class="blog-item" :key="item.id" :data="item"/>
+            </template>
+          </ui-pagination>
         </div>
       </div>
       <!-- 热门数据解读 -->
@@ -72,6 +86,13 @@ onMounted(init);
         @apply bg-global-darkblue;
         @apply transform translate-y-2;
       }
+    }
+  }
+
+  .blog-item {
+    @apply mt-8;
+    &:first-child {
+      @apply mt-0;
     }
   }
 }

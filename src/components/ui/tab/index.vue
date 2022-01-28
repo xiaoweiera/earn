@@ -10,7 +10,7 @@ import DBList from "@fengqiaogang/dblist";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import {Item, makeLink, Trigger} from "src/logic/ui/tab";
-import {defineEmits, onMounted, PropType, ref, toRaw, watch} from "vue";
+import {onMounted, PropType, ref, toRaw, watch} from "vue";
 
 const $router = useRoute();
 const active = ref<string | number>("");
@@ -105,7 +105,7 @@ onMounted(function () {
 
 <template>
   <div class="max-w-full overflow-hidden" v-show="list.length > 0">
-    <el-scrollbar>
+<!--    <el-scrollbar>-->
       <div class="flex tab-wrap">
         <template v-for="(item, index) in list" :key="index">
           <v-router :href="makeLink(activeName, item)" @click="onClick(item)" class="block whitespace-nowrap tab-item p-2" :class="className(item)" :name="trigger">
@@ -119,7 +119,7 @@ onMounted(function () {
           </v-router>
         </template>
       </div>
-    </el-scrollbar>
+<!--    </el-scrollbar>-->
   </div>
 </template>
 
