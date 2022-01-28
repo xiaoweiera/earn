@@ -105,19 +105,21 @@ onMounted(function () {
 
 <template>
   <div class="max-w-full overflow-hidden" v-show="list.length > 0">
-    <div class="flex tab-wrap">
-      <template v-for="(item, index) in list" :key="index">
-        <v-router :href="makeLink(activeName, item)" @click="onClick(item)" class="block whitespace-nowrap tab-item p-2" :class="className(item)" :name="trigger">
-          <slot name="default" :data="item">
-            <div v-if="item.icon" class="flex items-center">
-              <IconFont class="mr-1.5" :type="item.icon" size="24"/>
-              <span class="text-18-24 font-m">{{ item.name }}</span>
-            </div>
-            <span v-else class="text-18-24 font-m">{{ item.name }}</span>
-          </slot>
-        </v-router>
-      </template>
-    </div>
+    <el-scrollbar>
+      <div class="flex tab-wrap">
+        <template v-for="(item, index) in list" :key="index">
+          <v-router :href="makeLink(activeName, item)" @click="onClick(item)" class="block whitespace-nowrap tab-item p-2" :class="className(item)" :name="trigger">
+            <slot name="default" :data="item">
+              <div v-if="item.icon" class="flex items-center">
+                <IconFont class="mr-1.5" :type="item.icon" size="24"/>
+                <span class="text-18-24 font-m">{{ item.name }}</span>
+              </div>
+              <span v-else class="text-18-24 font-m">{{ item.name }}</span>
+            </slot>
+          </v-router>
+        </template>
+      </div>
+    </el-scrollbar>
   </div>
 </template>
 
