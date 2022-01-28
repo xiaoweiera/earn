@@ -47,8 +47,6 @@ const getSassData = function (env: ConfigEnv) {
     const code = `${key}: "${value}";`;
     array.push('$' + code);
   });
-  const fun = path.join(__dirname, "src/styles/function");
-  array.push(`@import "${fun}";`);
   return {
     lang,
     staticUrl,

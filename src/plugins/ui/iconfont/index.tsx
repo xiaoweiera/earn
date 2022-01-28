@@ -41,7 +41,7 @@ export default defineComponent({
 			if (image) {
 				className.push("none-select", "icon-font");
 				if (/^[\w-]+$/.test(this.type as string)) {
-					imgClassName.push(`icon-${toLower(this.type)}`);
+					imgClassName.push(`icon-${toLower(this.type as string)}`);
 				}
 				return (<span class={ className }>
 					<img class={ imgClassName } src={ image } alt=""/>

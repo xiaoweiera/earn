@@ -53,7 +53,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 			} catch (e: any) {
 				console.log(e);
 				log();
-				return res.redirect(config.E404);
+				// return res.redirect(config.E404);
+				return send(e);
 			}
 		};
 		return next();

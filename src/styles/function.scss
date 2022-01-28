@@ -4,13 +4,13 @@
  */
 
 
-@function static($url){
+@function static($value){
   @if (str-length($static) == 0) {
-    @return $url;
+    @return unquote("url(#{$value})");
   }
-  @return url("#{$static}#{$url}");
+  @return unquote("url(#{$static}#{$value})");
 }
 
-@function cdn($url){
-  @return url("#{$g-url}#{$url}");
+@function cdn($value){
+  @return unquote("url(#{$g-url}#{$value})");
 }

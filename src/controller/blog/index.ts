@@ -4,16 +4,27 @@
  */
 
 import * as API from "src/api";
+import * as blog from "src/logic/blog";
 import {Request, Response} from "express";
 import { names } from "src/config/header";
 import safeGet from "@fengqiaogang/safe-get";
-import { BlogDetail, BlogData } from "src/types/blog/";
+import { BlogDetail } from "src/types/blog/";
 
 export const list = async function (req: Request, res: Response) {
 	res.locals.menuActive = names.blog.blog;
-	const list = await API.blog.getList<BlogData>();
+	const id = safeGet<string>(req.query, "group");
+	const [ list, tabs, ads, hots ] = await Promise.all([
+		blog.getList(id),
+		blog.getTabs(),
+		blog.getAds(),
+		blog.getHots()
+	]);
+
 	const result = {
-		"API.blog.getList": list
+		"API.blog.getList": list,
+		"API.blog.tabs": tabs,
+		"API.blog.ads": ads,
+		"API.blog.getHots": hots
 	};
 	res.send(result);
 }

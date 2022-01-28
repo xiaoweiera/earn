@@ -2,16 +2,29 @@
  * @file 博客
  */
 import * as api from "src/config/api";
-import axios from "src/plugins/dao/service";
+import request from "src/plugins/dao/service";
 import { asyncCheck } from "src/plugins/dao/response";
 
-export const getList = async function<T>() {
+export const ads = function<T>() {
+	return asyncCheck<T>(request.get(api.blog.adv));
+}
+
+export const tabs = function<T>() {
+	return asyncCheck<T>(request.get(api.blog.tabs));
+}
+
+export const getList = async function<T>(query: object = {}) {
 	try {
-		const result = axios.get(api.blog.list);
-		return asyncCheck<T[]>(result);
+		const result = request.get(api.blog.list, { params: query });
+		return asyncCheck<T>(result);
 	} catch (e) {
 	}
-	return [];
+}
+
+export const getHots = function<T>() {
+	return getList<T>({
+		recommend: true
+	});
 }
 
 // 项目库列表
@@ -19,7 +32,7 @@ export const getDetail = async function<T>(id: string | number) {
 	const params = { blog_id: id };
 	if (id) {
 		try {
-			const result = axios.get(api.blog.detail, { params });
+			const result = request.get(api.blog.detail, { params });
 			return asyncCheck<T>(result);
 		} catch (e) {
 		}

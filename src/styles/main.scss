@@ -6,6 +6,7 @@
 $--color-primary: #006FF7;
 @import "node_modules/element-plus/packages/theme-chalk/src/index";
 
+@import "./function";
 /* icon font 相关样式 */
 @import "./iconfont";
 @import "./decorate";
