@@ -45,7 +45,7 @@ onMounted(init);
 
         <!-- 博客列表 -->
         <div class="mt-6">
-          <ui-pagination :init-value="getInitValue()" :request="requestList">
+          <ui-pagination :init-value="getInitValue()" :request="requestList" next-more="加载更多">
             <template #default="scope">
               <BlogRow v-for="item in scope.list" class="blog-item" :key="item.id" :data="item"/>
             </template>
