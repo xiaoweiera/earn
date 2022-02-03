@@ -3,20 +3,22 @@
  * @author svon.me@gmail.com
  */
 import _ from "lodash";
+import safeGet from "@fengqiaogang/safe-get";
+import safeSet from "@fengqiaogang/safe-set";
 
-const cache = new Map<string, any>();
+const cache = {};
 
 export const set = function (data: object) {
 	_.each(data, function (value: any, key: string) {
-		cache.set(key, value);
+		safeSet(cache, key, value);
 	});
 }
 
 const get = function <T>(name?: string): T {
 	if (name) {
-		return cache.get(name) as any;
+		return safeGet<T>(cache, name);
 	}
-	return Object.fromEntries(cache) as any
+	return { ...cache } as T;
 }
 
 export default get;

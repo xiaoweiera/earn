@@ -21,6 +21,8 @@ export const developmentAPI = "https://dev.kingdata.work";
 
 export const title = "KingData";
 
+export const appDownload = "https://kingdata.com/download/";
+
 export interface Argv extends process.Process{
 }
 

@@ -45,6 +45,7 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 			const data = {
 				...value,
 				...res.locals,
+				query: Object.assign({}, req.params || {}, req.query || {}),
 			};
 			try {
 				const html = await ssr.render(url, data);

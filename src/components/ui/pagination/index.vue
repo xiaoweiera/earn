@@ -54,9 +54,7 @@ const onNext = async function () {
     loading.value = true;
     try {
       const result = await props.request(query);
-
       const value = handleData(result);
-
       return emitEvent("change", [list.value, value]);
     } catch (e) {
       loading.value = false;
@@ -65,12 +63,17 @@ const onNext = async function () {
   return emitEvent("change", [[], []]);
 }
 
+let initFlat = true;
+
 if (props.initValue) {
-  handleData(props.initValue);
+  if (props.initValue && size(props.initValue) > 0) {
+    initFlat = false;
+    handleData(props.initValue);
+  }
 }
 
 onMounted(function () {
-  if (size(list.value) < 1) {
+  if (initFlat && size(list.value) < 1) {
     onNext();
   }
 });

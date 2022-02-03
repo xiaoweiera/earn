@@ -2,6 +2,7 @@
 import I18n from "src/utils/i18n";
 import * as env from "src/config/";
 import Column from "./column.vue";
+import Hover from "./hover.vue";
 import { footers } from "src/config/footer";
 </script>
 
@@ -27,16 +28,16 @@ import { footers } from "src/config/footer";
               </span>
             </label>
             <div class="pt-3 lg:pt-6 w-27 menu-content">
-              <div class="menu-item">
-<!--                <UiFooterHover :href="env.appDownload" :desc="I18n.menu.hover.app">-->
-<!--                  <img class="block" src="https://res.kingdata.xyz/common/download_apple.jpg">-->
-<!--                </UiFooterHover>-->
+              <div class="mb-4">
+                <Hover :href="env.appDownload" :desc="I18n.menu.hover.app">
+                  <ui-image fit="none" class="block" src="https://res.kingdata.xyz/common/download_apple.jpg"/>
+                </Hover>
               </div>
 
-              <div class="menu-item">
-<!--                <UiFooterHover :href="env.appDownload" :desc="I18n.menu.hover.app">-->
-<!--                  <img class="block" src="https://res.kingdata.xyz/common/download_android.jpg">-->
-<!--                </UiFooterHover>-->
+              <div>
+                <Hover :href="env.appDownload" :desc="I18n.menu.hover.app">
+                  <ui-image fit="none" class="block" src="https://res.kingdata.xyz/common/download_android.jpg"/>
+                </Hover>
               </div>
             </div>
           </li>

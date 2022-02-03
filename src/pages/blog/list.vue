@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import BlogRow from "./row.vue";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import BlogAd from "./ad.vue";
-import {toArray} from "src/utils";
+import {toArray, Equals} from "src/utils";
 import * as blog from "src/logic/blog";
 import {BlogTab, BlogData} from "src/types/blog/";
-import {createRef, getValue} from "src/utils/ssr/ref";
+import { createRef, getValue} from "src/utils/ssr/ref";
+import safeGet from "@fengqiaogang/safe-get";
+
+
+const activeName = ref<string>("group");
+const groupId = createRef<string | number | undefined>(`query.${activeName.value}`, blog.tabAll.id);
 
 const tabs = createRef<BlogTab[]>("API.blog.tabs", toArray(blog.tabAll));
 
@@ -20,11 +25,27 @@ const init = async function () {
 };
 
 const getInitValue = function () {
-  return getValue<BlogData[]>("API.blog.getList", []);
+  const queryGroup = getValue<string>(`query.${activeName.value}`, blog.tabAll.id as string);
+  if (Equals(queryGroup, groupId.value as string)) {
+    return getValue<BlogData[]>("API.blog.getList", []);
+  }
+  return [];
 }
 
-const requestList = async function () {
-  return []
+// 获取列表数据
+const requestList = async function (data: object) {
+  const page = safeGet<number>(data, "page");
+  const size = safeGet<number>(data, "page_size");
+  return blog.getList(groupId.value, page, size);
+}
+// 切换分组
+const onChangeTab = function (data: object) {
+  const value = safeGet<string>(data, activeName.value);
+  if (value) {
+    groupId.value = value;
+  } else {
+    groupId.value = blog.tabAll.id;
+  }
 }
 
 onMounted(init);
@@ -40,11 +61,11 @@ onMounted(init);
 
         <div class="px-0 py-3">
           <!-- 分类 -->
-          <ui-tab active-name="group" :list="blog.transformTabs(tabs)"></ui-tab>
+          <ui-tab active-name="group" :list="blog.transformTabs(tabs)" @change="onChangeTab"></ui-tab>
         </div>
 
         <!-- 博客列表 -->
-        <div class="mt-6">
+        <div class="mt-6" :key="groupId">
           <ui-pagination :init-value="getInitValue()" :request="requestList" next-more="加载更多">
             <template #default="scope">
               <BlogRow v-for="item in scope.list" class="blog-item" :key="item.id" :data="item"/>

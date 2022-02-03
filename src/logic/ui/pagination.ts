@@ -4,7 +4,7 @@
  */
 
 import {ref} from "vue";
-import {size, toArray} from "src/utils";
+import {toArray} from "src/utils";
 
 type Request = <T>() => T[]
 
@@ -31,24 +31,22 @@ export const Pagination = function (props: Props) {
 
 	const handleData = function<T>(result: T[]) {
 		const array = toArray(result || []);
-		console.log(size(array), props.limit)
 		// 判断是否有下一页
-		if (size(array) < props.limit) {
+		if (array.length < props.limit) {
 			next.value = false;
 		} else {
 			page.value = page.value + 1;
 			next.value = true;
 		}
 
-		if (size(array) > 0) {
+		if (array.length > 0) {
 			list.value = toArray(list.value, array);
 		} else {
 			// 判断数据是否为空
-			empty.value = size(list.value) < 1;
+			empty.value = array.length < 1;
 		}
 
 		loading.value = false;
-
 		return array;
 	}
 	return { list, page, loading, next, empty, handleData };
