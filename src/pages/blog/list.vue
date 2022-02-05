@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import BlogRow from "./row.vue";
-import {onMounted, ref} from "vue";
+/**
+ * @file 博客列表
+ * @author svon.me@gmail.com
+ */
 import BlogAd from "./ad.vue";
-import {toArray, Equals} from "src/utils";
+import BlogHot from "./hot.vue";
+import BlogRow from "./row.vue";
+import I18n from "src/utils/i18n";
+import {onMounted, ref} from "vue";
 import * as blog from "src/logic/blog";
+import {toArray, Equals} from "src/utils";
+import safeGet from "@fengqiaogang/safe-get";
 import {BlogTab, BlogData} from "src/types/blog/";
 import { createRef, getValue} from "src/utils/ssr/ref";
-import safeGet from "@fengqiaogang/safe-get";
 
 
 const activeName = ref<string>("group");
@@ -68,16 +74,20 @@ onMounted(init);
         <div class="mt-6" :key="groupId">
           <ui-pagination :init-value="getInitValue()" :request="requestList" next-more="加载更多">
             <template #default="scope">
-              <BlogRow v-for="item in scope.list" class="blog-item" :key="item.id" :data="item"/>
+              <div>
+                <BlogRow v-for="item in scope.list" class="blog-item" :key="item.id" :data="item"/>
+              </div>
             </template>
           </ui-pagination>
         </div>
       </div>
       <!-- 热门数据解读 -->
       <div class="md:w-65.5 ml-8 pt-8 hidden md:block">
-        <div>
-
+        <div class="text-global-highTitle mb-3">
+          <p class="text-18-24 mb-3 font-medium">{{ I18n.blog.popular }}</p>
         </div>
+        <!-- 热门列表数据 -->
+        <BlogHot/>
       </div>
     </div>
   </div>

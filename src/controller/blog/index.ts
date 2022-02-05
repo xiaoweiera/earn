@@ -13,20 +13,21 @@ import { BlogDetail } from "src/types/blog/";
 export const list = async function (req: Request, res: Response) {
 	res.locals.menuActive = names.blog.blog;
 	const id = safeGet<string>(req.query, "group");
-	const [ list, tabs, ads, hots ] = await Promise.all([
+
+	const [ list, tabs, ads, tops, hots ] = await Promise.all([
 		blog.getList(id),
 		blog.getTabs(),
 		blog.getAds(),
-		blog.getHots()
+		blog.getTopList(),
+		blog.getHotList(),
 	]);
 
-	console.log("blog list = ", list.length);
-
 	const result = {
-		"API.blog.ads": ads,
-		"API.blog.tabs": tabs,
-		"API.blog.getHots": hots,
-		"API.blog.getList": list,
+		"API.blog.ads": ads,      // 广告
+		"API.blog.tabs": tabs,    // 分组
+		"API.blog.getList": list, // 列表数据
+		"API.blog.getTopList": tops, // 置顶数据
+		"API.blog.getHotList": hots, // 热门数据
 	};
 	res.send(result);
 }

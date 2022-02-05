@@ -18,8 +18,23 @@ html, body {
   background-color: white;
 }
 
+@mixin clamp($number: 1) {
+  .line-clamp-#{$number} {
+    display: -webkit-box ;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $number;
+  }
+}
+
 body {
   -webkit-overflow-scrolling: touch;
+
+  @for $i from 1 through 10 {
+    @include clamp($i);
+  }
 }
 
 

@@ -1,13 +1,19 @@
 <script setup lang="ts">
+/**
+ * @file 博客详情
+ * @author svon.me@gmail.com
+ */
+
 import _ from "lodash";
 import * as API from "src/api";
 import I18n from "src/utils/i18n";
 import {useRoute} from "vue-router";
 import {onMounted, toRaw} from "vue";
 import {BlogDetail} from "src/types/blog/";
-import {createReactive} from "src/utils/ssr/ref";
 import safeGet from "@fengqiaogang/safe-get";
+import {createReactive} from "src/utils/ssr/ref";
 
+// 详情数据
 const detail = createReactive<BlogDetail>("API.blog.getDetail", {} as BlogDetail);
 
 const $router = useRoute();
@@ -42,7 +48,6 @@ onMounted(init);
       </div>
       <!-- 博客内容 -->
       <div class="py-8">
-        <!-- <div class="blog-content whitespace-pre-line text-global-highTitle" v-html="detail.body"></div> -->
         <div class="blog-content text-global-highTitle">
           <ui-markdown :value="detail.body"/>
         </div>

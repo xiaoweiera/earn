@@ -16,12 +16,14 @@ export const domain = "kingdata.com";
 export const dashboard = "/";
 export const staticPath = "/static";
 export const oss = "https://res.kingdata.xyz";
+
 export const productionAPI = "https://kingdata.xyz";
-export const developmentAPI = "https://dev.kingdata.work";
+// export const developmentAPI = "https://dev.kingdata.work";
+export const developmentAPI = "https://kingdata.xyz";
 
 export const title = "KingData";
 
-export const appDownload = "https://kingdata.com/download/";
+export const appDownload = "/download/";
 
 export interface Argv extends process.Process{
 }

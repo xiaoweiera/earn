@@ -9,10 +9,12 @@ export const ads = function<T>() {
 	return asyncCheck<T>(request.get(api.blog.adv));
 }
 
+// 分组
 export const tabs = function<T>() {
 	return asyncCheck<T>(request.get(api.blog.tabs));
 }
 
+// 博客列表
 export const getList = async function<T>(query: object = {}) {
 	try {
 		const result = request.get(api.blog.list, { params: query });
@@ -21,13 +23,17 @@ export const getList = async function<T>(query: object = {}) {
 	}
 }
 
-export const getHots = function<T>() {
-	return getList<T>({
-		recommend: true
-	});
+// 热门数据
+export const getHostList = async function<T>(query: object = {}) {
+	return getList<T>({ ...query, is_hot: true});
 }
 
-// 项目库列表
+// 置顶数据
+export const getTopList = function<T>(query: object = {}) {
+	return getList<T>({ ...query, recommend: true});
+}
+
+// 详情数据
 export const getDetail = async function<T>(id: string | number) {
 	const params = { blog_id: id };
 	if (id) {

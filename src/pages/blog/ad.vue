@@ -3,11 +3,11 @@ import Item from "./item.vue";
 import { BlogData } from "src/types/blog/";
 import {createRef} from "src/utils/ssr/ref";
 // 置顶数据
-const hotList = createRef<BlogData[]>("API.blog.getHots", []);
+const topList = createRef<BlogData[]>("API.blog.getTopList", []);
 </script>
 
 <template>
-  <div class="blog-header" :class="{'hots': hotList.length > 0}">
+  <div class="blog-header" :class="{'hots': topList.length > 0}">
     <div class="banner-wrap">
       <div class="banner-content">
       </div>
@@ -15,7 +15,7 @@ const hotList = createRef<BlogData[]>("API.blog.getHots", []);
 
     <div class="hot-wrap">
       <!-- 置顶数据 -->
-      <template v-for="(value, index) in hotList" :key="index">
+      <template v-for="(value, index) in topList" :key="index">
         <Item v-if="index < 2" class="hot-content" :data="value" :absolute="true"/>
       </template>
     </div>

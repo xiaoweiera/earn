@@ -49,7 +49,6 @@ export const getTabs = async function (): Promise<BlogTab[]> {
 		const list = await API.blog.tabs<BlogTab[]>();
 		return toArray(tabAll, list);
 	} catch (e) {
-		console.log(e);
 		// todo
 	}
 	return [tabAll];
@@ -61,9 +60,25 @@ export const transformTabs = function (list: BlogTab[]) {
 	})
 }
 
-export const getHots = async function (): Promise<BlogData[]> {
+export const getTopList = async function (): Promise<BlogData[]> {
 	try {
-		const result = await API.blog.getHots<BlogList>();
+		const result = await API.blog.getTopList<BlogList>();
+		if (result && isArray(result)) {
+			return result as any;
+		}
+		if (result) {
+			return result.blogs || [];
+		}
+	} catch (e) {
+		// todo
+	}
+	return [];
+}
+
+// 热门数据
+export const getHotList = async function (): Promise<BlogData[]> {
+	try {
+		const result = await API.blog.getHostList<BlogList>();
 		if (result && isArray(result)) {
 			return result as any;
 		}
