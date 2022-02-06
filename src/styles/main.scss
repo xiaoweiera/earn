@@ -53,3 +53,12 @@ body {
     }
   }
 }
+
+.clearfix {
+  zoom: 1;
+  &:after {
+    content: "";
+    @apply block;
+    @apply clear-both;
+  }
+}

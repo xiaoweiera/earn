@@ -11,8 +11,8 @@ const adList = createRef<AdData[]>("API.blog.ads", []);
 
 
 onMounted(function () {
-  onLoadRef(blog.getTopList, topList);
-  onLoadRef("API.blog.ads", adList);
+  onLoadRef(topList, blog.getTopList);
+  onLoadRef(adList, "API.blog.ads");
 });
 </script>
 

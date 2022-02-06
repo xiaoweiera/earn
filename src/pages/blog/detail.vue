@@ -5,7 +5,6 @@
  */
 
 import Item from "./item.vue";
-import * as API from "src/api";
 import I18n from "src/utils/i18n";
 import {useRoute} from "vue-router";
 import {onMounted, toRaw} from "vue";
@@ -13,22 +12,19 @@ import {BlogDetail} from "src/types/blog/";
 import safeGet from "@fengqiaogang/safe-get";
 import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 
-// 详情数据
-const detail = createReactive<BlogDetail>("API.blog.getDetail", {} as BlogDetail);
-
 const $router = useRoute();
+const apiFunName = "API.blog.getDetail";
+// 详情数据
+const detail = createReactive<BlogDetail>(apiFunName, {} as BlogDetail);
 
-const getData = function () {
-  const params = toRaw($router.params);
-  const id = safeGet<string>(params, "id");
-  // 如果博客详情数据为空，同时 url 中有博客 id
-  if (id) {
-    return API.blog.getDetail<BlogDetail>(id);
-  }
-}
 
 onMounted(function () {
-  onLoadReactive(getData, detail);
+  // 如果博客详情数据为空，同时 url 中有博客 id
+  const params = toRaw($router.params);
+  const id = safeGet<string>(params, "id");
+  if (id) {
+    onLoadReactive(detail, apiFunName, id);
+  }
 });
 
 </script>

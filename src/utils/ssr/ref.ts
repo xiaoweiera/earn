@@ -5,11 +5,9 @@
 
 import _ from "lodash";
 import * as API from "src/api/index";
-import {ref, reactive, Ref, toRaw} from "vue";
-import getRootData from "src/utils/root/data";
 import safeGet from "@fengqiaogang/safe-get";
-
-const model = { API };
+import getRootData from "src/utils/root/data";
+import {ref, reactive, Ref, toRaw, UnwrapNestedRefs} from "vue";
 
 export const getValue = function<T>(key: string, auto: T): T {
 	const data = getRootData<T>(key);
@@ -30,24 +28,25 @@ export const createReactive = function<T>(key: string, auto: T) {
 	return reactive<T>(value);
 }
 
-type ApiFun = <T>() => T;
+type ApiFun = <T>(query?: object | string | number) => T;
 
-const getData = function<T>(api: string | ApiFun | Function) {
+const getData = function<T>(api: string | ApiFun | Function, query?: object | string | number) {
 	if (_.isString(api)) {
+		const model = { API };
 		const fun = safeGet<ApiFun>(model, api);
 		if (fun && _.isFunction(fun)) {
-			return fun<T>();
+			return fun<T>(query);
 		}
 	}
 	if (_.isFunction(api)) {
-		return api<T>();
+		return api<T>(query);
 	}
 }
 
 // Ref 数据
-export const onLoadRef = async function<T>(api: string | ApiFun | Function, data: Ref) {
+export const onLoadRef = async function<T>(data: Ref, api: string | ApiFun | Function, query?: object | string | number) {
 	if (data.value && data.value.length < 1) {
-		const value = await getData(api);
+		const value = await getData(api, query);
 		if (value) {
 			data.value = value;
 		}
@@ -55,13 +54,14 @@ export const onLoadRef = async function<T>(api: string | ApiFun | Function, data
 }
 
 // Reactive 数据
-export const onLoadReactive = async function<T>(api: string | ApiFun | Function, data: any) {
+export const onLoadReactive = async function<T>(data: UnwrapNestedRefs<T>, api: string | ApiFun | Function, query?: object | string | number) {
 	const obj = toRaw(data);
 	const keys = Object.keys(obj);
 	if (keys.length < 1) {
-		const value = await getData<T>(api);
+		const value = await getData<T>(api, query);
 		if (value) {
 			for (const key in value) {
+				// @ts-ignore
 				data[key] = value[key];
 			}
 		}

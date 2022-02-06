@@ -14,7 +14,7 @@ const apiName = "API.blog.getHotList";
 const hots = createRef<BlogData[]>(apiName, toArray(blog.tabAll));
 
 onMounted(function () {
-  onLoadRef<BlogData[]>(apiName, hots);
+  onLoadRef<BlogData[]>(hots, apiName);
 })
 
 </script>

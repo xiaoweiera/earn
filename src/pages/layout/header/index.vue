@@ -54,12 +54,14 @@ const isShowSub = computed<boolean>(function () {
 /* 设置导航高度 */
 @mixin mainHeaderSpace ($height) {
   height: $height;
-  .top-header {
-    top: $height;
-  }
-  & ~ main {
+  @at-root .layout &{
     .top-header {
       top: $height;
+    }
+    & ~ .main {
+      .top-header {
+        top: $height;
+      }
     }
   }
 }

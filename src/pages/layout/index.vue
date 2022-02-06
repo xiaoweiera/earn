@@ -4,15 +4,11 @@ import Footer from "./footer/index.vue";
 </script>
 <template>
   <div class="layout">
-    <div class="layout-header">
-      <Header/>
-    </div>
+    <Header/>
     <div class="main">
       <router-view></router-view>
     </div>
-    <div class="layout-footer">
-      <Footer/>
-    </div>
+    <Footer/>
   </div>
 </template>
 
