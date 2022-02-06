@@ -9,6 +9,13 @@
   line-height: 1.5;
   padding: 0;
 
+  a {
+    @apply text-global-darkblue;
+    &[href] {
+      @apply cursor-pointer;
+    }
+  }
+
   h1 {
     @apply pb-2 mt-7 mb-4;
     font-size: 30px;

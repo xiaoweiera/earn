@@ -61,8 +61,8 @@ const VRouter = defineComponent({
 				// 判断链接中是否有 UtmSource
 				return this.createA(href, target, content)
 			} else {
-				// 默认为 router-link 模式
-				return this.createLink(href, target, content);
+				// 默认为 a 模式
+				return this.createA(href, target, content);
 			}
 		}
 		return (<div>{content}</div>);

@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import Item from "./item.vue";
-import { BlogData } from "src/types/blog/";
+import { BlogData, AdData } from "src/types/blog/";
 import {createRef} from "src/utils/ssr/ref";
 // 置顶数据
 const topList = createRef<BlogData[]>("API.blog.getTopList", []);
+const adList = createRef<AdData[]>("API.blog.ads", []);
+
 </script>
 
 <template>
   <div class="blog-header" :class="{'hots': topList.length > 0}">
     <div class="banner-wrap">
       <div class="banner-content">
+        <ui-banner class="w-full h-full" :list="adList">
+          <template #item="scope">
+            <v-router class="block h-full" :href="scope.data.url" target="_blank">
+              <ui-image class="h-full" :src="scope.data.image" fit="cover"/>
+            </v-router>
+          </template>
+        </ui-banner>
       </div>
     </div>
 

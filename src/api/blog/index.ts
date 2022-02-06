@@ -6,7 +6,11 @@ import request from "src/plugins/dao/service";
 import { asyncCheck } from "src/plugins/dao/response";
 
 export const ads = function<T>() {
-	return asyncCheck<T>(request.get(api.blog.adv));
+	return new Promise(function (resolve) {
+		asyncCheck<T>(request.get(api.blog.adv)).then(resolve).catch(function () {
+			resolve([]);
+		});
+	});
 }
 
 // 分组
