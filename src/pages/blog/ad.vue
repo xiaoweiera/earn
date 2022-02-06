@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Item from "./item.vue";
-import { onMounted } from "vue"
+import { onMounted } from "vue";
 import * as blog from "~/logic/blog";
 import { BlogData, AdData } from "src/types/blog/";
 import {createRef, onLoadRef} from "src/utils/ssr/ref";
@@ -9,11 +9,11 @@ import {createRef, onLoadRef} from "src/utils/ssr/ref";
 const topList = createRef<BlogData[]>("API.blog.getTopList", []);
 const adList = createRef<AdData[]>("API.blog.ads", []);
 
+
 onMounted(function () {
   onLoadRef(blog.getTopList, topList);
   onLoadRef("API.blog.ads", adList);
 });
-
 </script>
 
 <template>
