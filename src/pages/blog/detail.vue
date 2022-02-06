@@ -4,7 +4,6 @@
  * @author svon.me@gmail.com
  */
 
-import _ from "lodash";
 import Item from "./item.vue";
 import * as API from "src/api";
 import I18n from "src/utils/i18n";
@@ -12,26 +11,24 @@ import {useRoute} from "vue-router";
 import {onMounted, toRaw} from "vue";
 import {BlogDetail} from "src/types/blog/";
 import safeGet from "@fengqiaogang/safe-get";
-import {createReactive} from "src/utils/ssr/ref";
+import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 
 // 详情数据
 const detail = createReactive<BlogDetail>("API.blog.getDetail", {} as BlogDetail);
 
 const $router = useRoute();
 
-const init = async function () {
+const getData = function () {
   const params = toRaw($router.params);
   const id = safeGet<string>(params, "id");
   // 如果博客详情数据为空，同时 url 中有博客 id
-  if (id && !detail.id) {
-    const data = await API.blog.getDetail<BlogDetail>(id);
-    if (data) {
-      _.each(data, function (value: any, key: string) {
-        // @ts-ignore
-        detail[key] = value;
-      });
-    }
+  if (id) {
+    return API.blog.getDetail<BlogDetail>(id);
   }
+}
+
+const init = async function () {
+  await onLoadReactive(getData, detail);
 };
 
 onMounted(init);
