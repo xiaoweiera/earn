@@ -27,11 +27,9 @@ const getData = function () {
   }
 }
 
-const init = async function () {
-  await onLoadReactive(getData, detail);
-};
-
-onMounted(init);
+onMounted(function () {
+  onLoadReactive(getData, detail);
+});
 
 </script>
 
