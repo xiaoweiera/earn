@@ -4,6 +4,7 @@
  */
 
 import _, {size, compact, flatten} from "lodash";
+// @ts-ignore
 import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from "uuid";
 import { isString } from "./check/is";
 export * from "./check/is";

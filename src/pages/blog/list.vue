@@ -3,6 +3,7 @@
  * @file 博客列表
  * @author svon.me@gmail.com
  */
+
 import BlogAd from "./ad.vue";
 import BlogHot from "./hot.vue";
 import BlogRow from "./row.vue";
@@ -12,23 +13,12 @@ import * as blog from "src/logic/blog";
 import {toArray, Equals} from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import {BlogTab, BlogData} from "src/types/blog/";
-import { createRef, getValue} from "src/utils/ssr/ref";
+import {createRef, getValue, onLoadRef} from "src/utils/ssr/ref";
 
 
 const activeName = ref<string>("group");
-const groupId = createRef<string | number | undefined>(`query.${activeName.value}`, blog.tabAll.id);
-
 const tabs = createRef<BlogTab[]>("API.blog.tabs", toArray(blog.tabAll));
-
-const init = async function () {
-  if (tabs.value.length <= 1) {
-    const value = await blog.getTabs();
-    if (value) {
-      tabs.value = value;
-    }
-  }
-  await blog.getList();
-};
+const groupId = createRef<string | number | undefined>(`query.${activeName.value}`, blog.tabAll.id);
 
 const getInitValue = function () {
   const queryGroup = getValue<string>(`query.${activeName.value}`, blog.tabAll.id as string);
@@ -54,7 +44,10 @@ const onChangeTab = function (data: object) {
   }
 }
 
-onMounted(init);
+onMounted(function () {
+  // 如果 tabs 数据为空，则执行 blog.getTabs 将放回结果赋值给 tabs
+  onLoadRef(blog.getTabs, tabs);
+});
 
 </script>
 
@@ -96,6 +89,7 @@ onMounted(init);
 <style scoped lang="scss">
 .blog-content {
   background-color: #FAFBFC;
+
   .blog-type {
     @apply mx-4;
     @apply text-center;
@@ -103,6 +97,7 @@ onMounted(init);
     &:first-child {
       @apply ml-0;
     }
+
     &:last-child {
       @apply mr-0;
     }

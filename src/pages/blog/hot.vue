@@ -4,12 +4,18 @@
  * @author svon.me@gmail.com
  */
 
-import {toArray, dateYMDFormat} from "src/utils";
+import { onMounted } from "vue";
 import * as blog from "src/logic/blog";
 import {BlogData} from "src/types/blog";
-import {createRef} from "src/utils/ssr/ref";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import {toArray, dateYMDFormat} from "src/utils";
 
-const hots = createRef<BlogData[]>("API.blog.getHotList", toArray(blog.tabAll));
+const apiName = "API.blog.getHotList";
+const hots = createRef<BlogData[]>(apiName, toArray(blog.tabAll));
+
+onMounted(function () {
+  onLoadRef<BlogData[]>(apiName, hots);
+})
 
 </script>
 
