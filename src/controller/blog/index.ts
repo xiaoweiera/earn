@@ -17,7 +17,7 @@ export const list = async function (req: Request, res: Response) {
 	const [ list, tabs, ads, tops, hots ] = await Promise.all([
 		blog.getList(id),
 		blog.getTabs(),
-		blog.getAds(),
+		API.blog.ads(),
 		blog.getTopList(),
 		blog.getHotList(),
 	]);

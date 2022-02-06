@@ -16,14 +16,6 @@ export const tabAll: BlogTab = {
 	name: I18n.address.all
 }
 
-export const getAds = async function (): Promise<AdData[]> {
-	try {
-		return await API.blog.ads<AdData[]>();
-	} catch (e) {
-		return [];
-	}
-}
-
 // 获取博客列表
 export const getList = async function (group: string | number = "", page: number = 1, pageSize: number = 20) {
 	const query = { page, page_size: pageSize  };
