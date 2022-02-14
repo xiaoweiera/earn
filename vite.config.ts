@@ -10,7 +10,6 @@ import {oss, staticPath} from "./src/config/";
 import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import Language from "./src/types/language";
 import {ConfigEnv, defineConfig} from "vite";
 import safeGet from "@fengqiaogang/safe-get";
 import Components from "unplugin-vue-components/vite";
@@ -30,14 +29,12 @@ const getConfig = function (env: ConfigEnv) {
   return {
     command: env.command,
     mode: safeGet<string>(data, "VITE_NODE") || production,
-    lang: safeGet<string>(data, "VITE_LANG") || Language.en,
   }
 }
 
 const getSassData = function (env: ConfigEnv) {
   const root = "./";
-  const lang = safeGet<string>(env, "lang") || Language.en;
-  const staticUrl: string = env.mode === development ? root : `${staticPath}/${lang}/`;
+  const staticUrl: string = env.mode === development ? root : staticPath;
   const data = {
     "g-url": oss,
     "static": staticUrl === root ? "" : staticUrl,
@@ -48,7 +45,6 @@ const getSassData = function (env: ConfigEnv) {
     array.push('$' + code);
   });
   return {
-    lang,
     staticUrl,
     sass: array.join("\n"),
   };
@@ -58,12 +54,11 @@ const getSassData = function (env: ConfigEnv) {
 export default defineConfig(async function (env: ConfigEnv) {
   const config = getConfig(env);
   const data = getSassData(config);
-  console.log("vite config", config);
+  console.log("vite config", config, data.sass);
   return {
     base: data.staticUrl,
     define: {
       "process.env": {
-        lang: data.lang,
         mode: config.mode === development ? development : production,
         command: config.command === Command.serve ? Command.serve : Command.build,
       }

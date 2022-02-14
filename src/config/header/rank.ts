@@ -5,6 +5,7 @@
 import I18n from "src/utils/i18n";
 import {MenuItem} from "src/types/menu";
 import {config} from "src/router/config";
+import { Lang } from "src/types/language";
 
 export const name = {
 	dapp: "rank-dapp",
@@ -13,40 +14,43 @@ export const name = {
 	defi: "rank-defi",
 }
 
-export const Ranks: MenuItem = {
-	name: I18n.menu.nft.title, // 排行榜
-	href: `${config.dapp}/rank`,
-	expand: 'HeaderSubDapp',
-	children: [
-		{
-			id: name.dapp,
-			name: I18n.menu.dapp.ranking,
-			header: true,
-			more: true,
-			icon: 'icon-paihang',
-			href: `${config.dapp}/rank`,
-		}, {
-			id: name.gamefi,
-			name: I18n.menu.dapp.game,
-			header: true,
-			more: true,
-			icon: 'icon-paihang',
-			href: `${config.dapp}/rank?category=game`,
-		}, {
-			id: name.defi,
-			name: I18n.menu.dapp.defi,
-			header: true,
-			more: true,
-			icon: 'icon-paihang',
-			href: `${config.dapp}/rank?category=defi`,
-		}, {
-			id: name.nft,
-			name: I18n.menu.nft.ranking,
-			header: true,
-			more: true,
-			icon: 'icon-a-NFTpaihang',
-			href: `${config.nft}/rank`,
-		},
-	]
-};
+export const Ranks = function (lang?: Lang): MenuItem {
+	const i18n = I18n(lang);
+	return {
+		name: i18n.menu.nft.title, // 排行榜
+		href: `${config.dapp}/rank`,
+		expand: 'HeaderSubDapp',
+		children: [
+			{
+				id: name.dapp,
+				name: i18n.menu.dapp.ranking,
+				header: true,
+				more: true,
+				icon: 'icon-paihang',
+				href: `${config.dapp}/rank`,
+			}, {
+				id: name.gamefi,
+				name: i18n.menu.dapp.game,
+				header: true,
+				more: true,
+				icon: 'icon-paihang',
+				href: `${config.dapp}/rank?category=game`,
+			}, {
+				id: name.defi,
+				name: i18n.menu.dapp.defi,
+				header: true,
+				more: true,
+				icon: 'icon-paihang',
+				href: `${config.dapp}/rank?category=defi`,
+			}, {
+				id: name.nft,
+				name: i18n.menu.nft.ranking,
+				header: true,
+				more: true,
+				icon: 'icon-a-NFTpaihang',
+				href: `${config.nft}/rank`,
+			},
+		]
+	};
+}
 

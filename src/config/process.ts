@@ -3,13 +3,15 @@
  * @author svon.me@gmail.com
  */
 
-import Language from "../types/language";
 import safeGet from "@fengqiaogang/safe-get";
 
 export enum Command {
 	build = "build",
 	serve = "serve"
 }
+
+export const domain = "kingdata.com";
+export const home = `https://${domain}/`;
 
 export const languageKey = "lang";
 
@@ -25,7 +27,6 @@ export enum Device {
 export interface Process {
 	mode: string;
 	command: Command;
-	lang: Language;
 }
 
 const _getOsProcess = function () {
@@ -42,6 +43,5 @@ export const getProcess = function (): Process {
 	return {
 		mode: safeGet<string>(data, "mode") || production,
 		command: safeGet<Command>(data, "command") || Command.build,
-		lang: safeGet<Language>(data, languageKey) || Language.en,
 	};
 }

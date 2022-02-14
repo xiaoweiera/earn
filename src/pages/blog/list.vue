@@ -16,6 +16,7 @@ import {BlogTab, BlogData} from "src/types/blog/";
 import {createRef, getValue, onLoadRef} from "src/utils/ssr/ref";
 import UiBox from "~/components/ui/box/index.vue";
 
+const i18n = I18n();
 
 const activeName = ref<string>("group");
 const tabs = createRef<BlogTab[]>("API.blog.tabs", toArray(blog.tabAll));
@@ -82,7 +83,7 @@ onMounted(function () {
         <template #right>
           <div class="pl-8 pt-1">
             <div class="text-global-highTitle">
-              <p class="text-18-24 mb-3 font-medium">{{ I18n.blog.popular }}</p>
+              <p class="text-18-24 mb-3 font-medium">{{ i18n.blog.popular }}</p>
             </div>
             <!-- 热门列表数据 -->
             <BlogHot class="mt-3"/>

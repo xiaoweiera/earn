@@ -3,14 +3,31 @@
  * @author svon.me@gmail.com
  */
 
+import _ from "lodash";
 import { getEnv } from "src/config/";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 // 用户信息
-const getUserAuth = async function (config: AxiosRequestConfig): Promise<string> {
-	return '';
+const getUserAuth = function (config: AxiosRequestConfig) {
+	const tokenName = "token";
+	const paramName = "params";
+	const dataName = "data";
+	// 从 Get 参数中获取 token
+	let token = safeGet<string>(config, `${paramName}.${tokenName}`);
+	if (token) {
+		const value = _.omit(safeGet<object>(config, paramName), [tokenName]);
+		safeSet(config, paramName, value);
+		return token;
+	}
+	// 从 Post 参数中获取 token
+	token = safeGet<string>(config, `${dataName}.${tokenName}`);
+	if (token) {
+		const value = _.omit(safeGet<object>(config, dataName), [tokenName]);
+		safeSet(config, dataName, value);
+		return token;
+	}
 }
 
 // 判断请求的地址是否和业务域名相同
@@ -42,7 +59,7 @@ const Dao = function (option?: AxiosRequestConfig): AxiosInstance {
 			const status = isKindDataDomain(config);
 			if (status) {
 				// 设置 token
-				const token = await getUserAuth(config);
+				const token = getUserAuth(config);
 				if (token) {
 					safeSet(config, "headers.Authorization", `Token ${token}`);
 				}

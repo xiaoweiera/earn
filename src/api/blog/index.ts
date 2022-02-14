@@ -5,12 +5,13 @@ import * as api from "src/config/api";
 import request from "src/plugins/dao/service";
 import { asyncCheck } from "src/plugins/dao/response";
 
-export const ads = function<T>() {
-	return new Promise(function (resolve) {
-		asyncCheck<T>(request.get(api.blog.adv)).then(resolve).catch(function () {
-			resolve([]);
-		});
-	});
+export const ads = async function<T>(): Promise<T[]> {
+	try {
+		await asyncCheck<T>(request.get(api.blog.adv));
+	} catch (e) {
+		// todo
+	}
+	return [];
 }
 
 // 分组

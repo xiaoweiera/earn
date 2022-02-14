@@ -6,7 +6,7 @@
 import _ from "lodash";
 import I18n from "src/utils/i18n";
 import * as Url from "src/utils/url/";
-import Language from "src/types/language";
+import { Language } from "src/types/language";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import getDomain from "src/plugins/browser/domain";
@@ -55,6 +55,7 @@ export const query = function (...data: Query[]): string {
 }
 
 export const createHref = function (value: string | Href | Location = '/', param?: Query) {
+	const i18n = I18n();
 	if (value) {
 		// 判断是否是 Href 类型
 		if (_.isObject(value) && value.path) {
@@ -69,7 +70,7 @@ export const createHref = function (value: string | Href | Location = '/', param
 		value = Url.urlParse();
 	}
 	// 设置中英文
-	const lang = process.env.lang || I18n.getLang() || Language.en;
+	const lang = process.env.lang || i18n.getLang() || Language.en;
 	safeSet(value, 'query.lang', lang);
 	// 设置查询参数
 	if (param) {

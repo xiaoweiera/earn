@@ -12,6 +12,8 @@ import {BlogDetail} from "src/types/blog/";
 import safeGet from "@fengqiaogang/safe-get";
 import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 
+const i18n = I18n();
+
 const $router = useRoute();
 const apiFunName = "API.blog.getDetail";
 // 详情数据
@@ -48,10 +50,10 @@ onMounted(function () {
             <ui-markdown :value="detail.body"/>
           </div>
           <div class="mt-14 text-center text-12-16">
-            <p class="inline-block text-global-highTitle text-opacity-45">{{ I18n.blog.copyright }}</p>
+            <p class="inline-block text-global-highTitle text-opacity-45">{{ i18n.blog.copyright }}</p>
           </div>
           <div class="text-center text-12-16 text-global-highTitle text-opacity-85" v-if="detail.label && detail.label.length > 0">
-            <span class="inline-block mt-4">{{ I18n.blog.label }}</span>
+            <span class="inline-block mt-4">{{ i18n.blog.label }}</span>
             <span class="ml-4 mt-4 inline-block py-1 px-2 rounded-kd30px bg-global-highTitle bg-opacity-4" v-for="(value, index) in detail.label" :key="index">{{ value }}</span>
           </div>
         </div>
@@ -59,7 +61,7 @@ onMounted(function () {
 
         <!-- 相关推荐 -->
         <div v-if="detail.relevant && detail.relevant.length > 0">
-          <h4 class="text-18">{{ I18n.blog.share }}</h4>
+          <h4 class="text-18">{{ i18n.blog.share }}</h4>
           <div class="mt-3">
             <div class="md:grid grid-cols-3 gap-6">
               <Item class="relevant-item" v-for="(item, index) in detail.relevant" :key="index" :data="item"/>

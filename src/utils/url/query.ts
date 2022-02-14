@@ -6,14 +6,14 @@
 import parse from "./parse";
 import safeGet from "@fengqiaogang/safe-get";
 
-export const getQuery = function (url: string, key?: string) {
+export const getQuery = function<T>(url: string, key?: string): T | undefined {
 	if (url) {
 		const data = parse(url);
 		if (data && data.query) {
 			if (key) {
-				return safeGet<string>(data.query, key);
+				return safeGet<T>(data.query, key);
 			}
-			return data.query;
+			return data.query as any;
 		}
 	}
 }

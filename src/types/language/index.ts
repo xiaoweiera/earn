@@ -3,6 +3,10 @@
  * @author svon.me@gmail.com
  */
 
+import {Request} from "express";
+
+export type Lang = Request | Language | string;
+
 export enum Language {
 	auto = "auto", // 自动检测
 	cn = "cn", // 中文
@@ -34,5 +38,3 @@ export enum Language {
 	// cht = 'cht', // 繁体中文
 	// vie = 'vie', // 越南语
 }
-
-export default Language

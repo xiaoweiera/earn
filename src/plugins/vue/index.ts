@@ -7,15 +7,14 @@ import fs from "fs";
 import _ from "lodash";
 import path from "path";
 import template from "../template/";
-import Language from "src/types/language";
+import I18n from "src/utils/i18n";
 import {Env, production} from "src/config";
-import safeGet from "@fengqiaogang/safe-get";
 import { createServer as createViteServer, ViteDevServer } from "vite";
 
-const getEntryHtml = function (root: string, env: Env, lang: Language = Language.en) {
+const getEntryHtml = function (root: string, env: Env) {
 	if (env.mode === production) {
-		const entry = path.join(root, "dist/server", lang, "entry-server.js");
-		const templateSrc = path.join(root, "dist/client", lang, env.template);
+		const entry = path.join(root, "dist/server", "entry-server.js");
+		const templateSrc = path.join(root, "dist/client", env.template);
 		const html = fs.readFileSync(templateSrc, "utf-8");
 		return { entry, html };
 	} else {
@@ -34,7 +33,7 @@ class SSR {
 		this.env = env;
 		this.root = root;
 	}
-	async createVite (value:Language | string = Language.en): Promise<ViteDevServer> {
+	async createVite (): Promise<ViteDevServer> {
 		return createViteServer({
 			server: {
 				middlewareMode: "ssr"
@@ -56,17 +55,16 @@ class SSR {
 			delete require.cache[key];
 		});
 	}
-	protected async getVite (lang: string | Language): Promise<ViteDevServer> {
+	protected async getVite (): Promise<ViteDevServer> {
 		if (this.vite) {
 			return this.vite;
 		}
-		const value = await this.createVite(lang);
+		const value = await this.createVite();
 		this.vite = value;
 		return value;
 	}
 	private async getRender(url: string) {
-		const lang = safeGet<string>(process.env, "lang") || "en";
-		const { entry, html } = getEntryHtml(this.root, this.env, lang as Language);
+		const { entry, html } = getEntryHtml(this.root, this.env);
 		// 线上环境
 		if (this.env.mode === production) {
 			// const modules = Object.keys(require.cache);
@@ -74,7 +72,7 @@ class SSR {
 			// this.nocache(modules);
 			return { render, text: html };
 		} else {
-			const vite = await this.getVite(lang);
+			const vite = await this.getVite();
 			const text = await vite.transformIndexHtml(url, html);
 			const { render } = await vite.ssrLoadModule(entry);
 			return { render, text };
@@ -83,8 +81,8 @@ class SSR {
 	async render (url: string, data: object = {}): Promise<string> {
 		const { render, text } = await this.getRender(url);
 		if (render && text) {
-			const lang = safeGet<string>(process.env, "lang") || "en";
-			const value = Object.assign({}, data, { lang });
+			const i18n = I18n(url);
+			const value = Object.assign({}, data, { lang: i18n.getLang() });
 			const result = await render(url, value);
 			return this.getHtml(text, value, result);
 		}

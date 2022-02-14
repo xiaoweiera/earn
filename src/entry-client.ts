@@ -16,7 +16,7 @@ import { AppId, languageKey, rootData } from "src/config";
 // 设置 Element Ui 中英文
 import ElementPlus from "element-plus";
 import {getParam} from "src/utils/router";
-import Language from "src/types/language";
+import { Language } from "src/types/language";
 import safeGet from "@fengqiaogang/safe-get";
 import zhEn from "element-plus/es/locale/lang/en";
 import zhCn from "element-plus/es/locale/lang/zh-cn";

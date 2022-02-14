@@ -10,7 +10,10 @@ const props = defineProps({
   },
   value: {
     type: String,
-    default: () => I18n.common.button.more
+    default: () => {
+      const i18n = I18n();
+      return i18n.common.button.more;
+    }
   }
 })
 

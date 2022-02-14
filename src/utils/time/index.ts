@@ -6,10 +6,8 @@
 import dayjs from "dayjs";
 import {toLower} from "ramda";
 import I18n from "src/utils/i18n";
-import Language from "src/types/language";
+import { Language } from "src/types/language";
 import {TimeType, toDate, toNumber} from "src/utils/convert/to";
-
-const current = Language.en;
 
 export const timeFormat = 'YYYY-MM-DD HH:mm:ss'
 
@@ -111,19 +109,22 @@ export const dateMDFormat = function (time?: any): string {
 	return dateFormat(time, 'MM/DD')
 }
 export const dateYMDFormat = function (time?: any): string {
-	if (current === Language.en) {
+	const i18n = I18n();
+	if (i18n.getLang() === Language.en) {
 		return dateFormat(time, 'MM.DD.YYYY');
 	}
 	return dateFormat(time, 'YYYY.MM.DD')
 }
 export const dateYMDHFormat = function (time?: any): string {
-	if (current === Language.en) {
+	const i18n = I18n();
+	if (i18n.getLang() === Language.en) {
 		return dateFormat(time, 'MM.DD.YYYY HH');
 	}
 	return dateFormat(time, 'YYYY.MM.DD HH')
 }
 export const dateYMDHmFormat = function (time?: any): string {
-	if (current === Language.en) {
+	const i18n = I18n();
+	if (i18n.getLang() === Language.en) {
 		return dateFormat(time, 'MM.DD.YYYY HH:mm');
 	}
 	return dateFormat(time, 'YYYY.MM.DD HH:mm')
@@ -142,7 +143,8 @@ export const dateHMFormat = function (time?: any): string {
 }
 //得到年月日 区分中英文
 export const getDateMDY = (t: number) => {
-	if (current === Language.en) {
+	const i18n = I18n();
+	if (i18n.getLang() === Language.en) {
 		//@ts-ignore
 		return `${monthEnName[dateMonthFormat(t)]} ${dateDayFormat(t)},${dateYearFormat(t)}`
 	} else {
@@ -159,6 +161,7 @@ export const convertInterval = function (interval = '1d') {
 
 // 日期与当前时间做比较
 export const dateDiff = function (time: TimeType, now?: TimeType): string {
+	const i18n = I18n();
 	const value = dateTime(time);
 	const day = dateDiffDay(value, now);
 	if (day > 0) {
@@ -167,13 +170,13 @@ export const dateDiff = function (time: TimeType, now?: TimeType): string {
 			return dateYMDFormat(value);
 		}
 		// 几天前
-		return I18n.part(I18n.common.time.value.day, day, {count: day});
+		return i18n.part(i18n.common.time.value.day, day, {count: day});
 	}
 
 	const hour = dateDiffHour(value);
 	if (hour > 0) {
 		// 几小时前
-		return I18n.part(I18n.common.time.value.hour, hour, {count: hour});
+		return i18n.part(i18n.common.time.value.hour, hour, {count: hour});
 	}
 
 	let min = dateDiffMinute(value);
@@ -181,7 +184,7 @@ export const dateDiff = function (time: TimeType, now?: TimeType): string {
 		min = 1;
 	}
 	// 几分钟前
-	return I18n.part(I18n.common.time.value.minute, min, {count: min});
+	return i18n.part(i18n.common.time.value.minute, min, {count: min});
 }
 
 export const dateAdd = function (time: any, interval?: string) {

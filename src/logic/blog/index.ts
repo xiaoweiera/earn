@@ -8,18 +8,14 @@ import * as API from "src/api";
 import I18n from "src/utils/i18n";
 import {config} from "src/router/config";
 import { isArray, toArray, Equals } from "src/utils";
-import { BlogData, BlogList, BlogTab, AdData } from "src/types/blog/";
+import { BlogData, BlogList, BlogTab } from "src/types/blog/";
 
-
-export const tabAll: BlogTab = {
-	id: 'all',
-	name: I18n.address.all
-}
+export const tabAll = 'all';
 
 // 获取博客列表
 export const getList = async function (group: string | number = "", page: number = 1, pageSize: number = 20) {
 	const query = { page, page_size: pageSize  };
-	if (group && !Equals(group, tabAll.id as string)) {
+	if (group && !Equals(group, tabAll)) {
 		Object.assign(query, { group_id: group });
 	}
 	try {
@@ -39,17 +35,22 @@ export const getList = async function (group: string | number = "", page: number
 export const getTabs = async function (): Promise<BlogTab[]> {
 	try {
 		const list = await API.blog.tabs<BlogTab[]>();
-		return toArray(tabAll, list);
+		return toArray(list);
 	} catch (e) {
 		// todo
 	}
-	return [tabAll];
+	return [];
 }
 
 export const transformTabs = function (list: BlogTab[]) {
-	return _.map(list, function (item: BlogTab) {
+	const i18n = I18n();
+	const array = _.map(list, function (item: BlogTab) {
 		return { ...item, href: `${config.blog}?group=${item.id}`}
-	})
+	});
+	return toArray({
+		id: tabAll,
+		name: i18n.address.all
+	}, array);
 }
 
 export const getTopList = async function (): Promise<BlogData[]> {

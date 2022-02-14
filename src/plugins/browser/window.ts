@@ -4,6 +4,7 @@
  */
 
 import { IsSSR } from "src/config/ssr";
+import { home, domain } from "src/config/process";
 
 interface Root {
 	[key: string]: any;
@@ -20,10 +21,10 @@ if (IsSSR()) {
 		},
 		innerHeight: 600,
 		location: {
-			href: 'https://kingdata.com/',
+			href: home,
 			pathname: '/',
-			hostname: 'kingdata.com',
-			origin: 'https://kingdata.com',
+			hostname: domain,
+			origin: home,
 			search: '',
 			replace: function() {
 			},

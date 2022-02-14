@@ -3,13 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "icon": "node scripts/icon.js",
-    "dev:cn": "scripts/dev.sh cn",
-    "dev:en": "scripts/dev.sh en",
-    "serve:cn": "scripts/serve.sh cn 3333",
-    "serve:en": "scripts/serve.sh en 3334",
-    "serve": "npm run serve:cn & npm run serve:en",
-    "build:cn": "scripts/build.sh cn",
-    "build:en": "scripts/build.sh en"
+    "dev": "scripts/dev.sh",
+    "build": "scripts/build.sh",
+    "serve": "scripts/serve.sh 3333"
   },
   "_moduleAliases": {
     "@root": ".",
