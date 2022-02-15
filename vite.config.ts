@@ -5,7 +5,6 @@
 
 import _ from "lodash";
 import path from "path";
-import dotenv from "dotenv";
 import {oss, staticPath} from "./src/config/";
 import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
@@ -18,18 +17,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 
 const getConfig = function (env: ConfigEnv) {
-  if (env.mode === development || env.mode === production) {
-    return env;
-  }
-  const src = path.join(__dirname, `.env.${env.mode}`);
-  const config = dotenv.config({
-    path: src
-  });
-  const data = config.parsed as object;
-  return {
-    command: env.command,
-    mode: safeGet<string>(data, "VITE_NODE") || production,
-  }
+  return env;
 }
 
 const getSassData = function (env: ConfigEnv) {
@@ -54,7 +42,8 @@ const getSassData = function (env: ConfigEnv) {
 export default defineConfig(async function (env: ConfigEnv) {
   const config = getConfig(env);
   const data = getSassData(config);
-  console.log("vite config", config, data.sass);
+  console.log("vite config : ", config);
+  console.log("sass data: ", data.sass);
   return {
     base: data.staticUrl,
     define: {
