@@ -30,6 +30,7 @@ COPY --from=build /build/dist/* /app/dist
 COPY --from=build /build/src/* /app/src/*
 COPY . .
 
+RUN npm i
 EXPOSE 3333
 # 执行程序
 CMD npm run serve
