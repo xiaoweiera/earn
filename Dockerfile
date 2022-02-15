@@ -28,9 +28,11 @@ WORKDIR /app
 
 COPY --from=build /build/dist/* /app/dist
 COPY --from=build /build/src/* /app/src/*
-COPY ./public .
+COPY public ./public
 COPY package.json .
-COPY ./scripts .
+COPY scripts ./scripts
+
+RUN ls -al /app
 
 EXPOSE 3333
 # 执行程序
