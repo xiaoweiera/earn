@@ -11,7 +11,6 @@ type Fit = "cover" | "contain" | "fill" | "none";
 const props = defineProps({
   src: {
     type: String,
-    required: true,
   },
   fit: {
     type: String as PropType<Fit>,
@@ -22,22 +21,29 @@ const props = defineProps({
 const error = ref<boolean>(false);
 
 const value = computed<string>(function () {
-  return `background-image: url(${props.src})`;
+  if (props.src) {
+    return `background-image: url(${props.src})`;
+  }
+  return '';
 });
 
 onMounted(function () {
-  const image = new Image();
-  image.src = props.src;
-  image.onerror = () => {
+  if (props.src) {
+    const image = new Image();
+    image.src = props.src;
+    image.onerror = () => {
+      error.value = true;
+    };
+  } else {
     error.value = true;
-  };
+  }
 });
 
 </script>
 
 <template>
   <div class="ui-image" :class="{'error': error}">
-    <img v-if="fit === 'none'" class="" :src="src">
+    <img v-if="src && fit === 'none'" class="" :src="src">
     <i :class="fit" :style="value"></i>
   </div>
 </template>

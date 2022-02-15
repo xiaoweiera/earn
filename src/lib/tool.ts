@@ -316,8 +316,8 @@ export const numberUnitFormat = (value: any, defaultValue = '-') => {
 	if (!value) {
 		return value === 0 ? 0 : defaultValue
 	}
-	const env = getEnv();
-	if (env.lang === Language.cn) {
+	const i18n = I18n();
+	if (i18n.getLang() === Language.cn) {
 		return aboutCn(value)
 	} else {
 		return aboutEn(value)

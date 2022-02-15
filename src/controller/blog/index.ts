@@ -3,23 +3,23 @@
  * @author svon.me@gmail.com
  */
 
-import * as API from "src/api";
-import * as blog from "src/logic/blog";
+import { Model } from "src/logic/blog";
 import {Request, Response} from "express";
 import { names } from "src/config/header";
 import safeGet from "@fengqiaogang/safe-get";
 import { BlogDetail } from "src/types/blog/";
 
 export const list = async function (req: Request, res: Response) {
+	const api = new Model(req);
 	res.locals.menuActive = names.blog.blog;
 	const id = safeGet<string>(req.query, "group");
 
 	const [ list, tabs, ads, tops, hots ] = await Promise.all([
-		blog.getList(id),
-		blog.getTabs(),
-		API.blog.ads(),
-		blog.getTopList(),
-		blog.getHotList(),
+		api.getList(id),
+		api.getTabs(),
+		api.blog.ads(),
+		api.getTopList(),
+		api.getHotList(),
 	]);
 
 	const result = {
@@ -34,10 +34,11 @@ export const list = async function (req: Request, res: Response) {
 
 // 博客详情
 export const detail = async function (req: Request, res: Response) {
+	const api = new Model(req);
 	res.locals.menuActive = names.blog.blog;
 	const id = safeGet<number>(req.params, "id");
 	// 获取详情数据
-	const data = await API.blog.getDetail<BlogDetail>(id);
+	const data = await api.blog.getDetail<BlogDetail>(id);
 	const result = {
 		"API.blog.getDetail": data
 	};

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Item from "./item.vue";
 import { onMounted } from "vue";
-import * as blog from "~/logic/blog";
+import { Model } from "~/logic/blog";
 import { BlogData, AdData } from "src/types/blog/";
 import {createRef, onLoadRef} from "src/utils/ssr/ref";
 
@@ -11,7 +11,8 @@ const adList = createRef<AdData[]>("API.blog.ads", []);
 
 
 onMounted(function () {
-  onLoadRef(topList, blog.getTopList);
+  const api = new Model();
+  onLoadRef(topList, api.getTopList);
   onLoadRef(adList, "API.blog.ads");
 });
 </script>

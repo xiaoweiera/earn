@@ -4,10 +4,10 @@
  */
 
 
-import {Request, Response} from "express";
+import {Request} from "express";
 import safeGet from "@fengqiaogang/safe-get";
 
-export const Authorization = function (req: Request, res: Response): object {
+export const Authorization = function (req: Request): object {
 	const cookie = req.cookies;
 	const token = safeGet<string>(cookie, "token");
 	return { token };

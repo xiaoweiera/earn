@@ -4,7 +4,7 @@
  */
 
 import _ from "lodash";
-import * as API from "src/api/index";
+import API from "src/api/index";
 import safeGet from "@fengqiaogang/safe-get";
 import getRootData from "src/utils/root/data";
 import {ref, reactive, Ref, toRaw, UnwrapNestedRefs} from "vue";
@@ -32,7 +32,9 @@ type ApiFun = <T>(query?: object | string | number) => T;
 
 const getData = function<T>(api: string | ApiFun | Function, query?: object | string | number) {
 	if (_.isString(api)) {
-		const model = { API };
+		const model = {
+			api: new API()
+		};
 		const fun = safeGet<ApiFun>(model, api);
 		if (fun && _.isFunction(fun)) {
 			return fun<T>(query);

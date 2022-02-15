@@ -9,7 +9,7 @@ import BlogHot from "./hot.vue";
 import BlogRow from "./row.vue";
 import I18n from "src/utils/i18n";
 import {onMounted, ref} from "vue";
-import * as blog from "src/logic/blog";
+import { getAll, tabAll, Model, transformTabs } from "src/logic/blog";
 import {toArray, Equals} from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import {BlogTab, BlogData} from "src/types/blog/";
@@ -19,11 +19,11 @@ import UiBox from "~/components/ui/box/index.vue";
 const i18n = I18n();
 
 const activeName = ref<string>("group");
-const tabs = createRef<BlogTab[]>("API.blog.tabs", toArray(blog.tabAll));
-const groupId = createRef<string | number | undefined>(`query.${activeName.value}`, blog.tabAll.id);
+const tabs = createRef<BlogTab[]>("API.blog.tabs", toArray(getAll()));
+const groupId = createRef<string | number | undefined>(`query.${activeName.value}`, tabAll);
 
 const getInitValue = function () {
-  const queryGroup = getValue<string>(`query.${activeName.value}`, blog.tabAll.id as string);
+  const queryGroup = getValue<string>(`query.${activeName.value}`, tabAll);
   if (Equals(queryGroup, groupId.value as string)) {
     return getValue<BlogData[]>("API.blog.getList", []);
   }
@@ -32,9 +32,10 @@ const getInitValue = function () {
 
 // 获取列表数据
 const requestList = async function (data: object) {
+  const api = new Model();
   const page = safeGet<number>(data, "page");
   const size = safeGet<number>(data, "page_size");
-  return blog.getList(groupId.value, page, size);
+  return api.getList(groupId.value, page, size);
 }
 // 切换分组
 const onChangeTab = function (data: object) {
@@ -42,13 +43,14 @@ const onChangeTab = function (data: object) {
   if (value) {
     groupId.value = value;
   } else {
-    groupId.value = blog.tabAll.id;
+    groupId.value = tabAll;
   }
 }
 
 onMounted(function () {
+  const api = new Model();
   // 如果 tabs 数据为空，则执行 blog.getTabs 将放回结果赋值给 tabs
-  onLoadRef(tabs, blog.getTabs);
+  onLoadRef(tabs, api.getTabs);
 });
 
 </script>
@@ -64,12 +66,12 @@ onMounted(function () {
 
             <div class="px-0 py-3">
               <!-- 分类 -->
-              <ui-tab active-name="group" :list="blog.transformTabs(tabs)" @change="onChangeTab"></ui-tab>
+              <ui-tab active-name="group" :list="transformTabs(tabs)" @change="onChangeTab"></ui-tab>
             </div>
 
             <!-- 博客列表 -->
             <div class="mt-6" :key="groupId">
-              <ui-pagination :init-value="getInitValue()" :request="requestList" next-more="加载更多">
+              <ui-pagination :init-value="getInitValue()" :request="requestList">
                 <template #default="scope">
                   <div>
                     <BlogRow v-for="item in scope.list" class="blog-item" :key="item.id" :data="item"/>
@@ -98,6 +100,13 @@ onMounted(function () {
 <style scoped lang="scss">
 .blog-content {
   background-color: #FAFBFC;
+
+  .blog-item {
+    @apply mt-8;
+    &:first-child {
+      @apply mt-0;
+    }
+  }
 }
 .ui-box {
   --ui-box-right: 292px;
