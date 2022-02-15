@@ -12,12 +12,12 @@ export const AppId = "app";
 export const rootData = "__MlaABWNKPrYLzpbU";
 
 export const dashboard = "/";
-export const staticPath = "/static";
+export const staticPath = "/v4_sources";
 export const oss = "https://res.kingdata.xyz";
 
 export const productionAPI = "https://kingdata.xyz";
-// export const developmentAPI = "https://dev.kingdata.work";
-export const developmentAPI = "https://kingdata.xyz";
+export const developmentAPI = "https://dev.kingdata.work";
+// export const developmentAPI = "https://kingdata.xyz";
 
 export const title = "KingData";
 
