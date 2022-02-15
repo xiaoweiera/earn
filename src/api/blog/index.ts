@@ -10,7 +10,7 @@ import { asyncCheck } from "src/plugins/dao/response";
 export default class extends ApiTemplate {
 	async ads<T>(): Promise<T[]> {
 		try {
-			await asyncCheck<T>(request(this.lang).get(api.blog.adv));
+			return await asyncCheck<T[]>(request(this.lang).get(api.blog.adv));
 		} catch (e) {
 			// todo
 		}
@@ -23,7 +23,7 @@ export default class extends ApiTemplate {
 	// 博客列表
 	async getList<T>(query: object = {}) {
 		try {
-			const result = request().get(api.blog.list, { params: query });
+			const result = request(this.lang).get(api.blog.list, { params: query });
 			return asyncCheck<T>(result);
 		} catch (e) {
 		}
