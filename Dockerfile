@@ -1,5 +1,5 @@
 # 获取 Node 镜像
-FROM node:latest as base
+FROM node:17.5-buster-slim as base
 
 FROM base as build
 
