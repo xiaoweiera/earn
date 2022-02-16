@@ -14,7 +14,7 @@ const foreignKeyValue = "0";
 
 const createDb = function<T>(): DBList {
 	const db = new DBList([], primaryKey, foreignKey, foreignKeyValue);
-	const list = db.flatten<T>(headers);
+	const list = db.flatten<T>(headers());
 	db.insert(list);
 	return db;
 }

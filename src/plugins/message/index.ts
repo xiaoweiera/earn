@@ -40,14 +40,15 @@ const getContent = function(content?: Content | string): string {
 }
 
 const app = function(title: string, content: string, type: 'alert' | 'confirm', opt?: object): Promise<boolean> {
+	const i18n = I18n();
 	const option = Object.assign({
 		customClass: 'directive-message',
 		dangerouslyUseHTMLString: true,
 		closeOnClickModal: true,
 		showConfirmButton: true,
-		confirmButtonText: I18n.common.button.confirm,
+		confirmButtonText: i18n.common.button.confirm,
 		showCancelButton: false,
-		cancelButtonText: I18n.common.button.close,
+		cancelButtonText: i18n.common.button.close,
 		closeOnPressEscape: true,
 	}, opt ? opt : {})
 

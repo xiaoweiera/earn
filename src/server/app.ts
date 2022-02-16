@@ -4,9 +4,9 @@
  */
 
 import path from "path";
+import I18n from "src/utils/i18n";
 import Router from "./router/index";
 import Assets from "./router/assets";
-import I18n from "src/utils/i18n";
 import {getEnv, production, domain} from "src/config";
 import Express, { Request, Response, NextFunction } from "express";
 
@@ -26,6 +26,7 @@ const main = async function () {
 
 	// 处理常用数据
 	app.use(function (req: Request, res: Response, next: NextFunction) {
+		const i18n = I18n(req);
 		let location: string;
 		if (process.env.location) {
 			location = process.env.location;
@@ -42,7 +43,7 @@ const main = async function () {
 			keywords: "",
 			description: "",
 			// 标题
-			title: I18n.common.site.name,
+			title: i18n.common.site.name,
 		});
 		next();
 	});

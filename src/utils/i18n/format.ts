@@ -49,7 +49,7 @@ function i18nFormat(lang: string, langList: object = {}) {
 	// @ts-ignore
 	this.setLang =  (lang: string) => {
 		current = lang;
-		console.log("current : ", lang);
+		// console.log("current : ", lang);
 		const data = map.get(lang);
 		if (data) {
 			_.each(data,  (value: object | string, key: string) => {

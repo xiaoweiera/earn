@@ -12,7 +12,7 @@ const props = defineProps({
   // 触发吸顶时激活样式
   activeClass: {
     type: String,
-    required: true,
+    required: false,
   }
 });
 

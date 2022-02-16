@@ -3,14 +3,44 @@
  * @author svon.me@gmail.com
  */
 
+import _ from "lodash";
+import {Request} from "express";
+import I18n from "src/utils/i18n";
 import { getEnv } from "src/config/";
+import { Lang } from "src/types/language";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
+import { Authorization } from "../express/authorization";
 import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 // 用户信息
-const getUserAuth = async function (config: AxiosRequestConfig): Promise<string> {
-	return '';
+const getUserAuth = function (config: AxiosRequestConfig, lang?: Lang) {
+	const tokenName = "token";
+	const paramName = "params";
+	const dataName = "data";
+	let token: string = '';
+	if (lang && _.isObject(lang)) {
+		const value = Authorization(lang as Request);
+		token = safeGet<string>(value, tokenName);
+	}
+	if (token) {
+		return token;
+	}
+
+	// 从 Get 参数中获取 token
+	token = safeGet<string>(config, `${paramName}.${tokenName}`);
+	if (token) {
+		const value = _.omit(safeGet<object>(config, paramName), [tokenName]);
+		safeSet(config, paramName, value);
+		return token;
+	}
+	// 从 Post 参数中获取 token
+	token = safeGet<string>(config, `${dataName}.${tokenName}`);
+	if (token) {
+		const value = _.omit(safeGet<object>(config, dataName), [tokenName]);
+		safeSet(config, dataName, value);
+		return token;
+	}
 }
 
 // 判断请求的地址是否和业务域名相同
@@ -23,7 +53,7 @@ const getCacheStatus = function(config: AxiosRequestConfig): boolean {
 	return !!safeGet<any>(config, "params.cache");
 }
 
-const Dao = function (option?: AxiosRequestConfig): AxiosInstance {
+const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 	const env = getEnv();
 	const setting = Object.assign(
 		{
@@ -38,11 +68,12 @@ const Dao = function (option?: AxiosRequestConfig): AxiosInstance {
 
 	service.interceptors.request.use(
 		async (config: AxiosRequestConfig) => {
-			const current = env.lang;
+			const i18n = I18n(lang);
+			const current: string = i18n.getLang();
 			const status = isKindDataDomain(config);
 			if (status) {
 				// 设置 token
-				const token = await getUserAuth(config);
+				const token = getUserAuth(config, lang);
 				if (token) {
 					safeSet(config, "headers.Authorization", `Token ${token}`);
 				}
@@ -68,7 +99,7 @@ const Dao = function (option?: AxiosRequestConfig): AxiosInstance {
 			// 	 * const params = { id: "1", name: "aaa" }
 			// 	 * 替换后为 "xxx/1/aaa/xxx"
 			// 	 */
-			// 	config.url = I18n.template(config.url, parameter)
+			// 	config.url = i18n.template(config.url, parameter)
 			// }
 			return config;
 		},

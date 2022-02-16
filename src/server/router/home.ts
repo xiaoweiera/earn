@@ -5,7 +5,9 @@ import { Router as ExpressRouter } from "express";
 
 const Router = async function (root: string, env: Env) {
     const router = ExpressRouter();
-    router.get(config.home, []);
+    router.get(config.home, function (req, res){
+        res.send({});
+    });
 
     return router;
 }

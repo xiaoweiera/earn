@@ -5,13 +5,13 @@
  */
 
 import { onMounted } from "vue";
-import * as blog from "src/logic/blog";
+import { getAll, makeDetailLink } from "src/logic/blog";
 import {BlogData} from "src/types/blog";
 import {createRef, onLoadRef} from "src/utils/ssr/ref";
 import {toArray, dateYMDFormat} from "src/utils";
 
 const apiName = "API.blog.getHotList";
-const hots = createRef<BlogData[]>(apiName, toArray(blog.tabAll));
+const hots = createRef<BlogData[]>(apiName, toArray(getAll()));
 
 onMounted(function () {
   onLoadRef<BlogData[]>(hots, apiName);
@@ -21,7 +21,7 @@ onMounted(function () {
 
 <template>
   <div>
-    <v-router v-for="data in hots" :href="blog.makeDetailLink(data.id)" target="_blank" class="hot-item" :key="data.id">
+    <v-router v-for="data in hots" :href="makeDetailLink(data.id)" target="_blank" class="hot-item" :key="data.id">
       <p class="blog-date text-global-highTitle text-opacity-65 text-12-16">{{ dateYMDFormat(data.release_date) }}</p>
       <div class="blog-content mt-1">
         <div class="w-58.5 h-29.5 relative">

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { PropType } from "vue";
-import * as blog from "src/logic/blog";
 import { BlogData } from "src/types/blog/";
 import { dateDiff } from "src/utils/time/";
+import { makeDetailLink } from "src/logic/blog";
 
 const props = defineProps({
   data: {
@@ -18,7 +18,7 @@ const props = defineProps({
 
 <template>
 <div>
-  <v-router :href="blog.makeDetailLink(data.id)" target="_blank">
+  <v-router class="block" :href="makeDetailLink(data.id)" target="_blank">
     <div class="row-item flex w-full h-17 md:h-36.5">
       <div class="left-item h-full overflow-hidden">
         <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/>

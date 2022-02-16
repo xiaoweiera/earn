@@ -3,13 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "icon": "node scripts/icon.js",
-    "dev:cn": "scripts/dev.sh cn",
-    "dev:en": "scripts/dev.sh en",
-    "serve:cn": "scripts/serve.sh cn 3333",
-    "serve:en": "scripts/serve.sh en 3334",
-    "serve": "npm run serve:cn & npm run serve:en",
-    "build:cn": "scripts/build.sh cn",
-    "build:en": "scripts/build.sh en"
+    "dev": "scripts/dev.sh",
+    "build": "scripts/build.sh",
+    "serve": "scripts/serve.sh 3333"
   },
   "_moduleAliases": {
     "@root": ".",
@@ -23,17 +19,16 @@
     "bignumber.js": "^9.0.2",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.10.7",
-    "dotenv": "^14.3.2",
     "element-plus": "^1.0.2-beta.71",
     "js-cookie": "^3.0.1",
     "prism-theme-vars": "^0.2.2",
     "ramda": "^0.27.2",
+    "swiper": "6.6.1",
     "url": "^0.11.0",
     "url-pattern": "^1.0.3",
-    "vue": "^3.2.29",
-    "vue-showdown": "^3.1.0",
     "uuid": "^8.3.2",
-    "swiper": "6.6.1"
+    "vue": "^3.2.29",
+    "vue-showdown": "^3.1.0"
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",
@@ -44,9 +39,9 @@
     "@types/node": "^16.11.21",
     "@types/qrcode": "^1.4.2",
     "@types/ramda": "^0.27.64",
+    "@types/uuid": "^8.3.1",
     "@vitejs/plugin-vue": "^2.1.0",
     "@vitejs/plugin-vue-jsx": "^1.3.3",
-    "@types/uuid": "^8.3.1",
     "axios": "^0.24.0",
     "compression": "^1.7.4",
     "express": "^4.17.2",

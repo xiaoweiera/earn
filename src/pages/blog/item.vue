@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropType } from "vue";
-import * as blog from "src/logic/blog";
 import { BlogData } from "src/types/blog/";
+import { makeDetailLink } from "src/logic/blog";
 
 const props = defineProps({
   data: {
@@ -16,7 +16,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <v-router :href="blog.makeDetailLink(data.id)" target="_blank" class="block blog-item h-32.75" :class="{'relative': absolute}">
+  <v-router :href="makeDetailLink(data.id)" target="_blank" class="block blog-item h-32.75" :class="{'relative': absolute}">
     <div class="w-full h-full">
       <div class="equal-content w-full h-full">
         <ui-image class="w-full h-full" fit="fill" :src="data.cover"/>

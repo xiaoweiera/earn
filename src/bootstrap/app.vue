@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {getEnv} from "src/config";
 import {Device} from "src/config/process";
-import Language from "src/types/language";
+import { Language } from "src/types/language";
 import {onMounted, ref} from "vue";
 
 const lang = ref<Language>();

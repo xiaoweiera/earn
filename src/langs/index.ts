@@ -2,9 +2,9 @@
  * @file 语言包
  */
 
-import Language from "src/types/language";
 import LanguageCn from "src/langs/cn/index";
 import LanguageEn from "src/langs/en/index";
+import { Language } from "src/types/language";
 
 export default {
 	[Language.cn]: LanguageCn,

@@ -5,6 +5,7 @@
 
 import {basename} from "path";
 import {createApp} from "./bootstrap/main";
+import window from "src/plugins/browser/window";
 import {renderToString} from "vue/server-renderer";
 import {NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded} from "vue-router";
 
@@ -12,12 +13,12 @@ import {NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoa
  * @param url 页面路由
  * @param data 页面需要使用的数据
  */
-
 interface Manifest {
 	[key: string]: string[];
 }
 
 export const render = async function (url: string, data: object = {}) {
+	window.location.href = url;
 	const ctx: any = {};
 	const {app, router} = createApp(data);
 	router.beforeEach(function (to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded, next: NavigationGuardNext) {

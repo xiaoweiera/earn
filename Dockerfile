@@ -1,27 +1,36 @@
-# 镜像源地址： https://hub.docker.com/repository/docker/svon/kdweb
-FROM svon/kdweb:v1 as build-stage
+# 获取 Node 镜像
+FROM node:17.5-buster-slim as base
+
+FROM base as build
 
 WORKDIR /build
 COPY package*.json ./
 COPY . .
 
+# 安装 pnpm
+RUN npm install -g pnpm
+
 # 修改 pnpm 镜像源
-RUN pnpm config set registry https://registry.npmmirror.com/
+# RUN pnpm config set registry https://registry.npmmirror.com/
+
 # 安装项目依赖
 RUN pnpm i
 
 # 同步 ali icon 数据
 RUN npm run icon
 
-# 编译 中文环境
-RUN npm run build:cn
+# 编译环境
+RUN npm run build
 
-# 编译 英文环境
-RUN npm run build:en
+# FROM base
 
-# 替换默认的 nginx 配置
-COPY nginx.conf /etc/nginx/sites-enabled/default
+# WORKDIR /app
 
-EXPOSE 80
+# COPY --from=build /build/dist/* /app/dist
+#COPY --from=build /build/src/* /app/src/*
+# COPY . .
+
+# RUN npm i
+EXPOSE 3333
 # 执行程序
-CMD service nginx restart && npm run serve
+CMD npm run serve

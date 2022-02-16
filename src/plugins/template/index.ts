@@ -7,7 +7,7 @@ import _ from "lodash";
 import tpl from "./template";
 import htmlEncode from "js-htmlencode";
 import Icons from "src/config/iconfont";
-import Language from "src/types/language";
+import { Language } from "src/types/language";
 import Crypto from "src/plugins/encryption/crypto";
 import {rootData, languageKey} from "src/config";
 

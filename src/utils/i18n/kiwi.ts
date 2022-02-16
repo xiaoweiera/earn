@@ -5,7 +5,7 @@
 
 
 import langList from "src/langs/index";
-import Language from "src/types/language";
+import { Language } from "src/types/language";
 
 import Format, {I18nFormat} from "./format";
 

@@ -3,32 +3,16 @@
  * @author svon.me@gmail.com
  */
 
-import {getKiwi, Kiwi} from "./kiwi";
-import Language from "src/types/language";
-import { getProcess } from "src/config/process";
+import {getKiwi} from "./kiwi";
+import getLang  from "src/utils/url/lang";
+import {Language, Lang} from "src/types/language";
 
-
-
-export const getI18n = function (lang?: Language): Kiwi {
-	if (lang) {
-		return getKiwi(lang as string);
+const I18n = function(lang?: Lang) {
+	const value = getLang(lang);
+	if (value) {
+		return getKiwi(value);
 	}
-	const env = getProcess();
-	console.log("src/utils/i18n lang = %s", env.lang);
-	return getKiwi(env.lang);
-}
-
-let I18n: Kiwi = getI18n();
-
-
-export const setLanguage = function (lang?: Language) {
-	if (lang) {
-		I18n.setLang(lang as string);
-	} else {
-		const opt = getProcess();
-		I18n.setLang(opt.lang);
-	}
-	return I18n;
+	return getKiwi(Language.en);
 }
 
 export default I18n;

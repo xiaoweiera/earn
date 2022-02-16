@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import {Pointer} from "@element-plus/icons";
-
 defineProps({
   width: {
     type: [Number, String],
