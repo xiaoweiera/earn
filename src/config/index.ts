@@ -6,9 +6,10 @@
 export { IsSSR } from "./ssr";
 import * as process from "./process";
 import safeSet from "@fengqiaogang/safe-set";
-export { languageKey, production, development, home, domain } from "./process";
+export { languageKey, production, development, home, domain, appDownload } from "./process";
 
 export const AppId = "app";
+export const tokenName = "auth_token";
 export const rootData = "__MlaABWNKPrYLzpbU";
 
 export const dashboard = "/";
@@ -16,12 +17,10 @@ export const staticPath = "/v4_sources";
 export const oss = "https://res.kingdata.xyz";
 
 export const productionAPI = "https://kingdata.xyz";
-export const developmentAPI = "https://dev.kingdata.work";
-// export const developmentAPI = "https://kingdata.xyz";
+// export const developmentAPI = "https://dev.kingdata.work";
+export const developmentAPI = "https://kingdata.xyz";
 
 export const title = "KingData";
-
-export const appDownload = "/download/";
 
 export interface Argv extends process.Process{
 }

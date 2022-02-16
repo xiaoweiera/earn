@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import * as env from "src/config";
 import {ref, computed} from "vue";
-import isShowChildren from "./isshow";
+import User from "../user/index.vue";
 import MenuContentList from "./menu.vue";
+
+import isShowChildren from "./isshow";
 import {MenuItem} from "src/types/menu/";
 import {createRef} from "src/utils/ssr/ref";
 
@@ -33,8 +35,11 @@ const isShowSub = computed<boolean>(function () {
           <img class="min-w-28" :src="Logo">
         </v-router>
         <!-- PC端导航 -->
-        <div class="ml-10 h-full hidden lg:block">
+        <div class="ml-10 h-full hidden lg:block flex-1">
           <MenuContentList class="pt-2.5 h-full" :menus="headers"/>
+        </div>
+        <div>
+          <User/>
         </div>
       </div>
     </div>

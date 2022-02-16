@@ -8,11 +8,16 @@ import Express from "express";
 import {getEnv} from "src/config";
 import Router from "./router/index";
 import Assets from "./router/assets";
+import CookieParser from "cookie-parser";
+import common from "src/controller/common/";
+
 
 const root: string = path.resolve(__dirname, "../..");
 
 const main = async function () {
 	const app = Express();
+	app.use(CookieParser());
+
 	const config = Object.assign({}, getEnv(), {
 		port: process.env.port || 3333,
 		host: process.env.host || "0.0.0.0",
@@ -22,6 +27,7 @@ const main = async function () {
 
 	const assets = await Assets(root, config);
 	app.use(assets);
+	app.use(common);
 
 	// // 处理常用数据
 	// app.use(function (req: Request, res: Response, next: NextFunction) {

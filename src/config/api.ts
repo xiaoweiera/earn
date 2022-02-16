@@ -11,5 +11,9 @@ export const blog = {
 	adv: '/api/blog/v1/adv',     // 广告
 	tabs: '/api/blog/v1/groups', // 分组
 	list: "/api/blog/v1/blogs",  // 列表
-	detail: "/api/blog/v1/blog"  // 详情
+	detail: "/api/blog/v1/blog",  // 详情
 };
+
+export const user = {
+	info: "/api/v1/users/my"
+}

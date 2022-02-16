@@ -44,7 +44,7 @@ const send = async function (root: string, env: Env) {
 				query: Object.assign({}, req.params || {}, req.query || {}),
 			};
 			// 获取默认选中的数据
-			const menuActive = safeGet<string>(data, "menuActive");
+			const menuActive = safeGet<string>(res.locals, "menuActive");
 			// 处理头部导航数据
 			safeSet(data, "common.header", getMenuList(menuActive, req));
 			// 处理底部导航数据

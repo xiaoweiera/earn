@@ -4,9 +4,10 @@
  */
 
 import _ from "lodash";
+import Cookie from "js-cookie";
 import {Request} from "express";
 import I18n from "src/utils/i18n";
-import { getEnv } from "src/config/";
+import { getEnv, tokenName } from "src/config/";
 import { Lang } from "src/types/language";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
@@ -15,30 +16,35 @@ import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 // 用户信息
 const getUserAuth = function (config: AxiosRequestConfig, lang?: Lang) {
-	const tokenName = "token";
-	const paramName = "params";
-	const dataName = "data";
+	const tokenKey = "token";
+	const paramKey = "params";
+	const dataKey = "data";
 	let token: string = '';
 	if (lang && _.isObject(lang)) {
 		const value = Authorization(lang as Request);
-		token = safeGet<string>(value, tokenName);
+		token = safeGet<string>(value, tokenKey);
+	}else {
+		const value = Cookie.get(tokenName);
+		if (value) {
+			token = value;
+		}
 	}
 	if (token) {
 		return token;
 	}
 
 	// 从 Get 参数中获取 token
-	token = safeGet<string>(config, `${paramName}.${tokenName}`);
+	token = safeGet<string>(config, `${paramKey}.${tokenKey}`);
 	if (token) {
-		const value = _.omit(safeGet<object>(config, paramName), [tokenName]);
-		safeSet(config, paramName, value);
+		const value = _.omit(safeGet<object>(config, paramKey), [tokenKey]);
+		safeSet(config, paramKey, value);
 		return token;
 	}
 	// 从 Post 参数中获取 token
-	token = safeGet<string>(config, `${dataName}.${tokenName}`);
+	token = safeGet<string>(config, `${dataKey}.${tokenKey}`);
 	if (token) {
-		const value = _.omit(safeGet<object>(config, dataName), [tokenName]);
-		safeSet(config, dataName, value);
+		const value = _.omit(safeGet<object>(config, dataKey), [tokenKey]);
+		safeSet(config, dataKey, value);
 		return token;
 	}
 }
