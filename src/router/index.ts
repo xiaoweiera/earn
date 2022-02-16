@@ -11,6 +11,7 @@ import {
 	createRouter as _createRouter,
 } from "vue-router";
 
+import Home from './home'
 import DAppList from "./dapp";
 import BlogList from "./blog";
 
@@ -23,9 +24,9 @@ const routes = [
 			{
 				path: "/",
 				name: "home",
-				component: () => import("src/pages/index.vue"),
+				component: () => import("src/pages/home/index.vue"),
 			},
-
+			...Home,
 			...DAppList,
 			...BlogList,
 

@@ -5,6 +5,7 @@
 
 import _ from "lodash";
 import Blog from "./blog";
+import Home from "./home"
 import { Env } from "src/config";
 import SSR from "src/plugins/vue";
 import { config } from "src/router/config";
@@ -14,6 +15,8 @@ import { Router as ExpressRouter, Request, Response, NextFunction } from "expres
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 	const router = ExpressRouter();
+	//home
+	const home = await Home(root, env);
 	// 博客
 	const blog = await Blog(root, env);
 	// Vue 渲染
@@ -60,6 +63,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 		};
 		return next();
 	});
+	// 装载home相关路由
+	router.use(home);
 	// 装载博客相关路由
 	router.use(blog);
 

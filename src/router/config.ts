@@ -1,5 +1,6 @@
 
 export const config = {
+	home:'/home',
 	topic: '/topic',
 	growthpad: '/growthpad',
 	apy: '/apy',
