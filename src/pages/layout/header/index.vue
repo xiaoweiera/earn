@@ -3,32 +3,24 @@ import * as env from "src/config";
 import { ref, computed } from "vue";
 import MenuContentList from "./menu.vue";
 import { MenuItem } from "src/types/menu/";
-import getRootData from "src/utils/root/data";
-import { getMenuList } from "src/logic/common/header";
-const urlActive = getRootData<string>("menuActive");
-const headers = getMenuList<MenuItem>(urlActive);
+import { createRef } from "src/utils/ssr/ref";
+const active = createRef<string>("menuActive", "");
+const headers = createRef<MenuItem[]>("common.header", []);
 
-const active = ref<string>("");
-const menuList = ref<MenuItem[]>([]);
 const Logo = ref<string>(env.oss + "/common/logo-white.svg");
 
-if (urlActive) {
-  active.value = urlActive;
-}
-if (headers.length) {
-  menuList.value = headers;
-}
 
 const isShowSub = computed<boolean>(function () {
-  let status = false;
-  for(let i = 0, len = headers.length; i < len; i++) {
-    const item = headers[i];
+  let flag: boolean = false;
+  const menus: MenuItem[] = headers.value;
+  for(let i = 0, len = menus.length; i < len; i++) {
+    const item = menus[i];
     if (item.children && item.children.length > 0 && item.active) {
-      status = true;
+      flag = true;
       break;
     }
   }
-  return status;
+  return flag;
 });
 
 </script>
@@ -42,7 +34,7 @@ const isShowSub = computed<boolean>(function () {
         </v-router>
         <!-- PC端导航 -->
         <div class="ml-10 h-full hidden lg:block">
-          <MenuContentList class="pt-2.5 h-full" :menus="menuList"/>
+          <MenuContentList class="pt-2.5 h-full" :menus="headers"/>
         </div>
       </div>
     </div>
