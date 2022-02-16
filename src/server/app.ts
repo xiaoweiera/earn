@@ -4,11 +4,10 @@
  */
 
 import path from "path";
-import I18n from "src/utils/i18n";
+import Express from "express";
+import {getEnv} from "src/config";
 import Router from "./router/index";
 import Assets from "./router/assets";
-import {getEnv, production, domain} from "src/config";
-import Express, { Request, Response, NextFunction } from "express";
 
 const root: string = path.resolve(__dirname, "../..");
 
@@ -24,29 +23,18 @@ const main = async function () {
 	const assets = await Assets(root, config);
 	app.use(assets);
 
-	// 处理常用数据
-	app.use(function (req: Request, res: Response, next: NextFunction) {
-		const i18n = I18n(req);
-		let location: string;
-		if (process.env.location) {
-			location = process.env.location;
-		} else {
-			if (config.mode !== production) {
-				location = `https://${domain}`
-			} else {
-				location = `https//:${req.get('host')}`;
-			}
-			process.env.location = location;
-		}
-		Object.assign(res.locals, {
-			location,
-			keywords: "",
-			description: "",
-			// 标题
-			title: i18n.common.site.name,
-		});
-		next();
-	});
+	// // 处理常用数据
+	// app.use(function (req: Request, res: Response, next: NextFunction) {
+	// 	const i18n = I18n(req);
+	//
+	// 	Object.assign(res.locals, {
+	// 		keywords: "",
+	// 		description: "",
+	// 		// 标题
+	// 		title: i18n.common.site.name,
+	// 	});
+	// 	next();
+	// });
 
 	const router = await Router(root, config);
 	app.use(router);

@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import * as env from "src/config";
-import { ref, computed } from "vue";
+import {ref, computed} from "vue";
+import isShowChildren from "./isshow";
 import MenuContentList from "./menu.vue";
-import { MenuItem } from "src/types/menu/";
-import { createRef } from "src/utils/ssr/ref";
-const active = createRef<string>("menuActive", "");
-const headers = createRef<MenuItem[]>("common.header", []);
+import {MenuItem} from "src/types/menu/";
+import {createRef} from "src/utils/ssr/ref";
 
+const headers = createRef<MenuItem[]>("common.header", []);
 const Logo = ref<string>(env.oss + "/common/logo-white.svg");
 
 
 const isShowSub = computed<boolean>(function () {
   let flag: boolean = false;
   const menus: MenuItem[] = headers.value;
-  for(let i = 0, len = menus.length; i < len; i++) {
+  for (let i = 0, len = menus.length; i < len; i++) {
     const item = menus[i];
-    if (item.children && item.children.length > 0 && item.active) {
+    if (item.active && isShowChildren(item.children)) {
       flag = true;
       break;
     }
@@ -44,12 +44,13 @@ const isShowSub = computed<boolean>(function () {
 
 <style lang="scss">
 /* 设置导航高度 */
-@mixin mainHeaderSpace ($height) {
+@mixin mainHeaderSpace($height) {
   height: $height;
-  @at-root .layout &{
+  @at-root .layout & {
     .top-header {
       top: $height;
     }
+
     & ~ .main {
       .top-header {
         top: $height;
@@ -61,6 +62,7 @@ const isShowSub = computed<boolean>(function () {
 .header-wrap {
   $height: 60px;
   $subHeight: 50px;
+  height: $height;
 
   .fixed {
     max-width: 100vw;
@@ -69,17 +71,21 @@ const isShowSub = computed<boolean>(function () {
   .ui-header-menu {
     height: $height;
   }
+
   .ui-header-sub {
     height: $subHeight;
   }
+
   @include mainHeaderSpace($height);
 
   .extend {
     @apply hidden;
   }
+
   @screen lg {
     &.sub-header {
       @include mainHeaderSpace($height + $subHeight);
+
       .extend {
         @apply block;
       }

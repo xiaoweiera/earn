@@ -111,6 +111,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 			if (status >= 200 && status < 300) {
 				return res;
 			} else {
+				console.log(res);
 				return Promise.reject("error");
 			}
 		},
