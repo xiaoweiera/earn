@@ -104,11 +104,11 @@ export const valueFormat = function(value: string | number, unit: string = '', p
 	return `${prefix}${value}${unit}`
 }
 
-export const toNumberCashFormat = function(value?: any, unit: string = '', prefix: string = ''): string {
+export const toNumberCashFormat = function(value?: any, unit: string = '', prefix: string = '',noValue:string=defaultNumberValue): string {
 	if (isEmpty(value, true)) {
-		return defaultNumberValue
+		return noValue
 	}
-	const number = tools.formatRulesNumber(value, false, defaultNumberValue)
+	const number = tools.formatRulesNumber(value, false, noValue)
 	if((value<1) || (value<0 && value>-1)){
 		return valueFormat(number, unit, prefix)
 	}

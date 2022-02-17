@@ -382,7 +382,7 @@ export const formatRulesNumber = (v: any, isShowAll: boolean = false, defaultVal
 		return getRulesNumber(v, isShowAll, defaultValue)
 	}
 }
-//统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上
+//统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上，默认保留两位
 export const formatRulesPrice = (v: any, isShowAll: boolean) => {
 	if (!v) {
 		return v === 0 ? 0 : '-'
