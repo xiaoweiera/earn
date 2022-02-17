@@ -21,7 +21,7 @@ const url = computed<string>(function() {
 </script>
 
 <template>
-  <ui-hover>
+  <ui-hover placement="top">
     <template #label>
       <div class="flex cursor-pointer ">
         <v-router class="flex md:hidden" :href="url" target="_blank">
@@ -33,13 +33,15 @@ const url = computed<string>(function() {
       </div>
     </template>
     <template #content>
-      <div class="text-center">
-        <div class="flex">
-          <ui-qrcode width="90" height="90" href :value="href"></ui-qrcode>
+      <div class="p-2">
+        <div class="text-center">
+          <div class="flex">
+            <ui-qrcode width="90" height="90" href :value="href"></ui-qrcode>
+          </div>
         </div>
-      </div>
-      <div class="pt-1 text-center whitespace-nowrap">
-        <span class="text-xs text-global-highTitle text-opacity-85">{{ desc }}</span>
+        <div class="pt-1 text-center whitespace-nowrap">
+          <span class="text-xs text-global-highTitle text-opacity-85">{{ desc }}</span>
+        </div>
       </div>
     </template>
   </ui-hover>

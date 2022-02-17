@@ -1,0 +1,17 @@
+/**
+  @file 重置某些样式
+ */
+
+// 隐藏谷歌人机校验提示内容
+[class~=grecaptcha], [class*=grecaptcha], .grecaptcha-badge {
+  display: none !important;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.el-popover {
+  &.ui-hover {
+    @apply p-0;
+    min-width: initial;
+  }
+}

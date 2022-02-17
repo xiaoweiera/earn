@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {PropType} from "vue";
 import MenuSub from "./sub.vue";
+import isShowChildren from "./isshow";
 import MenuContent from "./content.vue";
 import { MenuItem } from "src/types/menu/";
 
@@ -10,6 +11,8 @@ const props = defineProps({
     type: Array as PropType<MenuItem[]>,
   }
 });
+
+
 </script>
 <template>
   <div class="text-kdFang text-white ">
@@ -19,7 +22,7 @@ const props = defineProps({
         <div class="relative">
           <MenuContent class="wrap-menu-item" :data="data">
             <template #children="scope">
-              <div class="menu-children">
+              <div class="menu-children" v-if="isShowChildren(scope.list)">
                 <template v-if="data.active">
                   <MenuSub :list="scope.list" :sub="data.expand"></MenuSub>
                 </template>

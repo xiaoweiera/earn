@@ -11,10 +11,17 @@ onMounted(function () {
   load.value = true;
 });
 </script>
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({
+  name: "ClientOnly"
+});
+</script>
 
 <template>
-  <div v-if="load">
-    <slot></slot>
+  <div>
+    <slot v-if="load"></slot>
+    <slot v-else name="note"></slot>
   </div>
 </template>
 

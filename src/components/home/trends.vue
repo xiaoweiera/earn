@@ -1,0 +1,109 @@
+<script setup lang="ts">
+import {computed, ref} from "vue";
+import document from "src/plugins/browser/document";
+import { oss } from "src/config";
+// 引入 swiper vue 组件
+// @ts-ignore
+import SwiperCore, {Pagination, Autoplay} from "swiper";
+// @ts-ignore
+import {Swiper, SwiperSlide} from "swiper/vue";
+// 引入 swiper 样式
+import "swiper/swiper-bundle.css";
+
+// 装载 swiper 组件
+SwiperCore.use([Pagination, Autoplay])
+
+const list = [
+  {name: 'aaaa', key: 'a',img:`${oss}/dapp/test1.jpg`},
+  {name: 'bbbb', key: 'b',img:`${oss}/dapp/test2.jpg`},
+  {name: 'cccc', key: 'c',img:`${oss}/dapp/test2.jpg`},
+  {name: 'dddd', key: 'd',img:`${oss}/dapp/test2.jpg`},
+  {name: 'eeee', key: 'e',img:`${oss}/dapp/test2.jpg`},
+  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
+  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
+  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
+  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
+  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
+  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
+  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
+
+]
+const isBegin = ref(true)
+const isEnd = ref(false)
+//下一页
+const next = () => document.querySelector('.swiper-topic').swiper.slideNext()
+//上一页
+const last = () => document.querySelector('.swiper-topic').swiper.slidePrev()
+const change = (swiper: any) => {
+  console.log('1')
+  console.log(swiper)
+  isBegin.value = swiper.isBeginning
+  isEnd.value = swiper.isEnd
+
+}
+
+const init=(swiper:any)=>{
+  setTimeout(()=>{
+    isBegin.value = swiper.isBeginning
+    isEnd.value = swiper.isEnd
+  })
+}
+</script>
+<template>
+  <div>
+    <div class="flex items-center text-global-white">
+      <span class="text-kd24px24px font-kdBarlow">Today's trends</span>
+      <span class="ml-3 text-kd14px18px font-medium text-number">(Updated at 12:00 and 21:00)</span>
+    </div>
+    <div class="mt-4 relative">
+      <div class="w-full h-full ">
+        <div :class="isBegin?'hidden':'jian-left'" class="rounded-kd8px">
+          <img class="left" @click="last" :src="`${oss}/dapp/zuojian.png`" alt="">
+        </div>
+        <Swiper class="h-full swiper-topic"
+                @init="init"
+                :initialSlide="0"
+                slidesPerView="auto"
+                :space-between="24"
+                :resize-observer="true"
+                @setTranslate="change">
+          <template v-for="(item, index) in list" :key="index">
+            <SwiperSlide class="rounded-kd6px">
+              <div :class="index===0?'w-101':'w-47.5'" class="h-23.5 rounded-kd6px  relative">
+                <UiAd class="top-3 left-3 absolute"/>
+                <img class="rounded-kd6px h-full" :src="item.img" alt="">
+              </div>
+            </SwiperSlide>
+          </template>
+        </Swiper>
+      </div>
+      <div :class="isEnd?'hidden':'jian-right'">
+        <img class="right" @click="next" :src="`${oss}/dapp/rightjian.png`" alt="">
+      </div>
+    </div>
+  </div>
+</template>
+<style lang="scss" scoped>
+//.jian-right {
+//  background: linear-gradient(to right, #ff000000, #ffffffc9);
+//  @apply w-35 h-full absolute right-0 top-0 z-2;
+//}
+//
+//.jian-left {
+//  background: linear-gradient(to right, #ffffffc9, #ff000000);
+//  @apply w-35 h-full absolute left-0 top-0 z-2;
+//}
+
+.left {
+  @apply w-9 h-9 cursor-pointer rounded-full;
+  @apply absolute left-3 z-10 top-7;
+}
+
+.right {
+  @apply w-9 h-9 cursor-pointer rounded-full;
+  @apply absolute right-3 z-10 top-7;
+}
+.swiper-slide {
+  width: auto !important;
+}
+</style>

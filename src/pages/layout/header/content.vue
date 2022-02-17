@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {PropType} from "vue";
 import { MenuItem } from "src/types/menu/";
+import { createDb } from "src/logic/common/header";
 
 defineProps({
   data: {
@@ -25,9 +26,7 @@ defineProps({
         </div>
       </div>
     </v-router>
-    <template v-if="data.children">
-      <slot name="children" :list="data.children"></slot>
-    </template>
+    <slot name="children" :list="data.children"></slot>
   </div>
 </template>
 

@@ -1,12 +1,13 @@
 import dayjs from "dayjs";
 import * as R from "ramda";
+import {oss} from "src/config";
 import I18n from "src/utils/i18n/";
 import {BigNumber} from "bignumber.js";
-import {getEnv, oss} from "src/config";
 import {ElMessage} from "element-plus";
 import {Language} from "src/types/language";
 import message from "src/plugins/message";
 import window from "src/plugins/browser/window";
+import document from "src/plugins/browser/document";
 
 
 export function colorHexToRGBA(sHex: string, alpha: number = 1) {
@@ -382,7 +383,7 @@ export const formatRulesNumber = (v: any, isShowAll: boolean = false, defaultVal
 		return getRulesNumber(v, isShowAll, defaultValue)
 	}
 }
-//统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上
+//统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上，默认保留两位
 export const formatRulesPrice = (v: any, isShowAll: boolean) => {
 	if (!v) {
 		return v === 0 ? 0 : '-'

@@ -6,16 +6,9 @@
 import I18n from "src/utils/i18n";
 import {config} from "src/router/config";
 import { Lang } from "src/types/language";
+import { MenuItem } from "src/types/menu";
 
-export interface Footer {
-	label?: string;
-	name?: string;
-	href?: string;
-	children?: Footer[];
-	[key: string]: any;
-}
-
-export const footers = function (lang?: Lang): Footer[] {
+export const footers = function (lang?: Lang): MenuItem[] {
 	const i18n = I18n(lang);
 	return [
 		{

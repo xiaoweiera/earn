@@ -8,7 +8,9 @@ const Router = async function (root: string, env: Env) {
     router.get(config.home, function (req, res){
         res.send({});
     });
-
+    router.get(`${config.home}/detail`, function (req, res){
+        res.send({});
+    });
     return router;
 }
 

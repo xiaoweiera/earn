@@ -1,4 +1,10 @@
 
+const user = {
+	logout: "/user/logout",        // 退出
+	register: "/account/register", // 注册
+	forget: "/account/forget",  // 找回密码
+}
+
 export const config = {
 	home:'/home',
 	topic: '/topic',
@@ -24,4 +30,6 @@ export const config = {
 	address:'/whaleaddress',
 	portfolio:'/portfolio',
 	E404: '/404',
+
+	user,
 }

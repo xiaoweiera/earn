@@ -14,6 +14,7 @@ import {
 import Home from './home'
 import DAppList from "./dapp";
 import BlogList from "./blog";
+import User from "./user";
 
 
 const routes = [
@@ -26,6 +27,7 @@ const routes = [
 				name: "home",
 				component: () => import("src/pages/home/index.vue"),
 			},
+			...User,
 			...Home,
 			...DAppList,
 			...BlogList,
