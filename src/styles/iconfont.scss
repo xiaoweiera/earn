@@ -42,14 +42,16 @@ i {
     font-size: $number;
   }
   &:not(.icon-font) {
-    /*
-     width: $number;
-     max-width: $number;
-    */
-    min-width: $number;
-    height: $number;
-    max-height: $number;
-    min-height: $number;
+    &:not(.icon-vip1) {
+      /*
+       width: $number;
+       max-width: $number;
+      */
+      min-width: $number;
+      height: $number;
+      max-height: $number;
+      min-height: $number;
+    }
   }
   &.rounded {
     border-radius: math.floor(math.div($number, 2));
@@ -89,6 +91,13 @@ i {
       /* @apply text-global-primary; 蓝色*/
       @apply text-global-gemstone;
     }
+  }
+  .icon-vip1 {
+    width: 31px;
+    height: 18px;
+  }
+  img {
+    max-width: initial;
   }
 }
 

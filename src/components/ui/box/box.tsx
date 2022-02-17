@@ -14,7 +14,7 @@ const Box = defineComponent({
 			const value = this.$slots.right();
 			right = <UiSticky class="float-right hidden lg:block">{value}</UiSticky>;
 		}
-		return (<div class="ui-box clearfix">
+		return (<div class="ui-box clearfix w-full">
 			{right}
 			<div class="box-content-wrap">{content}</div>
 		</div>);

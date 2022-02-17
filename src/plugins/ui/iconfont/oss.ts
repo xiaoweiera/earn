@@ -65,6 +65,9 @@ const getLink = function(value: string, suffix: string = 'svg'): string | undefi
     if (Equals(value,'SOLANA')) {
       return 'https://res.kingdata.xyz/apyTwo/sol.png'
     }
+    if (Equals(value, "vip1")) {
+      return `${oss}/static/images/icon/vip1.svg`;
+    }
     // 特殊 icon
     if (value === 'down' && suffix === 'png') {
       return 'https://res.kingdata.xyz/nav/down.png'

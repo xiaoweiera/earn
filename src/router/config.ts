@@ -1,4 +1,8 @@
 
+const user = {
+	logout: "/user/logout", // 退出
+}
+
 export const config = {
 	home:'/home',
 	topic: '/topic',
@@ -24,4 +28,6 @@ export const config = {
 	address:'/whaleaddress',
 	portfolio:'/portfolio',
 	E404: '/404',
+
+	user,
 }

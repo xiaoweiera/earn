@@ -7,9 +7,14 @@ import CryptoJS from "crypto-js";
 import { key, a as secret } from "./value";
 
 export const Crypto = function (value: string | object): string {
-	const text = JSON.stringify({ [key]: value });
-	const data = CryptoJS.AES.encrypt(text, secret);
-	return data.toString();
+	try {
+		const text = JSON.stringify({ [key]: value });
+		const data = CryptoJS.AES.encrypt(text, secret);
+		return data.toString();
+	} catch (e) {
+		// todo
+	}
+	return "";
 }
 
 export default Crypto;

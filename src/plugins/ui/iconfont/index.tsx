@@ -3,11 +3,12 @@
  * @author svon.me@gmail.com
  */
 
+import _ from "lodash";
 import { getLink } from "./oss";
 import { getAlias } from "./alias";
 import { defineComponent } from "vue";
 import { props, sizes } from "./props";
-import { toLower, toBoolean } from "src/utils";
+import { toLower } from "src/utils";
 
 export default defineComponent({
 	props,
@@ -69,6 +70,16 @@ export default defineComponent({
 		if (this.type) {
 			content = this.getContent();
 		}
-		return (<span class="inline-flex">{content}</span>);
+		let className = "inline-flex";
+		if (this.$props.class) {
+			if (_.includes(this.$props.class, "flex")) {
+				className = this.$props.class;
+			} else if (_.includes(this.$props.class, "block")) {
+				className = this.$props.class;
+			} else {
+				className = `${className} ${this.$props.class}`;
+			}
+		}
+		return (<span class={ className }>{content}</span>);
 	}
 })

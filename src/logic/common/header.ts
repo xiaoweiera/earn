@@ -4,26 +4,16 @@
  */
 
 import _ from "lodash";
-import DBList from "@fengqiaogang/dblist";
+import {MenuItem} from "src/types/menu";
+import { Lang } from "src/types/language";
 import { headers } from "src/config/header";
+import {createDb} from "src/config/header/db";
 
-const primaryKey = "id";
-const foreignKey = "pid";
-const foreignKeyValue = "0";
-
-
-const createDb = function<T>(): DBList {
-	const db = new DBList([], primaryKey, foreignKey, foreignKeyValue);
-	const list = db.flatten<T>(headers());
-	db.insert(list);
-	return db;
-}
-
-export const getMenuList = function<T>(active?: string): T[] {
-	const db = createDb<T>();
+export const getMenuList = function(active?: string, lang?: Lang): MenuItem[] {
+	const db = createDb(headers(lang));
 	if (active) {
-		const list = db.parentDeepFlatten<T>({ id: active });
-		const ids = _.map(list, (item: T) => {
+		const list = db.parentDeepFlatten<MenuItem>({ id: active });
+		const ids = _.map(list, (item: MenuItem) => {
 			// @ts-ignore
 			return item.id;
 		});
@@ -31,5 +21,5 @@ export const getMenuList = function<T>(active?: string): T[] {
 			active: true
 		});
 	}
-	return db.childrenDeep<T>();
+	return db.childrenDeep<MenuItem>();
 }
