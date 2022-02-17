@@ -37,7 +37,9 @@ const cssGlobal = {
 	topBg: '#FAFBFC',
 	none: '#FFF0',
 	gemstone: '#F0BF12', // 黄宝石
-	media: '#1DA1F2'
+	media: '#1DA1F2',
+	bgBlack:'#272C3366',
+	textBlack: '#212121',
 }
 
 export default defineConfig({
@@ -127,6 +129,9 @@ export default defineConfig({
 				'kd17px17px': [ '17px', '17px' ],
 				'kd32px32px': [ '32px', '32px' ],
 				'kd25px28px': [ '25px', '28px' ],
+				'kd40px60px':['40px','60px'],
+				'kd40px40px':['40px','40px'],
+				'kd10px12px':['10px','12px'],
 			},
 			fontWeight: {
 				'b': '600',

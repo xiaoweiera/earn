@@ -1,0 +1,39 @@
+<script setup lang="ts">
+
+</script>
+<template>
+  <div>
+    <div class="w-full flex justify-items-start -mt-7.5 items-center">
+      <div class="w-15 h-15 border-2 border-global-white rounded-md">
+        <!-- <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/> -->
+        <ui-image class="w-full h-full" fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/Dapp/942e9815f5e3ed75d0f22e3514dbacaf.png" :lazy="true"/>
+      </div>
+      <div class="flex-1 h-15 pl-2.5">
+        <div class="flex justify-between items-center">
+          <p class="items-center">
+            <span class="text-kd18px18px text-global-white font-semibold font-kdBarlow">Legion Network</span>
+            <span class="text-kd14px18px text-global-white text-opacity-65 font-kdBarlow font-medium ml-1.5">HLS</span>
+          </p>
+          <p class="flex items-center">
+            <IconFont class="text-global-gemstone" type="star" size="16"/>
+          </p>
+        </div>
+        <div class="mt-3.5">
+          <ul class="flex">
+            <li class="flex items-center mr-3">
+              <IconFont class="text-global-gemstone" type="star" size="16"/>
+              <span class="text-kd12px16px ml-1.5 text-global-highTitle text-opacity-85 font-kdFang">Enjinstarter</span>
+            </li>
+            <li class="flex items-center">
+              <IconFont class="text-global-gemstone" type="star" size="16"/>
+              <span class="text-kd12px16px ml-1.5 text-global-highTitle text-opacity-85 font-kdFang">Enjinstarter</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<style lang="scss" scoped>
+
+</style>

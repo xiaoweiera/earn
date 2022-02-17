@@ -6,8 +6,8 @@ const routes = [
 		component: () => import("src/pages/dapp/discover.vue"),
 	},
 	{
-		path: `${router.nft}/discover`,
-		component: () => import("src/pages/dapp/discover.vue"),
+		path: router.nft,
+		component: () => import("src/pages/dapp/nft.vue"),
 	},
 	{
 		path: router.airdrop,
