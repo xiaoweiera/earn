@@ -56,6 +56,9 @@ export const props = {
 	bright: {
 		type: Boolean,
 		default: () => false
+	},
+	class: {
+		type: String,
 	}
 }
 

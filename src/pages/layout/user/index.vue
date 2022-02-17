@@ -58,25 +58,28 @@ const goRegister = function () {
       <span class="inline-block whitespace-nowrap text-14-18">APP</span>
     </v-router>
     <span class="mx-4 text-white text-opacity-65">|</span>
-    <div class="flex cursor-pointer user-box relative" v-if="user.id">
-      <IconFont class="flex" type="icon-yonghu1" size="22"/>
-      <div class="user-menu absolute right-0 top-full pt-2.5">
-        <div class="user-menu bg-global-white rounded-md">
+
+    <!-- 已登录 -->
+    <ui-hover v-if="user.id" class="flex" placement="bottom-end" trigger="hover">
+      <template #label>
+        <IconFont class="flex cursor-pointer" type="icon-yonghu1" size="22"/>
+      </template>
+      <template #content>
+        <div class="bg-global-white rounded-md">
           <div class="p-4 flex items-center cursor-pointer">
             <IconFont type="icon-yonghu" size="20"/>
             <span class="ml-2 text-14-18 text-global-grey inline-block">{{ getUserName(user) }}</span>
             <IconFont class="ml-2" type="vip1"/>
           </div>
-          <div>
-            <span class="block border-t border-solid border-gray-300"></span>
-          </div>
-          <v-router class="p-4 flex items-center itemMt cursor-pointer" :href="routerConfig.user.logout">
+          <v-router class="p-4 flex items-center itemMt cursor-pointer border-t border-solid border-gray-300" :href="routerConfig.user.logout">
             <IconFont type="icon-tuichu" size="20"/>
             <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.nav.outLogin }}</span>
           </v-router>
         </div>
-      </div>
-    </div>
+      </template>
+    </ui-hover>
+
+    <!--未登录-->
     <div class="flex" v-else>
       <span class="whitespace-nowrap cursor-pointer" @click.stop.prevent="goLogin">{{ i18n.common.login }}</span>
       <img class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block" :src="`${oss}/nav/dian.png`" alt=""/>
@@ -85,18 +88,3 @@ const goRegister = function () {
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.user-box {
-  .user-menu {
-    //@apply hidden;
-    box-shadow: inset 0px -1px 0px rgba(37, 62, 111, 0.06);
-  }
-
-  &:hover {
-    .user-menu {
-      @apply block;
-    }
-  }
-}
-</style>
