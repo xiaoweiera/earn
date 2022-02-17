@@ -28,10 +28,8 @@ if (IsSSR()) {
 		},
 		execCommand: function() {},
 		querySelector: function() {
-			return void 0
 		},
 		createElement: function() {
-			return void 0
 		}
 	}
 } else {

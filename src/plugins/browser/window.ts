@@ -43,6 +43,13 @@ if (IsSSR()) {
 			}
 		},
 		scrollTo: function() {
+		},
+		grecaptcha: {
+			execute: async function (...args: any[]) {
+			},
+			ready: async function (...args: any[]) {
+
+			}
 		}
 	}
 } else {

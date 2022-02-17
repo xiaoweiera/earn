@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import user from "./user";
+import { userInfo } from "./user";
 import redirect from "./redirect";
 import {Router, Request, Response} from "express";
 import { tokenName, dashboard } from "src/config/";
@@ -18,6 +18,6 @@ common.all(routerConfig.user.logout, function (req: Request, res: Response) {
 	redirect(req, res, dashboard);
 });
 
-common.use(user);
+common.use(userInfo);
 
 export default common;

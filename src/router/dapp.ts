@@ -1,4 +1,4 @@
-import {config as router} from "~/router/config";
+import {config as router} from "src/router/config";
 
 const routes = [
 	{

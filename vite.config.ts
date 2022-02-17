@@ -10,7 +10,7 @@ import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import {ConfigEnv, defineConfig} from "vite";
-import safeGet from "@fengqiaogang/safe-get";
+import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { Command, production, development } from "./src/config/process";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
@@ -79,6 +79,11 @@ export default defineConfig(async function (env: ConfigEnv) {
       vuePlugin(),
       WindCSS(),
       vueJsx({}),
+      AutoImport({
+        resolvers: [ElementPlusResolver({
+          importStyle: "sass"
+        })],
+      }),
       Components({
         dts: true,
         include: [/\.vue$/],
