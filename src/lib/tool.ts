@@ -1,12 +1,13 @@
 import dayjs from "dayjs";
 import * as R from "ramda";
+import {oss} from "src/config";
 import I18n from "src/utils/i18n/";
 import {BigNumber} from "bignumber.js";
-import {getEnv, oss} from "src/config";
 import {ElMessage} from "element-plus";
 import {Language} from "src/types/language";
 import message from "src/plugins/message";
 import window from "src/plugins/browser/window";
+import document from "src/plugins/browser/document";
 
 
 export function colorHexToRGBA(sHex: string, alpha: number = 1) {

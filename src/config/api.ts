@@ -15,5 +15,7 @@ export const blog = {
 };
 
 export const user = {
-	info: "/api/v1/users/my"
+	info: "/api/v1/users/my", // 用户详情
+	resetEmailPassword: "/api/v1/users/email_change_password", // 重置邮箱密码
+	getEmailCaptcha: "/api/v2/users/email_send_verification_code", // 邮箱验证码
 }

@@ -10,6 +10,7 @@ import Icons from "src/config/iconfont";
 import { Language } from "src/types/language";
 import Crypto from "src/plugins/encryption/crypto";
 import {rootData, languageKey} from "src/config";
+import { getEnv } from "src/config/";
 
 interface Result {
 	lang: Language;
@@ -23,12 +24,19 @@ interface Result {
 }
 
 const makeScript = function (data: Result): string {
+	const env = getEnv();
+
 	const value = _.omit(data, [ "title", "keywords", "description", "content", "libs" ]);
 	const code = `window["${rootData}"] = "${Crypto(value)}";`;
-	const libs = [ ...Icons ];
+
+	// 谷歌人机教验
+	const recaptcha = `https://www.recaptcha.net/recaptcha/api.js?render=${env.google.captcha}`;
+
+	const libs = [ ...Icons, recaptcha ];
+
 	const html: string[] = [];
 	_.each(libs, function (src: string) {
-		html.push(`<script src="${src}" async crossorigin></script>`);
+		html.push(`<script src="${src}" async></script>`);
 	});
 	html.push(`<script>${code}</script>`);
 	return html.join("");

@@ -10,6 +10,8 @@ export { languageKey, production, development, home, domain, appDownload } from 
 
 export const AppId = "app";
 export const tokenName = "auth_token";
+export const tokenExpires = 1000 * 60 * 60 * 2;
+export const deviceName = "kd_origin"; // 标记当前设备类型
 export const rootData = "__MlaABWNKPrYLzpbU";
 
 export const dashboard = "/";
@@ -25,10 +27,15 @@ export const title = "KingData";
 export interface Argv extends process.Process{
 }
 
+export interface Google {
+	captcha: string;
+}
+
 export interface Env extends Argv{
 	template: string;
 	api: string; // 接口地址
 	ApiVersion: string;
+	google: Google,
 }
 
 export const getEnv = function (): Env {
@@ -42,9 +49,11 @@ export const getEnv = function (): Env {
 	if (opt.mode === process.development) {
 		// 开发环境接口
 		safeSet(env, "api", developmentAPI);
+		safeSet(env, "google.captcha", "6LdRW1YdAAAAAAebmyfawuZYGY1e1u4Ks8ffKxwQ");
 	} else {
 		// 正式环境接口
 		safeSet(env, "api", productionAPI);
+		safeSet(env, "google.captcha", "6LeyvlMdAAAAADLf1KFRqYmMXGp0DMCUCobrszUU");
 	}
 	return env as Env;
 }

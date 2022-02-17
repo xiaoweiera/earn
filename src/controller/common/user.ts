@@ -8,7 +8,7 @@ import safeSet from "@fengqiaogang/safe-set";
 import {NextFunction, Request, Response} from "express";
 import {Authorization} from "src/plugins/express/authorization";
 
-const User = async function(req: Request, res: Response, next: NextFunction) {
+export const userInfo = async function(req: Request, res: Response, next: NextFunction) {
 	const { token } = Authorization(req);
 	if (token) {
 		const api = new API(req);
@@ -25,4 +25,9 @@ const User = async function(req: Request, res: Response, next: NextFunction) {
 	next();
 }
 
-export default User;
+// 用户找回密码
+export const userForget = function (req: Request, res: Response) {
+	res.send({});
+};
+
+

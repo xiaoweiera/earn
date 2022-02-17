@@ -4,6 +4,7 @@
  */
 
 import Blog from "./blog";
+import User from "./user";
 import { Env } from "src/config";
 import { config } from "src/router/config";
 import Send from "src/plugins/express/send";
@@ -18,6 +19,9 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 	const send = await Send(root, env);
 	// 封装 send 方法
 	router.use(send);
+
+	// 封装 user 相关路由
+	router.use(User());
 
 	// 装载博客相关路由
 	router.use(blog);

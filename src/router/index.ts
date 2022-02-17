@@ -13,6 +13,7 @@ import {
 
 import DAppList from "./dapp";
 import BlogList from "./blog";
+import User from "./user";
 
 
 const routes = [
@@ -26,6 +27,7 @@ const routes = [
 				component: () => import("src/pages/index.vue"),
 			},
 
+			...User,
 			...DAppList,
 			...BlogList,
 

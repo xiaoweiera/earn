@@ -28,10 +28,7 @@ const main = async function () {
 	const text = safeGet<string>(window, rootData);
 	const data = text ? Decrypt<object>(text) : {};
 
-	console.log("root data ", data);
-
-	console.log("process env");
-	console.log(process.env);
+	console.log("Server data ", data);
 
 	const { app, router } = createApp(data);
 
