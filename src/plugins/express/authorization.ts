@@ -5,10 +5,15 @@
 
 
 import {Request} from "express";
+import { tokenName } from "src/config/";
 import safeGet from "@fengqiaogang/safe-get";
 
-export const Authorization = function (req: Request): object {
+interface Auth {
+	token: string
+}
+
+export const Authorization = function (req: Request): Auth {
 	const cookie = req.cookies;
-	const token = safeGet<string>(cookie, "token");
+	const token = safeGet<string>(cookie, tokenName);
 	return { token };
 }

@@ -13,8 +13,9 @@ onMounted(function () {
 </script>
 
 <template>
-  <div v-if="load">
-    <slot></slot>
+  <div>
+    <slot v-if="load"></slot>
+    <slot v-else name="note"></slot>
   </div>
 </template>
 

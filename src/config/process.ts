@@ -12,6 +12,7 @@ export enum Command {
 
 export const domain = "kingdata.com";
 export const home = `https://${domain}/`;
+export const appDownload = `https://${domain}/download/`;
 
 export const languageKey = "lang";
 

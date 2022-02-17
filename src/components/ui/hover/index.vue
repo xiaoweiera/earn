@@ -1,40 +1,36 @@
 <script setup lang="ts">
+import { ElPopover } from "element-plus";
+
 defineProps({
   width: {
     type: [Number, String],
-    default: () => 200
+    default: "fit-content"
+  },
+  placement: {
+    type: String,
+    default: "bottom"
+  },
+  trigger: {
+    type: String,
+    default: "hover"
   }
 })
 </script>
 
 <template>
-  <client-only class="ui-hover">
-    <div class="relative">
+  <client-only>
+    <template #note>
       <slot name="label"></slot>
-      <div class="ui-hover-content">
+    </template>
+    <el-popover :placement="placement" :trigger="trigger" :width="width" popper-class="ui-hover">
+      <template #reference>
+        <div>
+          <slot name="label"></slot>
+        </div>
+      </template>
+      <div>
         <slot name="content"></slot>
       </div>
-    </div>
+    </el-popover>
   </client-only>
 </template>
-
-<style scoped lang="scss">
-.ui-hover {
-  .ui-hover-content {
-    @apply absolute left-1/2 bottom-full;
-    @apply p-2 bg-white invisible overflow-hidden;
-    @apply transform -translate-x-1/2 -translate-y-2;
-    @apply rounded-md border border-solid border-global-border;
-    max-height: 0;
-    transition: all 1s linear;
-  }
-  &:hover {
-    .ui-hover-content {
-      @apply block visible;
-      @apply z-1000;
-      height: auto;
-      max-height: 300px;
-    }
-  }
-}
-</style>

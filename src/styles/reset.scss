@@ -1,0 +1,10 @@
+/**
+  @file 重置某些样式
+ */
+
+.el-popover {
+  &.ui-hover {
+    @apply p-0;
+    min-width: initial;
+  }
+}

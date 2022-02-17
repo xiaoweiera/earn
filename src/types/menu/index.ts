@@ -5,7 +5,8 @@
 
 export interface MenuItem {
 	id?: string;   // 唯一ID
-	name: string;  // 名称
+	name?: string;  // 名称
+	label?: string;
 	href?: string;  // 链接地址
 	icon?: string; // 图标
 	// 是否在大屏模式下展示

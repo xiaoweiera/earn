@@ -8,7 +8,7 @@ import {Request} from "express";
 export type Lang = Request | Language | string;
 
 export enum Language {
-	auto = "auto", // 自动检测
+	auto = "en", // 默认英文
 	cn = "cn", // 中文
 	en = "en", // 英语
 	// yue = 'yue', // 粤语
