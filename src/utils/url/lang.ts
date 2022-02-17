@@ -11,7 +11,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import window from "src/plugins/browser/window";
 import { Language, Lang } from "src/types/language";
 
-function getLang(value?: Lang): Language | undefined {
+function getLang(value?: Lang): Language {
 	if (value && _.isString(value)) {
 		let key: Language | undefined;
 		for(const name of Object.keys(Language)) {
@@ -29,12 +29,12 @@ function getLang(value?: Lang): Language | undefined {
 		if (safeGet<Language>(req.cookies, languageKey)) {
 			return safeGet<Language>(req.cookies, languageKey);
 		}
-		return getQuery<Language>(req.originalUrl, languageKey);
+		return getQuery<Language>(req.originalUrl, languageKey) || Language.auto;
 	}
 	if (value) {
-		return getQuery<Language>(value as string, languageKey);
+		return getQuery<Language>(value as string, languageKey) || Language.auto;
 	}
-	return getQuery<Language>(window.location.href, languageKey);
+	return getQuery<Language>(window.location.href, languageKey) || Language.auto;
 }
 
 export default getLang;
