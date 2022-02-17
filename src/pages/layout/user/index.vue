@@ -4,14 +4,13 @@
  * @author svon.me@gmail.com
  */
 import I18n from "src/utils/i18n";
-import { languageKey, appDownload, oss } from "src/config";
 import {Language} from "src/types/language";
 import { User } from "src/types/common/user";
 import window from "src/plugins/browser/window";
 import {createReactive} from "src/utils/ssr/ref";
 import { createHref } from "src/plugins/router/pack";
-import VRouter from "~/components/v/router.vue";
-import {Pointer} from "@element-plus/icons";
+import { config as routerConfig } from "src/router/config";
+import { languageKey, appDownload, oss } from "src/config";
 
 const i18n = I18n();
 const user = createReactive<User>("common.user", {} as User);
@@ -56,21 +55,23 @@ const goRegister = function () {
   <span class="mx-4 text-white text-opacity-65">|</span>
   <div class="flex cursor-pointer user-box relative" v-if="user.id">
     <IconFont class="flex" type="icon-yonghu1" size="22"/>
-    <div class="user-menu py-4.25 px-3 bg-global-white rounded-md absolute right-0 top-full transform translate-y-2.5">
-      <div class="flex items-center cursor-pointer">
-        <IconFont :type="`${oss}/nav/navUser.jpg`" size="20"/>
-        <div class="text-14-18 ml-2 flex whitespace-nowrap text-global-grey">
-          <template v-if="user.nickname">{{ user.nickname }}</template>
-          <template v-else-if="user.username">{{ user.username }}</template>
-          <template v-else-if="user.email">{{ user.email }}</template>
-          <template v-else>{{ user.mobile }}</template>
+    <div class="user-menu absolute right-0 top-full pt-2.5">
+      <div class="user-menu py-4.25 px-3 bg-global-white rounded-md">
+        <div class="flex items-center cursor-pointer">
+          <IconFont :type="`${oss}/nav/navUser.jpg`" size="20"/>
+          <div class="text-14-18 ml-2 flex whitespace-nowrap text-global-grey">
+            <template v-if="user.nickname">{{ user.nickname }}</template>
+            <template v-else-if="user.username">{{ user.username }}</template>
+            <template v-else-if="user.email">{{ user.email }}</template>
+            <template v-else>{{ user.mobile }}</template>
+          </div>
+          <ui-image class="w-7.75 ml-2" fit="none" :src="`${oss}/nav/navVip.jpg`" alt=""/>
         </div>
-        <ui-image class="w-7.75 ml-2" fit="none" :src="`${oss}/nav/navVip.jpg`" alt=""/>
+        <v-router class="mt-2 flex items-center itemMt cursor-pointer" :href="routerConfig.user.logout">
+          <IconFont :type="`${oss}/nav/navOut.jpg`" size="20"/>
+          <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.nav.outLogin }}</span>
+        </v-router>
       </div>
-      <v-router class="mt-2 flex items-center itemMt cursor-pointer" href="/user/logout">
-        <IconFont :type="`${oss}/nav/navOut.jpg`" size="20"/>
-        <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.nav.outLogin }}</span>
-      </v-router>
     </div>
   </div>
   <div class="flex" v-else>

@@ -1,4 +1,8 @@
 
+const user = {
+	logout: "/user/logout", // 退出
+}
+
 export const config = {
 	topic: '/topic',
 	growthpad: '/growthpad',
@@ -23,4 +27,6 @@ export const config = {
 	address:'/whaleaddress',
 	portfolio:'/portfolio',
 	E404: '/404',
+
+	user,
 }
