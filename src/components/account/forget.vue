@@ -65,7 +65,7 @@ const submit = async function () {
 </script>
 
 <template>
-  <client-only>
+  <div>
     <el-form size="large" ref="domForm" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
       <!-- 邮箱地址 -->
       <el-form-item prop="email">
@@ -111,14 +111,14 @@ const submit = async function () {
         <slot>
           <!-- 返回登录 -->
           <div class="text-center pt-4.5 pb-2.5">
-              <span class="inline-block" @click="selfGoBack">
-                <a class="inline-block font-normal link cursor-pointer">{{ i18n.common.switchLogin }}</a>
-              </span>
+            <span class="inline-block" @click="selfGoBack">
+              <a class="inline-block font-normal link cursor-pointer">{{ i18n.common.switchLogin }}</a>
+            </span>
           </div>
         </slot>
       </div>
     </el-form>
-  </client-only>
+  </div>
 </template>
 
 

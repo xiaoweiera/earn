@@ -29,5 +29,9 @@ export const userInfo = async function(req: Request, res: Response, next: NextFu
 export const userForget = function (req: Request, res: Response) {
 	res.send({});
 };
+// 邮箱注册
+export const register = function (req: Request, res: Response) {
+	res.send({});
+};
 
 

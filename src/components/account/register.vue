@@ -3,19 +3,21 @@
  * @file 邮箱注册
  * @author svon.me@gmail.com
  */
-import { toLower } from "ramda";
+import {toLower} from "lodash";
+import API from "src/api/index";
 import I18n from "src/utils/i18n";
-import * as user from 'src/api/user';
 import {getParam} from "src/utils/router";
 import {messageError} from "src/lib/tool";
 import {computed, ref, toRaw, onMounted} from "vue";
-import * as Common from "src/logic/user/common/register";
+import * as Common from "src/logic/account/register";
 import {ValidateType} from "src/components/ui/validate/config";
+import {ElForm, ElFormItem, ElInput, ElButton, ElCheckbox} from "element-plus";
 
+const i18n = I18n();
 const invitation = ref<boolean>(false); // 邀请状态
 const domForm = ref<any>(null);
 
-const rules = computed(() => Common.rules);
+const rules = computed(Common.rules);
 
 const formData = Common.createFormData();
 
@@ -28,7 +30,7 @@ const onSeadCode = async function (value: string | undefined) {
   // 保存人机校验得到的值
   formData.token = value;
 };
-const selfGoback = function () {
+const selfGoBack = function () {
   // 返回登录页面
   Common.onGoBack(domForm);
 }
@@ -43,22 +45,22 @@ const submit = async function () {
   }
 
   try {
+    const api = new API();
     // 获取表单数据
     const data: Common.FormData = toRaw(formData);
     // 提交表单数据
-    await user.registerMail(data);
-    selfGoback();
+    await api.user.registerEmail(data);
+    selfGoBack();
   } catch (e: any) {
     // 提升异常信息
-    const { message } = e || {};
+    const {message} = e || {};
     if (message) {
       messageError(message);
     } else {
-      messageError(I18n.apply.tips.error);
+      messageError(i18n.apply.tips.error);
     }
   }
 }
-
 
 
 onMounted(function () {
@@ -100,26 +102,26 @@ onMounted(function () {
     // 默认等于Web
     formData.platform = toLower(type ? `${Common.PlatformWeb}!${type}` : Common.PlatformWeb);
   }
-  console.log(formData);
 });
 
 </script>
 
 <template>
   <div>
-    <el-form ref="domForm" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
+    <el-form size="large" ref="domForm" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
       <!-- 邮箱地址 -->
       <el-form-item prop="email">
-        <el-input v-model="formData.email" name="email" type="email" :placeholder="I18n.common.placeholder.email"
+        <el-input v-model="formData.email" name="email" type="email" :placeholder="i18n.common.placeholder.email"
                   autocomplete="off"/>
       </el-form-item>
 
       <!-- 验证码 -->
       <el-form-item prop="code">
-        <el-input v-model="formData.code" name="code" :placeholder="I18n.common.placeholder.verification"
+        <el-input v-model="formData.code" name="code" :placeholder="i18n.common.placeholder.verification"
                   autocomplete="off">
           <template #append>
-            <UiValidate :type="ValidateType.create" :before="emailValidate" :query="{'email': formData.email}" @click="onSeadCode"/>
+            <ui-validate :type="ValidateType.create" :before="emailValidate" :query="{'email': formData.email}"
+                         @click="onSeadCode"/>
           </template>
         </el-input>
       </el-form-item>
@@ -127,12 +129,12 @@ onMounted(function () {
       <!-- 密码 -->
       <el-form-item prop="password">
         <el-input v-model="formData.password" name="password" type="password"
-                  :placeholder="I18n.common.placeholder.password" show-password autocomplete="off"/>
+                  :placeholder="i18n.common.placeholder.password" show-password autocomplete="off"/>
       </el-form-item>
 
       <!-- 邀请码 -->
       <el-form-item prop="invitation_code">
-        <el-input v-model="formData.invitation_code" name="invitation_code" :placeholder="I18n.common.user.invite"
+        <el-input v-model="formData.invitation_code" name="invitation_code" :placeholder="i18n.common.user.invite"
                   autocomplete="off" :disabled="invitation"/>
       </el-form-item>
 
@@ -140,37 +142,31 @@ onMounted(function () {
       <el-form-item prop="checked">
         <el-checkbox v-model="formData.checked" :true-label="true" :false-label="false">
           <div class="register-box flex flex-wrap">
-            <span class="inline-block">{{ I18n.common.user.read }}</span>
-            <v-router class="link inline-block" target="_blank" href="/policy">
-              {{ I18n.common.user.agreement }}
-            </v-router>
-            <span class="defaultText inline-block">{{ I18n.common.and }}</span>
-            <v-router class="link inline-block" target="_blank" href="/agreement">
-              {{ I18n.common.user.terms }}
-            </v-router>
-            <v-router class="link inline-block" target="_blank" href="/instructions">
-              {{ I18n.common.user.use }}
-            </v-router>
+            <span class="inline-block">{{ i18n.common.user.read }}</span>
+            <v-router class="link inline-block" target="_blank" href="/policy">{{ i18n.common.user.agreement }}</v-router>
+            <span class="defaultText inline-block">{{ i18n.common.and }}</span>
+            <v-router class="link inline-block" target="_blank" href="/agreement">{{ i18n.common.user.terms }}</v-router>
+            <v-router class="link inline-block" target="_blank" href="/instructions">{{ i18n.common.user.use }}</v-router>
           </div>
         </el-checkbox>
       </el-form-item>
 
       <!-- 确定按钮 -->
       <el-form-item style="margin-bottom: 0;">
-        <div>
+        <div class="w-full">
           <!--  :disabled="!toBoolean(formData.token)" -->
-          <ElButton class="w-full" type="primary" native-type="submit">
-            <span class="text-16">{{ I18n.common.register }}</span>
-          </ElButton>
+          <el-button class="w-full" type="primary" native-type="submit">
+            <span class="text-16">{{ i18n.common.register }}</span>
+          </el-button>
         </div>
       </el-form-item>
       <div>
         <slot>
           <!-- 返回登录 -->
           <div class="text-center pt-4.5 pb-2.5">
-              <span class="inline-block" @click="selfGoback">
-                <a class="inline-block font-normal link cursor-pointer">{{ I18n.common.switchLogin }}</a>
-              </span>
+            <span class="inline-block" @click="selfGoBack">
+              <a class="inline-block font-normal link cursor-pointer">{{ i18n.common.switchLogin }}</a>
+            </span>
           </div>
         </slot>
       </div>

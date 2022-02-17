@@ -177,12 +177,23 @@ export const checkValidateEmail = function (form: Ref) {
 	return false;
 }
 
+export const resetFields = function (form?:any) {
+	if(form){
+		try {
+			const dom = toRaw(form).value;
+			if (dom && dom.resetFields) {
+				dom.resetFields();
+			}
+		} catch (e) {
+			console.log(e);
+			// todo
+		}
+	}
+}
+
 // 登录
 export const onGoBack = function (form?:any) {
-	if(form){
-		const dom = toRaw(form).value;
-		dom.resetFields();
-	}
+	resetFields(form);
 	// 唤起移动端登录功能
 	if (webkit.Login()) {
 		return true;

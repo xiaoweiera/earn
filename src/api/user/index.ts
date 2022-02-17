@@ -26,4 +26,10 @@ export default class extends ApiTemplate{
 		const data = { ...params, forget_type: type, lang };
 		return asyncCheck(request(this.lang).post(api.user.getEmailCaptcha, data));
 	}
+	// 邮箱注册
+	registerEmail (data: object) {
+		const lang = getLang(this.lang);
+		const value = { ...data, lang }
+		return asyncCheck(request(this.lang).post(api.user.registerEmail, value))
+	}
 }

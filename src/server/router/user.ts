@@ -10,7 +10,11 @@ import {config as routerConfig} from "src/router/config";
 const User = function() {
 	const router = ExpressRouter();
 
+	// 找回密码
 	router.all(routerConfig.user.forget, userForget);
+
+	// 邮箱注册
+	router.all(routerConfig.user.register, userForget);
 
 	return router;
 }
