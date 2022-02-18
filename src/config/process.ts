@@ -4,20 +4,22 @@
  */
 
 import safeGet from "@fengqiaogang/safe-get";
+import { ImportMetaEnv, Command } from "../types/env";
 
-export enum Command {
-	build = "build",
-	serve = "serve"
+const _getOsProcess = function (): ImportMetaEnv {
+	try {
+		return (process.env || {}) as any;
+	} catch (e) {
+		// todo
+	}
+	return {} as any;
 }
 
-export const domain = "kingdata.com";
-export const home = `https://${domain}/`;
-export const appDownload = `https://${domain}/download/`;
+const env = _getOsProcess();
 
-export const languageKey = "lang";
-
-export const production = "production";
-export const development = "development";
+export const domain = env.VITE_domain;
+export const home = `https://${env.VITE_domain}/`;
+export const appDownload = `https://${env.VITE_domain}/download/`;
 
 export enum Device {
 	web= "web",
@@ -25,24 +27,15 @@ export enum Device {
 }
 
 // 环境变量
-export interface Process {
+export interface Process extends ImportMetaEnv {
 	mode: string;
 	command: Command;
 }
 
-const _getOsProcess = function () {
-	try {
-		return process.env || {};
-	} catch (e) {
-		// todo
-	}
-	return {};
-}
-
 export const getProcess = function (): Process {
-	const data = _getOsProcess();
 	return {
-		mode: safeGet<string>(data, "mode") || production,
-		command: safeGet<Command>(data, "command") || Command.build,
+		...env,
+		mode: env.VITE_mode,
+		command: safeGet<Command>(env, "command") || Command.build,
 	};
 }

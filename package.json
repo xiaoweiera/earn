@@ -4,8 +4,10 @@
   "scripts": {
     "icon": "node scripts/icon.js",
     "dev": "scripts/dev.sh",
-    "build": "scripts/build.sh",
-    "serve": "scripts/serve.sh 3333"
+    "build:prod": "scripts/build.sh production",
+    "build:test": "scripts/build.sh test",
+    "serve:prod": "scripts/serve.sh production 3333",
+    "serve:test": "scripts/serve.sh test 3333"
   },
   "_moduleAliases": {
     "@root": ".",
@@ -21,6 +23,7 @@
     "cookie-parser": "^1.4.6",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.10.7",
+    "dotenv": "^16.0.0",
     "element-plus": "^2.0.2",
     "js-cookie": "^3.0.1",
     "prism-theme-vars": "^0.2.2",

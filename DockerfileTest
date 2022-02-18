@@ -20,7 +20,7 @@ RUN pnpm i
 RUN npm run icon
 
 # 编译环境
-RUN npm run build:prod
+RUN npm run build:test
 
 # FROM base
 
@@ -33,4 +33,4 @@ RUN npm run build:prod
 # RUN npm i
 EXPOSE 3333
 # 执行程序
-CMD npm run serve:prod
+CMD npm run serve:test

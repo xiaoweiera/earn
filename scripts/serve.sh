@@ -2,12 +2,8 @@
 
 cd "$(dirname "$0")"
 
+source ./args.sh
+
 cd ..
 
-port=$1
-
-if [ ! $port ]; then
-  port="3333"
-fi
-
-ts-node --project tsconfig.serve.json src/server/start --mode production --port $port
+ts-node --project tsconfig.serve.json src/server/start --mode $mode --port $port
