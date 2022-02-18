@@ -49,7 +49,7 @@ const onChangeView = function (data: object) {
           <DappDiscoversList v-for="(item, index) in 9" :key='index'></DappDiscoversList>
         </div>
         <div>
-          <!-- <DappDiscoversEndlist v-for="(item, index) in 9" :key='index'></DappDiscoversEndlist> -->
+          <!-- <DappDiscoversEndlist class="px-4"></DappDiscoversEndlist> -->
         </div>
       </div>
     </div>

@@ -44,13 +44,25 @@ const onChangeView = function (data: object) {
   </div>
 </template>
 <style lang="scss" scoped>
+%first-ml0 {
+  &:first-child {
+    @apply ml-0;
+  }
+}
 .is-tab {
   @apply ml-4 flex items-center;
   ::v-deep(.tab-wrap) {
     @apply items-center;
     .tab-item {
+      @apply flex px-3 py-2 rounded-md;
       &:after {
         @apply h-0;
+      }
+      &:not(a) {
+        &:not([href]) {
+          @apply cursor-pointer ml-4;
+          @extend %first-ml0;
+        }
       }
     }
     span {

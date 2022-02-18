@@ -48,6 +48,9 @@ const onChangeView = function (data: object) {
         <div class="w-315 grid grid-cols-5 gap-6">
           <DappNftsList v-for="( item, index ) in 5" :key="index"></DappNftsList>
         </div>
+        <div class="w-315">
+          <!-- <DappNftsEndlist></DappNftsEndlist> -->
+        </div>
       </div>
     </div>
   </div>

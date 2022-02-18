@@ -63,15 +63,16 @@ const onChangeView = function (data: object) {
   ::v-deep(.tab-wrap) {
     @apply items-center;
     .tab-item {
+      @apply flex px-3 py-2 rounded-md;
       &:after {
         @apply h-0;
       }
       &:not(a) {
-      &:not([href]) {
-        @apply cursor-pointer ml-4;
-        @extend %first-ml0;
+        &:not([href]) {
+          @apply cursor-pointer ml-4;
+          @extend %first-ml0;
+        }
       }
-    }
     }
     span {
       @apply text-kd14px18px font-medium font-kdFang;

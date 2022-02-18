@@ -2,11 +2,11 @@
 import {ref} from 'vue'
 const data={
   header: [
-    { name: 'Dapp Name', key: 'nameDes' },//nameProject
+    { name: 'Dapp Name', key: 'nameProject' },//nameProject
     { name: 'MCap/Change', key: 'salePrice' },
     { name: 'Ended in(UTC)', key: 'token' },
-    // { name: 'ATH Since IDO', key: 'supply' },
-    // { name: 'Current ROI USD', key: 'endedIn' }
+    { name: 'ATH Since IDO', key: 'supply' },
+    { name: 'Current ROI USD', key: 'endedIn' }
   ],
   list: [
     { name: '老王', macap:1923,change:156.12,end:'jan 20th,2002',ath:888888,current:156.12 },
@@ -35,6 +35,8 @@ const data={
           <td><HomeTableTd :typeName="data.header[0].key"/></td>
           <td><HomeTableTd :typeName="data.header[1].key"/></td>
           <td><HomeTableTd :typeName="data.header[2].key"/></td>
+          <td><HomeTableTd :typeName="data.header[3].key"/></td>
+          <td><HomeTableTd :typeName="data.header[4].key"/></td>
         </tr>
       </template>
       </tbody>
