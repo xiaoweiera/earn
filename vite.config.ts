@@ -13,12 +13,12 @@ import { getConfig } from "./src/config/env";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import { ImportMetaEnv, production, development, Command, oss, staticPath } from "./src/types/env";
+import { ImportMetaEnv, production, development, Command, oss, staticDomain } from "./src/types/env";
 
 
 const getSassData = function (env: ImportMetaEnv) {
   const root = "./";
-  const staticUrl: string = env.VITE_mode === development ? root : staticPath;
+  const staticUrl: string = env.VITE_mode === development ? root : staticDomain;
   const data = {
     "g-url": oss,
     "static": staticUrl === root ? "" : staticUrl,

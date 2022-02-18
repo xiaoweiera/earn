@@ -30,11 +30,8 @@ const Assets = async function(root: string, env: Env) {
 
 	if (env.mode === production) {
 		router.use(Compression());
-		// 静态文件路径不等于链接时生效
-		if (!/^http/.test(staticPath)) {
-			const dist = path.join(root, "dist/client");
-			router.use(staticPath, Express.static(dist));
-		}
+		const dist = path.join(root, "dist/client");
+		router.use(staticPath, Express.static(dist));
 	} else {
 		const vite = await createServer({
 			root,
