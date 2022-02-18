@@ -4,6 +4,9 @@ export interface ImportMetaEnv {
 	readonly VITE_domain: string; // 网站域名
 	readonly VITE_cookie: string; // 设置 cookie 的安全域
 	readonly VITE_google: string; // google key
+	readonly VITE_oss: string; // oss 资源域名
+	readonly VITE_staticPath: string; // 静态资源虚拟路径
+	readonly VITE_staticDomain: string; // 静态资源域名或者是域名+路径
 }
 
 export interface ImportMeta {
@@ -27,6 +30,4 @@ export const deviceName = "kd_origin"; // 标记当前设备类型
 export const rootData = "__MlaABWNKPrYLzpbU";
 
 export const dashboard = "/";
-export const staticPath = "/v4_sources";
-export const staticDomain = `https://dev-v4cdn.kingdata.work${staticPath}`;
 export const oss = "https://res.kingdata.xyz";

@@ -34,8 +34,8 @@ export const getEnv = function (): Env {
 			captcha: opt.VITE_google // 谷歌人机校验 key
 		},
 		domain: opt.VITE_domain,
-		home: `${opt.VITE_domain}/`, // 默认首页
-		appDownload: `${opt.VITE_domain}/download/`, // 下载页
+		home: `${opt.VITE_domain ? opt.VITE_domain : ""}/`, // 默认首页
+		appDownload: `${opt.VITE_domain ? opt.VITE_domain : ""}/download/`, // 下载页
 	};
 	return env as Env;
 }

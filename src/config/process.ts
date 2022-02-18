@@ -4,14 +4,24 @@
  */
 
 import safeGet from "@fengqiaogang/safe-get";
-import { ImportMetaEnv, Command } from "../types/env";
+import { ImportMetaEnv, Command, oss } from "../types/env";
 import safeSet from "@fengqiaogang/safe-set";
 
 const _getOsProcess = function (): ImportMetaEnv {
-	const env = {};
+	const env = {
+		VITE_oss: oss,
+	};
 	try {
 		const data = (process.env || {});
-		const keys = ["VITE_mode", "VITE_api", "VITE_domain", "VITE_cookie", "VITE_google"];
+		const keys = [
+			"VITE_mode",
+			"VITE_api",
+			"VITE_domain",
+			"VITE_cookie",
+			"VITE_google",
+			"VITE_staticPath",
+			"VITE_staticDomain"
+		];
 		for(const name of keys) {
 			const value = safeGet<string>(data, name);
 			safeSet(env, name, value);
