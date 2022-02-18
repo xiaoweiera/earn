@@ -4,11 +4,19 @@ import { ref } from "vue";
 import I18n from '~/utils/i18n/index'
 const i18n = I18n();
 const search = ref<string>('');
+defineProps({
+  title: {
+    type: String,
+    defult: () =>{
+      return '';
+    }
+  },
+})
 </script>
 <template>
   <div>
     <div class="w-41 md:w-50 flex md:ml-3 mt-3 md:mt-0 relative">
-      <input class="w-41 md:w-50 h-8 text-kd14px18px text-global-highTitle text-opacity-85 bg-global-topBg border border-global-highTitle border-opacity-4 rounded-md" v-model="search" placeholder="项目名称" type="text">
+      <input class="w-41 md:w-50 h-8 text-kd14px18px text-global-highTitle text-opacity-85 bg-global-topBg border border-global-highTitle border-opacity-4 rounded-md" v-model="search" :placeholder="title" type="text">
       <IconFont class="absolute left-3.25 top-2.5" type="icon-sousuo" size='14'/>
     </div>
   </div>

@@ -2,6 +2,18 @@
 import { ref } from 'vue'
 import I18n from '~/utils/i18n/index'
 
+defineProps({
+  chainData: {
+    type: Object,
+    required: true,
+  },
+  title: {
+    type: String,
+    defult: () =>{
+      return '';
+    }
+  },
+})
 const i18n = I18n();
 const chainData = ref([
   {
@@ -36,7 +48,7 @@ const onChangeView = function (data: object) {
 <template>
   <div>
     <div class="flex items-center">
-      <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang">项目类型</div>
+      <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang">{{title}}</div>
       <div class="is-tab">
         <ui-tab :list="chainData" @change="onChangeView"></ui-tab>
       </div>
@@ -44,6 +56,11 @@ const onChangeView = function (data: object) {
   </div>
 </template>
 <style lang="scss" scoped>
+%first-ml0 {
+  &:first-child {
+    @apply ml-0;
+  }
+}
 .is-tab {
   @apply ml-4 flex items-center;
   ::v-deep(.tab-wrap) {
@@ -52,6 +69,12 @@ const onChangeView = function (data: object) {
       &:after {
         @apply h-0;
       }
+      &:not(a) {
+      &:not([href]) {
+        @apply cursor-pointer ml-4;
+        @extend %first-ml0;
+      }
+    }
     }
     span {
       @apply text-kd14px18px font-medium font-kdFang;
