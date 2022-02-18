@@ -8,11 +8,11 @@ import _ from "lodash";
 import path from "path";
 import template from "../template/";
 import I18n from "src/utils/i18n";
-import {Env, production} from "src/config";
+import {Env, Command} from "src/config";
 import { createServer as createViteServer, ViteDevServer } from "vite";
 
 const getEntryHtml = function (root: string, env: Env) {
-	if (env.mode === production) {
+	if (env.command === Command.build) {
 		const entry = path.join(root, "dist/server", "entry-server.js");
 		const templateSrc = path.join(root, "dist/client", env.template);
 		const html = fs.readFileSync(templateSrc, "utf-8");
@@ -66,7 +66,7 @@ class SSR {
 	private async getRender(url: string) {
 		const { entry, html } = getEntryHtml(this.root, this.env);
 		// 线上环境
-		if (this.env.mode === production) {
+		if (this.env.command === Command.build) {
 			// const modules = Object.keys(require.cache);
 			const { render } = require(entry);
 			// this.nocache(modules);

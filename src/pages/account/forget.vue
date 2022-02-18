@@ -13,9 +13,7 @@ const i18n = I18n();
       <h3 class="text-16-24 text-center text-global-darkblue">{{ i18n.common.resetPassword }}</h3>
     </div>
     <!-- 引用公共的密码找回功能 -->
-    <client-only>
-      <account-forget/>
-    </client-only>
+    <account-forget/>
   </div>
 </template>
 

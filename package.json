@@ -6,8 +6,10 @@
     "dev": "scripts/dev.sh",
     "build:prod": "scripts/build.sh production",
     "build:test": "scripts/build.sh test",
+    "build:debug": "scripts/build.sh debug",
     "serve:prod": "scripts/serve.sh production 3333",
-    "serve:test": "scripts/serve.sh test 3333"
+    "serve:test": "scripts/serve.sh test 3333",
+    "serve:debug": "scripts/serve.sh debug 3333"
   },
   "_moduleAliases": {
     "@root": ".",

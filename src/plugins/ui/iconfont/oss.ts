@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import { oss } from "src/config";
+import { getEnv } from "src/config";
 import { isHttp, Equals } from 'src/utils'
 
 const statusRight = 'status-right' // 右侧箭头
@@ -50,6 +50,8 @@ const ossList: string[] = [
 
 const getLink = function(value: string, suffix: string = 'svg'): string | undefined {
   if (value) {
+    const env = getEnv();
+    const oss = env.VITE_oss;
     if (isHttp(value) || value.includes('.')) {
       return value
     }

@@ -13,9 +13,7 @@ const i18n = I18n();
       <h3 class="text-16-24 text-center text-global-darkblue">{{ i18n.common.switchRegister }}</h3>
     </div>
     <!-- 引用公共的邮箱注册功能 -->
-    <client-only>
-      <account-register/>
-    </client-only>
+    <account-register/>
   </div>
 </template>
 
