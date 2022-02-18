@@ -42,18 +42,18 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
-#
-#      - name: deploy to cluster kd-web3
-#        uses: kodermax/kubectl-aws-eks@master
-#        env:
-#          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-#          IMAGE_URL: '${{ steps.login-ecr.outputs.registry }}/kd-web3:dev-${{ steps.slug.outputs.sha8 }}'
-#        with:
-#          args: set image -n dev deployment/kd-web3-v1 container-z1cfk3=$IMAGE_URL
-#
-#      - name: verify deployment kd-web3
-#        uses: kodermax/kubectl-aws-eks@master
-#        env:
-#          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-#        with:
-#          args: rollout status -n dev deployment/kd-web3-v1
+
+      - name: deploy to cluster kd-web4
+        uses: kodermax/kubectl-aws-eks@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          IMAGE_URL: '${{ steps.login-ecr.outputs.registry }}/kd-web4:dev-${{ steps.slug.outputs.sha8 }}'
+        with:
+          args: set image -n dev deployment/kd-web4-v1 container-21ihqu=$IMAGE_URL
+
+      - name: verify deployment kd-web4
+        uses: kodermax/kubectl-aws-eks@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: rollout status -n dev deployment/kd-web4-v1
