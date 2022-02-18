@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="relative  ui-popover ">
+  <div class="relative  ui-popover z-100 ">
     <div class="cursor-pointer">
       <slot name="reference"></slot>
     </div>
