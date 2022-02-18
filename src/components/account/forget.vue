@@ -65,7 +65,7 @@ const submit = async function () {
 </script>
 
 <template>
-  <div>
+  <client-only>
     <el-form size="large" ref="domForm" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
       <!-- 邮箱地址 -->
       <el-form-item prop="email">
@@ -118,7 +118,7 @@ const submit = async function () {
         </slot>
       </div>
     </el-form>
-  </div>
+  </client-only>
 </template>
 
 

@@ -6,7 +6,7 @@ import path from "path";
 import {createServer} from "vite";
 import Compression from "compression";
 import { getProcess } from "src/config/process";
-import {Env, production, staticPath} from "src/config";
+import {Env, Command} from "src/config";
 import Express, {Router, NextFunction, Request, Response} from "express";
 
 const Assets = async function(root: string, env: Env) {
@@ -28,10 +28,12 @@ const Assets = async function(root: string, env: Env) {
 		});
 	});
 
-	if (env.mode === production) {
-		const dist = path.join(root, "dist/client");
+	if (env.VITE_command === Command.build) {
 		router.use(Compression());
-		router.use(staticPath, Express.static(dist));
+		if (env.VITE_staticPath && !/^http/.test(env.VITE_staticPath)) {
+			const dist = path.join(root, "dist/client");
+			router.use(env.VITE_staticPath, Express.static(dist));
+		}
 	} else {
 		const vite = await createServer({
 			root,

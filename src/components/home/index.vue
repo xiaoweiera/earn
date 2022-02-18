@@ -12,12 +12,15 @@ import {ref} from 'vue'
       <DappHomediscover class="mt-16.5"/>
       <HomeCompany class="mt-6"/>
       <DappHomenft class="mt-16.5"/>
+      <DappHomediscoverend class="mt-16.5"/>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 @import "src/styles/function";
 .top{
+
+  background: #e5e5e51a;
   background-image:cdn("/dapp/dappsBg.jpg");
   background-size: 100% 652px;
   background-repeat: no-repeat;

@@ -1,8 +1,13 @@
 export interface ImportMetaEnv {
-	readonly VITE_mode: string;
-	readonly VITE_api: string;
-	readonly VITE_domain: string;
-	readonly VITE_google: string;
+	readonly VITE_mode: string;   // 运行模式
+	readonly VITE_command: string;
+	readonly VITE_api: string;    // 接口域名
+	readonly VITE_domain: string; // 网站域名
+	readonly VITE_cookie: string; // 设置 cookie 的安全域
+	readonly VITE_google: string; // google key
+	readonly VITE_oss: string; // oss 资源域名
+	readonly VITE_staticPath: string; // 静态资源虚拟路径
+	readonly VITE_staticDomain: string; // 静态资源域名或者是域名+路径
 }
 
 export interface ImportMeta {
@@ -11,6 +16,7 @@ export interface ImportMeta {
 
 export const production = "production";
 export const development = "development";
+export const test = "test";
 
 export enum Command {
 	build = "build",
@@ -25,5 +31,4 @@ export const deviceName = "kd_origin"; // 标记当前设备类型
 export const rootData = "__MlaABWNKPrYLzpbU";
 
 export const dashboard = "/";
-export const staticPath = "/v4_sources";
 export const oss = "https://res.kingdata.xyz";

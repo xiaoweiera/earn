@@ -20,3 +20,7 @@ export const user = {
 	getEmailCaptcha: "/api/v2/users/email_send_verification_code", // 邮箱验证码
 	registerEmail: "/api/v1/users/email_signup", // 邮箱注册
 }
+
+export const common = {
+	areaCodeList: "/api/v1/area_codes/"
+}

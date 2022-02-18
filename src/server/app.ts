@@ -10,23 +10,28 @@ import Router from "./router/index";
 import Assets from "./router/assets";
 import CookieParser from "cookie-parser";
 import common from "src/controller/common/";
+import cors from "src/controller/common/cors";
 
 
 const root: string = path.resolve(__dirname, "../..");
 
 const main = async function () {
 	const app = Express();
-	app.use(CookieParser());
 
 	const config = Object.assign({}, getEnv(), {
 		port: process.env.port || 3333,
 		host: process.env.host || "0.0.0.0",
 	});
-
 	console.log(config);
+
+	app.use(cors);
+
 
 	const assets = await Assets(root, config);
 	app.use(assets);
+
+	app.use(CookieParser());
+	// 处理公共数据
 	app.use(common);
 
 	// // 处理常用数据
