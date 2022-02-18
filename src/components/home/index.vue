@@ -3,7 +3,7 @@ import {ref} from 'vue'
 
 </script>
 <template>
-  <div class="top   min-h-164  pt-6 ">
+  <div class="top  min-h-164  pt-6 ">
     <div class="max-w-360 px-22.5   mx-auto">
       <HomeHeader class=""/>
       <HomeTopic class="mt-9"/>
