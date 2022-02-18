@@ -28,7 +28,7 @@ const Assets = async function(root: string, env: Env) {
 		});
 	});
 
-	if (env.command === Command.build) {
+	if (env.VITE_command === Command.build) {
 		router.use(Compression());
 		if (env.VITE_staticPath && !/^http/.test(env.VITE_staticPath)) {
 			const dist = path.join(root, "dist/client");
