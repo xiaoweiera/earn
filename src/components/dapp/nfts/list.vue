@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import DappNftsHeader from "./header.vue"
-import DappNftsFooter from "./footer.vue"
 
 </script>
 <template>

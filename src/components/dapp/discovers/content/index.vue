@@ -1,10 +1,6 @@
 <script setup lang="ts">
 
-import DappDiscoversContentHeader from './header.vue'
-import DappDiscoversContentTitle from './title.vue'
-import DappDiscoversContentDec from './dec.vue'
-import DappDiscoversContentPrice from './price.vue'
-import DappDiscoversContentTime from './time.vue'
+
 </script>
 
 <template>

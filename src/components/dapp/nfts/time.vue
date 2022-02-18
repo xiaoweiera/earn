@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DappNftsCutdown from './cutdown.vue'
+
 </script>
 <template>
   <div>

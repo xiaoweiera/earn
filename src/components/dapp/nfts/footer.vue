@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DappNftsTime from './time.vue'
+
 </script>
 <template>
   <div>

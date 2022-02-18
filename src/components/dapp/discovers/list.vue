@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import DappDiscoversContent from './content/index.vue'
 const loading = ref<boolean>(false);
 </script>
 <template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const props = defineProps ({
+defineProps ({
   title: {
     type: Object,
     default: () => {

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import DappDiscoversContentType from '../discovers/content/type.vue'
-import DappDiscoversContentChain from '../discovers/content/chain.vue'
-import DappDiscoversContentInputseach from '../discovers/content/inputsearch.vue'
+
 </script>
 <template>
   <div class="mt-5">
@@ -16,7 +14,7 @@ import DappDiscoversContentInputseach from '../discovers/content/inputsearch.vue
       </div>
       <!-- 搜索框 -->
       <div>
-        <DappDiscoversContentInputseach></DappDiscoversContentInputseach>
+        <DappDiscoversContentField></DappDiscoversContentField>
       </div>
     </div>
   </div>
