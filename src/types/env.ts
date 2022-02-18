@@ -1,8 +1,9 @@
 export interface ImportMetaEnv {
-	readonly VITE_mode: string;
-	readonly VITE_api: string;
-	readonly VITE_domain: string;
-	readonly VITE_google: string;
+	readonly VITE_mode: string;   // 运行模式
+	readonly VITE_api: string;    // 接口域名
+	readonly VITE_domain: string; // 网站域名
+	readonly VITE_cookie: string; // 设置 cookie 的安全域
+	readonly VITE_google: string; // google key
 }
 
 export interface ImportMeta {
@@ -11,6 +12,7 @@ export interface ImportMeta {
 
 export const production = "production";
 export const development = "development";
+export const test = "test";
 
 export enum Command {
 	build = "build",

@@ -5,21 +5,22 @@
 
 import safeGet from "@fengqiaogang/safe-get";
 import { ImportMetaEnv, Command } from "../types/env";
+import safeSet from "@fengqiaogang/safe-set";
 
 const _getOsProcess = function (): ImportMetaEnv {
+	const env = {};
 	try {
-		return (process.env || {}) as any;
+		const data = (process.env || {});
+		const keys = ["VITE_mode", "VITE_api", "VITE_domain", "VITE_cookie", "VITE_google"];
+		for(const name of keys) {
+			const value = safeGet<string>(data, name);
+			safeSet(env, name, value);
+		}
 	} catch (e) {
 		// todo
 	}
-	return {} as any;
+	return env as ImportMetaEnv;
 }
-
-const env = _getOsProcess();
-
-export const domain = env.VITE_domain;
-export const home = `https://${env.VITE_domain}/`;
-export const appDownload = `https://${env.VITE_domain}/download/`;
 
 export enum Device {
 	web= "web",
@@ -33,6 +34,7 @@ export interface Process extends ImportMetaEnv {
 }
 
 export const getProcess = function (): Process {
+	const env = _getOsProcess();
 	return {
 		...env,
 		mode: env.VITE_mode,

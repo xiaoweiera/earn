@@ -10,8 +10,9 @@ import window from "src/plugins/browser/window";
 import {createReactive} from "src/utils/ssr/ref";
 import {createHref} from "src/plugins/router/pack";
 import {config as routerConfig} from "src/router/config";
-import {languageKey, appDownload, oss} from "src/config";
+import {languageKey, oss, getEnv} from "src/config";
 
+const env = getEnv();
 const i18n = I18n();
 const user = createReactive<User>("common.user", {} as User);
 
@@ -54,7 +55,7 @@ const goRegister = function () {
     <span class="inline-block whitespace-nowrap text-14-18">{{ i18n.common.lang }}</span>
   </span>
     <span class="mx-4 text-white text-opacity-65 hidden lg:inline-block">|</span>
-    <v-router class="hidden lg:flex" :href="appDownload" target="_blank">
+    <v-router class="hidden lg:flex" :href="env.appDownload" target="_blank">
       <span class="inline-block whitespace-nowrap text-14-18">APP</span>
     </v-router>
     <span class="mx-4 text-white text-opacity-65">|</span>

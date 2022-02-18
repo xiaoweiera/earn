@@ -2,25 +2,25 @@
  * @file 操作 cookie
  */
 import jsCookie from "js-cookie";
-import { tokenName, tokenExpires, deviceName } from "src/config/";
 import getDomain from "./domain";
+import { tokenName, tokenExpires, deviceName, getEnv } from "src/config/";
 
-const tidingName = 'last_timestamp';
+const tidingName = "last_timestamp";
 
 // 删除凭证
 export const removeUserToken = function() {
-	const domain = getDomain();
+	const env = getEnv();
 	jsCookie.remove(tokenName, {
-		domain,
+		domain: env.VITE_cookie,
 		path: '/',
 	})
 }
 
 // 添加凭证
 export const addUserToken = function(value: string) {
-	const domain = getDomain();
+	const env = getEnv();
 	jsCookie.set(tokenName, value, {
-		domain,
+		domain: env.VITE_cookie,
 		path: '/',
 		expires: new Date(Date.now() + tokenExpires)
 	});
@@ -29,9 +29,9 @@ export const addUserToken = function(value: string) {
 
 // 修改设备类型
 export const setDeviceValue = function(value: string = "") {
-	const domain = getDomain()
+	const env = getEnv();
 	jsCookie.set(deviceName, value, {
-		domain,
+		domain: env.VITE_cookie,
 		path: '/',
 	})
 }
