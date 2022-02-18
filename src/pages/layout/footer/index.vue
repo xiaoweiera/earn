@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import Hover from "./hover.vue";
-import I18n from "src/utils/i18n";
-import * as env from "src/config/";
 import Column from "./column.vue";
+import I18n from "src/utils/i18n";
+import { getEnv } from "src/config/";
 import { MenuItem } from "src/types/menu";
 import { createRef } from "src/utils/ssr/ref";
 
+const env = getEnv();
 const i18n = I18n();
 
 const list = createRef<MenuItem[]>("common.footer", []);

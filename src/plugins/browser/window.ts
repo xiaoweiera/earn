@@ -3,8 +3,8 @@
  * @author svon.me@gmail.com
  */
 
-import { IsSSR } from "src/config/ssr";
-import { home, domain } from "src/config/process";
+import {getEnv} from "src/config";
+import {IsSSR} from "src/config/ssr";
 
 interface Root {
 	[key: string]: any;
@@ -13,36 +13,37 @@ interface Root {
 let root: Root = {};
 
 if (IsSSR()) {
+	const env = getEnv();
 	root = {
-		open: function() {
+		open: function () {
 		},
 		screen: {
 			width: 1200
 		},
 		innerHeight: 600,
 		location: {
-			href: home,
+			href: env.home,
 			pathname: '/',
-			hostname: domain,
-			origin: home,
+			hostname: env.VITE_cookie,
+			origin: env.VITE_domain,
 			search: '',
-			replace: function() {
+			replace: function () {
 			},
-			reload: function() {
+			reload: function () {
 			}
 		},
 		navigator: {
 			userAgent: ""
 		},
-		btoa: function(value: any) {
+		btoa: function (value: any) {
 			return value
 		},
 		performance: {
-			now: function() {
+			now: function () {
 				return Date.now()
 			}
 		},
-		scrollTo: function() {
+		scrollTo: function () {
 		},
 		grecaptcha: {
 			execute: async function (...args: any[]) {

@@ -14,5 +14,4 @@ const Router = async function (root: string, env: Env) {
 
     return router;
 }
-console.log(Router);
 export default Router;

@@ -5,7 +5,6 @@
 
 export { IsSSR } from "./ssr";
 import { getProcess, Process } from "./process";
-export { home, domain, appDownload } from "./process";
 export * from "src/types/env";
 
 export const title = "KingData";
@@ -18,20 +17,25 @@ export interface Env extends Process{
 	template: string;
 	api: string; // 接口地址
 	ApiVersion: string;
+	home: string;
+	appDownload: string;
+	domain: string;
 	google: Google,
 }
 
 export const getEnv = function (): Env {
 	const opt = getProcess();
 	const env = {
-		mode: opt.mode,
+		...opt,
 		ApiVersion: "v1",
 		template: "index.html",
-		command: opt.command,
 		api: opt.VITE_api, // api 接口域名
 		google: {
 			captcha: opt.VITE_google // 谷歌人机校验 key
-		}
+		},
+		domain: opt.VITE_domain,
+		home: `${opt.VITE_domain}/`, // 默认首页
+		appDownload: `${opt.VITE_domain}/download/`, // 下载页
 	};
 	return env as Env;
 }
