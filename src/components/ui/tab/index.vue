@@ -66,7 +66,9 @@ const getActiveValue = function () {
     }
   }
   if (item) {
-    return item.id;
+    console.log(props.activeName,'--')
+    console.log(item)
+    return safeGet<string>(item, props.activeName);
   }
 }
 
@@ -83,12 +85,12 @@ const onClick = function (data: Item) {
   if (data.href) {
     return true;
   }
-  return onChange(data.id);
+  return onChange(safeGet<string>(data, props.activeName));
 }
 
 const className = function (data: Item): string {
   let value: string = data.className ? data.className : "";
-  if (data.id === active.value) {
+  if (safeGet<string>(data, props.activeName) === active.value) {
     value = value ? `${value} active` : "active";
   }
   return value;

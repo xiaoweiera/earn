@@ -19,6 +19,7 @@ const data={
 </script>
 <template>
   <div class="table-box">
+    <HomeFilter/>
     <table class="table-my">
       <thead>
       <tr class="h-10">
@@ -66,6 +67,6 @@ tbody td{
 }
 .table-my{
   border-collapse:separate;border-spacing: 0px 0px;
-  @apply w-full bg-opacity-0 -mx-2.5 rounded-kd6px;
+  @apply w-full bg-opacity-0  rounded-kd6px;
 }
 </style>

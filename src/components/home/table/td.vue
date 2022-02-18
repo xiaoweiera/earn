@@ -69,8 +69,8 @@ onMounted(()=>{
   <div>
     <!--projectName-->
     <div v-if="typeName==='nameProject'" class="flex-center">
-      <IconFont size="32" type="icon-HECOYuan"/>
-      <div class="ml-1.5 ">
+      <IconFont size="24" type="icon-HECOYuan"/>
+      <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no">Astar Network</div>
         <div class="nameTag text-number  text-left line-height-no">ASTR</div>
       </div>

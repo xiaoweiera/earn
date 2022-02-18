@@ -2,6 +2,7 @@
 import {clone} from "ramda";
 import {isString} from "src/utils";
 import safeSet from "@fengqiaogang/safe-set";
+import safeGet from "@fengqiaogang/safe-get";
 
 
 export enum Trigger {
@@ -24,12 +25,12 @@ export const makeLink = function (activeName: string,data: Item) {
 			return {
 				path: data.href as string,
 				query: {
-					[activeName]: data.id
+					[activeName]: safeGet<string>(data, activeName)
 				}
 			};
 		}
 		const url = clone(data.href);
-		safeSet(url, `query.${activeName}`, data.id);
+		safeSet(url, `query.${activeName}`, safeGet<string>(data, activeName));
 		return url;
 	}
 }

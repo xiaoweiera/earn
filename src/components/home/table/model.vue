@@ -7,7 +7,7 @@ const props=defineProps({
 
 </script>
 <template>
-    <div class="table-box">
+    <div class="table-box bg-global-white  border-1">
       <div class="flex items-center justify-between">
         <span class="title">{{title}}</span>
         <span class="more">more > </span>
@@ -15,7 +15,7 @@ const props=defineProps({
       <div class="gang"></div>
       <table class="table-my">
         <thead>
-        <tr>
+        <tr class="h-5">
           <td class="header-td">#</td>
           <template v-for="item in data.header">
             <td>{{item.name}}</td>
@@ -24,15 +24,14 @@ const props=defineProps({
         </thead>
         <tbody>
         <template v-for="(item,index) in data.header">
-          <tr class="h-6.5">
-            <td class="number">{{index}}</td>
-            <td>{{data.list[index].name}}</td>
+          <tr class="h-11.5">
+            <td class="number pr-2">{{index}}</td>
+            <td><HomeTableTd :typeName="data.header[0].key"/></td>
             <td>{{data.list[index].macap}}</td>
             <td>{{data.list[index].end}}</td>
             <td>{{data.list[index].ath}}</td>
             <td>{{data.list[index].current}}</td>
           </tr>
-
         </template>
         </tbody>
       </table>
@@ -47,7 +46,7 @@ const props=defineProps({
 }
 .gang{
   border:1px solid rgba(3, 54, 102, 0.06);
-  @apply mt-5;
+  @apply my-5;
 }
 thead td,.number{
   @apply text-kd12px16px text-global-highTitle text-opacity-45 text-center;
@@ -60,7 +59,7 @@ tbody td{
   @apply p-4 w-full h-full bg-global-white rounded-kd16px;
 }
 .table-my{
-  border-collapse:separate;  border-spacing:0px 20px;
+  //border-collapse:separate;  border-spacing:0px 0px;
   @apply w-full bg-opacity-0 rounded-kd6px;
 }
 </style>
