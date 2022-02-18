@@ -22,7 +22,7 @@ import {ref} from 'vue'
               </div>
             </template>
             <template #content>
-              <div class="font-kdFang p-4 shadow w-105 absolute top-2 bg-global-white rounded-kd4px">
+              <div class="font-kdFang p-4 shadow w-105 absolute top-2 z-100 bg-global-white rounded-kd4px">
                 <div class="text-kd16px22px font-medium text-highTitle">收益计算说明：</div>
                 <div class="mt-1.5 text-kd14px22px text-global-highTitle text-opacity-45">该收益为 KingData 平台所收录的 IDO & IGO 项目，收益排名前100的最高平均项目收益，数据可能存在一定的误差，仅作为参考，不具备任何投资建议，投资者需谨慎进行操作。</div>
               </div>
@@ -93,12 +93,10 @@ import {ref} from 'vue'
   .number-value {
     @apply text-kd20px20px font-bold;
   }
-
   .time {
     @apply px-1 py-0.5 mx-1.5 text-kd12px16px font-medium;
     @apply bg-global-white bg-opacity-25 rounded-kd4px;
   }
-
   .number-rate {
     @apply text-kd16px18px font-bold;
   }

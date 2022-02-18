@@ -10,7 +10,15 @@ list.value=[
   {name:'DeFi Daily Active User (24H) 🔥 🔥 🔥',key:'five'},
 ]
 const topicIndex=ref(0)
-const selectTopic=(index:number)=>topicIndex.value=index
+const zhi=ref(0)
+const selectTopic=(index:number)=>{
+  topicIndex.value=index
+  if(zhi.value===0){
+    zhi.value=1
+  }else{
+    zhi.value=0
+  }
+}
 </script>
 <template>
   <div class="w-full flex justify-between">
@@ -31,7 +39,7 @@ const selectTopic=(index:number)=>topicIndex.value=index
     </div>
     <!--    topic table-->
     <div>
-      <HomeTable/>
+      <HomeTable :topicIndex="zhi"/>
     </div>
   </div>
   <!--  🚀 你好你好你好你好 (24H) 🔥-->
