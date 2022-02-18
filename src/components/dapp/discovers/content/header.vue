@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import DappDiscoversContentRisk from './risk.vue'
 
 </script>
 

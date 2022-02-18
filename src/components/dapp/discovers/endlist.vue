@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import DappDiscoversEnd from './end/index.vue'
-import DappDiscoversEndHeader from './end/header.vue'
+
 
 </script>
 <template>

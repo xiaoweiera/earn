@@ -1,5 +1,5 @@
 <template>
   <div>
-    <DappNft/>
+    <DappHomediscover/>
   </div>
 </template>
