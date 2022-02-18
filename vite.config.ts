@@ -5,6 +5,8 @@
 
 import _ from "lodash";
 import path from "path";
+// @ts-ignore
+import argv from "@fengqiaogang/argv";
 import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
@@ -35,9 +37,9 @@ const getSassData = function (env: ImportMetaEnv & ConfigEnv) {
 }
 
 
-export default defineConfig(async function (env: ConfigEnv) {
-  const config = await getConfig(env);
-  const data = getSassData({ ...env, ...config });
+export default defineConfig(async function () {
+  const config = await getConfig(argv);
+  const data = getSassData({ ...argv, ...config });
   console.log("vite config : ", config);
   console.log("sass data: ", data.sass);
   return {
@@ -46,10 +48,10 @@ export default defineConfig(async function (env: ConfigEnv) {
     define: {
       "process.env": {
         ...config,
-        command: env.command,
+        command: config.VITE_command,
       }
     },
-    build: env.command === Command.build ? {
+    build: config.VITE_command === Command.build ? {
 			minify: "esbuild", // 编译速度最快
       target: 'modules',
       manifest: true,

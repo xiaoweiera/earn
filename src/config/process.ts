@@ -15,6 +15,7 @@ const _getOsProcess = function (): ImportMetaEnv {
 		const data = (process.env || {});
 		const keys = [
 			"VITE_mode",
+			"VITE_command",
 			"VITE_api",
 			"VITE_domain",
 			"VITE_cookie",
@@ -48,6 +49,6 @@ export const getProcess = function (): Process {
 	return {
 		...env,
 		mode: env.VITE_mode,
-		command: safeGet<Command>(env, "command") || Command.build,
+		command: (env.VITE_command || Command.build) as Command,
 	};
 }
