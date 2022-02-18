@@ -8,7 +8,7 @@ const Router = async function (root: string, env: Env) {
         res.send({});
     });
 
-    router.get(config.nft, function (req, res){
+    router.get(`${config.nft}/discover`, function (req, res){
         res.send({});
     });
 

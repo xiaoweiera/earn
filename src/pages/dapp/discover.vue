@@ -50,10 +50,10 @@ const onChangeView = function (data: object) {
       <!-- 列表内容 -->
       <div class="py-8">
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DappDiscoversList v-for="(item, index) in 9" :key='index'></DappDiscoversList>
+          <!-- <DappDiscoversList v-for="(item, index) in 9" :key='index'></DappDiscoversList> -->
         </div>
         <div>
-          <!-- <DappDiscoversEndlist v-for="(item, index) in 9" :key='index'></DappDiscoversEndlist> -->
+          <DappDiscoversEndlist v-for="(item, index) in 9" :key='index'></DappDiscoversEndlist>
         </div>
       </div>
     </div>
