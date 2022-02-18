@@ -42,7 +42,7 @@ export default defineConfig(async function (env: ConfigEnv) {
   console.log("sass data: ", data.sass);
   return {
     base: data.staticUrl,
-    mode: env.command === Command.build ? production : development,
+    mode: config.VITE_command === Command.build ? production : development,
     define: {
       "process.env": {
         ...config,
