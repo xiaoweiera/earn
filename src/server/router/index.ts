@@ -5,6 +5,7 @@
 
 import Blog from "./blog";
 import Home from "./home";
+import Dapp from "./dapp";
 import User from "./user";
 import { Env } from "src/config";
 import { config } from "src/router/config";
@@ -15,6 +16,8 @@ import { Router as ExpressRouter, Request, Response } from "express";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 	const router = ExpressRouter();
+	// Dapp
+	const dapp = await Dapp(root, env);
 	//Home
 	const home = await Home(root, env);
 	// 博客
@@ -22,13 +25,15 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 	const send = await Send(root, env);
 	// 封装 send 方法
 	router.use(send);
+
+	// 装载DAPP相关路由
+	router.use(dapp);
 	// 封装 user 相关路由
 	router.use(User());
 	// 装载Home相关路由
 	router.use(home);
 	// 装载博客相关路由
 	router.use(blog);
-
 	// 404
 	router.get(config.E404, function (req: Request, res: Response) {
 		res.send({});

@@ -1,0 +1,12 @@
+
+.showX{
+  @apply overflow-hidden overflow-x-scroll;
+}
+/* 滑轮样式 */
+.showX::-webkit-scrollbar {
+  height: 0px;
+}
+
+.showX::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0);
+}

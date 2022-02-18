@@ -6,7 +6,7 @@
 import _, {size, compact, flatten} from "lodash";
 // @ts-ignore
 import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from "uuid";
-import { isString } from "./check/is";
+import { isString, isArray } from "./check/is";
 export * from "./check/is";
 export * from "./convert/to";
 export * from "./time/index";
@@ -79,3 +79,22 @@ export const min = function(...args: any[]): number {
 	return void 0
 }
 
+/**
+ * 循环
+ */
+ export const forEach = function(callback: any, data: any) {
+	if (callback && data) {
+		if (isArray(data)) {
+			data.forEach(function(value: any, index: number) {
+				callback(value, index, data)
+			})
+		} else {
+			const keys = Object.keys(data)
+			keys.forEach(function(key: string) {
+				// @ts-ignore
+				const value = data[key]
+				callback(value, key, data)
+			})
+		}
+	}
+}

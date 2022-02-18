@@ -38,6 +38,8 @@ const cssGlobal = {
 	none: '#FFF0',
 	gemstone: '#F0BF12', // 黄宝石
 	media: '#1DA1F2',
+	bgBlack:'#272C3366',
+	textBlack: '#212121',
 	hei:'#000000'
 }
 
@@ -132,6 +134,7 @@ export default defineConfig({
 				'kd25px28px':['25px','28px'],
 				'kd40px40px':['40px','40px'],
 				'kd40px60px':['40px','60px'],
+				'kd10px12px':['10px','12px'],
 			},
 			fontWeight: {
 				'b': '600',

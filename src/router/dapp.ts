@@ -7,6 +7,10 @@ const routes = [
 	},
 	{
 		path: `${router.nft}/discover`,
+		component: () => import("src/pages/dapp/nft.vue"),
+	},
+	{
+		path: `${router.dapp}/discover`,
 		component: () => import("src/pages/dapp/discover.vue"),
 	},
 	{
