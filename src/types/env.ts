@@ -27,5 +27,6 @@ export const deviceName = "kd_origin"; // 标记当前设备类型
 export const rootData = "__MlaABWNKPrYLzpbU";
 
 export const dashboard = "/";
-export const staticPath = "/v4_sources";
+// export const staticPath = "/v4_sources";
+export const staticPath = "https://dev-v4cdn.kingdata.work";
 export const oss = "https://res.kingdata.xyz";
