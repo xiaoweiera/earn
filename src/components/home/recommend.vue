@@ -12,13 +12,8 @@ import "swiper/swiper-bundle.css";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
 const list = [
-  {name: 'aaaa', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
-  {name: 'aaaa', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
-  {name: 'aaaa', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
-  {name: 'aaaa', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
-  {name: 'aaaa', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
-  {name: 'aaaa', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
-
+  {name: 'data', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
+  {name: 'desc', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
 ]
 const isBegin = ref(true)
 const isEnd = ref(false)
@@ -56,10 +51,10 @@ const init=(swiper:any)=>{
                 @setTranslate="change">
           <template v-for="(item, index) in list" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <div class="h-48.5 w-47.5 rounded-kd6px  relative">
+              <v-router :href="`home/detail?type=${item.name}`" target="_blank" class="h-48.5 w-47.5 rounded-kd6px block relative">
                 <UiAd class="top-3 left-3 absolute"/>
                 <ui-image class="rounded-kd6px h-full" :src="item.img" fit="cover"/>
-              </div>
+              </v-router>
             </SwiperSlide>
           </template>
         </Swiper>
