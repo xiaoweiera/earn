@@ -34,19 +34,19 @@ const onSwitch = function () {
   }
 }
 
+// 获取昵称
 const getUserName = function (data: User): string | number {
   return data.nickname || data.username || data.email || data.mobile;
 }
 
 // 登录
 const goLogin = function () {
-
+  console.log("打开登录框");
 }
 // 注册
 const goRegister = function () {
-
+  console.log("打开注册框");
 }
-
 </script>
 
 <template>
