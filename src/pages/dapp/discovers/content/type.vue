@@ -2,16 +2,13 @@
 import { ref } from 'vue'
 import I18n from '~/utils/i18n/index'
 
-defineProps({
+const props = defineProps({
   chainData: {
     type: Object,
-    required: true,
   },
   title: {
     type: String,
-    defult: () =>{
-      return '';
-    }
+    default: () => '',
   },
 })
 const i18n = I18n();
@@ -48,7 +45,7 @@ const onChangeView = function (data: object) {
 <template>
   <div>
     <div class="flex items-center">
-      <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang">{{title}}</div>
+      <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang">{{props.title}}</div>
       <div class="is-tab">
         <ui-tab :list="chainData" @change="onChangeView"></ui-tab>
       </div>
