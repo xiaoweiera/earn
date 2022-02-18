@@ -11,7 +11,7 @@ import "src/styles/main.scss";
 
 import { config } from "src/router/config";
 import {createApp} from "./bootstrap/main";
-import { AppId, languageKey, rootData } from "src/config";
+import { AppId, languageKey, rootData, getEnv } from "src/config";
 
 // 设置 Element Ui 中英文
 import ElementPlus from "element-plus";
@@ -28,6 +28,7 @@ const main = async function () {
 	const text = safeGet<string>(window, rootData);
 	const data = text ? Decrypt<object>(text) : {};
 
+	console.log("env : ", getEnv());
 	console.log("Server data ", data);
 
 	const { app, router } = createApp(data);

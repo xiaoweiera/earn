@@ -4,34 +4,17 @@
  */
 
 export { IsSSR } from "./ssr";
-import * as process from "./process";
-import safeSet from "@fengqiaogang/safe-set";
-export { languageKey, production, development, home, domain, appDownload } from "./process";
-
-export const AppId = "app";
-export const tokenName = "auth_token";
-export const tokenExpires = 1000 * 60 * 60 * 2;
-export const deviceName = "kd_origin"; // 标记当前设备类型
-export const rootData = "__MlaABWNKPrYLzpbU";
-
-export const dashboard = "/";
-export const staticPath = "/v4_sources";
-export const oss = "https://res.kingdata.xyz";
-
-export const productionAPI = "https://kingdata.xyz";
-// export const developmentAPI = "https://dev.kingdata.work";
-export const developmentAPI = "https://kingdata.xyz";
+import { getProcess, Process } from "./process";
+export { home, domain, appDownload } from "./process";
+export * from "src/types/env";
 
 export const title = "KingData";
-
-export interface Argv extends process.Process{
-}
 
 export interface Google {
 	captcha: string;
 }
 
-export interface Env extends Argv{
+export interface Env extends Process{
 	template: string;
 	api: string; // 接口地址
 	ApiVersion: string;
@@ -39,22 +22,17 @@ export interface Env extends Argv{
 }
 
 export const getEnv = function (): Env {
-	const opt = process.getProcess();
+	const opt = getProcess();
 	const env = {
 		mode: opt.mode,
 		ApiVersion: "v1",
 		template: "index.html",
 		command: opt.command,
+		api: opt.VITE_api, // api 接口域名
+		google: {
+			captcha: opt.VITE_google // 谷歌人机校验 key
+		}
 	};
-	if (opt.mode === process.development) {
-		// 开发环境接口
-		safeSet(env, "api", developmentAPI);
-		safeSet(env, "google.captcha", "6LdRW1YdAAAAAAebmyfawuZYGY1e1u4Ks8ffKxwQ");
-	} else {
-		// 正式环境接口
-		safeSet(env, "api", productionAPI);
-		safeSet(env, "google.captcha", "6LeyvlMdAAAAADLf1KFRqYmMXGp0DMCUCobrszUU");
-	}
 	return env as Env;
 }
 

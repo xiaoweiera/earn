@@ -3,12 +3,11 @@
  */
 import Http from "./http"
 import {Lang} from "src/types/language";
-import { productionAPI } from "src/config/";
 
 // 线上环境专用
 const service = function (value: Lang) {
 	return Http(value, {
-		baseURL: productionAPI,
+		baseURL: "https://kingdata.xyz", // 生产环境接口域名
 	})
 };
 

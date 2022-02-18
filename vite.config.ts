@@ -5,24 +5,20 @@
 
 import _ from "lodash";
 import path from "path";
-import {oss, staticPath} from "./src/config/";
 import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import {ConfigEnv, defineConfig} from "vite";
+import { getConfig } from "./src/config/env";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
-import { Command, production, development } from "./src/config/process";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import { ImportMetaEnv, production, development, Command, oss, staticPath } from "./src/types/env";
 
 
-const getConfig = function (env: ConfigEnv) {
-  return env;
-}
-
-const getSassData = function (env: ConfigEnv) {
+const getSassData = function (env: ImportMetaEnv) {
   const root = "./";
-  const staticUrl: string = env.mode === development ? root : staticPath;
+  const staticUrl: string = env.VITE_mode === development ? root : staticPath;
   const data = {
     "g-url": oss,
     "static": staticUrl === root ? "" : staticUrl,
@@ -40,22 +36,29 @@ const getSassData = function (env: ConfigEnv) {
 
 
 export default defineConfig(async function (env: ConfigEnv) {
-  const config = getConfig(env);
+  const config = await getConfig(env);
   const data = getSassData(config);
   console.log("vite config : ", config);
   console.log("sass data: ", data.sass);
   return {
     base: data.staticUrl,
+    mode: env.command === Command.build ? production : development,
     define: {
       "process.env": {
-        mode: config.mode === development ? development : production,
-        command: config.command === Command.serve ? Command.serve : Command.build,
+        ...config,
+        command: env.command,
       }
     },
-    build: {
-			minify: "terser",
+    build: env.command === Command.build ? {
+			minify: "esbuild", // 编译速度最快
       target: 'modules',
-      // chunkSizeWarningLimit: 500,
+      manifest: true,
+      chunkSizeWarningLimit: 500,
+      sourcemap: false, // 是否生成 source map
+    } : {
+      minify: "esbuild", // 编译速度最快
+      target: 'modules',
+      sourcemap: true,
     },
     css: {
       preprocessorOptions: {
@@ -97,9 +100,5 @@ export default defineConfig(async function (env: ConfigEnv) {
         ],
       }),
     ],
-    // ssr: {
-    //   external: [],
-    //   noExternal: ['element-plus','web3']
-    // },
   };
 });
