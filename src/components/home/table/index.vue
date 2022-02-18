@@ -21,7 +21,7 @@ const data={
 }
 const data2={
   header: [
-    { name: 'Dapp Name', key: 'name' },
+    { name: 'Dapp Name', key: 'nameProject' },
     { name: 'MCap/Change', key: 'mcap-change' },
     { name: 'Ended in(UTC)', key: 'ended-in' },
     { name: 'ATH Since IDO', key: 'ath-since-ido' },
@@ -38,9 +38,9 @@ const data2={
 
 </script>
 <template>
-  <div class="min-w-150 h-92 py-3 relative">
+  <div class="min-w-150 min-h-86 py-3  relative">
     <div class="bg"></div>
-    <div class="relative h-full bg-global-white rounded-kd16px">
+    <div class="relative  min-h-86 bg-global-white rounded-kd16px">
       <HomeTableModel  class="h-full z-11 absolute top-0" :class="topicIndex===0?'active':'active-no'" :data="data" title="🚀 DeFi Daily Active User (24H)"/>
       <HomeTableModel  class="h-full z-11 absolute top-0" :class="topicIndex===1?'active':'active-no'" :data="data2" title="🚀 NFT is Beautiful"/>
     </div>

@@ -30,7 +30,7 @@ const selectTopic=(index:number)=>{
       </div>
       <div class="py-2.5">
         <template v-for="(item,index) in list" :key="item.key">
-          <div class="topic" :class="topicIndex===index?'topic-active':'topic-default'" @click="selectTopic(index)">
+          <div  class="topic" :class="topicIndex===index?'topic-active':'topic-default'" @click="selectTopic(index)">
             <span>🚀</span>
             <span class="ml-2.5">{{item.name}}</span>
           </div>

@@ -27,7 +27,7 @@ interface To {
 export const getParam = function<T>(key?: string): T{
 	const query = {};
 	// @ts-ignore
-	const search = "?lang=cn";
+	const search = window.location.href;
 	const text = _.last<string>(search.split("?"));
 	const array = text ? text.split("&") : [];
 	_.each(array, function (data: string) {

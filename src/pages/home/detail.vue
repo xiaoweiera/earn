@@ -1,5 +1,5 @@
 <template>
   <div>
-    <HomeDetail/>
+    <HomeDetail type="data" :filter="false"/>
   </div>
 </template>

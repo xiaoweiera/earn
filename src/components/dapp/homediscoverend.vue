@@ -10,7 +10,7 @@
       <DappHomeHeader :title="title" :tips="tips"></DappHomeHeader>
     </div>
     <!-- 项目类型、公链、搜索框 -->
-    <div class="flex justify-between items-center mt-8">
+    <div class="flex justify-between items-center mt-4">
       <div class="flex items-center">
         <!-- 项目类型 -->
         <DappDiscoversContentType title="项目类型"></DappDiscoversContentType>

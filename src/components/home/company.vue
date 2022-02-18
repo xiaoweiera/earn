@@ -45,7 +45,6 @@ const init=(swiper:any)=>{
 </script>
 <template>
   <div>
-    <div class="text-kd24px24px  font-kdSemiBold text-global-highTitle">Recommended Topics</div>
     <div class="mt-4 relative px-2.5">
       <div class="w-full">
         <div :class="isBegin?'hidden':'jian-left'" class="rounded-kd8px">

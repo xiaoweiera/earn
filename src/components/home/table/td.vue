@@ -6,7 +6,8 @@ const props=defineProps({
   typeName:{
     type:String,
     default: () => ''
-  }
+  },
+  type:String
 })
 const chainIcon=['chain']  //icon类
 const iconHref=['platform'] //icon + href
@@ -68,15 +69,15 @@ onMounted(()=>{
 <template>
   <div>
     <!--projectName-->
-    <div v-if="typeName==='nameProject'" class="flex-center">
-      <IconFont size="32" type="icon-HECOYuan"/>
-      <div class="ml-1.5 ">
+    <div v-if="typeName==='nameProject' && type==='data'" class="flex-center">
+      <IconFont size="24" type="icon-HECOYuan"/>
+      <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no">Astar Network</div>
         <div class="nameTag text-number  text-left line-height-no">ASTR</div>
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='nameDes'" class="flex-center">
+    <div v-else-if="typeName==='nameProject' && type==='desc'" class="flex-center">
       <img class="w-12 h-12 rounded-kd6px" :src="`${oss}/dapp/recomTest.jpg`"/>
       <div class="ml-3">
         <div class="nameNameDes text-number line-height-no flex-center">

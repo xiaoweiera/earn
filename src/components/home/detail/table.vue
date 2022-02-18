@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {ref,onMounted} from 'vue'
+import {getParam} from "src/utils/router";
+const props=defineProps({
+  filter:Boolean
+})
+const type=ref('')
 const data={
   header: [
     { name: 'Dapp Name', key: 'nameProject' },//nameProject
@@ -16,31 +21,38 @@ const data={
     { name: '老李', macap:423,change:322.12,end:'fa 20th,2002',ath:33,current:16.12 },
   ]
 }
+onMounted(()=>{
+  type.value=getParam<string>('type')?getParam<string>('type'):'data' //data  desc
+})
 </script>
 <template>
   <div class="table-box">
+    <HomeFilter   class="mb-4"/>
     <table class="table-my">
       <thead>
       <tr class="h-10">
         <td class="header-td thead-hr">#</td>
-        <template v-for="item in data.header">
-          <td :class="item.key.indexOf('name')>=0?'text-left':'text-center'" class="thead-hr">{{item.name}}</td>
+        <template v-for="(item,index) in data.header">
+          <td v-if="(type==='desc' && index<3) || type==='data'" :class="item.key.indexOf('name')>=0?'text-left':'text-center'" class="thead-hr text-left">{{item.name}}</td>
         </template>
       </tr>
       </thead>
       <tbody>
       <template v-for="(item,index) in data.header">
         <tr :class="1===1?'h-19.5':'h-14'">
-          <td class="number pr-2.5">{{index}}</td>
-          <td><HomeTableTd :typeName="data.header[0].key"/></td>
-          <td><HomeTableTd :typeName="data.header[1].key"/></td>
-          <td><HomeTableTd :typeName="data.header[2].key"/></td>
-          <td><HomeTableTd :typeName="data.header[3].key"/></td>
-          <td><HomeTableTd :typeName="data.header[4].key"/></td>
+          <td :class="type==='data'?'':'pr-3'" class="number"><div class="flex">{{index+1}}</div></td>
+          <td><HomeTableTd  :type="type" :typeName="data.header[0].key"/></td>
+          <td><HomeTableTd  :type="type" :typeName="data.header[1].key"/></td>
+          <td><HomeTableTd  :type="type" :typeName="data.header[2].key"/></td>
+          <template v-if="type==='data'">
+            <td><HomeTableTd  :type="type" :typeName="data.header[3].key"/></td>
+            <td><HomeTableTd  :type="type" :typeName="data.header[4].key"/></td>
+          </template>
         </tr>
       </template>
       </tbody>
     </table>
+    <div class="more">加载更多</div>
   </div>
 </template>
 <style scoped lang="scss">
@@ -67,7 +79,11 @@ tbody td{
   @apply  w-full  bg-global-white rounded-kd16px;
 }
 .table-my{
-  border-collapse:separate;border-spacing: 0px 0px;
-  @apply w-full bg-opacity-0 -mx-2.5 rounded-kd6px;
+  @apply w-full bg-opacity-0  rounded-kd6px;
+}
+.more{
+  @apply w-30 h-8 flex items-center justify-center mx-auto w-fit cursor-pointer rounded-kd6px;
+  @apply text-kd14px18px font-medium font-kdFang text-global-primary;
+  @apply bg-global-primary bg-opacity-6;
 }
 </style>
