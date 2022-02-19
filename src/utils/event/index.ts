@@ -3,8 +3,8 @@
  * @author svon.me@gmail.com
  */
 
-import { document } from "src/lib/browser";
-import { isString, isElement } from "src/utils/check/is";
+import { isString, isElement } from "src/utils/";
+import document from "src/plugins/browser/document";
 
 type Callback = (...args: any[]) => void
 const eventAttr = '__vueClickOutside'

@@ -15,7 +15,6 @@ import { AppId, languageKey, rootData, getEnv } from "src/config";
 
 // 设置 Element Ui 中英文
 import ElementPlus from "element-plus";
-import {getParam} from "src/utils/router";
 import { Language } from "src/types/language";
 import safeGet from "@fengqiaogang/safe-get";
 import zhEn from "element-plus/es/locale/lang/en";
@@ -44,7 +43,7 @@ const main = async function () {
 	});
 
 	// 设置 Element Ui 中英文
-	const lang = getParam<Language>(languageKey) || Language.en;
+	const lang = safeGet<Language>(data, `query.${languageKey}`) || Language.auto;
 	if (lang === Language.cn) {
 		app.use(ElementPlus, {
 			locale: zhCn,
