@@ -11,7 +11,6 @@ import "src/styles/main.scss";
 
 import { config } from "src/router/config";
 import {createApp} from "./bootstrap/main";
-import { AppId, languageKey, rootData, getEnv } from "src/config";
 
 // 设置 Element Ui 中英文
 import ElementPlus from "element-plus";
@@ -20,6 +19,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import zhEn from "element-plus/es/locale/lang/en";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import Decrypt from "src/plugins/encryption/decrypt";
+import { AppId, languageKey, rootData, getEnv } from "src/config";
 import {NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded} from "vue-router";
 
 

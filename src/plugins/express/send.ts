@@ -4,13 +4,14 @@
  */
 
 import _ from "lodash";
-import {Env} from "src/config";
 import SSR from "src/plugins/vue";
 import {footers} from "src/config/footer";
-import { getMenuList } from "src/logic/common/header";
-import {Request, Response, NextFunction} from "express";
+import {Env, languageKey} from "src/config";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
+import { Language } from "src/types/language";
+import { getMenuList } from "src/logic/common/header";
+import {Request, Response, NextFunction} from "express";
 
 
 const send = async function (root: string, env: Env) {
@@ -41,7 +42,9 @@ const send = async function (root: string, env: Env) {
 			const data = {
 				...value,
 				...res.locals,
-				query: Object.assign({}, req.params || {}, req.query || {}),
+				query: Object.assign({
+					[languageKey]: safeGet<string>(req.query, languageKey) || Language.auto
+				}, req.params || {}, req.query || {}),
 			};
 			// 获取默认选中的数据
 			const menuActive = safeGet<string>(res.locals, "menuActive");
