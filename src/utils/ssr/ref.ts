@@ -6,7 +6,7 @@
 import _ from "lodash";
 import API from "src/api/index";
 import safeGet from "@fengqiaogang/safe-get";
-import getRootData from "src/utils/root/data";
+import { get as getRootData } from "src/utils/root/data";
 import {ref, reactive, Ref, toRaw, UnwrapNestedRefs} from "vue";
 
 export const getValue = function<T>(key: string, auto: T): T {
