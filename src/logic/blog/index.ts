@@ -20,11 +20,14 @@ export const getAll = function () {
 	};
 }
 
+export const activeName = "group";
+
 export const transformTabs = function (list: BlogTab[]) {
-	const array = _.map(list, function (item: BlogTab) {
-		return { ...item, href: `${config.blog}?group=${item.id}`}
+	const value = toArray(getAll(), list);
+	return _.map(value, function (item: BlogTab) {
+		// return { ...item, href: `${config.blog}?group=${item.id}`}
+		return { ...item, [activeName]: item.id };
 	});
-	return toArray(getAll(), array);
 }
 
 export const makeDetailLink = function (id: string | number) {

@@ -1,13 +1,18 @@
+/**
+ * @file ui-tab 逻辑
+ * @author svon.me@gmail.com
+ */
 
-import {clone} from "ramda";
-import {isString} from "src/utils";
-import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 
-
-export enum Trigger {
+export enum TriggerValue {
 	click = 'div',
 	router = 'router-link',
+}
+
+export enum Trigger {
+	click = 'click',
+	router = 'router',
 }
 
 export interface Item {
@@ -19,18 +24,18 @@ export interface Item {
 }
 
 // 生成 tab 链接
-export const makeLink = function (activeName: string,data: Item) {
-	if (data.href) {
-		if (isString(data.href)) {
+export const makeLink = function (activeName: string,data: Item, trigger: Trigger) {
+	if (trigger === Trigger.router) {
+		if (data.href) {
+			return data.href;
+		}
+		const value = safeGet<string>(data, activeName);
+		if (value) {
 			return {
-				path: data.href as string,
 				query: {
 					[activeName]: safeGet<string>(data, activeName)
 				}
 			};
 		}
-		const url = clone(data.href);
-		safeSet(url, `query.${activeName}`, safeGet<string>(data, activeName));
-		return url;
 	}
 }
