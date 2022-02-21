@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import HomeTableModel  from './model.vue'
 import {ref} from 'vue'
 const props=defineProps({
   topicIndex:[String,Number]

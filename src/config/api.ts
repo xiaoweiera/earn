@@ -2,6 +2,10 @@
  * @file 接口地址
  * @author svon.me@gmail.com
  */
+export const home = {
+	summary:"/api/v1/dapps/summary", //数据汇总，基础信息
+	topicRank:"/api/v1/dapps/topic/rank"
+}
 
 export const dapp = {
 	list: "/api/dapps/v1/new/projects"

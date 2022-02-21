@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import HomeTable from './table/index.vue'
+import {onMounted, ref} from 'vue'
 import { oss } from "src/config";
+import {createRef, onLoadRef} from "~/utils/ssr/ref";
+import {Model} from "~/logic/home";
 const list:any=ref([])
 list.value=[
   {name:'DeFi Daily Active User (24H) 🔥 🔥 🔥',key:'one'},
@@ -19,9 +22,19 @@ const selectTopic=(index:number)=>{
     zhi.value=0
   }
 }
+const rank = createRef("API.home.getTopicRank", []);
+
+onMounted(function () {
+  const api = new Model();
+  console.log(api,'apiapiapai')
+  // 得到数据汇总
+  onLoadRef(rank, api.getTopicRank);
+});
+
 </script>
 <template>
   <div class="w-full flex justify-between">
+    {{rank}}
     <!--   topic tag-->
     <div>
       <div class="flex items-center mt-2.5">
