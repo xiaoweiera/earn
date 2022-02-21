@@ -9,13 +9,13 @@ const props=defineProps({
   },
   type:String
 })
-const chainIcon=['chain']  //icon类
-const iconHref=['platform'] //icon + href
-const starNumber=['Rating'] //星星 + number
-const txt=['type'] //txt
+const chainIcon=['chains']  //icon类
+const iconHref=['tge_platform'] //icon + href
+const starNumber=['overall_score'] //星星 + number
+const txt=['categories'] //txt
 const numberPrice=[
-    'salePrice',
-    'currentPrice',
+    'salePrice',//---
+    'current_price',
     'idoPrice',
     'balance',
     'volume',
@@ -69,7 +69,7 @@ onMounted(()=>{
 <template>
   <div>
     <!--projectName-->
-    <div v-if="typeName==='nameProject' && type==='data'" class="flex-center">
+    <div v-if="typeName==='name' && type==='data'" class="flex-center">
       <IconFont size="24" type="icon-HECOYuan"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no">Astar Network</div>
@@ -77,7 +77,7 @@ onMounted(()=>{
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='nameProject' && type==='desc'" class="flex-center">
+    <div v-else-if="typeName==='name' && type==='desc'" class="flex-center">
       <img class="w-12 h-12 rounded-kd6px" :src="`${oss}/dapp/recomTest.jpg`"/>
       <div class="ml-3">
         <div class="nameNameDes text-number line-height-no flex-center">

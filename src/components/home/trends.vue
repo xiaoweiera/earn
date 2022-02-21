@@ -35,7 +35,6 @@ const next = () => document.querySelector('.swiper-topic').swiper.slideNext()
 //上一页
 const last = () => document.querySelector('.swiper-topic').swiper.slidePrev()
 const change = (swiper: any) => {
-  console.log('1')
   console.log(swiper)
   isBegin.value = swiper.isBeginning
   isEnd.value = swiper.isEnd
@@ -56,7 +55,7 @@ const init=(swiper:any)=>{
       <span class="ml-3 text-kd14px18px font-medium text-number">(Updated at 12:00 and 21:00)</span>
     </div>
     <div class="mt-4 relative">
-      <div class="w-full h-full ">
+      <div class="w-full h-full">
         <div :class="isBegin?'hidden':'jian-left'" class="rounded-kd8px">
           <img class="left" @click="last" :src="`${oss}/dapp/zuojian.png`" alt="">
         </div>
@@ -69,7 +68,7 @@ const init=(swiper:any)=>{
                 @setTranslate="change">
           <template v-for="(item, index) in list" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <div :class="index===0?'w-101':'w-47.5'" class="h-23.5 rounded-kd6px  relative">
+              <div :class="index===0?'w-101':'w-47.5'" class="h-23.5 rounded-kd6px   relative">
                 <UiAd class="top-3 left-3 absolute"/>
                 <img class="rounded-kd6px h-full" :src="item.img" alt="">
               </div>
@@ -84,15 +83,17 @@ const init=(swiper:any)=>{
   </div>
 </template>
 <style lang="scss" scoped>
-//.jian-right {
-//  background: linear-gradient(to right, #ff000000, #ffffffc9);
-//  @apply w-35 h-full absolute right-0 top-0 z-2;
-//}
-//
-//.jian-left {
-//  background: linear-gradient(to right, #ffffffc9, #ff000000);
-//  @apply w-35 h-full absolute left-0 top-0 z-2;
-//}
+.jian-right {
+  //background: linear-gradient(to right,#ff000000, #ffffffc9);
+  @apply w-35 h-full absolute right-0 top-0 z-2;
+}
+.ruo{
+  -webkit-mask : -webkit-gradient(linear, left top, right bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+}
+.jian-left {
+  //background: linear-gradient(to right, #ffffffc9, #ff000000);
+  @apply w-35 h-full absolute left-0 top-0 z-2;
+}
 
 .left {
   @apply w-9 h-9 cursor-pointer rounded-full;
