@@ -4,13 +4,14 @@
  * @author svon.me@gmail.com
  */
 
+
 import {useRoute} from "vue-router";
-import { toInteger } from "src/utils";
+import {toInteger} from "src/utils";
+import { ElScrollbar } from "element-plus";
 import DBList from "@fengqiaogang/dblist";
-import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
-import {Item, makeLink, Trigger} from "src/logic/ui/tab";
 import {onMounted, PropType, ref, toRaw, watch} from "vue";
+import {Item, makeLink, Trigger, TriggerValue} from "src/logic/ui/tab";
 
 const $router = useRoute();
 const active = ref<string | number>("");
@@ -24,7 +25,7 @@ const props = defineProps({
    */
   activeName: {
     type: String,
-    default: () => "type",
+    default: () => "id",
   },
   def: {
     type: String
@@ -40,34 +41,32 @@ const props = defineProps({
   }
 });
 
+const selectData = function (value: string | number): Item {
+  const db = new DBList(props.list, props.activeName);
+  const where: Array<string | number> = [value];
+  if (/^[\d]+$/.test(value as string)) {
+    where.push(toInteger(value));
+  }
+  return db.selectOne<Item>({ [props.activeName]: where });
+}
+
 const getActiveValue = function () {
   let item: Item | undefined = void 0;
-  const db = new DBList([], 'id');
-  db.insert(props.list);
   const value = safeGet<string>(toRaw($router.query), props.activeName);
   if (value) {
-    if (/^[0-9]+$/.test(value)) {
-      item = db.selectOne<Item>({
-        id: [toInteger(value), value]
-      });
-    } else {
-      item = db.selectOne<Item>({ id: value });
-    }
+    item = selectData(value);
   }
   // 如果未能匹配选中的数据
   if (!item) {
     if (props.def) {
-      return props.def;
-    }
-    // 默认为第一个 tab
-    const [first] = db.clone<Item>();
-    if (first) {
+      item = selectData(props.def);
+    } else {
+      // 默认为第一个 tab
+      const [first] = props.list;
       item = first;
     }
   }
   if (item) {
-    console.log(props.activeName,'--')
-    console.log(item)
     return safeGet<string>(item, props.activeName);
   }
 }
@@ -75,17 +74,16 @@ const getActiveValue = function () {
 const onChange = function (value = getActiveValue()) {
   if (value && active.value !== value) {
     active.value = value;
-    const data = {};
-    safeSet(data, props.activeName, value);
-    emitEvent('change', data);
+    const data = selectData(value);
+    emitEvent("change", data);
   }
 }
 
 const onClick = function (data: Item) {
-  if (data.href) {
-    return true;
+  // 只处理为 click 模式的切换
+  if (props.trigger === Trigger.click) {
+    return onChange(safeGet<string>(data, props.activeName));
   }
-  return onChange(safeGet<string>(data, props.activeName));
 }
 
 const className = function (data: Item): string {
@@ -107,10 +105,10 @@ onMounted(function () {
 
 <template>
   <div class="max-w-full overflow-hidden" v-show="list.length > 0">
-<!--    <el-scrollbar>-->
+    <el-scrollbar>
       <div class="flex tab-wrap">
         <template v-for="(item, index) in list" :key="index">
-          <v-router :href="makeLink(activeName, item)" @click="onClick(item)" class="block whitespace-nowrap tab-item p-2" :class="className(item)" :name="trigger">
+          <v-router :href="makeLink(activeName, item, trigger)" @click="onClick(item)" class="block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]">
             <slot name="default" :data="item">
               <div v-if="item.icon" class="flex items-center">
                 <IconFont class="mr-1.5" :type="item.icon" size="24"/>
@@ -121,7 +119,7 @@ onMounted(function () {
           </v-router>
         </template>
       </div>
-<!--    </el-scrollbar>-->
+    </el-scrollbar>
   </div>
 </template>
 

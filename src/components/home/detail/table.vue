@@ -22,7 +22,7 @@ const data={
   ]
 }
 onMounted(()=>{
-  type.value=getParam<string>('type')?getParam<string>('type'):'data' //data  desc
+  type.value=getParam<string>("type") || "data" //data  desc
 })
 </script>
 <template>

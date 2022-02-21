@@ -3,9 +3,9 @@
  * @author svon.me@gmail.com
  */
 
-import { max } from '~/utils';
+import { max } from 'src/utils';
 import * as event from './index';
-import { document } from "src/lib/browser";
+import document from "src/plugins/browser/window";
 
 type Callback = (e: Event) => void
 

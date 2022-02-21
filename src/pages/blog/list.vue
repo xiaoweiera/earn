@@ -4,26 +4,24 @@
  * @author svon.me@gmail.com
  */
 
+import {onMounted} from "vue";
 import BlogAd from "./ad.vue";
 import BlogHot from "./hot.vue";
 import BlogRow from "./row.vue";
 import I18n from "src/utils/i18n";
-import {onMounted, ref} from "vue";
-import { getAll, tabAll, Model, transformTabs } from "src/logic/blog";
 import {toArray, Equals} from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import {BlogTab, BlogData} from "src/types/blog/";
 import {createRef, getValue, onLoadRef} from "src/utils/ssr/ref";
-import UiBox from "~/components/ui/box/index.vue";
+import { getAll, tabAll, Model, transformTabs, activeName } from "src/logic/blog";
 
 const i18n = I18n();
 
-const activeName = ref<string>("group");
 const tabs = createRef<BlogTab[]>("API.blog.tabs", toArray(getAll()));
-const groupId = createRef<string | number | undefined>(`query.${activeName.value}`, tabAll);
+const groupId = createRef<string | number | undefined>(`query.${activeName}`, tabAll);
 
 const getInitValue = function () {
-  const queryGroup = getValue<string>(`query.${activeName.value}`, tabAll);
+  const queryGroup = getValue<string>(`query.${activeName}`, tabAll);
   if (Equals(queryGroup, groupId.value as string)) {
     return getValue<BlogData[]>("API.blog.getList", []);
   }
@@ -39,7 +37,7 @@ const requestList = async function (data: object) {
 }
 // 切换分组
 const onChangeTab = function (data: object) {
-  const value = safeGet<string>(data, activeName.value);
+  const value = safeGet<string>(data, activeName);
   if (value) {
     groupId.value = value;
   } else {
