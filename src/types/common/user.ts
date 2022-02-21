@@ -1,4 +1,9 @@
 
+export enum Type {
+	email = "email",   // 邮箱登录
+	mobile = "mobile", // 手机号登录
+}
+
 export interface User {
 	area_code: number;
 	avatar_url: string; // 头像地址

@@ -14,9 +14,7 @@ import { ElForm, ElFormItem, ElInput, ElButton } from "element-plus";
 const i18n = I18n();
 const domForm = ref<any>(null);
 
-const formData = Common.createFormData({
-  new_password: ""
-} as Common.FormData);
+const formData = Common.createFormData();
 
 const rules = computed(Common.rules);
 

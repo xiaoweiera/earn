@@ -4,13 +4,9 @@
  * @author svon.me@gmail.com
  */
 import I18n from "src/utils/i18n";
-
 import { createRef } from "src/utils/ssr/ref";
+import { Type } from "src/types/common/user";
 
-enum Type {
-  email = "email",   // 邮箱登录
-  mobile = "mobile", // 手机号登录
-}
 const i18n = I18n();
 const type = createRef<Type>("query.type", Type.email); // 登录类型，默认邮件
 </script>

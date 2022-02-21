@@ -4,9 +4,9 @@
  * @author svon.me@gmail.com
  */
 
+import {computed} from "vue";
 import I18n from "src/utils/i18n";
-import {onMounted, computed} from "vue";
-import {getEnv} from "src/config/"
+import {getEnv} from "src/config/";
 import {ElDialog, ElTabs, ElTabPane} from "element-plus";
 import {
   visible,
@@ -28,10 +28,6 @@ const tabValue = computed(function () {
 const handleClose = function (next: () => void) {
   return next();
 };
-
-onMounted(function () {
-  showLogin();
-});
 
 </script>
 
@@ -81,14 +77,23 @@ onMounted(function () {
         </el-tabs>
       </div>
       <!--找回密码-->
-      <div v-else-if="switchStatus === FlagStatus.emailForget || switchStatus === FlagStatus.mobileForget">
-        <account-forget>
+      <div v-else-if="switchStatus === FlagStatus.emailForget">
+        <account-forget-email>
           <div class="text-center pt-4.5 pb-2.5 font-14-18">
             <a class="link" @click="showLogin">
               <span>{{ i18n.common.switchLogin }}</span>
             </a>
           </div>
-        </account-forget>
+        </account-forget-email>
+      </div>
+      <div v-else-if="switchStatus === FlagStatus.mobileForget">
+        <account-forget-mobile>
+          <div class="text-center pt-4.5 pb-2.5 font-14-18">
+            <a class="link" @click="showLogin">
+              <span>{{ i18n.common.switchLogin }}</span>
+            </a>
+          </div>
+        </account-forget-mobile>
       </div>
       <!--注册-->
       <div v-else>
