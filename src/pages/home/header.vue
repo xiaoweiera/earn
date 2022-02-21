@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import { toNumberCashFormat } from 'src/utils/convert/to'
+const props=defineProps({
+  data:Object
+})
 </script>
 <template>
   <div class="w-full flex justify-between items-center">
@@ -31,30 +34,30 @@ import {ref} from 'vue'
           </ui-popover>
 
         </div>
-        <div class="info-des number-value text-number" :class="312.12>=0?'green-value':'red-value'">312.12x</div>
+        <div class="info-des number-value text-number" :class="data.avg_ath>=0?'green-value':'red-value'">{{toNumberCashFormat(data.avg_ath,'x')}}</div>
       </div>
       <div class="info-item">
         <div class="item-name">NFT Projects</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">341</span>
+          <span class="number-value text-number  text-global-white">{{toNumberCashFormat(data.nft.total)}}</span>
           <span class="time  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="11>=0?'green-value':'red-value'">+11</span>
+          <span class="number-rate text-number" :class="11>=0?'green-value':'red-value'">+{{toNumberCashFormat(data.nft['24h_increase'])}}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name">IDO/IGO Projects</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">341</span>
+          <span class="number-value text-number  text-global-white">{{toNumberCashFormat(data.ixo.total)}}</span>
           <span class="time  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="11>=0?'green-value':'red-value'">+11</span>
+          <span class="number-rate text-number" :class="11>=0?'green-value':'red-value'">+{{toNumberCashFormat(data.ixo['24h_increase'])}}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name">Airdrops Projects</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">341</span>
+          <span class="number-value text-number  text-global-white">{{toNumberCashFormat(data.airdrop.total)}}</span>
           <span class="time  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="11>=0?'green-value':'red-value'">+11</span>
+          <span class="number-rate text-number" :class="11>=0?'green-value':'red-value'">+{{toNumberCashFormat(data.airdrop['24h_increase'])}}</span>
         </div>
       </div>
     </div>

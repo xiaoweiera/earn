@@ -41,12 +41,12 @@ onMounted(()=>{
       <template v-for="(item,index) in data.header">
         <tr :class="1===1?'h-19.5':'h-14'">
           <td :class="type==='data'?'':'pr-3'" class="number"><div class="flex">{{index+1}}</div></td>
-          <td><HomeTableTd  :type="type" :typeName="data.header[0].key"/></td>
-          <td><HomeTableTd  :type="type" :typeName="data.header[1].key"/></td>
-          <td><HomeTableTd  :type="type" :typeName="data.header[2].key"/></td>
+          <td><HomeTableTd  :type="type" :typeName="data.header[0].key" :data="item"/></td>
+          <td><HomeTableTd  :type="type" :typeName="data.header[1].key" :data="item"/></td>
+          <td><HomeTableTd  :type="type" :typeName="data.header[2].key" :data="item"/></td>
           <template v-if="type==='data'">
-            <td><HomeTableTd  :type="type" :typeName="data.header[3].key"/></td>
-            <td><HomeTableTd  :type="type" :typeName="data.header[4].key"/></td>
+            <td><HomeTableTd  :type="type" :typeName="data.header[3].key" :data="item"/></td>
+            <td><HomeTableTd  :type="type" :typeName="data.header[4].key" :data="item"/></td>
           </template>
         </tr>
       </template>
