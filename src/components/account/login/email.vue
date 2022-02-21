@@ -10,13 +10,14 @@ import {computed, ref, toRaw} from "vue";
 import { messageError } from "src/lib/tool";
 import * as Common from "src/logic/account/register";
 import { config as routerConfig } from "src/router/config";
-import { ElForm, ElFormItem, ElInput, ElButton } from "element-plus";
+import { ElForm, ElFormItem, ElInput, ElButton, ElCheckbox } from "element-plus";
 
 
 const i18n = I18n();
 const domForm = ref<any>(null);
 const rules = computed(Common.rules);
 const formData = Common.createFormData({
+  checked: true,
   email: "svon@svon.org",
   password: "1234560...0",
 } as any);
@@ -61,6 +62,11 @@ const submit = async function () {
       <el-form-item prop="password">
         <el-input v-model="formData.password" name="password" type="password"
                   :placeholder="i18n.common.placeholder.password" show-password autocomplete="off"/>
+      </el-form-item>
+      <el-form-item class="mb-0 py-0.5">
+        <el-checkbox v-model="formData.checked">
+          <span class="font-normal">{{ i18n.common.placeholder.login }}</span>
+        </el-checkbox>
       </el-form-item>
 
       <!-- 确定按钮 -->

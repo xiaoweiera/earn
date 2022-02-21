@@ -15,3 +15,39 @@
     min-width: initial;
   }
 }
+
+/* 手机登录页面 */
+.user-mobile-box {
+  .el-input-group__prepend {
+    input {
+      @apply rounded-l;
+      @apply bg-white;
+      height: 38px;
+    }
+  }
+}
+
+/* 重置登录框某些样式 */
+.dialog-user-wrap {
+  width: 400px !important;
+  @screen md{
+    width: 350px !important;
+    margin-top: 7vh;
+  }
+  .el-dialog__body {
+    @apply pt-0;
+  }
+
+  .el-tabs__header {
+    @apply text-center;
+    .el-tabs__nav-wrap {
+      @apply inline-block;
+    }
+    .el-tabs__item{
+      @apply text-global-noSelect;
+      &.is-active {
+        @apply text-global-primary;
+      }
+    }
+  }
+}

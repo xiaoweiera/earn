@@ -4,13 +4,16 @@
  * @author svon.me@gmail.com
  */
 import I18n from "src/utils/i18n";
+import Dialog from "./dialog.vue";
 import {Language} from "src/types/language";
 import {User} from "src/types/common/user";
 import window from "src/plugins/browser/window";
 import {createReactive} from "src/utils/ssr/ref";
 import {createHref} from "src/plugins/router/pack";
-import {config as routerConfig} from "src/router/config";
 import {languageKey, oss, getEnv} from "src/config";
+import {config as routerConfig} from "src/router/config";
+import { showLogin, showRegister } from "src/logic/user/login";
+import ClientOnly from "~/components/client/only.vue";
 
 const env = getEnv();
 const i18n = I18n();
@@ -37,15 +40,6 @@ const onSwitch = function () {
 // 获取昵称
 const getUserName = function (data: User): string | number {
   return data.nickname || data.username || data.email || data.mobile;
-}
-
-// 登录
-const goLogin = function () {
-  window.location.href = routerConfig.user.login;
-}
-// 注册
-const goRegister = function () {
-  window.location.href = routerConfig.user.register;
 }
 </script>
 
@@ -82,10 +76,16 @@ const goRegister = function () {
 
     <!--未登录-->
     <div class="flex" v-else>
-      <span class="whitespace-nowrap cursor-pointer" @click.stop.prevent="goLogin">{{ i18n.common.login }}</span>
-      <img class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block" :src="`${oss}/nav/dian.png`" alt=""/>
-      <span class="whitespace-nowrap cursor-pointer hidden md:inline-block"
-            @click.stop.prevent="goRegister">{{ i18n.common.register }}</span>
+      <div>
+        <span class="whitespace-nowrap cursor-pointer" @click.stop.prevent="showLogin">{{ i18n.common.login }}</span>
+        <img class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block" :src="`${oss}/nav/dian.png`" alt=""/>
+        <span class="whitespace-nowrap cursor-pointer hidden md:inline-block"
+              @click.stop.prevent="showRegister">{{ i18n.common.register }}</span>
+      </div>
+      <!--登录、注册、找回密码-->
+      <client-only>
+        <Dialog/>
+      </client-only>
     </div>
   </div>
 </template>
