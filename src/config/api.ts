@@ -19,6 +19,8 @@ export const user = {
 	resetEmailPassword: "/api/v1/users/email_change_password", // 重置邮箱密码
 	getEmailCaptcha: "/api/v2/users/email_send_verification_code", // 邮箱验证码
 	registerEmail: "/api/v1/users/email_signup", // 邮箱注册
+	emailLogin: "/api/v1/users/email_login", // 邮箱登录
+	mobileLogin: '/api/v1/users/login', // 手机号登录
 }
 
 export const common = {

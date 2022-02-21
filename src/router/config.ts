@@ -1,8 +1,9 @@
 
 const user = {
-	logout: "/user/logout",        // 退出
+	login: "/account/login",          // 登录
+	logout: "/account/logout",        // 退出
 	register: "/account/register", // 注册
-	forget: "/account/forget",  // 找回密码
+	forget: "/account/forget",     // 找回密码
 }
 
 export const config = {

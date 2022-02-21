@@ -84,7 +84,8 @@ export default {
     mailError:'邮箱格式不正确',
     copyAlert: '你已成功复制',
     checkValue:'请按住滑块，拖动到最右边',
-    codeDialog:'滑动获取验证码'
+    codeDialog:'滑动获取验证码',
+    loginError: "账号或者密码输入有误！",
   },
   placeholder: {
     login: '自动登录',

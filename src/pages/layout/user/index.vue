@@ -41,11 +41,11 @@ const getUserName = function (data: User): string | number {
 
 // 登录
 const goLogin = function () {
-  console.log("打开登录框");
+  window.location.href = routerConfig.user.login;
 }
 // 注册
 const goRegister = function () {
-  console.log("打开注册框");
+  window.location.href = routerConfig.user.register;
 }
 </script>
 
