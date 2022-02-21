@@ -22,13 +22,12 @@ const selectTopic=(index:number)=>{
     zhi.value=0
   }
 }
-const rank = createRef("API.home.getTopicRank", []);
+const rank = createRef("API.home.getTopicRank1", []);
 
 onMounted(function () {
   const api = new Model();
-  console.log(api,'apiapiapai')
   // 得到数据汇总
-  onLoadRef(rank, api.getTopicRank);
+  onLoadRef(rank, () => api.getTopicRank());
 });
 
 </script>
