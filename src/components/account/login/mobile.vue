@@ -11,13 +11,14 @@ import { messageError } from "src/lib/tool";
 import { AreaCode } from "src/types/common/area";
 import * as Common from "src/logic/account/register";
 import { config as routerConfig } from "src/router/config";
-import { ElForm, ElFormItem, ElInput, ElButton, ElSelect, ElOption } from "element-plus";
+import { ElForm, ElFormItem, ElInput, ElButton, ElSelect, ElOption, ElCheckbox } from "element-plus";
 
 const i18n = I18n();
 const areaCode = ref<AreaCode[]>([]);
 const domForm = ref<any>(null);
 const rules = computed(Common.rules);
 const formData = Common.createFormData({
+  checked: true,
   mobile: "15313267216",
   password: "1234560...0",
 } as any);
@@ -76,6 +77,11 @@ onMounted(async function () {
         <el-input v-model="formData.password" name="password" type="password"
                   :placeholder="i18n.common.placeholder.password" show-password autocomplete="off"/>
       </el-form-item>
+      <el-form-item class="mb-0 py-0.5">
+        <el-checkbox v-model="formData.checked">
+          <span class="font-normal">{{ i18n.common.placeholder.login }}</span>
+        </el-checkbox>
+      </el-form-item>
 
       <!-- 确定按钮 -->
       <el-form-item style="margin-bottom: 0;">
@@ -102,15 +108,3 @@ onMounted(async function () {
     </el-form>
   </client-only>
 </template>
-
-<style scoped lang="scss">
-.user-mobile-box {
-  ::v-deep(.el-input-group__prepend) {
-    input {
-      @apply rounded-l;
-      @apply bg-white;
-      height: 38px;
-    }
-  }
-}
-</style>
