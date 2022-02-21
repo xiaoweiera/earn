@@ -11,9 +11,9 @@ import window from "src/plugins/browser/window";
 import {createReactive} from "src/utils/ssr/ref";
 import {createHref} from "src/plugins/router/pack";
 import {languageKey, oss, getEnv} from "src/config";
+import ClientOnly from "~/components/client/only.vue";
 import {config as routerConfig} from "src/router/config";
 import { showLogin, showRegister } from "src/logic/user/login";
-import ClientOnly from "~/components/client/only.vue";
 
 const env = getEnv();
 const i18n = I18n();

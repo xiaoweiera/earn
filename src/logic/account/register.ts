@@ -42,6 +42,7 @@ export const createFormData = function (value?: FormData) {
 		platform: void 0, // 平台标识
 		token: "", // 人机校验签名
 		area_code: "+86",
+		new_password: ""
 	};
 	if (value) {
 		return reactive<FormData>({ ...data, ...value });
@@ -74,6 +75,19 @@ export const rules = function () {
 				},
 			}
 		],
+		// 手机
+		mobile: [{
+			required: true,
+			type: 'string',
+			trigger: ['blur', 'change'],
+			message: i18n.common.placeholder.tel
+		},{
+			required: true,
+			type: 'string',
+			trigger: ['blur', 'change'],
+			pattern: /^[0-9]{8,}$/i,
+			message: i18n.common.message.telError
+		}],
 		// 邮箱
 		email: [
 			{
@@ -170,7 +184,24 @@ export const checkValidateEmail = function (form: Ref) {
 	const dom = toRaw(form).value;
 	if (dom) {
 		return new Promise((resolve, reject) => {
-			dom.validateField(['email'], (error: Error) => {
+			dom.validateField(["email"], (error: Error) => {
+				if (error) {
+					reject(error);
+				} else {
+					// @ts-ignore
+					resolve();
+				}
+			});
+		});
+	}
+	return false;
+}
+// 单独校验手机
+export const checkValidateMobile = function (form: Ref) {
+	const dom = toRaw(form).value;
+	if (dom) {
+		return new Promise((resolve, reject) => {
+			dom.validateField(["mobile"], (error: Error) => {
 				if (error) {
 					reject(error);
 				} else {
@@ -197,7 +228,7 @@ export const resetFields = function (form?:any) {
 	}
 }
 
-// 登录
+// 返回登录
 export const onGoBack = function (form?:any) {
 	resetFields(form);
 	// 唤起移动端登录功能

@@ -17,10 +17,16 @@ export default class extends ApiTemplate{
 	getInfo () {
 		return asyncCheck<User>(request(this.lang).get(api.user.info));
 	}
-	// 邮箱重置密码
-	resetEmailPassword(query: object) {
+	// 手机号重置密码
+	resetMobilePassword(data: object) {
 		const lang = getLang(this.lang);
-		const value = { ...query, lang };
+		const value = { ...data, lang };
+		return asyncCheck(request(this.lang).post(api.user.resetMobilePassword, value));
+	}
+	// 邮箱重置密码
+	resetEmailPassword(data: object) {
+		const lang = getLang(this.lang);
+		const value = { ...data, lang };
 		return asyncCheck(request(this.lang).post(api.user.resetEmailPassword, value));
 	}
 	// 获取邮箱验证码
@@ -29,6 +35,14 @@ export default class extends ApiTemplate{
 		const data = { ...params, forget_type: type, lang };
 		return asyncCheck(request(this.lang).post(api.user.getEmailCaptcha, data));
 	}
+
+	// 获取手机验证码
+	getMobileCaptcha(params: any, type: string): Promise<any> {
+		const lang = getLang(this.lang);
+		const value = Object.assign({ area_code: '+86' }, params, { type, lang });
+		return asyncCheck(request(this.lang).post(api.user.getMobileCaptcha, value));
+	}
+
 	// 邮箱注册
 	registerEmail (data: object) {
 		const lang = getLang(this.lang);

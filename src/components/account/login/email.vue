@@ -18,8 +18,8 @@ const domForm = ref<any>(null);
 const rules = computed(Common.rules);
 const formData = Common.createFormData({
   checked: true,
-  email: "svon@svon.org",
-  password: "1234560...0",
+  email: "",
+  password: "",
 } as any);
 
 // 提交

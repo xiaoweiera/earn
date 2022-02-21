@@ -16,6 +16,10 @@ const props = defineProps({
     type: String as PropType<ValidateType>,
     default: () => ValidateType.create,
   },
+  // 是否发送手机验证码
+  mobile: {
+    type: Boolean
+  },
   before: {
     type: Function
   },
@@ -51,8 +55,13 @@ const onSeadCode = async function (value: string | undefined) {
     try {
       const api = new API();
       // 发送验证码
-      await api.user.getEmailCaptcha(data, props.type);
+      if (props.mobile) {
+        await api.user.getMobileCaptcha(data, props.type);
+      } else {
+        await api.user.getEmailCaptcha(data, props.type);
+      }
     } catch (e: any) {
+      console.log(e);
       const { message } = e || {};
       if (message) {
         messageError(message);
