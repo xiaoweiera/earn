@@ -24,7 +24,7 @@ const init = function () {
 }
 
 const onChangeView = function (data: Object) {
-emit('change')
+  emit('change')
 }
 onMounted(function () {
   init()

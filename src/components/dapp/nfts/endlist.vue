@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import { toNumberCashFormat } from 'src/utils/convert/to'
+defineProps({
+  list: {
+    type: Object,
+  }
+})
 const data={
   header: [
     { name: 'Project Name', key: 'nameProject' },//nameProject
@@ -12,23 +17,6 @@ const data={
     { name: 'Chain', key: 'endedIn' },
     { name: 'Rating', key: 'endedIn' },
   ],
-  list: [
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'收藏品',Ralsed:50000000,Sale:999999,Price:13.573,Current:755.82,Rating:8.0},
-  ]
 }
 </script>
 <template>
@@ -42,26 +30,26 @@ const data={
       </tr>
       </thead>
       <tbody>
-        <template v-for="(item,index) in data.list" :key="index">
+        <template v-for="(item,index) in list" :key="index">
           <tr class="h-14">
             <td>
               <div class="flex-center">
                 <IconFont size="32" type="icon-HECOYuan"/>
                 <div class="ml-1.5">
                   <div class="numberDefault text-number line-height-no">{{item.name}}</div>
-                  <div class="nameTag text-number text-left line-height-no">{{item.tips}}</div>
+                  <div class="nameTag text-number text-left line-height-no">{{item.data_type}}</div>
                 </div>
               </div>
             </td>
             <td>
-              <div class="text-right pr-8 text-kd14px16px text-global-highTitle text text-number">{{item.Type}}</div>
+              <div class="text-right pr-8 text-kd14px16px text-global-highTitle text text-number">{{item.categories[0]}}</div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{item.Ralsed}}</div>
+              <div class="numberDefault text-number">{{toNumberCashFormat(item.owners,'','','Not Set')}}</div>
             </td>
-            <td><div class="numberDefault text-number">{{item.Sale}}</div></td>
-            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.Price,'$','','Not Set')}}</div></td>
-            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.Current,'$','','Not Set')}}</div></td>
+            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.issue_volume,'','','N/A')}}</div></td>
+            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.floor_price,'$','','Not Set')}}</div></td>
+            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.mint_price,'$','','Not Set')}}</div></td>
             <td>
               <div class="flex-center justify-center">              
                 <IconFont size="16" type="icon-HECO"/>
@@ -70,7 +58,7 @@ const data={
             <td>
               <div class="flex-center justify-center">
                 <IconFont size="12" type="icon-star"/>
-                <span class="star-txt">{{ item.Rating}}</span>
+                <span class="star-txt">{{ item.overall_score}}</span>
               </div>
             </td>
           </tr>

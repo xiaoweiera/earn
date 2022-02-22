@@ -4,7 +4,9 @@ import safeGet from "@fengqiaogang/safe-get";
 import * as logic from "src/types/dapp/";
 import { toLower } from "src/utils";
 import { includes } from 'ramda';
+import { useRoute } from 'vue-router'
 
+const $router = useRoute();
 
 const IGOData = ref([
   {
@@ -34,7 +36,7 @@ const IGOData = ref([
     // 筹款目标
     "ido_fundraising_goal": 2000,
     // IDO开始时间
-    "ido_start_at": 16534242234
+    "ido_start_at": 1645574400
   },{
     "id": 2,
     // 名称
@@ -62,7 +64,7 @@ const IGOData = ref([
     // 筹款目标
     "ido_fundraising_goal": 2000,
     // IDO开始时间
-    "ido_start_at": 16534242234
+    "ido_start_at": 1645574400
   },{
     "id": 3,
     // 名称
@@ -90,7 +92,97 @@ const IGOData = ref([
     // 筹款目标
     "ido_fundraising_goal": 2000,
     // IDO开始时间
-    "ido_start_at": 16534242234
+    "ido_start_at": 1645574400
+  },{
+    "id": 4,
+    // 名称
+    "name": "Raca",
+    // Logo
+    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
+    // 项目代币
+    "symbol": "HLS",
+    // 所在公链
+    "chains": ["bsc"],
+    // 项目类型
+    "categories": ["mining"],
+    // IDO平台
+    "tge_platform": "daomaker",
+    // 风险等级
+    "risk": "high",
+    // 项目评分
+    "overall_score": 9.8,
+    // IDO价格
+    "ido_price": 1.2,
+    // 当前价格
+    "current_price": 10,
+    // 筹款目标
+    "ido_fundraising_goal": 2000,
+    // IDO开始时间
+    "ido_start_at": 16534242234,
+    // Current ROI USD
+    "current_roi_usd": 23123,
+    // ATH Since IDO: +2344.55%
+    "ath_since_ido": -2344.55
+  },{
+    "id": 4,
+    // 名称
+    "name": "Raca",
+    // Logo
+    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
+    // 项目代币
+    "symbol": "HLS",
+    // 所在公链
+    "chains": ["bsc"],
+    // 项目类型
+    "categories": ["mining"],
+    // IDO平台
+    "tge_platform": "daomaker",
+    // 风险等级
+    "risk": "high",
+    // 项目评分
+    "overall_score": 9.8,
+    // IDO价格
+    "ido_price": 1.2,
+    // 当前价格
+    "current_price": 10,
+    // 筹款目标
+    "ido_fundraising_goal": 2000,
+    // IDO开始时间
+    "ido_start_at": 16534242234,
+    // Current ROI USD
+    "current_roi_usd": 23123,
+    // ATH Since IDO: +2344.55%
+    "ath_since_ido": -2344.55
+  },{
+    "id": 4,
+    // 名称
+    "name": "Raca",
+    // Logo
+    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
+    // 项目代币
+    "symbol": "HLS",
+    // 所在公链
+    "chains": ["bsc"],
+    // 项目类型
+    "categories": ["mining"],
+    // IDO平台
+    "tge_platform": "daomaker",
+    // 风险等级
+    "risk": "high",
+    // 项目评分
+    "overall_score": 9.8,
+    // IDO价格
+    "ido_price": 1.2,
+    // 当前价格
+    "current_price": 10,
+    // 筹款目标
+    "ido_fundraising_goal": 2000,
+    // IDO开始时间
+    "ido_start_at": 16534242234,
+    // Current ROI USD
+    "current_roi_usd": 23123,
+    // ATH Since IDO: +2344.55%
+    "ath_since_ido": -2344.55
   },
 ])
 const active = ref<logic.TabTypes>();
@@ -131,11 +223,11 @@ const onChangeView = function (data: object) {
       </div>
       <!-- 列表内容 -->
       <div class="py-8">
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DappDiscoversList v-for="(item, index) in IGOData" :key='index' :list="item"></DappDiscoversList>
+        <div v-if="$router.query.type === logic.TabTypes.ended">
+          <DappDiscoversEndlist class="px-4" :list="IGOData"></DappDiscoversEndlist>
         </div>
-        <div>
-          <!-- <DappDiscoversEndlist class="px-4"></DappDiscoversEndlist> -->
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" v-else>
+          <DappDiscoversList v-for="(item, index) in IGOData" :key='index' :list="item"></DappDiscoversList>
         </div>
       </div>
     </div>

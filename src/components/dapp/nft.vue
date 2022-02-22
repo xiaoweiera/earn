@@ -4,8 +4,136 @@ import { ref } from "vue"
 import safeGet from "@fengqiaogang/safe-get";
  import * as logic from "src/types/dapp/";
 import { toLower } from "src/utils";
-import { setScrollTop } from '~/utils/event/scroll';
 import { includes } from 'ramda';
+import { useRoute } from 'vue-router'
+
+
+
+const list = ref([
+  {
+    "id": 1,
+    // 名字
+    "name": "Raca",
+    // 数据类型
+    "data_type": "dapp",
+    // 图集
+    "gallery": [
+        "https://xxx.jpg"
+    ],
+    // 持有人数
+    "owners": 1000,
+    // 公链
+    "chains": ["bsc"],
+    // 类型
+    "categories": ["game"],
+    // 项目评分
+    "overall_score": 9.8,
+    // Mint价格
+    "mint_price": '',
+    // 发行数量
+    "issue_volume": '',
+    // 开始时间
+    "mint_start_at": 1645574400,
+    // 地板价格
+    "floor_price": 0.02
+  },{
+    "id": 2,
+    // 名字
+    "name": "Raca",
+    // 数据类型
+    "data_type": "dapp",
+    // 图集
+    "gallery": [
+        "https://xxx.jpg"
+    ],
+    // 持有人数
+    "owners": 1000,
+    // 公链
+    "chains": ["bsc"],
+    // 类型
+    "categories": ["game"],
+    // 项目评分
+    "overall_score": 9.8,
+    // Mint价格
+    "mint_price": 0.05,
+    // 发行数量
+    "issue_volume": 10000,
+    // 开始时间
+    "mint_start_at": 1645574400,
+  },{
+    "id": 3,
+    // 名字
+    "name": "Raca",
+    // 数据类型
+    "data_type": "dapp",
+    // 图集
+    "gallery": [
+        "https://xxx.jpg"
+    ],
+    // 公链
+    "chains": ["bsc"],
+    // 类型
+    "categories": ["game"],
+    // 项目评分
+    "overall_score": 9.8,
+    // Mint价格
+    "mint_price": 0.05,
+    // 发行数量
+    "issue_volume": 10000,
+    // 开始时间
+    "mint_start_at": 1645574400,
+  },{
+    "id": 4,
+    // 名字
+    "name": "Raca",
+    // 数据类型
+    "data_type": "dapp",
+    // 图集
+    "gallery": [
+        "https://xxx.jpg"
+    ],
+    // 公链
+    "chains": ["bsc"],
+    // 类型
+    "categories": ["game"],
+    // 项目评分
+    "overall_score": 9.8,
+    // Mint价格
+    "mint_price": 0.05,
+    // 发行数量
+    "issue_volume": 10000,
+    // 开始时间
+    "mint_start_at": 1645574400,
+    // 地板价格
+    "floor_price": 0.02
+  },{
+    "id": 4,
+    // 名字
+    "name": "Raca",
+    // 数据类型
+    "data_type": "dapp",
+    // 图集
+    "gallery": [
+        "https://xxx.jpg"
+    ],
+    // 公链
+    "chains": ["bsc"],
+    // 类型
+    "categories": ["game"],
+    // 项目评分
+    "overall_score": 9.8,
+    // Mint价格
+    "mint_price": 0.05,
+    // 发行数量
+    "issue_volume": 10000,
+    // 开始时间
+    "mint_start_at": 1645574400,
+    // 地板价格
+    "floor_price": 0.02
+  }
+])
+
+const $router = useRoute();
 const active = ref<logic.NftTabTypes>();
 const tabs = ref<logic.NftTabItem[]>(logic.nftTabs);
 const init = function (query: object) {
@@ -23,7 +151,6 @@ const init = function (query: object) {
 }
 const onChangeView = function (data: object) {
   init(data);
-  setTimeout(setScrollTop);
 }
 </script>
 <template>
@@ -36,7 +163,7 @@ const onChangeView = function (data: object) {
       <!-- 分类 -->
       <ui-Header-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
         <div>
-          <ui-tab :list="tabs" @change="onChangeView"></ui-tab>
+          <ui-tab :list="tabs" @change="onChangeView" active-name="type"></ui-tab>
         </div>
       </ui-Header-sticky>
       <!-- 搜索条件 -->
@@ -45,11 +172,11 @@ const onChangeView = function (data: object) {
       </div>
       <!-- 列表数据 -->
       <div class="w-full py-8 overflow-x-scroll showX">
-        <div class="w-315 grid grid-cols-5 gap-6">
-          <DappNftsList v-for="( item, index ) in 5" :key="index"></DappNftsList>
+        <div class="w-315" v-if="$router.query.type === logic.NftTabTypes.history">
+          <DappNftsEndlist :list="list"></DappNftsEndlist>
         </div>
-        <div class="w-315">
-          <!-- <DappNftsEndlist></DappNftsEndlist> -->
+        <div class="w-315 grid grid-cols-5 gap-6" v-else>
+          <DappNftsList v-for="( item, index ) in list" :key="index" :data="item"></DappNftsList>
         </div>
       </div>
     </div>

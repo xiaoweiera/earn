@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import { toNumberCashFormat } from 'src/utils/convert/to'
+defineProps({
+  list: {
+    type: Object,
+  }
+})
 const data={
   header: [
     { name: 'Project Name', key: 'nameProject' },//nameProject
@@ -13,23 +18,6 @@ const data={
     { name: 'Chain', key: 'endedIn' },
     { name: 'TGE Platform', key: 'endedIn' },
     { name: 'Rating', key: 'endedIn' },
-  ],
-  list: [
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
-    { name: 'Astar Network',tips:'ASTR', Type:'挖矿',Ralsed:88888.88,Sale:0.0756,Price:13.573,Current:755.82,ROI:319,Chain:'1',Platform:'Gate.io',Rating:8.0},
   ]
 }
 </script>
@@ -44,44 +32,44 @@ const data={
       </tr>
       </thead>
       <tbody>
-        <template v-for="(item,index) in data.list" :key="index">
+        <template v-for="(item,index) in list" :key="index">
           <tr class="h-14">
             <td>
               <div class="flex-center">
                 <IconFont size="32" type="icon-HECOYuan"/>
                 <div class="ml-1.5">
                   <div class="numberDefault text-number line-height-no">{{item.name}}</div>
-                  <div class="nameTag text-number text-left line-height-no">{{item.tips}}</div>
+                  <div class="nameTag text-number text-left line-height-no">{{item.symbol}}</div>
                 </div>
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{item.Type}}</div>
+              <div class="numberDefault text-number" v-if="item.categories">{{item.categories[0]}}</div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{toNumberCashFormat(item.Ralsed,'$','','Not Set')}}</div>
+              <div class="numberDefault text-number">{{toNumberCashFormat(item.ido_fundraising_goal,'$','','Not Set')}}</div>
             </td>
-            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.Sale,'$','','Not Set')}}</div></td>
-            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.Price,'$','','Not Set')}}</div></td>
-            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.Current,'x','','Not Set')}}</div></td>
+            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.ido_price,'$','','Not Set')}}</div></td>
+            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.current_price,'$','','Not Set')}}</div></td>
+            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.current_roi_usd,'x','','Not Set')}}</div></td>
             <td>
-              <div class="numberDefault text-number">{{toNumberCashFormat(item.ROI,'x','','Not Set')}}</div>
+              <div class="numberDefault text-number">{{toNumberCashFormat(item.ath_since_ido,'x','','Not Set')}}</div>
             </td>
             <td>
-              <div class="flex-center text-left">              
+              <div class="flex-center justify-center">              
                 <IconFont size="16" type="icon-HECO"/>
               </div>
             </td>
             <td> 
-              <div class="flex-center">
+              <div class="flex-center justify-center">
                 <IconFont size="16" type="icon-HECO"/>
                 <v-router class="link text-number" href="https:www.baidu.com">Gate.io</v-router>
               </div>
             </td>
             <td>
-              <div class="flex-center">
+              <div class="flex-center justify-center">
                 <IconFont size="12" type="icon-star"/>
-                <span class="star-txt">{{ item.Rating}}</span>
+                <span class="star-txt">{{ item.overall_score}}</span>
               </div>
             </td>
           </tr>
@@ -95,9 +83,9 @@ const data={
   @apply border-b-1 border-global-highTitle border-opacity-6;
 }
 thead td{
-  @apply text-kd12px16px text-global-highTitle text-opacity-45;
+  @apply text-center text-kd12px16px text-global-highTitle text-opacity-45;
   &:first-child {
-    @apply pl-3;
+    @apply text-left pl-3;
   }
 }
 tbody td{

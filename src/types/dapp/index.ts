@@ -71,11 +71,11 @@ export const nftTabs: NftTabItem[] = [
     type: NftTabTypes.upcoming,
     icon: '',
     name: i18n.dapp.sort.online,
-    href: `${config.nft}?type=${NftTabTypes.upcoming}`,
+    href: `${config.nft}/discover?type=${NftTabTypes.upcoming}`,
   },{
 		type: NftTabTypes.history,
 		icon: '',
 		name: i18n.dapp.sort.history,
-		href: `${config.nft}?type=${NftTabTypes.history}`,
+		href: `${config.nft}/discover?type=${NftTabTypes.history}`,
 	}
 ]
