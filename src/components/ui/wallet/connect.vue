@@ -14,6 +14,8 @@ import {EventType} from "src/plugins/web3/interface";
 import {createReactive} from "src/utils/ssr/ref";
 import {address, isConnect} from "src/logic/common/wallet";
 import safeGet from "@fengqiaogang/safe-get";
+import { messageError } from "src/lib/tool";
+import { getErrorMessageContent } from "src/plugins/web3/message";
 
 const i18n = I18n();
 const user = createReactive<User>("common.user", {} as User);
@@ -43,9 +45,10 @@ const onConnect = async function () {
     }
   } catch (e) {
     const code = safeGet<number>(e as object, "code");
-    if (code === 4001) {
-      // todo 用户取消授权
-    }
+    // if (code === 4001) {
+    //   // todo 用户取消授权
+    // }
+    messageError(getErrorMessageContent(code));
   }
 }
 
