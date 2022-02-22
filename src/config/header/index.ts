@@ -2,14 +2,16 @@
  * @file 导航菜单配置
  * @author svon.me@gmail.com
  */
-import { Lang } from "src/types/language";
-import { APY, name as ApyName } from "./apy";
-import { DApp, name as DAppName } from "./dapp";
-import { Blog, name as BlogName } from "./blog";
-import { Ranks, name as RankName } from "./rank";
-import { Quota, name as QuotaName } from "./quota";
-import { TopicList, name as TopicName } from "./topic";
-import { Address, Portfolio, name as AddressName } from "./address";
+import getLang from "src/utils/url/lang";
+import {Lang, Language} from "src/types/language";
+
+import {APY, name as ApyName} from "./apy";
+import {DApp, name as DAppName} from "./dapp";
+import {Blog, name as BlogName} from "./blog";
+import {name as RankName, Ranks} from "./rank";
+import {name as QuotaName, Quota} from "./quota";
+import {name as TopicName, TopicList} from "./topic";
+import {Address, name as AddressName, Portfolio} from "./address";
 
 export const names = {
 	dapp: DAppName,
@@ -22,15 +24,21 @@ export const names = {
 };
 
 export const headers = function (lang?: Lang) {
-	return [
+	const value = getLang(lang);
+
+	const list = [
 		DApp(lang),
 		Ranks(lang),
 		APY(lang),
 		Address(lang),
-		Portfolio(lang),
-		TopicList(lang),
-		Quota(lang),
-		Blog(lang)
+		Portfolio(lang)
 	];
+	// 只在中文状态下显示此导航
+	if (value === Language.cn) {
+		list.push(TopicList(lang), Quota(lang));
+	}
+	list.push(Blog(lang));
+
+	return list;
 }
 

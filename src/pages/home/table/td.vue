@@ -3,37 +3,39 @@ import {ref,onMounted} from 'vue'
 import { toNumberCashFormat } from 'src/utils/convert/to'
 import { oss } from "src/config";
 const props=defineProps({
+  data:Object,
   typeName:{
     type:String,
     default: () => ''
   },
   type:String
 })
-const chainIcon=['chain']  //icon类
-const iconHref=['platform'] //icon + href
-const starNumber=['Rating'] //星星 + number
-const txt=['type'] //txt
+const chainIcon=['chains']  //icon类
+const iconHref=['tge_platform'] //icon + href
+const starNumber=['overall_score'] //星星 + number
+const txt=['categories'] //txt
 const numberPrice=[
-    'salePrice',
-    'currentPrice',
-    'idoPrice',
-    'balance',
-    'volume',
-    'totalRaised',
-    'marketCap'
+    'current_price',
+    'ido_price',
+    'balance_24h',
+    'balance_7d',
+    'volume_24h',
+    'volume_7d',
+    'ido_fundraising_goal',//Total Raised
+    'mcap'// MarketCap--
 ] //$number
 const chainNumber=[
-    'floorPrice',
-    'mintPrice',
-    'mCap'
+    'floor_price',//Floor price
+    'mint_price',//Mint price
 ] //chain + number
-const numberUnit=['token'] //number + 单位
-const numbers=['supply','owners','assets']
-const numberChange=['user','tvl','mCap']
-const lever=['athSinceIdo','currentRoiUsd'] //number + x
+const numberUnit=['ido_sale_amount'] //number + 单位 --- Tokens for Sale    ido_symbol
+const numbers=['owners','assets','mcap_tvl']//-- Owners Assets MCap/TVL
+const numberChange=['users_24h','users_7d','tvl']//User/Change   TVL/Change
+const lever=['ath_since_ido','current_roi_usd'] //number + x  ATH Since IDO   Current ROI USD
 const timeType=['endedIn'] //time
 
-const typeDom=ref('')
+const typeDom=ref('')// dom类型
+const domData=ref({}) //dom数据
 const getDom=()=>{
   const name:string=props.typeName
   if(chainIcon.includes(name)){
@@ -62,14 +64,94 @@ const getDom=()=>{
     return 'txt'
   }
 }
+const getData=()=>{
+  const key:string=props.typeName
+  const data:any=props.data
+  let header:string=''
+  let value:any=[]
+  if(key==='chains'){
+    header='Chain'
+    value=data['chains']
+  }else if(key==='tge_platform'){
+    header='TGE Platform'
+    value=data['tge_platform']
+  }else if(key==='overall_score'){
+    header='Rating'
+    value=data['overall_score']
+  }else if(key==='categories'){
+    header='项目类型'
+    value=data['categories']
+  }else if(key==='current_price'){
+    header='Current Price'
+    value=data['current_price']
+  }else if(key==='ido_price'){
+    header='IDO Price'
+    value=data['ido_price']
+  }else if(key==='balance_24h'){
+    header='Balance(24h)'
+    value=data['balance_24h']
+  }else if(key==='balance_7d'){
+    header='Balance(7d)'
+    value=data['balance_7d']
+  }else if(key==='volume_24h'){
+    header='Volume(24h)'
+    value=data['volume_24h']
+  }else if(key==='volume_7d'){
+    header='volume(7d)'
+    value=data['volume_7d']
+  }else if(key==='ido_fundraising_goal'){
+    header='Total Raised'
+    value=data['ido_fundraising_goal']
+  }else if(key==='mcap'){
+    header='Market Cap'
+    value=data['mcap']
+  }else if(key==='floor_price'){
+    header='Floor Price'
+    value=data['floor_price']
+  }else if(key==='mint_price'){
+    header='Mint Price'
+    value=data['mint_price']
+  }else if(key==='ido_sale_amount'){
+    header='Tokens for Sale'
+    value=[data['ido_sale_amount'],data['ido_symbol']]
+  }else if(key==='owners'){
+    header='Owners'
+    value=data['owners']
+  }else if(key==='assets'){
+    header='Assets'
+    value=data['assets']
+  }else if(key==='mcap_tvl'){
+    header='MCap/TVL'
+    value=data['mcap_tvl']
+  }else if(key==='users_24h'){
+    header='User(24h)/Change'
+    value=[data['users_24h'],data['users_change_percent_24h']]
+  }else if(key==='users_7d'){
+    header='User(7d)/Change'
+    value=[data['users_7d'],data['users_change_percent_7d']]
+  }else if(key==='tvl'){
+    header='TVL/Change'
+    value=[data['tvl'],data['tvl_change_percent_24h']]
+  }else if(key==='ath_since_ido'){
+    header='ATH Since IDO'
+    value=data['ath_since_ido']
+  }else if(key==='current_roi_usd'){
+    header='Current ROI USD'
+    value=data['current_roi_usd']
+  }
+  return {header,value}
+
+}
 onMounted(()=>{
   typeDom.value=getDom()
+  domData.value=getData()
+  // console.log(domData.value)
 })
 </script>
 <template>
   <div>
     <!--projectName-->
-    <div v-if="typeName==='nameProject' && type==='data'" class="flex-center">
+    <div v-if="typeName==='name' && type==='data'" class="flex-center">
       <IconFont size="24" type="icon-HECOYuan"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no">Astar Network</div>
@@ -77,7 +159,7 @@ onMounted(()=>{
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='nameProject' && type==='desc'" class="flex-center">
+    <div v-else-if="typeName==='name' && type==='desc'" class="flex-center">
       <img class="w-12 h-12 rounded-kd6px" :src="`${oss}/dapp/recomTest.jpg`"/>
       <div class="ml-3">
         <div class="nameNameDes text-number line-height-no flex-center">

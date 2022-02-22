@@ -1,4 +1,4 @@
-import { oss } from "src/config";
+import { oss } from 'src/config/';
 export default {
   status: {
     wait: '即将开始',

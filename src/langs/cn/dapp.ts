@@ -1,4 +1,4 @@
-import { oss } from "src/config";
+import { oss } from 'src/config/';
 export default {
   title: '快人一步 投 DApp 好项目',
   apply: '提交新项目',
@@ -104,7 +104,8 @@ export default {
     openPrice: '成本价',
     base: '成本价',
     count: '发行数量',
-    floorPrice: '当前地板价'
+    floorPrice: '当前地板价',
+    mintPrice:'Mint 价格'
   },
   risk: {
     title: '风险评估说明：',
@@ -120,7 +121,7 @@ export default {
     rec: '精选项目',
     audit: '审计',
     media: '社区',
-    contracts: '合约',
+    contracts: '代币合约',
     whitePaper: '白皮书',
     dashboard: '概览',
     symbol: '代币',
@@ -159,5 +160,41 @@ export default {
     flash: '快讯',
     article: '文章',
     copy: '复制成功',
+    captured: '暂未捕获行情数据',
+    submit: '提交代币信息',
+    nodata: '暂无信息'
+  },
+  activity: {
+    headLine: '🔥 KingData 2021',
+    shortList: '入围理由:',
+    award: '获奖理由:',
+    bannerTitle: '2021 KingData 鲸鱼奖',
+    bannerHighTitle: '年度项目评选',
+    bannerDate: '评选日期：2022年1月20日-1月26日',
+    bannerRule: '评选规则：每条赛道最受欢迎的5个项目将被授予奖项（评分数*投票数代表最终人气）',
+    bannerTip: '如有合作意向以及其他需求请联系：Telegram @Sue8639313',
+    title: 'KingData鲸鱼奖',
+    background: '背景介绍：',
+    backgrounTitle: '此次颁奖典礼以 KingData 吉祥物蓝鲸命名，蓝鲸是世界上最大的动物，有“海底巨兽”之称，但性情十分温顺。茫茫大海中，蓝鲸是自由的、富有追求的、勇往直前的，同时又是独一无二的象征，寓意着未来和生生不息的生命力。自由，追求，独一无二，勇往直前也是整个区块链产业与从业者所追求的精神。',
+    backgroundHighTitle: '同时，蓝鲸是惊人的信息传播者，信息传播的智慧是蓝鲸传达给我们的有力品质。KingData 也把这种品质作为企业精神，以为广大用户高效传播有效行业信息与数据为宗旨。',
+    backgroundTip: '此次，KingData 鲸鱼奖将以6大赛道进行展开，分别为：NFT 新锐榜、 GameFi 新锐榜、 Dao 新锐榜、 基础设施新锐榜、 公链新锐榜、DEX 新锐榜。评选出2021年各个赛道最佳、最具潜力的明星项目，一方面；为投资者总结市场，找到更好的投资标地以及行业趋势，另一方面；助力明星项目在区块链产业中勇往直前，最终成为如蓝鲸一般的“行业巨兽”。',
+    backgroundTips: '',
+    participation: '参与方式：',
+    participationOne: '（1）项目填写表单报名',
+    participationTwo: '（2）KingData 官方初级评审，审核通过的项目入围',
+    participationThree: '（3）参赛项目拉票，粉丝登录 KingData 官网投票页面为所支持的项目进行投票',
+    participationFour: '（4）根据投票数，选出6大榜单 TOP5 项目',
+    participationFive: '（5）6大榜单 TOP5 项目（共30个项目进入颁奖典礼，进行项目展示），每个榜单 TOP1 进行演讲，每个榜单 TOP2-TOP5 分别进行参与6大赛道圆桌会议',
+    project: '项目报名',
+    register: '报名',
+    top: '当前Top5项目',
+    topTip: '共 {count}家项目',
+    top5: `${oss}/common/Top5.png`,
+    enter: `${oss}/common/enter.png`,
+  },
+  star:{
+      title:'提示',
+      desc:'评分成功！去给更多榜单项目打分吧~',
+      go:'去看看'
   }
 }

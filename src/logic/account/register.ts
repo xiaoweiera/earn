@@ -9,10 +9,12 @@ import I18n from "src/utils/i18n";
 import { toBoolean } from "src/utils";
 import getLang  from "src/utils/url/lang";
 import {toRaw, Ref, reactive} from "vue";
+import { get } from "src/utils/root/data";
 import * as webkit from "src/plugins/webkit/user";
 import window  from "src/plugins/browser/window";
-import { dashboard, languageKey } from "src/config/";
+import {dashboard, languageKey} from "src/config/";
 import { createHref } from "src/plugins/router/pack";
+import { config as routerConfig } from "src/router/config";
 
 export const PlatformWeb = "web";
 
@@ -21,10 +23,12 @@ export interface FormData {
 	code: string; // 验证码
 	invitation_code?: string; // 邀请码
 	email: string; // 邮箱账号
+	mobile: string; // 手机号
 	password: string; // 密码
 	new_password?: string; // 密码
 	platform?: string; // 平台标识
 	token?: string; // 人机校验签名
+	area_code?: string; // 手机号区号
 }
 
 export const createFormData = function (value?: FormData) {
@@ -33,9 +37,12 @@ export const createFormData = function (value?: FormData) {
 		code: "", // 验证码
 		invitation_code: "", // 邀请码
 		email: "", // 邮箱账号
+		mobile: "", // 手机号
 		password: "", // 密码
 		platform: void 0, // 平台标识
 		token: "", // 人机校验签名
+		area_code: "+86",
+		new_password: ""
 	};
 	if (value) {
 		return reactive<FormData>({ ...data, ...value });
@@ -68,6 +75,19 @@ export const rules = function () {
 				},
 			}
 		],
+		// 手机
+		mobile: [{
+			required: true,
+			type: 'string',
+			trigger: ['blur', 'change'],
+			message: i18n.common.placeholder.tel
+		},{
+			required: true,
+			type: 'string',
+			trigger: ['blur', 'change'],
+			pattern: /^[0-9]{8,}$/i,
+			message: i18n.common.message.telError
+		}],
 		// 邮箱
 		email: [
 			{
@@ -164,7 +184,24 @@ export const checkValidateEmail = function (form: Ref) {
 	const dom = toRaw(form).value;
 	if (dom) {
 		return new Promise((resolve, reject) => {
-			dom.validateField(['email'], (error: Error) => {
+			dom.validateField(["email"], (error: Error) => {
+				if (error) {
+					reject(error);
+				} else {
+					// @ts-ignore
+					resolve();
+				}
+			});
+		});
+	}
+	return false;
+}
+// 单独校验手机
+export const checkValidateMobile = function (form: Ref) {
+	const dom = toRaw(form).value;
+	if (dom) {
+		return new Promise((resolve, reject) => {
+			dom.validateField(["mobile"], (error: Error) => {
 				if (error) {
 					reject(error);
 				} else {
@@ -191,7 +228,7 @@ export const resetFields = function (form?:any) {
 	}
 }
 
-// 登录
+// 返回登录
 export const onGoBack = function (form?:any) {
 	resetFields(form);
 	// 唤起移动端登录功能
@@ -201,7 +238,24 @@ export const onGoBack = function (form?:any) {
 		const query = {
 			[languageKey]: getLang()
 		};
-		// 进入站点首页
-		window.location.href = createHref(dashboard, query);
+		// 进入登录页面
+		window.location.href = createHref(routerConfig.user.login, query);
+	}
+}
+
+// 登录/注册成功后跳转地址处理
+export const onRedirect = function () {
+	const redirect = get<string>("query.redirect");
+	// 如果指定了回挑地址，则跳转到指定页面
+	if (redirect) {
+		window.location.href = decodeURI(redirect);
+	} else {
+		const url = window.location.pathname;
+		// 如果当前页面不是登录页
+		if (url !== routerConfig.user.login) {
+			window.location.reload(); // 刷新当前页面
+		} else {
+			window.location.href = createHref(dashboard); // 登录后默认跳转到首页;
+		}
 	}
 }

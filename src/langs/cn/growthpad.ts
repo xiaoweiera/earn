@@ -1,4 +1,5 @@
-import { oss } from "src/config";
+import { oss } from 'src/config/';
+import I18n from "~/utils/i18n";
 export default {
   title: 'GrowthPad',
   case: '案例',
@@ -12,6 +13,7 @@ export default {
     closure: '已结束',
     suspend: '任务关闭'
   },
+  friends: '并@{count}名好友',
   reward: {
     about: '约',
     count: '奖励数量',
@@ -22,6 +24,7 @@ export default {
     // finished: '完成全部任务：{reward}（前{count}名用户）',
     // anytask: '完成任意任务：{reward}（前{count}名用户）',
     finished: '完成全部任务：{reward}',
+    finishedTop: '完成全部任务：{reward}（前{count}名用户）',
     anytask: '完成任意任务：{reward}',
     send: '(奖励核算中，最终奖励金额以核算后实际发放金额为准。)',
   },
@@ -35,8 +38,8 @@ export default {
     confirm: '地址确认',
     invalid: '地址无效',
     tips: '地址一旦确认不可修改',
-    notify1: '* 请登记您的领取奖励地址（持仓量相关任务奖励直接发放至验证地址），如未及时登记，则奖励不进行发放。',
-    notify2: '* 奖励将于活动结束后10个工作日内统一发放到您的奖励接收地址，持仓量相关任务奖励直接发放至验证地址。',
+    notify1: '* 请登记您的领取奖励地址，如未及时登记，则奖励不进行发放。',
+    notify2: '* 奖励将于活动结束后10个工作日内统一发放到您的奖励接收地址',
     checkMessage: `内容已提交
 预计获得奖励 +{reward} {token}`,
     week_reward: '预计获得奖励 (未发放)：<i>{reward} {token}</i>',
@@ -71,6 +74,7 @@ export default {
   },
   weibo: {
     success: '图片上传成功',
+    error: '图片上传失败',
     placeholder: '请上传图片！',
     article: '文章链接：',
     articleImg: '上传图片：',
@@ -106,6 +110,7 @@ export default {
     placeholderTelegram: '输入您的 Username',
     twitter: '请输入 Twitter ID',
     retwitter: '请输入 Twitter ID',
+    discord: '请输入您的昵称',
     sina: '请输入您的微博昵称'
   },
   copy: '邀请你注册 KingData，{url}',
@@ -381,5 +386,96 @@ GrowthPad 对链上数据以及公链主流项目数据进行了全面挖掘和�
   heco: {
     // 分享标题
     title: 'LUCKY HECO',
+  },
+  meme: {
+    title: 'KingData 表情包大赛',
+    dashboard: {
+      description: `我们在 Discord 小组中举办了一场 meme 比赛，奖池为价值 2500 美元的 BabyDoge。请参阅下面的比赛详细信息和机制。
+在下方进行信息登记并完成任务列表中的任务即可获得评选资格。
+
+表决：
+1、25% 的分数来自 Discord 社区投票，25% 来自 Twitter 点赞，50% 来自 KingData 团队和员工的投票。
+2、1 🐢（乌龟）反应 = 1 次社区投票，
+3、KingData 团队和员工将在内部投票。
+
+参与时间：
+- 参与时间：2022年1月14日-2022年1月22日
+- 获奖者公布：2022年1月27日
+- 奖励分配：2022年1月31日或之前`
+    },
+    address: {
+      placeholder: '请输入领取奖励的 Bep-20 地址'
+    },
+    about: {
+      title: '奖励信息',
+      sub: '奖品总计：2500 美元的 BabyDoge',
+      desc: `<span class="text-18-28 block mb-2 text-global-highTitle font-m">其它：</span>
+<span class="block">- 比赛的获胜者将通过 Discord 联系。</span>
+<span class="block">- KingData 保留对这些规则和机制进行任何最终和具有约束力的修改的权利。</span>`,
+      detail: `- 第一名：价值 800 美元的 BabyDoge
+- 第二名：价值 500 美元的 BabyDoge
+- 第三名：价值 400 美元的 BabyDoge
+- 第四名：价值 300 美元的 BabyDoge
+- 第五名：价值 200 美元的 BabyDoge
+- 第六名：价值 100 美元的 BabyDoge
+- 第七名：价值 75 美元的 BabyDoge
+- 第八名：价值 60 美元的 BabyDoge
+- 第九名：价值 40 美元的 BabyDoge
+- 第十名：价值 25 美元的 BabyDoge`
+    },
+    task1: {
+      title: '点击下载',
+      value: 'KingData 媒体资产'
+    },
+    task2: {
+      value: 'KingData 官方 Discord 群',
+      sub: '创建你的 meme 并将其发布到 #meme-contest 频道。',
+      description: '您可以发布多次，但只能以得票最高的一次为准'
+    },
+    task3: {
+      title: '用#KingData #KingDataMeme #MemeContest 在',
+      after: '上发布推文',
+    }
+  },
+  emoji: {
+    share: '快来和我一起参与KingData专属限量蓝鲸NFT空投活动，共享2022年第一场NFT红包雨吧！，链接{url}',
+    banner: '/static/growthpad/emoji_cn.jpg',
+    title: "KingData专属限量蓝鲸NFT空投活动",
+    placeholder: '请输入领取奖励的 polygon 地址',
+    description: `2021年是各类赛道连番起势的一年，也是丰收的一年，加密艺术NFT也在2021年迅速出圈。KingData以平台吉祥物蓝鲸为原型打造了一系列专属限量蓝鲸NFT作为福利空投给所有用户。此次活动，一共空投5款蓝鲸NFT，每款4万枚，共20万枚。用户按照要求完成任务即可获取。
+    
+    感谢大家的支持与热情，KingData专属限量蓝鲸NFT空投活动受到广泛关注，为响应大家呼吁，KingData决定，将活动时间延长至2022年2月8日23点59分。空投奖励在活动结束后统一发送。`,
+    about: {
+      title: "KingData 专属限量蓝鲸NFT介绍",
+      description: `KingData 是一个基于多维度数据赋能交易的数据聚合与追踪平台。用户可一站式发掘优质新项目、实时监控链上数据动态找到最优投资机会。基于平台性质，结合蓝鲸具有惊人的信息传播能力为灵感，将蓝鲸作为 KingData 吉祥物，同时创造出一系列 KingData 专属限量蓝鲸NFT。
+      
+      KingdData坚守蓝鲸信息传播品质，励志为每一位用户提供有价值的数据信息。同时，希望以平台专属蓝鲸NFT作为连接双方的纽带，在时代的浪潮中，同步前行，一路相伴。`
+    },
+    task1: {
+      twitter: '推文',
+      invite: '邀请三名好友注册 KingData',
+      title: '加入KingData社群，并邀请3名用户注册KingData。'
+    },
+    task2: {
+      title: '体验 KingData 产品，并完成指定操作',
+    },
+    task3: {
+      title: '在',
+      value: 'KingData 大户地址追踪',
+      after: '关注任意巨鲸地址'
+    },
+    task4: {
+      title: '访问',
+      value: 'KingData Dapp 项目',
+      after: '挑选1个自己喜欢的项目，为该项目写测评'
+    },
+    task5: {
+      title: '访问',
+      value: 'KingData Dapp 项目',
+      after: '挑选1个自己喜欢的项目，为该项目评分'
+    },
+    task6: {
+      after: '中任意1篇文章至10个Telegram社群并加上简单的推荐文字，并将截图上传'
+    }
   }
 };

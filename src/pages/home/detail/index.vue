@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import HomeDetailInfo  from './info.vue'
+import HomeDetailTable  from './table.vue'
+import HomeDetailTop  from './top.vue'
+import HomeDetailTopic  from './topic.vue'
+import {onMounted, ref} from 'vue'
 const props=defineProps({
   type:String,
   filter:Boolean
+})
+onMounted(()=>{
+  console.log('aaaa1111,2121')
 })
 </script>
 <template>

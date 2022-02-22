@@ -20,5 +20,7 @@ export default {
         noBeta:'功能正在内测中，使用名额正在逐步开放中...',
         connectNumber:'功能内测中,每人只能连接一个钱包',
         followNumber:'功能内测中,每人只能关注两个大户地址外的地址',
-    }
+    },
+    history:'最近浏览',
+    TrackWallet:'添加关注地址',
 }

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {PropType} from "vue";
 import { MenuItem } from "src/types/menu/";
-import { createDb } from "src/logic/common/header";
 
 defineProps({
   data: {

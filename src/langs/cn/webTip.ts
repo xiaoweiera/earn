@@ -1,4 +1,4 @@
-import { oss } from "src/config";
+import { oss } from 'src/config/';
 export default {
     go:'立即体验',
     newFeatures:'新增功能',

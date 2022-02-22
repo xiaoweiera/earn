@@ -12,7 +12,7 @@ const routes = [
     },
     {
         path: `${router.home}/detail`,
-        component: () => import("src/pages/home/detail.vue")
+        component: () => import("src/pages/home/detail/index.vue")
     },
 ];
 

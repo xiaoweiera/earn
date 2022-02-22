@@ -5,13 +5,8 @@
 import * as api from "src/config/api";
 import ApiTemplate from "../template";
 import request from "src/plugins/dao/service";
+import { AreaCode } from "src/types/common/area";
 import { asyncCheck } from "src/plugins/dao/response";
-
-interface AreaCode {
-	cn: string;
-	en: string;
-	phone_code: string;
-}
 
 export default class extends ApiTemplate{
 	// 获取国际区号

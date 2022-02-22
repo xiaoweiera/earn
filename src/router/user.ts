@@ -15,6 +15,12 @@ const routes = [
 		path: router.user.register,
 		component: () => import("src/pages/account/register.vue")
 	},
+	{
+		// 邮箱登录
+		path: router.user.login,
+		// @ts-ignore
+		component: () => import("src/pages/account/login.vue")
+	},
 ];
 
 export default routes;

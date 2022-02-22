@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import HomeTableTd  from './td.vue'
 import {ref} from 'vue'
 const props=defineProps({
   data:Object,

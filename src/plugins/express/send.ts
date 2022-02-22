@@ -40,11 +40,11 @@ const send = async function (root: string, env: Env) {
 				return send(value);
 			}
 			const data = {
-				...value,
-				...res.locals,
 				query: Object.assign({
 					[languageKey]: safeGet<string>(req.query, languageKey) || Language.auto
 				}, req.params || {}, req.query || {}),
+				...res.locals,
+				...value,
 			};
 			// 获取默认选中的数据
 			const menuActive = safeGet<string>(res.locals, "menuActive");
