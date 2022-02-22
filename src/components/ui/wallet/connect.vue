@@ -4,14 +4,16 @@
  */
 
 
-import { onMounted } from "vue";
+import {onMounted} from "vue";
 import I18n from "src/utils/i18n";
-import { Encryption } from "src/utils/";
-import { ElButton } from "element-plus";
+import {Encryption} from "src/utils/";
+import {ElButton} from "element-plus";
 import {User} from "src/types/common/user";
 import Wallet from "src/plugins/web3/wallet";
+import {EventType} from "src/plugins/web3/interface";
 import {createReactive} from "src/utils/ssr/ref";
-import { address, isConnect } from "src/logic/common/wallet";
+import {address, isConnect} from "src/logic/common/wallet";
+import safeGet from "@fengqiaogang/safe-get";
 
 const i18n = I18n();
 const user = createReactive<User>("common.user", {} as User);
@@ -27,19 +29,43 @@ const walletAddress = function (): string {
   return i18n.wallet.connectWallet;
 };
 
-const connect = function () {
+// 链接钱包
+const onConnect = async function () {
   // 如果已获取到地址
   if (isConnect()) {
     return true;
   }
   const wallet = new Wallet();
-  console.log(wallet);
+  try {
+    const status = await wallet.requestPermissions();
+    if (status) {
+      //todo 授权成功
+    }
+  } catch (e) {
+    const code = safeGet<number>(e as object, "code");
+    if (code === 4001) {
+      // todo 用户取消授权
+    }
+  }
 }
 
-onMounted(function () {
+// 同步钱包地址
+const syncAddress = function () {
   // 获取钱包地址
   const wallet = new Wallet();
   address.value = wallet.getChainAddress();
+}
+
+onMounted(function () {
+  // 监听钱包
+  const wallet = new Wallet();
+  // 链接或者切换链接
+  wallet.on(EventType.account, syncAddress);
+  // 断开链接
+  wallet.on(EventType.disconnect, function () {
+    address.value = "";
+  });
+  syncAddress();
 });
 
 </script>
@@ -48,7 +74,7 @@ onMounted(function () {
   <ui-hover class="flex" placement="bottom" trigger="hover">
     <template #label>
       <v-login class="block">
-        <el-button class="px-1" @click="connect">
+        <el-button class="px-1" @click="onConnect">
           <IconFont size="16" class="text-global-primary mr-1" type="icon-wallet"/>
           <span class="text-14-18 text-global-primary font-medium">
           <span>{{ walletAddress() }}</span>
