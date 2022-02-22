@@ -95,5 +95,25 @@ export default {
         payPrice:'交易价值',
         payObject:'交易对象',
     },
-
+    hover:{
+        address:'合约地址',
+        goftm:'去浏览器查看',
+        detail:'查看行情',
+        media:'社交媒体',
+        unknown:'未知',
+    },
+    portfolioSeo:{
+        title:`DeFi投资组合`,
+        keyword:`DeFi投资、钱包管理、投资建议、NFT、DeFi交易历史记录、DeFi投资跟踪器`,
+        des:`最强大的DeFi资产管理工具，一站式查看与管理钱包资产和投资，通过AI和大数据加持，提供投资推荐和仓位异动监控服务`
+    },
+    noSelectData:{
+        title:'没有找到相关地址',
+        des1:'您可点击',
+        des2:'去看看'
+    },
+    nft:{
+        allCollect:'全部收藏',
+        all:'全部'
+    }
 }

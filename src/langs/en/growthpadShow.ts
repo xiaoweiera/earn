@@ -1,4 +1,4 @@
-import { oss } from "src/config";
+import { oss } from 'src/config/';
 export default {
     status: {
         wait: 'Start countdown',
@@ -13,7 +13,7 @@ export default {
     ongoing: 'Ongoing',
     end: 'Ended',
     projectState:'⏱ Ongoing',
-    timeBegin:'Start countdown',
+    timeBegin:'Start',
     waitButton: 'Coming',
     ingButton: 'View more',
     overButton: 'Ended',

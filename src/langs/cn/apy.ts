@@ -1,4 +1,4 @@
-import { oss } from "src/config";
+import { oss } from 'src/config/';
 export default {
     webTitle:'Defi挖矿收益APY大全',
     comprehensive:'综合',

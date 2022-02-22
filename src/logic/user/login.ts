@@ -1,3 +1,6 @@
+/**
+ * @file 登录框
+ */
 
 import { ref } from "vue";
 
@@ -19,6 +22,11 @@ export const visible = ref<boolean>(false);
 export const showLogin = function () {
 	switchStatus.value = FlagStatus.emailLogin; // 登录
 	visible.value = true;
+}
+// 关闭登录框
+export const hiddenLogin = function () {
+	switchStatus.value = FlagStatus.none; // 登录
+	visible.value = false;
 }
 
 // 显示注册框

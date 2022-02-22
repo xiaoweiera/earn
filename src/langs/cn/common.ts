@@ -1,3 +1,5 @@
+import {timeFormat} from "~/utils";
+
 export default {
   login: '登录',
   register: '注册',
@@ -68,6 +70,7 @@ export default {
     share: '去分享',
     all: '全部',
     viewAll: '查看全部',
+    goto: '去完成',
   },
   message: {
     verification: '获取验证码',
@@ -84,8 +87,7 @@ export default {
     mailError:'邮箱格式不正确',
     copyAlert: '你已成功复制',
     checkValue:'请按住滑块，拖动到最右边',
-    codeDialog:'滑动获取验证码',
-    loginError: "账号或者密码输入有误！",
+    codeDialog:'滑动获取验证码'
   },
   placeholder: {
     login: '自动登录',
@@ -107,7 +109,8 @@ export default {
     invite: '请输入邀请码（非必填）',
     read: '注册前请阅读',
     agreement: '《用户协议》',
-    terms: '《服务条款》'
+    terms: '《服务条款》',
+    use:'《使用须知》'
   },
   chat: {
     telegram: '电报',

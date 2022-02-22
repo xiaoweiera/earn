@@ -21,7 +21,7 @@ export default {
     noFollow:{
         title:`You are not following the address`,
         go:'Go to',
-        tag:'Popular Address',
+        tag:'Hot',
         des:'and add the address of a big account you follow'
     },
     followDialog:{
@@ -94,5 +94,26 @@ export default {
         received:'received',
         payPrice:'Trading value',
         payObject:'Trading Objects',
+    },
+    hover:{
+        address:'Address',
+        goftm:'Browser view',
+        detail:'Price',
+        media:'Social media',
+        unknown:'unknown',
+    },
+    portfolioSeo:{
+        title:`Portfolio For DeFi-KingData`,
+        keyword:`defi assets, track defi, monitor defi, defi portfolio, defi, uniswap, sushiswap, track, monitor, synthetix, zerion, debank,NFT,Cross-chain DeFi Dashboard,DeFi tracking dashboard,DeFi  portfolio tracker,Best portfolio tracker`,
+        des:`The Most Powerful DeFi Management Platfor,View and manage wallet assets and investments,and provide powerful investment recommendation and position change monitoring services through AI and big data`
+    },
+    noSelectData:{
+        title:'No Data',
+        des1:'You can click',
+        des2:'to view'
+    },
+    nft:{
+        allCollect:'All Collection',
+        all:'All'
     }
 }

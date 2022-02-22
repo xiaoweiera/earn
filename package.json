@@ -69,6 +69,7 @@
     "vite-plugin-windicss": "^1.6.3",
     "vue-router": "^4.0.12",
     "vue-tsc": "^0.29.8",
+    "web3": "^1.7.0",
     "windicss": "^3.4.3"
   }
 }
