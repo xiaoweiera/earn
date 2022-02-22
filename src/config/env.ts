@@ -62,7 +62,7 @@ export const getConfig = async function(env: ConfigEnv | object): Promise<Import
 		if (local) {
 			result = getEnv(local);
 		} else {
-			const src = await fsStat(mode, true);
+			const src = await fsStat(mode);
 			result = getEnv(src);
 		}
   }
