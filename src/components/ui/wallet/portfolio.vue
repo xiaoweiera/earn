@@ -11,7 +11,8 @@ const href = computed<object | undefined>(function () {
     return {
       path: routerConfig.portfolio,
       query: {
-        address: address, isBeta: 'ok'
+        isBeta: 'ok',
+        address: address,
       }
     };
   }

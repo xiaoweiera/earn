@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {PropType, computed} from "vue";
-import { Footer } from "src/config/footer";
-import { Target } from "src/plugins/router/props";
+import { MenuItem } from "src/types/menu";
+import { Target } from "src/plugins/ui/router/props";
 const props = defineProps({
   index: {
     type: Number,
@@ -9,7 +9,7 @@ const props = defineProps({
   },
   data: {
     required: true,
-    type: Object as PropType<Footer>,
+    type: Object as PropType<MenuItem>,
   }
 });
 

@@ -1,9 +1,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import router from "src/plugins/ui/router/";
+import Login from "src/plugins/ui/login/";
 export default defineComponent({
-  name: "VRouter",
-  extends: router
+  name: "VLogin",
+  extends: Login
 });
 </script>
 

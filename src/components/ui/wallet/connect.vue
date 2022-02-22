@@ -47,12 +47,14 @@ onMounted(function () {
 <template>
   <ui-hover class="flex" placement="bottom" trigger="hover">
     <template #label>
-      <el-button class="px-1" @click="connect">
-        <IconFont size="16" class="text-global-primary mr-1" type="icon-wallet"/>
-        <span class="text-14-18 text-global-primary font-medium">
+      <v-login class="block">
+        <el-button class="px-1" @click="connect">
+          <IconFont size="16" class="text-global-primary mr-1" type="icon-wallet"/>
+          <span class="text-14-18 text-global-primary font-medium">
           <span>{{ walletAddress() }}</span>
         </span>
-      </el-button>
+        </el-button>
+      </v-login>
     </template>
     <template #content>
       <div class="text-global-highTitle text-opacity-85">

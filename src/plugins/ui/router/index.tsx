@@ -5,10 +5,10 @@
 
 import _ from "lodash";
 import { Equals } from "src/utils";
-import {defineComponent} from 'vue';
+import {defineComponent} from "vue";
 import { props, Name, Target } from "./props";
-import { createHref, UtmSource } from "./pack";
 import window from "src/plugins/browser/window";
+import { createHref, UtmSource } from "src/plugins/router/pack";
 
 const VRouter = defineComponent({
 	props,

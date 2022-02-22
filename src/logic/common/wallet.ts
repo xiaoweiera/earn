@@ -4,12 +4,10 @@
  */
 
 import { ref } from "vue";
-import {getValue} from "src/utils/ssr/ref";
-import {User} from "src/types/common/user";
+import { isLogin } from "src/logic/user/login";
 
 export const address = ref<string>("");
 
 export const isConnect = function () {
-	const user = getValue<User>("common.user", {} as User);
-	return !!(user && user.id && address.value);
+	return !!(isLogin() && address.value);
 }
