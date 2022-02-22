@@ -72,5 +72,9 @@ const onSwitch = function () {
         <Dialog/>
       </client-only>
     </div>
+    <!--钱包-->
+    <div class="ml-4">
+      <ui-wallet-connect/>
+    </div>
   </div>
 </template>

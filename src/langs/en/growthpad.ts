@@ -1,4 +1,4 @@
-import { oss } from "src/config";
+import { oss } from 'src/config/';
 export default {
   title: 'GrowthPad',
   case: 'Examples',
@@ -11,20 +11,23 @@ export default {
     closure: 'Ended',
     suspend: 'suspend'
   },
+  friends: 'and @{count} friends.',
   reward: {
     about: '≈',
     count: 'Reward Amount',
     value: 'Reward Value',
-    perPerson: 'The Max Reward Per Person',
+    // perPerson: 'The Max Reward Per Person',
+    perPerson :'Max Reward/Person',
     total: 'Reward {count} {token}',
     maxTotal: '{count} {token} at maximum',
     // finished: 'Finish all tasks: {reward}（TOP {count} users）',
     // anytask: 'Finish one of tasks: {reward}（TOP {count} users）',
     finished: 'Finish all tasks: {reward}',
+    finishedTop: 'Finish all tasks: {reward}（TOP {count} users）',
     anytask: 'Finish one of tasks: {reward}',
     send: '(In reward calculation, the final award amount is subject to the actual amount issued after calculation.)',
   },
-  register: 'Information Registration',
+  register: 'Registration Information',
   submit: 'Register',
   address: {
     warning: 'Finish Information Registration first',
@@ -33,8 +36,8 @@ export default {
     confirm: 'Confirmation',
     invalid: 'Invalid Address',
     tips: `Once confirmed, the address can't be modified`,
-    notify1: '* Please register your address receiving rewards(Rewards for tasks related to TVL will be directly airdropped into the verification address) If you fail to register in time, the reward will not be issued.',
-    notify2: '* Rewards will be uniformly distributed to your reward receiving address within 10 working days after the event ends, and rewards for tasks related to holdings will be distributed directly to the verification address.',
+    notify1: '* Please register your receiving wallet address. If you fail to register in time, the reward will not be issued.',
+    notify2: '* Rewards will be uniformly distributed to your reward receiving address within 10 working days after the event ends.',
     checkMessage: `Submitted
 Expected reward +{reward} {token}`,
     week_reward: 'Expected reward (not issued)：<i>{reward} {token}</i>',
@@ -70,12 +73,13 @@ Expected reward +{reward} {token}`,
   },
   weibo: {
     success: 'Upload succesfully',
+    error: 'Upload error',
     placeholder: 'Please upload image!',
     article: 'Article URL:',
     articleImg: 'Screenshot: ',
     articlePlaceholder: 'Enter article url',
-    notify1: '* Please include individual homepage of mainstream media.',
-    notify2: '* The format should be jpg,png and etc. Not more than 5M.',
+    notify1: '* Please include individual homepage.',
+    notify2: '* The format should be in JPG, PNG and other image files, not more than 5MB in file size.',
     // title: 'Write original experience with {count}+ words about {project} and publish to mainstream media.',
     title: 'Write a {count}-word original {project} experience article and publish it in mainstream media.',
     // tips: '* 已提交等待审核，重新提交会替换之前的内容。'
@@ -105,6 +109,7 @@ Expected reward +{reward} {token}`,
     placeholderTelegram: 'Enter your username',
     twitter: 'Enter Twitter ID',
     retwitter: 'Enter Twitter ID',
+    discord: 'Enter your username',
     sina: 'Enter Weibo ID'
   },
   copy: 'Inviting you to register in KingData，{url}',
@@ -387,5 +392,96 @@ Rule: Before starting the task, participants need to the KingData account and en
   },
   heco: {
     title: 'LUCKY HECO'
+  },
+  meme: {
+    title: 'KingData Meme Contest',
+    dashboard: {
+      description: `We are holding a meme contest in our Discord group with a prize pool of $2500 worth of BabyDoge. See the contest details and mechanics below.
+
+Voting: 
+1. 25% of the score will be coming from the Discord community votes, 25% from the Twitter likes and 50% from the votes of the KingData team and staff.
+2. 1 🐢 (turtle) reaction = 1 community vote.
+3. The KingData team and staff will vote internally.
+
+Dates:
+- Start of the contest: January 14, 2022
+- End of the contest: January 22, 2022
+- Announcement of winners: January 27, 2022
+- Distribution of rewards: On or before January 31, 2022`
+    },
+    address: {
+      placeholder: 'Enter your Bep-20 wallet address'
+    },
+    about: {
+      title: 'Prizes',
+      sub: 'Total: $2500',
+      desc: `<span class="text-18-28 mb-2 block text-global-highTitle font-m">Notes:</span> 
+<span class="block">- Winners of the contest will be contacted via Discord.</span>
+<span class="block">- KingData reserves the right to make any final and binding amendments to these rules and mechanics.</span>`,
+      detail: `- First place: $800 worth of BabyDoge
+- Second place: $500 worth of BabyDoge
+- Third place: $400 worth of BabyDoge
+- Fourth place: $300 worth of BabyDoge
+- Fifth place: $200 worth of BabyDoge
+- Sixth place: $100 worth of BabyDoge
+- Seventh place: $75 worth of BabyDoge
+- Eighth  place: $60 worth of BabyDoge
+- Ninth place: $40 worth of BabyDoge
+- Tenth place: $25 worth of BabyDoge`
+    },
+    task1: {
+      title: 'You can download',
+      value: 'KingData media assets'
+    },
+    task2: {
+      value: 'KingData’s official Discord group',
+      sub: 'Create your meme and post it in the #meme-contest channel.',
+      description: 'You can submit multiple times but you can only win once.'
+    },
+    task3: {
+      title: 'Post you entry on',
+      after: 'with hashtags #KingData #KingDataMeme #MemeContest',
+    }
+  },
+  emoji: {
+    share: 'Come on my best friend,join me in the KingData exclusive limited Blue Whale NFT airdrop event and share the first NFTs airdrop  in 2022! {url}',
+    banner: '/static/images/emoji_en_2.jpg',
+    title: "KingData Exclusive Limited Edition BlueWhale NFT Airdrop Event",
+    placeholder: 'Enter your Polygon wallet address',
+    description: `2021 is a year of successive take-offs of various tracks, and a year of a bumper crop. KingData used the platform mascot Blue Whale as the prototype to create a series of exclusive limited-edition Blue Whale NFT as a benefit airdrop for all users. In this event, a total of 5 Blue Whale NFTs were airdropped, 40,000 of each, 200,000 in total. Users can get them by completing the tasks as required.
+    
+    Thanks to everyone's support and enthusiasm, KingData's exclusive limited BlueWhale NFT Airdrop event has attracted widespread attention. In response to everyone's appeal, KingData has decided to extend the event time to 23:59 on February 8, 2022. Airdrop rewards will be sent uniformly after the event ends.`,
+    about: {
+      title: "Introduction to KingData's Exclusive Limited-Edition BlueWhale NFTs",
+      description: `KingData is a data aggregation and tracking platform based on multi-dimensional data empowered transactions. Users can one-stop discover new high-quality projects, real-time monitoring of data dynamics on the chain so as to find optimal investment opportunities. Based on the nature of the platform and inspired by the superb information dissemination ability of the blue whale, the blue whale is taken as KingData's mascot, and a series of KingData's exclusive limited-edition BlueWhale NFT is created at the same time.
+
+KingData ensures the quality of the BlueWhale information dissemination and insists on providing valuable data information to every user. At the same time, we hope to use the platform's exclusive BlueWhale NFTs as a link between the two sides, so that we can move forward together and accompany each other all the way in the development of the times.`
+    },
+    task1: {
+      twitter: 'The campaign',
+      invite: 'Invite 3 friend to register in KingData.',
+      title: 'Join the KingData community and invite 3 users to sign up for KingData.'
+    },
+    task2: {
+      title: 'Product Experience Tasks: You can get 1 BlueWhale NFT after completing the tasks below.'
+    },
+    task3: {
+      title: 'Follow any whale address in the ',
+      value: 'Address tracking bar',
+      after: ''
+    },
+    task4: {
+      title: 'Go to',
+      value: 'KingData Dapp project',
+      after: 'pick 1 project you like, and write a review.'
+    },
+    task5: {
+      title: 'Go to',
+      value: 'KingData Dapp project',
+      after: 'pick 1 item you like and rate it.'
+    },
+    task6: {
+      after: 'to 10 Telegram communities with a short recommendation text and upload screenshot/s in the following.'
+    }
   }
 };

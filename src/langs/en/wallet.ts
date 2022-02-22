@@ -9,7 +9,7 @@ export default {
     lookAll:'View All',
     addFollow:'Add a follow address',
     addFollowTip:'Enter the address you want to follow',
-    connectWallet:'Connected Wallet',
+    connectWallet:'Connect',
     walletManage:'Wallet Management',
     manageTxtTip:'Manage your assets',
     followList:'Follow List',
@@ -20,5 +20,7 @@ export default {
         noBeta:'The function is in testing, the use of the place is gradually open...',
         connectNumber:'Only one wallet can be connected per person in the feature internal test',
         followNumber:'In the internal test, each person can only follow two addresses other than the large account address',
-    }
+    },
+    history:'Recently Viewed',
+    TrackWallet:'Track Any Wallet',
 }

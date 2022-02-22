@@ -20,6 +20,7 @@ import apply from './apply'
 import address from './address'
 import airdrop from "./airdrop";
 import wallet from "./wallet";
+import file from "./file"
 export default {
   airdrop,
   blog,
@@ -41,5 +42,6 @@ export default {
   apyIndex,
   topRank,
   comment,
-  wallet
+  wallet,
+  file
 }

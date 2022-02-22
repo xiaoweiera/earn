@@ -69,6 +69,7 @@ export default {
     share: 'Share',
     all: 'All',
     viewAll: 'View All',
+    goto: 'Go to',
   },
   message: {
     verification: 'Send',
@@ -85,8 +86,7 @@ export default {
     copy: 'The link has copied',
     fail: 'Validation failed',
     checkValue:'Please slide to verify',
-    codeDialog:'Slide to get the verification code',
-    loginError: "Incorrect account or password input!",
+    codeDialog:'Slide to get the verification code'
   },
   placeholder: {
     login: 'Automatic log-in',
@@ -108,7 +108,8 @@ export default {
     invite: 'Please enter the invitation code (optional)',
     read: 'I have read and agree to the ',
     agreement: '《Service agreement》',
-    terms: '《Terms of service》'
+    terms: '《Terms of service》',
+    use:'《Instructions of use》'
   },
   chat: {
     telegram: 'Telegram',
