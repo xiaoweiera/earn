@@ -1,10 +1,14 @@
 <script setup lang="ts">
-
+defineProps({
+  data: {
+    type: Object,
+  }
+})
 </script>
 <template>
   <div>
     <div class="small text-kd12px16px text-global-highTitle text-opacity-65 mt-3 font-kdFang">
-      N.Fans is committed to creating a metaverse of animations and  ...
+      {{data.description}}
     </div>
   </div>
 </template>

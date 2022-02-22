@@ -3,9 +3,96 @@ import { ref } from "vue"
 import safeGet from "@fengqiaogang/safe-get";
 import * as logic from "src/types/dapp/";
 import { toLower } from "src/utils";
-import { setScrollTop } from '~/utils/event/scroll';
 import { includes } from 'ramda';
 
+
+const IGOData = ref([
+  {
+    "id": 1,
+    // 名称
+    "name": "Raca",
+    // 数据类型, dapp-普通项目数据; ad-"广告"
+    "data_type": "dapp",
+    // Logo
+    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
+    // 封面
+    "cover": "https://jsdata-web.xyz/media/dapp/cover.png",
+    // 描述
+    "description": "这里是项目描述，xxxxxxxx",
+    // 项目代币
+    "symbol": "HLS",
+    // 所在公链
+    "chains": ["bsc"],
+    // IDO平台
+    "tge_platform": "daomaker",
+    // 风险等级
+    "risk": "high",
+    // 项目评分
+    "overall_score": 9.8,
+    // IDO价格
+    "ido_price": 1.2,
+    // 筹款目标
+    "ido_fundraising_goal": 2000,
+    // IDO开始时间
+    "ido_start_at": 16534242234
+  },{
+    "id": 2,
+    // 名称
+    "name": "Raca",
+    // 数据类型, dapp-普通项目数据; ad-"广告"
+    "data_type": "dapp",
+    // Logo
+    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
+    // 封面
+    "cover": "https://jsdata-web.xyz/media/dapp/cover.png",
+    // 描述
+    "description": "这里是项目描述，xxxxxxxx",
+    // 项目代币
+    "symbol": "HLS",
+    // 所在公链
+    "chains": ["bsc"],
+    // IDO平台
+    "tge_platform": "daomaker",
+    // 风险等级
+    "risk": "high",
+    // 项目评分
+    "overall_score": 9.8,
+    // IDO价格
+    "ido_price": 1.2,
+    // 筹款目标
+    "ido_fundraising_goal": 2000,
+    // IDO开始时间
+    "ido_start_at": 16534242234
+  },{
+    "id": 3,
+    // 名称
+    "name": "Raca",
+    // 数据类型, dapp-普通项目数据; ad-"广告"
+    "data_type": "dapp",
+    // Logo
+    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
+    // 封面
+    "cover": "https://jsdata-web.xyz/media/dapp/cover.png",
+    // 描述
+    "description": "这里是项目描述，xxxxxxxx",
+    // 项目代币
+    "symbol": "HLS",
+    // 所在公链
+    "chains": ["bsc"],
+    // IDO平台
+    "tge_platform": "daomaker",
+    // 风险等级
+    "risk": "high",
+    // 项目评分
+    "overall_score": 9.8,
+    // IDO价格
+    "ido_price": 1.2,
+    // 筹款目标
+    "ido_fundraising_goal": 2000,
+    // IDO开始时间
+    "ido_start_at": 16534242234
+  },
+])
 const active = ref<logic.TabTypes>();
 const tabs = ref<logic.TabItem[]>(logic.tabs);
 const init = function (query: object) {
@@ -23,7 +110,6 @@ const init = function (query: object) {
 }
 const onChangeView = function (data: object) {
   init(data);
-  setTimeout(setScrollTop);
 }
 </script>
 <template>
@@ -36,7 +122,7 @@ const onChangeView = function (data: object) {
        <!-- 分类 -->
       <ui-Header-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
         <div>
-          <ui-tab :list="tabs" @change="onChangeView"></ui-tab>
+          <ui-tab :list="tabs" @change="onChangeView" active-name="type"></ui-tab>
         </div>
       </ui-Header-sticky>
       <!-- 搜索条件 -->
@@ -46,7 +132,7 @@ const onChangeView = function (data: object) {
       <!-- 列表内容 -->
       <div class="py-8">
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DappDiscoversList v-for="(item, index) in 9" :key='index'></DappDiscoversList>
+          <DappDiscoversList v-for="(item, index) in IGOData" :key='index' :list="item"></DappDiscoversList>
         </div>
         <div>
           <!-- <DappDiscoversEndlist class="px-4"></DappDiscoversEndlist> -->

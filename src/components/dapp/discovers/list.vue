@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue"
 const loading = ref<boolean>(false);
+defineProps({
+  list: {
+    type: Object,
+  }
+})
 </script>
 <template>
   <div class="discover-item">
@@ -12,7 +17,7 @@ const loading = ref<boolean>(false);
             <DappDiscoversContentAd v-if="item.commercial" :data="item"/>
             <DappDiscoversContent v-else :data="item"/>
           </template> -->
-          <DappDiscoversContent></DappDiscoversContent>
+          <DappDiscoversContent :data="list"></DappDiscoversContent>
           <!-- <DappDiscoversContentAd></DappDiscoversContentAd> -->
         </ui-spin>
       </div>

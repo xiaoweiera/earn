@@ -1,18 +1,22 @@
 <script setup lang="ts">
-
+defineProps({
+  data: {
+    type: Object,
+  }
+})
 </script>
 <template>
   <div>
     <div class="w-full flex justify-items-start -mt-7.5 items-center">
       <div class="w-15 h-15 border-2 border-global-white rounded-md">
         <!-- <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/> -->
-        <ui-image class="w-full h-full" fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/Dapp/942e9815f5e3ed75d0f22e3514dbacaf.png" :lazy="true"/>
+        <ui-image class="w-full h-full" fit="cover" :src="data.logo" :lazy="true"/>
       </div>
       <div class="flex-1 h-15 pl-2.5">
         <div class="flex justify-between items-center">
           <p class="items-center">
-            <span class="text-kd18px18px text-global-white font-semibold font-kdBarlow">Legion Network</span>
-            <span class="text-kd14px18px text-global-white text-opacity-65 font-kdBarlow font-medium ml-1.5">HLS</span>
+            <span class="text-kd18px18px text-global-white font-semibold font-kdBarlow">{{data.name}}</span>
+            <span class="text-kd14px18px text-global-white text-opacity-65 font-kdBarlow font-medium ml-1.5">{{data.symbol}}</span>
           </p>
           <p class="flex items-center">
             <IconFont class="text-global-gemstone" type="star" size="16"/>

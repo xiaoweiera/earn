@@ -1,22 +1,26 @@
 <script setup lang="ts">
-
+defineProps({
+  data: {
+    type: Object,
+  }
+})
 </script>
 
 <template>
   <div>
     <div class="w-full h-40 rounded-md overflow-hidden">
       <!-- <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/> -->
-      <ui-image class="w-full h-full" fit="cover" src="https://jsdata-web.kingdata.xyz/media/uploads/2022/2/4f6f01aa7ae1717f9fec97a78f5af7d0.png" :lazy="true"/>
+      <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/>
     </div>
     <div class="w-full absolute top-4 left-0">
       <div class="flex justify-between px-4">
         <p class="flex"> 
-          <DappDiscoversContentRisk class="bg-global-bgBlack" value="high"></DappDiscoversContentRisk>
-          <span class="bg-global-bgBlack ml-2 px-2 py-1 text-kd12px14px text-global-white border border-global-white border-opacity-25 font-kdFang rounded-2xl">NFT</span>
+          <DappDiscoversContentRisk class="bg-global-bgBlack" :value="data.risk"></DappDiscoversContentRisk>
+          <span class="bg-global-bgBlack ml-2 px-2 py-1 text-kd12px14px text-global-white border border-global-white border-opacity-25 font-kdFang rounded-2xl">{{data.tge_platform}}</span>
         </p>
         <p class="bg-global-gemstone px-2 text-global-white border border-global-white border-opacity-25 rounded-2xl">
           <IconFont type="icon-star" size="12" class="is-star"/>
-          <span class="ml-0.5 text-kd16px18px text-number is-score">9.8</span>
+          <span class="ml-0.5 text-kd16px18px text-number is-score">{{ data.overall_score }}</span>
         </p>
       </div>
     </div>

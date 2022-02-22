@@ -1,11 +1,15 @@
 <script setup lang="ts">
-
+defineProps({
+  data: {
+    type: Object,
+  }
+})
 </script>
 <template>
   <div>
     <div class="w-full h-15.5 flex justify-between items-center">
       <div class="flex-1">
-        <DappDiscoversCutdown></DappDiscoversCutdown>
+        <DappDiscoversCutdown :value="data.ido_start_at"></DappDiscoversCutdown>
       </div>
       <v-router target="_blank" class="ml-6.5">
         <div class="w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center">

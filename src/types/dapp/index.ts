@@ -31,24 +31,24 @@ export enum TabTypes {
 	ended = 'ended', // 已结束
 }
 export interface TabItem {
-	id: TabTypes;
+	type: TabTypes;
 	name: string;
 	icon?: string;
 	href: string;
 }
 export const tabs: TabItem[] = [ 
   {
-    id: TabTypes.upcoming,
+    type: TabTypes.upcoming,
     icon: '',
     name: i18n.airdrop.tabs.upcoming,
     href: `${config.dappList}?type=${TabTypes.upcoming}`,
   },{
-		id: TabTypes.ongoing,
+		type: TabTypes.ongoing,
 		icon: '',
 		name: i18n.airdrop.tabs.ongoing,
 		href: `${config.dappList}?type=${TabTypes.ongoing}`,
 	}, {
-		id: TabTypes.ended,
+		type: TabTypes.ended,
 		icon: '',
 		name: i18n.growthpad.status.closure,
 		href: `${config.dappList}?type=${TabTypes.ended}`,
@@ -60,7 +60,7 @@ export enum NftTabTypes {
 	history = 'history', // 已结束
 }
 export interface NftTabItem {
-	id: NftTabTypes;
+	type: NftTabTypes;
 	name: string;
 	icon?: string;
 	href: string;
@@ -68,12 +68,12 @@ export interface NftTabItem {
 // nft分类切换
 export const nftTabs: NftTabItem[] = [ 
   {
-    id: NftTabTypes.upcoming,
+    type: NftTabTypes.upcoming,
     icon: '',
     name: i18n.dapp.sort.online,
     href: `${config.nft}?type=${NftTabTypes.upcoming}`,
   },{
-		id: NftTabTypes.history,
+		type: NftTabTypes.history,
 		icon: '',
 		name: i18n.dapp.sort.history,
 		href: `${config.nft}?type=${NftTabTypes.history}`,
