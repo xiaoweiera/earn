@@ -3,17 +3,17 @@
  * @file 个人信息
  * @author svon.me@gmail.com
  */
+
 import I18n from "src/utils/i18n";
 import Dialog from "./dialog.vue";
+import UserMenu from "./menu.vue";
 import {Language} from "src/types/language";
 import {User} from "src/types/common/user";
 import window from "src/plugins/browser/window";
 import {createReactive} from "src/utils/ssr/ref";
 import {createHref} from "src/plugins/router/pack";
 import {languageKey, oss, getEnv} from "src/config";
-import ClientOnly from "~/components/client/only.vue";
-import {config as routerConfig} from "src/router/config";
-import { showLogin, showRegister } from "src/logic/user/login";
+import {showLogin, showRegister} from "src/logic/user/login";
 
 const env = getEnv();
 const i18n = I18n();
@@ -36,11 +36,6 @@ const onSwitch = function () {
     reload(href);
   }
 }
-
-// 获取昵称
-const getUserName = function (data: User): string | number {
-  return data.nickname || data.username || data.email || data.mobile;
-}
 </script>
 
 <template>
@@ -60,23 +55,13 @@ const getUserName = function (data: User): string | number {
         <IconFont class="flex cursor-pointer" type="icon-yonghu1" size="22"/>
       </template>
       <template #content>
-        <div class="bg-global-white rounded-md">
-          <div class="p-4 flex items-center cursor-pointer">
-            <IconFont type="icon-yonghu" size="20"/>
-            <span class="ml-2 text-14-18 text-global-grey inline-block">{{ getUserName(user) }}</span>
-            <IconFont class="ml-2" type="vip1"/>
-          </div>
-          <v-router class="p-4 flex items-center itemMt cursor-pointer border-t border-solid border-gray-300" :href="routerConfig.user.logout">
-            <IconFont type="icon-tuichu" size="20"/>
-            <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.nav.outLogin }}</span>
-          </v-router>
-        </div>
+        <user-menu :user="user"/>
       </template>
     </ui-hover>
 
     <!--未登录-->
-    <div class="flex" v-else>
-      <div>
+    <div v-else>
+      <div class="flex items-center">
         <span class="whitespace-nowrap cursor-pointer" @click.stop.prevent="showLogin">{{ i18n.common.login }}</span>
         <img class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block" :src="`${oss}/nav/dian.png`" alt=""/>
         <span class="whitespace-nowrap cursor-pointer hidden md:inline-block"

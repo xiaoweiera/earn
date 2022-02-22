@@ -1,10 +1,9 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 控制登录/注册弹窗
  * @author svon.me@gmail.com
  */
 
-import {computed} from "vue";
 import I18n from "src/utils/i18n";
 import {getEnv} from "src/config/";
 import {ElDialog, ElTabs, ElTabPane} from "element-plus";
@@ -21,10 +20,6 @@ import {
 const i18n = I18n();
 const env = getEnv();
 
-const tabValue = computed(function () {
-  return FlagStatus;
-})
-
 const handleClose = function (next: () => void) {
   return next();
 };
@@ -32,11 +27,11 @@ const handleClose = function (next: () => void) {
 </script>
 
 <template>
-  <el-dialog v-model="visible" custom-class="dialog-user-wrap" :append-to-body="true" :before-close="handleClose">
+  <el-dialog v-model="visible" :append-to-body="true" :before-close="handleClose" custom-class="dialog-user-wrap">
     <div>
       <div class="text-center mb-6">
         <div class="inline-block w-37.5">
-          <ui-image fit="none" :src="`${env.VITE_oss}/nav/logoJpg.png`"/>
+          <ui-image :src="`${env.VITE_oss}/nav/logoJpg.png`" fit="none"/>
         </div>
       </div>
       <!--登录-->
