@@ -3,6 +3,24 @@ import { toNumberCashFormat } from 'src/utils/convert/to'
 const props=defineProps({
   data:Object
 })
+const getNumber=(value:any)=>{
+  if(value>0){
+    return `+${toNumberCashFormat(value)}`
+  }else if(value===0){
+    return 0
+  }else if(value<0){
+    return `-${toNumberCashFormat(value)}`
+  }
+  return ``
+}
+const getColor=(value:any)=>{
+  if(value>=0){
+    return `green-value`
+  }else if(value<0){
+    return `red-value`
+  }
+  return `default-color`
+}
 </script>
 <template>
   <div class="w-full flex justify-between items-center">
@@ -41,7 +59,7 @@ const props=defineProps({
         <div class="info-des">
           <span class="number-value text-number  text-global-white">{{toNumberCashFormat(data.nft.total)}}</span>
           <span class="time  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="11>=0?'green-value':'red-value'">+{{toNumberCashFormat(data.nft['24h_increase'])}}</span>
+          <span class="number-rate text-number" :class="getColor(data.nft['24h_increase'])">{{getNumber(data.nft['24h_increase'])}}</span>
         </div>
       </div>
       <div class="info-item">
@@ -49,7 +67,7 @@ const props=defineProps({
         <div class="info-des">
           <span class="number-value text-number  text-global-white">{{toNumberCashFormat(data.ixo.total)}}</span>
           <span class="time  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="11>=0?'green-value':'red-value'">+{{toNumberCashFormat(data.ixo['24h_increase'])}}</span>
+          <span class="number-rate text-number" :class="getColor(data.ixo['24h_increase'])">{{getNumber(data.ixo['24h_increase'])}}</span>
         </div>
       </div>
       <div class="info-item">
@@ -57,7 +75,7 @@ const props=defineProps({
         <div class="info-des">
           <span class="number-value text-number  text-global-white">{{toNumberCashFormat(data.airdrop.total)}}</span>
           <span class="time  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="11>=0?'green-value':'red-value'">+{{toNumberCashFormat(data.airdrop['24h_increase'])}}</span>
+          <span class="number-rate text-number" :class="getColor(data.airdrop['24h_increase'])">{{getNumber(data.airdrop['24h_increase'])}}</span>
         </div>
       </div>
     </div>
@@ -73,6 +91,9 @@ const props=defineProps({
 }
 .red-value {
   color: red;
+}
+.default-color{
+  @apply text-global-highTitle text-opacity-85;
 }
 
 .title {

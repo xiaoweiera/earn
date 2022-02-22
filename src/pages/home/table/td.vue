@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import {ref,onMounted} from 'vue'
 import { toNumberCashFormat } from 'src/utils/convert/to'
-import { oss } from "src/config";
+import {getData} from "~/logic/home";
+import {getRedGreen} from "~/lib/tool";
+
 const props=defineProps({
   data:Object,
   typeName:{
     type:String,
     default: () => ''
   },
-  type:String
+  type:{
+    type:String,
+    default: () => 'data'
+  }
 })
 const chainIcon=['chains']  //icon类
 const iconHref=['tge_platform'] //icon + href
@@ -35,7 +40,7 @@ const lever=['ath_since_ido','current_roi_usd'] //number + x  ATH Since IDO   Cu
 const timeType=['endedIn'] //time
 
 const typeDom=ref('')// dom类型
-const domData=ref({}) //dom数据
+const domData=ref() //dom数据
 const getDom=()=>{
   const name:string=props.typeName
   if(chainIcon.includes(name)){
@@ -64,153 +69,81 @@ const getDom=()=>{
     return 'txt'
   }
 }
-const getData=()=>{
-  const key:string=props.typeName
-  const data:any=props.data
-  let header:string=''
-  let value:any=[]
-  if(key==='chains'){
-    header='Chain'
-    value=data['chains']
-  }else if(key==='tge_platform'){
-    header='TGE Platform'
-    value=data['tge_platform']
-  }else if(key==='overall_score'){
-    header='Rating'
-    value=data['overall_score']
-  }else if(key==='categories'){
-    header='项目类型'
-    value=data['categories']
-  }else if(key==='current_price'){
-    header='Current Price'
-    value=data['current_price']
-  }else if(key==='ido_price'){
-    header='IDO Price'
-    value=data['ido_price']
-  }else if(key==='balance_24h'){
-    header='Balance(24h)'
-    value=data['balance_24h']
-  }else if(key==='balance_7d'){
-    header='Balance(7d)'
-    value=data['balance_7d']
-  }else if(key==='volume_24h'){
-    header='Volume(24h)'
-    value=data['volume_24h']
-  }else if(key==='volume_7d'){
-    header='volume(7d)'
-    value=data['volume_7d']
-  }else if(key==='ido_fundraising_goal'){
-    header='Total Raised'
-    value=data['ido_fundraising_goal']
-  }else if(key==='mcap'){
-    header='Market Cap'
-    value=data['mcap']
-  }else if(key==='floor_price'){
-    header='Floor Price'
-    value=data['floor_price']
-  }else if(key==='mint_price'){
-    header='Mint Price'
-    value=data['mint_price']
-  }else if(key==='ido_sale_amount'){
-    header='Tokens for Sale'
-    value=[data['ido_sale_amount'],data['ido_symbol']]
-  }else if(key==='owners'){
-    header='Owners'
-    value=data['owners']
-  }else if(key==='assets'){
-    header='Assets'
-    value=data['assets']
-  }else if(key==='mcap_tvl'){
-    header='MCap/TVL'
-    value=data['mcap_tvl']
-  }else if(key==='users_24h'){
-    header='User(24h)/Change'
-    value=[data['users_24h'],data['users_change_percent_24h']]
-  }else if(key==='users_7d'){
-    header='User(7d)/Change'
-    value=[data['users_7d'],data['users_change_percent_7d']]
-  }else if(key==='tvl'){
-    header='TVL/Change'
-    value=[data['tvl'],data['tvl_change_percent_24h']]
-  }else if(key==='ath_since_ido'){
-    header='ATH Since IDO'
-    value=data['ath_since_ido']
-  }else if(key==='current_roi_usd'){
-    header='Current ROI USD'
-    value=data['current_roi_usd']
-  }
-  return {header,value}
 
-}
 onMounted(()=>{
   typeDom.value=getDom()
-  domData.value=getData()
-  // console.log(domData.value)
+  domData.value=getData(props.typeName,props.data,props.type)
 })
 </script>
 <template>
   <div>
     <!--projectName-->
-    <div v-if="typeName==='name'" class="flex-center">
-      <IconFont size="24" type="icon-HECOYuan"/>
+    <div v-if="typeName==='name'" class="flex-center  max-w-20">
+      <IconFont size="24" :type="data.logo"/>
       <div class="ml-1.5">
-        <div class="numberDefault text-number line-height-no">Astar Network</div>
-        <div class="nameTag text-number  text-left line-height-no">ASTR</div>
+        <div class="numberDefault text-number line-height-no smallTxt  max-w-20">{{data['name']}}</div>
+        <div class="nameTag text-number  text-left line-height-no">{{data['symbol']}}</div>
       </div>
     </div>
     <!--NameDes-->
     <div v-else-if="typeName==='name' && type==='desc'" class="flex-center">
-      <img class="w-12 h-12 rounded-kd6px" :src="`${oss}/dapp/recomTest.jpg`"/>
+      <img class="w-12 h-12 rounded-kd6px" :src="data.logo"/>
       <div class="ml-3">
         <div class="nameNameDes text-number line-height-no flex-center">
-          <span>CyberTrade</span>
-          <IconFont class="ml-1.5" size="16" type="icon-HECOYuan"/>
+          <span>{{data['name']}}</span>
+          <IconFont class="ml-1.5" size="16" :type="data['chain']"/>
         </div>
-        <div class="nameDes mt-1.5 text-number line-height-no max-w-169 smallTxt">Participate in crypto airdrops right on see our full crypto...Participate in crypto...</div>
+        <div class="nameDes mt-1.5 text-number line-height-no max-w-169 smallTxt">{{data['description']}}</div>
       </div>
     </div>
     <!--chainIcon-->
     <div v-else-if="typeDom==='chainIcon'">
-      <IconFont size="16" type="icon-HECO"/>
+      <div v-if="data['chains'].length>0">
+        <IconFont  size="16" type="icon-HECO"/>
+      </div>
+      <div class="numberDefault text-number">N/A</div>
     </div>
-    <!--iconHref-->
-    <div v-else-if="typeDom==='iconHref'" class="flex-center">
+    <!--iconHref  tge_platform-->
+    <div v-else-if="typeDom==='iconHref'" class="flex-center justify-right">
       <IconFont size="16" type="icon-HECO"/>
-      <v-router class="link text-number" href="https:www.baidu.com">Gate.io</v-router>
+      <v-router class="link text-number" href="https:www.baidu.com">{{domData}}</v-router>
     </div>
-    <!--starNumber-->
+    <!--starNumber overall_score-->
     <div v-else-if="typeDom==='starNumber'" class="flex-center">
-      <IconFont size="12" type="icon-star"/>
-      <span class="star-txt">8.0</span>
+      <div v-if="domData">
+        <IconFont size="12" type="icon-star"/>
+        <span class="star-txt">{{domData}}</span>
+      </div>
+      <div class="numberDefault text-number">Not Set</div>
     </div>
-    <!--txt-->
-    <div v-else-if="typeDom==='txt'" class="numberDefault text-number">挖矿</div>
+    <!--txt categories-->
+    <div v-else-if="typeDom==='txt'" class="numberDefault text-number text-center">{{domData?domData:'N/A'}}</div>
     <!--numberPrice-->
-    <div v-else-if="typeDom==='numberPrice'" class="numberDefault text-number">{{toNumberCashFormat(129,'$','','Not Set')}}</div>
+    <div v-else-if="typeDom==='numberPrice'" class="numberDefault text-number text-center">{{toNumberCashFormat(domData,'$','','Not Set')}}</div>
     <!--chainNumber-->
-    <div v-else-if="typeDom==='chainNumber'" class="flex-center">
+    <div v-else-if="typeDom==='chainNumber'" class="flex-center justify-center">
       <IconFont size="12" type="icon-ETH"/>
-      <span class="numberDefault text-number ml-1">0.01</span>
+      <span class="numberDefault text-number ml-1">{{domData}}</span>
     </div>
     <!--numberUnit-->
     <div v-else-if="typeDom==='numberUnit'" class="flex-center justify-center">
-      <span class="numberDefault text-number">{{toNumberCashFormat(6000000,'','','Not Set')}}</span>
-      <span class="unit">BTC</span>
+      <span class="numberDefault text-number">{{toNumberCashFormat(domData[0],'','','Not Set')}}</span>
+      <span class="unit">{{domData[1]}}</span>
     </div>
     <!--numbers-->
-    <div v-else-if="typeDom==='numbers'" class="numberDefault text-number">{{toNumberCashFormat(88888,'','','Not Set')}}</div>
+    <div v-else-if="typeDom==='numbers'" class="numberDefault text-number text-center">{{toNumberCashFormat(domData,'','','Not Set')}}</div>
     <!--numberChange-->
     <div v-else-if="typeDom==='numberChange'">
-      <div class="numberDefault text-number">{{toNumberCashFormat(88888,'','','Not Set')}}</div>
-      <div class="flex-center">
+      <div class="numberDefault text-number text-center">{{toNumberCashFormat(domData[0],'','','N/A')}}</div>
+      <div class="flex-center  justify-center">
         <IconFont class="" size="8" type="icon-zheng"/>
-        <span class="numberChange text-number ml-1">{{toNumberCashFormat(88888,'','','0')}}%</span>
+        <span :class="getRedGreen(domData[1])" class="numberChange text-number ml-1">{{toNumberCashFormat(domData[1],'','','0')}}%</span>
       </div>
     </div>
     <!--lever-->
-    <div v-else-if="typeDom==='lever'" class="numberDefault text-number">{{toNumberCashFormat(755.82,'x','','Not Set')}}</div>
+    <div v-else-if="typeDom==='lever'" class="numberDefault text-number justify-right">{{toNumberCashFormat(domData,'x','','N/A')}}</div>
     <!--timeType-->
-    <div v-else-if="typeDom==='timeType'" class="numberDefault text-number">Jan 20th,2022</div>
+    <div v-else-if="typeDom==='timeType'" class="numberDefault text-number text-center">{{data['time']?data['time']:'TBA'}}</div>
   </div>
 
 </template>
@@ -248,7 +181,7 @@ onMounted(()=>{
 .smallTxt{
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
+    //display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
 }

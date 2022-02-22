@@ -23,7 +23,7 @@ const selectTopic = (index: number) => {
     zhi.value = 0
   }
 }
-const rank = createRef("API.home.getTopicRank1", []);
+const rank = createRef("API.home.getTopicRank", []);
 
 onMounted(function () {
   const api = new Model();
