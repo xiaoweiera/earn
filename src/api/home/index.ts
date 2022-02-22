@@ -9,65 +9,65 @@ import {asyncCheck} from "src/plugins/dao/response";
 
 export default class extends ApiTemplate {
 	// 数据汇总
-	getSummary() {
-		// const result = request(this.lang).get(api.home.summary);
-		const result = {
-			"code": 0,
-			"data": {
-				// 平均收益倍数
-				"avg_ath": 365.6,
-				// NFT数据汇总
-				"nft": {
-					"total": 1000,
-					"24h_increase": 11,
-					"total_chain": 4,
-					"total_platform": 5,
-					"chain": [ "ETH", "BSC" ],
-					"platform": [ "daomaker" ],
-					"category": [ "NFT" ]
-				},
-				// IDO+IGO数据汇总
-				"ixo": {
-					"total": 2000,
-					"24h_increase": 11,
-					"total_chain": 4,
-					"total_platform": 5,
-					"chain": [ "ETH", "BSC" ],
-					"platform": [ "daomaker" ],
-					"category": [ "NFT" ]
-				},
-				// IDO数据汇总
-				"ido": {
-					"total": 1000,
-					"24h_increase": 11,
-					"total_chain": 4,
-					"total_platform": 5,
-					"chain": [ "ETH", "BSC" ],
-					"platform": [ "daomaker" ],
-					"category": [ "NFT" ]
-				},
-				// IGO数据汇总
-				"igo": {
-					"total": 1000,
-					"24h_increase": 11,
-					"total_chain": 4,
-					"total_platform": 5,
-					"chain": [ "ETH", "BSC" ],
-					"platform": [ "daomaker" ],
-					"category": [ "NFT" ]
-				},
-				// 空投数据汇总
-				"airdrop": {
-					"total": 1200,
-					"24h_increase": 15,
-					"total_chain": 4,
-					"total_platform": 5,
-					"chain": [ "ETH", "BSC" ],
-					"platform": [ "daomaker" ],
-					"category": [ "NFT" ]
-				}
-			}
-		}
+	async getSummary() {
+		const result =request(this.lang).get(api.home.summary);
+		// const result = {
+		// 	"code": 0,
+		// 	"data": {
+		// 		// 平均收益倍数
+		// 		"avg_ath": 365.6,
+		// 		// NFT数据汇总
+		// 		"nft": {
+		// 			"total": 1000,
+		// 			"24h_increase": 11,
+		// 			"total_chain": 4,
+		// 			"total_platform": 5,
+		// 			"chain": [ "ETH", "BSC" ],
+		// 			"platform": [ "daomaker" ],
+		// 			"category": [ "NFT" ]
+		// 		},
+		// 		// IDO+IGO数据汇总
+		// 		"ixo": {
+		// 			"total": 2000,
+		// 			"24h_increase": 11,
+		// 			"total_chain": 4,
+		// 			"total_platform": 5,
+		// 			"chain": [ "ETH", "BSC" ],
+		// 			"platform": [ "daomaker" ],
+		// 			"category": [ "NFT" ]
+		// 		},
+		// 		// IDO数据汇总
+		// 		"ido": {
+		// 			"total": 1000,
+		// 			"24h_increase": 11,
+		// 			"total_chain": 4,
+		// 			"total_platform": 5,
+		// 			"chain": [ "ETH", "BSC" ],
+		// 			"platform": [ "daomaker" ],
+		// 			"category": [ "NFT" ]
+		// 		},
+		// 		// IGO数据汇总
+		// 		"igo": {
+		// 			"total": 1000,
+		// 			"24h_increase": 11,
+		// 			"total_chain": 4,
+		// 			"total_platform": 5,
+		// 			"chain": [ "ETH", "BSC" ],
+		// 			"platform": [ "daomaker" ],
+		// 			"category": [ "NFT" ]
+		// 		},
+		// 		// 空投数据汇总
+		// 		"airdrop": {
+		// 			"total": 1200,
+		// 			"24h_increase": 15,
+		// 			"total_chain": 4,
+		// 			"total_platform": 5,
+		// 			"chain": [ "ETH", "BSC" ],
+		// 			"platform": [ "daomaker" ],
+		// 			"category": [ "NFT" ]
+		// 		}
+		// 	}
+		// }
 		return asyncCheck(result);
 	}
 
@@ -112,7 +112,7 @@ export default class extends ApiTemplate {
 							{
 								"id": 1,
 								"name": "Alpaca",
-								"logo": "https://jsdata-web.xyz/media/dapp/alpaca.png",
+								"logo": "icon-ETHYuan",
 								"dio_price": 300,
 								'balance_24h': 100,
 								'volume_24h': 4234,
@@ -121,7 +121,7 @@ export default class extends ApiTemplate {
 							{
 								"id": 2,
 								"name": "Chankea",
-								"logo": "https://jsdata-web.xyz/media/dapp/alpaca.png",
+								"logo": "icon-ETHYuan",
 								"dio_price": 200,
 								'balance_24h': 130,
 								'volume_24h': 1234,
@@ -130,7 +130,7 @@ export default class extends ApiTemplate {
 							{
 								"id": 3,
 								"name": "Ukaoee",
-								"logo": "https://jsdata-web.xyz/media/dapp/alpaca.png",
+								"logo": "icon-ETHYuan",
 								"dio_price": 500,
 								'balance_24h': 5300,
 								'volume_24h': 734,
@@ -139,7 +139,7 @@ export default class extends ApiTemplate {
 							{
 								"id": 4,
 								"name": "Kjuqie",
-								"logo": "https://jsdata-web.xyz/media/dapp/alpaca.png",
+								"logo": "icon-ETHYuan",
 								"dio_price": 871,
 								'balance_24h': 800,
 								'volume_24h': 8334,
@@ -148,7 +148,7 @@ export default class extends ApiTemplate {
 							{
 								"id": 5,
 								"name": "Quyeuw",
-								"logo": "https://jsdata-web.xyz/media/dapp/alpaca.png",
+								"logo": "icon-ETHYuan",
 								"dio_price": 300,
 								'balance_24h': 3400,
 								'volume_24h': 44234,
