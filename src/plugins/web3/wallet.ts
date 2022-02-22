@@ -3,18 +3,29 @@
  * @author svon.me@gmail.com
  */
 
-import Web3 from "web3";
-import * as net from 'net';
+import { Ethereum } from "src/types/ethereum";
+import window from "src/plugins/browser/window";
 
-class Wallet extends Web3 {
-	constructor(provider?: any, net?: net.Socket) {
-		if (provider && net) {
-			super(provider, net);
-		} else if (provider) {
-			super(provider);
-		} else {
-			super();
-		}
+const getEthereum = function (): Ethereum {
+	if (window.ethereum) {
+		return window.ethereum;
+	}
+	return new Ethereum();
+}
+
+class Wallet extends window.Web3 {
+	constructor(provider?: any, net?: any) {
+		super(provider, net);
+	}
+	/**
+	 * 获取小狐狸选中的线路地址(用户钱包地址)
+	 */
+	getChainAddress (): string {
+		const ethereum = getEthereum();
+		return ethereum.selectedAddress;
+	}
+	async requestPermissions() {
+
 	}
 }
 

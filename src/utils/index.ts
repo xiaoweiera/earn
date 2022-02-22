@@ -98,3 +98,39 @@ export const min = function(...args: any[]): number {
 		}
 	}
 }
+
+export class Encryption {
+	private text: string = "";
+	private $1: number = 4; // 开头保留几位
+	private $2: number = 4; // 结尾保留几位
+	private replace: string = "."; // 用什么字符替换
+	private replaceCount: number = 4; // 替换的字符保留几位
+	constructor(value: string) {
+		this.text = value;
+	}
+	set$1Count (value: number) {
+		this.$1 = value;
+		return this;
+	}
+	set$2Count (value: number) {
+		this.$2 = value;
+		return this;
+	}
+	setReplace (value: string) {
+		this.replace = value;
+		return this;
+	}
+	setReplaceCount (value: number) {
+		this.replaceCount = value;
+		return this;
+	}
+	value () {
+		const reg = new RegExp(`^([0-9a-z]{${this.$1}}).+([0-9a-z]{${this.$2}})$`, "ig");
+		const replaceText = new Array(this.replaceCount + 1).fill(this.replace).join("");
+		const replace = `$1${replaceText}$2`;
+		return this.text.replace(reg, replace);
+	}
+}
+export const encryption = function (value: string): Encryption {
+	return new Encryption(value || "");
+}

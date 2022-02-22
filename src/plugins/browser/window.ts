@@ -5,12 +5,19 @@
 
 import {getEnv} from "src/config";
 import {IsSSR} from "src/config/ssr";
+import { Ethereum } from "src/types/ethereum";
 
 interface Root {
 	[key: string]: any;
 }
 
 let root: Root = {};
+
+class Web3 {
+	constructor(provider?: any, net?: any) {
+		console.log("new web3");
+	}
+}
 
 if (IsSSR()) {
 	const env = getEnv();
@@ -51,7 +58,9 @@ if (IsSSR()) {
 			ready: async function (...args: any[]) {
 
 			}
-		}
+		},
+		Web3: Web3,
+		ethereum: new Ethereum()
 	}
 } else {
 	try {

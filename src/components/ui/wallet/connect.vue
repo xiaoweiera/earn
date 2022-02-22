@@ -2,17 +2,66 @@
 /**
  * @file 链接钱包
  */
+
+
+import { onMounted } from "vue";
 import I18n from "src/utils/i18n";
+import { Encryption } from "src/utils/";
 import { ElButton } from "element-plus";
+import {User} from "src/types/common/user";
+import Wallet from "src/plugins/web3/wallet";
+import {createReactive} from "src/utils/ssr/ref";
+import { address, isConnect } from "src/logic/common/wallet";
 
 const i18n = I18n();
+const user = createReactive<User>("common.user", {} as User);
+
+const walletAddress = function (): string {
+  if (isConnect()) {
+    const encryption = new Encryption(address.value);
+    encryption.set$1Count(6);
+    encryption.set$2Count(4);
+    return encryption.value();
+  }
+
+  return i18n.wallet.connectWallet;
+};
+
+const connect = function () {
+  // 如果已获取到地址
+  if (isConnect()) {
+    return true;
+  }
+  const wallet = new Wallet();
+  console.log(wallet);
+}
+
+onMounted(function () {
+  // 获取钱包地址
+  const wallet = new Wallet();
+  address.value = wallet.getChainAddress();
+});
 
 </script>
 
 <template>
-  <el-button>
-    <IconFont size="16" class="text-global-primary mr-1" type="icon-wallet"/>
-    <span class="text-14-18 text-global-primary font-medium">{{ i18n.wallet.connectWallet }}</span>
-  </el-button>
+  <ui-hover class="flex" placement="bottom" trigger="hover">
+    <template #label>
+      <el-button class="px-1" @click="connect">
+        <IconFont size="16" class="text-global-primary mr-1" type="icon-wallet"/>
+        <span class="text-14-18 text-global-primary font-medium">
+          <span>{{ walletAddress() }}</span>
+        </span>
+      </el-button>
+    </template>
+    <template #content>
+      <div class="text-global-highTitle text-opacity-85">
+        <ui-wallet-portfolio v-if="isConnect()" class="p-2"/>
+        <div v-else class="p-2 text-14-18">
+          <span>{{ i18n.wallet.walletTip }}</span>
+        </div>
+      </div>
+    </template>
+  </ui-hover>
 </template>
 
