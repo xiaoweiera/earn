@@ -13,7 +13,7 @@ import {toArray, Equals} from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import {BlogTab, BlogData} from "src/types/blog/";
 import {createRef, getValue, onLoadRef} from "src/utils/ssr/ref";
-import { getAll, tabAll, Model, transformTabs, activeName } from "src/logic/blog";
+import {getAll, tabAll, Model, transformTabs, activeName} from "src/logic/blog";
 
 const i18n = I18n();
 
@@ -48,11 +48,9 @@ const onChangeTab = function (data: object) {
 onMounted(function () {
   const api = new Model();
   // 如果 tabs 数据为空，则执行 blog.getTabs 将放回结果赋值给 tabs
-  onLoadRef(tabs, api.getTabs);
+  onLoadRef(tabs, () => api.getTabs());
 });
-
 </script>
-
 <template>
   <div class="blog-content px-3 md:px-0">
     <div class="md:max-w-280 flex mx-auto pb-15">
@@ -61,12 +59,10 @@ onMounted(function () {
           <div class="pt-1">
             <!--顶部数据-->
             <BlogAd/>
-
             <div class="px-0 py-3">
               <!-- 分类 -->
               <ui-tab active-name="group" :list="transformTabs(tabs)" @change="onChangeTab"></ui-tab>
             </div>
-
             <!-- 博客列表 -->
             <div class="mt-6" :key="groupId">
               <ui-pagination :init-value="getInitValue()" :request="requestList">
@@ -90,11 +86,9 @@ onMounted(function () {
           </div>
         </template>
       </ui-box>
-
     </div>
   </div>
 </template>
-
 <style scoped lang="scss">
 .blog-content {
   background-color: #FAFBFC;
@@ -106,6 +100,7 @@ onMounted(function () {
     }
   }
 }
+
 .ui-box {
   --ui-box-right: 292px;
 }

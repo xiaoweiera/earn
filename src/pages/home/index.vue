@@ -12,9 +12,8 @@ const summary = createReactive("API.home.getSummary", {});
 
 onMounted(function () {
   const api = new Model();
-  console.log(summary,'+++')
   // 得到数据汇总
-  onLoadReactive(summary, api.getSummary);
+  onLoadReactive(summary, () => api.getSummary());
 });
 </script>
 <template>
@@ -33,10 +32,11 @@ onMounted(function () {
 </template>
 <style scoped lang="scss">
 @import "src/styles/function";
-.top{
+
+.top {
 
   background: #e5e5e51a;
-  background-image:cdn("/dapp/dappsBg.jpg");
+  background-image: cdn("/dapp/dappsBg.jpg");
   background-size: 100% 652px;
   background-repeat: no-repeat;
 }
