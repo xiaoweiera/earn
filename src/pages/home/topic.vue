@@ -40,7 +40,7 @@ onMounted(function () {
         <span class="des font-kdFang">Data during the last 24 hours:</span>
       </div>
       <div class="py-2.5">
-        <template v-for="(item,index) in list" :key="item.key">
+        <template v-for="(item,index) in rank" :key="item.key">
           <div class="topic" :class="topicIndex===index?'topic-active':'topic-default'" @click="selectTopic(index)">
             <span>🚀</span>
             <span class="ml-2.5">{{ item.name }}</span>
@@ -50,7 +50,8 @@ onMounted(function () {
     </div>
     <!--    topic table-->
     <div>
-      <HomeTable :topicIndex="zhi"/>
+
+      <HomeTable :topicIndex="topicIndex"  :data="rank"/>
     </div>
   </div>
   <!--  🚀 你好你好你好你好 (24H) 🔥-->

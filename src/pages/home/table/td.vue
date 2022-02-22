@@ -151,7 +151,7 @@ onMounted(()=>{
 <template>
   <div>
     <!--projectName-->
-    <div v-if="typeName==='name' && type==='data'" class="flex-center">
+    <div v-if="typeName==='name'" class="flex-center">
       <IconFont size="24" type="icon-HECOYuan"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no">Astar Network</div>

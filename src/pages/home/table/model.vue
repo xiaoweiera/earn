@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import HomeTableTd  from './td.vue'
+import HomeTableHeader from './header.vue'
 import {ref} from 'vue'
+
 const props=defineProps({
-  data:Object,
-  title:String
+  data:Object
 })
 
 </script>
 <template>
     <div class="table-box bg-global-white  border-1">
       <div class="flex items-center justify-between">
-        <span class="title">{{title}}</span>
+        <span class="title">{{data.name}}</span>
         <span class="more">more > </span>
       </div>
       <div class="gang"></div>
@@ -18,20 +19,20 @@ const props=defineProps({
         <thead>
         <tr class="h-5">
           <td class="header-td">#</td>
-          <template v-for="item in data.header">
-            <td>{{item.name}}</td>
+          <template v-for="item in data.table.header">
+            <td class="text-left"><HomeTableHeader :item="item"/></td>
           </template>
         </tr>
         </thead>
         <tbody>
-        <template v-for="(item,index) in data.header">
+        <template v-for="(item,index) in data.table.header">
           <tr class="h-11.5">
             <td class="number pr-2">{{index}}</td>
-            <td><HomeTableTd :typeName="data.header[0].key"/></td>
-            <td>{{data.list[index].macap}}</td>
-            <td>{{data.list[index].end}}</td>
-            <td>{{data.list[index].ath}}</td>
-            <td>{{data.list[index].current}}</td>
+            <td><HomeTableTd :typeName="data.table.header[0].key" :data="data"/></td>
+            <td><HomeTableTd :typeName="data.table.header[1].key" :data="data"/></td>
+            <td><HomeTableTd :typeName="data.table.header[2].key" :data="data"/></td>
+            <td><HomeTableTd :typeName="data.table.header[3].key" :data="data"/></td>
+            <td><HomeTableTd :typeName="data.table.header[4].key" :data="data"/></td>
           </tr>
         </template>
         </tbody>
