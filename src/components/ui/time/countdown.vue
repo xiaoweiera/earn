@@ -3,9 +3,9 @@
 import dayjs from 'dayjs'
 import { dateTime } from '~/utils'
 // @ts-ignore
-import { ref, defineProps, watch, onMounted, defineEmits } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 // @ts-ignore
-import I18n from '~/utils/i18n/index'
+import I18n from 'src/utils/i18n/index'
 
 const i18n = I18n();
 const format = 'YYYY-MM-DD HH:mm:ss'
