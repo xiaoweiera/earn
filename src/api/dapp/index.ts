@@ -8,6 +8,8 @@ import * as api from "src/config/api";
 import request from "src/plugins/dao/service";
 import {asyncCheck} from "src/plugins/dao/response";
 import { Query, Status } from "src/types/dapp/ixo";
+import { nftQuery } from "src/types/dapp/nft";
+
 
 export default class extends ApiTemplate{
 	// 项目库列表
@@ -49,20 +51,15 @@ export default class extends ApiTemplate{
 		return asyncCheck<T>(request(this.lang).get(api.dapp.tabs));
 	}
 	//	获取nft列表
-	getNftList<T>() {
-		const result = request(this.lang).get(api.dapp.nftList, {
-			params: Object.assign({
+	getNftList<T>(query: nftQuery) {
+			const params = Object.assign({
 				page: 1,
 				page_size: 10,
-				status: 'upcoming',
 				category: 'all',
 				chain: "all",
 				query: '',
-				sort_field: '',
-				sort_type: '',
-			}, {})
-		})
-		return asyncCheck(result);
+			}, query)
+		return asyncCheck(request(this.lang).get(api.dapp.nftList, { params}));
 	}
 	// ixo 数据
 	ixo<T>(query: Query) {
@@ -72,7 +69,20 @@ export default class extends ApiTemplate{
 			 query: "",
 			 chain: "all",
 			 category: "all",
+			 paginate: false,
 		 }, query);
+		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, { params}));
+	}
+	// ixoend 数据
+	ixoend<T>(query: Query) {
+		const params = Object.assign({
+			page: 1,
+			page_size: 10,
+			query: "",
+			chain: "all",
+			category: "all",
+			paginate: true,
+		}, query);
 		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, { params}));
 	}
 }

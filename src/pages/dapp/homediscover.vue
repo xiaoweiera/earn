@@ -4,12 +4,14 @@ import {ProjectItem, AdItem} from "src/types/dapp/ixo";
 import { Model } from "src/logic/dapp/";
 import * as alias from "src/utils/root/alias";
 import { createRef, onLoadRef, onUpdateRef } from "src/utils/ssr/ref";
+import { Status } from "src/types/dapp/ixo";
 
 import DAppHomeHeader from './home/header.vue';
 import DAppHomeTitle from './home/title.vue';
 import DAppDiscoversContentType from './discovers/content/type.vue';
 import DAppDiscoversList from './discovers/list.vue';
 
+const urlType = true;
 // 公链类型
 const chain = ref<string>("all");
 
@@ -50,7 +52,7 @@ const onChangeChina = function () {
   <div>
     <div>
       <div>
-        <DAppHomeHeader tips="聚合 14 条公链，68 个IDO平台最新优质 Dapp 项目" title="IDO & IGO Projects"/>
+        <DAppHomeHeader tips="聚合 14 条公链，68 个IDO平台最新优质 Dapp 项目" title="IDO & IGO Projects" :status="Status.upcoming" :type="urlType"/>
       </div>
       <!-- 公链数据 -->
       <div class="mt-4">
@@ -58,14 +60,14 @@ const onChangeChina = function () {
       </div>
       <!-- IDO进行中项目 -->
       <div class="mt-5">
-        <DAppHomeTitle title="Upcoming Projects"/>
+        <DAppHomeTitle title="Upcoming Projects" :status="Status.upcoming" :type="urlType"/>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
           <DAppDiscoversList v-for="(item, index) in UpcomingList" :key="index" :data="item"></DAppDiscoversList>
         </div>
       </div>
       <!-- IGO进行中项目 -->
       <div class="mt-6">
-        <DAppHomeTitle title="Ongoing Projects"/>
+        <DAppHomeTitle title="Ongoing Projects" :status="Status.ongoing" :type="urlType"/>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
           <DAppDiscoversList v-for="(item, index) in OngoingList" :key="index" :data="item"></DAppDiscoversList>
         </div>

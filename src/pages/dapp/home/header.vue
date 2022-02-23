@@ -1,5 +1,8 @@
 <script setup lang="ts">
-defineProps({
+import VRouter from "~/components/v/router.vue";
+import { getUrl } from "~/logic/dapp";
+
+const props = defineProps({
   title: {
     type: String,
     default: () => '',
@@ -7,6 +10,14 @@ defineProps({
   tips: {
     type: String,
     default: () => ''
+  },
+  status: {
+    type: String,
+    default: () => ''
+  },
+  type: {
+    type: Boolean,
+    default: () => true,
   }
 })
 
@@ -18,7 +29,9 @@ defineProps({
       <p class="text-kd14px18px text-global-highTitle text-opacity-45 font-kdFang ml-4">{{tips}}</p>
     </div>
     <div class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2 flex items-center">
-      <span class="text-kd14px18px text-global-darkblue font-kdFang">View More</span>
+      <v-router :href="getUrl(status, type)" target="_blank">
+        <span class="text-kd14px18px text-global-darkblue font-kdFang">View More</span>
+      </v-router>
     </div>
   </div>
 </template>
