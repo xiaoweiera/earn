@@ -9,7 +9,6 @@ defineProps({
   }
 })
 const detailUrl = function (data: object) {
-  console.log('q1qqqq')
   const category=getParam<string>('category', '') as string
   const id = safeGet<number>(data, 'dapp_id');
   if (id) {

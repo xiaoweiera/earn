@@ -14,12 +14,15 @@ import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
 
 // 获取ido列表
 const list = createReactive("API.dapp.getList", {});
+const igolist = createReactive("API.dapp.getIGOList", {});
+
 const $router = useRoute();
-console.log(list);
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总
   onLoadReactive(list, () => api.getList());
+  onLoadReactive(igolist, () => api.getIGOList());
+
 });
 
 const IGOData = ref([

@@ -4,138 +4,149 @@ import DappNftsSearch from './nfts/search.vue';
 import DappNftsEndlist from './nfts/endlist.vue';
 import DappNftsList from './nfts/list.vue';
 
-import { ref } from "vue"
+import {onMounted, ref} from "vue"
 import safeGet from "@fengqiaogang/safe-get";
  import * as logic from "src/types/dapp/";
 import { toLower } from "src/utils";
 import { includes } from 'ramda';
 import { useRoute } from 'vue-router'
+import {Model} from "~/logic/dapp";
+import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
 
 
 
-const list = ref([
-  {
-    "id": 1,
-    // 名字
-    "name": "Raca",
-    // 数据类型
-    "data_type": "dapp",
-    // 图集
-    "gallery": [
-        "https://xxx.jpg"
-    ],
-    // 持有人数
-    "owners": 1000,
-    // 公链
-    "chains": ["bsc"],
-    // 类型
-    "categories": ["game"],
-    // 项目评分
-    "overall_score": 9.8,
-    // Mint价格
-    "mint_price": '',
-    // 发行数量
-    "issue_volume": '',
-    // 开始时间
-    "mint_start_at": 1645574400,
-    // 地板价格
-    "floor_price": 0.02
-  },{
-    "id": 2,
-    // 名字
-    "name": "Raca",
-    // 数据类型
-    "data_type": "dapp",
-    // 图集
-    "gallery": [
-        "https://xxx.jpg"
-    ],
-    // 持有人数
-    "owners": 1000,
-    // 公链
-    "chains": ["bsc"],
-    // 类型
-    "categories": ["game"],
-    // 项目评分
-    "overall_score": 9.8,
-    // Mint价格
-    "mint_price": 0.05,
-    // 发行数量
-    "issue_volume": 10000,
-    // 开始时间
-    "mint_start_at": 1645574400,
-  },{
-    "id": 3,
-    // 名字
-    "name": "Raca",
-    // 数据类型
-    "data_type": "dapp",
-    // 图集
-    "gallery": [
-        "https://xxx.jpg"
-    ],
-    // 公链
-    "chains": ["bsc"],
-    // 类型
-    "categories": ["game"],
-    // 项目评分
-    "overall_score": 9.8,
-    // Mint价格
-    "mint_price": 0.05,
-    // 发行数量
-    "issue_volume": 10000,
-    // 开始时间
-    "mint_start_at": 1645574400,
-  },{
-    "id": 4,
-    // 名字
-    "name": "Raca",
-    // 数据类型
-    "data_type": "dapp",
-    // 图集
-    "gallery": [
-        "https://xxx.jpg"
-    ],
-    // 公链
-    "chains": ["bsc"],
-    // 类型
-    "categories": ["game"],
-    // 项目评分
-    "overall_score": 9.8,
-    // Mint价格
-    "mint_price": 0.05,
-    // 发行数量
-    "issue_volume": 10000,
-    // 开始时间
-    "mint_start_at": 1645574400,
-    // 地板价格
-    "floor_price": 0.02
-  },{
-    "id": 4,
-    // 名字
-    "name": "Raca",
-    // 数据类型
-    "data_type": "dapp",
-    // 图集
-    "gallery": [
-        "https://xxx.jpg"
-    ],
-    // 公链
-    "chains": ["bsc"],
-    // 类型
-    "categories": ["game"],
-    // 项目评分
-    "overall_score": 9.8,
-    // Mint价格
-    "mint_price": 0.05,
-    // 发行数量
-    "issue_volume": 10000,
-    // 开始时间
-    "mint_start_at": 1645574400,
-    // 地板价格
-    "floor_price": 0.02
-  }
-])
+// const list = ref([
+//   {
+//     "id": 1,
+//     // 名字
+//     "name": "Raca",
+//     // 数据类型
+//     "data_type": "dapp",
+//     // 图集
+//     "gallery": [
+//         "https://xxx.jpg"
+//     ],
+//     // 持有人数
+//     "owners": 1000,
+//     // 公链
+//     "chains": ["bsc"],
+//     // 类型
+//     "categories": ["game"],
+//     // 项目评分
+//     "overall_score": 9.8,
+//     // Mint价格
+//     "mint_price": '',
+//     // 发行数量
+//     "issue_volume": '',
+//     // 开始时间
+//     "mint_start_at": 1645574400,
+//     // 地板价格
+//     "floor_price": 0.02
+//   },{
+//     "id": 2,
+//     // 名字
+//     "name": "Raca",
+//     // 数据类型
+//     "data_type": "dapp",
+//     // 图集
+//     "gallery": [
+//         "https://xxx.jpg"
+//     ],
+//     // 持有人数
+//     "owners": 1000,
+//     // 公链
+//     "chains": ["bsc"],
+//     // 类型
+//     "categories": ["game"],
+//     // 项目评分
+//     "overall_score": 9.8,
+//     // Mint价格
+//     "mint_price": 0.05,
+//     // 发行数量
+//     "issue_volume": 10000,
+//     // 开始时间
+//     "mint_start_at": 1645574400,
+//   },{
+//     "id": 3,
+//     // 名字
+//     "name": "Raca",
+//     // 数据类型
+//     "data_type": "dapp",
+//     // 图集
+//     "gallery": [
+//         "https://xxx.jpg"
+//     ],
+//     // 公链
+//     "chains": ["bsc"],
+//     // 类型
+//     "categories": ["game"],
+//     // 项目评分
+//     "overall_score": 9.8,
+//     // Mint价格
+//     "mint_price": 0.05,
+//     // 发行数量
+//     "issue_volume": 10000,
+//     // 开始时间
+//     "mint_start_at": 1645574400,
+//   },{
+//     "id": 4,
+//     // 名字
+//     "name": "Raca",
+//     // 数据类型
+//     "data_type": "dapp",
+//     // 图集
+//     "gallery": [
+//         "https://xxx.jpg"
+//     ],
+//     // 公链
+//     "chains": ["bsc"],
+//     // 类型
+//     "categories": ["game"],
+//     // 项目评分
+//     "overall_score": 9.8,
+//     // Mint价格
+//     "mint_price": 0.05,
+//     // 发行数量
+//     "issue_volume": 10000,
+//     // 开始时间
+//     "mint_start_at": 1645574400,
+//     // 地板价格
+//     "floor_price": 0.02
+//   },{
+//     "id": 4,
+//     // 名字
+//     "name": "Raca",
+//     // 数据类型
+//     "data_type": "dapp",
+//     // 图集
+//     "gallery": [
+//         "https://xxx.jpg"
+//     ],
+//     // 公链
+//     "chains": ["bsc"],
+//     // 类型
+//     "categories": ["game"],
+//     // 项目评分
+//     "overall_score": 9.8,
+//     // Mint价格
+//     "mint_price": 0.05,
+//     // 发行数量
+//     "issue_volume": 10000,
+//     // 开始时间
+//     "mint_start_at": 1645574400,
+//     // 地板价格
+//     "floor_price": 0.02
+//   }
+// ])
+
+
+// 获取ido列表
+const list = createReactive("API.dapp.getNftList", {});
+onMounted(function () {
+  const api = new Model();
+  // 得到数据汇总
+  onLoadReactive(list, () => api.getNftList());
+});
 
 const $router = useRoute();
 const active = ref<logic.NftTabTypes>();

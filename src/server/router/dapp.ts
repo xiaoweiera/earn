@@ -9,7 +9,7 @@ const Router = async function (root: string, env: Env) {
 
 	// 列表
 	router.get(config.dappList, dapp.list);
-
+	router.get(`${config.nft}/discover`,dapp.nftlist)
 	return router;
 }
 export default Router;
