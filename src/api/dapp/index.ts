@@ -18,7 +18,7 @@ export default class extends ApiTemplate{
 				params: Object.assign({
 					page: 1,
 					page_size: 10,
-					status: 'upcoming',
+					status: 'ended',
 					category: 'all',
 					platform: 'all',
 					chain: "all",
