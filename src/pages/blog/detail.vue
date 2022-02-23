@@ -19,7 +19,6 @@ const apiFunName = "API.blog.getDetail";
 // 详情数据
 const detail = createReactive<BlogDetail>(apiFunName, {} as BlogDetail);
 
-
 onMounted(function () {
   // 如果博客详情数据为空，同时 url 中有博客 id
   const params = toRaw($router.params);

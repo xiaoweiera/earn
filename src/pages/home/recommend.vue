@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import document from "src/plugins/browser/document";
 import { oss } from "src/config";
 // 引入 swiper vue 组件
@@ -9,6 +9,8 @@ import SwiperCore, {Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
+import {createRef, onLoadRef} from "~/utils/ssr/ref";
+import {Model} from "~/logic/home";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
 const list = [
@@ -33,6 +35,24 @@ const init=(swiper:any)=>{
     isEnd.value = swiper.isEnd
   })
 }
+const recommend = createRef("API.home.getRecommend", []);
+const getImg=(type:string,item:any)=>{
+  if(type==='topic'){
+    return item.cover
+  }
+  return item.image
+}
+const getHref=(type:string,item:any)=>{
+  if(type==='topic'){
+    return `/home/detail?topicId=${item.id}`
+  }
+  return item.url
+}
+onMounted(function () {
+  const api = new Model();
+  // 得到数据汇总
+  onLoadRef(recommend, () => api.getRecommend());
+});
 </script>
 <template>
   <div>
@@ -49,11 +69,15 @@ const init=(swiper:any)=>{
                 :space-between="24"
                 :resize-observer="true"
                 @setTranslate="change">
-          <template v-for="(item, index) in list" :key="index">
+          <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="`home/detail?type=${item.name}`" target="_blank" class="h-48.5 w-47.5 rounded-kd6px block relative">
-                <UiAd class="top-3 left-3 absolute"/>
-                <ui-image class="rounded-kd6px h-full" :src="item.img" fit="cover"/>
+              <v-router :href="getHref(item['data_type'],item)" target="_blank" class="h-48.5 w-47.5 rounded-kd6px block relative">
+                <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
+                <div class="info">
+                  <div class="name text-number">{{item.name}}</div>
+                  <div class="go">Go</div>
+                </div>
+                <ui-image class="rounded-kd6px h-full" :src="getImg(item['data_type'],item)" fit="cover"/>
               </v-router>
             </SwiperSlide>
           </template>
@@ -87,5 +111,16 @@ const init=(swiper:any)=>{
 }
 .swiper-slide {
   width: auto !important;
+}
+.info{
+  @apply flex items-center justify-between px-4 w-full  absolute  bottom-3;
+  .name{
+    @apply text-kd14px18px font-medium text-global-white;
+  }
+  .go{
+    @apply h-6 flex items-center justify-center cursor-pointer;
+    @apply bg-global-primary w-fit px-2 rounded-kd34px;
+    @apply text-kd12px16px font-medium text-global-white font-kdFang;
+  }
 }
 </style>
