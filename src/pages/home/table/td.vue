@@ -28,7 +28,7 @@ const numberPrice=[
     'volume_24h',
     'volume_7d',
     'ido_fundraising_goal',//Total Raised
-    'mcap'// MarketCap--
+    'mcap'// MarketCap
 ] //$number
 const chainNumber=[
     'floor_price',//Floor price
