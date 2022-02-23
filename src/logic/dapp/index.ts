@@ -59,7 +59,7 @@ export class Model extends API {
 			chain: chain ? chain : "all",
 			status: Status.ended
 		};
-		return this.dApp.ixo<ProjectItem | AdItem>(query);
+		return this.dApp.ixoend<ProjectItem | AdItem>(query);
 	}
 }
 

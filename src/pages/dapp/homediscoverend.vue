@@ -26,7 +26,7 @@
   const EndedList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.ended, []);
   // 创建更新列表钩子函数
   const updateEndedList = onUpdateRef(EndedList, getEndedList);
-  console.log(EndedList);
+
   onMounted(function () {
     // 判断列表数据是否为空，如果为空则获取最新数据
     onLoadRef(EndedList, getEndedList);

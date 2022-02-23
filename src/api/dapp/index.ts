@@ -65,11 +65,24 @@ export default class extends ApiTemplate{
 	ixo<T>(query: Query) {
 		 const params = Object.assign({
 			 page: 1,
-			 page_size: 4,
+			 page_size: 10,
 			 query: "",
 			 chain: "all",
 			 category: "all",
+			 paginate: false,
 		 }, query);
+		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, { params}));
+	}
+	// ixoend 数据
+	ixoend<T>(query: Query) {
+		const params = Object.assign({
+			page: 1,
+			page_size: 10,
+			query: "",
+			chain: "all",
+			category: "all",
+			paginate: true,
+		}, query);
 		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, { params}));
 	}
 }
