@@ -80,7 +80,7 @@ onMounted(()=>{
 <template>
   <div>
     <!--projectName-->
-    <div v-if="typeName==='name'" class="flex-center  max-w-20 whitespace-nowrap">
+    <div v-if="typeName==='name' && info.show_type==='data'" class="flex-center  max-w-20 whitespace-nowrap">
       <IconFont size="24" :type="data.logo"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt   max-w-20 whitespace-nowrap">{{data['name']}}</div>
@@ -88,7 +88,7 @@ onMounted(()=>{
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='name' && info.show_type==='desc'" class="flex-center">
+    <div v-else-if="typeName==='name' && info.show_type==='desc'" class="flex-center short">
       <img class="w-12 h-12 rounded-kd6px" :src="data.logo"/>
       <div class="ml-3">
         <div class="nameNameDes text-number line-height-no flex-center">
