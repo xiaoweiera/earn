@@ -70,7 +70,6 @@ const getDom=()=>{
     return 'txt'
   }
 }
-
 onMounted(()=>{
   console.log(props.typeName,'--')
   typeDom.value=getDom()
