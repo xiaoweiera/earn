@@ -19,7 +19,7 @@ defineProps({
             <DappDiscoversContentAd v-if="item.commercial" :data="item"/>
             <DappDiscoversContent v-else :data="item"/>
           </template> -->
-          <DappDiscoversContentAd v-if="list.data_type === 'ad'" :data="list"></DappDiscoversContentAd>
+          <DappDiscoversContentAd v-if="list?.data_type === 'ad'" :data="list"></DappDiscoversContentAd>
           <DappDiscoversContent v-else :data="list"></DappDiscoversContent>
           <!-- <DappDiscoversContentAd></DappDiscoversContentAd> -->
         </ui-spin>
