@@ -5,3 +5,10 @@ export const common = {
 		site: "common.chainSite"
 	}
 }
+
+export const dApp = {
+	ixo: {
+		upcoming: "Api.dApp.ixo?status=upcoming",
+		ongoing: "Api.dApp.ixo?status=ongoing",
+	}
+}

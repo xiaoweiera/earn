@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import HomeHeader from "./header.vue";
 import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
@@ -29,14 +29,14 @@ onMounted(function () {
       <HomeTopic class="mt-9"/>
       <HomeTrends class="mt-6"/>
       <HomeRecommend class="mt-6"/>
-     <DappHomediscover class="mt-16.5"/>
+      <DappHomediscover class="mt-16.5" :summary="summary"/>
       <HomeCompany class="mt-6"/>
-     <DappHomenft class="mt-16.5"/>
-     <DappHomediscoverend class="mt-16.5"/>
+      <DappHomenft class="mt-16.5"/>
+      <DappHomediscoverend class="mt-16.5"/>
     </div>
   </div>
 </template>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "src/styles/function";
 
 .top {
