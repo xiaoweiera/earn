@@ -4,6 +4,10 @@ import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
 import HomeRecommend from "./recommend.vue";
 import HomeCompany from "./company.vue";
+//@ts-ignore
+import DappHomediscover from "src/pages/dapp/homediscover"
+//@ts-ignore
+import DappHomediscoverend from "src/pages/dapp/homediscoverend"
 import {onMounted} from 'vue'
 import {Model} from "~/logic/home";
 import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
