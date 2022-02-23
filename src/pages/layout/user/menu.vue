@@ -6,6 +6,7 @@
 import {PropType} from "vue";
 import I18n from "src/utils/i18n";
 import {User} from "src/types/common/user";
+import { isConnect } from "src/logic/common/wallet";
 import {config as routerConfig} from "src/router/config";
 
 defineProps({
@@ -24,16 +25,23 @@ const getUserName = function (data: User): string | number {
 </script>
 <template>
   <div class="bg-global-white rounded-md">
-    <div class="p-4 flex items-center cursor-pointer">
+    <div class="px-4 py-2 flex items-center cursor-pointer">
       <IconFont size="20" type="icon-yonghu"/>
       <span class="ml-2 text-14-18 text-global-grey inline-block">{{ getUserName(user) }}</span>
       <IconFont class="ml-2" type="vip1"/>
     </div>
     <div class="border-t border-solid border-gray-300">
-      <client-only>
-      </client-only>
-      <div>
-        <v-router :href="routerConfig.user.logout" class="p-4 flex items-center itemMt cursor-pointer">
+      <div v-if="isConnect()" class="py-1 text-global-grey">
+        <client-only>
+          <ui-wallet-portfolio class="px-4 py-1"/>
+        </client-only>
+        <v-router :href="routerConfig.user.logout" class="px-4 py-1 flex items-center itemMt cursor-pointer">
+          <IconFont size="20" type="icon-tuichu"/>
+          <span class="ml-2 text-14-18 flex whitespace-nowrap">{{ i18n.nav.outLogin }}</span>
+        </v-router>
+      </div>
+      <div v-else>
+        <v-router :href="routerConfig.user.logout" class="px-4 py-2 flex items-center itemMt cursor-pointer">
           <IconFont size="20" type="icon-tuichu"/>
           <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.nav.outLogin }}</span>
         </v-router>

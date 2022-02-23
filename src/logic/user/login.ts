@@ -3,6 +3,9 @@
  */
 
 import { ref } from "vue";
+import {getValue} from "src/utils/ssr/ref";
+import {User} from "src/types/common/user";
+import {address} from "~/logic/common/wallet";
 
 export enum FlagStatus {
 	none = 0, // 空状态
@@ -17,6 +20,11 @@ export enum FlagStatus {
 export const switchStatus = ref<number>(FlagStatus.none); // 不做任何展示
 // 展示弹窗
 export const visible = ref<boolean>(false);
+
+export const isLogin = function (): boolean {
+	const user = getValue<User>("common.user", {} as User);
+	return !!(user && user.id);
+}
 
 // 显示登录框
 export const showLogin = function () {

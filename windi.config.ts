@@ -44,7 +44,7 @@ const cssGlobal = {
 }
 
 export default defineConfig({
-	// important: "body",
+	important: true,
 	darkMode: "class",
 	plugins: [
 		formsPlugin,

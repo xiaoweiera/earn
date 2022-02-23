@@ -1,4 +1,10 @@
-import path from "path";
+/**
+ * @file 读取 .env.* 配置文件
+ * @author svon.me@gmail.com
+ */
+
+import fs from "fs";
+import path  from "path";
 import dotenv from "dotenv";
 import {ConfigEnv} from "vite";
 import UrlPattern from "url-pattern";
@@ -23,24 +29,51 @@ const getCookieDomain = function (data: ImportMetaEnv): string {
 	return "";
 }
 
-export const getConfig = function(env: ConfigEnv | object): Promise<ImportMetaEnv> {
-  let result: Result;
+const getFileSrc = function (mode: string, local?: boolean) {
+	const root = path.join(__dirname, "../..");
+	if (local) {
+		return path.join(root, `.env.${mode}.local`);
+	}
+	return path.join(root, `.env.${mode}`);
+}
+
+const fsStat = function (mode: string, local?: boolean): Promise<string> {
+	const src = getFileSrc(mode, local);
+	return new Promise(function (resolve) {
+		fs.stat(src, function (err, stats) {
+			if (err) {
+				resolve("");
+			} else {
+				resolve(src);
+			}
+		})
+	})
+}
+
+const getEnv = function (path: string): Result {
+	return dotenv.config({ path }) as any;
+}
+
+export const getConfig = async function(env: ConfigEnv | object): Promise<ImportMetaEnv> {
+  let result: Result | undefined;
 	const mode = safeGet<string>(env, "mode");
   if (mode !== production) {
-    const src = path.join(__dirname, "../..", `.env.${mode}`);
-		console.log("env src = %s", src);
-		result = dotenv.config({
-      path: src
-    }) as any;
-  } else {
-    result = dotenv.config() as any;
+		const local = await fsStat(mode, true);
+		if (local) {
+			result = getEnv(local);
+		} else {
+			const src = await fsStat(mode);
+			result = getEnv(src);
+		}
   }
-  if (result.error) {
-    return env as any;
-  }
-
-	let VITE_cookie = getCookieDomain(result.parsed);
-	const data = { ...result.parsed, VITE_cookie };
-  return Promise.resolve(data);
+	if (!result) {
+		result = dotenv.config() as any;
+	}
+	if (result && result.parsed) {
+		let VITE_cookie = getCookieDomain(result.parsed);
+		const data = { ...result.parsed, VITE_cookie };
+		return Promise.resolve(data);
+	}
+	return env as any;
 }
 
