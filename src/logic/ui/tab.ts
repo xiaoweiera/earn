@@ -23,6 +23,8 @@ export interface Item {
 	className?: string
 }
 
+export type CallbackList = () => Item[];
+
 // 生成 tab 链接
 export const makeLink = function (activeName: string,data: Item, trigger: Trigger) {
 	if (trigger === Trigger.router) {
