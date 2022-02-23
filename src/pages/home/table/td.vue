@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {ref,onMounted} from 'vue'
+import {ref, onMounted, PropType} from 'vue'
 import { toNumberCashFormat } from 'src/utils/convert/to'
 import {getData} from "~/logic/home";
 import {getRedGreen} from "~/lib/tool";
-
+import {detail} from "~/types/home";
 const props=defineProps({
+  info:Object as PropType<detail>,
   data:Object,
   typeName:{
     type:String,
@@ -79,7 +80,7 @@ onMounted(()=>{
 <template>
   <div>
     <!--projectName-->
-    <div v-if="typeName==='name'" class="flex-center  max-w-20 whitespace-nowrap">
+    <div v-if="typeName==='name' && info.show_type==='data'" class="flex-center  max-w-20 whitespace-nowrap">
       <IconFont size="24" :type="data.logo"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt   max-w-20 whitespace-nowrap">{{data['name']}}</div>
@@ -87,7 +88,7 @@ onMounted(()=>{
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='name' && type==='desc'" class="flex-center">
+    <div v-else-if="typeName==='name' && info.show_type==='desc'" class="flex-center short">
       <img class="w-12 h-12 rounded-kd6px" :src="data.logo"/>
       <div class="ml-3">
         <div class="nameNameDes text-number line-height-no flex-center">
@@ -102,20 +103,20 @@ onMounted(()=>{
       <div v-if="data['chains'].length>0">
         <IconFont  size="16" type="icon-HECO"/>
       </div>
-      <div class="numberDefault text-number">N/A</div>
+      <div v-else class="numberDefault text-number">N/A</div>
     </div>
     <!--iconHref  tge_platform-->
-    <div v-else-if="typeDom==='iconHref'" class="flex-center justify-right">
+    <div v-else-if="typeDom==='iconHref'" class="flex-center justify-right justify-center">
       <IconFont size="16" type="icon-HECO"/>
       <v-router class="link text-number" href="https:www.baidu.com">{{domData}}</v-router>
     </div>
     <!--starNumber overall_score-->
-    <div v-else-if="typeDom==='starNumber'" class="flex-center">
-      <div v-if="domData">
+    <div v-else-if="typeDom==='starNumber'" class="flex-center text-center">
+      <div v-if="domData || domData===0" class="text-center w-full">
         <IconFont size="12" type="icon-star"/>
         <span class="star-txt">{{domData}}</span>
       </div>
-      <div class="numberDefault text-number">Not Set</div>
+      <div v-else class="numberDefault text-number">Not Set</div>
     </div>
     <!--txt categories-->
     <div v-else-if="typeDom==='txt'" class="numberDefault text-number text-center">{{domData?domData:'N/A'}}</div>

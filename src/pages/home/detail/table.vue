@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import HomeTableHeader from '../table/header.vue'
-import {ref,onMounted} from 'vue'
+import HomeTableTd  from '../table/td.vue'
+import {ref, onMounted, PropType} from 'vue'
 import {getParam} from "src/utils/router";
 import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
 import {detail} from "~/types/home";
 import {Model} from "~/logic/home";
 const props=defineProps({
-  detail:Boolean
+  info:Object as PropType<detail>
 })
 const type=ref('data')
 const id=getParam<string>("id")
@@ -21,13 +22,13 @@ const params={
   category:category.value,
   query:query.value
 }
+
 // onMounted(()=>{
 //   type.value=getParam<string>("type") || "data" //data  desc
 // })
 const data = createReactive<detail>("API.home.getProjects", {} as any);
 onMounted(function () {
   const api = new Model();
-  const id=getParam<string>('id', '') as string
   // 得到数据汇总
   onLoadReactive(data, () => api.getProjects(params));
 });
@@ -38,7 +39,7 @@ onMounted(function () {
     <table class="table-my">
       <thead>
       <tr class="h-10">
-        <td><div class="text-left w-7">#</div></td>
+        <td><div class="text-left w-4">#</div></td>
         <template v-for="(item,index) in data.header" :key="index">
           <td class="text-left" v-if="item.key!=='id'">
             <HomeTableHeader :item="item"/>
@@ -47,18 +48,17 @@ onMounted(function () {
       </tr>
       </thead>
       <tbody>
-      <template v-for="(item,index) in data.header">
+      <template v-for="(item,index) in data.items">
         <tr class="h-19.5">
-          <td class="number"><div class=" text-left w-7">{{index+1}}</div></td>
+          <td class="number"><div class="text-left w-4">{{index+1}}</div></td>
           <template v-for="(itemTwo,index) in data.header" :key="index">
-<!--            <td>{{itemTwo.key}}</td>-->
-<!--            <td v-if="itemTwo.key!=='id'"><HomeTableTd :typeName="itemTwo.key" :data="item"/></td>-->
+            <td v-if="itemTwo.key!=='id'"><HomeTableTd :info="info" :typeName="itemTwo.key" :data="item"/></td>
           </template>
         </tr>
       </template>
       </tbody>
     </table>
-    <div class="more">加载更多</div>
+<!--    <div class="more">加载更多</div>-->
   </div>
 </template>
 <style scoped lang="scss">
