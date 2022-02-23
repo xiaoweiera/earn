@@ -21,18 +21,18 @@ const iconHref=['tge_platform'] //icon + href
 const starNumber=['overall_score'] //星星 + number
 const txt=['categories'] //txt
 const numberPrice=[
-    'current_price',
-    'ido_price',
-    'balance_24h',
-    'balance_7d',
-    'volume_24h',
-    'volume_7d',
-    'ido_fundraising_goal',//Total Raised
-    'mcap'// MarketCap--
+  'current_price',
+  'ido_price',
+  'balance_24h',
+  'balance_7d',
+  'volume_24h',
+  'volume_7d',
+  'ido_fundraising_goal',//Total Raised
+  'mcap'// MarketCap-
 ] //$number
 const chainNumber=[
-    'floor_price',//Floor price
-    'mint_price',//Mint price
+  'floor_price',//Floor price
+  'mint_price',//Mint price
 ] //chain + number
 const numberUnit=['ido_sale_amount'] //number + 单位 --- Tokens for Sale    ido_symbol
 const numbers=['owners','assets','mcap_tvl']//-- Owners Assets MCap/TVL
@@ -80,7 +80,7 @@ onMounted(()=>{
 <template>
   <div>
     <!--projectName-->
-    <div v-if="typeName==='name' && info.show_type==='data'" class="flex-center  max-w-20 whitespace-nowrap">
+    <div v-if="(typeName==='name' && !info ) || typeName==='name' && info.show_type==='data'" class="flex-center  max-w-20 whitespace-nowrap">
       <IconFont size="24" :type="data.logo"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt   max-w-20 whitespace-nowrap">{{data['name']}}</div>
@@ -88,14 +88,14 @@ onMounted(()=>{
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='name' && info.show_type==='desc'" class="flex-center short">
+    <div v-else-if="typeName==='name' && (info && info.show_type==='desc')" class="flex-center short">
       <img class="w-12 h-12 rounded-kd6px" :src="data.logo"/>
       <div class="ml-3">
         <div class="nameNameDes text-number line-height-no flex-center">
           <span>{{data['name']}}</span>
           <IconFont class="ml-1.5" size="16" :type="data['chain']"/>
         </div>
-        <div class="nameDes mt-1.5 text-number line-height-no max-w-169 smallTxt">{{data['description']}}</div>
+        <div class="nameDes mt-1.5 text-number line-height-no max-w-160 smallTxt">{{data['description']}}</div>
       </div>
     </div>
     <!--chainIcon-->
@@ -181,10 +181,10 @@ onMounted(()=>{
   @apply  text-kd14px16px text-global-highTitle text-opacity-45;
 }
 .smallTxt{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    //display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  //display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 </style>
