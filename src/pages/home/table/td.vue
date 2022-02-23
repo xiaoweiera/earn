@@ -28,7 +28,7 @@ const numberPrice=[
     'volume_24h',
     'volume_7d',
     'ido_fundraising_goal',//Total Raised
-    'mcap'// MarketCap--
+    'mcap'// MarketCap
 ] //$number
 const chainNumber=[
     'floor_price',//Floor price
@@ -70,7 +70,6 @@ const getDom=()=>{
     return 'txt'
   }
 }
-
 onMounted(()=>{
   console.log(props.typeName,'--')
   typeDom.value=getDom()
@@ -80,7 +79,7 @@ onMounted(()=>{
 <template>
   <div>
     <!--projectName-->
-    <div v-if="(typeName==='name' && !info ) || typeName==='name' && info.show_type==='data'" class="flex-center  max-w-20 whitespace-nowrap">
+    <div v-if="typeName==='name' && info.show_type==='data'" class="flex-center  max-w-20 whitespace-nowrap">
       <IconFont size="24" :type="data.logo"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt   max-w-20 whitespace-nowrap">{{data['name']}}</div>
@@ -88,14 +87,14 @@ onMounted(()=>{
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='name' && (info && info.show_type==='desc')" class="flex-center short">
+    <div v-else-if="typeName==='name' && info.show_type==='desc'" class="flex-center short">
       <img class="w-12 h-12 rounded-kd6px" :src="data.logo"/>
       <div class="ml-3">
         <div class="nameNameDes text-number line-height-no flex-center">
           <span>{{data['name']}}</span>
           <IconFont class="ml-1.5" size="16" :type="data['chain']"/>
         </div>
-        <div class="nameDes mt-1.5 text-number line-height-no max-w-160 smallTxt">{{data['description']}}</div>
+        <div class="nameDes mt-1.5 text-number line-height-no max-w-169 smallTxt">{{data['description']}}</div>
       </div>
     </div>
     <!--chainIcon-->
