@@ -15,3 +15,37 @@ export interface summaryModel{
     igo:summaryItem;
     airdrop:summaryItem
 }
+export interface recommendModel{
+    page:number,
+    page_size:number,
+    show_commercial?:boolean //是否显示广告 默认不显示 false
+}
+export interface optionItem{
+    show:boolean,
+    options:Array<string>
+}
+export interface filterModel{
+    chain:optionItem;
+    platform:optionItem;
+    category:optionItem;
+    search:optionItem
+}
+export interface detail{
+    id:number | string;
+    name:string;
+    desc:string;
+    show_type:string;
+    filters:filterModel
+}
+export interface projectParams{
+    id:number | string;
+    page:number;
+    page_size:number;
+    chain?:string;
+    platform?:string;
+    category?:string;
+    query?:string;
+    sort_field?:string;
+    sort_type?:string
+
+}
