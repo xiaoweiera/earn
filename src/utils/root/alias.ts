@@ -10,5 +10,7 @@ export const dApp = {
 	ixo: {
 		upcoming: "Api.dApp.ixo?status=upcoming",
 		ongoing: "Api.dApp.ixo?status=ongoing",
+		ended: "Api.dApp.ixo?status=ended",
+
 	}
 }

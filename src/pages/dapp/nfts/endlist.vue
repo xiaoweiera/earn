@@ -8,8 +8,8 @@ defineProps({
 })
 const data={
   header: [
-    { name: 'Project Name', key: 'nameProject' },//nameProject
-    { name: 'Current ROI USD', key: 'salePrice' },
+    { name: 'Project Name', key: 'name' },
+    { name: 'Current ROI USD', key: 'data_type' },
     { name: 'Owners', key: 'token' },
     { name: 'Supply', key: 'supply' },
     { name: 'Floor Price', key: 'endedIn' },

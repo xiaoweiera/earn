@@ -1,5 +1,8 @@
 import API from "src/api/index";
 import {Query, Status, ProjectItem, AdItem} from "src/types/dapp/ixo";
+import {nftQuery, nftStatus, ProjectNftItem, AdNftItem} from "src/types/dapp/nft";
+import {config} from "src/router/config";
+
 
 // 拼接url
 export const changeUrl = function (data: Object, router: Object, ids: string) {
@@ -30,8 +33,12 @@ export class Model extends API {
     return this.dApp.getIGOList();
   }
   //nft数据
-  getNftList() {
-    return this.dApp.getNftList();
+  getNftList(chain?: string) {
+		const query: nftQuery = {
+			chain: chain ? chain : "all",
+			status: nftStatus.upcoming
+		};
+    return this.dApp.getNftList<ProjectNftItem | AdNftItem>(query);
   }
 	getUpcomingProjects(chain?: string) {
 		const query: Query = {
@@ -47,5 +54,28 @@ export class Model extends API {
 		};
 		return this.dApp.ixo<ProjectItem | AdItem>(query);
 	}
+	getEndedProjects(chain?: string) {
+		const query: Query = {
+			chain: chain ? chain : "all",
+			status: Status.ended
+		};
+		return this.dApp.ixoend<ProjectItem | AdItem>(query);
+	}
+}
 
+// 跳转IDO链接
+export const getUrl = function (name:string, type:boolean) {
+	if(type === true){
+		if(name === Status.upcoming ) {
+			return `${config.dappList}?type=${Status.upcoming}`;
+		}else if (name === Status.ongoing) {
+			return `${config.dappList}?type=${Status.ongoing}`;
+		}else if (name === Status.ended) {
+			return `${config.dappList}?type=${Status.ended}`;
+		}
+	}else if (type === false) {
+		if(name === Status.upcoming ) {
+			return `${config.nft}/discover?type=${Status.upcoming}`;
+		}
+	}
 }
