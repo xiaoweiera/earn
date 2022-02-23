@@ -1,4 +1,6 @@
 import API from "src/api";
+import {summaryModel} from "~/types/home";
+
 //得到header数据 headerName,headerCss
 export const getHeader=(key:string)=>{
 		if(key==='name'){
@@ -112,11 +114,16 @@ export const getData=(key:string,data:any,type:string)=>{
 
 }
 export class Model extends API {
-	getSummary() {
-		return this.home.getSummary()
+	async getSummary() {
+		const result=await this.home.getSummary()
+		return result as summaryModel
 	}
-
+	//topic table切换
 	getTopicRank() {
 		return this.home.getTopicRank()
+	}
+	//推荐话题
+	getRecommend(){
+		return this.home.getRecommend()
 	}
 }
