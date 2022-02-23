@@ -17,7 +17,7 @@ const emit=defineEmits(['change'])
 const i18n = I18n();
 const $router = useRoute();
 
-
+console.log(props.chainData)
 const init = function () {
   const groudId = 'groudId';
   props.chainData = changeUrl(props.chainData, $router, groudId);

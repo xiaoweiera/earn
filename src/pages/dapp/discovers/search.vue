@@ -79,7 +79,7 @@ const change=()=>{
     <div class="flex justify-between items-center">
       <div class="flex items-center">
         <!-- 项目类型 -->
-        <!-- <DappDiscoversContentType :key="key" @change="change" title="项目类型" :chainData="chainData2"></DappDiscoversContentType> -->
+        <DappDiscoversContentType :key="key" @change="change" title="项目类型" :chainData="chainData2"></DappDiscoversContentType>
         <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
         <!-- 公链 -->
         <DappDiscoversContentChain title="公链"></DappDiscoversContentChain>
@@ -91,7 +91,7 @@ const change=()=>{
     </div>
     <!-- platform -->
     <div class="mt-4">
-      <!-- <DappDiscoversContentPlatform :key="key" @change="change" title='platform' :chainData="chainData"></DappDiscoversContentPlatform> -->
+      <DappDiscoversContentPlatform :key="key" @change="change" title='platform' :chainData="chainData"></DappDiscoversContentPlatform>
     </div>
   </div>
 </template>
