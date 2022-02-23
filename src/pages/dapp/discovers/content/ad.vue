@@ -6,8 +6,8 @@ defineProps({
 })
 </script>
 <template>
-  <v-router class="relative w-full h-full rounded-md bg-white" :herf="data.url" target="_blank">
-    <div class="h-full">
+  <v-router class="relative w-full h-full bg-white" :href="data.url" target="_blank">
+    <div class="h-full rounded-md overflow-hidden">
       <!-- 电脑上展示 -->
       <ui-image class="w-full h-full" fit="cover" :src="data.image" :lazy="true"/>
       <!-- 移动端展示 -->

@@ -8,16 +8,16 @@ defineProps({
 })
 const data={
   header: [
-    { name: 'Project Name', key: 'nameProject' },//nameProject
-    { name: 'Type', key: 'salePrice' },
-    { name: 'Total Ralsed', key: 'token' },
-    { name: 'Sale Price', key: 'supply' },
-    { name: 'Current Price', key: 'endedIn' },
-    { name: 'Current ROI USD', key: 'endedIn' },
-    { name: 'ATH ROI USD', key: 'endedIn' },
-    { name: 'Chain', key: 'endedIn' },
-    { name: 'TGE Platform', key: 'endedIn' },
-    { name: 'Rating', key: 'endedIn' },
+    { name: 'Project Name', key: 'name' },//nameProject
+    { name: 'Type', key: 'data_type' },
+    { name: 'Total Ralsed', key: 'ido_fundraising_goal' },
+    { name: 'Sale Price', key: 'ido_price' },
+    { name: 'Current Price', key: 'current_price' },
+    { name: 'Current ROI USD', key: 'current_roi_usd' },
+    { name: 'ATH ROI USD', key: 'ath_since_ido' },
+    { name: 'Chain', key: 'chain' },
+    { name: 'TGE Platform', key: 'tge_platform' },
+    { name: 'Rating', key: 'overall_score' },
   ]
 }
 </script>
