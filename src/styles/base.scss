@@ -10,3 +10,14 @@
 .showX::-webkit-scrollbar-thumb:vertical {
   background: rgba(0, 0, 0, 0);
 }
+.short{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  //display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+.hand{
+  @apply cursor-pointer;
+}

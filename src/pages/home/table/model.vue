@@ -18,23 +18,23 @@ const props=defineProps({
       <table class="table-my">
         <thead>
         <tr class="h-5">
-          <td class="header-td">#</td>
-          <template v-for="item in data.table.header">
-            <td class="text-left">
+          <td><div class="text-left w-7">#</div></td>
+          <template v-for="(item,index) in data.table.header" :key="index">
+            <td class="text-left" v-if="item.key!=='id'">
               <HomeTableHeader :item="item"/>
             </td>
           </template>
         </tr>
         </thead>
         <tbody>
-        <template v-for="(item,index) in data.table.items">
+        <template v-for="(item,index) in data.table.items" :key="index">
           <tr class="h-11.5">
-            <td class="number pr-2">{{index+1}}</td>
-            <td><HomeTableTd :typeName="data.table.header[0].key" :data="item"/></td>
-            <td><HomeTableTd :typeName="data.table.header[1].key" :data="item"/></td>
-            <td><HomeTableTd :typeName="data.table.header[2].key" :data="item"/></td>
-            <td><HomeTableTd :typeName="data.table.header[3].key" :data="item"/></td>
-            <td><HomeTableTd :typeName="data.table.header[4].key" :data="item"/></td>
+            <td class="number">
+            <div class=" text-left w-7">{{index+1}}</div>
+            </td>
+            <template v-for="(itemTwo,index) in data.table.header" :key="index">
+              <td v-if="itemTwo.key!=='id'"><HomeTableTd :typeName="itemTwo.key" :data="item"/></td>
+            </template>
           </tr>
         </template>
         </tbody>

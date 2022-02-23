@@ -1,5 +1,6 @@
 import API from "src/api";
-import {summaryModel} from "~/types/home";
+import {projectParams, recommendModel, summaryModel} from "~/types/home";
+
 
 //得到header数据 headerName,headerCss
 export const getHeader=(key:string)=>{
@@ -52,25 +53,20 @@ export const getHeader=(key:string)=>{
 		}else if(key==='current_roi_usd'){
 			return ['Current ROI USD','text-center']
 		}
+		return ['No','text-center']
 }
 //得到td数据
 export const getData=(key:string,data:any,type:string)=>{
 	let header:string=''
 	let value:any=[]
-	if(key==='name'){
-		if(type==='data') {
-			value=[data['']]
-		}else{
-
-		}
-	}else if(key==='chains'){
-		value=data['chains']
+	if(key==='chains'){
+		value=data['chain']
 	}else if(key==='tge_platform'){
-		value=data['tge_platform']
+		value=data['platform']
 	}else if(key==='overall_score'){
 		value=data['overall_score']
 	}else if(key==='categories'){
-		value=data['categories']
+		value=data['category']
 	}else if(key==='current_price'){
 		value=data['current_price']
 	}else if(key==='ido_price'){
@@ -123,7 +119,22 @@ export class Model extends API {
 		return this.home.getTopicRank()
 	}
 	//推荐话题
-	getRecommend(){
-		return this.home.getRecommend()
+	getRecommend(params:recommendModel){
+		return this.home.getRecommend(params)
+	}
+	//今日趋势
+	getTrend(){
+		return this.home.getTrend()
+	}
+	//话题项目top3
+	getTop3(id:string){
+		return this.home.getTop3(id)
+	}
+	//话题详情
+	getDetail(id:string){
+		return this.home.getDetail(id)
+	}
+	getProjects(params:projectParams){
+		return this.home.getProjects(params)
 	}
 }
