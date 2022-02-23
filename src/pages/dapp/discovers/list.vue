@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import DappDiscoversContentAd from './content/ad.vue'
+import DappDiscoversContent from './content/index.vue'
 import { ref } from "vue"
 const loading = ref<boolean>(false);
 defineProps({
@@ -12,12 +14,13 @@ defineProps({
     <div>
       <!--遍历展示项目列表信息-->
       <div class="discover-list relative h-87.5 border border-global-highTitle border-opacity-6 rounded-md cursor-pointer">
-        <ui-spin :loading="loading">
+        <ui-spin class="h-full" :loading="loading">
           <!-- <template v-for="item in list" :key="item.id">
             <DappDiscoversContentAd v-if="item.commercial" :data="item"/>
             <DappDiscoversContent v-else :data="item"/>
           </template> -->
-          <DappDiscoversContent :data="list"></DappDiscoversContent>
+          <DappDiscoversContentAd v-if="list.data_type === 'ad'" :data="list"></DappDiscoversContentAd>
+          <DappDiscoversContent v-else :data="list"></DappDiscoversContent>
           <!-- <DappDiscoversContentAd></DappDiscoversContentAd> -->
         </ui-spin>
       </div>

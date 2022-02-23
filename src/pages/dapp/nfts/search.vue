@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import DappDiscoversContentType from '../discovers/content/type.vue';
+import DappDiscoversContentChain from '../discovers/content/chain.vue';
+import DappDiscoversContentField from '../discovers/content/field.vue';
+
 import { ref } from 'vue';
 const title = ref('项目类型');
 const search = ref('项目名称');
@@ -44,7 +48,7 @@ const change=()=>{
     <div class="flex justify-between items-center">
       <div class="flex items-center">
         <!-- 项目类型 -->
-        <DappDiscoversContentType :key="key" @change="change" title="项目类型" :chainData="chainData"></DappDiscoversContentType>
+        <!-- <DappDiscoversContentType :key="key" @change="change" title="项目类型" :chainData="chainData"></DappDiscoversContentType> -->
         <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
         <!-- 公链 -->
         <DappDiscoversContentChain :title="chain"></DappDiscoversContentChain>

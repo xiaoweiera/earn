@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import DappNftsTime from './time.vue';
+
 import { valueFormat } from 'src/utils/convert/to'
 defineProps({
   data: {

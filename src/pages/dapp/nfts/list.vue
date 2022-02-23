@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import DappNftsHeader from './header.vue';
+import DappNftsFooter from './footer.vue';
+
 import {getParam} from "src/utils/router";
 import safeGet from "@fengqiaogang/safe-get";
  import { config } from "src/router/config";

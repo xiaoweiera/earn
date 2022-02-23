@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DappNftsCutdown from './cutdown.vue'
 import {getParam} from "src/utils/router";
 import safeGet from "@fengqiaogang/safe-get";
  import { config } from "src/router/config";

@@ -9,7 +9,7 @@ export const home = {
 
 export const dapp = {
 	list: "/api/v1/dapps/ido", //IDO项目列表
-	IGOList: "/api/v1/dapps/igo", //IGO项目列表
+	igoList: "/api/v1/dapps/igo", //IGO项目列表
 	nftList: "/api/v1/dapps/nft", //nft项目列表
 	tabs: "/api/v1/site/config", //项目类型搜索条件
 };

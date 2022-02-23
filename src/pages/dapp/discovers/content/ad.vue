@@ -1,11 +1,15 @@
 <script setup lang="ts">
-
+defineProps({
+  data: {
+    type: Object,
+  }
+})
 </script>
 <template>
-  <v-router class="relative w-full h-full rounded-md bg-white" target="_blank">
-    <div>
+  <v-router class="relative w-full h-full rounded-md bg-white" :herf="data.url" target="_blank">
+    <div class="h-full">
       <!-- 电脑上展示 -->
-      <img class="hidden md:block w-full" src="https://res.kingdata.xyz/common/blue-whale.png">
+      <ui-image class="w-full h-full" fit="cover" :src="data.image" :lazy="true"/>
       <!-- 移动端展示 -->
       <!-- <img class="block md:hidden w-full"> -->
     </div>
