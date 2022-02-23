@@ -7,6 +7,7 @@ import ApiTemplate from "../template";
 import request from "src/plugins/dao/service";
 import { AreaCode } from "src/types/common/area";
 import { asyncCheck } from "src/plugins/dao/response";
+import { SiteConfig } from "src/types/common/chain";
 
 export default class extends ApiTemplate{
 	// 获取国际区号
@@ -20,6 +21,18 @@ export default class extends ApiTemplate{
 				en: "China",
 				phone_code: "+86",
 			}];
+		}
+	}
+	// 公链站点配置
+	async getChainSiteConfig (): Promise<SiteConfig> {
+		try {
+			return await asyncCheck<SiteConfig>(request(this.lang).get(api.common.chainSiteConfig));
+		} catch (e) {
+			// 异常情况下，返回模式数据
+			return {
+				chain: [],
+				tge_platform: []
+			};
 		}
 	}
 }
