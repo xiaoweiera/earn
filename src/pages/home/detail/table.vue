@@ -22,6 +22,7 @@ const params={
   category:category.value,
   query:query.value
 }
+
 // onMounted(()=>{
 //   type.value=getParam<string>("type") || "data" //data  desc
 // })
