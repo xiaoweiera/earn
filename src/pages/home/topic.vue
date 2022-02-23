@@ -50,7 +50,6 @@ onMounted(function () {
     </div>
     <!--    topic table-->
     <div>
-
       <HomeTable :topicIndex="topicIndex"  :data="rank"/>
     </div>
   </div>

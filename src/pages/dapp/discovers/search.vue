@@ -1,100 +1,148 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+import {ref} from 'vue';
+import {getParam} from "src/utils/router";
+import {config as routerConfig} from "src/router/config";
 import DappDiscoversContentType from './content/type.vue';
 import DappDiscoversContentChain from './content/chain.vue';
 import DappDiscoversContentField from './content/field.vue';
-import DappDiscoversContentPlatform from './content/platform.vue'
-import { ref } from 'vue';
-const query = ref('');
 
-const chainData:any = ref([
-  {
-    'platformId': 106,
-    'name': 'all',
-    'slug': 'all',
-    'logo': 'icon-quanbu',
-    'href': '',
-  },
-  {
-    'platformId': 107,
-    'name': 'ETH',
-    'slug': 'ETH',
-    'logo': 'icon-quanbu',
-    'href': '',
-  },
-  {
-    'platformId': 108,
-    'name': 'Bsc',
-    'slug': 'Bsc',
-    'logo': 'icon-quanbu',
-    'href': '',
-  },
-  {
-    'platformId': 109,
-    'name': 'Polygon',
-    'slug': 'POS',
-    'logo': 'icon-quanbu',
-    'href': '',
-  }
-])
+const search = ref<string>("");
 
-const chainData2:any = ref([
-  {
-    'groudId': 100,
-    'name': 'all',
-    'slug': 'all',
-    'logo': 'icon-quanbu',
-    'href': ''
-  },
-  {
-    'groudId': 101,
-    'name': 'ETH',
-    'slug': 'ETH',
-    'logo': 'icon-quanbu',
-    'href': ''
-  },
-  {
-    'groudId': 102,
-    'name': 'Bsc',
-    'slug': 'Bsc',
-    'logo': 'icon-quanbu',
-    'href': ''
-  },
-  {
-    'groudId': 103,
-    'name': 'Polygon',
-    'slug': 'POS',
-    'logo': 'icon-quanbu',
-    'href': ''
-  }
-])
+const chainData: any = function () {
+  const query = getParam<object>();
+  return [
+    {
+      'platform': 106,
+      'name': 'all',
+      'slug': 'all',
+      'logo': 'icon-quanbu',
+      href: {
+        path: routerConfig.dappList,
+        query: {
+          ...query,
+          platform: 106
+        }
+      }
+    },
+    {
+      'platform': 107,
+      'name': 'ETH',
+      'slug': 'ETH',
+      'logo': 'icon-quanbu',
+      href: {
+        path: routerConfig.dappList,
+        query: {
+          ...query,
+          platform: 107
+        }
+      }
+    },
+    {
+      'platform': 108,
+      'name': 'Bsc',
+      'slug': 'Bsc',
+      'logo': 'icon-quanbu',
+      href: {
+        path: routerConfig.dappList,
+        query: {
+          ...query,
+          platform: 108
+        }
+      }
+    },
+    {
+      'platform': 109,
+      'name': 'Polygon',
+      'slug': 'POS',
+      'logo': 'icon-quanbu',
+      href: {
+        path: routerConfig.dappList,
+        query: {
+          ...query,
+          platform: 109
+        }
+      }
+    }
+  ];
+}
 
-const key=ref(0)
-const change=()=>{
-  key.value++
+const chainData2 = function () {
+  const query = getParam<object>();
+  return [
+    {
+      'group': 100,
+      'name': 'all',
+      'slug': 'all',
+      'logo': 'icon-quanbu',
+      href: {
+        path: routerConfig.dappList,
+        query: {
+          ...query,
+          group: 100
+        }
+      }
+    },
+    {
+      'group': 101,
+      'name': 'ETH',
+      'slug': 'ETH',
+      'logo': 'icon-quanbu',
+      href: {
+        path: routerConfig.dappList,
+        query: {
+          ...query,
+          group: 101
+        }
+      }
+    },
+    {
+      'group': 102,
+      'name': 'Bsc',
+      'slug': 'Bsc',
+      'logo': 'icon-quanbu',
+      href: {
+        path: routerConfig.dappList,
+        query: {
+          ...query,
+          group: 102
+        }
+      }
+    },
+    {
+      'group': 103,
+      'name': 'Polygon',
+      'slug': 'POS',
+      'logo': 'icon-quanbu',
+      href: {
+        path: routerConfig.dappList,
+        query: {
+          ...query,
+          group: 103
+        }
+      }
+    }
+  ]
 }
 </script>
 <template>
   <div class="mt-5">
     <!-- 项目类型、公链、搜索框 -->
     <div class="flex justify-between items-center">
-      <div class="flex items-center">
+      <div class="flex items-center flex-1">
         <!-- 项目类型 -->
-        <DappDiscoversContentType :key="key" @change="change" title="项目类型" :chainData="chainData2"></DappDiscoversContentType>
-        <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
-        <!-- 公链 -->
-        <DappDiscoversContentChain title="公链"></DappDiscoversContentChain>
+        <div class="flex-1">
+          <DappDiscoversContentType :list="chainData2" name="group" title="项目类型"/>
+        </div>
+        <div class="flex items-center">
+          <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
+          <!-- 公链 -->
+          <DappDiscoversContentChain title="公链"/>
+        </div>
       </div>
       <!-- 搜索框 -->
-      <div>
-        <DappDiscoversContentField :query="query" title="项目名称"></DappDiscoversContentField>
-      </div>
+      <DappDiscoversContentField :query="search" title="项目名称"/>
     </div>
     <!-- platform -->
-    <div class="mt-4">
-      <DappDiscoversContentPlatform :key="key" @change="change" title='platform' :chainData="chainData"></DappDiscoversContentPlatform>
-    </div>
+    <DappDiscoversContentType :list="chainData" class="mt-4" name="platform" title="platform"/>
   </div>
 </template>
-<style lang="scss" scoped>
-
-</style>

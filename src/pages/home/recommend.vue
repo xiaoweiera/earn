@@ -13,6 +13,11 @@ import {createRef, onLoadRef} from "~/utils/ssr/ref";
 import {Model} from "~/logic/home";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
+const params={
+  page:1,
+  page_size:10,
+  show_commercial:true
+}
 const list = [
   {name: 'data', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
   {name: 'desc', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
@@ -35,6 +40,7 @@ const init=(swiper:any)=>{
     isEnd.value = swiper.isEnd
   })
 }
+
 const recommend = createRef("API.home.getRecommend", []);
 const getImg=(type:string,item:any)=>{
   if(type==='topic'){
@@ -44,14 +50,14 @@ const getImg=(type:string,item:any)=>{
 }
 const getHref=(type:string,item:any)=>{
   if(type==='topic'){
-    return `/home/detail?topicId=${item.id}`
+    return `/home/detail?id=${item.id}`
   }
   return item.url
 }
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总
-  onLoadRef(recommend, () => api.getRecommend());
+  onLoadRef(recommend, () => api.getRecommend(params));
 });
 </script>
 <template>

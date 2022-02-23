@@ -3,14 +3,14 @@ import DappDiscoversHeader from './discovers/header.vue';
 import DappDiscoversSearch from './discovers/search.vue';
 import DappDiscoversEndlist from './discovers/endlist.vue';
 import DappDiscoversList from './discovers/list.vue';
-import { onMounted, ref } from "vue"
+import {onMounted, ref, watch} from "vue"
 import safeGet from "@fengqiaogang/safe-get";
 import * as logic from "src/types/dapp/";
-import { toLower } from "src/utils";
+import {toLower, uuid} from "src/utils";
 import { includes } from 'ramda';
 import { useRoute } from 'vue-router'
-import {Model} from "~/logic/dapp";
-import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
+import {Model} from "src/logic/dapp";
+import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 
 // 获取ido列表
 const list = createReactive("API.dapp.getList", {});
@@ -23,6 +23,15 @@ onMounted(function () {
   onLoadReactive(list, () => api.getList());
   onLoadReactive(igolist, () => api.getIGOList());
 
+});
+
+const key = ref<string>(uuid());
+const $route = useRoute();
+
+onMounted(function () {
+  watch($route, function () {
+    key.value = uuid();
+  });
 });
 
 const IGOData = ref([
@@ -203,7 +212,6 @@ const IGOData = ref([
   },
 ])
 const active = ref<logic.TabTypes>();
-const tabs = ref<logic.TabItem[]>(logic.tabs);
 const init = function (query: object) {
   const type = safeGet<logic.TabTypes>(query, "type");
   if (type) {
@@ -229,14 +237,12 @@ const onChangeView = function (data: object) {
         <DappDiscoversHeader></DappDiscoversHeader>
       </div>
        <!-- 分类 -->
-      <ui-Header-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
-        <div>
-          <ui-tab :list="tabs" @change="onChangeView" active-name="type"></ui-tab>
-        </div>
-      </ui-Header-sticky>
+      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
+        <ui-tab :key="key" :list="logic.tabs" active-name="type"/>
+      </ui-sticky>
       <!-- 搜索条件 -->
       <div>
-        <DappDiscoversSearch></DappDiscoversSearch>
+        <DappDiscoversSearch :key="key"/>
       </div>
       <!-- 列表内容 -->
       <div class="py-8">
@@ -244,7 +250,7 @@ const onChangeView = function (data: object) {
           <DappDiscoversEndlist class="px-4" :list="list"></DappDiscoversEndlist>
         </div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" v-else>
-          <DappDiscoversList v-for="(item, index) in list" :key='index' :list="item"></DappDiscoversList>
+          <DappDiscoversList v-for="(item, index) in list" :key='index' :data="item"></DappDiscoversList>
         </div>
       </div>
     </div>

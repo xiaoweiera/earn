@@ -5,7 +5,6 @@
   import DappDiscoversContentType from './discovers/content/type.vue';
   import DappDiscoversContentChain from './discovers/content/chain.vue';
   import DappDiscoversContentField from './discovers/content/field.vue';
-  import DappDiscoversContentPlatform from './discovers/content/platform.vue';
   import DappDiscoversEndlist from './discovers/endlist.vue';
 
   import {onMounted, ref} from "vue";
@@ -55,7 +54,7 @@
     </div>
     <!-- platform -->
     <div class="mt-4 border-b-1 border-global-highTitle border-opacity-6 pb-4">
-      <!-- <DappDiscoversContentPlatform></DappDiscoversContentPlatform> -->
+      <!-- <DappDiscoversContentType></DappDiscoversContentType> -->
     </div>
     <div>
        <DappDiscoversEndlist :list="EndedList"></DappDiscoversEndlist>

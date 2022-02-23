@@ -176,11 +176,11 @@ const onChangeView = function (data: object) {
         <DappDiscoversHeader></DappDiscoversHeader>
       </div>
       <!-- 分类 -->
-      <ui-Header-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
+      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
         <div>
           <ui-tab :list="tabs" @change="onChangeView" active-name="type"></ui-tab>
         </div>
-      </ui-Header-sticky>
+      </ui-sticky>
       <!-- 搜索条件 -->
       <div>
         <DappNftsSearch></DappNftsSearch>

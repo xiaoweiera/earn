@@ -71,6 +71,7 @@ const getDom=()=>{
 }
 
 onMounted(()=>{
+  console.log(props.typeName,'--')
   typeDom.value=getDom()
   domData.value=getData(props.typeName,props.data,props.type)
 })
@@ -78,10 +79,10 @@ onMounted(()=>{
 <template>
   <div>
     <!--projectName-->
-    <div v-if="typeName==='name'" class="flex-center  max-w-20">
+    <div v-if="typeName==='name'" class="flex-center  max-w-20 whitespace-nowrap">
       <IconFont size="24" :type="data.logo"/>
       <div class="ml-1.5">
-        <div class="numberDefault text-number line-height-no smallTxt  max-w-20">{{data['name']}}</div>
+        <div class="numberDefault text-number line-height-no smallTxt   max-w-20 whitespace-nowrap">{{data['name']}}</div>
         <div class="nameTag text-number  text-left line-height-no">{{data['symbol']}}</div>
       </div>
     </div>

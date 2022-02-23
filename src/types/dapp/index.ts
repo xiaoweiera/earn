@@ -5,6 +5,7 @@
 
  import I18n from "src/utils/i18n";
  import { config } from "src/router/config";
+ import { getParam } from "src/utils/router";
 
  const i18n = I18n();
 // export enum ProjectGroup {
@@ -34,26 +35,47 @@ export interface TabItem {
 	type: TabTypes;
 	name: string;
 	icon?: string;
-	href: string;
+	href: string | object;
 }
-export const tabs: TabItem[] = [ 
-  {
-    type: TabTypes.upcoming,
-    icon: '',
-    name: i18n.airdrop.tabs.upcoming,
-    href: `${config.dappList}?type=${TabTypes.upcoming}`,
-  },{
-		type: TabTypes.ongoing,
-		icon: '',
-		name: i18n.airdrop.tabs.ongoing,
-		href: `${config.dappList}?type=${TabTypes.ongoing}`,
-	}, {
-		type: TabTypes.ended,
-		icon: '',
-		name: i18n.growthpad.status.closure,
-		href: `${config.dappList}?type=${TabTypes.ended}`,
-	}
-]
+export const tabs = function (): TabItem[] {
+	const query = getParam<object>();
+	return [
+		{
+			type: TabTypes.upcoming,
+			icon: '',
+			name: i18n.airdrop.tabs.upcoming,
+			href: {
+				path: config.dappList,
+				query: {
+					...query,
+					type: TabTypes.upcoming
+				}
+			},
+		},{
+			type: TabTypes.ongoing,
+			icon: '',
+			name: i18n.airdrop.tabs.ongoing,
+			href: {
+				path: config.dappList,
+				query: {
+					...query,
+					type: TabTypes.ongoing
+				}
+			},
+		}, {
+			type: TabTypes.ended,
+			icon: '',
+			name: i18n.growthpad.status.closure,
+			href: {
+				path: config.dappList,
+				query: {
+					...query,
+					type: TabTypes.ended
+				}
+			},
+		}
+	]
+}
 // nft tab 切换
 export enum NftTabTypes {
 	upcoming = 'upcoming', // 即将开始
@@ -66,7 +88,7 @@ export interface NftTabItem {
 	href: string;
 }
 // nft分类切换
-export const nftTabs: NftTabItem[] = [ 
+export const nftTabs: NftTabItem[] = [
   {
     type: NftTabTypes.upcoming,
     icon: '',

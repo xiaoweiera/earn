@@ -40,7 +40,6 @@ onMounted(function () {
 @import "src/styles/function";
 
 .top {
-
   background: #e5e5e51a;
   background-image: cdn("/dapp/dappsBg.jpg");
   background-size: 100% 652px;
