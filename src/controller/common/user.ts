@@ -5,29 +5,30 @@
 
 import API from "src/api/index";
 import safeSet from "@fengqiaogang/safe-set";
+import safeGet from "@fengqiaogang/safe-get";
+import * as alias from "src/utils/root/alias";
 import redirect from "src/controller/common/redirect";
 import {dashboard, getEnv, tokenName} from "src/config";
 import {NextFunction, Request, Response} from "express";
 import {Authorization} from "src/plugins/express/authorization";
-import safeGet from "@fengqiaogang/safe-get";
 
-const userCache = "common.user";
-
-export const userInfo = async function (req: Request, res: Response, next: NextFunction) {
+// 用户详情
+export const userInfo = async function (req: Request) {
 	const {token} = Authorization(req);
 	if (token) {
 		const api = new API(req);
 		try {
 			const data = await api.user.getInfo();
 			if (data) {
-				safeSet(res.locals, userCache, data);
+				const result = {};
+				safeSet(result, alias.common.user, data);
+				return result;
 			}
 		} catch (e) {
-			console.log(e);
 			// todo
 		}
 	}
-	next();
+	return {};
 }
 
 // 处理用户退出
@@ -44,7 +45,7 @@ export const userLogout = function (req: Request, res: Response) {
 
 // 前置，如果用户已登录，则跳转走
 export const prepend = function (req: Request, res: Response, next: NextFunction) {
-	const cache = safeGet(res.locals, userCache);
+	const cache = safeGet(res.locals, alias.common.user);
 	if (cache) {
 		redirect(req, res, dashboard);
 	} else {

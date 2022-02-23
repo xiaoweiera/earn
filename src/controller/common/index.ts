@@ -3,14 +3,27 @@
  * @author svon.me@gmail.com
  */
 
-import {Router} from "express";
 import {config} from "src/router/config";
+import {chainSiteConfig} from "./chain";
 import {userInfo, userLogout} from "./user";
+import {Router, NextFunction, Request, Response} from "express";
 
 const common = Router();
 // 处理用户退出逻辑
 common.all(config.user.logout, userLogout);
 
-common.use(userInfo);
+// 处理公共数据
+common.use(async function (req: Request, res: Response, next: NextFunction) {
+	const array = await Promise.all([
+		chainSiteConfig(req),
+		userInfo(req)
+	]);
+	const data = {};
+	for(const value of array) {
+		Object.assign(data, value);
+	}
+	Object.assign(res.locals, data);
+	next();
+});
 
 export default common;
