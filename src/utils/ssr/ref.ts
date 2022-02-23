@@ -29,6 +29,7 @@ export const createReactive = function<T>(key: string, auto: T) {
 }
 
 type ApiFun = <T>(query?: object | string | number) => T;
+type UpdateCallback = (query?: object | string | number) => Promise<void>
 
 const getData = function<T>(api: string | ApiFun | Function, query?: object | string | number) {
 	if (_.isString(api)) {
@@ -42,6 +43,35 @@ const getData = function<T>(api: string | ApiFun | Function, query?: object | st
 	}
 	if (_.isFunction(api)) {
 		return api<T>(query);
+	}
+}
+
+// 更新数据
+export const onUpdateRef = function<T>(data: Ref, api: string | ApiFun | Function): UpdateCallback {
+	return async function (query?: object | string | number) {
+		const value = await getData<T>(api, query);
+		if (value) {
+			data.value = value;
+		} else {
+			data.value = void 0;
+		}
+	};
+}
+export const onUpdateReactive = function<T>(data: UnwrapNestedRefs<T>, api: string | ApiFun | Function): UpdateCallback {
+	return async function (query?: object | string | number) {
+		const value = await getData<T>(api, query);
+		if (value) {
+			for (const key in value) {
+				// @ts-ignore
+				data[key] = value[key];
+			}
+		} else {
+			const keys = Object.keys(data);
+			for (const key of keys) {
+				// @ts-ignore
+				delete data[key];
+			}
+		}
 	}
 }
 
@@ -69,3 +99,5 @@ export const onLoadReactive = async function<T>(data: UnwrapNestedRefs<T>, api: 
 		}
 	}
 }
+
+

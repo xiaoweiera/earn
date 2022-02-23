@@ -7,7 +7,7 @@ import ApiTemplate from "../template";
 import * as api from "src/config/api";
 import request from "src/plugins/dao/service";
 import {asyncCheck} from "src/plugins/dao/response";
-import safeGet from "@fengqiaogang/safe-get";
+import { Query, Status } from "src/types/dapp/ixo";
 
 export default class extends ApiTemplate{
 	// 项目库列表
@@ -63,5 +63,16 @@ export default class extends ApiTemplate{
 			}, {})
 		})
 		return asyncCheck(result);
+	}
+	// ixo 数据
+	ixo<T>(query: Query) {
+		 const params = Object.assign({
+			 page: 1,
+			 page_size: 10,
+			 query: "",
+			 chain: "all",
+			 category: "all",
+		 }, query);
+		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, { params}));
 	}
 }

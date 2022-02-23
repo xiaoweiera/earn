@@ -13,6 +13,7 @@ export const dapp = {
 	igoList: "/api/v1/dapps/igo", //IGO项目列表
 	nftList: "/api/v1/dapps/nft", //nft项目列表
 	tabs: "/api/v1/site/config", //项目类型搜索条件
+	ixo: "/api/v1/dapps/ixo",
 };
 
 export const blog = {
