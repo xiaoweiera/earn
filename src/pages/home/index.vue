@@ -7,6 +7,8 @@ import HomeCompany from "./company.vue";
 //@ts-ignore
 import DappHomediscover from "src/pages/dapp/homediscover"
 //@ts-ignore
+import DappHomenft from "src/pages/dapp/homenft.vue"
+//@ts-ignore
 import DappHomediscoverend from "src/pages/dapp/homediscoverend"
 import {onMounted} from 'vue'
 import {Model} from "~/logic/home";
@@ -27,10 +29,10 @@ onMounted(function () {
       <HomeTopic class="mt-9"/>
       <HomeTrends class="mt-6"/>
       <HomeRecommend class="mt-6"/>
-<!--      <DappHomediscover class="mt-16.5"/>-->
+     <DappHomediscover class="mt-16.5"/>
       <HomeCompany class="mt-6"/>
-<!--      <DappHomenft class="mt-16.5"/>-->
-<!--      <DappHomediscoverend class="mt-16.5"/>-->
+     <DappHomenft class="mt-16.5"/>
+     <DappHomediscoverend class="mt-16.5"/>
     </div>
   </div>
 </template>

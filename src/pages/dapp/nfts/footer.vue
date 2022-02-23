@@ -9,7 +9,7 @@ defineProps({
 })
 </script>
 <template>
-  <div>
+  <div v-if="data">
     <div class="h-29 px-4 bg-global-textBlack text-global-white">
       <!-- 项目名称 -->
       <div>

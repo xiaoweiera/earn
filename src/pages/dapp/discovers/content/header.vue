@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-  <div>
+  <div v-if="data">
     <div class="w-full h-40 rounded-md overflow-hidden">
       <!-- <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/> -->
       <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/>

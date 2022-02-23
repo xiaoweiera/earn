@@ -18,7 +18,7 @@ const detailUrl = function (data: object) {
 };
 </script>
 <template>
-  <div>
+  <div v-if="data"> 
     <div class="w-full h-15.5 flex justify-between items-center">
       <div class="flex-1">
         <DappDiscoversCutdown :value="data.ido_start_at"></DappDiscoversCutdown>

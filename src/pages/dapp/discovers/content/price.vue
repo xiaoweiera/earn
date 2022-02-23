@@ -8,7 +8,7 @@ defineProps({
 })
 </script>
 <template>
-  <div>
+  <div v-if="data">
     <div class="w-full h-15 mt-2.5 py-2.5 border-t border-b border-global-highTitle border-opacity-6">
       <div class="w-full h-full flex justify-around items-center">
         <div>
