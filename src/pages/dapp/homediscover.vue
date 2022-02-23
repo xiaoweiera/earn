@@ -26,7 +26,7 @@ const updateUpcomingList = onUpdateRef(UpcomingList, getUpcomingList);
 // 进行中列表
 const getOngoingList = function () {
   const model = new Model();
-  return model.getUpcomingProjects(chain.value);
+  return model.getOngoingProjects(chain.value);
 }
 const OngoingList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.ongoing, []);
 const updateOngoingList = onUpdateRef(OngoingList, getOngoingList);
