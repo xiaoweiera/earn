@@ -20,7 +20,7 @@ onMounted(function () {
 </script>
 <template>
   <div class="max-w-360 py-8 pb-30 px-20 mx-auto  flex ">
-    <div class="max-w-243 mr-12">
+    <div class="w-243  mr-12">
       <HomeDetailInfo :data="data"/>
       <HomeDetailTable class="mt-6" :info="data"/>
     </div>
