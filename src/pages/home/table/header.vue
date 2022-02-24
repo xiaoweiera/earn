@@ -4,8 +4,7 @@ import {onMounted, ref} from "vue";
 
 const props = defineProps({
   params: {
-    type: Object,
-    required: true
+    type: Object
   },
   item: {
     type: Object,
@@ -23,8 +22,8 @@ const sortIcon: any = {
   '': 'icon-shuangxiangjiantou'
 }
 const getIcon = () => {
-  if (props.params.sort_field === props.item.key) {
-    return sortIcon[props.params.sort_type]
+  if (props?.params?.sort_field === props.item.key) {
+    return sortIcon[props?.params?.sort_type]
   }
   return 'icon-shuangxiangjiantou'
 }
