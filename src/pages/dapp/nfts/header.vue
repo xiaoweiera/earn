@@ -8,8 +8,8 @@ defineProps({
 </script>
 <template>
   <div class="w-full h-full relative" v-if="data">
-    <div class="w-full h-full rounded-md overflow-hidden">
-      <ui-image class="w-full h-full" fit="cover" :src="data.gallery[0]" :lazy="true"/>
+    <div class="w-full h-full rounded-md overflow-hidden" v-for="(item, index) in data.gallery" :key="index">
+      <ui-image class="w-full h-full" fit="cover" :src="item" :lazy="true"/>
     </div>
     <div class="w-full absolute top-4 left-0">
       <div class="flex justify-between px-4">

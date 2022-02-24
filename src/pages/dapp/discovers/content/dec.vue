@@ -7,7 +7,7 @@ defineProps({
 </script>
 <template>
   <div v-if="data">
-    <div class="small text-kd12px16px text-global-highTitle text-opacity-65 mt-3 font-kdFang">
+    <div class="small h-8 text-kd12px16px text-global-highTitle text-opacity-65 mt-3 font-kdFang">
       {{data.description}}
     </div>
   </div>
