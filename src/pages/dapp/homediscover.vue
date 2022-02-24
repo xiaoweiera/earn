@@ -65,7 +65,7 @@ const onChangeChina = function () {
       </div>
       <!-- 公链数据 -->
       <div class="mt-4">
-        <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain)" name="chain" title="公链"/>
+        <!-- <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain)" name="chain" title="公链"/> -->
       </div>
       <!-- IDO进行中项目 -->
       <div class="mt-5">

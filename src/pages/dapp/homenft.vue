@@ -45,7 +45,7 @@
       </div>
       <!-- 搜索 -->
       <div class="mt-4">
-         <DappDiscoversContentType v-if="summary.nft" :list="tabChain(summary.nft.chain)" title="公链" name="chain"></DappDiscoversContentType>
+         <!-- <DappDiscoversContentType v-if="summary.nft" :list="tabChain(summary.nft.chain)" title="公链" name="chain"></DappDiscoversContentType> -->
       </div>
       <!-- nft项目 -->
       <div class="mt-4">
