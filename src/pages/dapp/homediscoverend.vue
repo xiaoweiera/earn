@@ -48,7 +48,7 @@
     <div class="flex justify-between items-center mt-4">
       <div class="flex items-center">
         <!-- 项目类型 -->
-         <DappDiscoversContentType :list="tabChain(summary.ixo.chain)" title="项目类型"></DappDiscoversContentType>
+         <DappDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain)" name="chain" title="项目类型"></DappDiscoversContentType>
         <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
         <!-- 公链 -->
         <DappDiscoversContentChain title="公链"></DappDiscoversContentChain>
@@ -60,7 +60,7 @@
     </div>
     <!-- platform -->
     <div class="mt-4 border-b-1 border-global-highTitle border-opacity-6 pb-4">
-      <DappDiscoversContentType :list="tabPlat(summary.ixo.platform)" key="1++" title="platfrom"></DappDiscoversContentType>
+      <DappDiscoversContentType v-if="summary.ixo" :list="tabPlat(summary.ixo.platform)" name="platform" title="platfrom"></DappDiscoversContentType>
     </div>
     <div>
        <DappDiscoversEndlist :list="EndedList"></DappDiscoversEndlist>
