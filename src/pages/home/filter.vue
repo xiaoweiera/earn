@@ -42,36 +42,32 @@ const mergeData = (key: string, data: any) => {
 mergeData('chain', chainData)
 mergeData('category', categoryData)
 
-const onChangeView = function (data: object) {
-  // console.log('加载内容2', data)
-}
 const change = (name: any) => {
   const item = chainData.value.find((item: any) => item.name === name)
   router.push(item.href)
 }
-const isChain=computed(()=>{
+const isChain = computed(() => {
   //@ts-ignore
- if(props.info.filters.chain.show && props.info.filters.chain.options.length>0){
-   return true
- }
-})
-const isCategory=computed(()=>{
-  //@ts-ignore
-  if(props.info.filters.category.show && props.info.filters.category.options.length>0){
+  if (props.info.filters.chain.show && props.info.filters.chain.options.length > 0) {
     return true
   }
 })
-
+const isCategory = computed(() => {
+  //@ts-ignore
+  if (props.info.filters.category.show && props.info.filters.category.options.length > 0) {
+    return true
+  }
+})
 </script>
 <template>
   <div>
     <div class="flex items-center">
       <div class="flex items-center justify-between w-full">
         <div class="flex items-center w-full">
-          <div v-if="isCategory" class="is-tab ">
-            <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">项目类型</div>
-            <ui-tab :list="categoryData" :split="2" active-name="category" @change="onChangeView"></ui-tab>
-            <IconFont class="text-global-highTitle text-opacity-45" size="16" type="icon-arrow-down"/>
+          <div v-if="isCategory" class="is-tab relative">
+            <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">项目类型
+            </div>
+            <ui-tab class="relative z-22" :list="categoryData" :split="2" active-name="category"></ui-tab>
           </div>
           <IconFont v-if="isCategory && isChain" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
           <div v-if="isChain" class="flex items-center">
@@ -83,12 +79,6 @@ const isCategory=computed(()=>{
             </client-only>
           </div>
         </div>
-<!--        <client-only>-->
-<!--          <div class="relative flex items-center search">-->
-<!--            <IconFont class="absolute text-global-highTitle text-opacity-45 left-3" size="16" type="icon-sousuo-da1"/>-->
-<!--            <el-input v-model="search" placeholder="Search"/>-->
-<!--          </div>-->
-<!--        </client-only>-->
       </div>
     </div>
   </div>
@@ -155,7 +145,7 @@ const isCategory=computed(()=>{
   }
 
   ::v-deep(.el-input__suffix) {
-    display: none;
+    right: 0px !important;
   }
 }
 </style>

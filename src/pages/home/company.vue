@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import document from "src/plugins/browser/document";
-import { oss } from "src/config";
+import {oss} from "src/config";
 // 引入 swiper vue 组件
 // @ts-ignore
 import SwiperCore, {Pagination, Autoplay} from "swiper";
@@ -9,24 +9,12 @@ import SwiperCore, {Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
+import {createRef, onLoadRef} from "~/utils/ssr/ref";
+import {Model} from "~/logic/home";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
-const list = [
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/01.png`},
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/02.png`},
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/03.png`},
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/04.png`},
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/05.png`},
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/01.png`},
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/02.png`},
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/03.png`},
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/04.png`},
-  {name: 'aaaa',url:'https:www.baidu.com',img:`${oss}/dapp/05.png`},
-
-]
 const isBegin = ref(true)
 const isEnd = ref(false)
-const swiperDom=ref(null)
 //下一页
 const next = () => document.querySelector('.swiper-company').swiper.slideNext()
 //上一页
@@ -34,14 +22,20 @@ const last = () => document.querySelector('.swiper-company').swiper.slidePrev()
 const change = (swiper: any) => {
   isBegin.value = swiper.isBeginning
   isEnd.value = swiper.isEnd
-
 }
-const init=(swiper:any)=>{
-  setTimeout(()=>{
+const init = (swiper: any) => {
+  setTimeout(() => {
     isBegin.value = swiper.isBeginning
     isEnd.value = swiper.isEnd
   })
 }
+const platform = createRef("API.home.getPlatform", []);
+
+onMounted(function () {
+  const api = new Model();
+  // 得到数据汇总
+  onLoadRef(platform, () => api.getTrend());
+});
 </script>
 <template>
   <div>
@@ -54,14 +48,15 @@ const init=(swiper:any)=>{
                 @init="init"
                 :initialSlide="0"
                 slidesPerView="auto"
-                :space-between="24"
+                :space-between="30"
                 :resize-observer="true"
                 @setTranslate="change">
-          <template v-for="(item, index) in list" :key="index">
+          <template v-for="(item, index) in platform" :key="index">
             <SwiperSlide>
-              <div class="h-9 flex items-center">
-                <img class="h-6 w-40" :src="item.img" alt="">
-              </div>
+              <v-router :href="item['website']" class="h-9 flex items-center hand">
+                <ui-image class="w-6 h-6" fit="cover" :src="item.logo" :lazy="true"/>
+                <span class="text-kd16px18px text-global-highTitle text-opacity-85 ml-2">{{ item.name }}</span>
+              </v-router>
             </SwiperSlide>
           </template>
         </Swiper>
@@ -92,10 +87,12 @@ const init=(swiper:any)=>{
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute right-0 z-10 top-0;
 }
+
 .swiper-slide {
   width: auto !important;
 }
-.shadow{
+
+.shadow {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
 }
 </style>

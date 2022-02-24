@@ -10,17 +10,19 @@ import {Request, Response} from "express";
 export const begin = async function (req: Request, res: Response) {
     const api = new Model(req);
     const params = {page: 1, page_size: 100,show_commercial:true}
-    const [summary, topicRank, recommend, trend] = await Promise.all([
+    const [summary, topicRank, recommend, trend,platforms] = await Promise.all([
         api.getSummary(),
         api.getTopicRank(),
         api.getRecommend(params),
-        api.getTrend()
+        api.getTrend(),
+        api.getPlatform()
     ]);
     const result = {
         "API.home.getSummary": summary,      // 数据汇总
         "API.home.getTopicRank": topicRank,    // 首页顶部话题榜单接口
         "API.home.getRecommend": recommend, //推荐话题
-        "API.home.getTrend": trend//今日趋势
+        "API.home.getTrend": trend, //今日趋势
+        "API.home.getPlatform":platforms //TGE平台列表
     };
     res.send(result);
 }
@@ -29,18 +31,20 @@ export const begin = async function (req: Request, res: Response) {
 export const detail = async function (req: Request, res: Response) {
     const api = new Model(req);
     const id=req.query['id'] as string
-    const chain=req.query['id'] as string
+    const chain=req.query['chain'] as string
     const category=req.query['category'] as string
-    const query=req.query['query'] as string
+    const search=req.query['search'] as string
     const params = {page: 1, page_size: 10}
+    //项目列表
     const projectParams={
         id:id,
         page:1,
         page_size:10,
         chain,
         category,
-        query
+        query:search
     }
+    console.log(projectParams)
     const [detail,projects,recommend,top3] = await Promise.all([
         api.getDetail(id),
         api.getProjects(projectParams),
