@@ -25,7 +25,7 @@ const search = ref<string>("");
       <div class="flex items-center flex-1">
         <!-- 项目类型 -->
         <div class="flex-1">
-          <DappDiscoversContentType v-if="data.category" :list="tabCage(data.category)" name="group" title="项目类型"/>
+          <!-- <DappDiscoversContentType v-if="data.category" :list="tabCage(data.category)" name="group" title="项目类型"/> -->
         </div>
         <div class="flex items-center">
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
@@ -37,6 +37,6 @@ const search = ref<string>("");
       <DappDiscoversContentField :query="search" title="项目名称"/>
     </div>
     <!-- platform -->
-    <DappDiscoversContentType v-if="data.platform" :list="tabPlat(data.platform)" class="mt-4" name="platform" title="platform"/>
+    <!-- <DappDiscoversContentType v-if="data.platform" :list="tabPlat(data.platform)" class="mt-4" name="platform" title="platform"/> -->
   </div>
 </template>
