@@ -27,7 +27,7 @@ onMounted(function () {
   <div class="top  min-h-164  pt-6 ">
     <div class="max-w-360 px-22.5   mx-auto">
       <!--      顶部信息-->
-      <HomeHeader :data="summary"/>
+      <HomeHeader v-if="summary" :data="summary"/>
       <!--      话题切换-->
       <HomeTopic class="mt-9"/>
       <!--      趋势-->
