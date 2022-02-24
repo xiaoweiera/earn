@@ -18,7 +18,7 @@ const props=defineProps({
       <table class="table-my">
         <thead>
         <tr class="h-5">
-          <td><div class="text-left w-3">#</div></td>
+          <td><div class="text-left w-3.5">#</div></td>
           <template v-for="(item,index) in data.table.header" :key="index">
             <td class="text-left" v-if="item.key!=='id'">
               <HomeTableHeader :item="item"/>
@@ -30,7 +30,7 @@ const props=defineProps({
         <template v-for="(item,index) in data.table.items" :key="index">
           <tr class="h-11.5">
             <td class="number">
-            <div class=" text-left w-3">{{index+1}}</div>
+            <div class=" text-left w-3.5">{{index+1}}</div>
             </td>
             <template v-for="(itemTwo,index) in data.table.header" :key="index">
               <td v-if="itemTwo.key!=='id'"><HomeTableTd :typeName="itemTwo.key" :data="item"/></td>
