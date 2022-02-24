@@ -27,18 +27,18 @@ onMounted(function () {
   <div class="top  min-h-164  pt-6 ">
     <div class="max-w-360 px-22.5   mx-auto">
       <!--      顶部信息-->
-      <HomeHeader :data="summary"/>
+      <HomeHeader v-if="summary" :data="summary"/>
       <!--      话题切换-->
       <HomeTopic class="mt-9"/>
       <!--      趋势-->
       <HomeTrends class="mt-6"/>
       <!--      topic推荐-->
       <HomeRecommend class="mt-6"/>
-      <DappHomediscover class="mt-16.5" :summary="summary"/>
+      <DappHomediscover v-if="summary" class="mt-16.5" :summary="summary"/>
       <!--      项目方-->
       <HomeCompany class="mt-6"/>
-      <DappHomenft class="mt-16.5" :summary="summary"/>
-      <DappHomediscoverend class="mt-16.5" :summary="summary"/>
+      <DappHomenft v-if="summary" class="mt-16.5" :summary="summary"/>
+      <DappHomediscoverend v-if="summary" class="mt-16.5" :summary="summary"/>
     </div>
   </div>
 </template>
