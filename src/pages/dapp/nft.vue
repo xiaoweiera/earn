@@ -4,10 +4,10 @@ import DappNftsSearch from './nfts/search.vue';
 import DappNftsEndlist from './nfts/endlist.vue';
 import DappNftsList from './nfts/list.vue';
 
-import {onMounted, ref} from "vue"
+import {onMounted, ref, watch} from "vue"
 import safeGet from "@fengqiaogang/safe-get";
  import * as logic from "src/types/dapp/";
-import { toLower } from "src/utils";
+import {toLower, uuid} from "src/utils";
 import { includes } from 'ramda';
 import { useRoute } from 'vue-router'
 import {Model} from "~/logic/dapp";
@@ -23,7 +23,13 @@ onMounted(function () {
   // 得到数据汇总
   onLoadReactive(summary, () => api.getSummary());
 });
-
+const key = ref<string>(uuid());
+const $route = useRoute();
+onMounted(function () {
+  watch($route, function () {
+    key.value = uuid();
+  });
+});
 // 获取ido列表
 const list = createReactive("API.dapp.getNftList", {});
 onMounted(function () {
@@ -62,7 +68,7 @@ const onChangeView = function (data: object) {
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
         <div>
-          <ui-tab :list="tabs" @change="onChangeView" active-name="type"></ui-tab>
+          <ui-tab :key="key" :list="tabs" @change="onChangeView" active-name="type"></ui-tab>
         </div>
       </ui-sticky>
       <!-- 搜索条件 -->

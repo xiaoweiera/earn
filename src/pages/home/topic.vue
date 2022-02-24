@@ -61,7 +61,7 @@ onMounted(function () {
   @apply mt-5;
 }
 
-.topic:nth-child(odd) {
+.topic:nth-child(even) {
   @apply ml-10;
 }
 
@@ -73,7 +73,7 @@ onMounted(function () {
 }
 
 .topic-default {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.02) 100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.33) 0%, rgba(255, 255, 255, 0.02) 100%);
   @apply text-global-white;
 }
 </style>
