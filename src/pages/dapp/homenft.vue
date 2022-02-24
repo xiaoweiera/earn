@@ -38,7 +38,7 @@
 </script>
 <template>
   <div>
-    <div>
+    <div class="overflow-x-scroll showX">
       <!-- header -->
       <div>
         <DappHomeHeader title="NFT Drops 🎯" tips="Never miss an interesting NFT drop on NFTGo!" :status="nftStatus.upcoming" :type="urlType"></DappHomeHeader>
