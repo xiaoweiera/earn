@@ -22,7 +22,7 @@ onMounted(function () {
   <div class="max-w-360 py-8 pb-30 px-20 mx-auto  flex ">
     <div class="w-243  mr-12">
       <HomeDetailInfo :data="data"/>
-      <HomeDetailTable v-if="data" class="mt-6" :info="data"/>
+      <HomeDetailTable v-if="data.id" class="mt-6" :info="data"/>
     </div>
     <div class="w-65 min-w-65">
       <HomeDetailTop/>
