@@ -14,8 +14,8 @@ import DAppDiscoversList from './discovers/list.vue';
 
 defineProps({
   summary: {
-    type: Array,
-    default: () => []
+    type: Object,
+    default: () => {}
   }
 })
 

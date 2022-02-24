@@ -13,8 +13,8 @@
 
   defineProps({
     summary: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => {}
     }
   })
 

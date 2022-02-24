@@ -16,8 +16,8 @@
 
   const props= defineProps({
     summary: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => {}
     }
   })
   const urlType = true;
