@@ -5,14 +5,6 @@ import {oss} from "src/config";
 import {createRef, onLoadRef} from "~/utils/ssr/ref";
 import {Model} from "~/logic/home";
 
-const list: any = ref([])
-list.value = [
-  {name: 'DeFi Daily Active User (24H) 🔥 🔥 🔥', key: 'one'},
-  {name: 'DeFi Daily Active User (24H) 🔥 🔥 🔥', key: 'two'},
-  {name: 'DeFi Daily Active User (24H) 🔥 🔥 🔥', key: 'stree'},
-  {name: 'DeFi Daily Active User (24H) 🔥 🔥 🔥', key: 'four'},
-  {name: 'DeFi Daily Active User (24H) 🔥 🔥 🔥', key: 'five'},
-]
 const topicIndex = ref(0)
 const zhi = ref(0)
 const selectTopic = (index: number) => {
@@ -50,10 +42,9 @@ onMounted(function () {
     </div>
     <!--    topic table-->
     <div>
-      <HomeTable :topicIndex="topicIndex"  :data="rank"/>
+      <HomeTable :topicIndex="topicIndex" :data="rank"/>
     </div>
   </div>
-  <!--  🚀 你好你好你好你好 (24H) 🔥-->
 </template>
 <style scoped lang="scss">
 .des {

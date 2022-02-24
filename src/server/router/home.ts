@@ -7,9 +7,10 @@ import * as home from "src/controller/home";
 const Router = async function (root: string, env: Env) {
     const router = ExpressRouter();
     router.get(config.home, home.begin); //home.begin
-    router.get(`${config.home}/detail`, function (req, res){
-        res.send({});
-    });
+    router.get(`${config.home}/detail`, home.detail);
+    // router.get(`${config.home}/detail`, function (req, res){
+    //     res.send({});
+    // });
     return router;
 }
 
