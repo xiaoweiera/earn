@@ -26,7 +26,7 @@ const change=()=>{
     <div class="flex justify-between items-center">
       <div class="flex items-center">
         <!-- 项目类型 -->
-        <DappDiscoversContentType v-if="data.category" :list="tabCage(data.category)" :key="key" @change="change" title="项目类型" :chainData="chainData"></DappDiscoversContentType>
+        <DappDiscoversContentType v-if="data.category" :list="tabCage(data.category)" :key="key" @change="change" title="项目类型" name="category"></DappDiscoversContentType>
         <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
         <!-- 公链 -->
         <DappDiscoversContentChain :title="chain"></DappDiscoversContentChain>
