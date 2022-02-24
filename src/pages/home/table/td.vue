@@ -89,12 +89,12 @@ onMounted(()=>{
     <!--NameDes-->
     <div v-else-if="typeName==='name' && (info && info.show_type==='desc')" class="flex-center short">
       <img class="w-12 h-12 rounded-kd6px" :src="data.logo"/>
-      <div class="ml-3">
+      <div class="ml-3 short">
         <div class="nameNameDes text-number line-height-no flex-center">
           <span>{{data['name']}}</span>
           <IconFont class="ml-1.5" size="16" :type="data['chain']"/>
         </div>
-        <div class="nameDes mt-1.5 text-number line-height-no max-w-160 smallTxt">{{data['description']}}</div>
+        <div class="nameDes mt-1.5 text-number line-height-no max-w-150 short text-left">{{data['description']}}</div>
       </div>
     </div>
     <!--chainIcon-->

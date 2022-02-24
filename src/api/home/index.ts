@@ -334,34 +334,7 @@ export default class extends ApiTemplate {
 	}
 	//话题项目 top3
 	getTop3(id:string){
-		// const result=request(this.lang).get(api.home.top3,{params:{id:id}})
-		const result={
-			"code": 0,
-			"data": [
-				{
-					"id": 1,
-					"name": "js",
-					"logo": "icon-ETHYuan",
-					"symbol": "BTC",
-					"overall_score": 5.2
-				},
-				{
-					"id": 2,
-					"name": "Java",
-					"logo": "icon-ETHYuan",
-					"symbol": "ETH",
-					"overall_score": 3.0
-				},
-				{
-					"id": 3,
-					"name": "c++",
-					"logo": "icon-ETHYuan",
-					"symbol": "CHa",
-					"overall_score": 1.0
-				},
-
-			]
-		}
+		const result=request(this.lang).get(api.home.top3,{params:{id:id}})
 		return asyncCheck(result)
 	}
 	//话题详情
@@ -372,6 +345,11 @@ export default class extends ApiTemplate {
 	//话题项目列表
 	getProjects(params:projectParams){
 		const result=request(this.lang).get(api.home.projects,{params})
+		return asyncCheck(result)
+	}
+	//TGE平台列表
+	getPlatform(){
+		const result=request(this.lang).get(api.home.platforms)
 		return asyncCheck(result)
 	}
 }

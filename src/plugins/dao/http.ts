@@ -63,7 +63,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 	const env = getEnv();
 	const setting = Object.assign(
 		{
-			timeout: 2 * 1000, // request timeout
+			timeout: 20 * 1000, // request timeout
 			baseURL: env.api, // 根据当前环境配置接口域名
 			withCredentials: false,
 			maxRedirects: 3, // 支持三次重定向
