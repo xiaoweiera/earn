@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HomeTableHeader from '../table/header.vue'
 import HomeTableTd  from '../table/td.vue'
+import HomeFilter from "../filter.vue"
 import {ref, onMounted, PropType} from 'vue'
 import {getParam} from "src/utils/router";
 import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
@@ -35,7 +36,7 @@ onMounted(function () {
 </script>
 <template>
   <div class="table-box">
-<!--    <HomeFilter   class="mb-4"/>-->
+    <HomeFilter v-if="info.id" :info="info" :filters="info.filters"   class="mb-4"/>
     <table class="table-my">
       <thead>
       <tr class="h-10">
