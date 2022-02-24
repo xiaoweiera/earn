@@ -12,7 +12,11 @@ const props=defineProps({
     <div class="table-box bg-global-white  border-1">
       <div class="flex items-center justify-between">
         <span class="title">{{data.name}}</span>
-        <span class="more cursor-pointer">more > </span>
+        <div class="flex items-center hand">
+          <span class="more cursor-pointer">More</span>
+          <IconFont class="text-global-primary ml-0.5" size="12" type="icon-rightNo"/>
+        </div>
+
       </div>
       <div class="gang"></div>
       <table class="table-my">

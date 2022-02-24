@@ -72,7 +72,6 @@ const getDom=()=>{
 }
 
 onMounted(()=>{
-  console.log(props.typeName,'--')
   typeDom.value=getDom()
   domData.value=getData(props.typeName,props.data,props.type)
 })
