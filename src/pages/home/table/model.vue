@@ -12,13 +12,17 @@ const props=defineProps({
     <div class="table-box bg-global-white  border-1">
       <div class="flex items-center justify-between">
         <span class="title">{{data.name}}</span>
-        <span class="more cursor-pointer">more > </span>
+        <div class="flex items-center hand">
+          <span class="more cursor-pointer">More</span>
+          <IconFont class="text-global-primary ml-0.5" size="12" type="icon-rightNo"/>
+        </div>
+
       </div>
       <div class="gang"></div>
       <table class="table-my">
         <thead>
         <tr class="h-5">
-          <td><div class="text-left w-7">#</div></td>
+          <td><div class="text-left w-3.5">#</div></td>
           <template v-for="(item,index) in data.table.header" :key="index">
             <td class="text-left" v-if="item.key!=='id'">
               <HomeTableHeader :item="item"/>
@@ -30,7 +34,7 @@ const props=defineProps({
         <template v-for="(item,index) in data.table.items" :key="index">
           <tr class="h-11.5">
             <td class="number">
-            <div class=" text-left w-7">{{index+1}}</div>
+            <div class=" text-left w-3.5">{{index+1}}</div>
             </td>
             <template v-for="(itemTwo,index) in data.table.header" :key="index">
               <td v-if="itemTwo.key!=='id'"><HomeTableTd :typeName="itemTwo.key" :data="item"/></td>

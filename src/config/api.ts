@@ -10,6 +10,7 @@ export const home = {
 	top3:"/api/v1/dapps/topic/projects/top3", //话题项目top3
 	detail:"/api/v1/dapps/topic/detail", //话题详情
 	projects:"/api/v1/dapps/topic/projects", //话题项目列表
+	platforms:"/api/v1/dapps/platforms" //TGE平台列表
 }
 
 export const dapp = {
