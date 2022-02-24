@@ -137,4 +137,8 @@ export class Model extends API {
 	getProjects(params:projectParams){
 		return this.home.getProjects(params)
 	}
+	//TGE平台列表
+	getPlatform(){
+		return this.home.getPlatform()
+	}
 }

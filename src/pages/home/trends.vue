@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
 import document from "src/plugins/browser/document";
-import { oss } from "src/config";
+import {oss} from "src/config";
 // 引入 swiper vue 组件
 // @ts-ignore
 import SwiperCore, {Pagination, Autoplay} from "swiper";
@@ -11,26 +11,10 @@ import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/swiper-bundle.css";
 import {createRef, onLoadRef} from "~/utils/ssr/ref";
 import {Model} from "~/logic/home";
-import {timeago,dataToTimestamp,formatDefaultTime} from "~/lib/tool";
+import {timeago, dataToTimestamp, formatDefaultTime} from "~/lib/tool";
 
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
-
-const list = [
-  {name: 'aaaa', key: 'a',img:`${oss}/dapp/test1.jpg`},
-  {name: 'bbbb', key: 'b',img:`${oss}/dapp/test2.jpg`},
-  {name: 'cccc', key: 'c',img:`${oss}/dapp/test2.jpg`},
-  {name: 'dddd', key: 'd',img:`${oss}/dapp/test2.jpg`},
-  {name: 'eeee', key: 'e',img:`${oss}/dapp/test2.jpg`},
-  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
-  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
-  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
-  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
-  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
-  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
-  {name: 'ffff', key: 'f',img:`${oss}/dapp/test2.jpg`},
-
-]
 const isBegin = ref(true)
 const isEnd = ref(false)
 //下一页
@@ -43,15 +27,15 @@ const change = (swiper: any) => {
   isEnd.value = swiper.isEnd
 
 }
-const init=(swiper:any)=>{
-  setTimeout(()=>{
+const init = (swiper: any) => {
+  setTimeout(() => {
     isBegin.value = swiper.isBeginning
     isEnd.value = swiper.isEnd
   })
 }
 //得到图片
-const getImg=(data:any)=>{
-  if(data['data_type']==='ad'){
+const getImg = (data: any) => {
+  if (data['data_type'] === 'ad') {
     return data.image
   }
   return data.cover
@@ -87,26 +71,27 @@ onMounted(function () {
               <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
                 <div v-if="item['data_type']==='blog' && index===0" class="relative">
                   <div class="absolute border-1 w-full h-full px-3">
-                    <div class="blog-name pt-2 font-kdSemiBold">{{item['name']}} ({{formatDefaultTime(item['release_date'],'MM/DD')}})</div>
+                    <div class="blog-name pt-2 font-kdSemiBold">{{ item['name'] }}
+                      ({{ formatDefaultTime(item['release_date'], 'MM/DD') }})
+                    </div>
                     <div v-if="item['label'].length>0" class="blog-label mt-1.5 font-kdFang">
                       <span>关键词 : </span>
                       <template v-for="(label,i) in item['label']">
-                        <span>{{label}}</span><span v-if="i+1<item['label'].length">、</span>
+                        <span>{{ label }}</span><span v-if="i+1<item['label'].length">、</span>
                       </template>
                     </div>
                     <div class="blog-label absolute bottom-1.5">
-                      <span>{{item['viewers']?item['viewers']:0}}人阅读</span>
+                      <span>{{ item['viewers'] ? item['viewers'] : 0 }}人阅读</span>
                       <span class="mx-2.5" v-if="item['release_date']">|</span>
-                      <span v-if="item['release_date']">更新时间:{{timeago(dataToTimestamp(item['release_date']))}}</span>
+                      <span v-if="item['release_date']">更新时间:{{ timeago(dataToTimestamp(item['release_date'])) }}</span>
                     </div>
                   </div>
-                  <img class="rounded-kd6px h-23.5 w-101 "  :src="getImg(item)" fit="cover" alt="">
+                  <img class="rounded-kd6px h-23.5 w-101 " :src="getImg(item)" fit="cover" alt="">
                 </div>
                 <div v-else>
                   <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
-                  <img class="rounded-kd6px h-23.5 w-47.5"  :src="getImg(item)" alt="">
+                  <img class="rounded-kd6px h-23.5 w-47.5" :src="getImg(item)" alt="">
                 </div>
-
               </v-router>
             </SwiperSlide>
           </template>
@@ -123,9 +108,11 @@ onMounted(function () {
   //background: linear-gradient(to right,#ff000000, #ffffffc9);
   @apply w-35 h-full absolute right-0 top-0 z-2;
 }
-.ruo{
-  -webkit-mask : -webkit-gradient(linear, left top, right bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+
+.ruo {
+  -webkit-mask: -webkit-gradient(linear, left top, right bottom, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
 }
+
 .jian-left {
   //background: linear-gradient(to right, #ffffffc9, #ff000000);
   @apply w-35 h-full absolute left-0 top-0 z-2;
@@ -140,14 +127,16 @@ onMounted(function () {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute right-3 z-10 top-7;
 }
+
 .swiper-slide {
   width: auto !important;
 }
-.blog-name{
+
+.blog-name {
   @apply text-kd20px20px font-semiBold text-global-white;
 }
-.blog-label{
+
+.blog-label {
   @apply text-kd12px16px font-medium text-global-white;
 }
-
 </style>

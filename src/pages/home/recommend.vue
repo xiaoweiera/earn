@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
 import document from "src/plugins/browser/document";
-import { oss } from "src/config";
+import {oss} from "src/config";
 // 引入 swiper vue 组件
 // @ts-ignore
 import SwiperCore, {Pagination, Autoplay} from "swiper";
@@ -13,15 +13,11 @@ import {createRef, onLoadRef} from "~/utils/ssr/ref";
 import {Model} from "~/logic/home";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
-const params={
-  page:1,
-  page_size:10,
-  show_commercial:true
+const params = {
+  page: 1,
+  page_size: 10,
+  show_commercial: true
 }
-const list = [
-  {name: 'data', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
-  {name: 'desc', key: 'a',img:`${oss}/dapp/recomTest.jpg`},
-]
 const isBegin = ref(true)
 const isEnd = ref(false)
 //下一页
@@ -31,25 +27,23 @@ const last = () => document.querySelector('.swiper-recom').swiper.slidePrev()
 const change = (swiper: any) => {
   isBegin.value = swiper.isBeginning
   isEnd.value = swiper.isEnd
-
 }
-
-const init=(swiper:any)=>{
-  setTimeout(()=>{
+const init = (swiper: any) => {
+  setTimeout(() => {
     isBegin.value = swiper.isBeginning
     isEnd.value = swiper.isEnd
   })
 }
 
 const recommend = createRef("API.home.getRecommend", []);
-const getImg=(type:string,item:any)=>{
-  if(type==='topic'){
+const getImg = (type: string, item: any) => {
+  if (type === 'topic') {
     return item.cover
   }
   return item.image
 }
-const getHref=(type:string,item:any)=>{
-  if(type==='topic'){
+const getHref = (type: string, item: any) => {
+  if (type === 'topic') {
     return `/home/detail?id=${item.id}`
   }
   return item.url
@@ -80,7 +74,7 @@ onMounted(function () {
               <v-router :href="getHref(item['data_type'],item)" target="_blank" class="h-48.5 w-47.5 rounded-kd6px block relative">
                 <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
                 <div class="info">
-                  <div class="name text-number">{{item.name}}</div>
+                  <div class="name text-number">{{ item.name }}</div>
                   <div class="go">Go</div>
                 </div>
                 <ui-image class="rounded-kd6px h-full" :src="getImg(item['data_type'],item)" fit="cover"/>
@@ -115,15 +109,18 @@ onMounted(function () {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute right-3 z-10 top-20;
 }
+
 .swiper-slide {
   width: auto !important;
 }
-.info{
+
+.info {
   @apply flex items-center justify-between px-4 w-full  absolute  bottom-3;
-  .name{
+  .name {
     @apply text-kd14px18px font-medium text-global-white;
   }
-  .go{
+
+  .go {
     @apply h-6 flex items-center justify-center cursor-pointer;
     @apply bg-global-primary w-fit px-2 rounded-kd34px;
     @apply text-kd12px16px font-medium text-global-white font-kdFang;

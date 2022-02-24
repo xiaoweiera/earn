@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { toNumberCashFormat } from 'src/utils/convert/to'
-const props=defineProps({
-  data:Object
+import {toNumberCashFormat} from 'src/utils/convert/to'
+
+const props = defineProps({
+  data: Object
 })
-const getNumber=(value:any)=>{
-  if(value>0){
+const getNumber = (value: any) => {
+  if (value > 0) {
     return `+${toNumberCashFormat(value)}`
-  }else if(value===0){
+  } else if (value === 0) {
     return 0
-  }else if(value<0){
+  } else if (value < 0) {
     return `-${toNumberCashFormat(value)}`
   }
   return ``
 }
-const getColor=(value:any)=>{
-  if(value>=0){
+const getColor = (value: any) => {
+  if (value >= 0) {
     return `green-value`
-  }else if(value<0){
+  } else if (value < 0) {
     return `red-value`
   }
   return `default-color`
@@ -45,37 +46,39 @@ const getColor=(value:any)=>{
             <template #content>
               <div class="font-kdFang p-4 shadow w-105 absolute top-2 z-100 bg-global-white rounded-kd4px">
                 <div class="text-kd16px22px font-medium text-highTitle">收益计算说明：</div>
-                <div class="mt-1.5 text-kd14px22px text-global-highTitle text-opacity-45">该收益为 KingData 平台所收录的 IDO & IGO 项目，收益排名前100的最高平均项目收益，数据可能存在一定的误差，仅作为参考，不具备任何投资建议，投资者需谨慎进行操作。</div>
+                <div class="mt-1.5 text-kd14px22px text-global-highTitle text-opacity-45">该收益为 KingData 平台所收录的 IDO & IGO
+                  项目，收益排名前100的最高平均项目收益，数据可能存在一定的误差，仅作为参考，不具备任何投资建议，投资者需谨慎进行操作。
+                </div>
               </div>
-
             </template>
           </ui-popover>
-
         </div>
-        <div class="info-des number-value text-number" :class="data.avg_ath>=0?'green-value':'red-value'">{{toNumberCashFormat(data.avg_ath,'x')}}</div>
+        <div class="info-des number-value text-number" :class="data.avg_ath>=0?'green-value':'red-value'">
+          {{ toNumberCashFormat(data.avg_ath, 'x') }}
+        </div>
       </div>
       <div class="info-item">
         <div class="item-name">NFT Projects</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">{{toNumberCashFormat(data.nft.total)}}</span>
+          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.nft.total) }}</span>
           <span class="time  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(data.nft['24h_increase'])">{{getNumber(data.nft['24h_increase'])}}</span>
+          <span class="number-rate text-number" :class="getColor(data.nft['24h_increase'])">{{ getNumber(data.nft['24h_increase']) }}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name">IDO/IGO Projects</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">{{toNumberCashFormat(data.ixo.total)}}</span>
+          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.ixo.total) }}</span>
           <span class="time  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(data.ixo['24h_increase'])">{{getNumber(data.ixo['24h_increase'])}}</span>
+          <span class="number-rate text-number" :class="getColor(data.ixo['24h_increase'])">{{ getNumber(data.ixo['24h_increase']) }}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name">Airdrops Projects</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">{{toNumberCashFormat(data.airdrop.total)}}</span>
+          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.airdrop.total) }}</span>
           <span class="time  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(data.airdrop['24h_increase'])">{{getNumber(data.airdrop['24h_increase'])}}</span>
+          <span class="number-rate text-number" :class="getColor(data.airdrop['24h_increase'])">{{ getNumber(data.airdrop['24h_increase']) }}</span>
         </div>
       </div>
     </div>
@@ -86,13 +89,15 @@ const getColor=(value:any)=>{
   color: #00FF29;
 }
 
-.shadow{
+.shadow {
   box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.12);
 }
+
 .red-value {
   color: red;
 }
-.default-color{
+
+.default-color {
   @apply text-global-highTitle text-opacity-85;
 }
 
@@ -117,10 +122,12 @@ const getColor=(value:any)=>{
   .number-value {
     @apply text-kd20px20px font-bold;
   }
+
   .time {
     @apply px-1 py-0.5 mx-1.5 text-kd12px16px font-medium;
     @apply bg-global-white bg-opacity-25 rounded-kd4px;
   }
+
   .number-rate {
     @apply text-kd16px18px font-bold;
   }
