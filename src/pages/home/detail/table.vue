@@ -32,7 +32,6 @@ const params = reactive({
 })
 const resultNumber = ref(params.page_size)
 const loading = ref(false)
-
 const key = ref(0)
 
 const api = new Model();
