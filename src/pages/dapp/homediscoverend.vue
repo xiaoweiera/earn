@@ -8,12 +8,18 @@
   import DappDiscoversEndlist from './discovers/endlist.vue';
 
   import {onMounted, ref} from "vue";
-  import {Model} from "~/logic/dapp";
+  import {Model, tabChain, tabPlat} from "~/logic/dapp";
   import {createRef, onLoadRef, onUpdateRef} from "~/utils/ssr/ref";
   import {AdNftItem, ProjectNftItem} from "~/types/dapp/nft";
   import * as alias from "~/utils/root/alias";
   import {Status, AdItem, ProjectItem} from "~/types/dapp/ixo";
 
+  const props= defineProps({
+    summary: {
+      type: Array,
+      default: () => []
+    }
+  })
   const urlType = true;
   // 公链类型
   const chain = ref<string>("all");
@@ -42,7 +48,7 @@
     <div class="flex justify-between items-center mt-4">
       <div class="flex items-center">
         <!-- 项目类型 -->
-        <!-- <DappDiscoversContentType title="项目类型"></DappDiscoversContentType> -->
+         <DappDiscoversContentType :list="tabChain(summary.ixo.chain)" title="项目类型"></DappDiscoversContentType>
         <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
         <!-- 公链 -->
         <DappDiscoversContentChain title="公链"></DappDiscoversContentChain>
@@ -54,7 +60,7 @@
     </div>
     <!-- platform -->
     <div class="mt-4 border-b-1 border-global-highTitle border-opacity-6 pb-4">
-      <!-- <DappDiscoversContentType></DappDiscoversContentType> -->
+      <DappDiscoversContentType :list="tabPlat(summary.ixo.platform)" key="1++" title="platfrom"></DappDiscoversContentType>
     </div>
     <div>
        <DappDiscoversEndlist :list="EndedList"></DappDiscoversEndlist>

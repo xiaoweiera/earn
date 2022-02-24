@@ -4,7 +4,7 @@
  */
 import _ from "lodash";
 import { languageKey } from "src/config";
-import {Language} from "~/types/language";
+import {Language} from "src/types/language";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
 

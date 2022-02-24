@@ -58,6 +58,7 @@ export default class extends ApiTemplate{
 				category: 'all',
 				chain: "all",
 				query: '',
+				paginate: false
 			}, query)
 		return asyncCheck(request(this.lang).get(api.dapp.nftList, { params}));
 	}

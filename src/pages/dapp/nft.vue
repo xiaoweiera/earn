@@ -12,133 +12,17 @@ import { includes } from 'ramda';
 import { useRoute } from 'vue-router'
 import {Model} from "~/logic/dapp";
 import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
+import {summaryModel} from "~/types/home";
+import {Model as Homemodel} from "~/logic/home";
 
 
-
-// const list = ref([
-//   {
-//     "id": 1,
-//     // 名字
-//     "name": "Raca",
-//     // 数据类型
-//     "data_type": "dapp",
-//     // 图集
-//     "gallery": [
-//         "https://xxx.jpg"
-//     ],
-//     // 持有人数
-//     "owners": 1000,
-//     // 公链
-//     "chains": ["bsc"],
-//     // 类型
-//     "categories": ["game"],
-//     // 项目评分
-//     "overall_score": 9.8,
-//     // Mint价格
-//     "mint_price": '',
-//     // 发行数量
-//     "issue_volume": '',
-//     // 开始时间
-//     "mint_start_at": 1645574400,
-//     // 地板价格
-//     "floor_price": 0.02
-//   },{
-//     "id": 2,
-//     // 名字
-//     "name": "Raca",
-//     // 数据类型
-//     "data_type": "dapp",
-//     // 图集
-//     "gallery": [
-//         "https://xxx.jpg"
-//     ],
-//     // 持有人数
-//     "owners": 1000,
-//     // 公链
-//     "chains": ["bsc"],
-//     // 类型
-//     "categories": ["game"],
-//     // 项目评分
-//     "overall_score": 9.8,
-//     // Mint价格
-//     "mint_price": 0.05,
-//     // 发行数量
-//     "issue_volume": 10000,
-//     // 开始时间
-//     "mint_start_at": 1645574400,
-//   },{
-//     "id": 3,
-//     // 名字
-//     "name": "Raca",
-//     // 数据类型
-//     "data_type": "dapp",
-//     // 图集
-//     "gallery": [
-//         "https://xxx.jpg"
-//     ],
-//     // 公链
-//     "chains": ["bsc"],
-//     // 类型
-//     "categories": ["game"],
-//     // 项目评分
-//     "overall_score": 9.8,
-//     // Mint价格
-//     "mint_price": 0.05,
-//     // 发行数量
-//     "issue_volume": 10000,
-//     // 开始时间
-//     "mint_start_at": 1645574400,
-//   },{
-//     "id": 4,
-//     // 名字
-//     "name": "Raca",
-//     // 数据类型
-//     "data_type": "dapp",
-//     // 图集
-//     "gallery": [
-//         "https://xxx.jpg"
-//     ],
-//     // 公链
-//     "chains": ["bsc"],
-//     // 类型
-//     "categories": ["game"],
-//     // 项目评分
-//     "overall_score": 9.8,
-//     // Mint价格
-//     "mint_price": 0.05,
-//     // 发行数量
-//     "issue_volume": 10000,
-//     // 开始时间
-//     "mint_start_at": 1645574400,
-//     // 地板价格
-//     "floor_price": 0.02
-//   },{
-//     "id": 4,
-//     // 名字
-//     "name": "Raca",
-//     // 数据类型
-//     "data_type": "dapp",
-//     // 图集
-//     "gallery": [
-//         "https://xxx.jpg"
-//     ],
-//     // 公链
-//     "chains": ["bsc"],
-//     // 类型
-//     "categories": ["game"],
-//     // 项目评分
-//     "overall_score": 9.8,
-//     // Mint价格
-//     "mint_price": 0.05,
-//     // 发行数量
-//     "issue_volume": 10000,
-//     // 开始时间
-//     "mint_start_at": 1645574400,
-//     // 地板价格
-//     "floor_price": 0.02
-//   }
-// ])
-
+//获取类型
+const summary = createReactive<summaryModel>("API.home.getSummary", {} as summaryModel);
+onMounted(function () {
+  const api = new Homemodel();
+  // 得到数据汇总
+  onLoadReactive(summary, () => api.getSummary());
+});
 
 // 获取ido列表
 const list = createReactive("API.dapp.getNftList", {});
@@ -183,7 +67,7 @@ const onChangeView = function (data: object) {
       </ui-sticky>
       <!-- 搜索条件 -->
       <div>
-        <DappNftsSearch></DappNftsSearch>
+        <DappNftsSearch :data="summary.nft"></DappNftsSearch>
       </div>
       <!-- 列表数据 -->
       <div class="w-full py-8 overflow-x-scroll showX">

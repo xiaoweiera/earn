@@ -1,15 +1,23 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 import {ProjectItem, AdItem} from "src/types/dapp/ixo";
-import { Model } from "src/logic/dapp/";
+import { Model, tabChain } from "src/logic/dapp/";
 import * as alias from "src/utils/root/alias";
 import { createRef, onLoadRef, onUpdateRef } from "src/utils/ssr/ref";
 import { Status } from "src/types/dapp/ixo";
+
 
 import DAppHomeHeader from './home/header.vue';
 import DAppHomeTitle from './home/title.vue';
 import DAppDiscoversContentType from './discovers/content/type.vue';
 import DAppDiscoversList from './discovers/list.vue';
+
+defineProps({
+  summary: {
+    type: Array,
+    default: () => []
+  }
+})
 
 const urlType = true;
 // 公链类型
@@ -47,6 +55,7 @@ const onChangeChina = function () {
   updateOngoingList();
 };
 
+
 </script>
 <template>
   <div>
@@ -56,7 +65,7 @@ const onChangeChina = function () {
       </div>
       <!-- 公链数据 -->
       <div class="mt-4">
-        <DAppDiscoversContentType id="1" title="公链"/>
+        <DAppDiscoversContentType :list="tabChain(summary.ixo.chain)" id="1" title="公链"/>
       </div>
       <!-- IDO进行中项目 -->
       <div class="mt-5">

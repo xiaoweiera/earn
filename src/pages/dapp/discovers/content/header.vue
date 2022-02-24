@@ -17,7 +17,7 @@ defineProps({
       <div class="flex justify-between px-4">
         <p class="flex"> 
           <DappDiscoversContentRisk class="bg-global-bgBlack" :value="data.risk"></DappDiscoversContentRisk>
-          <span class="bg-global-bgBlack ml-2 px-2 py-1 text-kd12px14px text-global-white border border-global-white border-opacity-25 font-kdFang rounded-2xl">{{data.tge_platform}}</span>
+          <span class="bg-global-bgBlack ml-2 px-2 py-1 text-kd12px14px text-global-white border border-global-white border-opacity-25 font-kdFang rounded-2xl" v-if="data.category">{{data.category}}</span>
         </p>
         <p class="bg-global-gemstone px-2 text-global-white border border-global-white border-opacity-25 rounded-2xl">
           <IconFont type="icon-star" size="12" class="is-star"/>

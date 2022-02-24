@@ -11,7 +11,16 @@ import { includes } from 'ramda';
 import { useRoute } from 'vue-router'
 import {Model} from "src/logic/dapp";
 import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
+import {summaryModel} from "src/types/home";
+import {Model as Homemodel} from "src/logic/home";
 
+//获取类型
+const summary = createReactive<summaryModel>("API.home.getSummary", {} as summaryModel);
+onMounted(function () {
+  const api = new Homemodel();
+  // 得到数据汇总
+  onLoadReactive(summary, () => api.getSummary());
+});
 // 获取ido列表
 const list = createReactive("API.dapp.getList", {});
 const igolist = createReactive("API.dapp.getIGOList", {});
@@ -34,183 +43,6 @@ onMounted(function () {
   });
 });
 
-const IGOData = ref([
-  {
-    "id": 1,
-    // 名称
-    "name": "Raca",
-    // 数据类型, dapp-普通项目数据; ad-"广告"
-    "data_type": "dapp",
-    // Logo
-    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
-    // 封面
-    "cover": "https://jsdata-web.xyz/media/dapp/cover.png",
-    // 描述
-    "description": "这里是项目描述，xxxxxxxx",
-    // 项目代币
-    "symbol": "HLS",
-    // 所在公链
-    "chains": ["bsc"],
-    // IDO平台
-    "tge_platform": "daomaker",
-    // 风险等级
-    "risk": "high",
-    // 项目评分
-    "overall_score": 9.8,
-    // IDO价格
-    "ido_price": 1.2,
-    // 筹款目标
-    "ido_fundraising_goal": 2000,
-    // IDO开始时间
-    "ido_start_at": 1645574400
-  },{
-    "id": 2,
-    // 名称
-    "name": "Raca",
-    // 数据类型, dapp-普通项目数据; ad-"广告"
-    "data_type": "dapp",
-    // Logo
-    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
-    // 封面
-    "cover": "https://jsdata-web.xyz/media/dapp/cover.png",
-    // 描述
-    "description": "这里是项目描述，xxxxxxxx",
-    // 项目代币
-    "symbol": "HLS",
-    // 所在公链
-    "chains": ["bsc"],
-    // IDO平台
-    "tge_platform": "daomaker",
-    // 风险等级
-    "risk": "high",
-    // 项目评分
-    "overall_score": 9.8,
-    // IDO价格
-    "ido_price": 1.2,
-    // 筹款目标
-    "ido_fundraising_goal": 2000,
-    // IDO开始时间
-    "ido_start_at": 1645574400
-  },{
-    "id": 3,
-    // 名称
-    "name": "Raca",
-    // 数据类型, dapp-普通项目数据; ad-"广告"
-    "data_type": "dapp",
-    // Logo
-    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
-    // 封面
-    "cover": "https://jsdata-web.xyz/media/dapp/cover.png",
-    // 描述
-    "description": "这里是项目描述，xxxxxxxx",
-    // 项目代币
-    "symbol": "HLS",
-    // 所在公链
-    "chains": ["bsc"],
-    // IDO平台
-    "tge_platform": "daomaker",
-    // 风险等级
-    "risk": "high",
-    // 项目评分
-    "overall_score": 9.8,
-    // IDO价格
-    "ido_price": 1.2,
-    // 筹款目标
-    "ido_fundraising_goal": 2000,
-    // IDO开始时间
-    "ido_start_at": 1645574400
-  },{
-    "id": 4,
-    // 名称
-    "name": "Raca",
-    // Logo
-    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
-    // 项目代币
-    "symbol": "HLS",
-    // 所在公链
-    "chains": ["bsc"],
-    // 项目类型
-    "categories": ["mining"],
-    // IDO平台
-    "tge_platform": "daomaker",
-    // 风险等级
-    "risk": "high",
-    // 项目评分
-    "overall_score": 9.8,
-    // IDO价格
-    "ido_price": 1.2,
-    // 当前价格
-    "current_price": 10,
-    // 筹款目标
-    "ido_fundraising_goal": 2000,
-    // IDO开始时间
-    "ido_start_at": 16534242234,
-    // Current ROI USD
-    "current_roi_usd": 23123,
-    // ATH Since IDO: +2344.55%
-    "ath_since_ido": -2344.55
-  },{
-    "id": 4,
-    // 名称
-    "name": "Raca",
-    // Logo
-    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
-    // 项目代币
-    "symbol": "HLS",
-    // 所在公链
-    "chains": ["bsc"],
-    // 项目类型
-    "categories": ["mining"],
-    // IDO平台
-    "tge_platform": "daomaker",
-    // 风险等级
-    "risk": "high",
-    // 项目评分
-    "overall_score": 9.8,
-    // IDO价格
-    "ido_price": 1.2,
-    // 当前价格
-    "current_price": 10,
-    // 筹款目标
-    "ido_fundraising_goal": 2000,
-    // IDO开始时间
-    "ido_start_at": 16534242234,
-    // Current ROI USD
-    "current_roi_usd": 23123,
-    // ATH Since IDO: +2344.55%
-    "ath_since_ido": -2344.55
-  },{
-    "id": 4,
-    // 名称
-    "name": "Raca",
-    // Logo
-    "logo": "https://jsdata-web.xyz/media/dapp/logo.png",
-    // 项目代币
-    "symbol": "HLS",
-    // 所在公链
-    "chains": ["bsc"],
-    // 项目类型
-    "categories": ["mining"],
-    // IDO平台
-    "tge_platform": "daomaker",
-    // 风险等级
-    "risk": "high",
-    // 项目评分
-    "overall_score": 9.8,
-    // IDO价格
-    "ido_price": 1.2,
-    // 当前价格
-    "current_price": 10,
-    // 筹款目标
-    "ido_fundraising_goal": 2000,
-    // IDO开始时间
-    "ido_start_at": 16534242234,
-    // Current ROI USD
-    "current_roi_usd": 23123,
-    // ATH Since IDO: +2344.55%
-    "ath_since_ido": -2344.55
-  },
-])
 const active = ref<logic.TabTypes>();
 const init = function (query: object) {
   const type = safeGet<logic.TabTypes>(query, "type");
@@ -242,7 +74,7 @@ const onChangeView = function (data: object) {
       </ui-sticky>
       <!-- 搜索条件 -->
       <div>
-        <DappDiscoversSearch :key="key"/>
+        <DappDiscoversSearch :key="key" :data="summary.ido"/>
       </div>
       <!-- 列表内容 -->
       <div class="py-8">
