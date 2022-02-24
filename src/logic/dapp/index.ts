@@ -1,26 +1,53 @@
 import API from "src/api/index";
 import {Query, Status, ProjectItem, AdItem} from "src/types/dapp/ixo";
 import {nftQuery, nftStatus, ProjectNftItem, AdNftItem} from "src/types/dapp/nft";
-import {config} from "src/router/config";
+import { config } from "src/router/config";
+import * as R from "ramda";
+import { getValue } from "src/utils/ssr/ref";
+import { SiteConfig } from "src/types/common/chain";
+import * as alias from "src/utils/root/alias";
+import I18n from "src/utils/i18n";
 
 
-// 拼接url
-export const changeUrl = function (data: Object, router: Object, ids: string) {
-	const routerUrl = router;
-	// const query = router.query;
-	let queryUrl: Object = {};
-	// R.forEach((item:any) => {
-	//   queryUrl={
-	//     ...query,
-	//   }
-	//   queryUrl[ids]=item[ids]
-	//   let href=''
-	//   R.forEach((items:any)=>{
-	//     href+=`${items}=${queryUrl[items]}&`
-	//   },Object.keys(queryUrl))
-	//   item.href=(`${router.path}?${href}`).substring(0,(`${router.path}?${href}`).length-1)
-	// },data);
-	return queryUrl;
+const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
+export const tabAll = 'all';
+
+export const getAll = function () {
+	const i18n = I18n();
+	return {
+		id: tabAll,
+		name: i18n.address.all
+	};
+}
+//获取公链
+export const tabChain = function (data:any) {
+	let arr:any = [getAll()];
+	R.forEach((item:any) => {
+		if(configs.chain[item]){
+			arr.push(configs.chain[item])
+		}
+	},data)
+	return arr;
+}
+//获取平台
+export const tabPlat = function (data:any) {
+	let arr:any = [getAll()];
+	R.forEach((item:any) => {
+		if(configs.tge_platform[item]){
+			arr.push(configs.tge_platform[item])
+		}
+	},data)
+	return arr;
+}
+//获取项目类型
+export const tabCage = function (data:any) {
+	let arr:any = [getAll()];
+	R.forEach((item:any) => {
+		if(configs.category[item]){
+			arr.push(configs.category[item])
+		}
+	},data)
+	return arr;
 }
 
 export class Model extends API {

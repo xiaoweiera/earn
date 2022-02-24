@@ -18,7 +18,7 @@ export default class extends ApiTemplate{
 				params: Object.assign({
 					page: 1,
 					page_size: 10,
-					status: 'ended',
+					status: 'upcoming',
 					category: 'all',
 					platform: 'all',
 					chain: "all",
@@ -58,6 +58,7 @@ export default class extends ApiTemplate{
 				category: 'all',
 				chain: "all",
 				query: '',
+				paginate: false
 			}, query)
 		return asyncCheck(request(this.lang).get(api.dapp.nftList, { params}));
 	}

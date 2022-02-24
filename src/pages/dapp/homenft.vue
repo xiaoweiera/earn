@@ -4,12 +4,19 @@
   import DappDiscoversContentType from './discovers/content/type.vue';
   import DappNftsList from './nfts/list.vue'
   import {onMounted, ref} from "vue";
-  import {Model} from "~/logic/dapp";
+  import {Model, tabChain} from "~/logic/dapp";
   import {createRef, onLoadRef, onUpdateRef} from "~/utils/ssr/ref";
   import {AdItem, ProjectItem} from "~/types/dapp/ixo";
   import * as alias from "~/utils/root/alias";
   import {AdNftItem, ProjectNftItem} from "~/types/dapp/nft";
   import { nftStatus } from "src/types/dapp/nft";
+
+  defineProps({
+    summary: {
+      type: Array,
+      default: () => []
+    }
+  })
 
   const urlType = false;
   // 公链类型
@@ -38,7 +45,7 @@
       </div>
       <!-- 搜索 -->
       <div class="mt-4">
-         <DappDiscoversContentType title="公链" id="1"></DappDiscoversContentType>
+         <DappDiscoversContentType :list="tabChain(summary.nft.chain)" title="公链" id="1"></DappDiscoversContentType>
       </div>
       <!-- nft项目 -->
       <div class="mt-4">

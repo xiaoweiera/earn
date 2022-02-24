@@ -44,7 +44,7 @@ const data={
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number" v-if="item.categories">{{item.categories[0]}}</div>
+              <div class="numberDefault text-number" v-if="item.categories">{{item.category}}</div>
             </td>
             <td>
               <div class="numberDefault text-number">{{toNumberCashFormat(item.ido_fundraising_goal,'$','','Not Set')}}</div>

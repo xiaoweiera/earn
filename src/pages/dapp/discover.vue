@@ -11,7 +11,16 @@ import { includes } from 'ramda';
 import { useRoute } from 'vue-router'
 import {Model} from "src/logic/dapp";
 import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
+import {summaryModel} from "src/types/home";
+import {Model as Homemodel} from "src/logic/home";
 
+//获取类型
+const summary = createReactive<summaryModel>("API.home.getSummary", {} as summaryModel);
+onMounted(function () {
+  const api = new Homemodel();
+  // 得到数据汇总
+  onLoadReactive(summary, () => api.getSummary());
+});
 // 获取ido列表
 const list = createReactive("API.dapp.getList", {});
 const igolist = createReactive("API.dapp.getIGOList", {});
@@ -65,7 +74,7 @@ const onChangeView = function (data: object) {
       </ui-sticky>
       <!-- 搜索条件 -->
       <div>
-        <DappDiscoversSearch :key="key"/>
+        <DappDiscoversSearch :key="key" :data="summary.ido"/>
       </div>
       <!-- 列表内容 -->
       <div class="py-8">

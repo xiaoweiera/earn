@@ -21,6 +21,7 @@ onMounted(function () {
   // 得到数据汇总
   onLoadReactive(summary, () => api.getSummary());
 });
+
 </script>
 <template>
   <div class="top  min-h-164  pt-6 ">
@@ -31,8 +32,8 @@ onMounted(function () {
       <HomeRecommend class="mt-6"/>
       <DappHomediscover class="mt-16.5" :summary="summary"/>
       <HomeCompany class="mt-6"/>
-      <DappHomenft class="mt-16.5"/>
-      <DappHomediscoverend class="mt-16.5"/>
+      <DappHomenft class="mt-16.5" :summary="summary"/>
+      <DappHomediscoverend class="mt-16.5" :summary="summary"/>
     </div>
   </div>
 </template>
