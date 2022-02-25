@@ -10,12 +10,15 @@ import {useRoute, useRouter} from "vue-router";
 import { createHref } from "src/plugins/router/pack";
 import {isFunction, toInteger, uuid} from "src/utils";
 import {ElOption, ElScrollbar, ElSelect} from "element-plus";
+import { stateAlias, setInject } from "src/utils/use/state";
 import {computed, onMounted, PropType, ref, toRaw, watch} from "vue";
 import {CallbackList, Item, makeLink, Trigger, TriggerValue} from "src/logic/ui/tab";
+
 
 const $route = useRoute();
 const $router = useRouter();
 const key = ref<string>(uuid());
+const triggerTabChange = setInject(stateAlias.ui.tab);
 const active = ref<string | number>("");
 const emitEvent = defineEmits(['change'])
 
@@ -97,6 +100,10 @@ const onChange = function (value = getActiveValue()) {
     active.value = value;
     const data = selectData(value);
     emitEvent("change", data);
+    if (triggerTabChange) {
+      const query = $route.query;
+      triggerTabChange(query);
+    }
   }
 }
 

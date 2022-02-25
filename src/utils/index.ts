@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import _, {size, compact, flatten} from "lodash";
+import _, {size, compact, flatten, toLower, toUpper} from "lodash";
 // @ts-ignore
 import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from "uuid";
 import { isString, isArray } from "./check/is";
@@ -47,6 +47,14 @@ export const Equals = function (...args: Array<string | number>): boolean {
 		}
 	}
 	return status;
+}
+// 首字母大写
+export const upperFirst = function(value: string): string {
+	// 将字符串转换为小写
+	const str = toLower(value || '')
+	const first = toUpper(str[0] || '')
+	const last = str.slice(1)
+	return `${first}${last}`
 }
 
 export const max = function(...args: any[]): number {
