@@ -69,7 +69,7 @@ const onChangeView = function (data: object) {
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
         <div>
-          <ui-tab :key="key" :list="tabs" @change="onChangeView" active-name="type"></ui-tab>
+          <ui-tab :key="key" :list="logic.nftTabs" active-name="type"></ui-tab>
         </div>
       </ui-sticky>
       <!-- 搜索条件 -->
