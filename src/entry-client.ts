@@ -8,12 +8,11 @@ import "virtual:windi.css";
 import "virtual:windi-devtools";
 // 引入项目全局样式
 import "src/styles/main.scss";
-
+import Cookie from "src/plugins/browser/cookie";
 import {config} from "src/router/config";
 import {createApp} from "./bootstrap/main";
 import * as webkit from "src/plugins/webkit/";
 import { Device } from "src/types/common/device";
-import { setDeviceValue, setUserToken } from "src/plugins/browser/cookie";
 
 // 设置 Element Ui 中英文
 import ElementPlus from "element-plus";
@@ -28,15 +27,16 @@ import {NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoa
 
 // 前置处理
 const prepend = async function () {
+	const cookie = new Cookie();
 	const text = safeGet<string>(window, rootData);
 	const data = text ? Decrypt<object>(text) : {};
 	const process = await webkit.env.process(); // 尝试与移动端设备进行交互
 	// 如果移动端有返回数据
 	if (process && process.device) {
 		// 设置设备类型
-		setDeviceValue(process.device);
+		cookie.setDeviceValue(process.device);
 		// 修改用户身份
-		setUserToken(process.token);
+		cookie.setUserToken(process.token);
 		if (safeGet<object>(data, alias.common.user)) {
 			return data;
 		} else {
@@ -44,7 +44,7 @@ const prepend = async function () {
 		}
 	} else {
 		// 设置默认类型
-		setDeviceValue(Device.web);
+		cookie.setDeviceValue(Device.web);
 	}
 	return data;
 }
