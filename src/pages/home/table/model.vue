@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import HomeTableTd from './td.vue'
 import HomeTableHeader from './header.vue'
+import {config} from "~/router/config";
 const props = defineProps({
-  data: Object
+  data: Object,
 })
 </script>
 <template>
-  <div class="table-box bg-global-white">
+  <div class="table-box bg-global-white relative" >
     <div class="flex items-center justify-between flex-wrap ">
       <span class="title">{{ data.name }}</span>
-      <div class="flex items-center hand">
+      <v-router :href="`${config.homeDetail}?id=${data.id}`" target="_blank" class="flex items-center hand">
         <span class="more cursor-pointer">More</span>
         <IconFont class="text-global-primary ml-0.5" size="12" type="icon-rightNo"/>
-      </div>
+      </v-router>
     </div>
     <div class="gang"></div>
     <div class="showX">

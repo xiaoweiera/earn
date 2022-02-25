@@ -91,13 +91,11 @@ onMounted(function () {
                 <div v-else>
                   <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
                   <img class="rounded-kd6px h-23.5 w-47.5" :src="getImg(item)" alt="">
-                  <div class="absolute top-0  top-5 left-4 flex">
+                  <div class="absolute top-0  top-5 left-4 flex items-center">
                     <ui-image v-if="item['data_type']==='dapp'" class="w-12.5 h-12.5 rounded-full"  fit="cover" src="icon-EthYuan" />
-                    <div class="ml-3 font-kdSemiBold font-bold text-kd18px18px text-global-white">
+                    <div class="ml-3 font-kdSemiBold font-bold text-kd18px18px   text-global-white">
                       <div>{{item.name}}</div>
-                      <div>
-                        
-                      </div>
+                      <span class="chain-tip">Chain</span>
                     </div>
                   </div>
 
@@ -114,6 +112,13 @@ onMounted(function () {
   </div>
 </template>
 <style lang="scss" scoped>
+.chain-tip{
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border:1px solid rgba(255, 255, 255, 0.25);
+  width:fit-content;
+  @apply flex items-center px-2  rounded-kd20px text-kd12px14px font-kdFang h-5.5 mt-2.5;
+}
 .jian-right {
   //background: linear-gradient(to right,#ff000000, #ffffffc9);
   @apply w-35 h-full absolute right-0 top-0 z-2;
