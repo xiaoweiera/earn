@@ -8,7 +8,7 @@ import getLang  from "src/utils/url/lang";
 import request from "src/plugins/dao/service";
 import { User } from "src/types/common/user";
 import safeGet from "@fengqiaogang/safe-get";
-import * as cookie from "src/plugins/browser/cookie";
+import Cookie from "src/plugins/browser/cookie";
 import { asyncCheck } from "src/plugins/dao/response";
 
 
@@ -57,7 +57,8 @@ export default class extends ApiTemplate{
 			const result: User = await asyncCheck(request(this.lang).post(api.user.emailLogin, value));
 			const token = safeGet<string>(result, "token");
 			if (token) {
-				cookie.addUserToken(token);
+				const cookie = new Cookie();
+				cookie.setUserToken(token);
 				return result;
 			} else {
 				return Promise.reject(result);
@@ -74,7 +75,8 @@ export default class extends ApiTemplate{
 			const result: User = await asyncCheck(request(this.lang).post(api.user.mobileLogin, value));
 			const token = safeGet<string>(result, "token");
 			if (token) {
-				cookie.addUserToken(token);
+				const cookie = new Cookie();
+				cookie.setUserToken(token);
 				return result;
 			} else {
 				return Promise.reject(result);
