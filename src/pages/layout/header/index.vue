@@ -30,7 +30,7 @@ const isShowSub = computed<boolean>(function () {
 <template>
   <div class="header-wrap" :class="{'sub-header': isShowSub}">
     <div class="bg-global-darkblue px-6 flex justify-between fixed top-0 left-0 right-0 z-1000">
-      <div class="flex w-full items-center ui-header-menu">
+      <div class="flex w-full items-center ui-header-menu w-full justify-between">
         <v-router class="inline-block select-none" :href="env.dashboard">
           <img class="min-w-28" :src="Logo">
         </v-router>

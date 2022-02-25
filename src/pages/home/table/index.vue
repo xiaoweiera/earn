@@ -1,17 +1,27 @@
 <script setup lang="ts">
 import HomeTableModel from './model.vue'
-
+import {ref} from 'vue'
 const props = defineProps({
   topicIndex: [String, Number],
   data: Object
 })
+const id=ref(0)
+const changeTopic=(index:number)=>id.value=index
+
 </script>
 <template>
-  <div class="min-w-150 min-h-86 py-3  relative">
-    <div class="bg"></div>
-    <div class="relative  min-h-86 bg-global-white rounded-kd16px">
+  <div class="md:w-150 w-full  md:min-h-86 md:py-3  relative">
+    <div class="bg xshidden"></div>
+    <div class="relative md:min-h-86 md:bg-global-white rounded-kd16px">
       <template v-for="(item,index) in data">
-        <HomeTableModel class="h-full z-11 absolute top-0" :class="topicIndex===index?'active':'active-no'" :data="item"/>
+        <HomeTableModel class="xshidden h-full z-11 md:absolute top-0" :class="topicIndex===index?'active':'active-no'" :data="item"/>
+        <HomeTableModel v-if="index===id" class="h-full" :class="id===index?'block':'hidden'" :data="item"/>
+      </template>
+    </div>
+    <!--手机端翻页-->
+    <div class="mdhidden flex items-center justify-center mt-4">
+      <template v-for="(item,index) in data">
+        <div  @click="changeTopic(index)" class="dian hand" :class="id===index?'yuan':'yuan-no'"></div>
       </template>
     </div>
   </div>
@@ -23,7 +33,15 @@ const props = defineProps({
 .table-box {
   @apply w-full h-full bg-global-white rounded-kd16px;
 }
-
+.yuan{
+  @apply w-2 h-2 bg-global-white rounded-full;
+}
+.yuan-no{
+  @apply w-2 h-2 bg-global-white bg-opacity-45 rounded-full;
+}
+.dian:not(:first-child){
+  @apply ml-6;
+}
 .active {
   transition: all 1.2s;
   opacity: 1;

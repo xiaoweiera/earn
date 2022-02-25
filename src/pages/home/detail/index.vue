@@ -18,12 +18,12 @@ onMounted(function () {
 });
 </script>
 <template>
-  <div class="max-w-360 py-8 pb-30 px-20 mx-auto  flex ">
-    <div class="w-243  mr-12">
-      <HomeDetailInfo :data="data"/>
+  <div class="md:max-w-360 md:py-8 md:pb-30 md:px-20  mx-auto px-3 flex">
+    <div class="w-full md:mr-12">
+      <HomeDetailInfo class="mt-6 md:mt-0" :data="data"/>
       <HomeDetailTable v-if="data.id" class="mt-6" :info="data"/>
     </div>
-    <div class="w-65 min-w-65">
+    <div class="min-w-65 xshidden">
       <HomeDetailTop/>
       <HomeDetailTopic class="mt-6"/>
     </div>

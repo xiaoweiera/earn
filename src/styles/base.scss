@@ -14,10 +14,19 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  //display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
 .hand{
   @apply cursor-pointer;
+}
+@media screen and (max-width: 768px) {
+  .xshidden {
+    display: none !important;
+  }
+}
+@media screen and (min-width: 768px) {
+  .mdhidden {
+    display: none !important;
+  }
 }
