@@ -51,8 +51,8 @@ onMounted(function () {
 <template>
   <div>
     <div class="flex items-center text-global-white">
-      <span class="text-kd20px20px md:text-kd24px24px font-kdSemiBold">Today's trends</span>
-      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">(Updated at 12:00 and 21:00)</span>
+      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow">Today's trends</span>
+      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">(Updated at 20:00)</span>
     </div>
     <div class="mt-4 relative">
       <div class="w-full h-full">
