@@ -86,7 +86,8 @@ export default {
     copy: 'The link has copied',
     fail: 'Validation failed',
     checkValue:'Please slide to verify',
-    codeDialog:'Slide to get the verification code'
+    codeDialog:'Slide to get the verification code',
+    loginError: 'Incorrect account or password input!'
   },
   placeholder: {
     login: 'Automatic log-in',
