@@ -110,9 +110,8 @@ export const getData=(key:string,data:any,type:string)=>{
 
 }
 export class Model extends API {
-	async getSummary() {
-		const result=await this.home.getSummary()
-		return result as summaryModel
+	getSummary() {
+		return this.home.getSummary<summaryModel>();
 	}
 	//topic table切换
 	getTopicRank() {

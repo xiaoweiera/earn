@@ -30,7 +30,7 @@ export default class extends ApiTemplate{
 		} catch (e) {
 			// 异常情况下，返回模式数据
 			return {
-				category: [],
+				category: {},
 				chain: [],
 				tge_platform: []
 			};

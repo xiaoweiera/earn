@@ -10,66 +10,9 @@ import {projectParams, recommendModel} from "src/types/home";
 
 export default class extends ApiTemplate {
 	// 数据汇总
-	async getSummary() {
-		const result =request(this.lang).get(api.home.summary);
-		// const result = {
-		// 	"code": 0,
-		// 	"data": {
-		// 		// 平均收益倍数
-		// 		"avg_ath": 365.6,
-		// 		// NFT数据汇总
-		// 		"nft": {
-		// 			"total": 1000,
-		// 			"24h_increase": 11,
-		// 			"total_chain": 4,
-		// 			"total_platform": 5,
-		// 			"chain": [ "ETH", "BSC" ],
-		// 			"platform": [ "daomaker" ],
-		// 			"category": [ "NFT" ]
-		// 		},
-		// 		// IDO+IGO数据汇总
-		// 		"ixo": {
-		// 			"total": 2000,
-		// 			"24h_increase": 11,
-		// 			"total_chain": 4,
-		// 			"total_platform": 5,
-		// 			"chain": [ "ETH", "BSC" ],
-		// 			"platform": [ "daomaker" ],
-		// 			"category": [ "NFT" ]
-		// 		},
-		// 		// IDO数据汇总
-		// 		"ido": {
-		// 			"total": 1000,
-		// 			"24h_increase": 11,
-		// 			"total_chain": 4,
-		// 			"total_platform": 5,
-		// 			"chain": [ "ETH", "BSC" ],
-		// 			"platform": [ "daomaker" ],
-		// 			"category": [ "NFT" ]
-		// 		},
-		// 		// IGO数据汇总
-		// 		"igo": {
-		// 			"total": 1000,
-		// 			"24h_increase": 11,
-		// 			"total_chain": 4,
-		// 			"total_platform": 5,
-		// 			"chain": [ "ETH", "BSC" ],
-		// 			"platform": [ "daomaker" ],
-		// 			"category": [ "NFT" ]
-		// 		},
-		// 		// 空投数据汇总
-		// 		"airdrop": {
-		// 			"total": 1200,
-		// 			"24h_increase": 15,
-		// 			"total_chain": 4,
-		// 			"total_platform": 5,
-		// 			"chain": [ "ETH", "BSC" ],
-		// 			"platform": [ "daomaker" ],
-		// 			"category": [ "NFT" ]
-		// 		}
-		// 	}
-		// }
-		return asyncCheck(result);
+	async getSummary<T>() {
+		const result = request(this.lang).get(api.home.summary);
+		return asyncCheck<T>(result);
 	}
 
 	//首页顶部话题榜单接口

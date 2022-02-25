@@ -7,6 +7,8 @@ import { getValue } from "src/utils/ssr/ref";
 import { SiteConfig } from "src/types/common/chain";
 import * as alias from "src/utils/root/alias";
 import I18n from "src/utils/i18n";
+import { getParam } from "src/utils/router/";
+import safeGet from "@fengqiaogang/safe-get";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
@@ -30,24 +32,54 @@ export const tabChain = function (data:any) {
 	return arr;
 }
 //获取平台
-export const tabPlat = function (data:any) {
-	let arr:any = [getAll()];
-	R.forEach((item:any) => {
-		if(configs.tge_platform[item]){
-			arr.push(configs.tge_platform[item])
-		}
-	},data)
-	return arr;
+export const tabPlat = function (data:any, key: string) {
+	return function () {
+		let arr:any = [getAll()];
+		R.forEach((item:any) => {
+			if(configs.tge_platform[item]){
+				arr.push(configs.tge_platform[item])
+			}
+		},data);
+		const query = getParam<object>();
+		return R.map(function (item: any) {
+			return {
+				...item,
+				[key]: item.id,
+				href: {
+					path: config.dappList,
+					query: {
+						...query,
+						[key]: item.id,
+					}
+				}
+			}
+		}, arr);
+	};
 }
 //获取项目类型
-export const tabCage = function (data:any) {
-	let arr:any = [getAll()];
-	R.forEach((item:any) => {
-		if(configs.category[item]){
-			arr.push(configs.category[item])
-		}
-	},data)
-	return arr;
+export const tabCage = function (data:any, key: string) {
+	return function (): any[] {
+		let arr:any = [getAll()];
+		R.forEach((item:any) => {
+			if(configs.category[item]){
+				arr.push(configs.category[item])
+			}
+		},data);
+		const query = getParam<object>();
+		return R.map(function (item: any) {
+			return {
+				...item,
+				[key]: item.id,
+				href: {
+					path: config.dappList,
+					query: {
+						...query,
+						[key]: item.id,
+					}
+				}
+			}
+		}, arr);
+	};
 }
 
 export class Model extends API {

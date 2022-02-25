@@ -50,11 +50,14 @@ const props = defineProps({
 
 
 const getList = function (): Item[] {
-  if (props.list && isFunction(props.list)) {
-    const fun = props.list as CallbackList;
-    return fun();
+  if (props.list) {
+    if (isFunction(props.list)) {
+      const fun = props.list as CallbackList;
+      return fun();
+    }
+    return props.list as Item[];
   }
-  return props.list as Item[];
+  return [];
 }
 
 const tabList = computed<Item[]>(getList);

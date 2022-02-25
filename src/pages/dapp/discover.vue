@@ -3,6 +3,7 @@ import DappDiscoversHeader from './discovers/header.vue';
 import DappDiscoversSearch from './discovers/search.vue';
 import DappDiscoversEndlist from './discovers/endlist.vue';
 import DappDiscoversList from './discovers/list.vue';
+import * as alias from "src/utils/root/alias";
 import {onMounted, ref, watch} from "vue"
 import safeGet from "@fengqiaogang/safe-get";
 import * as logic from "src/types/dapp/";
@@ -12,14 +13,16 @@ import { useRoute } from 'vue-router'
 import {Model} from "src/logic/dapp";
 import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 import {summaryModel} from "src/types/home";
-import {Model as Homemodel} from "src/logic/home";
+import {Model as HomeModel} from "src/logic/home";
 
 //获取类型
-const summary = createReactive<summaryModel>("API.home.getSummary", {} as summaryModel);
+const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(function () {
-  const api = new Homemodel();
   // 得到数据汇总
-  onLoadReactive(summary, () => api.getSummary());
+  onLoadReactive(summary, () => {
+    const api = new HomeModel();
+    return api.getSummary();
+  });
 });
 // 获取ido列表
 const list = createReactive("API.dapp.getList", {});
@@ -31,7 +34,6 @@ onMounted(function () {
   // 得到数据汇总
   onLoadReactive(list, () => api.getList());
   onLoadReactive(igolist, () => api.getIGOList());
-
 });
 
 const key = ref<string>(uuid());
@@ -73,7 +75,7 @@ const onChangeView = function (data: object) {
         <ui-tab :key="key" :list="logic.tabs" active-name="type"/>
       </ui-sticky>
       <!-- 搜索条件 -->
-      <div>
+      <div v-if="summary && summary.ido">
         <DappDiscoversSearch :key="key" :data="summary.ido"/>
       </div>
       <!-- 列表内容 -->
