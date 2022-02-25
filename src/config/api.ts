@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 export const home = {
-	summary:"/api/v1/dapps/summary", //数据汇总，基础信息
+	summary: "/api/v1/dapps/summary", //数据汇总，基础信息
 	topicRank:"/api/v1/dapps/topic/rank", //home页topic table切换
 	recommend:"/api/v1/dapps/topic/recommend", //推荐话题
 	trend:"/api/v1/dapps/trend",//趋势

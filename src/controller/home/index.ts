@@ -5,6 +5,7 @@
 
 import {Model} from "src/logic/home";
 import {Request, Response} from "express";
+import * as alias from "src/utils/root/alias";
 
 //home页面
 export const begin = async function (req: Request, res: Response) {
@@ -18,7 +19,7 @@ export const begin = async function (req: Request, res: Response) {
         api.getPlatform()
     ]);
     const result = {
-        "API.home.getSummary": summary,      // 数据汇总
+        [alias.dApp.summary.list]: summary,      // 数据汇总
         "API.home.getTopicRank": topicRank,    // 首页顶部话题榜单接口
         "API.home.getRecommend": recommend, //推荐话题
         "API.home.getTrend": trend, //今日趋势

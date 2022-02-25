@@ -10,14 +10,15 @@ import safeGet from "@fengqiaogang/safe-get";
 import {toLower, uuid} from "src/utils";
 import { includes } from 'ramda';
 import { useRoute } from 'vue-router'
-import {Model} from "~/logic/dapp";
-import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
-import {summaryModel} from "~/types/home";
-import {Model as Homemodel} from "~/logic/home";
+import {Model} from "src/logic/dapp";
+import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
+import {summaryModel} from "src/types/home";
+import {Model as Homemodel} from "src/logic/home";
+import * as alias from "src/utils/root/alias";
 
 
 //获取类型
-const summary = createReactive<summaryModel>("API.home.getSummary", {} as summaryModel);
+const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(function () {
   const api = new Homemodel();
   // 得到数据汇总

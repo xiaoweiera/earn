@@ -11,11 +11,12 @@ import DappHomenft from "src/pages/dapp/homenft.vue"
 //@ts-ignore
 import DappHomediscoverend from "src/pages/dapp/homediscoverend"
 import {onMounted} from 'vue'
-import {Model} from "~/logic/home";
+import {Model} from "src/logic/home";
 import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
-import {summaryModel} from "~/types/home";
+import {summaryModel} from "src/types/home";
+import * as alias from "src/utils/root/alias";
 
-const summary = createReactive<summaryModel>("API.home.getSummary", {} as summaryModel);
+const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总

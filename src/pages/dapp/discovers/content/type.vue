@@ -25,7 +25,7 @@ defineProps({
     <div class="flex items-center">
       <div class="text-14-18 text-global-highTitle text-opacity-65 mr-4" v-if="title">{{title}}</div>
       <div class="flex-1">
-        <ui-tab :list="list" :active-name="name" :split="2"></ui-tab>
+        <ui-tab :list="list" :active-name="name" :split="6"></ui-tab>
       </div>
     </div>
   </div>

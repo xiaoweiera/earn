@@ -17,11 +17,11 @@ export interface Chain {
 export interface Platform extends Chain{
 }
 
-export interface Category extends Chain {
+export interface Category extends Chain{
 }
 
 export interface SiteConfig {
-  category: Category[];
+  category: Category;
 	chain: Chain[];
 	tge_platform: Platform[];
 }
