@@ -16,15 +16,19 @@ import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 // 用户信息
 const getUserAuth = async function (config: AxiosRequestConfig, lang?: Lang) {
-	// 不传用户信息
+	// 判断是否需要传用户信息
 	const _user = safeGet<string>(config, 'params._user');
 	if (Equals(_user, 'none')) {
 		return;
 	}
-	// 从 Request 对象中获取用户信息
-	if (IsSSR() && lang && isObject(lang)) {
-		const auth = Authorization(lang as Request);
-		return auth.token;
+	// 如果当前是 ssr 环境
+	if (IsSSR()) {
+		// 从 Request 对象中获取用户信息
+		if (lang && isObject(lang)) {
+			const auth = Authorization(lang as Request);
+			return auth.token;
+		}
+		return; // 返回空
 	}
 	// 从移动端获取用户信息
 	const process = await webkit.env.process();
