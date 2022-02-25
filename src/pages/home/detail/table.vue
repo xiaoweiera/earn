@@ -107,8 +107,8 @@ const isFilter = () => {
 }
 </script>
 <template>
-  <div class="table-box">
-    <div class="flex justify-between items-baseline">
+  <div class="table-box md:mb-0 mb-4">
+    <div class="flex xshidden justify-between items-baseline">
       <HomeFilter :key="key" v-if="info.id && isFilter()" :info="info" :filters="info.filters" class="mb-4"/>
       <client-only>
         <div v-if="isSearch" class="relative flex items-center search">
@@ -117,34 +117,36 @@ const isFilter = () => {
         </div>
       </client-only>
     </div>
-    <table class="table-my">
-      <thead>
-      <tr class="h-10">
-        <td class="h-full border-tb">
-          <div class="text-left  w-5">#</div>
-        </td>
-        <template v-for="(item,index) in data.header" :key="index">
-          <td class="text-left border-tb" v-if="item.key!=='id'">
-            <HomeTableHeader @click="sort(item.key)" :params="params" :item="item"/>
+    <div class="showX">
+      <table class="table-my min-w-243">
+        <thead>
+        <tr class="h-10">
+          <td class="h-full border-tb">
+            <div class="text-left  w-5">#</div>
           </td>
-        </template>
-      </tr>
-      </thead>
-      <tbody>
-      <template v-for="(item,index) in data.items">
-        <tr class="h-19.5">
-          <td class="number">
-            <div class="text-left  w-5">{{ index + 1 }}</div>
-          </td>
-          <template v-for="(itemTwo,index) in data.header" :key="index">
-            <td v-if="itemTwo.key!=='id'">
-              <HomeTableTd :info="info" :typeName="itemTwo.key" :data="item"/>
+          <template v-for="(item,index) in data.header" :key="index">
+            <td class="text-left border-tb"  v-if="item.key!=='id'">
+              <HomeTableHeader @click="sort(item.key)" :params="params" :item="item"/>
             </td>
           </template>
         </tr>
-      </template>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        <template v-for="(item,index) in data.items">
+          <tr class="h-12.5 md:h-19.5">
+            <td class="number">
+              <div class="text-left  w-5">{{ index + 1 }}</div>
+            </td>
+            <template v-for="(itemTwo,index) in data.header" :key="index">
+              <td v-if="itemTwo.key!=='id'">
+                <HomeTableTd :info="info" :typeName="itemTwo.key" :data="item"/>
+              </td>
+            </template>
+          </tr>
+        </template>
+        </tbody>
+      </table>
+    </div>
     <div v-if="data?.items?.length>0 && resultNumber>=params.page_size" @click="more" class="more">加载更多</div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>

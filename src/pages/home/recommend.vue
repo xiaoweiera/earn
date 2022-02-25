@@ -56,10 +56,10 @@ onMounted(function () {
 </script>
 <template>
   <div>
-    <div class="text-kd24px24px  font-kdSemiBold text-global-highTitle">Recommended Topics</div>
+    <div class="text-kd20px20px md:text-kd24px24px  font-kdSemiBold text-global-highTitle">Recommended Topics</div>
     <div class="mt-4 relative">
       <div class="w-full">
-        <div :class="isBegin?'hidden':'jian-left'" class="rounded-kd8px">
+        <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
           <ui-image class="left" @click="last" :src="`${oss}/dapp/zuojian.png`" fit="cover"/>
         </div>
         <Swiper class="h-full swiper-recom"
@@ -71,35 +71,25 @@ onMounted(function () {
                 @setTranslate="change">
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="getHref(item['data_type'],item)" target="_blank" class="h-48.5 w-47.5 rounded-kd6px block relative">
+              <v-router :href="getHref(item['data_type'],item)" target="_blank" class="w-35 h-35 md:h-48.5 md:w-47.5 rounded-kd6px block relative">
                 <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
                 <div class="info">
                   <div class="name text-number">{{ item.name }}</div>
                   <div class="go">Go</div>
                 </div>
-                <ui-image class="rounded-kd6px h-full" :src="getImg(item['data_type'],item)" fit="cover"/>
+                <img class="rounded-kd6px h-full" :src="getImg(item['data_type'],item)" fit="cover"/>
               </v-router>
             </SwiperSlide>
           </template>
         </Swiper>
       </div>
-      <div :class="isEnd?'hidden':'jian-right'">
+      <div :class="isEnd?'hidden':'jian-right'" class="xshidden">
         <img class="right" @click="next" :src="`${oss}/dapp/rightjian.png`" alt="">
       </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
-//.jian-right {
-//  background: linear-gradient(to right, #ff000000, #ffffffc9);
-//  @apply w-35 h-full absolute right-0 top-0 z-2;
-//}
-//
-//.jian-left {
-//  background: linear-gradient(to right, #ffffffc9, #ff000000);
-//  @apply w-35 h-full absolute left-0 top-0 z-2;
-//}
-
 .left {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute left-3 z-10 top-20;
@@ -115,7 +105,7 @@ onMounted(function () {
 }
 
 .info {
-  @apply flex items-center justify-between px-4 w-full  absolute  bottom-3;
+  @apply flex items-center justify-between px-2.5 md:px-4 w-full  absolute bottom-1.5 md:bottom-3;
   .name {
     @apply text-kd14px18px font-medium text-global-white;
   }
