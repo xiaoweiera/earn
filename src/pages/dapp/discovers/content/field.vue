@@ -1,24 +1,40 @@
 <script setup lang="ts">
 
-import { ref } from "vue";
-import I18n from '~/utils/i18n/index'
+import {ref, watch} from "vue";
+import I18n from 'src/utils/i18n/index'
+import {getParam} from "src/utils/router";
+import {config as routerConfig} from "src/router/config";
+import {useRouter} from "vue-router";
 const i18n = I18n();
-const search = ref<string>('');
 const props = defineProps({
   title: {
     type: String,
     default: () => '',
   },
-  query: {
+  herf: {
     type: String,
-    default: () => '',
+    defaule: () => '',
   }
+})
+
+const router = useRouter()
+const searchval = ref(getParam<object>('search'))
+watch(searchval, (val: any) => {
+  const query: any = getParam<object>();
+  router.push({
+    path: props.herf,
+    query: {
+      ...query,
+      //@ts-ignore
+      search: val
+    }
+  })
 })
 </script>
 <template>
   <div>
     <div class="w-41 md:w-50 flex md:ml-3 mt-3 md:mt-0 relative">
-      <input class="w-41 md:w-50 h-8 text-kd14px18px text-global-highTitle text-opacity-85 bg-global-topBg border border-global-highTitle border-opacity-4 rounded-md" :value="query" :placeholder="props.title" type="text">
+      <input class="w-41 md:w-50 h-8 text-kd14px18px text-global-highTitle text-opacity-85 bg-global-topBg border border-global-highTitle border-opacity-4 rounded-md" v-model="searchval" :placeholder="title" type="text">
       <IconFont class="absolute left-3.25 top-2.5" type="icon-sousuo" size='14'/>
     </div>
   </div>

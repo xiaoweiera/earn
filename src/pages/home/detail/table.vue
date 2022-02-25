@@ -169,10 +169,6 @@ const isFilter = () => {
   @apply text-kd18px24px font-medium font-kdFang text-global-highTitle;
 }
 
-.more {
-  @apply text-global-primary;
-}
-
 .gang {
   border: 1px solid rgba(3, 54, 102, 0.06);
   @apply mt-5;

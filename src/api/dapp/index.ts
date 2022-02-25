@@ -13,20 +13,8 @@ import { nftQuery } from "src/types/dapp/nft";
 
 export default class extends ApiTemplate{
 	// 项目库列表
-	 getList<T>(){
-			const result = request(this.lang).get(api.dapp.list, {
-				params: Object.assign({
-					page: 1,
-					page_size: 10,
-					status: 'upcoming',
-					category: 'all',
-					platform: 'all',
-					chain: "all",
-					query: '',
-					sort_field: '',
-					sort_type: '',
-				}, {})
-			})
+	 getList<T>(query:any){
+			const result = request(this.lang).get(api.dapp.list, { params: query })
 			return asyncCheck(result);
 	}
 	// 获取IGO列表
@@ -56,7 +44,6 @@ export default class extends ApiTemplate{
 				page: 1,
 				page_size: 10,
 				category: 'all',
-				chain: "all",
 				query: '',
 				paginate: false
 			}, query)
@@ -68,7 +55,6 @@ export default class extends ApiTemplate{
 			 page: 1,
 			 page_size: 10,
 			 query: "",
-			 chain: "all",
 			 category: "all",
 			 paginate: false,
 		 }, query);
@@ -79,10 +65,7 @@ export default class extends ApiTemplate{
 		const params = Object.assign({
 			page: 1,
 			page_size: 10,
-			query: "",
-			chain: "all",
-			category: "all",
-			paginate: true,
+			paginate: false,
 		}, query);
 		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, { params}));
 	}
