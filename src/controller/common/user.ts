@@ -5,12 +5,12 @@
 
 import API from "src/api/index";
 import I18n from "src/utils/i18n";
-import {dashboard} from "src/config";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import * as alias from "src/utils/root/alias";
 import redirect from "src/controller/common/redirect";
 import {NextFunction, Request, Response} from "express";
+import {dashboard, tokenName, getEnv, tokenExpires} from "src/config";
 import {Authorization, removeAuthInfo} from "src/plugins/express/authorization";
 
 // 用户详情
@@ -21,8 +21,14 @@ export const userInfo = async function (req: Request, res: Response) {
 		try {
 			const data = await api.user.getInfo();
 			if (data) {
+				const env = getEnv();
 				const result = {};
 				safeSet(result, alias.common.user, data);
+				res.cookie(tokenName, token, {
+					domain: env.VITE_cookie,
+					path: '/',
+					expires: new Date(Date.now() + tokenExpires)
+				});
 				return result;
 			}
 		} catch (e) {
