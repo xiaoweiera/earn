@@ -94,13 +94,13 @@ onMounted(() => {
     </div>
     <!--NameDes-->
     <div v-else-if="typeName==='name' && (info && info.show_type==='desc')" class="flex-center short">
-      <img class="w-12 h-12 rounded-kd6px" :src="data.logo"/>
+      <img class="w-8 h-8 md:w-12 md:h-12 rounded-kd6px" :src="data.logo"/>
       <div class="ml-3 short">
         <div class="nameNameDes text-number line-height-no flex-center">
           <span>{{ data['name'] }}</span>
           <IconFont size="16" :type="config.chain[data.chain].logo"/>
         </div>
-        <div class="nameDes mt-1.5 text-number line-height-no max-w-150 short text-left">{{ data['description'] }}</div>
+        <div class="nameDes md:mt-1.5 text-number line-height-no max-w-150 short text-left">{{ data['description'] }}</div>
       </div>
     </div>
     <!--chainIcon-->
@@ -122,7 +122,7 @@ onMounted(() => {
     <div v-else-if="typeDom==='starNumber'" class="flex-center text-center">
       <div v-if="domData || domData===0" class="w-full flex items-center justify-center">
         <IconFont size="12" type="icon-star"/>
-        <span class="star-txt">{{ domData }}</span>
+        <span class="star-txt text-number">{{ domData }}</span>
       </div>
       <div v-else class="numberDefault text-number text-center">Not Set</div>
     </div>
@@ -168,7 +168,6 @@ onMounted(() => {
 .line-height-no {
   line-height: 0px;
 }
-
 .flex-center {
   @apply flex items-center;
 }
@@ -178,11 +177,11 @@ onMounted(() => {
 }
 
 .star-txt {
-  @apply ml-1 text-number text-kd14px16px text-global-highTitle;
+  @apply ml-1  text-kd12px16px md:text-kd14px16px text-global-highTitle;
 }
 
 .numberDefault {
-  @apply text-kd14px16px text-global-highTitle;
+  @apply text-kd12px16px md:text-kd14px16px text-global-highTitle;
 }
 
 .unit {
@@ -198,11 +197,11 @@ onMounted(() => {
 }
 
 .nameNameDes {
-  @apply text-kd16px18px text-global-highTitle;
+  @apply text-kd14px18px md:text-kd16px18px text-global-highTitle;
 }
 
 .nameDes {
-  @apply text-kd14px16px text-global-highTitle text-opacity-45;
+  @apply text-kd12px16px md:text-kd14px16px text-global-highTitle text-opacity-45;
 }
 
 .smallTxt {

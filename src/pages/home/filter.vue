@@ -26,10 +26,8 @@ const categoryData: any = ref([])
 const mergeData = (key: string, data: any) => {
   const list = ['All'].concat(props?.filters[key]?.options)
   list.forEach((item: string) => {
-    const param: any = {...query}
-    param[key] = item
-    const prop: any = {name: item}
-    prop[key] = item
+    const param: any = {...query,[key]:item}
+    const prop: any = {name: item,[key]:item}
     data.value.push({
       ...prop,
       href: {

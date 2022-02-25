@@ -12,7 +12,7 @@ const cssGlobal = {
 	body: '#F6FAFD',
 	bodyTwo: '#F8FBFD',
 	default: '#253E6F', /* 37,62,111 */
-	primary: '#2B8DFE', /* 43, 141, 254 */
+	primary: '#006FF7', /* 43, 141, 254 */
 	highTitle: '#033666', /*3,54,102*/
 	mobileBody: '#D8E8FF',
 	numGreen: '#00B464', /* 0, 180, 100 */

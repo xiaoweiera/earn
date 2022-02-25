@@ -5,35 +5,35 @@ import {projectParams, recommendModel, summaryModel} from "~/types/home";
 //得到header数据 headerName,headerCss
 export const getHeader=(key:string)=>{
 		if(key==='name'){
-			return ['Name','text-left']
+			return ['Name','justify-begin']
 		}else if(key==='chains'){
-			return ['Chain','text-center']
+			return ['Chain','justify-center']
 		}else if(key==='tge_platform'){
-			return ['TGE Platform','text-center']
+			return ['TGE Platform','justify-center']
 		}else if(key==='overall_score'){
-			return ['Rating','text-center']
+			return ['Rating','justify-center']
 		}else if(key==='categories'){
-			return ['项目类型','text-center']
+			return ['项目类型','justify-center']
 		}else if(key==='current_price'){
-			return ['Current Price','text-center']
+			return ['Current Price','justify-center']
 		}else if(key==='ido_price'){
-			return ['IDO Price','text-center']
+			return ['IDO Price','justify-center']
 		}else if(key==='balance_24h'){
-			return ['Balance(24h)','text-center']
+			return ['Balance(24h)','justify-center']
 		}else if(key==='balance_7d'){
-			return ['Balance(7d)','text-center']
+			return ['Balance(7d)','justify-center']
 		}else if(key==='volume_24h'){
-			return ['Volume(24h)','text-center']
+			return ['Volume(24h)','justify-center']
 		}else if(key==='volume_7d'){
-			return ['volume(7d)','text-center']
+			return ['volume(7d)','justify-center']
 		}else if(key==='ido_fundraising_goal'){
-			return ['Total Raised','text-center']
+			return ['Total Raised','justify-center']
 		}else if(key==='mcap'){
-			return ['Market Cap','text-center']
+			return ['Market Cap','justify-center']
 		}else if(key==='floor_price'){
-			return ['Floor Price','text-center']
+			return ['Floor Price','justify-center']
 		}else if(key==='mint_price'){
-			return ['Mint Price','text-center']
+			return ['Mint Price','justify-center']
 		}else if(key==='ido_sale_amount'){
 			return ['Tokens for Sale','text-center']
 		}else if(key==='owners'){

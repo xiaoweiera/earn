@@ -51,12 +51,12 @@ onMounted(function () {
 <template>
   <div>
     <div class="flex items-center text-global-white">
-      <span class="text-kd24px24px font-kdBarlow">Today's trends</span>
-      <span class="ml-3 text-kd14px18px font-medium text-number">(Updated at 12:00 and 21:00)</span>
+      <span class="text-kd20px20px md:text-kd24px24px font-kdSemiBold">Today's trends</span>
+      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">(Updated at 12:00 and 21:00)</span>
     </div>
     <div class="mt-4 relative">
       <div class="w-full h-full">
-        <div :class="isBegin?'hidden':'jian-left'" class="rounded-kd8px">
+        <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
           <img class="left" @click="last" :src="`${oss}/dapp/zuojian.png`" alt="">
         </div>
         <Swiper class="h-full swiper-topic"
@@ -86,18 +86,28 @@ onMounted(function () {
                       <span v-if="item['release_date']">更新时间:{{ timeago(dataToTimestamp(item['release_date'])) }}</span>
                     </div>
                   </div>
-                  <img class="rounded-kd6px h-23.5 w-101 " :src="getImg(item)" fit="cover" alt="">
+                  <img class="rounded-kd6px h-23.5 w-65 md:w-101 " :src="getImg(item)" fit="cover" alt="">
                 </div>
                 <div v-else>
                   <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
                   <img class="rounded-kd6px h-23.5 w-47.5" :src="getImg(item)" alt="">
+                  <div class="absolute top-0  top-5 left-4 flex">
+                    <ui-image v-if="item['data_type']==='dapp'" class="w-12.5 h-12.5 rounded-full"  fit="cover" src="icon-EthYuan" />
+                    <div class="ml-3 font-kdSemiBold font-bold text-kd18px18px text-global-white">
+                      <div>{{item.name}}</div>
+                      <div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </v-router>
             </SwiperSlide>
           </template>
         </Swiper>
       </div>
-      <div :class="isEnd?'hidden':'jian-right'">
+      <div class="xshidden" :class="isEnd?'hidden':'jian-right'">
         <img class="right" @click="next" :src="`${oss}/dapp/rightjian.png`" alt="">
       </div>
     </div>
@@ -133,7 +143,7 @@ onMounted(function () {
 }
 
 .blog-name {
-  @apply text-kd20px20px font-semiBold text-global-white;
+  @apply text-kd18px18px md:text-kd20px20px font-semiBold text-global-white;
 }
 
 .blog-label {
