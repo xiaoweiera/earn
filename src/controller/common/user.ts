@@ -4,6 +4,7 @@
  */
 
 import API from "src/api/index";
+import I18n from "src/utils/i18n";
 import {dashboard} from "src/config";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
@@ -25,6 +26,7 @@ export const userInfo = async function (req: Request, res: Response) {
 				return result;
 			}
 		} catch (e) {
+			// 如果有 token 并且获取用户信息失败，则删除用户 token
 			removeAuthInfo(req, res); // 删除用户 token
 		}
 	}
@@ -49,20 +51,23 @@ export const prepend = function (req: Request, res: Response, next: NextFunction
 
 // 用户找回密码
 export const userForget = function (req: Request, res: Response) {
+	const i18n = I18n();
 	res.send({
-		title: "找回密码"
+		title: i18n.common.resetPassword
 	});
 };
 // 邮箱注册
 export const register = function (req: Request, res: Response) {
+	const i18n = I18n();
 	res.send({
-		title: "注册"
+		title: i18n.common.register
 	});
 };
 // 用户登录
 export const login = function (req: Request, res: Response) {
+	const i18n = I18n();
 	res.send({
-		title: "登录"
+		title: i18n.common.login
 	});
 };
 

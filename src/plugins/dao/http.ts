@@ -16,11 +16,6 @@ import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 // 用户信息
 const getUserAuth = async function (config: AxiosRequestConfig, lang?: Lang) {
-	// 判断是否需要传用户信息
-	const _user = safeGet<string>(config, 'params._user');
-	if (Equals(_user, 'none')) {
-		return;
-	}
 	// 如果当前是 ssr 环境
 	if (IsSSR()) {
 		// 从 Request 对象中获取用户信息
@@ -64,8 +59,21 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 			const current: string = i18n.getLang();
 			const status = isKindDataDomain(config);
 			if (status) {
-				// 设置 token
-				const token = await getUserAuth(config, lang);
+				let token: string | undefined;
+				// 判断是否需要传用户信息
+				const userStatus = safeGet<string>(config, 'params._user');
+				if (userStatus && Equals(userStatus, "none")) {
+					token = "";
+				} else {
+					// 获取 token
+					token = await getUserAuth(config, lang);
+				}
+				if (userStatus && Equals(userStatus, "required") && !token) {
+					throw {
+						code: 0,
+						data: null
+					}
+				}
 				if (token) {
 					safeSet(config, "headers.Authorization", `Token ${token}`);
 				}
@@ -75,6 +83,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 			}
 			// 处理 url 中的变量
 			const parameter: any = {
+				...env,
 				language: current, // 当前环境语言类型
 				version: env.ApiVersion,  // API 版本
 			};
@@ -84,15 +93,15 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 			if (config.data) {
 				Object.assign(parameter, config.data);
 			}
-			// if (config.url) {
-			// 	/**
-			// 	 * 借助 i18n 模块中的 template 可以对字符串中的变量进行替换
-			// 	 * const url = "xxx/{id}/{name}/xxx"
-			// 	 * const params = { id: "1", name: "aaa" }
-			// 	 * 替换后为 "xxx/1/aaa/xxx"
-			// 	 */
-			// 	config.url = i18n.template(config.url, parameter)
-			// }
+			if (config.url) {
+				/**
+				 * 借助 i18n 模块中的 template 可以对字符串中的变量进行替换
+				 * const url = "xxx/{id}/{name}/xxx"
+				 * const params = { id: "1", name: "aaa" }
+				 * 替换后为 "xxx/1/aaa/xxx"
+				 */
+				config.url = i18n.template(config.url, parameter)
+			}
 			return config;
 		},
 		(error) => Promise.reject(error),
@@ -103,11 +112,17 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 			if (status >= 200 && status < 300) {
 				return res;
 			} else {
-				console.log(res);
+				console.log('API Error url = "%s", method = "s%", status = "%s"', res.config.url, res.config.method, res.status);
 				return Promise.reject("error");
 			}
 		},
-		(error) => Promise.reject(error),
+		(error) => {
+			let code = safeGet<number>(error, "code");
+			if (code === 0) {
+				return Promise.resolve(error);
+			}
+			return Promise.reject(error)
+		},
 	)
 	return service;
 }

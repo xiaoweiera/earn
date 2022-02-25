@@ -12,6 +12,7 @@ import "src/styles/main.scss";
 import {config} from "src/router/config";
 import {createApp} from "./bootstrap/main";
 import * as webkit from "src/plugins/webkit/";
+import { Device } from "src/types/common/device";
 import { setDeviceValue } from "src/plugins/browser/cookie";
 
 // 设置 Element Ui 中英文
@@ -60,11 +61,13 @@ const main = async function () {
 		webkit.env.process(), // 尝试与移动端设备进行交互
 		router.isReady() // 路由准备
 	]);
-
 	// 如果移动端有返回数据
 	if (process && process.device) {
 		// 设置设备类型
 		setDeviceValue(process.device);
+	} else {
+		// 设置默认类型
+		setDeviceValue(Device.web);
 	}
 	app.mount(`#${AppId}`, true);
 };

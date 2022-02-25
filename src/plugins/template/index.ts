@@ -10,7 +10,7 @@ import Icons from "src/config/iconfont";
 import { Language } from "src/types/language";
 import Crypto from "src/plugins/encryption/crypto";
 import {rootData, languageKey} from "src/config";
-import { getEnv } from "src/config/";
+import { getEnv, Command } from "src/config/";
 
 interface Result {
 	lang: Language;
@@ -27,18 +27,30 @@ const makeScript = function (data: Result): string {
 	const env = getEnv();
 
 	const value = _.omit(data, [ "title", "keywords", "description", "content", "libs" ]);
-	const code = `window["${rootData}"] = "${Crypto(value)}";`;
+	const dataCode = `window["${rootData}"] = "${Crypto(value)}";`;
+	let seoCode = '';
 
 	// 谷歌人机教验
 	const recaptcha = `https://www.recaptcha.net/recaptcha/api.js?render=${env.google.captcha}`;
 
 	const libs = [ ...Icons, recaptcha ];
 
+	// 编译后环境
+	if (env.VITE_command === Command.build) {
+		// 百度统计
+		libs.push('https://hm.baidu.com/hm.js?fdb9f024136898f0d5822f8a4b71b036');
+		// 谷歌统计
+		libs.push('https://www.googletagmanager.com/gtag/js?id=G-0L1ZS5F062');
+		seoCode = `window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-0L1ZS5F062');`;
+	}
 	const html: string[] = [];
 	_.each(libs, function (src: string) {
 		html.push(`<script src="${src}" async></script>`);
 	});
-	html.push(`<script>${code}</script>`);
+	if (seoCode) {
+		html.push(`<script>${seoCode}</script>`);
+	}
+	html.push(`<script>${dataCode}</script>`);
 	return html.join("");
 }
 

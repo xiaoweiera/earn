@@ -32,18 +32,27 @@ export const createReactive = function<T>(key: string, auto: T) {
 type ApiFun = <T>(query?: object | string | number) => T;
 type UpdateCallback = (query?: object | string | number) => Promise<void>
 
-const getData = function<T>(api: string | ApiFun | Function, query?: object | string | number) {
+const getData = async function<T>(api: string | ApiFun | Function, query?: object | string | number) {
 	if (_.isString(api)) {
 		const model = {
-			api: new API()
+			API: new API()
 		};
 		const fun = safeGet<ApiFun>(model, api);
 		if (fun && _.isFunction(fun)) {
-			return fun<T>(query);
+			const app: ApiFun = fun.bind(model.API) as any; // 修复 this 对象
+			try {
+				return await app<T>(query); // 执行对应的方法
+			} catch (e) {
+				// todo
+			}
 		}
 	}
 	if (_.isFunction(api)) {
-		return api<T>(query);
+		try {
+			return await api<T>(query);
+		} catch (e) {
+			// todo
+		}
 	}
 }
 

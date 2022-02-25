@@ -5,7 +5,10 @@ export const common = {
 	chain: {
 		site: "common.chainSite"
 	},
+}
 
+export const blog = {
+	detail: "API.blog.getDetail"
 }
 
 export const dApp = {
