@@ -27,7 +27,12 @@ const data={
       <thead>
       <tr class="h-11.5">
         <template v-for="(item, index) in data.header" :key="index">
-          <td class="thead-hr">{{item.name}}</td>
+          <td class="thead-hr hand">
+            <div class="flex items-center" :class="index === 0 ? 'justify-start' : 'justify-center'">
+              <IconFont class="mr-1" size="14" v-if="index !== 0" type="icon-shuangxiangjiantou"/>
+              <span>{{item.name}}</span>
+            </div>
+          </td>
         </template>
       </tr>
       </thead>
@@ -80,7 +85,7 @@ const data={
 </template>
 <style scoped lang="scss">
 .thead-hr{
-  @apply border-b-1 border-global-highTitle border-opacity-6;
+  @apply h-full border-b-1 border-global-highTitle border-opacity-6;
 }
 thead td{
   @apply text-center text-kd12px16px text-global-highTitle text-opacity-45;
