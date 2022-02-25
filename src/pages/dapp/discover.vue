@@ -4,44 +4,45 @@ import DappDiscoversSearch from './discovers/search.vue';
 import DappDiscoversEndlist from './discovers/endlist.vue';
 import DappDiscoversList from './discovers/list.vue';
 import * as alias from "src/utils/root/alias";
-import {onMounted, ref, watch} from "vue"
+import {onMounted, ref} from "vue"
 import safeGet from "@fengqiaogang/safe-get";
 import * as logic from "src/types/dapp/";
 import {toLower, uuid} from "src/utils";
 import { includes } from 'ramda';
-import { useRoute } from 'vue-router'
 import {Model} from "src/logic/dapp";
 import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 import {summaryModel} from "src/types/home";
-import {Model as HomeModel} from "src/logic/home";
+// 引入 use state
+import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
+
+interface Query {
+  group: string;
+  platform: string;
+  type: string;
+  [key: string]: string
+}
+
+const key = ref<string>(uuid());
+// 定义一个 provide 数据，给子组件（ui-tab）使用
+const [ query ] = useReactiveProvide<Query>(stateAlias.ui.tab, {});
+
 
 //获取类型
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
-onMounted(function () {
-  // 得到数据汇总
-  onLoadReactive(summary, () => {
-    const api = new HomeModel();
-    return api.getSummary();
-  });
-});
+
 // 获取ido列表
 const list = createReactive("API.dapp.getList", {});
 const igolist = createReactive("API.dapp.getIGOList", {});
 
-const $router = useRoute();
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总
   onLoadReactive(list, () => api.getList());
   onLoadReactive(igolist, () => api.getIGOList());
-});
 
-const key = ref<string>(uuid());
-const $route = useRoute();
-
-onMounted(function () {
-  watch($route, function () {
-    key.value = uuid();
+  // 得到数据汇总
+  onLoadReactive(summary, () => {
+    return api.home.getSummary();
   });
 });
 
@@ -59,9 +60,14 @@ const init = function (query: object) {
   // 默认为upcoming
   active.value = logic.TabTypes.upcoming;
 }
-const onChangeView = function (data: object) {
-  init(data);
-}
+
+// 监听 ui-tab 数据变化
+useWatch<object>(query, function (value: object) {
+  key.value = uuid();
+  console.log("ui-tab", value);
+  // todo 可以在此处更新某些数据
+});
+
 </script>
 <template>
   <div class="discover-warp px-3 md:px-22.5">
@@ -80,7 +86,7 @@ const onChangeView = function (data: object) {
       </div>
       <!-- 列表内容 -->
       <div class="py-8">
-        <div v-if="$router.query.type === logic.TabTypes.ended">
+        <div v-if="query.type === logic.TabTypes.ended">
           <DappDiscoversEndlist class="px-4" :list="list"></DappDiscoversEndlist>
         </div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" v-else>
