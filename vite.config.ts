@@ -39,7 +39,7 @@ const getSassData = function (env: ImportMetaEnv & ConfigEnv) {
 const getBuildConfig = function (config: ImportMetaEnv) {
   if (config.VITE_command === Command.build) {
     return {
-      minify: "esbuild", // 编译速度最快
+      minify: "terser",
       target: 'modules',
       manifest: true,
       chunkSizeWarningLimit: 500,
@@ -77,7 +77,6 @@ export default defineConfig(async function () {
   console.log("vite config : ", config);
   console.log("sass data: ", data.sass);
   const buildConfig = getBuildConfig(config);
-  console.log(buildConfig);
   return {
     base: /^.+\/$/.test(data.staticUrl) ? data.staticUrl : `${data.staticUrl}/`,
     mode: config.VITE_command === Command.build ? production : development,
