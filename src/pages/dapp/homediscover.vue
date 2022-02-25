@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import {ProjectItem, AdItem} from "src/types/dapp/ixo";
 import { Model, tabChain } from "src/logic/dapp/";
 import * as alias from "src/utils/root/alias";
@@ -11,6 +11,10 @@ import DAppHomeHeader from './home/header.vue';
 import DAppHomeTitle from './home/title.vue';
 import DAppDiscoversContentType from './discovers/content/type.vue';
 import DAppDiscoversList from './discovers/list.vue';
+import {getParam} from "~/utils/router";
+import {uuid} from "~/utils";
+import {useRoute} from "vue-router";
+import { config } from "src/router/config";
 
 defineProps({
   summary: {
@@ -19,9 +23,10 @@ defineProps({
   }
 })
 
+const route = useRoute();
 const urlType = true;
 // 公链类型
-const chain = ref<string>("all");
+const chain = ref(getParam<string>("chain"));
 
 // 即将上线列表
 const getUpcomingList = function () {
@@ -54,7 +59,13 @@ const onChangeChina = function () {
   updateUpcomingList();
   updateOngoingList();
 };
-
+watch(route, () => {
+  const querys: any = getParam<string>();
+  chain.value = querys.chain;
+  getUpcomingList();
+  getOngoingList();
+  // todo 可以在此处更新某些数据
+})
 
 </script>
 <template>
@@ -65,7 +76,7 @@ const onChangeChina = function () {
       </div>
       <!-- 公链数据 -->
       <div class="mt-4">
-        <!-- <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain)" name="chain" title="公链"/> -->
+         <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'chain', config.home)" :split="6" name="chain" title="公链"/>
       </div>
       <!-- IDO进行中项目 -->
       <div class="mt-5">

@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import {ref} from 'vue';
 import { toNumberCashFormat } from 'src/utils/convert/to'
-defineProps({
+const emit=defineEmits(['changeSort'])
+const props = defineProps({
   list: {
     type: Object,
+  },
+  params: {
+    type: Object,
+    default: () => {}
   }
 })
 const data={
   header: [
     { name: 'Project Name', key: 'name' },//nameProject
-    { name: 'Type', key: 'data_type' },
+    { name: 'Type', key: 'category' },
     { name: 'Total Ralsed', key: 'ido_fundraising_goal' },
     { name: 'Sale Price', key: 'ido_price' },
     { name: 'Current Price', key: 'current_price' },
@@ -20,6 +24,30 @@ const data={
     { name: 'Rating', key: 'overall_score' },
   ]
 }
+//排序
+const sort = (key: string) => {
+  if (!props.params.sort_type || props.params.sort_field !== key) {
+    props.params.sort_type = 'desc'
+  } else if (props.params.sort_type === 'desc') {
+    props.params.sort_type = 'asc'
+  } else {
+    props.params.sort_type = ''
+  }
+  props.params.sort_field = key
+  emit('changeSort',key)
+}
+
+const sortIcon: any = {
+  'desc': 'icon-shuangxiangjiantou-down',
+  'asc': 'icon-shuangxiangjiantou-up',
+  '': 'icon-shuangxiangjiantou'
+}
+const getIcon = (item:string) => {
+  if (props?.params?.sort_field === item) {
+    return sortIcon[props?.params?.sort_type]
+  }
+  return 'icon-shuangxiangjiantou'
+}
 </script>
 <template>
   <div class="table-box">
@@ -27,7 +55,12 @@ const data={
       <thead>
       <tr class="h-11.5">
         <template v-for="(item, index) in data.header" :key="index">
-          <td class="thead-hr">{{item.name}}</td>
+          <td class="thead-hr hand">
+            <div class="flex items-center" @click="sort(item.key)" :class="index === 0 ? 'justify-start' : 'justify-center'">
+              <IconFont class="mr-1" size="14" v-if="index !== 0" :type="getIcon(item.key)"/>
+              <span>{{item.name}}</span>
+            </div>
+          </td>
         </template>
       </tr>
       </thead>
@@ -80,7 +113,7 @@ const data={
 </template>
 <style scoped lang="scss">
 .thead-hr{
-  @apply border-b-1 border-global-highTitle border-opacity-6;
+  @apply h-full border-b-1 border-global-highTitle border-opacity-6;
 }
 thead td{
   @apply text-center text-kd12px16px text-global-highTitle text-opacity-45;

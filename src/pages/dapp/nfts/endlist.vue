@@ -9,13 +9,13 @@ defineProps({
 const data={
   header: [
     { name: 'Project Name', key: 'name' },
-    { name: 'Current ROI USD', key: 'data_type' },
-    { name: 'Owners', key: 'token' },
-    { name: 'Supply', key: 'supply' },
-    { name: 'Floor Price', key: 'endedIn' },
-    { name: 'Mint Price', key: 'endedIn' },
-    { name: 'Chain', key: 'endedIn' },
-    { name: 'Rating', key: 'endedIn' },
+    { name: 'Current ROI USD', key: 'category' },
+    { name: 'Owners', key: 'owners' },
+    { name: 'Supply', key: 'issue_volume' },
+    { name: 'Floor Price', key: 'floor_price' },
+    { name: 'Mint Price', key: 'mint_price' },
+    { name: 'Chain', key: 'chain' },
+    { name: 'Rating', key: 'overall_score' },
   ],
 }
 </script>
@@ -25,7 +25,12 @@ const data={
       <thead>
       <tr class="h-11.5 ">
         <template v-for="(item, index) in data.header" :key="index">
-          <td class="thead-hr">{{item.name}}</td>
+          <td class="thead-hr">
+            <div class="flex items-center" :class="index === 0 ? 'justify-start' : 'justify-center'">
+              <IconFont class="mr-1" size="14" v-if="index !== 0" type="icon-shuangxiangjiantou"/>
+              <span>{{item.name}}</span>
+            </div>
+          </td>
         </template>
       </tr>
       </thead>
@@ -37,12 +42,12 @@ const data={
                 <IconFont size="32" type="icon-HECOYuan"/>
                 <div class="ml-1.5">
                   <div class="numberDefault text-number line-height-no">{{item.name}}</div>
-                  <div class="nameTag text-number text-left line-height-no">{{item.data_type}}</div>
+                  <div class="nameTag text-number text-left line-height-no">{{item.category}}</div>
                 </div>
               </div>
             </td>
             <td>
-              <div class="text-right pr-8 text-kd14px16px text-global-highTitle text text-number">{{item.categories[0]}}</div>
+              <div class="text-center text-kd14px16px text-global-highTitle text text-number">{{item.category}}</div>
             </td>
             <td>
               <div class="numberDefault text-number">{{toNumberCashFormat(item.owners,'','','Not Set')}}</div>
@@ -75,9 +80,6 @@ thead td{
   @apply text-kd12px16px text-global-highTitle text-opacity-65 text-center;
   &:first-child {
     @apply text-left;
-  }
-  &:nth-child(2) {
-    @apply text-right pr-8;
   }
 }
 tbody td{
