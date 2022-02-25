@@ -85,7 +85,7 @@ onMounted(() => {
   <div>
     <!--projectName-->
     <div v-if="(typeName==='name' && !info ) || typeName==='name' && info.show_type==='data'" class="flex-center  max-w-25 whitespace-nowrap">
-      <IconFont size="24" :type="data.logo"/>
+      <IconFont :size="info?32:24" :type="data.logo"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt   max-w-20 whitespace-nowrap">{{ data['name'] }}
         </div>

@@ -13,9 +13,9 @@ const changeTopic=(index:number)=>id.value=index
   <div class="md:w-150 w-full  md:min-h-86 md:py-3  relative">
     <div class="bg xshidden"></div>
     <div class="relative md:min-h-86 md:bg-global-white rounded-kd16px">
-      <template v-for="(item,index) in data">
-        <HomeTableModel class="xshidden h-full z-11 md:absolute top-0" :class="topicIndex===index?'active':'active-no'" :data="item"/>
-        <HomeTableModel v-if="index===id" class="h-full" :class="id===index?'block':'hidden'" :data="item"/>
+      <template v-for="(item,index) in data" :key="item.id">
+        <HomeTableModel class="xshidden h-full  md:absolute top-0" :class="topicIndex===index?'active':'active-no'" :data="item"/>
+        <HomeTableModel v-if="index===id" class="h-full mdhidden" :class="id===index?'block':'hidden'" :data="item"/>
       </template>
     </div>
     <!--手机端翻页-->
@@ -43,13 +43,15 @@ const changeTopic=(index:number)=>id.value=index
   @apply ml-6;
 }
 .active {
-  transition: all 1.2s;
+  transition: all 1s;
   opacity: 1;
+  z-index: 2;
 }
 
 .active-no {
-  transition: all 1.2s;
+  transition: all 1s;
   opacity: 0;
+  z-index: 1;
 }
 
 .table-default {
