@@ -8,6 +8,7 @@ import {Request, Response} from "express";
 import { names } from "src/config/header";
 import safeGet from "@fengqiaogang/safe-get";
 import { BlogDetail } from "src/types/blog/";
+import * as alias from "src/utils/root/alias";
 
 export const list = async function (req: Request, res: Response) {
 	const api = new Model(req);
@@ -40,7 +41,7 @@ export const detail = async function (req: Request, res: Response) {
 	// 获取详情数据
 	const data = await api.blog.getDetail<BlogDetail>(id);
 	const result = {
-		"API.blog.getDetail": data
+		[alias.blog.detail]: data
 	};
 	res.send(result);
 }

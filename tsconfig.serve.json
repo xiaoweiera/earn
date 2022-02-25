@@ -5,6 +5,7 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "target": "es6",
     "lib": ["esnext", "dom"],
     "noImplicitAny": true,

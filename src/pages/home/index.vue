@@ -25,27 +25,26 @@ onMounted(function () {
 
 </script>
 <template>
-  <div class="top  min-h-164  pt-6 ">
-    <div class="max-w-360 px-22.5   mx-auto">
+  <div class="top  min-h-164 pt-3 md:pt-6 ">
+    <div class="md:max-w-360 md:px-22.5 px-3  mx-auto">
       <!--      顶部信息-->
-      <HomeHeader v-if="summary" :data="summary"/>
+      <HomeHeader  v-if="summary" :data="summary"/>
       <!--      话题切换-->
-      <HomeTopic class="mt-9"/>
+      <HomeTopic class="mt-6 md:mt-9"/>
       <!--      趋势-->
       <HomeTrends class="mt-6"/>
       <!--      topic推荐-->
       <HomeRecommend class="mt-6"/>
-      <DappHomediscover v-if="summary" class="mt-16.5" :summary="summary"/>
+      <DappHomediscover v-if="summary" class="mt-8 md:mt-16.5" :summary="summary"/>
       <!--      项目方-->
       <HomeCompany class="mt-6"/>
-      <DappHomenft v-if="summary" class="mt-16.5" :summary="summary"/>
-      <DappHomediscoverend v-if="summary" class="mt-16.5" :summary="summary"/>
+      <DappHomenft v-if="summary" class="mt-4 md:mt-16.5" :summary="summary"/>
+      <DappHomediscoverend v-if="summary" class="mt-4 md:mt-16.5" :summary="summary"/>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
 @import "src/styles/function";
-
 .top {
   background: #e5e5e51a;
   background-image: cdn("/dapp/dappsBg.jpg");

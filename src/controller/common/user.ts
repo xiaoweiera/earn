@@ -4,17 +4,19 @@
  */
 
 import API from "src/api/index";
+import I18n from "src/utils/i18n";
+import {dashboard} from "src/config";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import * as alias from "src/utils/root/alias";
+import Cookie from "src/plugins/browser/cookie";
 import redirect from "src/controller/common/redirect";
-import {dashboard, getEnv, tokenName} from "src/config";
 import {NextFunction, Request, Response} from "express";
-import {Authorization} from "src/plugins/express/authorization";
 
 // 用户详情
-export const userInfo = async function (req: Request) {
-	const {token} = Authorization(req);
+export const userInfo = async function (req: Request, res: Response) {
+	const cookie = new Cookie(req, res);
+	const token = await cookie.getUserToken();
 	if (token) {
 		const api = new API(req);
 		try {
@@ -22,10 +24,13 @@ export const userInfo = async function (req: Request) {
 			if (data) {
 				const result = {};
 				safeSet(result, alias.common.user, data);
+				// 刷新 token 数据
+				cookie.setUserToken(token);
 				return result;
 			}
 		} catch (e) {
-			// todo
+			// 如果有 token 并且获取用户信息失败，则删除用户 token
+			cookie.removeUserToken();
 		}
 	}
 	return {};
@@ -33,13 +38,8 @@ export const userInfo = async function (req: Request) {
 
 // 处理用户退出
 export const userLogout = function (req: Request, res: Response) {
-	const env = getEnv();
-	// 删除用户 cookie
-	res.clearCookie(tokenName, {
-		path: '/',
-		// httpOnly: true,
-		domain: env.VITE_cookie,
-	});
+	const cookie = new Cookie(req, res);
+	cookie.removeUserToken();
 	redirect(req, res, dashboard);
 }
 
@@ -55,20 +55,23 @@ export const prepend = function (req: Request, res: Response, next: NextFunction
 
 // 用户找回密码
 export const userForget = function (req: Request, res: Response) {
+	const i18n = I18n();
 	res.send({
-		title: "找回密码"
+		title: i18n.common.resetPassword
 	});
 };
 // 邮箱注册
 export const register = function (req: Request, res: Response) {
+	const i18n = I18n();
 	res.send({
-		title: "注册"
+		title: i18n.common.register
 	});
 };
 // 用户登录
 export const login = function (req: Request, res: Response) {
+	const i18n = I18n();
 	res.send({
-		title: "登录"
+		title: i18n.common.login
 	});
 };
 

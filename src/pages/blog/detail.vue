@@ -4,27 +4,25 @@
  * @author svon.me@gmail.com
  */
 
+import {onMounted} from "vue";
 import Item from "./item.vue";
 import I18n from "src/utils/i18n";
-import {useRoute} from "vue-router";
-import {onMounted, toRaw} from "vue";
 import {BlogDetail} from "src/types/blog/";
 import safeGet from "@fengqiaogang/safe-get";
-import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
+import * as alias from "src/utils/root/alias";
+import {createReactive, onLoadReactive, getValue} from "src/utils/ssr/ref";
 
 const i18n = I18n();
 
-const $router = useRoute();
-const apiFunName = "API.blog.getDetail";
 // 详情数据
-const detail = createReactive<BlogDetail>(apiFunName, {} as BlogDetail);
+const detail = createReactive<BlogDetail>(alias.blog.detail, {} as BlogDetail);
 
 onMounted(function () {
   // 如果博客详情数据为空，同时 url 中有博客 id
-  const params = toRaw($router.params);
+  const params = getValue<object>("query", {});
   const id = safeGet<string>(params, "id");
   if (id) {
-    onLoadReactive(detail, apiFunName, id);
+    onLoadReactive(detail, alias.blog.detail, id);
   }
 });
 

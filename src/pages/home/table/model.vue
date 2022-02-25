@@ -1,78 +1,76 @@
 <script setup lang="ts">
 import HomeTableTd from './td.vue'
 import HomeTableHeader from './header.vue'
+import {config} from "~/router/config";
 const props = defineProps({
-  data: Object
+  data: Object,
 })
 </script>
 <template>
-  <div class="table-box bg-global-white  border-1">
-    <div class="flex items-center justify-between">
+  <div class="table-box bg-global-white relative" >
+    <div class="flex items-center justify-between flex-wrap ">
       <span class="title">{{ data.name }}</span>
-      <div class="flex items-center hand">
+      <v-router :href="`${config.homeDetail}?id=${data.id}`" target="_blank" class="flex items-center hand">
         <span class="more cursor-pointer">More</span>
         <IconFont class="text-global-primary ml-0.5" size="12" type="icon-rightNo"/>
-      </div>
+      </v-router>
     </div>
     <div class="gang"></div>
-    <table class="table-my">
-      <thead>
-      <tr class="h-5">
-        <td>
-          <div class="text-left w-3.5">#</div>
-        </td>
-        <template v-for="(item,index) in data.table.header" :key="index">
-          <td class="text-left" v-if="item.key!=='id'">
-            <HomeTableHeader :item="item"/>
+    <div class="showX">
+      <table class="table-my">
+        <thead>
+        <tr class="h-5">
+          <td>
+            <div class="text-left w-3.5">#</div>
           </td>
-        </template>
-      </tr>
-      </thead>
-      <tbody>
-      <template v-for="(item,index) in data.table.items" :key="index">
-        <tr class="h-11.5">
-          <td class="number">
-            <div class=" text-left w-3.5">{{ index + 1 }}</div>
-          </td>
-          <template v-for="(itemTwo,index) in data.table.header" :key="index">
-            <td v-if="itemTwo.key!=='id'">
-              <HomeTableTd :typeName="itemTwo.key" :data="item"/>
+          <template v-for="(item,index) in data.table.header" :key="index">
+            <td class="text-left" v-if="item.key!=='id'">
+              <HomeTableHeader :item="item"/>
             </td>
           </template>
         </tr>
-      </template>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        <template v-for="(item,index) in data.table.items" :key="index">
+          <tr class="h-10 md:h-11.5">
+            <td class="number">
+              <div class=" text-left w-3.5">{{ index + 1 }}</div>
+            </td>
+            <template v-for="(itemTwo,index) in data.table.header" :key="index">
+              <td v-if="itemTwo.key!=='id'">
+                <HomeTableTd :typeName="itemTwo.key" :data="item"/>
+              </td>
+            </template>
+          </tr>
+        </template>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
 .title {
-  @apply text-kd18px24px font-medium font-kdFang text-global-highTitle;
+  @apply text-kd16px22px md:text-kd18px24px font-medium font-kdFang text-global-highTitle;
 }
-
 .more {
-  @apply text-global-primary;
+  @apply text-kd12px16px text-global-primary;
 }
-
 .gang {
   border: 1px solid rgba(3, 54, 102, 0.06);
-  @apply my-5;
+  @apply my-3 md:my-5;
 }
-
 thead td, .number {
-  @apply text-kd12px16px text-global-highTitle text-opacity-45 text-center;
+  @apply whitespace-nowrap md:whitespace-wrap text-kd12px16px text-global-highTitle text-opacity-45 text-center;
 }
-
 tbody td {
   @apply text-center text-kd14px18px text-global-highTitle;
 }
-
 .table-box {
-  @apply p-4 w-full h-full bg-global-white rounded-kd16px;
+  @apply p-3 pb-2 md:p-4 md:pb-4 w-full h-full bg-global-white rounded-kd16px;
 }
 
 .table-my {
   //border-collapse:separate;  border-spacing:0px 0px;
-  @apply w-full bg-opacity-0 rounded-kd6px;
+  @apply min-w-140 md:w-full bg-opacity-0 rounded-kd6px;
 }
 </style>

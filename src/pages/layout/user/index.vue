@@ -73,7 +73,7 @@ const onSwitch = function () {
       </client-only>
     </div>
     <!--钱包-->
-    <div class="ml-4">
+    <div class="ml-4 xshidden">
       <ui-wallet-connect/>
     </div>
   </div>

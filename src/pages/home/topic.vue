@@ -6,15 +6,7 @@ import {createRef, onLoadRef} from "~/utils/ssr/ref";
 import {Model} from "~/logic/home";
 
 const topicIndex = ref(0)
-const zhi = ref(0)
-const selectTopic = (index: number) => {
-  topicIndex.value = index
-  if (zhi.value === 0) {
-    zhi.value = 1
-  } else {
-    zhi.value = 0
-  }
-}
+const selectTopic = (index: number) => topicIndex.value = index
 const rank = createRef("API.home.getTopicRank", []);
 
 onMounted(function () {
@@ -26,7 +18,7 @@ onMounted(function () {
 <template>
   <div class="w-full flex justify-between">
     <!--   topic tag-->
-    <div>
+    <div class="xshidden">
       <div class="flex items-center mt-2.5">
         <img class="w-4 h-4 mr-1.5 " :src="`${oss}/dapp/timeIcon.png`" alt="">
         <span class="des font-kdFang">Data during the last 24 hours:</span>
@@ -41,9 +33,7 @@ onMounted(function () {
       </div>
     </div>
     <!--    topic table-->
-    <div>
       <HomeTable :topicIndex="topicIndex" :data="rank"/>
-    </div>
   </div>
 </template>
 <style scoped lang="scss">
@@ -73,7 +63,7 @@ onMounted(function () {
 }
 
 .topic-default {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.33) 0%, rgba(255, 255, 255, 0.02) 100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.33) 0%, rgba(255, 255, 255, 0) 100%);
   @apply text-global-white;
 }
 </style>

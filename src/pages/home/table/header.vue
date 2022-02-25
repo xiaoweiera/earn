@@ -28,8 +28,20 @@ const getIcon = () => {
 }
 </script>
 <template>
-  <div class="flex items-center hand" :class="cssData[1]==='text-center'?'justify-center':''">
-    <IconFont v-if="item.sort && params" class=" mr-1" size="14" :type="getIcon()"/>
-    <span>{{ cssData[0] }}</span>
+  <div class="flex items-center hand" :class="cssData[1]">
+    <div class="relative">
+      <IconFont v-if="item.sort && params" class="relative top-0.5 mr-1" size="14" :type="getIcon()"/>
+      <span>{{ cssData[0] }}</span>
+      <div :class="item.key===params?.sort_field?'sort-border':''"></div>
+    </div>
+
   </div>
 </template>
+<style scoped lang="scss">
+.sort-border{
+  @apply border-1 absolute w-full -bottom-2.5 border-global-primary;
+}
+.sort-border-no{
+  @apply border-1 absolute w-full -bottom-2.5 border-global-primary border-global-opacity-0;
+}
+</style>
