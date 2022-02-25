@@ -12,8 +12,7 @@ import { includes } from 'ramda';
 import {Model} from "src/logic/dapp";
 import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 import {summaryModel} from "src/types/home";
-import {Model as HomeModel} from "src/logic/home";
-
+// 引入 use state
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
 
 interface Query {
@@ -30,13 +29,7 @@ const [ query ] = useReactiveProvide<Query>(stateAlias.ui.tab, {});
 
 //获取类型
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
-onMounted(function () {
-  // 得到数据汇总
-  onLoadReactive(summary, () => {
-    const api = new HomeModel();
-    return api.getSummary();
-  });
-});
+
 // 获取ido列表
 const list = createReactive("API.dapp.getList", {});
 const igolist = createReactive("API.dapp.getIGOList", {});
@@ -46,6 +39,11 @@ onMounted(function () {
   // 得到数据汇总
   onLoadReactive(list, () => api.getList());
   onLoadReactive(igolist, () => api.getIGOList());
+
+  // 得到数据汇总
+  onLoadReactive(summary, () => {
+    return api.home.getSummary();
+  });
 });
 
 const active = ref<logic.TabTypes>();
