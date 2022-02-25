@@ -1,6 +1,7 @@
 
 export const common = {
 	user: "common.user",
+	ua: "common.ua",
 	chain: {
 		site: "common.chainSite"
 	},

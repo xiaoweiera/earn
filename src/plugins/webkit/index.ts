@@ -4,3 +4,4 @@
  */
 
 export * as user from "./user"
+export * as env from "./env";

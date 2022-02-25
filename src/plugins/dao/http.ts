@@ -3,60 +3,42 @@
  * @author svon.me@gmail.com
  */
 
-import _ from "lodash";
-import Cookie from "js-cookie";
 import {Request} from "express";
 import I18n from "src/utils/i18n";
-import { getEnv, tokenName } from "src/config/";
 import { Lang } from "src/types/language";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
+import { isObject, Equals } from "src/utils/";
+import * as webkit from "src/plugins/webkit/";
+import { getEnv, languageKey, IsSSR } from "src/config/";
 import { Authorization } from "../express/authorization";
 import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 // 用户信息
-const getUserAuth = function (config: AxiosRequestConfig, lang?: Lang) {
-	const tokenKey = "token";
-	const paramKey = "params";
-	const dataKey = "data";
-	let token: string = '';
-	if (lang && _.isObject(lang)) {
-		const value = Authorization(lang as Request);
-		token = safeGet<string>(value, tokenKey);
-	}else {
-		const value = Cookie.get(tokenName);
-		if (value) {
-			token = value;
-		}
+const getUserAuth = async function (config: AxiosRequestConfig, lang?: Lang) {
+	// 不传用户信息
+	const _user = safeGet<string>(config, 'params._user');
+	if (Equals(_user, 'none')) {
+		return;
 	}
-	if (token) {
-		return token;
+	// 从 Request 对象中获取用户信息
+	if (IsSSR() && lang && isObject(lang)) {
+		const auth = Authorization(lang as Request);
+		return auth.token;
 	}
-
-	// 从 Get 参数中获取 token
-	token = safeGet<string>(config, `${paramKey}.${tokenKey}`);
-	if (token) {
-		const value = _.omit(safeGet<object>(config, paramKey), [tokenKey]);
-		safeSet(config, paramKey, value);
-		return token;
+	// 从移动端获取用户信息
+	const process = await webkit.env.process();
+	if (process && process.token) {
+		return process.token;
 	}
-	// 从 Post 参数中获取 token
-	token = safeGet<string>(config, `${dataKey}.${tokenKey}`);
-	if (token) {
-		const value = _.omit(safeGet<object>(config, dataKey), [tokenKey]);
-		safeSet(config, dataKey, value);
-		return token;
-	}
+	// 从浏览器 cookie 中获取
+	const data = Authorization();
+	return data.token;
 }
 
 // 判断请求的地址是否和业务域名相同
 const isKindDataDomain = function(config: AxiosRequestConfig): boolean {
 	return true
-}
-
-// 判断是否需要缓存
-const getCacheStatus = function(config: AxiosRequestConfig): boolean {
-	return !!safeGet<any>(config, "params.cache");
 }
 
 const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
@@ -79,12 +61,12 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 			const status = isKindDataDomain(config);
 			if (status) {
 				// 设置 token
-				const token = getUserAuth(config, lang);
+				const token = await getUserAuth(config, lang);
 				if (token) {
 					safeSet(config, "headers.Authorization", `Token ${token}`);
 				}
 				// 设置当前系统语言环境
-				safeSet(config, "params.lang", current);
+				safeSet(config, `params.${languageKey}`, current);
 				safeSet(config, "headers.accept-language", current);
 			}
 			// 处理 url 中的变量

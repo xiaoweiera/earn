@@ -4,16 +4,16 @@
  */
 
 import API from "src/api/index";
+import {dashboard} from "src/config";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import * as alias from "src/utils/root/alias";
 import redirect from "src/controller/common/redirect";
-import {dashboard, getEnv, tokenName} from "src/config";
 import {NextFunction, Request, Response} from "express";
-import {Authorization} from "src/plugins/express/authorization";
+import {Authorization, removeAuthInfo} from "src/plugins/express/authorization";
 
 // 用户详情
-export const userInfo = async function (req: Request) {
+export const userInfo = async function (req: Request, res: Response) {
 	const {token} = Authorization(req);
 	if (token) {
 		const api = new API(req);
@@ -25,7 +25,7 @@ export const userInfo = async function (req: Request) {
 				return result;
 			}
 		} catch (e) {
-			// todo
+			removeAuthInfo(req, res); // 删除用户 token
 		}
 	}
 	return {};
@@ -33,13 +33,7 @@ export const userInfo = async function (req: Request) {
 
 // 处理用户退出
 export const userLogout = function (req: Request, res: Response) {
-	const env = getEnv();
-	// 删除用户 cookie
-	res.clearCookie(tokenName, {
-		path: '/',
-		// httpOnly: true,
-		domain: env.VITE_cookie,
-	});
+	removeAuthInfo(req, res);
 	redirect(req, res, dashboard);
 }
 

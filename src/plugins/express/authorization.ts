@@ -3,17 +3,43 @@
  * @author svon.me@gmail.com
  */
 
-
-import {Request} from "express";
-import { tokenName } from "src/config/";
+import jsCookie from "js-cookie";
+import {Request, Response} from "express";
+import {getEnv, tokenName} from "src/config/";
 import safeGet from "@fengqiaogang/safe-get";
+import safeSet from "@fengqiaogang/safe-set";
 
 interface Auth {
-	token: string
+	token?: string
 }
 
-export const Authorization = function (req: Request): Auth {
-	const cookie = req.cookies;
-	const token = safeGet<string>(cookie, tokenName);
-	return { token };
+// 获取用户凭证
+export const Authorization = function (req?: Request): Auth {
+	if (req && req.cookies) {
+		const token = safeGet<string>(req.cookies, tokenName);
+		return { token };
+	} else {
+		const token = jsCookie.get(tokenName);
+		return { token };
+	}
+}
+
+// 删除用户凭证
+export const removeAuthInfo = function (req?: Request, res?: Response) {
+	const env = getEnv();
+	if (req && res) {
+		const cookie = req.cookies;
+		safeSet(cookie, tokenName, "");
+		// 删除用户 cookie
+		res.clearCookie(tokenName, {
+			path: '/',
+			// httpOnly: true,
+			domain: env.VITE_cookie,
+		});
+	} else {
+		jsCookie.remove(tokenName, {
+			domain: env.VITE_cookie,
+			path: '/',
+		});
+	}
 }

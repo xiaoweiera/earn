@@ -26,6 +26,7 @@ export enum Command {
 export const AppId = "app";
 export const languageKey = "lang";
 export const tokenName = "auth_token";
+export const tokenKey = "token";
 export const tokenExpires = 1000 * 60 * 60 * 2;
 export const deviceName = "kd_origin"; // 标记当前设备类型
 export const rootData = "__MlaABWNKPrYLzpbU";

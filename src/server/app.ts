@@ -9,6 +9,7 @@ import {getEnv} from "src/config";
 import Router from "./router/index";
 import Assets from "./router/assets";
 import CookieParser from "cookie-parser";
+// import userAgent from "express-useragent";
 import common from "src/controller/common/";
 import cors from "src/controller/common/cors";
 
@@ -31,6 +32,7 @@ const main = async function () {
 	app.use(assets);
 
 	app.use(CookieParser());
+	// app.use(userAgent.express());
 	// 处理公共数据
 	app.use(common);
 

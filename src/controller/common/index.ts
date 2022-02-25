@@ -3,8 +3,8 @@
  * @author svon.me@gmail.com
  */
 
-import {config} from "src/router/config";
 import {chainSiteConfig} from "./chain";
+import {config} from "src/router/config";
 import {userInfo, userLogout} from "./user";
 import {Router, NextFunction, Request, Response} from "express";
 
@@ -16,7 +16,7 @@ common.all(config.user.logout, userLogout);
 common.use(async function (req: Request, res: Response, next: NextFunction) {
 	const array = await Promise.all([
 		chainSiteConfig(req),
-		userInfo(req)
+		userInfo(req, res)
 	]);
 	const data = {};
 	for(const value of array) {
