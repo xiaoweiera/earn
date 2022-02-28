@@ -6,10 +6,9 @@ import ApiTemplate from "../template";
 import * as api from "src/config/api";
 import request from "src/plugins/dao/service";
 import { asyncCheck } from "src/plugins/dao/response";
-import { userToken, validate, required, tryError, ErrorDefault } from "src/utils/decorate";
+import { userToken, validate, required, tryError, ErrorDefault } from "src/plugins/dao/http";
 
 export default class extends ApiTemplate {
-
 	// 该接口不传 token
 	@userToken(false)
 	async ads<T>(user: object = {}): Promise<T[]> {

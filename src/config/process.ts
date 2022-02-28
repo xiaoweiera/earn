@@ -20,6 +20,7 @@ const _getOsProcess = function (): ImportMetaEnv {
 			"VITE_mode",
 			"VITE_command",
 			"VITE_api",
+			"VITE_productionApi",
 			"VITE_LanApi",
 			"VITE_domain",
 			"VITE_cookie",
@@ -31,10 +32,14 @@ const _getOsProcess = function (): ImportMetaEnv {
 			const value = safeGet<string>(data, name);
 			safeSet(env, name, value);
 		}
-		if (env.VITE_LanApi) {
-			return env;
+		// 如果线上环境接口地址未配置，则使用默认接口地址
+		if (!env.VITE_productionApi) {
+			env.VITE_productionApi = env.VITE_api;
 		}
-		env.VITE_LanApi = env.VITE_api;
+		// 如果局域网接口地址未配置，则使用默认接口地址
+		if (!env.VITE_LanApi) {
+			env.VITE_LanApi = env.VITE_api;
+		}
 	} catch (e) {
 		// todo
 	}

@@ -2,6 +2,7 @@ export interface ImportMetaEnv {
 	readonly VITE_mode: string;   // 运行模式
 	readonly VITE_command: string;
 	readonly VITE_api: string;    // 接口域名
+	VITE_productionApi: string;   // 线上环境接口地址
 	VITE_LanApi: string; // 局域网接口地址
 	readonly VITE_domain: string; // 网站域名
 	readonly VITE_cookie: string; // 设置 cookie 的安全域
