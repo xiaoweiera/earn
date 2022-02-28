@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import * as R from "ramda";
-import {oss} from "src/config";
+import {getEnv} from "src/config";
 import I18n from "src/utils/i18n/";
 import {BigNumber} from "bignumber.js";
 import {ElMessage} from "element-plus";
@@ -265,10 +265,11 @@ export const subStrByNumber = (str: string, number: number) => {
 }
 //弱提示框
 export const messageTip = (content: string, typeName: string) => {
+	const env = getEnv();
 	ElMessage({
 		showClose: true,
 		dangerouslyUseHTMLString: true,
-		message: `<div class="flex items-center "><img class="w-4 h-4 -ml-4" src="${oss}/nav/successIcon.png"><span class="ml-4">${content}</span></div>`,
+		message: `<div class="flex items-center "><img class="w-4 h-4 -ml-4" src="${env.VITE_oss}/nav/successIcon.png"><span class="ml-4">${content}</span></div>`,
 		//@ts-ignore
 		type: typeName
 	});

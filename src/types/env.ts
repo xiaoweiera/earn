@@ -23,6 +23,7 @@ export enum Command {
 	serve = "serve"
 }
 
+export const title = "KingData";
 export const AppId = "app";
 export const languageKey = "lang";
 export const tokenName = "auth_token";

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 个人信息
  * @author svon.me@gmail.com
@@ -12,7 +12,7 @@ import {User} from "src/types/common/user";
 import window from "src/plugins/browser/window";
 import {createReactive} from "src/utils/ssr/ref";
 import {createHref} from "src/plugins/router/pack";
-import {languageKey, oss, getEnv} from "src/config";
+import {getEnv, languageKey} from "src/config";
 import {showLogin, showRegister} from "src/logic/user/login";
 
 const env = getEnv();
@@ -40,19 +40,23 @@ const onSwitch = function () {
 
 <template>
   <div class="flex items-center text-white">
-  <span class="flex items-center cursor-pointer" @click.stop.prevent="onSwitch">
-    <span class="inline-block whitespace-nowrap text-14-18">{{ i18n.common.lang }}</span>
-  </span>
+    <!--中英文切换-->
+    <span class="flex items-center cursor-pointer" @click.stop.prevent="onSwitch">
+      <span class="inline-block whitespace-nowrap text-14-18">{{ i18n.common.lang }}</span>
+    </span>
+
     <span class="mx-4 text-white text-opacity-65 hidden lg:inline-block">|</span>
-    <v-router class="hidden lg:flex" :href="env.appDownload" target="_blank">
+
+    <v-router :href="env.appDownload" class="hidden lg:flex" target="_blank">
       <span class="inline-block whitespace-nowrap text-14-18">APP</span>
     </v-router>
+
     <span class="mx-4 text-white text-opacity-65">|</span>
 
     <!-- 已登录 -->
-    <ui-hover v-if="user.id" class="flex" placement="bottom-end" trigger="hover">
+    <ui-hover v-if="user && user.id" class="flex" placement="bottom-end" trigger="hover">
       <template #label>
-        <IconFont class="flex cursor-pointer" type="icon-yonghu1" size="22"/>
+        <IconFont class="flex cursor-pointer" size="22" type="icon-yonghu1"/>
       </template>
       <template #content>
         <user-menu :user="user"/>
@@ -63,7 +67,7 @@ const onSwitch = function () {
     <div v-else>
       <div class="flex items-center">
         <span class="whitespace-nowrap cursor-pointer" @click.stop.prevent="showLogin">{{ i18n.common.login }}</span>
-        <img class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block" :src="`${oss}/nav/dian.png`" alt=""/>
+        <img :src="`${env.VITE_oss}/nav/dian.png`" alt="" class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block"/>
         <span class="whitespace-nowrap cursor-pointer hidden md:inline-block"
               @click.stop.prevent="showRegister">{{ i18n.common.register }}</span>
       </div>
@@ -73,7 +77,7 @@ const onSwitch = function () {
       </client-only>
     </div>
     <!--钱包-->
-    <div class="ml-4 xshidden">
+    <div class="ml-4 hidden lg:block">
       <ui-wallet-connect/>
     </div>
   </div>

@@ -4,6 +4,7 @@
  */
 
 import I18n from "src/utils/i18n";
+import { title } from "src/config/";
 import { getTidings } from "./tiding";
 import {chainSiteConfig} from "./chain";
 import {config} from "src/router/config";
@@ -23,7 +24,7 @@ common.use(async function (req: Request, res: Response, next: NextFunction) {
 		getTidings(req, res),
 	]);
 	const data = {
-		title: "KingData",
+		title,
 		keywords: i18n.menu.seo.key,
 		description: i18n.menu.seo.des,
 	};

@@ -51,34 +51,33 @@ const ossList: string[] = [
 const getLink = function(value: string, suffix: string = 'svg'): string | undefined {
   if (value) {
     const env = getEnv();
-    const oss = env.VITE_oss;
     if (isHttp(value) || value.includes('.')) {
       return value
     }
     if(Equals(value,'redTip')){
-      return `${oss}/common/redTip.png`
+      return `${env.VITE_oss}/common/redTip.png`
     }
     if(Equals(value,'Optimism') || Equals(value,'OptimismYuan')){
-      return `${oss}/common/weizhi.png`
+      return `${env.VITE_oss}/common/weizhi.png`
     }
     if (Equals(value,'AVALANCHE')) {
-      return `${oss}/apyTwo/avaxChain.png`
+      return `${env.VITE_oss}/apyTwo/avaxChain.png`
     }
     if (Equals(value,'SOLANA')) {
       return 'https://res.kingdata.xyz/apyTwo/sol.png'
     }
     if (Equals(value, "vip1")) {
-      return `${oss}/static/images/icon/vip1.svg`;
+      return `${env.VITE_oss}/static/images/icon/vip1.svg`;
     }
     // 特殊 icon
     if (value === 'down' && suffix === 'png') {
       return 'https://res.kingdata.xyz/nav/down.png'
     }
     if (value === statusRight) {
-      return `${oss}/nav/statusRight.png`
+      return `${env.VITE_oss}/nav/statusRight.png`
     }
     if (ossList.includes(value)) {
-      return `${oss}/icon/${value}.${suffix}`
+      return `${env.VITE_oss}/icon/${value}.${suffix}`
     }
   }
   return void 0
