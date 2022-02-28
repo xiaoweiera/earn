@@ -21,6 +21,7 @@ import address from './address'
 import airdrop from "./airdrop";
 import wallet from "./wallet";
 import file from "./file"
+import home from "./home"
 export default {
   airdrop,
   blog,
@@ -43,5 +44,6 @@ export default {
   topRank,
   comment,
   wallet,
-  file
+  file,
+  home
 }

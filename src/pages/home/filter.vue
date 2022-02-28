@@ -63,13 +63,12 @@ const isCategory = computed(() => {
       <div class="flex items-center justify-between w-full">
         <div class="flex items-center w-full">
           <div v-if="isCategory" class="is-tab relative">
-            <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">项目类型
-            </div>
+            <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">{{i18n.home.category}}</div>
             <ui-tab class="relative z-22" :list="categoryData" :split="2" active-name="category"></ui-tab>
           </div>
           <IconFont v-if="isCategory && isChain" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
           <div v-if="isChain" class="flex items-center">
-            <span class="mr-4 text-kd14px18px text-global-highTitle text-opacity-65">公链</span>
+            <span class="mr-4 text-kd14px18px text-global-highTitle text-opacity-65">{{i18n.home.chain}}</span>
             <client-only class="flex items-center justify-between">
               <el-select @change="change" class="projectMining  flex-1 select" :popper-append-to-body="false" v-model="chain" size="small">
                 <el-option v-for="item in chainData" :label="item.name" :value="item.name" :key="item.name"></el-option>
