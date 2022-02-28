@@ -114,8 +114,8 @@ onMounted(() => {
     </div>
     <!--    iconHref  tge_platform-->
     <div v-else-if="typeDom==='iconHref'" class="flex-center justify-right justify-center">
-      <div v-if="domData || safeGet(config,`tge_platform.${domData}`)" class="w-full flex items-center justify-center">
-        <IconFont v-if="config"  size="16" :type="config.tge_platform[domData].logo"/>
+      <div v-if="domData && safeGet(config,`tge_platform.${domData}`)" class="w-full flex items-center justify-center">
+        <IconFont v-if="config"  size="16" :type="safeGet(config,`tge_platform.${domData}.logo`)"/>
         <v-router class="link text-number" href="https:www.baidu.com">{{ domData }}</v-router>
       </div>
       <div v-else class="numberDefault text-number text-center">Not Set</div>
