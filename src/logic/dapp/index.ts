@@ -132,13 +132,13 @@ export class Model extends API {
 		return this.dApp.ixo<ProjectItem | AdItem>(query);
 	}
 	getEndedProjects(query:object) {
-		return this.dApp.ixoend<ProjectItem | AdItem>(query);
+		return this.dApp.ixoEnd<ProjectItem | AdItem>(query);
 	}
 }
 
 // 跳转IDO链接
 export const getUrl = function (name:string, type:boolean) {
-	if(type === true){
+	if(type){
 		if(name === Status.upcoming ) {
 			return `${config.dappList}?type=${Status.upcoming}`;
 		}else if (name === Status.ongoing) {
@@ -146,7 +146,7 @@ export const getUrl = function (name:string, type:boolean) {
 		}else if (name === Status.ended) {
 			return `${config.dappList}?type=${Status.ended}`;
 		}
-	}else if (type === false) {
+	}else{
 		if(name === Status.upcoming ) {
 			return `${config.nft}/discover?type=${Status.upcoming}`;
 		}
