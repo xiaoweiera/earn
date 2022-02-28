@@ -3,40 +3,32 @@
  * @author svon.me@gmail.com
  */
 
+import {Equals, isObject, isRequest} from "src/utils/";
+import {omit} from "lodash";
 import {Request} from "express";
 import I18n from "src/utils/i18n";
-import { Lang } from "src/types/language";
+import {Lang} from "src/types/language";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
-import { isObject, Equals } from "src/utils/";
-import * as webkit from "src/plugins/webkit/";
-import { getEnv, languageKey, IsSSR } from "src/config/";
-import { Authorization } from "../express/authorization";
-import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import Cookie from "src/plugins/browser/cookie";
+import {getEnv, languageKey} from "src/config/";
+import Axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
 
 // 用户信息
 const getUserAuth = async function (config: AxiosRequestConfig, lang?: Lang) {
-	// 如果当前是 ssr 环境
-	if (IsSSR()) {
-		// 从 Request 对象中获取用户信息
-		if (lang && isObject(lang)) {
-			const auth = Authorization(lang as Request);
-			return auth.token;
-		}
-		return; // 返回空
+	// 从 Request 对象中获取用户信息
+	if (lang && isObject(lang)) {
+		const cookie = new Cookie(lang as Request);
+		return cookie.getUserToken();
+	} else {
+		// 从浏览器中获取数据
+		const cookie = new Cookie();
+		return cookie.getUserToken();
 	}
-	// 从移动端获取用户信息
-	const process = await webkit.env.process();
-	if (process && process.token) {
-		return process.token;
-	}
-	// 从浏览器 cookie 中获取
-	const data = Authorization();
-	return data.token;
 }
 
 // 判断请求的地址是否和业务域名相同
-const isKindDataDomain = function(config: AxiosRequestConfig): boolean {
+const isKindDataDomain = function (config: AxiosRequestConfig): boolean {
 	return true
 }
 
@@ -45,7 +37,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 	const setting = Object.assign(
 		{
 			timeout: 20 * 1000, // request timeout
-			baseURL: env.api, // 根据当前环境配置接口域名
+			baseURL: isRequest(lang) ? env.VITE_LanApi : env.api, // 根据当前环境配置接口域名
 			withCredentials: false,
 			maxRedirects: 3, // 支持三次重定向
 		},
@@ -61,7 +53,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 			if (status) {
 				let token: string | undefined;
 				// 判断是否需要传用户信息
-				const userStatus = safeGet<string>(config, 'params._user');
+				const userStatus = safeGet<string>(config, "params._user");
 				if (userStatus && Equals(userStatus, "none")) {
 					token = "";
 				} else {
@@ -80,6 +72,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 				// 设置当前系统语言环境
 				safeSet(config, `params.${languageKey}`, current);
 				safeSet(config, "headers.accept-language", current);
+				safeSet(config, 'params', omit(config.params, [ "_user" ]));
 			}
 			// 处理 url 中的变量
 			const parameter: any = {
@@ -107,14 +100,17 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 		(error) => Promise.reject(error),
 	)
 	service.interceptors.response.use(
-		(res) => {
+		(res: AxiosResponse) => {
+			const url = res.request.res.responseUrl;
 			const status = parseInt(res.status as any, 10);
 			if (status >= 200 && status < 300) {
+				console.log('API Success %s, %s, %s', res.status, res.config.method, url, res.config.params);
 				return res;
 			} else {
-				console.log('API Error url = "%s", method = "s%", status = "%s"', res.config.url, res.config.method, res.status);
+				console.log('API Error %s, %s, %s', res.status, res.config.method, url, res.config.params);
 				return Promise.reject("error");
 			}
+
 		},
 		(error) => {
 			let code = safeGet<number>(error, "code");

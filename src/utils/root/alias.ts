@@ -5,6 +5,9 @@ export const common = {
 	chain: {
 		site: "common.chainSite"
 	},
+	tiding: {
+		list: "common.tidings"
+	}
 }
 
 export const blog = {

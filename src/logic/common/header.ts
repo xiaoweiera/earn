@@ -8,9 +8,10 @@ import {MenuItem} from "src/types/menu";
 import { Lang } from "src/types/language";
 import { headers } from "src/config/header";
 import {createDb} from "src/config/header/db";
+import {TidingList} from "src/types/common/tiding";
 
-export const getMenuList = function(active?: string, lang?: Lang): MenuItem[] {
-	const db = createDb(headers(lang));
+export const getMenuList = function(active?: string, lang?: Lang, tidings?: TidingList[]): MenuItem[] {
+	const db = createDb(headers(lang), tidings);
 	if (active) {
 		const list = db.parentDeepFlatten<MenuItem>({ id: active });
 		const ids = _.map(list, (item: MenuItem) => {

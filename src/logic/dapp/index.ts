@@ -9,6 +9,7 @@ import * as alias from "src/utils/root/alias";
 import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router/";
 import safeGet from "@fengqiaogang/safe-get";
+import {platform} from "os";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
@@ -21,35 +22,54 @@ export const getAll = function () {
 		name: i18n.address.all
 	};
 }
+
 //获取公链
-export const tabChain = function (data:any) {
-	let arr:any = [getAll()];
-	R.forEach((item:any) => {
-		if(configs.chain[item]){
-			arr.push(configs.chain[item])
-		}
-	},data)
-	return arr;
-}
-//获取平台
-export const tabPlat = function (data:any, key: string) {
+export const tabChain = function (data:any, key: string, href:string) {
 	return function () {
 		let arr:any = [getAll()];
 		R.forEach((item:any) => {
-			if(configs.tge_platform[item]){
-				arr.push(configs.tge_platform[item])
+			const value = safeGet(configs, `chain.${item}`);
+			if(value){
+				arr.push(value);
 			}
 		},data);
 		const query = getParam<object>();
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.id,
+				[key]: item.name,
 				href: {
-					path: config.dappList,
+					path: href,
 					query: {
 						...query,
-						[key]: item.id,
+						[key]: item.name,
+					}
+				}
+			}
+		}, arr);
+	};
+}
+
+//获取平台
+export const tabPlat = function (data:any, key: string, href:string) {
+	return function () {
+		let arr:any = [getAll()];
+		R.forEach((item:any) => {
+			const value = safeGet(configs, `tge_platform.${item}`);
+			if(value){
+				arr.push(value);
+			}
+		},data);
+		const query = getParam<object>();
+		return R.map(function (item: any) {
+			return {
+				...item,
+				[key]: item.name,
+				href: {
+					path: href,
+					query: {
+						...query,
+						[key]: item.name,
 					}
 				}
 			}
@@ -57,7 +77,7 @@ export const tabPlat = function (data:any, key: string) {
 	};
 }
 //获取项目类型
-export const tabCage = function (data:any, key: string) {
+export const tabCage = function (data:any, key: string, href:string) {
 	return function (): any[] {
 		let arr:any = [getAll()];
 		R.forEach((item:any) => {
@@ -69,12 +89,12 @@ export const tabCage = function (data:any, key: string) {
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.id,
+				[key]: item.name,
 				href: {
-					path: config.dappList,
+					path: href,
 					query: {
 						...query,
-						[key]: item.id,
+						[key]: item.name,
 					}
 				}
 			}
@@ -84,8 +104,8 @@ export const tabCage = function (data:any, key: string) {
 
 export class Model extends API {
   //IDO数据
-	getList() {
-		return this.dApp.getList();
+	getList(query:any) {
+		return this.dApp.getList(query);
 	}
   //IGO数据
   getIGOList() {
@@ -102,29 +122,25 @@ export class Model extends API {
 	getUpcomingProjects(chain?: string) {
 		const query: Query = {
 			chain: chain ? chain : "all",
-			status: Status.ended
+			status: Status.upcoming
 		};
 		return this.dApp.ixo<ProjectItem | AdItem>(query);
 	}
 	getOngoingProjects(chain?: string) {
 		const query: Query = {
 			chain: chain ? chain : "all",
-			status: Status.ended
+			status: Status.ongoing
 		};
 		return this.dApp.ixo<ProjectItem | AdItem>(query);
 	}
-	getEndedProjects(chain?: string) {
-		const query: Query = {
-			chain: chain ? chain : "all",
-			status: Status.ended
-		};
-		return this.dApp.ixoend<ProjectItem | AdItem>(query);
+	getEndedProjects(query:object) {
+		return this.dApp.ixoEnd<ProjectItem | AdItem>(query);
 	}
 }
 
 // 跳转IDO链接
 export const getUrl = function (name:string, type:boolean) {
-	if(type === true){
+	if(type){
 		if(name === Status.upcoming ) {
 			return `${config.dappList}?type=${Status.upcoming}`;
 		}else if (name === Status.ongoing) {
@@ -132,7 +148,7 @@ export const getUrl = function (name:string, type:boolean) {
 		}else if (name === Status.ended) {
 			return `${config.dappList}?type=${Status.ended}`;
 		}
-	}else if (type === false) {
+	}else{
 		if(name === Status.upcoming ) {
 			return `${config.nft}/discover?type=${Status.upcoming}`;
 		}

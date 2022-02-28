@@ -85,19 +85,35 @@ export interface NftTabItem {
 	type: NftTabTypes;
 	name: string;
 	icon?: string;
-	href: string;
+	href: string | object;
 }
 // nft分类切换
-export const nftTabs: NftTabItem[] = [
-  {
-    type: NftTabTypes.upcoming,
-    icon: '',
-    name: i18n.dapp.sort.online,
-    href: `${config.nft}/discover?type=${NftTabTypes.upcoming}`,
-  },{
-		type: NftTabTypes.history,
-		icon: '',
-		name: i18n.dapp.sort.history,
-		href: `${config.nft}/discover?type=${NftTabTypes.history}`,
+export const nftTabs = function (): NftTabItem[]  {
+	const query = getParam<object>();
+	return [
+			{
+				type: NftTabTypes.upcoming,
+				icon: '',
+				name: i18n.airdrop.tabs.upcoming,
+				href: {
+					path: `${config.nft}/discover`,
+					query: {
+						...query,
+						type: NftTabTypes.upcoming
+					}
+				},
+			},{
+				type: NftTabTypes.history,
+				icon: '',
+				name: i18n.growthpad.status.closure,
+				href: {
+					path: `${config.nft}/discover`,
+					query: {
+						...query,
+						type: NftTabTypes.history
+					}
+				},
+			}
+		]
 	}
-]
+

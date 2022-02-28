@@ -10,7 +10,7 @@ import Icons from "src/config/iconfont";
 import { Language } from "src/types/language";
 import Crypto from "src/plugins/encryption/crypto";
 import {rootData, languageKey} from "src/config";
-import { getEnv, Command } from "src/config/";
+import { getEnv, production } from "src/config/";
 
 interface Result {
 	lang: Language;
@@ -35,8 +35,8 @@ const makeScript = function (data: Result): string {
 
 	const libs = [ ...Icons, recaptcha ];
 
-	// 编译后环境
-	if (env.VITE_command === Command.build) {
+	// 正式环境下生效
+	if (env.VITE_mode === production) {
 		// 百度统计
 		libs.push('https://hm.baidu.com/hm.js?fdb9f024136898f0d5822f8a4b71b036');
 		// 谷歌统计

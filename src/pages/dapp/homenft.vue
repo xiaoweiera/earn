@@ -3,13 +3,15 @@
   import DappHomeHeader from './home/header.vue';
   import DappDiscoversContentType from './discovers/content/type.vue';
   import DappNftsList from './nfts/list.vue'
-  import {onMounted, ref} from "vue";
+  import {onMounted, ref, watch} from "vue";
   import {Model, tabChain} from "~/logic/dapp";
   import {createRef, onLoadRef, onUpdateRef} from "~/utils/ssr/ref";
-  import {AdItem, ProjectItem} from "~/types/dapp/ixo";
   import * as alias from "~/utils/root/alias";
   import {AdNftItem, ProjectNftItem} from "~/types/dapp/nft";
   import { nftStatus } from "src/types/dapp/nft";
+  import {getParam} from "~/utils/router";
+  import {useRoute} from "vue-router";
+  import { config } from "src/router/config";
 
   defineProps({
     summary: {
@@ -17,10 +19,11 @@
       default: () => {}
     }
   })
-
-  const urlType = false;
+  const route = useRoute();
   // 公链类型
-  const chain = ref<string>("all");
+  const chain = ref(getParam<string>("chain"));
+  const urlType = false;
+
   //nft drops
   const getUpcomingNftList = function () {
     const model = new Model();
@@ -35,6 +38,12 @@
     // 判断列表数据是否为空，如果为空则获取最新数据
     onLoadRef(UpcomingNftList, getUpcomingNftList);
   });
+  watch(route, () => {
+    const querys: any = getParam<string>();
+    chain.value = querys.group;
+    getUpcomingNftList();
+    // todo 可以在此处更新某些数据
+  })
 </script>
 <template>
   <div>
@@ -45,7 +54,7 @@
       </div>
       <!-- 搜索 -->
       <div class="mt-4">
-         <!-- <DappDiscoversContentType v-if="summary.nft" :list="tabChain(summary.nft.chain)" title="公链" name="chain"></DappDiscoversContentType> -->
+          <DappDiscoversContentType v-if="summary.nft" :list="tabChain(summary.nft.chain, 'group', config.home)" :split="6" active-name="group" title="公链" name="group"></DappDiscoversContentType>
       </div>
       <!-- nft项目 -->
       <div class="mt-4">
