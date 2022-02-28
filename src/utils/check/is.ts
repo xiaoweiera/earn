@@ -3,9 +3,12 @@
  * @author svon.me@gmail.com
  */
 
+import { IsSSR } from "src/config/ssr";
+import {Request} from "express";
 import window from "src/plugins/browser/window";
 import { is, isNil, isEmpty as _isEmpty } from "ramda";
 
+export { IsSSR };
 
 /**
  * 判断字符串是否是 http 链接
@@ -80,6 +83,17 @@ export const isObject = function(value: any): boolean {
 		return false
 	}
 	return is(Object, value)
+}
+
+// 判断对象是否是 Request 对象
+export const isRequest = function (value?: any): boolean {
+	if (value && isObject(value) || IsSSR()) {
+		const req: Request = value;
+		if (req.url && req.method || req.header) {
+			return true;
+		}
+	}
+	return false;
 }
 
 /**

@@ -2,6 +2,7 @@ export interface ImportMetaEnv {
 	readonly VITE_mode: string;   // 运行模式
 	readonly VITE_command: string;
 	readonly VITE_api: string;    // 接口域名
+	VITE_LanApi: string; // 局域网接口地址
 	readonly VITE_domain: string; // 网站域名
 	readonly VITE_cookie: string; // 设置 cookie 的安全域
 	readonly VITE_google: string; // google key
@@ -23,10 +24,12 @@ export enum Command {
 	serve = "serve"
 }
 
+export const title = "KingData";
 export const AppId = "app";
 export const languageKey = "lang";
 export const tokenName = "auth_token";
 export const tokenKey = "token";
+export const tidingName = "last_timestamp";
 export const tokenExpires = 1000 * 60 * 60 * 24 * 3; // 过期时间
 export const deviceName = "kd_origin"; // 标记当前设备类型
 export const rootData = "__MlaABWNKPrYLzpbU";
