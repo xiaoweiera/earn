@@ -70,12 +70,24 @@ export const tryError = function (errCatch?: string | ErrCatch) {
 	return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
 		const app = descriptor.value
 		descriptor.value = async function (...args: any[]) {
+			const after = function (self: any, query?: any) {
+				const callback: CallBack = runCallback.bind(self) as any;
+				return callback<any>(errCatch, query);
+			}
 			try {
-				return await Promise.resolve(app.apply(this, args));
+				const value = await Promise.resolve(app.apply(this, args));
+				if (value) {
+					return value;
+				} else {
+					const res = after(this);
+					if (res) {
+						return res;
+					}
+				}
+				return value;
 			} catch (e) {
 				const query: any[] = compact([ e ].concat(args));
-				const callback: CallBack = runCallback.bind(this) as any;
-				const result = callback<any>(errCatch, query);
+				const result = after(this, query);
 				if (result) {
 					return result;
 				}
