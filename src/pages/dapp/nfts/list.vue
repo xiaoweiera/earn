@@ -28,7 +28,7 @@ const detailUrl = function (data: object) {
     </div>
     <div class="w-full h-full" v-else>
       <!-- 路由跳转 -->
-      <v-router target="_blank" class="link" :href='detailUrl(data)' name="router-link">
+      <v-router target="_blank" class="link" :href="data.url">
         <!-- 背景图 -->
         <DappNftsHeader class="w-55 md:w-58 h-50" :data="data"></DappNftsHeader>
         <!-- footer -->

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+
+import { getTegLog, getLog } from 'src/logic/dapp'
 defineProps({
   data: {
     type: Object,
@@ -19,19 +21,15 @@ defineProps({
             <span class="text-kd14px18px text-global-white text-opacity-65 font-kdBarlow font-medium ml-1.5">{{data.symbol}}</span>
           </p>
           <p class="flex items-center">
-            <IconFont class="text-global-gemstone" type="star" size="16"/>
+            <IconFont v-if="data.chain" class="text-global-gemstone" :type="getLog(data.chain)" size="16"/>
           </p>
         </div>
         <div class="mt-3.5">
           <ul class="flex">
             <li class="flex items-center mr-3" v-if="data.tge_platform" v-for="( item, index ) in data.tge_platform" :key="index">
-              <IconFont class="text-global-gemstone" type="star" size="16"/>
+              <IconFont class="text-global-gemstone" :type="getTegLog(item)" size="16"/>
               <span class="text-kd12px16px ml-1.5 text-global-highTitle text-opacity-85 font-kdFang">{{ item }}</span>
             </li>
-<!--            <li class="flex items-center">-->
-<!--              <IconFont class="text-global-gemstone" type="star" size="16"/>-->
-<!--              <span class="text-kd12px16px ml-1.5 text-global-highTitle text-opacity-85 font-kdFang">Enjinstarter</span>-->
-<!--            </li>-->
           </ul>
         </div>
       </div>

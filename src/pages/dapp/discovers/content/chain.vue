@@ -29,7 +29,6 @@ const router = useRouter();
 const query = getParam<object>();
 const chainDatas: any = ref([]);
 const chain = ref(getParam<object>('chain'))
-
 const i18n = I18n();
 //重组数据
 const mergeData = (key: string, data: any) => {
@@ -49,7 +48,6 @@ const mergeData = (key: string, data: any) => {
   })
 }
 mergeData(props.name, chainDatas)
-
 const change = (name: any) => {
   const item = chainDatas.value.find((item: any) => item.name === name)
   router.push(item.href)
@@ -74,11 +72,16 @@ const change = (name: any) => {
 <style lang="scss" scoped>
 .select {
   ::v-deep(.el-input__inner) {
-    border: 1px solid rgba(3, 54, 102, 0.1) !important;
-    background: none;
-    height: 34px !important;
-    padding-left: 12px !important;
-    @apply text-kd14px18px md:w-25 text-left    text-global-highTitle text-opacity-85  flex items-center  text-kd14px18px;
+    @apply bg-global-white h-8 rounded-md border border-global-highTitle border-opacity-6;
+  }
+  @screen md {
+    ::v-deep(.el-input__inner) {
+      border: 1px solid rgba(3, 54, 102, 0.1) !important;
+      background: none;
+      height: 34px !important;
+      padding-left: 12px !important;
+      @apply text-kd14px18px md:w-25 text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
+    }
   }
 }
 </style>

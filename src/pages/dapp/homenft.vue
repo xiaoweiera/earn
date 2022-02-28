@@ -3,13 +3,13 @@
   import DappHomeHeader from './home/header.vue';
   import DappDiscoversContentType from './discovers/content/type.vue';
   import DappNftsList from './nfts/list.vue'
-  import {onMounted, ref, watch} from "vue";
+  import {onMounted, reactive, ref, watch} from "vue";
   import {Model, tabChain} from "~/logic/dapp";
   import {createRef, onLoadRef, onUpdateRef} from "~/utils/ssr/ref";
   import * as alias from "~/utils/root/alias";
   import {AdNftItem, ProjectNftItem} from "~/types/dapp/nft";
   import { nftStatus } from "src/types/dapp/nft";
-  import {getParam} from "~/utils/router";
+  import {getParam} from "src/utils/router";
   import {useRoute} from "vue-router";
   import { config } from "src/router/config";
 
@@ -20,14 +20,24 @@
     }
   })
   const route = useRoute();
-  // 公链类型
-  const chain = ref(getParam<string>("chain"));
+  const chain = ref(getParam<string>("group"));
+  const params = reactive({
+    page: 1,
+    page_size: 15,
+    chain: chain.value,
+    category: '',
+    status: 'upcoming',
+    query: '',
+    sort_field: '',
+    sort_type: '',//desc asc
+    paginate: false,
+  })
   const urlType = false;
 
   //nft drops
   const getUpcomingNftList = function () {
     const model = new Model();
-    return model.getNftList(chain.value);
+    return model.getNftList(params);
   }
   // 创建列表对象并获取缓存数据
   const UpcomingNftList = createRef<Array<ProjectNftItem | AdNftItem>>(alias.dApp.ixo.upcoming, []);
@@ -40,7 +50,7 @@
   });
   watch(route, () => {
     const querys: any = getParam<string>();
-    chain.value = querys.group;
+    params.chain = querys.group;
     getUpcomingNftList();
     // todo 可以在此处更新某些数据
   })

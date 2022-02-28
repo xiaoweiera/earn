@@ -82,29 +82,47 @@
 <template>
   <div class="mt-5 p-4 bg-global-white rounded-md">
     <!-- header -->
-    <div class="border-b-1 border-global-highTitle border-opacity-6 pb-4">
+    <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
       <DappHomeHeader title="Ended IDO & IGO Projects" tips="Data supported by 14 public chain and 65 platforms" :status="Status.ended" :type="urlType"/>
     </div>
-    <!-- 项目类型、公链、搜索框 -->
-    <div class="flex justify-between items-center mt-4">
-      <div class="flex items-center">
-        <!-- 公链 -->
+    <div class="hidden md:block">
+      <!-- 项目类型、公链、搜索框 -->
+      <div class="flex justify-between items-center mt-4">
+        <div class="flex items-center">
+          <!-- 公链 -->
           <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'bracket', config.home)" active-name="bracket" name="bracket" title="公链"></DappDiscoversContentType>
-        <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
-        <!-- 类型 -->
-        <DappDiscoversContentChain :key="key" v-if="summary.ixo" :href="config.home" :chainData="summary.ixo.chain" name="category" title="类型"></DappDiscoversContentChain>
+          <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
+          <!-- 类型 -->
+          <DappDiscoversContentChain v-if="summary.ixo" :href="config.home" :chainData="summary.ixo.category" name="category" title="类型"></DappDiscoversContentChain>
+        </div>
+        <!-- 搜索框 -->
+        <div>
+          <DappDiscoversContentField :herf="config.home" title="项目名称"></DappDiscoversContentField>
+        </div>
       </div>
-      <!-- 搜索框 -->
-      <div>
-        <DappDiscoversContentField :herf="config.home" title="项目名称"></DappDiscoversContentField>
+      <!-- platform -->
+      <div class="mt-4">
+        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(summary.ixo.platform, 'platform', config.home)" active-name="platform" name="platform" title="platform"></DappDiscoversContentType>
       </div>
     </div>
-    <!-- platform -->
-    <div class="mt-4 border-b-1 border-global-highTitle border-opacity-6 pb-4">
-       <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(summary.ixo.platform, 'platform', config.home)" active-name="platform" name="platform" title="platform"></DappDiscoversContentType>
+
+    <!--移动端展示-->
+    <div class="block md:hidden">
+      <div class="flex items-center">
+        <DappDiscoversContentChain :chainData="summary.ixo.chain" :href="config.home" name="bracket" title="公链"/>
+        <IconFont v-if="summary.ixo && summary.ixo" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
+        <DappDiscoversContentChain :chainData="summary.ixo.category" :href="config.home" name="category" title="类型"/>
+      </div>
+      <div class="flex items-center mt-4">
+        <DappDiscoversContentChain :chainData="summary.ixo.platform" :href="config.home" name="platform" title="platform"/>
+        <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
+        <DappDiscoversContentField class="bg-global-white md:bg-global-topBg" :herf="config.home" title="项目名称"/>
+      </div>
     </div>
-    <div>
-       <DappDiscoversEndlist :key="key" @changeSort="changeSort" :list="EndedList" :params="params"></DappDiscoversEndlist>
+    <div class="overflow-x-scroll showX mt-4">
+      <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
+        <DappDiscoversEndlist :key="key" @changeSort="changeSort" :list="EndedList" :params="params"/>
+      </div>
     </div>
   </div>
 </template>
