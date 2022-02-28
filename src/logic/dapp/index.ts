@@ -28,8 +28,9 @@ export const tabChain = function (data:any, key: string, href:string) {
 	return function () {
 		let arr:any = [getAll()];
 		R.forEach((item:any) => {
-			if(configs.chain[item]){
-				arr.push(configs.chain[item])
+			const value = safeGet(configs, `chain.${item}`);
+			if(value){
+				arr.push(value);
 			}
 		},data);
 		const query = getParam<object>();
@@ -54,8 +55,9 @@ export const tabPlat = function (data:any, key: string, href:string) {
 	return function () {
 		let arr:any = [getAll()];
 		R.forEach((item:any) => {
-			if(configs.tge_platform[item]){
-				arr.push(configs.tge_platform[item])
+			const value = safeGet(configs, `tge_platform.${item}`);
+			if(value){
+				arr.push(value);
 			}
 		},data);
 		const query = getParam<object>();
