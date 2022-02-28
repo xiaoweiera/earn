@@ -12,7 +12,8 @@ import "swiper/swiper-bundle.css";
 import {createRef, onLoadRef} from "~/utils/ssr/ref";
 import {Model} from "~/logic/home";
 import {timeago, dataToTimestamp, formatDefaultTime} from "~/lib/tool";
-
+import I18n from "~/utils/i18n";
+const i18n = I18n();
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
 const isBegin = ref(true)
@@ -51,8 +52,8 @@ onMounted(function () {
 <template>
   <div>
     <div class="flex items-center text-global-white">
-      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow">Today's trends</span>
-      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">(Updated at 20:00)</span>
+      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow">{{i18n.home.todayTrend.title}}</span>
+      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">{{i18n.home.todayTrend.time}}</span>
     </div>
     <div class="mt-4 relative">
       <div class="w-full h-full">
@@ -75,15 +76,15 @@ onMounted(function () {
                       ({{ formatDefaultTime(item['release_date'], 'MM/DD') }})
                     </div>
                     <div v-if="item['label'].length>0" class="blog-label mt-1.5 font-kdFang">
-                      <span>关键词 : </span>
+                      <span>{{i18n.home.todayTrend.key}}: </span>
                       <template v-for="(label,i) in item['label']">
                         <span>{{ label }}</span><span v-if="i+1<item['label'].length">、</span>
                       </template>
                     </div>
                     <div class="blog-label absolute bottom-1.5">
-                      <span>{{ item['viewers'] ? item['viewers'] : 0 }}人阅读</span>
+                      <span>{{ item['viewers'] ? item['viewers'] : 0 }}{{i18n.home.todayTrend.read}}</span>
                       <span class="mx-2.5" v-if="item['release_date']">|</span>
-                      <span v-if="item['release_date']">更新时间:{{ timeago(dataToTimestamp(item['release_date'])) }}</span>
+                      <span v-if="item['release_date']">{{i18n.home.todayTrend.updateTime}}:{{ timeago(dataToTimestamp(item['release_date'])) }}</span>
                     </div>
                   </div>
                   <img class="rounded-kd6px h-23.5 w-65 md:w-101 " :src="getImg(item)" fit="cover" alt="">
@@ -98,7 +99,6 @@ onMounted(function () {
                       <span class="chain-tip">Chain</span>
                     </div>
                   </div>
-
                 </div>
               </v-router>
             </SwiperSlide>

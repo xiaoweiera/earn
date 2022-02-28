@@ -2,7 +2,8 @@
 import {createRef, onLoadRef} from "~/utils/ssr/ref";
 import {onMounted, ref} from "vue";
 import {Model} from "~/logic/home";
-
+import I18n from "~/utils/i18n";
+const i18n = I18n();
 const params = {
   page: 1,
   page_size: 10,
@@ -39,7 +40,7 @@ onMounted(function () {
 <template>
   <div class="w-full font-kdFang">
     <div class="header">
-      <span class="text-kd14px18px text-global-highTitle font-medium">Recommended Topics</span>
+      <span class="text-kd14px18px text-global-highTitle font-medium">{{i18n.home.hotTopic}}</span>
       <div class="flex items-center">
         <IconFont class="fan mr-6" size="10" type="icon-leftNo" @click="last()"></IconFont>
         <IconFont class="fan" size="10" type="icon-rightNo" @click="next()"></IconFont>

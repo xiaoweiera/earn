@@ -10,10 +10,12 @@ import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
 import {detail} from "~/types/home";
 import {Model} from "~/logic/home";
 import {config as routerConfig} from "~/router/config";
+import I18n from "~/utils/i18n";
 
 const props = defineProps({
   info: Object as PropType<detail>
 })
+const i18n = I18n();
 const route = useRoute()
 const router = useRouter()
 const id = getParam<string>("id")
@@ -147,7 +149,7 @@ const isFilter = () => {
         </tbody>
       </table>
     </div>
-    <div v-if="data?.items?.length>0 && resultNumber>=params.page_size" @click="more" class="more">加载更多</div>
+    <div v-if="data?.items?.length>0 && resultNumber>=params.page_size" @click="more" class="more">{{i18n.home.loadingMore}}</div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>
 </template>

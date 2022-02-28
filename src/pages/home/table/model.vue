@@ -2,6 +2,8 @@
 import HomeTableTd from './td.vue'
 import HomeTableHeader from './header.vue'
 import {config} from "~/router/config";
+import I18n from "~/utils/i18n";
+const i18n = I18n();
 const props = defineProps({
   data: Object,
 })
@@ -11,7 +13,7 @@ const props = defineProps({
     <div class="flex items-center justify-between flex-wrap ">
       <span class="title">{{ data.name }}</span>
       <v-router :href="`${config.homeDetail}?id=${data.id}`" target="_blank" class="flex items-center hand">
-        <span class="more cursor-pointer">More</span>
+        <span class="more cursor-pointer">{{i18n.home.more}}</span>
         <IconFont class="text-global-primary ml-0.5" size="12" type="icon-rightNo"/>
       </v-router>
     </div>
