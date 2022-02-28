@@ -15,7 +15,7 @@ import {TidingList} from "src/types/common/tiding";
 import {getMenuList} from "src/logic/common/header";
 import redirect from "src/controller/common/redirect";
 import {NextFunction, Request, Response} from "express";
-import { config as routerConfig } from "src/router/config";
+import {config as routerConfig} from "src/router/config";
 
 
 const send = async function (root: string, env: Env) {
