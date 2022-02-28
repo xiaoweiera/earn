@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import _ from "lodash";
 import I18n from "src/utils/i18n";
 import { title } from "src/config/";
 import { getTidings } from "./tiding";
@@ -29,7 +30,7 @@ common.use(async function (req: Request, res: Response, next: NextFunction) {
 		description: i18n.menu.seo.des,
 	};
 	for(const value of array) {
-		Object.assign(data, value);
+		_.merge(data, value);
 	}
 	Object.assign(res.locals, data);
 	next();
