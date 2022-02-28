@@ -4,7 +4,7 @@ import { BlogData } from "src/types/blog/";
 import { dateDiff } from "src/utils/time/";
 import { makeDetailLink } from "src/logic/blog";
 
-const props = defineProps({
+defineProps({
   data: {
     required: true,
     type: Object as PropType<BlogData>
@@ -47,7 +47,7 @@ const props = defineProps({
     transition: all 0.2s;
   }
   .left-item {
-    @apply w-73;
+    @apply w-32.5 md:min-w-73;
   }
   @screen md {
     &:hover {
