@@ -100,7 +100,7 @@ const isFilter = () => {
   } else if (props.info.filters.category.show && props.info.filters.category.options.length > 0) {
     return true
     //@ts-ignore
-  } else if (props.info.filters.search.show && props.info.filters.search.options.length > 0) {
+  } else if (props.info.filters?.search?.show && props.info.filters?.search?.options.length > 0) {
     return true
   }
   return false
@@ -125,7 +125,7 @@ const isFilter = () => {
             <div class="text-left  w-5">#</div>
           </td>
           <template v-for="(item,index) in data.header" :key="index">
-            <td class="text-left border-tb"  v-if="item.key!=='id'">
+            <td class="text-left border-tb" v-if="item.key!=='id'">
               <HomeTableHeader @click="sort(item.key)" :params="params" :item="item"/>
             </td>
           </template>
