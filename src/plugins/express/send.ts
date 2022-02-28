@@ -9,11 +9,12 @@ import {footers} from "src/config/footer";
 import {Env, languageKey} from "src/config";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
-import { Language } from "src/types/language";
+import {Language} from "src/types/language";
 import * as alias from "src/utils/root/alias";
 import {TidingList} from "src/types/common/tiding";
-import { getMenuList } from "src/logic/common/header";
-import {Request, Response, NextFunction} from "express";
+import {getMenuList} from "src/logic/common/header";
+import redirect from "src/controller/common/redirect";
+import {NextFunction, Request, Response} from "express";
 
 
 const send = async function (root: string, env: Env) {
@@ -62,8 +63,7 @@ const send = async function (root: string, env: Env) {
 			} catch (e: any) {
 				console.log(e);
 				log();
-				// return res.redirect(config.E404);
-				return send(e);
+				return redirect(req, res, env.home);
 			}
 		};
 		return next();
