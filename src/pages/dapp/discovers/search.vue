@@ -16,7 +16,6 @@ const props = defineProps({
   },
   keys:Number
 });
-const search = ref<string>("");
 </script>
 <template>
   <div class="mt-5" v-if="data">

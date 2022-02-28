@@ -40,14 +40,8 @@ export default class extends ApiTemplate{
 	}
 	//	获取nft列表
 	getNftList<T>(query: nftQuery) {
-			const params = Object.assign({
-				page: 1,
-				page_size: 10,
-				category: 'all',
-				query: '',
-				paginate: false
-			}, query)
-		return asyncCheck(request(this.lang).get(api.dapp.nftList, { params}));
+		const result = request(this.lang).get(api.dapp.nftList, { params: query })
+		return asyncCheck(result);
 	}
 	// ixo 数据
 	ixo<T>(query: Query) {

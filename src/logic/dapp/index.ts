@@ -8,8 +8,6 @@ import { SiteConfig } from "src/types/common/chain";
 import * as alias from "src/utils/root/alias";
 import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router/";
-import safeGet from "@fengqiaogang/safe-get";
-import {platform} from "os";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
@@ -19,7 +17,8 @@ export const getAll = function () {
 	const i18n = I18n();
 	return {
 		id: tabAll,
-		name: i18n.address.all
+		name: i18n.address.all,
+		slug: tabAll,
 	};
 }
 
@@ -36,12 +35,12 @@ export const tabChain = function (data:any, key: string, href:string) {
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.name,
+				[key]: item.slug,
 				href: {
 					path: href,
 					query: {
 						...query,
-						[key]: item.name,
+						[key]: item.slug,
 					}
 				}
 			}
@@ -62,12 +61,12 @@ export const tabPlat = function (data:any, key: string, href:string) {
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.name,
+				[key]: item.slug,
 				href: {
 					path: href,
 					query: {
 						...query,
-						[key]: item.name,
+						[key]: item.slug,
 					}
 				}
 			}
@@ -87,12 +86,12 @@ export const tabCage = function (data:any, key: string, href:string) {
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.name,
+				[key]: item.slug,
 				href: {
 					path: href,
 					query: {
 						...query,
-						[key]: item.name,
+						[key]: item.slug,
 					}
 				}
 			}
@@ -100,7 +99,13 @@ export const tabCage = function (data:any, key: string, href:string) {
 	};
 }
 
+interface T {
+}
+
 export class Model extends API {
+    getSummary(): T {
+        throw new Error('Method not implemented.');
+    }
   //IDO数据
 	getList(query:any) {
 		return this.dApp.getList(query);
@@ -110,12 +115,9 @@ export class Model extends API {
     return this.dApp.getIGOList();
   }
   //nft数据
-  getNftList(chain?: string) {
-		const query: nftQuery = {
-			chain: chain ? chain : "all",
-			status: nftStatus.upcoming
-		};
-    return this.dApp.getNftList<ProjectNftItem | AdNftItem>(query);
+  getNftList(query:any) {
+		return this.dApp.getNftList(query);
+    // return this.dApp.getNftList<ProjectNftItem | AdNftItem>(query);
   }
 	getUpcomingProjects(chain?: string) {
 		const query: Query = {

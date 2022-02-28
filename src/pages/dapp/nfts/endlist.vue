@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import { toNumberCashFormat } from 'src/utils/convert/to'
-defineProps({
+const props = defineProps({
   list: {
     type: Object,
+  },
+  params: {
+    type: Object,
+    default: () => {}
   }
 })
+
+const emit=defineEmits(['changeSort'])
 const data={
   header: [
     { name: 'Project Name', key: 'name' },
@@ -18,6 +24,30 @@ const data={
     { name: 'Rating', key: 'overall_score' },
   ],
 }
+//排序
+const sort = (key: string) => {
+  if (!props.params.sort_type || props.params.sort_field !== key) {
+    props.params.sort_type = 'desc'
+  } else if (props.params.sort_type === 'desc') {
+    props.params.sort_type = 'asc'
+  } else {
+    props.params.sort_type = ''
+  }
+  props.params.sort_field = key
+  emit('changeSort',key)
+}
+
+const sortIcon: any = {
+  'desc': 'icon-shuangxiangjiantou-down',
+  'asc': 'icon-shuangxiangjiantou-up',
+  '': 'icon-shuangxiangjiantou'
+}
+const getIcon = (item:string) => {
+  if (props?.params?.sort_field === item) {
+    return sortIcon[props?.params?.sort_type]
+  }
+  return 'icon-shuangxiangjiantou'
+}
 </script>
 <template>
   <div class="table-box">
@@ -25,9 +55,9 @@ const data={
       <thead>
       <tr class="h-11.5 ">
         <template v-for="(item, index) in data.header" :key="index">
-          <td class="thead-hr">
-            <div class="flex items-center" :class="index === 0 ? 'justify-start' : 'justify-center'">
-              <IconFont class="mr-1" size="14" v-if="index !== 0" type="icon-shuangxiangjiantou"/>
+          <td class="thead-hr hand">
+            <div class="flex items-center" @click="sort(item.key)" :class="index === 0 ? 'justify-start' : 'justify-center'">
+              <IconFont class="mr-1" size="14" v-if="index !== 0" :type="getIcon(item.key)"/>
               <span>{{item.name}}</span>
             </div>
           </td>

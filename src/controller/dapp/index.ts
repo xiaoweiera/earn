@@ -53,8 +53,27 @@ export const igolist = async function (req: Request, res: Response) {
 //nft列表
 export const nftlist = async function (req: Request, res: Response) {
     const api = new Model(req);
+    const chain=req.query['chain'] as string;
+    const category=req.query['category'] as string;
+    const status=req.query['status'] as string;
+    const sort_field=req.query['sort_field'] as string;
+    const sort_type=req.query['sort_type'] as string;
+    const paginate = true;
+    const search=req.query['search'] as string;
+    const params = {page: 1, page_size: 15};
+    const projectParams={
+        page:params.page,
+        page_size:params.page_size,
+        status: status ? status : 'upcoming',
+        chain,
+        category,
+        sort_field,
+        sort_type,
+        paginate,
+        query:search ? search : '',
+    }
     const [ list, summary ] = await Promise.all([
-        api.getNftList(),
+        api.getNftList(projectParams),
         api.home.getSummary()
     ]);
     const result = {
