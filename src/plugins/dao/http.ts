@@ -3,16 +3,16 @@
  * @author svon.me@gmail.com
  */
 
-import { omit } from "lodash";
-import {Request } from "express";
+import {Equals, isObject, isRequest} from "src/utils/";
+import {omit} from "lodash";
+import {Request} from "express";
 import I18n from "src/utils/i18n";
-import { Lang } from "src/types/language";
+import {Lang} from "src/types/language";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
-import { isObject, Equals } from "src/utils/";
 import Cookie from "src/plugins/browser/cookie";
-import { getEnv, languageKey } from "src/config/";
-import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import {getEnv, languageKey} from "src/config/";
+import Axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
 
 // 用户信息
 const getUserAuth = async function (config: AxiosRequestConfig, lang?: Lang) {
@@ -28,7 +28,7 @@ const getUserAuth = async function (config: AxiosRequestConfig, lang?: Lang) {
 }
 
 // 判断请求的地址是否和业务域名相同
-const isKindDataDomain = function(config: AxiosRequestConfig): boolean {
+const isKindDataDomain = function (config: AxiosRequestConfig): boolean {
 	return true
 }
 
@@ -37,7 +37,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 	const setting = Object.assign(
 		{
 			timeout: 20 * 1000, // request timeout
-			baseURL: env.api, // 根据当前环境配置接口域名
+			baseURL: isRequest(lang) ? env.VITE_LanApi : env.api, // 根据当前环境配置接口域名
 			withCredentials: false,
 			maxRedirects: 3, // 支持三次重定向
 		},
@@ -72,7 +72,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 				// 设置当前系统语言环境
 				safeSet(config, `params.${languageKey}`, current);
 				safeSet(config, "headers.accept-language", current);
-				safeSet(config, 'params', omit(config.params, ["_user"]));
+				safeSet(config, 'params', omit(config.params, [ "_user" ]));
 			}
 			// 处理 url 中的变量
 			const parameter: any = {
@@ -100,15 +100,17 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 		(error) => Promise.reject(error),
 	)
 	service.interceptors.response.use(
-		(res) => {
+		(res: AxiosResponse) => {
+			const url = safeGet<string>(res, "request.res.responseUrl") || safeGet<string>(res, "request.responseURL") || safeGet<string>(res, "config.url");
 			const status = parseInt(res.status as any, 10);
 			if (status >= 200 && status < 300) {
-				console.log('API Success %s, %s, %s', res.status, res.config.method, res.config.url, res.config.params);
+				console.log('API Success %s, %s, %s', res.status, res.config.method, url, res.config.params);
 				return res;
 			} else {
-				console.log('API Error %s, %s, %s', res.status, res.config.method, res.config.url, res.config.params);
+				console.log('API Error %s, %s, %s', res.status, res.config.method, url, res.config.params);
 				return Promise.reject("error");
 			}
+
 		},
 		(error) => {
 			let code = safeGet<number>(error, "code");

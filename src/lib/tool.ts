@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import * as R from "ramda";
-import {oss} from "src/config";
+import {getEnv} from "src/config";
 import I18n from "src/utils/i18n/";
 import {BigNumber} from "bignumber.js";
 import {ElMessage} from "element-plus";
@@ -186,30 +186,36 @@ export const messageSuccess = function (text: string): void {
 export const copyTxt = (text: string, alert?: boolean, msg?: string) => {
 	const i18n = I18n();
 	const dom = document.createElement('input')
-	dom.setAttribute('value', text)
-	document.body.appendChild(dom)
-	dom.select()
-	document.execCommand('copy')
-	document.body.removeChild(dom)
-	if (alert) {
-		// messageSuccess(i18n.common.message.copy)
-		message.copy({
-			value: i18n.common.message.copyAlert,
-			desc: msg || text,
-		}, {
-			confirmButtonText: i18n.common.button.share
-		})
+	if(dom){
+		dom.setAttribute('value', text)
+		document.body.appendChild(dom)
+		dom.select()
+		document.execCommand('copy')
+		document.body.removeChild(dom)
+		if (alert) {
+			// messageSuccess(i18n.common.message.copy)
+			message.copy({
+				value: i18n.common.message.copyAlert,
+				desc: msg || text,
+			}, {
+				confirmButtonText: i18n.common.button.share
+			})
+		}
 	}
+
 }
 //copy message 弱提示
 export const copyTxtMessage = (text: string, msg?: any) => {
 	const dom = document.createElement('input')
-	dom.setAttribute('value', text)
-	document.body.appendChild(dom)
-	dom.select()
-	document.execCommand('copy')
-	document.body.removeChild(dom)
-	messageSuccess(msg)
+	if(dom){
+		dom.setAttribute('value', text)
+		document.body.appendChild(dom)
+		dom.select()
+		document.execCommand('copy')
+		document.body.removeChild(dom)
+		messageSuccess(msg)
+	}
+
 
 }
 // 更改路由参数
@@ -265,10 +271,11 @@ export const subStrByNumber = (str: string, number: number) => {
 }
 //弱提示框
 export const messageTip = (content: string, typeName: string) => {
+	const env = getEnv();
 	ElMessage({
 		showClose: true,
 		dangerouslyUseHTMLString: true,
-		message: `<div class="flex items-center "><img class="w-4 h-4 -ml-4" src="${oss}/nav/successIcon.png"><span class="ml-4">${content}</span></div>`,
+		message: `<div class="flex items-center "><img class="w-4 h-4 -ml-4" src="${env.VITE_oss}/nav/successIcon.png"><span class="ml-4">${content}</span></div>`,
 		//@ts-ignore
 		type: typeName
 	});

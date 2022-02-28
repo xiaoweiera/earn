@@ -10,10 +10,12 @@ import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
 import {detail} from "~/types/home";
 import {Model} from "~/logic/home";
 import {config as routerConfig} from "~/router/config";
+import I18n from "~/utils/i18n";
 
 const props = defineProps({
   info: Object as PropType<detail>
 })
+const i18n = I18n();
 const route = useRoute()
 const router = useRouter()
 const id = getParam<string>("id")
@@ -100,7 +102,7 @@ const isFilter = () => {
   } else if (props.info.filters.category.show && props.info.filters.category.options.length > 0) {
     return true
     //@ts-ignore
-  } else if (props.info.filters.search.show && props.info.filters.search.options.length > 0) {
+  } else if (props.info.filters?.search?.show && props.info.filters?.search?.options.length > 0) {
     return true
   }
   return false
@@ -125,7 +127,7 @@ const isFilter = () => {
             <div class="text-left  w-5">#</div>
           </td>
           <template v-for="(item,index) in data.header" :key="index">
-            <td class="text-left border-tb"  v-if="item.key!=='id'">
+            <td class="text-left border-tb" v-if="item.key!=='id'">
               <HomeTableHeader @click="sort(item.key)" :params="params" :item="item"/>
             </td>
           </template>
@@ -147,7 +149,7 @@ const isFilter = () => {
         </tbody>
       </table>
     </div>
-    <div v-if="data?.items?.length>0 && resultNumber>=params.page_size" @click="more" class="more">加载更多</div>
+    <div v-if="data?.items?.length>0 && resultNumber>=params.page_size" @click="more" class="more">{{i18n.home.loadingMore}}</div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>
 </template>

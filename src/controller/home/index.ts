@@ -6,7 +6,8 @@
 import {Model} from "src/logic/home";
 import {Request, Response} from "express";
 import * as alias from "src/utils/root/alias";
-
+import redirect from "src/controller/common/redirect";
+import {config} from "src/router/config";
 //home页面
 export const begin = async function (req: Request, res: Response) {
     const api = new Model(req);
@@ -32,6 +33,9 @@ export const begin = async function (req: Request, res: Response) {
 export const detail = async function (req: Request, res: Response) {
     const api = new Model(req);
     const id=req.query['id'] as string
+    if(!id){
+        redirect(req,res,config.home)
+    }
     const chain=req.query['chain'] as string
     const category=req.query['category'] as string
     const search=req.query['search'] as string
@@ -41,11 +45,10 @@ export const detail = async function (req: Request, res: Response) {
         id:id,
         page:1,
         page_size:10,
-        chain,
-        category,
-        query:search
+        chain:chain || '',
+        category:category || '',
+        query:search || ''
     }
-    console.log(projectParams)
     const [detail,projects,recommend,top3] = await Promise.all([
         api.getDetail(id),
         api.getProjects(projectParams),

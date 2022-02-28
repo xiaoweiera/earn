@@ -11,8 +11,10 @@ import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/swiper-bundle.css";
 import {createRef, onLoadRef} from "~/utils/ssr/ref";
 import {Model} from "~/logic/home";
+import I18n from "~/utils/i18n";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
+const i18n = I18n();
 const params = {
   page: 1,
   page_size: 10,
@@ -56,7 +58,7 @@ onMounted(function () {
 </script>
 <template>
   <div>
-    <div class="text-kd20px20px md:text-kd24px24px  font-kdSemiBold text-global-highTitle">Recommended Topics</div>
+    <div class="text-kd20px20px md:text-kd24px24px  font-kdSemiBold text-global-highTitle font-semibold">{{i18n.home.hotTopic}}</div>
     <div class="mt-4 relative">
       <div class="w-full">
         <div :class="isBegin?'hidden':'jian-left'" class="xshidden">

@@ -55,8 +55,13 @@ const props = defineProps({
 const getList = function (): Item[] {
   if (props.list) {
     if (isFunction(props.list)) {
-      const fun = props.list as CallbackList;
-      return fun();
+      try {
+        const fun = props.list as CallbackList;
+        return fun();
+      } catch (e) {
+        console.log(e);
+        return [];
+      }
     }
     return props.list as Item[];
   }
@@ -150,7 +155,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="max-w-full" :class="{'overflow-hidden': split < 1, 'w-full': split > 0}" v-show="tabList.length > 0">
+  <div class="ui-tab max-w-full" :class="{'overflow-hidden': split < 1, 'w-full': split > 0}" v-show="tabList.length > 0">
     <div class="tab-wrap" v-if="split > 0" :key="key">
       <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
         <v-router v-show="index < props.split" :href="makeLink(activeName, item, trigger)" @click="onClick(item)" class="inline-block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]">
@@ -163,13 +168,13 @@ onMounted(function () {
           </slot>
         </v-router>
       </template>
-      <client-only class="tab-item inline-block" v-if="split < tabList.length">
-        <el-select class="border-0" v-if="isSelectActive()" v-model="active" @change="onChangeSelect">
+      <client-only class="tab-item inline-block text-18-24 font-m" v-if="split < tabList.length">
+        <el-select class="border-0 w-30 md:w-40 active" v-if="isSelectActive()" v-model="active" @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
             <el-option v-if="index >= split" :label="item.name" :value="item[activeName]"></el-option>
           </template>
         </el-select>
-        <el-select class="border-0" v-else @change="onChangeSelect">
+        <el-select class="border-0 w-30 md:w-40" v-else @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
             <el-option v-if="index >= split" :label="item.name" :value="item[activeName]"></el-option>
           </template>
@@ -206,9 +211,22 @@ onMounted(function () {
     @apply ml-0;
   }
 }
+%active {
+  @apply text-global-darkblue text-opacity-100;
+}
 .tab-wrap {
+  .el-select {
+    ::v-deep(input) {
+      @apply font-m font-kd18px24px;
+    }
+    &.active {
+      ::v-deep(input) {
+        @extend %active;
+      }
+    }
+  }
   .tab-item {
-    @apply ml-8 text-global-highTitle text-opacity-45;
+    @apply ml-4 md:ml-8 text-global-highTitle text-opacity-45;
     @extend %first-ml0;
 
     &:after {
@@ -216,17 +234,20 @@ onMounted(function () {
       @apply h-0.5 rounded-sm bg-global-darkblue;
     }
     &.active {
-      @apply relative text-global-darkblue text-opacity-100;
+      @extend %active;
+      @apply relative;
       &:after {
         content: "";
       }
     }
+    /**
     &:not(a) {
       &:not([href]) {
         @apply cursor-pointer ml-9;
         @extend %first-ml0;
       }
     }
+     */
   }
 }
 </style>

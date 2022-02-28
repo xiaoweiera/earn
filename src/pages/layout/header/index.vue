@@ -1,15 +1,18 @@
 <script setup lang="ts">
+import Mobile from "./mobile.vue";
 import * as env from "src/config";
 import {ref, computed} from "vue";
 import User from "../user/index.vue";
-import MenuContentList from "./menu.vue";
-
 import isShowChildren from "./isshow";
+import MenuContentList from "./menu.vue";
 import {MenuItem} from "src/types/menu/";
 import {createRef} from "src/utils/ssr/ref";
 
 const headers = createRef<MenuItem[]>("common.header", []);
-const Logo = ref<string>(env.oss + "/common/logo-white.svg");
+const Logo = computed<string>(function () {
+  const data = env.getEnv();
+  return data.VITE_oss + "/common/logo-white.svg";
+});
 
 
 const isShowSub = computed<boolean>(function () {
@@ -30,15 +33,26 @@ const isShowSub = computed<boolean>(function () {
 <template>
   <div class="header-wrap" :class="{'sub-header': isShowSub}">
     <div class="bg-global-darkblue px-6 flex justify-between fixed top-0 left-0 right-0 z-1000">
-      <div class="flex w-full items-center ui-header-menu w-full justify-between">
-        <v-router class="inline-block select-none" :href="env.dashboard">
-          <img class="min-w-28" :src="Logo">
-        </v-router>
-        <!-- PC端导航 -->
-        <div class="ml-10 h-full hidden lg:block flex-1">
-          <MenuContentList class="pt-2.5 h-full" :menus="headers"/>
+      <div class="flex w-full items-center ui-header-menu">
+        <div class="h-full flex items-center">
+          <!--移动端导航-->
+          <div class="mr-4 block lg:hidden">
+            <Mobile :menus="headers"/>
+          </div>
+
+          <!--Logo-->
+          <v-router class="inline-block select-none" :href="env.dashboard">
+            <img class="min-w-28" :src="Logo" :alt="env.title">
+          </v-router>
         </div>
-        <div>
+
+        <div class="h-full flex-1 flex items-center justify-end lg:justify-between">
+          <!-- PC端导航 -->
+          <div class="ml-10 h-full hidden lg:block flex-1">
+            <MenuContentList class="pt-2.5 h-full" :menus="headers"/>
+          </div>
+
+          <!--用户信息-->
           <User/>
         </div>
       </div>

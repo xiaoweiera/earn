@@ -48,7 +48,13 @@ const onChangeTab = function (data: object) {
 onMounted(function () {
   const api = new Model();
   // 如果 tabs 数据为空，则执行 blog.getTabs 将放回结果赋值给 tabs
-  onLoadRef(tabs, () => api.getTabs());
+  onLoadRef(tabs, () => {
+    return api.getTabs();
+  });
+
+  api.getList(groupId.value, 1, 10).then(function (list) {
+    console.log(list);
+  })
 });
 </script>
 <template>
@@ -59,12 +65,17 @@ onMounted(function () {
           <div class="pt-1">
             <!--顶部数据-->
             <BlogAd/>
-            <div class="px-0 py-3">
+            <div class="py-3">
               <!-- 分类 -->
-              <ui-tab active-name="group" :list="transformTabs(tabs)" @change="onChangeTab"></ui-tab>
+              <div class="hidden md:block">
+                <ui-tab active-name="group" :list="transformTabs(tabs)" @change="onChangeTab"/>
+              </div>
+              <div class="block md:hidden">
+                <ui-tab active-name="group" :split="3" :list="transformTabs(tabs)" @change="onChangeTab"/>
+              </div>
             </div>
             <!-- 博客列表 -->
-            <div class="mt-6" :key="groupId">
+            <div class="px-4 lg:px-0 mt-6" :key="groupId">
               <ui-pagination :init-value="getInitValue()" :request="requestList">
                 <template #default="scope">
                   <div>

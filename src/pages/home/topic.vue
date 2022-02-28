@@ -4,11 +4,12 @@ import {onMounted, ref} from 'vue'
 import {oss} from "src/config";
 import {createRef, onLoadRef} from "~/utils/ssr/ref";
 import {Model} from "~/logic/home";
+import I18n from "~/utils/i18n";
 
 const topicIndex = ref(0)
 const selectTopic = (index: number) => topicIndex.value = index
 const rank = createRef("API.home.getTopicRank", []);
-
+const i18n = I18n();
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总
@@ -16,12 +17,12 @@ onMounted(function () {
 });
 </script>
 <template>
-  <div class="w-full flex justify-between">
+  <div class="w-full flex justify-between md:flex-wrap">
     <!--   topic tag-->
     <div class="xshidden">
       <div class="flex items-center mt-2.5">
         <img class="w-4 h-4 mr-1.5 " :src="`${oss}/dapp/timeIcon.png`" alt="">
-        <span class="des font-kdFang">Data during the last 24 hours:</span>
+        <span class="des font-kdFang font-semibold">{{i18n.home.topTip}}</span>
       </div>
       <div class="py-2.5">
         <template v-for="(item,index) in rank" :key="item.key">

@@ -41,7 +41,7 @@ onMounted(function () {
   <div>
     <div class="mt-4 relative px-2.5">
       <div class="w-full">
-        <div :class="isBegin?'hidden':'jian-left'" class="rounded-kd8px">
+        <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
           <ui-image class="left shadow" @click="last" :src="`${oss}/dapp/zuojian.png`" fit="cover"/>
         </div>
         <Swiper class="h-full swiper-company"
@@ -61,7 +61,7 @@ onMounted(function () {
           </template>
         </Swiper>
       </div>
-      <div :class="isEnd?'hidden':'jian-right'">
+      <div :class="isEnd?'hidden':'jian-right'" class="xshidden">
         <ui-image class="right shadow" @click="next" :src="`${oss}/dapp/rightjian.png`" fit="cover"/>
       </div>
     </div>

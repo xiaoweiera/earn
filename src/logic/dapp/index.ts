@@ -31,8 +31,9 @@ export const tabChain = function (data:any, key: string, href:string) {
 	return function () {
 		let arr:any = [getAll()];
 		R.forEach((item:any) => {
-			if(configs.chain[item]){
-				arr.push(configs.chain[item])
+			const value = safeGet(configs, `chain.${item}`);
+			if(value){
+				arr.push(value);
 			}
 		},data);
 		const query = getParam<object>();
@@ -57,8 +58,9 @@ export const tabPlat = function (data:any, key: string, href:string) {
 	return function () {
 		let arr:any = [getAll()];
 		R.forEach((item:any) => {
-			if(configs.tge_platform[item]){
-				arr.push(configs.tge_platform[item])
+			const value = safeGet(configs, `tge_platform.${item}`);
+			if(value){
+				arr.push(value);
 			}
 		},data);
 		const query = getParam<object>();
@@ -134,13 +136,13 @@ export class Model extends API {
 		return this.dApp.ixo<ProjectItem | AdItem>(query);
 	}
 	getEndedProjects(query:object) {
-		return this.dApp.ixoend<ProjectItem | AdItem>(query);
+		return this.dApp.ixoEnd<ProjectItem | AdItem>(query);
 	}
 }
 
 // 跳转IDO链接
 export const getUrl = function (name:string, type:boolean) {
-	if(type === true){
+	if(type){
 		if(name === Status.upcoming ) {
 			return `${config.dappList}?type=${Status.upcoming}`;
 		}else if (name === Status.ongoing) {
@@ -148,7 +150,7 @@ export const getUrl = function (name:string, type:boolean) {
 		}else if (name === Status.ended) {
 			return `${config.dappList}?type=${Status.ended}`;
 		}
-	}else if (type === false) {
+	}else{
 		if(name === Status.upcoming ) {
 			return `${config.nft}/discover?type=${Status.upcoming}`;
 		}

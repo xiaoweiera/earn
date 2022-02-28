@@ -5,6 +5,7 @@ import Notice from "./notice/index.vue";
 </script>
 <template>
   <div class="layout">
+    <input class="hidden" type="checkbox" name="ui-header-mobile" id="ui-header-mobile">
     <Header/>
     <div class="main">
       <Notice/>

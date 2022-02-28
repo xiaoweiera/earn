@@ -49,9 +49,6 @@ export class Model extends API {
 				const array: BlogData[] = result as any;
 				return array;
 			}
-			if (result) {
-				return result.blogs || [] as BlogData[];
-			}
 		} catch (e) {
 		}
 		return [];

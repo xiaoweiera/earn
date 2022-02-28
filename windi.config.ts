@@ -18,6 +18,7 @@ const cssGlobal = {
 	numGreen: '#00B464', /* 0, 180, 100 */
 	numRed: '#E9592D', /*233, 89, 45*/
 	darkblue: '#006FF7', /* 0, 111, 247*/
+	blueGg: '#0056C3',
 	time: '#A2A4A8',
 	noSelect: '#A8A8A8',
 	white: '#FFFFFF',

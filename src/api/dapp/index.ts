@@ -54,8 +54,8 @@ export default class extends ApiTemplate{
 		 }, query);
 		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, { params}));
 	}
-	// ixoend 数据
-	ixoend<T>(query: Query) {
+	// ixoEnd 数据
+	ixoEnd<T>(query: Query) {
 		const params = Object.assign({
 			page: 1,
 			page_size: 10,
