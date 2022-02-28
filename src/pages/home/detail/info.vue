@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import {PropType} from "vue";
 import {detail} from "src/types/home";
+import window from "src/plugins/browser/window";
+import I18n from "~/utils/i18n";
+import {copyTxtMessage} from "~/lib/tool";
+
+const i18n = I18n();
 const props=defineProps({
   data: Object as PropType<detail>
 })
-
+const getTwitter=`https://twitter.com/share?url=${window.location.href}`
+const getTelegram =`https://t.me/share/url?url=${window.location.href}`;
+const copyUrl=()=>copyTxtMessage(window?.location?.href,i18n.common.message.copyAlert)
 </script>
 <template>
   <div>
@@ -19,11 +26,17 @@ const props=defineProps({
     <div class="mt-4  w-full text-kd13px18px md:text-kd14px20px font-medium text-global-highTitle text-opacity-65">{{data.desc}}</div>
     <div class="mt-4 flex items-center">
       <span class="text-kd14px18px text-global-highTitle text-opacity-45">Share</span>
-      <v-router href="https://www.baidu.com" class="text-global-primary flex items-center">
+      <v-router :href="getTwitter" target="_blank"  class="text-global-primary flex items-center">
         <IconFont class="share-item" type="icon-twitter"/>
-        <IconFont class="share-item" type="icon-telegram"/>
-        <IconFont class="share-item" type="icon-yuyan"/>
       </v-router>
+      <v-router :href="getTelegram" target="_blank"  class="text-global-primary flex items-center">
+        <IconFont class="share-item" type="icon-telegram"/>
+      </v-router>
+      <div @click="copyUrl()" class="text-global-primary flex items-center">
+        <IconFont class="share-item" type="icon-link"/>
+      </div>
+
+
     </div>
   </div>
 </template>

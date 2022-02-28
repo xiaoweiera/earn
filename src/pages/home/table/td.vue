@@ -2,11 +2,12 @@
 import {ref, onMounted, PropType} from 'vue'
 import {toNumberCashFormat} from 'src/utils/convert/to'
 import {getData} from "~/logic/home";
-import {getRedGreen} from "~/lib/tool";
+import {getRedGreen,dataToTimestamp} from "~/lib/tool";
 import {detail} from "~/types/home";
 import * as alias from "src/utils/root/alias";
 import {getValue} from "src/utils/ssr/ref";
 import {SiteConfig} from "src/types/common/chain";
+import {getDateMDY} from "~/utils";
 // 公链配置
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const props = defineProps({
@@ -43,7 +44,7 @@ const numberUnit = ['ido_sale_amount'] //number + 单位 --- Tokens for Sale    
 const numbers = ['owners', 'assets', 'mcap_tvl']//-- Owners Assets MCap/TVL
 const numberChange = ['users_24h', 'users_7d', 'tvl']//User/Change   TVL/Change
 const lever = ['ath_since_ido', 'current_roi_usd'] //number + x  ATH Since IDO   Current ROI USD
-const timeType = ['endedIn'] //time
+const timeType = ['ido_end_at','mint_start_at'] //time
 
 const typeDom = ref('')// dom类型
 const domData = ref() //dom数据
@@ -75,16 +76,15 @@ const getDom = () => {
     return 'txt'
   }
 }
-
 onMounted(() => {
   typeDom.value = getDom()
-  domData.value = getData(props.typeName, props.data, props.type)
+  domData.value = getData(props.typeName, props.data)
 })
 </script>
 <template>
   <div>
     <!--projectName-->
-    <div v-if="(typeName==='name' && !info ) || typeName==='name' && info.show_type==='data'" class="flex-center  max-w-25 whitespace-nowrap">
+    <div v-if="(typeName==='name' && !info ) || typeName==='name' && info?.show_type==='data'" class="flex-center  max-w-25 whitespace-nowrap">
       <IconFont :size="info?32:24" :type="data.logo"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt   max-w-20 whitespace-nowrap">{{ data['name'] }}
@@ -93,24 +93,24 @@ onMounted(() => {
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='name' && (info && info.show_type==='desc')" class="flex-center short">
+    <div v-else-if="typeName==='name' && (info && info?.show_type==='desc')" class="flex-center short">
       <img class="w-8 h-8 md:w-12 md:h-12 rounded-kd6px" :src="data.logo"/>
       <div class="ml-3 short">
         <div class="nameNameDes text-number line-height-no flex-center">
           <span>{{ data['name'] }}</span>
-          <IconFont size="16" :type="config.chain[data.chain].logo"/>
+          <IconFont v-if="config.chain[data.chain]" size="16" :type="config.chain[data.chain].logo"/>
         </div>
-        <div class="nameDes md:mt-1.5 text-number line-height-no max-w-150 short text-left">{{ data['description'] }}</div>
+        <div class="nameDes md:mt-1.5 text-number line-height-no max-w-140 short text-left">{{ data['description'] }}</div>
       </div>
     </div>
     <!--chainIcon-->
     <div v-else-if="typeDom==='chainIcon'">
-      <div v-if="data['chains'].length>0">
-        <IconFont size="16" :type="config.chain[data.chain].logo"/>
+      <div v-if="data['chains']?.length>0 && config.chain[data.chain]">
+        <IconFont size="16" :type="config.chain[data.chain]?.logo"/>
       </div>
       <div v-else class="numberDefault text-number text-center">N/A</div>
     </div>
-    <!--iconHref  tge_platform-->
+<!--    iconHref  tge_platform-->
     <div v-else-if="typeDom==='iconHref'" class="flex-center justify-right justify-center">
       <div v-if="domData" class="w-full flex items-center justify-center">
         <IconFont v-if="config.tge_platform[domData]" size="16" :type="config.tge_platform[domData].logo"/>
@@ -134,7 +134,7 @@ onMounted(() => {
     </div>
     <!--chainNumber-->
     <div v-else-if="typeDom==='chainNumber'" class="flex-center justify-center">
-      <IconFont size="16" :type="config.chain[data.chain].logo"/>
+      <IconFont size="16" :type="config.chain[data.chain]?.logo"/>
       <span class="numberDefault text-number ml-1">{{ domData }}</span>
     </div>
     <!--numberUnit-->
@@ -159,9 +159,9 @@ onMounted(() => {
       {{ toNumberCashFormat(domData, 'x', '', 'N/A') }}
     </div>
     <!--timeType-->
-<!--    <div v-else-if="typeDom==='timeType'" class="numberDefault text-number text-center">-->
-<!--      {{ data['time'] ? data['time'] : 'TBA' }}-->
-<!--    </div>-->
+    <div v-else-if="typeDom==='timeType'" class="numberDefault text-number text-center">
+      {{ domData ? getDateMDY(dataToTimestamp(domData)) : 'TBA' }}
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
