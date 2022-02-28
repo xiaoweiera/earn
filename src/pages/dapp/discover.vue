@@ -21,6 +21,7 @@ const api = new Model();
 const route = useRoute();
 // 定义一个 provide 数据，给子组件（ui-tab）使用
 const [ query ] = useReactiveProvide<Query>(stateAlias.ui.tab, {} as Query);
+const isIgo = ref(getParam<boolean>("isIgo"))
 const chain = ref(getParam<string>("chain"));
 const category = ref(getParam<string>("group"));
 const platform = ref(getParam<string>("platform"));
@@ -32,6 +33,7 @@ let list: any = createRef("API.dapp.list", {} as any);
 const params = reactive({
   page: 1,
   page_size: 8,
+  is_igo: isIgo.value ? isIgo : false,
   chain: chain.value,
   category: category.value,
   platform: platform.value,
@@ -113,11 +115,11 @@ const changeSort=(sort:string)=>{
     <div class="content pt-8">
       <!-- 头部 -->
       <div class="header">
-        <DappDiscoversHeader></DappDiscoversHeader>
+        <DappDiscoversHeader title="The world’s best DApp store" tips="All in One-Stop: Web3.0, DeFi, Gaming, NFTs,  Airdorps."></DappDiscoversHeader>
       </div>
        <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
-        <ui-tab :key="key" :list="logic.tabs" active-name="type"/>
+        <ui-tab :key="key" :list="logic.tabs"  active-name="type"/>
       </ui-sticky>
       <!-- 搜索条件 -->
       <div v-if="summary && summary.ido">
@@ -125,8 +127,10 @@ const changeSort=(sort:string)=>{
       </div>
       <!-- 列表内容 -->
       <div class="py-8">
-        <div v-if="query.type === logic.TabTypes.ended">
-          <DappDiscoversEndlist @changeSort="changeSort" :params="params" class="px-4" :list="list"></DappDiscoversEndlist>
+        <div v-if="query.type === logic.TabTypes.ended" class="overflow-x-scroll showX">
+          <div class="w-315">
+            <DappDiscoversEndlist @changeSort="changeSort" :params="params" class="px-4" :list="list"></DappDiscoversEndlist>
+          </div>
         </div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" v-else>
           <DappDiscoversList v-if="params" v-for="(item, index) in list" :key='index' :data="item"></DappDiscoversList>

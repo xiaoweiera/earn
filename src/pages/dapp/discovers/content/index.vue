@@ -14,7 +14,7 @@ defineProps({
 
 <template>
   <div>
-    <v-router target="_blank">
+    <v-router target="_blank" :href="data.url">
       <!-- 项目图片和tip角标 -->
       <div class="relative h-40">
         <DappDiscoversContentHeader :data="data"/>

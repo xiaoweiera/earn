@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import { toNumberCashFormat } from 'src/utils/convert/to'
+import { getLog } from 'src/logic/dapp'
 const props = defineProps({
   list: {
     type: Object,
@@ -57,7 +58,7 @@ const getIcon = (item:string) => {
         <template v-for="(item, index) in data.header" :key="index">
           <td class="thead-hr hand">
             <div class="flex items-center" @click="sort(item.key)" :class="index === 0 ? 'justify-start' : 'justify-center'">
-              <IconFont class="mr-1" size="14" v-if="index !== 0" :type="getIcon(item.key)"/>
+              <IconFont class="mr-1" size="14" v-if="index !== 0 && index !== 1 && index !== 6" :type="getIcon(item.key)"/>
               <span>{{item.name}}</span>
             </div>
           </td>
@@ -66,10 +67,10 @@ const getIcon = (item:string) => {
       </thead>
       <tbody>
         <template v-for="(item,index) in list" :key="index">
-          <tr class="h-14">
+          <tr class="h-14 hand">
             <td>
               <div class="flex-center">
-                <IconFont size="32" type="icon-HECOYuan"/>
+                <IconFont size="32" :type="item.logo"/>
                 <div class="ml-1.5">
                   <div class="numberDefault text-number line-height-no">{{item.name}}</div>
                   <div class="nameTag text-number text-left line-height-no">{{item.category}}</div>
@@ -87,7 +88,7 @@ const getIcon = (item:string) => {
             <td><div class="numberDefault text-number">{{toNumberCashFormat(item.mint_price,'$','','Not Set')}}</div></td>
             <td>
               <div class="flex-center justify-center">              
-                <IconFont size="16" type="icon-HECO"/>
+                <IconFont v-if="item.chain" size="16" :type="getLog(item.chain)"/>
               </div>
             </td>
             <td>

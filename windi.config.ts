@@ -38,7 +38,7 @@ const cssGlobal = {
 	none: '#FFF0',
 	gemstone: '#F0BF12', // 黄宝石
 	media: '#1DA1F2',
-	bgBlack:'#272C3366',
+	bgBlack:'#272C33',
 	textBlack: '#212121',
 	hei:'#000000'
 }

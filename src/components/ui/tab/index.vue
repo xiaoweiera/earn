@@ -155,8 +155,8 @@ onMounted(function () {
       <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
         <v-router v-show="index < props.split" :href="makeLink(activeName, item, trigger)" @click="onClick(item)" class="inline-block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]">
           <slot name="default" :data="item">
-            <div v-if="item.icon" class="flex items-center">
-              <IconFont class="mr-1.5" :type="item.icon" size="24"/>
+            <div v-if="item.logo" class="flex items-center">
+              <IconFont class="mr-1.5" :type="item.logo" size="16"/>
               <span class="text-18-24 font-m">{{ item.name }}</span>
             </div>
             <span v-else class="text-18-24 font-m">{{ item.name }}</span>
@@ -181,8 +181,8 @@ onMounted(function () {
         <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
           <v-router :href="makeLink(activeName, item, trigger)" @click="onClick(item)" class="block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]">
             <slot name="default" :data="item">
-              <div v-if="item.icon" class="flex items-center">
-                <IconFont class="mr-1.5" :type="item.icon" size="24"/>
+              <div v-if="item.logo" class="flex items-center">
+                <IconFont class="mr-1.5" :type="item.logo" size="16"/>
                 <span class="text-18-24 font-m">{{ item.name }}</span>
               </div>
               <span v-else class="text-18-24 font-m">{{ item.name }}</span>

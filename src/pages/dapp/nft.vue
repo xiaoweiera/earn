@@ -5,18 +5,22 @@ import DappNftsEndlist from './nfts/endlist.vue';
 import DappNftsList from './nfts/list.vue';
 
 import {onMounted, reactive, ref, watch} from "vue"
+import DBList from "@fengqiaogang/dblist";
+import * as R from "ramda";
 import safeGet from "@fengqiaogang/safe-get";
  import * as logic from "src/types/dapp/";
 import {toLower, uuid} from "src/utils";
 import { includes } from 'ramda';
 import { useRoute } from 'vue-router'
-import {Model} from "src/logic/dapp";
+import {Model, sortVal, sortTime, getTodayTime} from "src/logic/dapp";
 import {createReactive, createRef, onLoadReactive, onLoadRef} from "src/utils/ssr/ref";
 import {summaryModel} from "src/types/home";
 import {Model as Homemodel} from "src/logic/home";
 import * as alias from "src/utils/root/alias";
 import {useWatch} from "~/utils/use/state";
 import {getParam} from "~/utils/router";
+import {ProjectItem} from "src/types/dapp/";
+import { getDateMDY } from "src/utils";
 
 
 //路由
@@ -30,11 +34,43 @@ const search = ref(getParam<string>("search"));
 
 
 // 获取nft列表
-const list = createRef("API.dapp.nftList", {} as any);
+const listItem = createRef("API.dapp.nftList", {} as any);
+const list = ref([]);
 
+const listVal = ref([]);
+listVal.value = sortTime(listItem.value);
+const newList = ref<logic.DataMap[]>([]);
+const newCount = ref<number>(0);
+const db = new DBList([], 'id', 'pid');
+const cacheDb = new DBList([], 'id', 'pid');
+const dapp = function (data:any) {
+  db.insert(data)
+  // 从对象中获取所有的键
+  // @ts-ignore
+  const keys: string[] = [...db.data.keys()];
+  // 过滤正确的分组数据
+  const ids: string[] = [];
+  R.forEach(function (value: string) {
+    if (/^[\d]+$/.test(value)) {
+      ids.push(value);
+    }
+  }, keys);
+  //
+  const array: logic.DataMap[] = [];
+  R.forEach(function (pid: string) {
+    const value: logic.ProjectItem[] = db.select({ pid });
+    array.push({
+      date: pid,
+      list: value
+    });
+  }, sortVal(ids, void 0, true));
+  // 更新数据
+  return array;
+}
+list.value = dapp(listVal.value);
 const params = reactive({
   page: 1,
-  page_size: 15,
+  page_size: 50,
   chain: chain.value,
   category: category.value,
   status: type.value ? type.value : 'upcoming',
@@ -52,10 +88,14 @@ const getData = async (clear?: boolean) => {
   const res: any = await api.getNftList(params);
   if (clear) {
     params.page = 1
-    list.value = []
+    list.value = [];
   }
   resultNumber.value = res?.length;
-  list.value = list.value.concat(res)
+  if(params.status != 'history'){
+    list.value = dapp(list.value.concat(res))
+  }else {
+    list.value = list.value.concat(res)
+  }
   loading.value = false
 }
 //获取类型
@@ -65,7 +105,7 @@ const key = ref<string>(uuid());
 onMounted(function () {
   // 得到数据汇总
   onLoadReactive(summary, () => api.getSummary());
-  onLoadRef(list, () => api.getNftList(params));
+  onLoadRef(listItem, () => api.getNftList(params));
 });
 
 useWatch($router, (n) => {
@@ -95,7 +135,7 @@ const changeSort=(sort:string)=>{
     <div class="max-w-315 mx-auto pt-8">
       <!-- 项目名称 -->
       <div>
-        <DappDiscoversHeader></DappDiscoversHeader>
+        <DappDiscoversHeader title="The world’s best NFT store" tips="All in One-Stop: Web3.0, DeFi, Gaming, NFTs,  Airdorps."></DappDiscoversHeader>
       </div>
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
@@ -112,8 +152,13 @@ const changeSort=(sort:string)=>{
         <div class="w-315" v-if="$router.query.type === logic.NftTabTypes.history">
           <DappNftsEndlist @changeSort="changeSort" :params="params" :list="list"></DappNftsEndlist>
         </div>
-        <div class="w-315 grid grid-cols-5 gap-6" v-else>
-          <DappNftsList v-for="( item, index ) in list" :key="index" :data="item"></DappNftsList>
+        <div v-else>
+          <div v-for="(item, index) in list" :key="index">
+            <span class="text-kd18px24px text-global-bgBlack font-kdFang">{{ getTodayTime(item.date)}}</span>
+            <div class="w-315 grid grid-cols-5 gap-6 my-4">
+              <DappNftsList v-for="( item, index ) in item.list" :key="index" :data="item"></DappNftsList>
+            </div>
+          </div>
         </div>
       </div>
     </div>

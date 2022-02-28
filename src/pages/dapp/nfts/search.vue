@@ -23,18 +23,29 @@ const change=()=>{
 </script>
 <template>
   <div class="mt-5" v-if="data">
-    <!-- 项目类型、公链、搜索框 -->
-    <div class="flex justify-between items-center">
-      <div class="flex items-center">
-        <!-- 项目类型 -->
-         <DappDiscoversContentType v-if="data.category" :list="tabCage(data.category,'group', `${config.nft}/discover`)" :key="key" :split="3" title="项目类型" name="group"></DappDiscoversContentType>
-        <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
-        <!-- 公链 -->
-        <DappDiscoversContentChain :key="key" :title="chain" :chainData="data.chain" :href="`${config.nft}/discover`" name="chain"></DappDiscoversContentChain>
+    <div class="hidden md:block">
+      <!-- 项目类型、公链、搜索框 -->
+      <div class="flex justify-between items-center">
+        <div class="flex items-center">
+          <!-- 项目类型 -->
+          <DappDiscoversContentType v-if="data.category" :list="tabCage(data.category,'group', `${config.nft}/discover`)" :key="key" :split="3" title="项目类型" name="group"></DappDiscoversContentType>
+          <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
+          <!-- 公链 -->
+          <DappDiscoversContentChain :key="key" :title="chain" :chainData="data.chain" :href="`${config.nft}/discover`" name="chain"></DappDiscoversContentChain>
+        </div>
+        <!-- 搜索框 -->
+        <div>
+          <DappDiscoversContentField :herf="`${config.nft}/discover`" :title="search"></DappDiscoversContentField>
+        </div>
       </div>
-      <!-- 搜索框 -->
+    </div>
+    <div class="block md:hidden">
       <div>
-        <DappDiscoversContentField :herf="`${config.nft}/discover`" :title="search"></DappDiscoversContentField>
+        <div class="flex items-center">
+          <DappDiscoversContentChain :key="key" title="项目类型" :chainData="data.category" :href="`${config.nft}/discover`" name="group"/>
+          <IconFont v-if="data.category" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
+          <DappDiscoversContentField :herf="`${config.nft}/discover`" :title="search"></DappDiscoversContentField>
+        </div>
       </div>
     </div>
   </div>
