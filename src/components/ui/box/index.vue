@@ -9,9 +9,13 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .float-right {
-  width: var(--ui-box-right);
+  @screen md {
+    width: var(--ui-box-right);
+  }
 }
 .box-content-wrap {
-  margin-right: var(--ui-box-right);
+  @screen lg {
+    margin-right: var(--ui-box-right);
+  }
 }
 </style>
