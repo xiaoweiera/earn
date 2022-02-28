@@ -4,16 +4,18 @@
  */
 
 import {Request} from "express";
-import { isObject } from "src/utils/";
+import {isRequest} from "src/utils/";
 import {Lang} from "src/types/language";
 
 export default class {
 	protected lang: Lang | undefined;
+
 	constructor(lang?: Lang) {
 		this.lang = lang;
 	}
-	protected getRequest (): Request | undefined {
-		if (this.lang && isObject(this.lang)) {
+
+	protected getRequest(): Request | undefined {
+		if (isRequest(this.lang)) {
 			return this.lang as Request;
 		}
 	}
