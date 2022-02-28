@@ -3,15 +3,18 @@
  * @author svon.me@gmail.com
  */
 
+// 引入 element 样式
+import "src/styles/element.scss";
 // 引入 tailwindcss
 import "virtual:windi.css";
 import "virtual:windi-devtools";
 // 引入项目全局样式
 import "src/styles/main.scss";
-import Cookie from "src/plugins/browser/cookie";
+
 import {config} from "src/router/config";
 import {createApp} from "./bootstrap/main";
 import * as webkit from "src/plugins/webkit/";
+import Cookie from "src/plugins/browser/cookie";
 import { Device } from "src/types/common/device";
 
 // 设置 Element Ui 中英文

@@ -6,8 +6,7 @@ import ApiTemplate from "../template";
 import * as api from "src/config/api";
 import request from "src/plugins/dao/service";
 import { asyncCheck } from "src/plugins/dao/response";
-import { userToken } from "src/plugins/dao/directive";
-import { validate, required, tryError, ErrorDefault } from "src/utils/decorate";
+import { userToken, validate, required, tryError, ErrorDefault } from "src/utils/decorate";
 
 export default class extends ApiTemplate {
 

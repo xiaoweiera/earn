@@ -4,6 +4,8 @@
 import "reflect-metadata";
 import {compact, isEmpty, isFunction, isString, toBoolean} from "src/utils";
 
+export { userToken } from "src/plugins/dao/directive";
+
 type CallBack = <T>(...args: any[]) => T
 export type ErrCatch = (e: Error, ...args: any[]) => void
 
@@ -38,7 +40,7 @@ export const ErrorDefault = function (value?: any, log?: boolean) {
 				console.log(...args)
 			}
 		}
-		return value
+		return value;
 	}
 }
 

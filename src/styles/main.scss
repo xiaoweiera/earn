@@ -3,16 +3,6 @@
  * @author svon.me@gmail.com
  */
 
-@forward 'element-plus/theme-chalk/src/common/var.scss' with (
-  $colors: (
-    'primary': (
-      'base': #006FF7,
-    ),
-  ),
-);
-/* @import "element-plus/dist/index.css"; */
-@use "element-plus/theme-chalk/src/index.scss" as *;
-
 @import "./function";
 /* icon font 相关样式 */
 @import "./iconfont";
