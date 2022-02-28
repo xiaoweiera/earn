@@ -6,8 +6,8 @@
 import {Model} from "src/logic/home";
 import {Request, Response} from "express";
 import * as alias from "src/utils/root/alias";
-import redirect from "~/controller/common/redirect";
-import {config} from "~/router/config";
+import redirect from "src/controller/common/redirect";
+import {config} from "src/router/config";
 //home页面
 export const begin = async function (req: Request, res: Response) {
     const api = new Model(req);
