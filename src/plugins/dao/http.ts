@@ -101,7 +101,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 	)
 	service.interceptors.response.use(
 		(res: AxiosResponse) => {
-			const url = res.request.res.responseUrl;
+			const url = safeGet<string>(res, "request.res.responseUrl") || safeGet<string>(res, "request.responseURL") || safeGet<string>(res, "config.url");
 			const status = parseInt(res.status as any, 10);
 			if (status >= 200 && status < 300) {
 				console.log('API Success %s, %s, %s', res.status, res.config.method, url, res.config.params);

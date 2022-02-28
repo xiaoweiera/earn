@@ -169,12 +169,12 @@ onMounted(function () {
         </v-router>
       </template>
       <client-only class="tab-item inline-block text-18-24 font-m" v-if="split < tabList.length">
-        <el-select class="border-0 w-40 active" v-if="isSelectActive()" v-model="active" @change="onChangeSelect">
+        <el-select class="border-0 w-30 md:w-40 active" v-if="isSelectActive()" v-model="active" @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
             <el-option v-if="index >= split" :label="item.name" :value="item[activeName]"></el-option>
           </template>
         </el-select>
-        <el-select class="border-0 w-40" v-else @change="onChangeSelect">
+        <el-select class="border-0 w-30 md:w-40" v-else @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
             <el-option v-if="index >= split" :label="item.name" :value="item[activeName]"></el-option>
           </template>
@@ -226,7 +226,7 @@ onMounted(function () {
     }
   }
   .tab-item {
-    @apply ml-8 text-global-highTitle text-opacity-45;
+    @apply ml-4 md:ml-8 text-global-highTitle text-opacity-45;
     @extend %first-ml0;
 
     &:after {
@@ -240,12 +240,14 @@ onMounted(function () {
         content: "";
       }
     }
+    /**
     &:not(a) {
       &:not([href]) {
         @apply cursor-pointer ml-9;
         @extend %first-ml0;
       }
     }
+     */
   }
 }
 </style>
