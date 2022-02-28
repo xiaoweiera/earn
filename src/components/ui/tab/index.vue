@@ -55,8 +55,13 @@ const props = defineProps({
 const getList = function (): Item[] {
   if (props.list) {
     if (isFunction(props.list)) {
-      const fun = props.list as CallbackList;
-      return fun();
+      try {
+        const fun = props.list as CallbackList;
+        return fun();
+      } catch (e) {
+        console.log(e);
+        return [];
+      }
     }
     return props.list as Item[];
   }
