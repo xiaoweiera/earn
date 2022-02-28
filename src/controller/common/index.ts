@@ -4,6 +4,7 @@
  */
 
 import I18n from "src/utils/i18n";
+import { getTidings } from "./tiding";
 import {chainSiteConfig} from "./chain";
 import {config} from "src/router/config";
 import {userInfo, userLogout} from "./user";
@@ -18,7 +19,8 @@ common.use(async function (req: Request, res: Response, next: NextFunction) {
 	const i18n = I18n();
 	const array = await Promise.all([
 		chainSiteConfig(req),
-		userInfo(req, res)
+		userInfo(req, res),
+		getTidings(req, res),
 	]);
 	const data = {
 		title: "KingData",

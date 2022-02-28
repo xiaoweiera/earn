@@ -3,22 +3,24 @@
  */
 
 import jsCookie from "js-cookie";
-import { Equals } from "src/utils/";
 import {Request, Response} from "express";
 import safeGet from "@fengqiaogang/safe-get";
 import * as webkit from "src/plugins/webkit/";
-import { Device } from "src/types/common/device";
-import {tokenName, tokenExpires, deviceName, getEnv, IsSSR} from "src/config/";
+import {Equals, toInteger} from "src/utils/";
+import {Device} from "src/types/common/device";
+import {deviceName, getEnv, IsSSR, tokenExpires, tokenName} from "src/config/";
 
 const tidingName = "last_timestamp";
 
 export default class Cookie {
 	private readonly req?: Request;
 	private readonly res?: Response;
+
 	constructor(req?: Request, res?: Response) {
 		this.req = req;
 		this.res = res;
 	}
+
 	private static cookieOption(expires: number = 0) {
 		const env = getEnv();
 		const option = {
@@ -32,6 +34,7 @@ export default class Cookie {
 		}
 		return option;
 	}
+
 	// 获取
 	get(name: string): string | undefined {
 		if (this.req) {
@@ -40,6 +43,7 @@ export default class Cookie {
 			return jsCookie.get(name);
 		}
 	}
+
 	// 设置
 	set(name: string, value: string, expires: number = 0) {
 		if (this.res) {
@@ -48,6 +52,7 @@ export default class Cookie {
 			return jsCookie.set(name, value, Cookie.cookieOption(expires));
 		}
 	}
+
 	remove(name: string) {
 		if (this.res) {
 			return this.res.clearCookie(name, Cookie.cookieOption());
@@ -55,8 +60,9 @@ export default class Cookie {
 			return jsCookie.remove(name, Cookie.cookieOption());
 		}
 	}
+
 	// 获取用户 token
-	async getUserToken () {
+	async getUserToken() {
 		if (IsSSR()) {
 			if (this.req) {
 				return this.get(tokenName);
@@ -70,19 +76,22 @@ export default class Cookie {
 		}
 		return this.get(tokenName);
 	}
+
 	// 修改用户信息
-	setUserToken (value?: string) {
+	setUserToken(value?: string) {
 		if (value) {
 			return this.set(tokenName, value, tokenExpires);
 		} else {
 			return this.removeUserToken();
 		}
 	}
+
 	// 删除用户信息
 	removeUserToken() {
 		return this.remove(tokenName);
 	}
-	async getDeviceValue () {
+
+	async getDeviceValue() {
 		// 从移动端获取用户信息
 		const process = await webkit.env.process();
 		if (process && process.device) {
@@ -92,6 +101,7 @@ export default class Cookie {
 		}
 		return this.get(deviceName) || Device.web;
 	}
+
 	setDeviceValue(value?: string) {
 		if (value) {
 			return this.set(deviceName, value);
@@ -99,17 +109,18 @@ export default class Cookie {
 			return this.removeDeviceValue();
 		}
 	}
-	removeDeviceValue () {
+
+	removeDeviceValue() {
 		return this.remove(deviceName);
 	}
 
 	getTidingTime() {
-		const value = this.get(tidingName) || '';
-		const time = Date.now() / 1000;
-		const now = parseInt(time as any);
-		const option = Cookie.cookieOption(1000 * 60 * 60 * 24 * 365);
-		jsCookie.set(tidingName, `${now}`,option);
-		return value;
+		return this.get(tidingName) || '';
+	}
+
+	setTidingTime(value: number = toInteger(Date.now() / 1000)) {
+		const expires = tokenExpires * (366 / 3); // 约等于1年时间
+		this.set(tidingName, `${value}`, expires);
 	}
 }
 

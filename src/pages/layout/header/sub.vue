@@ -4,8 +4,8 @@
  * @author svon.me@gmail.com
  */
 
-import { toInteger } from "src/utils";
 import {PropType} from "vue";
+import { toInteger } from "src/utils";
 import { MenuItem } from "src/types/menu/";
 
 defineProps({
