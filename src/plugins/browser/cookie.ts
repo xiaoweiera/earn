@@ -8,9 +8,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import * as webkit from "src/plugins/webkit/";
 import {Equals, toInteger} from "src/utils/";
 import {Device} from "src/types/common/device";
-import {deviceName, getEnv, IsSSR, tokenExpires, tokenName} from "src/config/";
-
-const tidingName = "last_timestamp";
+import {deviceName, getEnv, IsSSR, tokenExpires, tokenName, tidingName} from "src/config/";
 
 export default class Cookie {
 	private readonly req?: Request;

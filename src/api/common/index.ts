@@ -4,6 +4,7 @@
 
 import * as api from "src/config/api";
 import ApiTemplate from "../template";
+import { tidingName } from "src/config/";
 import request from "src/plugins/dao/service";
 import Cookie from "src/plugins/browser/cookie";
 import {AreaCode} from "src/types/common/area";
@@ -43,7 +44,7 @@ export default class extends ApiTemplate {
 	async getTidings(): Promise<TidingList[]> {
 		const cookie = new Cookie(this.getRequest());
 		const params = {
-			'last_timestamp': cookie.getTidingTime()
+			[tidingName]: cookie.getTidingTime()
 		};
 		try {
 			return await asyncCheck<TidingList[]>(request(this.lang).get(api.common.tidingTime, {params}));
