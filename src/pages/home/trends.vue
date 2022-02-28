@@ -53,7 +53,7 @@ onMounted(function () {
 <template>
   <div>
     <div class="flex items-center text-global-white">
-      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow">{{i18n.home.todayTrend.title}}</span>
+      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow font-semibold">{{i18n.home.todayTrend.title}}</span>
       <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">{{i18n.home.todayTrend.time}}</span>
     </div>
     <div class="mt-4 relative">

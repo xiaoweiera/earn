@@ -12,7 +12,7 @@ const changeTopic=(index:number)=>id.value=index
 <template>
   <div class="md:w-150 w-full  md:min-h-86 md:py-3  relative">
     <div class="bg xshidden"></div>
-    <div class="relative md:min-h-86 md:bg-global-white rounded-kd16px">
+    <div class="relative md:min-h-86 md:bg-global-white rounded-kd16px md:min-w-150">
       <template v-for="(item,index) in data" :key="item.id">
         <HomeTableModel class="xshidden h-full  md:absolute top-0" :class="topicIndex===index?'active':'active-no'" :data="item"/>
         <HomeTableModel v-if="index===id" class="h-full mdhidden" :class="id===index?'block':'hidden'" :data="item"/>

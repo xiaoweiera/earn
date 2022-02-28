@@ -16,8 +16,8 @@ const copyUrl=()=>copyTxtMessage(window?.location?.href,i18n.common.message.copy
 <template>
   <div>
     <div class="flex items-end w-full md:py-2.5 ">
-      <span class="text-kd32px32px md:text-kd36px36px font-kdSemiBold text-global-primary font-bold">#</span>
-      <span class="text-kd32px32px md:text-kd40px40px font-kdSemiBold ml-2 text-global-highTitle text-opacity-85">{{data.name}}</span>
+      <span class="text-kd32px32px md:text-kd36px36px font-kdSemiBold text-global-primary font-bold ">#</span>
+      <span class="text-kd32px32px md:text-kd40px40px font-kdSemiBold ml-2 text-global-highTitle text-opacity-85 font-semibold">{{data.name}}</span>
       <v-router href="https://kingdata.com/dapp/apply" target="_blank" class="w-25 h-8 ml-6 bg-global-primary rounded-kd6px flex items-center justify-center cursor-pointer">
         <IconFont class="text-global-white" size="16" type="icon-updata"/>
         <span class="text-kd14px18px text-global-white font-medium ml-1">{{i18n.home.projectApply}}</span>

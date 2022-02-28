@@ -9,7 +9,7 @@ const props = defineProps({
 })
 </script>
 <template>
-  <div class="table-box bg-global-white relative" >
+  <div class="table-box bg-global-white relative">
     <div class="flex items-center justify-between flex-wrap ">
       <span class="title">{{ data.name }}</span>
       <v-router :href="`${config.homeDetail}?id=${data.id}`" target="_blank" class="flex items-center hand">

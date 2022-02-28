@@ -17,12 +17,12 @@ onMounted(function () {
 });
 </script>
 <template>
-  <div class="w-full flex justify-between">
+  <div class="w-full flex justify-between md:flex-wrap">
     <!--   topic tag-->
     <div class="xshidden">
       <div class="flex items-center mt-2.5">
         <img class="w-4 h-4 mr-1.5 " :src="`${oss}/dapp/timeIcon.png`" alt="">
-        <span class="des font-kdFang">{{i18n.home.topTip}}</span>
+        <span class="des font-kdFang font-semibold">{{i18n.home.topTip}}</span>
       </div>
       <div class="py-2.5">
         <template v-for="(item,index) in rank" :key="item.key">

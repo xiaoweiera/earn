@@ -1,6 +1,6 @@
 export default {
-    title:'The best DApp store in the world',
-    twoTitle:'Comprehensive Services: Web3.0, DeFi, GameFi, NFTs,  Airdorps',
+    title:'One-stop investment platform on Web3',
+    twoTitle:'Discover, Track, Invest DeFi, NFT, Gaming, Data-driven investing',
     platData:{
         avgAth:'Avg Revenue',
         desc:{

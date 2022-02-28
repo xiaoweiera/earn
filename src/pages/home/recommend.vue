@@ -58,7 +58,7 @@ onMounted(function () {
 </script>
 <template>
   <div>
-    <div class="text-kd20px20px md:text-kd24px24px  font-kdSemiBold text-global-highTitle">{{i18n.home.hotTopic}}</div>
+    <div class="text-kd20px20px md:text-kd24px24px  font-kdSemiBold text-global-highTitle font-semibold">{{i18n.home.hotTopic}}</div>
     <div class="mt-4 relative">
       <div class="w-full">
         <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
