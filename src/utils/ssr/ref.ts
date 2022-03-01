@@ -6,18 +6,11 @@
 import _ from "lodash";
 import API from "src/api/index";
 import safeGet from "@fengqiaogang/safe-get";
-import { get as getRootData } from "src/utils/root/data";
+import { getValue } from "src/utils/root/data";
 import {ref, reactive, Ref, toRaw, UnwrapNestedRefs} from "vue";
 
 export * as alias from "src/utils/root/alias";
 
-export const getValue = function<T>(key: string, auto: T): T {
-	const data = getRootData<T>(key);
-	if (data) {
-		return data;
-	}
-	return auto;
-}
 
 export const createRef = function<T>(key: string, auto: T) {
 	const value = getValue<T>(key, auto);
