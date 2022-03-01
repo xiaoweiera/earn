@@ -78,11 +78,11 @@ const loading = ref(false);
 
 const getData = async (clear?: boolean) => {
   loading.value = true
-  const res: any = await api.getNftList(params);
   if (clear) {
     params.page = 1
     clearArr();
   }
+  const res: any = await api.getNftList(params);
   resultNumber.value = res?.length;
   if(params.status != 'history'){
     const result:any = sortTime(res);
