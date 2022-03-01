@@ -36,7 +36,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 	const env = getEnv();
 	const setting = Object.assign(
 		{
-			timeout: 20 * 1000, // request timeout
+			timeout: 2 * 1000, // request timeout
 			baseURL: isRequest(lang) ? env.VITE_LanApi : env.api, // 根据当前环境配置接口域名
 			withCredentials: false,
 			maxRedirects: 3, // 支持三次重定向
@@ -117,7 +117,11 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 			if (code === 0) {
 				return Promise.resolve(error);
 			}
-			console.log(error);
+			const method = safeGet<string>(error, "config.method");
+			const url = safeGet<string>(error, "config.url");
+			const params = safeGet<string>(error, "config.params") || {};
+			const data = safeGet<string>(error, "config.data") || {};
+			console.log('API Error %s, %s', method, url, { ...params, ...data });
 			return Promise.reject(error)
 		},
 	)

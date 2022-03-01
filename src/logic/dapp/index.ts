@@ -119,7 +119,6 @@ export class Model extends API {
   //nft数据
   getNftList(query:any) {
 		return this.dApp.getNftList(query);
-    // return this.dApp.getNftList<ProjectNftItem | AdNftItem>(query);
   }
 	getUpcomingProjects(chain?: string) {
 		const query: Query = {
@@ -158,25 +157,16 @@ export const getUrl = function (name:string, type:boolean) {
 }
 
 //获取公链logo
-export const getLog = function (name:any) {
-	if(configs.chain[name].logo) {
-		return configs.chain[name].logo;
-	}
-	return "N/A";
+export const getLog = function (name:string) {
+	return safeGet<string>(configs, `chain.${name}.logo`) || "N/A";
 }
 //获取tegicon
-export const getTegLog = function (name:any) {
-	if(configs.tge_platform[name]) {
-		return configs.tge_platform[name].logo;
-	}
-	return '';
+export const getTegLog = function (name:string) {
+	return safeGet<string>(configs, `tge_platform.${name}`) || "";
 }
 //获取跳转链接
-export const getTegUrl = function (url:any) {
-	if(configs.tge_platform[url]) {
-		return configs.tge_platform[url].website;
-	}
-	return '';
+export const getTegUrl = function (name:string) {
+	return safeGet<string>(configs, `tge_platform.${name}.website`) || "";
 }
 
 export  const sortTime = function (list:any) {
