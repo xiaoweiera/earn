@@ -4,10 +4,10 @@
   import DappDiscoversContentType from './discovers/content/type.vue';
   import DappNftsList from './nfts/list.vue'
   import {onMounted, reactive, ref, watch} from "vue";
-  import {Model, tabChain} from "~/logic/dapp";
-  import {createRef, onLoadRef, onUpdateRef} from "~/utils/ssr/ref";
-  import * as alias from "~/utils/root/alias";
-  import {AdNftItem, ProjectNftItem} from "~/types/dapp/nft";
+  import {Model, tabChain} from "src/logic/dapp";
+  import {createRef, onLoadRef, onUpdateRef} from "src/utils/ssr/ref";
+  import * as alias from "src/utils/root/alias";
+  import {AdNftItem, ProjectNftItem} from "src/types/dapp/nft";
   import { nftStatus } from "src/types/dapp/nft";
   import {getParam} from "src/utils/router";
   import {useRoute} from "vue-router";
@@ -75,6 +75,3 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-
-</style>

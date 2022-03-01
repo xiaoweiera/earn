@@ -1,25 +1,24 @@
 <script lang="ts" setup>
-import { onMounted, ref, watch } from "vue";
-import {ProjectItem, AdItem} from "src/types/dapp/ixo";
-import { Model, tabChain } from "src/logic/dapp/";
+import {onMounted, ref, watch} from "vue";
+import {AdItem, ProjectItem, Status} from "src/types/dapp/ixo";
+import {Model, tabChain} from "src/logic/dapp/";
 import * as alias from "src/utils/root/alias";
-import { createRef, onLoadRef, onUpdateRef } from "src/utils/ssr/ref";
-import { Status } from "src/types/dapp/ixo";
+import {createRef, onLoadRef, onUpdateRef} from "src/utils/ssr/ref";
 
 
 import DAppHomeHeader from './home/header.vue';
 import DAppHomeTitle from './home/title.vue';
 import DAppDiscoversContentType from './discovers/content/type.vue';
 import DAppDiscoversList from './discovers/list.vue';
-import {getParam} from "~/utils/router";
-import {uuid} from "~/utils";
+import {getParam} from "src/utils/router";
 import {useRoute} from "vue-router";
-import { config } from "src/router/config";
+import {config} from "src/router/config";
 
 defineProps({
   summary: {
     type: Object,
-    default: () => {}
+    default: () => {
+    }
   }
 })
 
@@ -72,22 +71,24 @@ watch(route, () => {
   <div>
     <div>
       <div>
-        <DAppHomeHeader tips="聚合 14 条公链，68 个IDO平台最新优质 Dapp 项目" title="IDO & IGO Projects" :status="Status.upcoming" :type="urlType"/>
+        <DAppHomeHeader :status="Status.upcoming" :type="urlType" tips="聚合 14 条公链，68 个IDO平台最新优质 Dapp 项目"
+                        title="IDO & IGO Projects"/>
       </div>
       <!-- 公链数据 -->
       <div class="mt-4">
-         <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'chain', config.home)" :split="6" name="chain" title="公链"/>
+        <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'chain', config.home)"
+                                  :split="6" name="chain" title="公链"/>
       </div>
       <!-- IDO进行中项目 -->
       <div class="mt-5">
-        <DAppHomeTitle title="Upcoming Projects" :status="Status.upcoming" :type="urlType"/>
+        <DAppHomeTitle :status="Status.upcoming" :type="urlType" title="Upcoming Projects"/>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
           <DAppDiscoversList v-for="(item, index) in UpcomingList" :key="index" :data="item"></DAppDiscoversList>
         </div>
       </div>
       <!-- IGO进行中项目 -->
       <div class="mt-6">
-        <DAppHomeTitle title="Ongoing Projects" :status="Status.ongoing" :type="urlType"/>
+        <DAppHomeTitle :status="Status.ongoing" :type="urlType" title="Ongoing Projects"/>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
           <DAppDiscoversList v-for="(item, index) in OngoingList" :key="index" :data="item"></DAppDiscoversList>
         </div>

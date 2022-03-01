@@ -1,5 +1,4 @@
 import { oss } from 'src/config/';
-import I18n from "~/utils/i18n";
 export default {
   title: 'GrowthPad',
   case: '案例',

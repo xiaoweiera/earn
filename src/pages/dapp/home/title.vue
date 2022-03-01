@@ -1,5 +1,6 @@
-<script setup lang="ts">
-import { getUrl } from "~/logic/dapp";
+<script lang="ts" setup>
+import {getUrl} from "src/logic/dapp";
+
 defineProps({
   title: {
     type: String,
@@ -18,7 +19,7 @@ defineProps({
 </script>
 <template>
   <div class="flex justify-between">
-      <p class="text-24px28px text-global-highTitle font-semibold font-Barlow">{{ title }}</p>
+    <p class="text-24px28px text-global-highTitle font-semibold font-Barlow">{{ title }}</p>
     <div class="flex items-center">
       <v-router :href="getUrl(status, type)" target="_blank">
         <span class="text-14px18px text-global-darkblue font-kdFang">More</span>
@@ -27,6 +28,3 @@ defineProps({
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-
-</style>
