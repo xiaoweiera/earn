@@ -18,6 +18,7 @@ import {config} from "src/router/config";
 // @ts-ignore
 import {Swiper, SwiperSlide} from "swiper/vue";
 import SwiperCore, {Autoplay, Navigation, Pagination, Scrollbar, A11y} from "swiper";
+import {uuid} from "src/utils";
 // 装载 swiper 组件
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay])
 
@@ -33,6 +34,7 @@ const route = useRoute();
 const urlType = true;
 // 公链类型
 const chain = ref(getParam<string>("chain"));
+const keys = ref<string>(uuid());
 
 // 即将上线列表
 const getUpcomingList = function () {
@@ -67,6 +69,7 @@ const onChangeChina = function () {
 };
 watch(route, () => {
   const querys: any = getParam<string>();
+  keys.value = uuid();
   chain.value = querys.chain;
   getUpcomingList();
   getOngoingList();
@@ -85,7 +88,7 @@ watch(route, () => {
       </div>
       <!--手机端-->
       <div class="mt-4 block md:hidden">
-        <DappDiscoversContentChain class="w-full" v-if="summary.ixo" :chainData="summary.ixo.chain" :href="config.home" name="chain" :title="i18n.home.idoIgoProject.chain"/>
+        <DappDiscoversContentChain :key="keys" class="w-full" v-if="summary.ixo" :chainData="summary.ixo.chain" :href="config.home" name="chain" :title="i18n.home.idoIgoProject.chain"/>
       </div>
       <!-- IDO&IGO即将开始项目 -->
       <div class="mt-5">
@@ -95,7 +98,7 @@ watch(route, () => {
             <DAppDiscoversList v-for="(item, index) in UpcomingList" :key="index" :data="item"/>
           </div>
         </div>
-        <div class="block md:hidden mt-3 h-95">
+        <div class="block md:hidden mt-3 h-95" v-if="UpcomingList.length > 0">
           <Swiper class="h-full swiper-recom"
                   :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
                   :slides-per-view="1"
@@ -108,6 +111,10 @@ watch(route, () => {
             </template>
           </Swiper>
         </div>
+        <div v-else>
+          <ui-empty class="pb-3"/>
+          <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">{{ i18n.address.noData }}</p>
+        </div>
       </div>
       <!-- IDO&IGO进行中项目 -->
       <div class="mt-6">
@@ -117,7 +124,7 @@ watch(route, () => {
             <DAppDiscoversList v-for="(item, index) in OngoingList" :key="index" :data="item"/>
           </div>
         </div>
-        <div class="block md:hidden mt-3 h-95">
+        <div class="block md:hidden mt-3 h-95" v-if="OngoingList.length > 0">
           <Swiper class="h-full swiper-recom"
                   :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
                   :slides-per-view="1"
@@ -129,6 +136,10 @@ watch(route, () => {
               </SwiperSlide>
             </template>
           </Swiper>
+        </div>
+        <div v-else>
+          <ui-empty class="pb-3"/>
+          <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">{{ i18n.address.noData }}</p>
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@
   import {getParam} from "src/utils/router";
   import {useRoute} from "vue-router";
   import { config } from "src/router/config";
+  import {uuid} from "~/utils";
 
   defineProps({
     summary: {
@@ -24,6 +25,7 @@
   const i18n = I18n();
   const route = useRoute();
   const chain = ref(getParam<string>("group"));
+  const keys = ref<string>(uuid());
   const params = reactive({
     page: 1,
     page_size: 15,
@@ -53,6 +55,7 @@
   });
   watch(route, () => {
     const querys: any = getParam<string>();
+    keys.value = uuid();
     params.chain = querys.group;
     getUpcomingNftList();
     // todo 可以在此处更新某些数据
@@ -70,13 +73,17 @@
           <DappDiscoversContentType v-if="summary.nft" :list="tabChain(summary.nft.chain, 'group', config.home)" :split="6" active-name="group" :title="i18n.home.idoIgoProject.chain" name="group"/>
       </div>
       <div class="mt-4 block md:hidden">
-        <DappDiscoversContentChain class="w-full" v-if="summary.nft" :chainData="summary.nft.chain" :href="config.home" name="group" :title="i18n.home.idoIgoProject.chain"/>
+        <DappDiscoversContentChain :key="keys" class="w-full" v-if="summary.nft" :chainData="summary.nft.chain" :href="config.home" name="group" :title="i18n.home.idoIgoProject.chain"/>
       </div>
       <!-- nft项目 -->
-      <div class="mt-4">
+      <div class="mt-4" v-if="UpcomingNftList.length > 0">
         <div class="w-315 grid grid-cols-5 gap-6">
           <DappNftsList v-for="( item, index ) in UpcomingNftList" :key="index" :data="item"></DappNftsList>
         </div>
+      </div>
+      <div v-else>
+        <ui-empty class="pb-3"/>
+        <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">{{ i18n.address.noData }}</p>
       </div>
     </div>
   </div>

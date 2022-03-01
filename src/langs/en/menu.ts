@@ -2,15 +2,15 @@ export default {
   dapp: {
     title: 'New Projects',
     ranking: 'DApp Rankings',
-    discover: 'New DApp Projects',
-    gamefi: 'New GameFi Projects',
+    discover: 'IDO',
+    gamefi: 'IGO',
     game: 'GameFi Rankings',
     defi: 'DeFi Rankings'
   },
   nft: {
     title: 'Rankings',
     ranking: 'NFT Rankings',
-    discover: 'New NFT Projects'
+    discover: 'NFTs'
   },
   apy: {
     mining: 'Farm APY',
@@ -20,7 +20,7 @@ export default {
     heco: 'HECO Node APY',
   },
   airdrop: {
-    title: 'New Airdrops'
+    title: 'Airdrops'
   },
   data: {
     quota: 'Indicators',

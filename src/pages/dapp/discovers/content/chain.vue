@@ -28,16 +28,14 @@ const route = useRoute();
 const router = useRouter();
 const query = getParam<object>();
 const chainDatas: any = ref([]);
-const chain = ref(getParam<object>('chain'))
+const routerParam = ref(getParam<object>(props.name))
 const i18n = I18n();
 //重组数据
 const mergeData = (key: string, data: any) => {
   const list = [ 'All' ].concat(props?.chainData)
   list.forEach((item: string) => {
-    const param: any = {...query}
-    param[key] = item
-    const prop: any = {name: item}
-    prop[key] = item
+    const param: any = {...query,[key]:item}
+    const prop: any = {name: item,[key]:item}
     data.value.push({
       ...prop,
       href: {
@@ -60,7 +58,7 @@ const change = (name: any) => {
       <div class="flex items-center flex-1 w-full md:w-25 h-8 ml-2 md:ml-4">
         <div class="w-full">
           <client-only class="flex items-center justify-between">
-            <el-select v-model="chain" :popper-append-to-body="false" class="projectMining  flex-1 select"
+            <el-select v-model="routerParam" :popper-append-to-body="false" class="projectMining  flex-1 select"
                        size="small" @change="change">
               <el-option v-for="item in chainDatas" :key="item.name" :label="item.name" :value="item.name"></el-option>
             </el-select>

@@ -1,9 +1,17 @@
 import { Model } from "src/logic/dapp";
 import {Request, Response} from "express";
 import * as alias from "src/utils/root/alias";
+import { names } from "src/config/header";
 
 export const list = async function (req: Request, res: Response) {
     const api = new Model(req);
+    const is_igo =req.query['isigo'] as string;
+    console.log(is_igo);
+    if (is_igo) {
+        res.locals.menuActive = names.dapp.gamefi;
+    }else {
+        res.locals.menuActive = names.dapp.dapp;
+    }
     const chain=req.query['chain'] as string;
     const category=req.query['category'] as string;
     const platform=req.query['platform'] as string;
@@ -23,6 +31,7 @@ export const list = async function (req: Request, res: Response) {
         sort_field,
         sort_type,
         paginate,
+        is_igo: is_igo ? is_igo : '',
         query:search ? search : '',
     }
     const [ list, summary ] = await Promise.all([
@@ -53,6 +62,7 @@ export const igolist = async function (req: Request, res: Response) {
 //nft列表
 export const nftlist = async function (req: Request, res: Response) {
     const api = new Model(req);
+    res.locals.menuActive = names.dapp.nft;
     const chain=req.query['chain'] as string;
     const category=req.query['category'] as string;
     const status=req.query['status'] as string;

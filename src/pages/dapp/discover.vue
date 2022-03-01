@@ -128,7 +128,7 @@ const changeSort = (sort: string) => {
         <DappDiscoversSearch :data="summary.ido" :keys="key"/>
       </div>
       <!-- 列表内容 -->
-      <div class="py-8">
+      <div class="py-8" v-if="list.length > 0">
         <div v-if="query.type === logic.TabTypes.ended" class="overflow-x-scroll showX">
           <div class="w-315">
             <DappDiscoversEndlist @changeSort="changeSort" :params="params" class="px-4" :list="list"></DappDiscoversEndlist>
@@ -137,6 +137,10 @@ const changeSort = (sort: string) => {
         <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <DappDiscoversList v-for="(item, index) in list" v-if="params" :key='index' :data="item"></DappDiscoversList>
         </div>
+      </div>
+      <div v-else>
+        <ui-empty class="pb-3"/>
+        <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">{{ i18n.address.noData }}</p>
       </div>
     </div>
     <div v-if="list?.length>0 && resultNumber>=params.page_size" class="more" @click="getMore">{{ i18n.home.loadingMore }}</div>

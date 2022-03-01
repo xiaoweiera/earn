@@ -69,21 +69,5 @@ const props = defineProps({
       @apply flex px-3  py-2 max-h-8 bg-global-darkblue bg-opacity-6 rounded-md;
     }
   }
-
-  ::v-deep(.el-input__inner) {
-    display: flex;
-    align-items: center !important;
-    border: 1px solid rgba(3, 54, 102, 0) !important;
-    background: none;
-    height: 34px !important;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-    border-radius: 6px !important;
-    @apply text-kd14px18px w-24 text-center font-medium font-kdFang text-global-highTitle text-opacity-45;
-  }
-
-  ::v-deep(.el-input__suffix) {
-    right: 0px !important;
-  }
 }
 </style>
