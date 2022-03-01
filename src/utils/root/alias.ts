@@ -25,6 +25,10 @@ export const dApp = {
 		ended: "Api.dApp.ixo?status=ended",
 	},
 	summary: {
-		list: 'API.home.getSummary'
-	}
+		list: "API.home.getSummary"
+	},
+}
+
+export const nft = {
+	list: "API.nft.list"
 }

@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import {ElOption, ElSelect} from 'element-plus';
-import {useRoute, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
 import {getParam} from "src/utils/router";
 import I18n from "src/utils/i18n";
-import {ref} from "vue";
+import {ref, computed, onMounted} from "vue";
+
+// 引入 use state
+import {stateAlias, setInject} from "src/utils/use/state";
+import _ from "lodash";
+import {createHref} from "~/plugins/router/pack";
 
 const props = defineProps({
   title: {
@@ -11,9 +16,8 @@ const props = defineProps({
     default: () => '',
   },
   chainData: {
-    type: Array as any,
-    default: () => {
-    },
+    type: Array,
+    default: () => [],
   },
   href: {
     type: String,
@@ -24,34 +28,49 @@ const props = defineProps({
     default: () => '',
   }
 })
-const route = useRoute();
+
 const router = useRouter();
-const query = getParam<object>();
-const chainDatas: any = ref([]);
-const chain = ref(getParam<object>('chain'))
+
+const chain = ref<string>("");
 const i18n = I18n();
-//重组数据
-const mergeData = (key: string, data: any) => {
-  const list = [ 'All' ].concat(props?.chainData)
-  list.forEach((item: string) => {
-    const param: any = {...query}
-    param[key] = item
-    const prop: any = {name: item}
-    prop[key] = item
-    data.value.push({
-      ...prop,
+
+const onChangeParam = setInject(stateAlias.ui.tab);
+
+const allValue = "All";
+
+const list = computed(function () {
+  // @ts-ignore
+  const array: string[] = props.chainData ? [allValue].concat(props.chainData) : [allValue];
+  const data: any[] = [];
+  const query = getParam<object>();
+  array.forEach(function (value: string) {
+    data.push({
+      value,
+      [props.name]: value,
       href: {
         path: props.href,
-        query: param
+        query: {
+          ...query,
+          [props.name]: value,
+        }
       }
     })
-  })
-}
-mergeData(props.name, chainDatas)
-const change = (name: any) => {
-  const item = chainDatas.value.find((item: any) => item.name === name)
-  router.push(item.href)
-}
+  });
+  return data;
+})
+
+onMounted(function () {
+  chain.value = getParam<string>(props.name) || allValue;
+})
+
+const change = _.debounce(async function (value: string) {
+  const query = { ...getParam<object>(), [props.name]: value };
+  const url = createHref(props.href, query);
+  await router.push(url);
+  if (onChangeParam) {
+    onChangeParam(query);
+  }
+}, 300);
 </script>
 <template>
   <div>
@@ -62,7 +81,7 @@ const change = (name: any) => {
           <client-only class="flex items-center justify-between">
             <el-select v-model="chain" :popper-append-to-body="false" class="projectMining  flex-1 select"
                        size="small" @change="change">
-              <el-option v-for="item in chainDatas" :key="item.name" :label="item.name" :value="item.name"></el-option>
+              <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.value"></el-option>
             </el-select>
           </client-only>
         </div>
