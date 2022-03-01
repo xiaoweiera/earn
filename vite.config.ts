@@ -37,7 +37,7 @@ const getSassData = function (env: ImportMetaEnv & ConfigEnv) {
 }
 
 const getBuildConfig = function (config: ImportMetaEnv) {
-  if (config.VITE_command === Command.build) {
+  if (config.VITE_mode === production) {
     return {
       minify: "terser",
       target: 'modules',
