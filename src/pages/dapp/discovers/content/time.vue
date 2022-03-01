@@ -2,12 +2,15 @@
 import DappDiscoversCutdown from '../cutdown.vue'
 import {getParam} from "src/utils/router";
 import safeGet from "@fengqiaogang/safe-get";
- import { config } from "src/router/config";
+import I18n from "src/utils/i18n";
+
+import { config } from "src/router/config";
 defineProps({
   data: {
     type: Object,
   }
 })
+const i18n = I18n();
 const detailUrl = function (data: object) {
   const category=getParam<string>('category', '') as string
   const id = safeGet<number>(data, 'dapp_id');
@@ -23,9 +26,9 @@ const detailUrl = function (data: object) {
       <div class="flex-1">
         <DappDiscoversCutdown :value="data.ido_start_at"></DappDiscoversCutdown>
       </div>
-      <v-router target="_blank" :href='detailUrl(data)' class="ml-6.5">
-        <div class="w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center">
-          <span class="text-kd14px18px text-global-darkblue">去参与</span>
+      <v-router target="_blank" :href='data.url' class="ml-6.5">
+        <div class="min-w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center">
+          <span class="text-kd14px18px text-global-darkblue">{{ i18n.home.idoIgoProject.join }}</span>
         </div>
       </v-router>
     </div>

@@ -7,11 +7,11 @@ import Blog from "./blog";
 import Home from "./home";
 import Dapp from "./dapp";
 import User from "./user";
-import { Env } from "src/config";
-import { config } from "src/router/config";
+import {Env} from "src/config";
 import Send from "src/plugins/express/send";
 import redirect from "src/controller/common/redirect";
-import { Router as ExpressRouter, Request, Response } from "express";
+import {config as routerConfig} from "src/router/config";
+import {Request, Response, Router as ExpressRouter} from "express";
 
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
@@ -34,12 +34,16 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 	router.use(home);
 	// 装载博客相关路由
 	router.use(blog);
+
+	router.all('/', function (req: Request, res: Response) {
+		redirect(req, res, routerConfig.home);
+	});
 	// 404
-	router.get(config.E404, function (req: Request, res: Response) {
+	router.get(routerConfig.E404, function (req: Request, res: Response) {
 		res.send({});
 	});
 	router.get("*", function (req: Request, res: Response) {
-		redirect(req, res, config.E404);
+		redirect(req, res, routerConfig.E404);
 	});
 	return router;
 }

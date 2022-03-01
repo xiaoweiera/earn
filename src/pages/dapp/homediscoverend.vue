@@ -6,6 +6,7 @@ import DappDiscoversContentType from './discovers/content/type.vue';
 import DappDiscoversContentChain from './discovers/content/chain.vue';
 import DappDiscoversContentField from './discovers/content/field.vue';
 import DappDiscoversEndlist from './discovers/endlist.vue';
+import I18n from "src/utils/i18n";
 
 import {onMounted, reactive, ref} from "vue";
 import {Model, tabChain, tabPlat} from "src/logic/dapp";
@@ -25,7 +26,7 @@ const props = defineProps({
     }
   }
 })
-
+const i18n = I18n();
 const chain = ref(getParam<string>("bracket"));
 const category = ref(getParam<string>("category"));
 const platform = ref(getParam<string>("platform"));
@@ -83,17 +84,17 @@ const changeSort = (sort: string) => {
   <div class="mt-5 p-4 bg-global-white rounded-md">
     <!-- header -->
     <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
-      <DappHomeHeader title="Ended IDO & IGO Projects" tips="Data supported by 14 public chain and 65 platforms" :status="Status.ended" :type="urlType"/>
+      <DappHomeHeader :title="i18n.home.endProject.title" :tips="i18n.home.endProject.desc" :status="Status.ended" :type="urlType"/>
     </div>
     <div class="hidden md:block">
       <!-- 项目类型、公链、搜索框 -->
       <div class="flex justify-between items-center mt-4">
         <div class="flex items-center">
           <!-- 公链 -->
-          <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'bracket', config.home)" active-name="bracket" name="bracket" title="公链"></DappDiscoversContentType>
+          <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'bracket', config.home)" active-name="bracket" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
           <!-- 类型 -->
-          <DappDiscoversContentChain v-if="summary.ixo" :href="config.home" :chainData="summary.ixo.category" name="category" title="类型"></DappDiscoversContentChain>
+          <DappDiscoversContentChain v-if="summary.ixo" :href="config.home" :chainData="summary.ixo.category" name="category" :title="i18n.home.topList.category"/>
         </div>
         <!-- 搜索框 -->
         <div>
@@ -102,21 +103,21 @@ const changeSort = (sort: string) => {
       </div>
       <!-- platform -->
       <div class="mt-4">
-        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(summary.ixo.platform, 'platform', config.home)" active-name="platform" name="platform" title="platform"></DappDiscoversContentType>
+        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(summary.ixo.platform, 'platform', config.home)" active-name="platform" name="platform" title="platform"/>
       </div>
     </div>
 
     <!--移动端展示-->
     <div class="block md:hidden">
       <div class="flex items-center">
-        <DappDiscoversContentChain :chainData="summary.ixo.chain" :href="config.home" name="bracket" title="公链"/>
-        <IconFont v-if="summary.ixo && summary.ixo" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
-        <DappDiscoversContentChain :chainData="summary.ixo.category" :href="config.home" name="category" title="类型"/>
+        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.chain" :href="config.home" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
+        <IconFont v-if="summary.ixo && summary.ixo" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
+        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.category" :href="config.home" name="category" :title="i18n.home.topList.category"/>
       </div>
       <div class="flex items-center mt-4">
-        <DappDiscoversContentChain :chainData="summary.ixo.platform" :href="config.home" name="platform" title="platform"/>
-        <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
-        <DappDiscoversContentField class="bg-global-white md:bg-global-topBg" :herf="config.home" title="项目名称"/>
+        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" title="platform"/>
+        <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
+        <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" title="项目名称"/>
       </div>
     </div>
     <div class="overflow-x-scroll showX mt-4">

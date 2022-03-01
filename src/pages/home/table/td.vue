@@ -5,7 +5,7 @@ import {getData} from "src/logic/home";
 import {getRedGreen,dataToTimestamp} from "src/lib/tool";
 import {detail} from "src/types/home";
 import * as alias from "src/utils/root/alias";
-import {getValue} from "src/utils/ssr/ref";
+import {getValue} from "src/utils/root/data";
 import {SiteConfig} from "src/types/common/chain";
 import {getDateMDY} from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";

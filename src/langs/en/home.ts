@@ -45,8 +45,8 @@ export default {
     },
 
     nftProject:{
-        price:'Price',
-        supply:'Supply',
+        price:'Price:',
+        supply:'Supply:',
         time:{
             d:'d',
             h:'h',

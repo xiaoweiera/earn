@@ -53,9 +53,9 @@ const send = async function (root: string, env: Env) {
 			// 获取默认选中的数据
 			const menuActive = safeGet<string>(res.locals, "menuActive");
 			// 处理头部导航数据
-			safeSet(data, "common.header", getMenuList(menuActive, req, safeGet<TidingList[]>(data, alias.common.tiding.list)));
+			safeSet(data, alias.common.layout.header, getMenuList(menuActive, req, safeGet<TidingList[]>(data, alias.common.tiding.list)));
 			// 处理底部导航数据
-			safeSet(data, "common.footer", footers(req));
+			safeSet(data, alias.common.layout.footer, footers(req));
 
 			try {
 				const html = await ssr.render(url, data);

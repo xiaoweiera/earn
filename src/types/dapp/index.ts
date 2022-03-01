@@ -153,7 +153,7 @@ export const nftTabs = function (): NftTabItem[]  {
 			},{
 				type: NftTabTypes.history,
 				icon: '',
-				name: i18n.growthpad.status.closure,
+				name: i18n.dapp.sort.history,
 				href: {
 					path: `${config.nft}/discover`,
 					query: {

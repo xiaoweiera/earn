@@ -3,6 +3,9 @@ import DappNftsTime from './time.vue';
 
 import { valueFormat } from 'src/utils/convert/to'
 import { getLog } from 'src/logic/dapp'
+import I18n from "src/utils/i18n";
+const i18n = I18n();
+
 defineProps({
   data: {
     type: Object,
@@ -20,19 +23,19 @@ defineProps({
       <!-- 价格总量 -->
       <div class="h-11 flex justify-between items-center border-b-1 border-global-white border-opacity-15">
         <p class="flex items-center">
-          <span class="text-kd12px16px text-global-white text-opacity-65 font-kdFang">价格：</span>
-          <span class="text-kd16px20px font-kdBarlow font-medium">{{valueFormat(data.mint_price)}}</span>
+          <span class="text-kd12px16px text-global-white text-opacity-65 font-kdFang">{{ i18n.home.nftProject.price }}</span>
+          <span class="text-kd16px20px font-kdBarlow ml-1 font-medium">{{valueFormat(data.mint_price)}}</span>
           <IconFont v-if="data.chain" :type="getLog(data.chain)" size="12" class="ml-2 text-global-white"/>
         </p>
         <p class="h-4 border-l-1 border-global-white border-opacity-15"></p>
         <p class="flex items-center">
-          <span class="text-kd12px16px text-global-white text-opacity-65 font-kdFang">总量：</span>
-          <span class="text-kd16px20px font-kdBarlow font-medium">{{ valueFormat(data.issue_volume) }}</span>
+          <span class="text-kd12px16px text-global-white text-opacity-65 font-kdFang">{{ i18n.home.nftProject.supply }}</span>
+          <span class="text-kd16px20px font-kdBarlow ml-1 font-medium">{{ valueFormat(data.issue_volume) }}</span>
         </p>
       </div>
       <!-- 时间 -->
       <div>
-        <DappNftsTime :value="data.mint_start_at"></DappNftsTime>
+        <DappNftsTime :value="data"/>
       </div>
     </div>
   </div>

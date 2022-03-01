@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { toNumberCashFormat } from 'src/utils/convert/to';
 import { getTegLog, getLog, getTegUrl } from 'src/logic/dapp';
+import I18n from "src/utils/i18n";
 
 const emit=defineEmits(['changeSort'])
 const props = defineProps({
@@ -12,18 +13,19 @@ const props = defineProps({
     default: () => {}
   }
 })
+const i18n = I18n();
 const data={
   header: [
     { name: 'Project Name', key: 'name' },//nameProject
-    { name: 'Type', key: 'category' },
-    { name: 'Total Ralsed', key: 'ido_fundraising_goal' },
-    { name: 'Sale Price', key: 'ido_price' },
-    { name: 'Current Price', key: 'current_price' },
-    { name: 'Current ROI USD', key: 'current_roi_usd' },
-    { name: 'ATH ROI USD', key: 'ath_since_ido' },
-    { name: 'Chain', key: 'chain' },
-    { name: 'TGE Platform', key: 'tge_platform' },
-    { name: 'Rating', key: 'overall_score' },
+    { name: i18n.home.topList.category, key: 'category' },
+    { name: i18n.home.idoIgoProject.totalRaised, key: 'ido_fundraising_goal' },
+    { name: i18n.home.topList.salePrice, key: 'ido_price' },
+    { name: i18n.home.topList.currentPrice, key: 'current_price' },
+    { name: i18n.home.topList.nowCurrent, key: 'current_roi_usd' },
+    { name: i18n.home.topList.idoAth, key: 'ath_since_ido' },
+    { name: i18n.home.topList.chain, key: 'chain' },
+    { name: i18n.home.topList.plat, key: 'tge_platform' },
+    { name: i18n.home.topList.rate, key: 'overall_score' },
   ]
 }
 //排序

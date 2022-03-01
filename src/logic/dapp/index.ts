@@ -3,7 +3,7 @@ import {Query, Status, ProjectItem, AdItem} from "src/types/dapp/ixo";
 import {nftQuery, nftStatus, ProjectNftItem, AdNftItem} from "src/types/dapp/nft";
 import { config } from "src/router/config";
 import * as R from "ramda";
-import { getValue } from "src/utils/ssr/ref";
+import { getValue } from "src/utils/root/data";
 import { SiteConfig } from "src/types/common/chain";
 import * as alias from "src/utils/root/alias";
 import I18n from "src/utils/i18n";
@@ -203,13 +203,13 @@ export const sortVal = function(list: any[], diff?: string, reverse?: boolean) {
 }
 
 const dayTimes = 1000 * 60 * 60 * 24;
-const todayTime = new Date().getTime();
+const todayTime = new Date(new Date().toLocaleDateString()).getTime();
 const tomorrowTime = new Date().getTime() + dayTimes;
 //判断是否是今天和明天
 export const getTodayTime = function (val:number) {
-	if((val- todayTime) <= dayTimes) {
+	if((val- todayTime) < dayTimes) {
 		return 'Today';
-	}else if(dayTimes < (val - todayTime) && (val -todayTime) <= (dayTimes * 2) ) {
+	}else if(dayTimes <= (val - todayTime) && (val -todayTime) < (dayTimes * 2) ) {
 		return 'Tomorrow';
 	}else {
 		return getDateMDY(val);

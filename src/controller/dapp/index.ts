@@ -7,7 +7,7 @@ export const list = async function (req: Request, res: Response) {
     const chain=req.query['chain'] as string;
     const category=req.query['category'] as string;
     const platform=req.query['platform'] as string;
-    const status=req.query['status'] as string;
+    const status=req.query['type'] as string;
     const sort_field=req.query['sort_field'] as string;
     const sort_type=req.query['sort_type'] as string;
     const paginate = true;
@@ -60,7 +60,7 @@ export const nftlist = async function (req: Request, res: Response) {
     const sort_type=req.query['sort_type'] as string;
     const paginate = true;
     const search=req.query['search'] as string;
-    const params = {page: 1, page_size: 50};
+    const params = {page: 1, page_size: 10};
     const projectParams={
         page:params.page,
         page_size:params.page_size,
