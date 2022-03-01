@@ -8,8 +8,10 @@ import {Request, Response} from "express";
 import * as alias from "src/utils/root/alias";
 import redirect from "src/controller/common/redirect";
 import {config} from "src/router/config";
+import I18n from "src/utils/i18n";
 //home页面
 export const begin = async function (req: Request, res: Response) {
+    const i18n = I18n(req);
     const api = new Model(req);
     const params = {page: 1, page_size: 100,show_commercial:true}
     const [summary, topicRank, recommend, trend,platforms] = await Promise.all([
@@ -20,6 +22,10 @@ export const begin = async function (req: Request, res: Response) {
         api.getPlatform()
     ]);
     const result = {
+        title: i18n.home.webInfo.home.title,
+        keywords: i18n.home.webInfo.home.key,
+        description: i18n.home.webInfo.home.des,
+
         [alias.dApp.summary.list]: summary,      // 数据汇总
         "API.home.getTopicRank": topicRank,    // 首页顶部话题榜单接口
         "API.home.getRecommend": recommend, //推荐话题
@@ -31,6 +37,7 @@ export const begin = async function (req: Request, res: Response) {
 
 //详情页面
 export const detail = async function (req: Request, res: Response) {
+    const i18n = I18n(req);
     const api = new Model(req);
     const id=req.query['id'] as string
     if(!id){
@@ -57,6 +64,10 @@ export const detail = async function (req: Request, res: Response) {
             api.getTop3(id)
         ]);
         const result = {
+            title: i18n.home.webInfo.homeDetail.title,
+            keywords: i18n.home.webInfo.homeDetail.key,
+            description: i18n.home.webInfo.homeDetail.des,
+
             "API.home.getDetail":detail,//话题详情
             "API.home.getProjects":projects,//话题项目
             "API.home.getRecommend": recommend, //推荐话题
