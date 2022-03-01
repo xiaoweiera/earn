@@ -81,9 +81,9 @@ watch(route, () => {
       </div>
       <!-- 公链数据 -->
       <div class="mt-4 hidden md:block">
-        <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'chain', config.home)" :split="6" name="chain" :title="i18n.home.idoIgoProject.chain"/>
+        <DAppDiscoversContentType class="pb-2.5 border-b-1 border-global-highTitle border-opacity-6" v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'chain', config.home)" :split="6" name="chain" :title="i18n.home.idoIgoProject.chain"/>
       </div>
-<!--      手机端-->
+      <!--手机端-->
       <div class="mt-4 block md:hidden">
         <DappDiscoversContentChain class="w-full" v-if="summary.ixo" :chainData="summary.ixo.chain" :href="config.home" name="chain" :title="i18n.home.idoIgoProject.chain"/>
       </div>
@@ -97,7 +97,6 @@ watch(route, () => {
         </div>
         <div class="block md:hidden mt-3 h-95">
           <Swiper class="h-full swiper-recom"
-                  @init="init"
                   :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
                   :slides-per-view="1"
                   :space-between="0"
@@ -120,7 +119,6 @@ watch(route, () => {
         </div>
         <div class="block md:hidden mt-3 h-95">
           <Swiper class="h-full swiper-recom"
-                  @init="init"
                   :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
                   :slides-per-view="1"
                   :space-between="0"

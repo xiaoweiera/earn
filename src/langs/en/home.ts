@@ -41,7 +41,8 @@ export default {
             sec:'Sec'
         },
         join:'Participate',
-        ongoing:'Ongoing Projects'
+        ongoing:'Ongoing Projects',
+        never:'Never miss an interesting NFT drop on NFTGo!',
     },
 
     nftProject:{
@@ -58,7 +59,8 @@ export default {
 
     endProject:{
         title:'Projects Ended IDO & IGO',
-        desc:'The latest Dapp projects are from 14 public chains and 68 IDO platforms'
+        desc:'The latest Dapp projects are from 14 public chains and 68 IDO platforms',
+        projectName:'Project Name',
     },
 
     topList:{

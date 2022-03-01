@@ -10,7 +10,6 @@ defineProps({
 <template>
   <div v-if="data">
     <div class="w-full h-40 rounded-md overflow-hidden">
-      <!-- <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/> -->
       <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/>
     </div>
     <div class="w-full absolute top-4 left-0">
@@ -21,7 +20,7 @@ defineProps({
         </p>
         <p class="bg-global-gemstone px-2 text-global-white border border-global-white border-opacity-25 rounded-2xl">
           <IconFont type="icon-star" size="12" class="is-star"/>
-          <span class="ml-0.5 text-kd16px18px text-number is-score">{{ data.overall_score }}</span>
+          <span class="ml-0.5 text-kd16px18px font-semibold text-number is-score">{{ data.overall_score }}</span>
         </p>
       </div>
     </div>

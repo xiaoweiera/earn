@@ -19,7 +19,7 @@ defineProps({
 </script>
 <template>
   <div class="flex justify-between">
-    <p class="text-24px28px text-global-highTitle font-semibold font-Barlow">{{ title }}</p>
+    <p class="text-kd24px28px text-global-highTitle font-semibold font-kdBarlow">{{ title }}</p>
     <div class="flex items-center">
       <v-router :href="getUrl(status, type)" target="_blank">
         <span class="text-14px18px text-global-darkblue font-kdFang">More</span>

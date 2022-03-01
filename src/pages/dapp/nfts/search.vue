@@ -29,7 +29,7 @@ const change=()=>{
       <div class="flex justify-between items-center">
         <div class="flex items-center">
           <!-- 项目类型 -->
-          <DappDiscoversContentType v-if="data.category" :list="tabCage(data.category,'group', `${config.nft}/discover`)" :key="key" :split="3" title="项目类型" name="group"/>
+          <DappDiscoversContentType v-if="data.category" :list="tabCage(data.category,'group', `${config.nft}/discover`)" :key="key" :split="3" :title="i18n.home.topList.category" name="group"/>
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
           <!-- 公链 -->
           <DappDiscoversContentChain :key="key" :title="i18n.home.idoIgoProject.chain" :chainData="data.chain" :href="`${config.nft}/discover`" name="chain"/>
@@ -43,7 +43,7 @@ const change=()=>{
     <div class="block md:hidden">
       <div>
         <div class="flex items-center">
-          <DappDiscoversContentChain class="w-1/2" :key="key" title="项目类型" :chainData="data.category" :href="`${config.nft}/discover`" name="group"/>
+          <DappDiscoversContentChain class="w-1/2" :key="key" :title="i18n.home.topList.category" :chainData="data.category" :href="`${config.nft}/discover`" name="group"/>
           <IconFont v-if="data.category" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
           <DappDiscoversContentField class="1/2" :herf="`${config.nft}/discover`" :title="search"/>
         </div>

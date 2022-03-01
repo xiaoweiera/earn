@@ -98,12 +98,12 @@ const changeSort = (sort: string) => {
         </div>
         <!-- 搜索框 -->
         <div>
-          <DappDiscoversContentField :herf="config.home" title="项目名称"></DappDiscoversContentField>
+          <DappDiscoversContentField :herf="config.home" :title="i18n.dapp.group.search"/>
         </div>
       </div>
       <!-- platform -->
       <div class="mt-4">
-        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(summary.ixo.platform, 'platform', config.home)" active-name="platform" name="platform" title="platform"/>
+        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(summary.ixo.platform, 'platform', config.home)" active-name="platform" name="platform" :title="i18n.home.topList.plat"/>
       </div>
     </div>
 
@@ -115,13 +115,13 @@ const changeSort = (sort: string) => {
         <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.category" :href="config.home" name="category" :title="i18n.home.topList.category"/>
       </div>
       <div class="flex items-center mt-4">
-        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" title="platform"/>
+        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" :title="i18n.home.topList.plat"/>
         <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
-        <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" title="项目名称"/>
+        <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" :title="i18n.dapp.group.search"/>
       </div>
     </div>
     <div class="overflow-x-scroll showX mt-4">
-      <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
+      <div class="w-307 border-t-1 border-global-highTitle border-opacity-6">
         <DappDiscoversEndlist :key="key" @changeSort="changeSort" :list="EndedList" :params="params"/>
       </div>
     </div>

@@ -28,7 +28,7 @@ const detailUrl = function (data: object) {
       </div>
       <v-router target="_blank" :href='data.url' class="ml-6.5">
         <div class="min-w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center">
-          <span class="text-kd14px18px text-global-darkblue">{{ i18n.home.idoIgoProject.join }}</span>
+          <span class="text-kd14px18px text-global-darkblue font-medium">{{ i18n.home.idoIgoProject.join }}</span>
         </div>
       </v-router>
     </div>

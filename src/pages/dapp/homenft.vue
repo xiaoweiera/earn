@@ -63,7 +63,7 @@
     <div class="overflow-x-scroll showX">
       <!-- header -->
       <div>
-        <DappHomeHeader title="NFT Drops 🎯" tips="Never miss an interesting NFT drop on NFTGo!" :status="nftStatus.upcoming" :type="urlType"/>
+        <DappHomeHeader title="NFT Drops 🎯" :tips="i18n.home.idoIgoProject.never" :status="nftStatus.upcoming" :type="urlType"/>
       </div>
       <!-- 搜索 -->
       <div class="mt-4 hidden md:block">

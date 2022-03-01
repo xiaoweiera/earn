@@ -215,4 +215,10 @@ export const getTodayTime = function (val:number) {
 		return getDateMDY(val);
 	}
 }
+//跳转路由
+export const getNextUrl = function (val:any) {
+	if(val.url) {
+		window.open(val.url);
+	}
+}
 
