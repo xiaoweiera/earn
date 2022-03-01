@@ -1,7 +1,9 @@
-<script setup lang="ts">
-import {PropType, computed} from "vue";
-import { MenuItem } from "src/types/menu";
-import { Target } from "src/plugins/ui/router/props";
+<script lang="ts" setup>
+import Hover from "./hover.vue";
+import {computed, PropType} from "vue";
+import {MenuItem} from "src/types/menu";
+import {Target} from "src/plugins/ui/router/props";
+
 const props = defineProps({
   index: {
     type: Number,
@@ -15,7 +17,7 @@ const props = defineProps({
 
 const id = computed<string>(function () {
   return `footer-column-${props.index}`;
-})
+});
 
 </script>
 <template>
@@ -23,11 +25,11 @@ const id = computed<string>(function () {
     <div class="menu-label hidden lg:block">
       <span class="text-18">{{ data.label }}</span>
     </div>
-    <input class="menu-active hidden" :id="id" type="checkbox" :name="id">
-    <label class="menu-label cursor-pointer block lg:hidden" :for="id">
+    <input :id="id" :name="id" class="menu-active hidden" type="checkbox">
+    <label :for="id" class="menu-label cursor-pointer block lg:hidden">
     <span class="select-none w-full flex justify-between items-center">
       <span class="text-base">{{ data.label }}</span>
-      <IconFont class="arrow" type="icon-arrow-down" size="16"/>
+      <IconFont class="arrow" size="16" type="icon-arrow-down"/>
     </span>
     </label>
     <div class="pt-3 lg:pt-6 menu-content">
@@ -35,18 +37,21 @@ const id = computed<string>(function () {
         <!-- 带图标 -->
         <div v-if="item.icon" class="menu-item">
           <span class="text-14-18 block">{{ item.name }}</span>
-          <v-router :href="item.href" :target="item.blank ? Target.blank: Target.self"  class="flex items-center text-global-primary mt-0.5">
+          <v-router :href="item.href" :target="item.blank ? Target.blank: Target.self"
+                    class="flex items-center text-global-primary mt-0.5">
             <IconFont :type="item.icon"/>
             <span class="ml-1.5">{{ item.value }}</span>
           </v-router>
         </div>
 
-        <v-router v-else-if="item.href" class="menu-item text-14-18 hover:text-global-primary" :href="item.href" :target="item.blank ? '_blank': ''">{{ item.name }}</v-router>
+        <v-router v-else-if="item.href" :href="item.href" :target="item.blank ? '_blank': ''"
+                  class="menu-item text-14-18 hover:text-global-primary">{{ item.name }}
+        </v-router>
 
         <div v-else-if="item.qrcode" class="menu-item">
-          <!--                    <UiFooterHover :href="item.qrcode" :desc="item.desc" :router="false">-->
-          <!--                      <span class="text-14-18">{{ item.name }}</span>-->
-          <!--                    </UiFooterHover>-->
+          <Hover :desc="item.desc" :href="item.qrcode">
+            <span class="text-14-18">{{ item.name }}</span>
+          </Hover>
         </div>
         <span v-else class="menu-item text-14-18">{{ item.name }}</span>
       </template>
@@ -54,7 +59,7 @@ const id = computed<string>(function () {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .menu-label {
   @apply text-global-highTitle font-medium;
   .arrow {
@@ -74,6 +79,7 @@ const id = computed<string>(function () {
   }
 
 }
+
 .menu-active {
   &:checked {
     & ~ .menu-label {
@@ -81,6 +87,7 @@ const id = computed<string>(function () {
         transform: rotate(180deg);
       }
     }
+
     & ~ .menu-content {
       @apply block;
     }

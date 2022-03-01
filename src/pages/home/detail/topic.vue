@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {createRef, onLoadRef} from "~/utils/ssr/ref";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
 import {onMounted, ref} from "vue";
-import {Model} from "~/logic/home";
-import I18n from "~/utils/i18n";
+import {Model} from "src/logic/home";
+import I18n from "src/utils/i18n";
 const i18n = I18n();
 const params = {
   page: 1,

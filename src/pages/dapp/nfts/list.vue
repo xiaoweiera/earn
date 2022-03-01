@@ -39,6 +39,3 @@ const detailUrl = function (data: object) {
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-
-</style>

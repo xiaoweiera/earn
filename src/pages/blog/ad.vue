@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Item from "./item.vue";
 import { onMounted } from "vue";
-import { Model } from "~/logic/blog";
+import { Model } from "src/logic/blog";
 import { BlogData, AdData } from "src/types/blog/";
 import {createRef, onLoadRef} from "src/utils/ssr/ref";
 

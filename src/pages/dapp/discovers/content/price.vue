@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { toNumberCashFormat } from 'src/utils/convert/to'
 defineProps({
   data: {
@@ -29,6 +28,3 @@ defineProps({
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-
-</style>

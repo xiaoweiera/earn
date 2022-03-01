@@ -1,8 +1,7 @@
-<script setup lang="ts">
-import VRouter from "~/components/v/router.vue";
-import { getUrl } from "~/logic/dapp";
+<script lang="ts" setup>
+import {getUrl} from "src/logic/dapp";
 
-const props = defineProps({
+defineProps({
   title: {
     type: String,
     default: () => '',
@@ -52,6 +51,3 @@ const props = defineProps({
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-
-</style>

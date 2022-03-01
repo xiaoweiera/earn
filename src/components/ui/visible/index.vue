@@ -20,7 +20,7 @@ defineProps({
 <template>
   <div>
     <input :id="key" :name="key" class="hidden visible-input" type="checkbox">
-    <label :for="key" class="visible-label cursor-pointer" :class="{'show-arrow': arrow}">
+    <label :for="key" class="block select-none visible-label cursor-pointer" :class="{'show-arrow': arrow}">
       <slot name="label" :id="key"></slot>
       <IconFont class="arrow-icon hidden" type="icon-arrow-down" size="24"/>
     </label>
@@ -36,7 +36,6 @@ defineProps({
 }
 
 .visible-label {
-  @apply block;
   &.show-arrow {
     @apply flex justify-between items-center;
     .arrow-icon {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import HomeTableTd from './td.vue'
 import HomeTableHeader from './header.vue'
-import {config} from "~/router/config";
-import I18n from "~/utils/i18n";
+import {config} from "src/router/config";
+import I18n from "src/utils/i18n";
 const i18n = I18n();
 const props = defineProps({
   data: Object,
