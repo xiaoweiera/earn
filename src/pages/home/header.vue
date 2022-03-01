@@ -30,7 +30,7 @@ const getColor = (value: any) => {
       <p class="title font-kdSemiBold">{{i18n.home.title}}</p>
       <p class="des i8n-font-inter">{{i18n.home.twoTitle}}</p>
     </div>
-    <div class="flex items-center justify-between md:justify-start flex-wrap md:flex-nowrap md:mt-0 mt-6">
+    <div class="flex items-center  w-full  justify-between md:justify-end flex-wrap md:flex-nowrap md:mt-0 mt-6">
       <div class="info-item">
         <div>
           <ui-popover
@@ -45,7 +45,7 @@ const getColor = (value: any) => {
               </div>
             </template>
             <template #content>
-              <div class="font-kdFang p-2 md:p-4 shadow w-60 md:w-105 absolute top-2 z-100 bg-global-white rounded-kd4px">
+              <div class="font-kdFang p-2 md:p-4 shadow w-65 md:w-105 absolute top-2 z-100 bg-global-white rounded-kd4px">
                 <div class="text-kd16px22px md:text-kd16px22px font-medium text-highTitle">{{i18n.home.platData.desc.title}}</div>
                 <div class="mt-1 md:mt-1.5 text-kd12px16px md:text-kd14px22px text-global-highTitle text-opacity-45">
                   {{i18n.home.platData.desc.content}}
@@ -106,7 +106,7 @@ const getColor = (value: any) => {
 }
 
 .info-item {
-  @apply md:w-40.75 md:min-h-11 min-h-10.5;
+  @apply md:w-40.75 md:min-h-11 min-h-10.5 w-max;
   .info-des {
     @apply mt-1 md:mt-2 flex justify-begin ml-2 md:ml-0 md:justify-end items-center;
   }
