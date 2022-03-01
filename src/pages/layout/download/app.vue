@@ -7,7 +7,6 @@ import I18n from "src/utils/i18n";
 import {getEnv} from "src/config/";
 import { UA } from "src/types/common/ua";
 import window from "src/plugins/browser/window";
-import ClientOnly from "~/components/client/only.vue";
 
 const i18n = I18n();
 const env = getEnv();
