@@ -159,7 +159,7 @@ export const getUrl = function (name:string, type:boolean) {
 
 //获取公链logo
 export const getLog = function (name:any) {
-	if(configs.chain[name].logo) {
+	if(configs.chain[name]) {
 		return configs.chain[name].logo;
 	}
 	return "N/A";
