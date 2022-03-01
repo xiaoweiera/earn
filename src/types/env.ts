@@ -5,7 +5,9 @@ export interface ImportMetaEnv {
 	VITE_LanApi: string; // 局域网接口地址
 	readonly VITE_domain: string; // 网站域名
 	readonly VITE_cookie: string; // 设置 cookie 的安全域
-	readonly VITE_google: string; // google key
+	readonly VITE_baiduTag?: string;  // baidu 收录
+	readonly VITE_googleTag?: string; // google 收录
+	readonly VITE_googleCaptcha: string; // google Captcha key
 	readonly VITE_oss: string; // oss 资源域名
 	readonly VITE_staticPath: string; // 静态资源虚拟路径
 	readonly VITE_staticDomain: string; // 静态资源域名或者是域名+路径

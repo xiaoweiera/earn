@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import I18n from '~/utils/i18n/index'
 defineProps({
   value: {
     type: String || Number,

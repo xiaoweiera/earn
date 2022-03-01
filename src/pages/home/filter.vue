@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {onMounted, ref, computed} from 'vue'
+import {ref, computed} from 'vue'
 import {useRoute, useRouter} from "vue-router";
-import I18n from '~/utils/i18n/index'
-import {ElSelect, ElOption, ElInput} from 'element-plus';
-import {getParam} from "~/utils/router";
-import {config as routerConfig} from "~/router/config";
+import I18n from 'src/utils/i18n/index'
+import {ElSelect, ElOption} from 'element-plus';
+import {getParam} from "src/utils/router";
+import {config as routerConfig} from "src/router/config";
 
 const props = defineProps({
   filters: {

@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import {ElSelect, ElOption, ElInput} from 'element-plus';
-import {config as routerConfig} from "~/router/config";
+import {ElOption, ElSelect} from 'element-plus';
 import {useRoute, useRouter} from "vue-router";
-import {getParam} from "~/utils/router";
-import I18n from "~/utils/i18n";
-import {computed, ref} from "vue";
+import {getParam} from "src/utils/router";
+import I18n from "src/utils/i18n";
+import {ref} from "vue";
 
 const props = defineProps({
   title: {
@@ -13,7 +12,8 @@ const props = defineProps({
   },
   chainData: {
     type: Array as any,
-    default: () => {},
+    default: () => {
+    },
   },
   href: {
     type: String,
@@ -33,7 +33,7 @@ const chain = ref(getParam<object>('chain'))
 const i18n = I18n();
 //重组数据
 const mergeData = (key: string, data: any) => {
-  const list = ['All'].concat(props?.chainData)
+  const list = [ 'All' ].concat(props?.chainData)
   list.forEach((item: string) => {
     const param: any = {...query}
     param[key] = item
@@ -62,8 +62,9 @@ const change = (name: any) => {
       <div class="flex items-center w-25 h-8 ml-4">
         <div class="flex items-center">
           <client-only class="flex items-center justify-between">
-            <el-select @change="change" class="projectMining  flex-1 select" :popper-append-to-body="false" v-model="chain" size="small">
-              <el-option v-for="item in chainDatas" :label="item.name" :value="item.name" :key="item.name"></el-option>
+            <el-select v-model="chain" :popper-append-to-body="false" class="projectMining  flex-1 select"
+                       size="small" @change="change">
+              <el-option v-for="item in chainDatas" :key="item.name" :label="item.name" :value="item.name"></el-option>
             </el-select>
           </client-only>
         </div>

@@ -2,9 +2,9 @@
 import HomeTable from './table/index.vue'
 import {onMounted, ref} from 'vue'
 import {oss} from "src/config";
-import {createRef, onLoadRef} from "~/utils/ssr/ref";
-import {Model} from "~/logic/home";
-import I18n from "~/utils/i18n";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import {Model} from "src/logic/home";
+import I18n from "src/utils/i18n";
 
 const topicIndex = ref(0)
 const selectTopic = (index: number) => topicIndex.value = index

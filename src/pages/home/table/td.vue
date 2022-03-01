@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {ref, onMounted, PropType} from 'vue'
 import {toNumberCashFormat} from 'src/utils/convert/to'
-import {getData} from "~/logic/home";
-import {getRedGreen,dataToTimestamp} from "~/lib/tool";
-import {detail} from "~/types/home";
+import {getData} from "src/logic/home";
+import {getRedGreen,dataToTimestamp} from "src/lib/tool";
+import {detail} from "src/types/home";
 import * as alias from "src/utils/root/alias";
 import {getValue} from "src/utils/ssr/ref";
 import {SiteConfig} from "src/types/common/chain";
-import {getDateMDY} from "~/utils";
+import {getDateMDY} from "src/utils";
 // 公链配置
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const props = defineProps({

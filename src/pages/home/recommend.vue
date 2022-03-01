@@ -9,9 +9,9 @@ import SwiperCore, {Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import {createRef, onLoadRef} from "~/utils/ssr/ref";
-import {Model} from "~/logic/home";
-import I18n from "~/utils/i18n";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import {Model} from "src/logic/home";
+import I18n from "src/utils/i18n";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
 const i18n = I18n();

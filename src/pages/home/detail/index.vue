@@ -4,10 +4,10 @@ import HomeDetailTable from './table.vue'
 import HomeDetailTop from './top.vue'
 import HomeDetailTopic from './topic.vue'
 import {onMounted} from 'vue'
-import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
-import {detail} from "~/types/home";
-import {Model} from "~/logic/home";
-import {getParam} from "~/utils/router";
+import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
+import {detail} from "src/types/home";
+import {Model} from "src/logic/home";
+import {getParam} from "src/utils/router";
 
 const data = createReactive<detail>("API.home.getDetail", {} as any);
 onMounted(function () {

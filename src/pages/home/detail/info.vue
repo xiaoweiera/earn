@@ -2,8 +2,8 @@
 import {PropType} from "vue";
 import {detail} from "src/types/home";
 import window from "src/plugins/browser/window";
-import I18n from "~/utils/i18n";
-import {copyTxtMessage} from "~/lib/tool";
+import I18n from "src/utils/i18n";
+import {copyTxtMessage} from "src/lib/tool";
 
 const i18n = I18n();
 const props=defineProps({

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 倒计时
 import dayjs from 'dayjs'
-import { dateTime } from '~/utils'
+import { dateTime } from 'src/utils'
 // @ts-ignore
 import { ref, watch, onMounted } from 'vue'
 // @ts-ignore
@@ -98,29 +98,24 @@ onMounted(function() {
     <span class="font-color-theme font-bold font-kdFang whitespace-nowrap inline-block pb-4">
       <span class="relative">
         <span class="text-2xl md:text-4xl inline-block min-w-11.5 text-center">{{ day }}</span>
-        <span class="time-unit absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.dd }}</span>
+        <span class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.dd }}</span>
       </span>
       <span class="text-lg px-4">:</span>
       <span class="relative">
         <span class="text-2xl md:text-4xl inline-block min-w-11.5 text-center">{{ hour }}</span>
-        <span class="time-unit absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.hh }}</span>
+        <span class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.hh }}</span>
       </span>
       <span class="text-lg px-4 relative">:</span>
       <span class="relative">
         <span class="text-2xl md:text-4xl inline-block min-w-11.5 text-center">{{ minute }}</span>
-        <span class="time-unit absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.mm }}</span>
+        <span class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.mm }}</span>
       </span>
       <span class="text-lg px-4 relative">:</span>
       <span class="relative">
         <span class="text-2xl md:text-4xl inline-block min-w-11.5 text-center">{{ second }}</span>
-        <span class="time-unit absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.ss }}</span>
+        <span class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.ss }}</span>
       </span>
     </span>
   </slot>
 </template>
 
-<style scoped lang="scss">
-.time-unit {
-  color: rgba(37, 62, 111, 0.65);
-}
-</style>
