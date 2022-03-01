@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {ref} from 'vue';
 import { toNumberCashFormat } from 'src/utils/convert/to'
-import { getLog } from 'src/logic/dapp'
+import { getLog } from 'src/logic/dapp';
+import I18n from "src/utils/i18n";
 const props = defineProps({
   list: {
     type: Object,
@@ -11,18 +11,18 @@ const props = defineProps({
     default: () => {}
   }
 })
-
+const i18n = I18n();
 const emit=defineEmits(['changeSort'])
 const data={
   header: [
     { name: 'Project Name', key: 'name' },
-    { name: 'Current ROI USD', key: 'category' },
-    { name: 'Owners', key: 'owners' },
-    { name: 'Supply', key: 'issue_volume' },
-    { name: 'Floor Price', key: 'floor_price' },
-    { name: 'Mint Price', key: 'mint_price' },
-    { name: 'Chain', key: 'chain' },
-    { name: 'Rating', key: 'overall_score' },
+    { name: i18n.home.topList.nowCurrent, key: 'category' },
+    { name: i18n.home.topList.owner, key: 'owners' },
+    { name: i18n.home.topList.supply, key: 'issue_volume' },
+    { name: i18n.home.topList.floorPrice, key: 'floor_price' },
+    { name: i18n.home.topList.mintPrice,  key: 'mint_price' },
+    { name: i18n.home.topList.chain, key: 'chain' },
+    { name: i18n.home.topList.rate, key: 'overall_score' },
   ],
 }
 //排序

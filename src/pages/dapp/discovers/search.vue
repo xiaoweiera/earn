@@ -44,14 +44,14 @@ const keyID = ref<string>(uuid());
     <div class="block md:hidden">
       <div>
         <div class="flex items-center">
-          <DappDiscoversContentChain :key="keyID" :chainData="data.chain" :href="config.dappList" name="chain" title="公链"/>
-          <IconFont v-if="data.chain && data.category" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
-          <DappDiscoversContentChain :key="keyID" :chainData="data.category" :href="config.dappList" name="group" title="类型"/>
+          <DappDiscoversContentChain class="w-1/2" :key="keyID" :chainData="data.chain" :href="config.dappList" name="chain" title="公链"/>
+          <IconFont v-if="data.chain && data.category" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
+          <DappDiscoversContentChain class="w-1/2" :key="keyID" :chainData="data.category" :href="config.dappList" name="group" title="类型"/>
         </div>
         <div class="flex items-center mt-4">
-          <DappDiscoversContentChain :key="keyID" :chainData="data.platform" :href="config.dappList" name="platform" title="platform"/>
-          <IconFont v-if="data.chain && data.category" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
-          <DappDiscoversContentField class="bg-global-white md:bg-global-topBg" :herf="config.dappList" title="项目名称"/>
+          <DappDiscoversContentChain class="w-1/2" :key="keyID" :chainData="data.platform" :href="config.dappList" name="platform" title="platform"/>
+          <IconFont v-if="data.chain && data.category" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
+          <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.dappList" title="项目名称"/>
         </div>
       </div>
     </div>

@@ -45,8 +45,8 @@ export default {
     },
 
     nftProject:{
-      price:'价格',
-      supply:'总量',
+      price:'价格：',
+      supply:'总量：',
       time:{
           d:'d',
           h:'h',

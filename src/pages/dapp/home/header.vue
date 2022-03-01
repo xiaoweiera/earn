@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {getUrl} from "src/logic/dapp";
+import I18n from "src/utils/i18n";
 
 defineProps({
   title: {
@@ -19,7 +20,7 @@ defineProps({
     default: () => true,
   }
 })
-
+const i18n = I18n();
 </script>
 <template>
   <div>
@@ -31,7 +32,7 @@ defineProps({
         </div>
         <div class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2 flex items-center">
           <v-router :href="getUrl(status, type)" target="_blank">
-            <span class="text-kd14px18px text-global-darkblue font-kdFang">View More</span>
+            <span class="text-kd14px18px text-global-darkblue font-kdFang">{{ i18n.home.idoIgoProject.all }}</span>
           </v-router>
         </div>
       </div>
@@ -39,9 +40,9 @@ defineProps({
     <div class="block md:hidden">
       <div class="">
         <div class="flex items-center justify-between">
-          <p class="text-kd24px24px text-global-highTitle font-kdSemiBold">{{title}}</p>
+          <p class="text-kd24px24px text-global-highTitle font-semibold font-kdSemiBold">{{title}}</p>
           <v-router :href="getUrl(status, type)" target="_blank" class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2 flex items-center">
-            <span class="text-kd14px18px text-global-darkblue font-kdFang">More</span>
+            <span class="text-kd14px18px text-global-darkblue font-kdFang">{{ i18n.home.idoIgoProject.all }}</span>
           </v-router>
         </div>
         <div class="mt-4">

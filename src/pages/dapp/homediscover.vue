@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {onMounted, ref, watch} from "vue";
+import I18n from "src/utils/i18n";
 import {AdItem, ProjectItem, Status} from "src/types/dapp/ixo";
 import {Model, tabChain} from "src/logic/dapp/";
 import * as alias from "src/utils/root/alias";
@@ -9,10 +10,16 @@ import {createRef, onLoadRef, onUpdateRef} from "src/utils/ssr/ref";
 import DAppHomeHeader from './home/header.vue';
 import DAppHomeTitle from './home/title.vue';
 import DAppDiscoversContentType from './discovers/content/type.vue';
+import DappDiscoversContentChain from './discovers/content/chain.vue';
 import DAppDiscoversList from './discovers/list.vue';
 import {getParam} from "src/utils/router";
 import {useRoute} from "vue-router";
 import {config} from "src/router/config";
+// @ts-ignore
+import {Swiper, SwiperSlide} from "swiper/vue";
+import SwiperCore, {Autoplay, Navigation, Pagination, Scrollbar, A11y} from "swiper";
+// 装载 swiper 组件
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay])
 
 defineProps({
   summary: {
@@ -21,7 +28,7 @@ defineProps({
     }
   }
 })
-
+const i18n = I18n();
 const route = useRoute();
 const urlType = true;
 // 公链类型
@@ -65,34 +72,77 @@ watch(route, () => {
   getOngoingList();
   // todo 可以在此处更新某些数据
 })
-
 </script>
 <template>
   <div>
     <div>
       <div>
-        <DAppHomeHeader :status="Status.upcoming" :type="urlType" tips="聚合 14 条公链，68 个IDO平台最新优质 Dapp 项目"
-                        title="IDO & IGO Projects"/>
+        <DAppHomeHeader :status="Status.upcoming" :type="urlType" :tips="i18n.home.idoIgoProject.title" title="IDO & IGO Projects"/>
       </div>
       <!-- 公链数据 -->
-      <div class="mt-4">
-        <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'chain', config.home)"
-                                  :split="6" name="chain" title="公链"/>
+      <div class="mt-4 hidden md:block">
+        <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'chain', config.home)" :split="6" name="chain" :title="i18n.home.idoIgoProject.chain"/>
       </div>
-      <!-- IDO进行中项目 -->
+<!--      手机端-->
+      <div class="mt-4 block md:hidden">
+        <DappDiscoversContentChain class="w-full" v-if="summary.ixo" :chainData="summary.ixo.chain" :href="config.home" name="chain" :title="i18n.home.idoIgoProject.chain"/>
+      </div>
+      <!-- IDO&IGO即将开始项目 -->
       <div class="mt-5">
-        <DAppHomeTitle :status="Status.upcoming" :type="urlType" title="Upcoming Projects"/>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
-          <DAppDiscoversList v-for="(item, index) in UpcomingList" :key="index" :data="item"></DAppDiscoversList>
+        <DAppHomeTitle :status="Status.upcoming" :type="urlType" :title="i18n.home.idoIgoProject.upcoming"/>
+        <div class="hidden md:block">
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
+            <DAppDiscoversList v-for="(item, index) in UpcomingList" :key="index" :data="item"/>
+          </div>
+        </div>
+        <div class="block md:hidden mt-3 h-95">
+          <Swiper class="h-full swiper-recom"
+                  @init="init"
+                  :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
+                  :slides-per-view="1"
+                  :space-between="0"
+                  :pagination="{ clickable: true }">
+            <template class="w-full h-87.25" v-for="(item, index) in UpcomingList" :key="index">
+              <SwiperSlide class="w-full h-full rounded-kd6px">
+                <DAppDiscoversList class="w-full h-full hand" :data="item"/>
+              </SwiperSlide>
+            </template>
+          </Swiper>
         </div>
       </div>
-      <!-- IGO进行中项目 -->
+      <!-- IDO&IGO进行中项目 -->
       <div class="mt-6">
-        <DAppHomeTitle :status="Status.ongoing" :type="urlType" title="Ongoing Projects"/>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
-          <DAppDiscoversList v-for="(item, index) in OngoingList" :key="index" :data="item"></DAppDiscoversList>
+        <DAppHomeTitle :status="Status.ongoing" :type="urlType" :title="i18n.home.idoIgoProject.ongoing"/>
+        <div class="hidden md:block">
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
+            <DAppDiscoversList v-for="(item, index) in OngoingList" :key="index" :data="item"/>
+          </div>
+        </div>
+        <div class="block md:hidden mt-3 h-95">
+          <Swiper class="h-full swiper-recom"
+                  @init="init"
+                  :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
+                  :slides-per-view="1"
+                  :space-between="0"
+                  :pagination="{ clickable: true }">
+            <template class="w-full h-87.25" v-for="(item, index) in OngoingList" :key="index">
+              <SwiperSlide class="w-full h-full rounded-kd6px">
+                <DAppDiscoversList class="w-full h-full hand" :data="item"/>
+              </SwiperSlide>
+            </template>
+          </Swiper>
         </div>
       </div>
     </div>
   </div>
 </template>
+<style lang="scss" scoped>
+.swiper-recom {
+  ::v-deep(.swiper-pagination-bullets) {
+    @apply bottom-0;
+    .swiper-pagination-bullet {
+      @apply mr-6;
+    }
+  }
+}
+</style>

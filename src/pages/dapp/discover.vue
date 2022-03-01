@@ -3,6 +3,8 @@ import DappDiscoversHeader from './discovers/header.vue';
 import DappDiscoversSearch from './discovers/search.vue';
 import DappDiscoversEndlist from './discovers/endlist.vue';
 import DappDiscoversList from './discovers/list.vue';
+import I18n from "src/utils/i18n";
+
 import * as alias from "src/utils/root/alias";
 import {onMounted, reactive, ref} from "vue"
 import * as logic from "src/types/dapp/";
@@ -15,6 +17,7 @@ import {stateAlias, useReactiveProvide, useWatch} from "src/utils/use/state";
 import {getParam} from "src/utils/router";
 import {useRoute} from "vue-router";
 
+const i18n = I18n();
 const api = new Model();
 const route = useRoute();
 // 定义一个 provide 数据，给子组件（ui-tab）使用
@@ -114,7 +117,7 @@ const changeSort = (sort: string) => {
     <div class="content pt-8">
       <!-- 头部 -->
       <div class="header">
-        <DappDiscoversHeader title="The world’s best DApp store" tips="All in One-Stop: Web3.0, DeFi, Gaming, NFTs,  Airdorps."></DappDiscoversHeader>
+        <DappDiscoversHeader :title="i18n.home.IdoIgo.title" :tips="i18n.home.IdoIgo.desc"></DappDiscoversHeader>
       </div>
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
@@ -136,7 +139,7 @@ const changeSort = (sort: string) => {
         </div>
       </div>
     </div>
-    <div v-if="list?.length>0 && resultNumber>=params.page_size" class="more" @click="getMore">加载更多</div>
+    <div v-if="list?.length>0 && resultNumber>=params.page_size" class="more" @click="getMore">{{ i18n.home.loadingMore }}</div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>
 </template>

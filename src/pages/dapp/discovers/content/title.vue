@@ -11,7 +11,6 @@ defineProps({
   <div v-if="data">
     <div class="w-full flex justify-items-start -mt-7.5 items-center">
       <div class="w-15 h-15 border-2 border-global-white rounded-md">
-        <!-- <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/> -->
         <ui-image class="w-full h-full" fit="cover" :src="data.logo" :lazy="true"/>
       </div>
       <div class="flex-1 h-15 pl-2.5">

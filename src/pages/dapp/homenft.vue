@@ -1,8 +1,10 @@
 <script setup lang="ts">
 
+  import I18n from "src/utils/i18n";
   import DappHomeHeader from './home/header.vue';
   import DappDiscoversContentType from './discovers/content/type.vue';
   import DappNftsList from './nfts/list.vue'
+  import DappDiscoversContentChain from './discovers/content/chain.vue';
   import {onMounted, reactive, ref, watch} from "vue";
   import {Model, tabChain} from "src/logic/dapp";
   import {createRef, onLoadRef, onUpdateRef} from "src/utils/ssr/ref";
@@ -19,6 +21,7 @@
       default: () => {}
     }
   })
+  const i18n = I18n();
   const route = useRoute();
   const chain = ref(getParam<string>("group"));
   const params = reactive({
@@ -60,11 +63,14 @@
     <div class="overflow-x-scroll showX">
       <!-- header -->
       <div>
-        <DappHomeHeader title="NFT Drops 🎯" tips="Never miss an interesting NFT drop on NFTGo!" :status="nftStatus.upcoming" :type="urlType"></DappHomeHeader>
+        <DappHomeHeader title="NFT Drops 🎯" tips="Never miss an interesting NFT drop on NFTGo!" :status="nftStatus.upcoming" :type="urlType"/>
       </div>
       <!-- 搜索 -->
-      <div class="mt-4">
-          <DappDiscoversContentType v-if="summary.nft" :list="tabChain(summary.nft.chain, 'group', config.home)" :split="6" active-name="group" title="公链" name="group"></DappDiscoversContentType>
+      <div class="mt-4 hidden md:block">
+          <DappDiscoversContentType v-if="summary.nft" :list="tabChain(summary.nft.chain, 'group', config.home)" :split="6" active-name="group" :title="i18n.home.idoIgoProject.chain" name="group"/>
+      </div>
+      <div class="mt-4 block md:hidden">
+        <DappDiscoversContentChain class="w-full" v-if="summary.nft" :chainData="summary.nft.chain" :href="config.home" name="group" :title="i18n.home.idoIgoProject.chain"/>
       </div>
       <!-- nft项目 -->
       <div class="mt-4">
