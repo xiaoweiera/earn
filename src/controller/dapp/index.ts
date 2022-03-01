@@ -60,7 +60,7 @@ export const nftlist = async function (req: Request, res: Response) {
     const sort_type=req.query['sort_type'] as string;
     const paginate = true;
     const search=req.query['search'] as string;
-    const params = {page: 1, page_size: 50};
+    const params = {page: 1, page_size: 10};
     const projectParams={
         page:params.page,
         page_size:params.page_size,

@@ -34,11 +34,10 @@ const search = ref(getParam<string>("search"));
 
 
 // 获取nft列表
-const listItem = createRef("API.dapp.nftList", {} as any);
-const list = ref([]);
+const list = createRef("API.dapp.nftList", {} as any);
+const listItem = ref<logic.ProjectItem[]>([]);
 
-const listVal = ref([]);
-listVal.value = sortTime(listItem.value);
+const listVal = ref<logic.ProjectItem[]>([]);
 const newList = ref<logic.DataMap[]>([]);
 const newCount = ref<number>(0);
 const db = new DBList([], 'id', 'pid');
@@ -63,14 +62,13 @@ const dapp = function (data:any) {
       date: pid,
       list: value
     });
-  }, sortVal(ids, void 0, true));
+  }, sortVal(ids, void 0, false));
   // 更新数据
   return array;
 }
-list.value = dapp(listVal.value);
 const params = reactive({
   page: 1,
-  page_size: 50,
+  page_size: 10,
   chain: chain.value,
   category: category.value,
   status: type.value ? type.value : 'upcoming',
@@ -88,13 +86,14 @@ const getData = async (clear?: boolean) => {
   const res: any = await api.getNftList(params);
   if (clear) {
     params.page = 1
-    list.value = [];
+    clearArr();
   }
   resultNumber.value = res?.length;
   if(params.status != 'history'){
-    list.value = dapp(list.value.concat(res))
+    const result:any = sortTime(res);
+    listItem.value = dapp(listVal.value.concat(result))
   }else {
-    list.value = list.value.concat(res)
+    listItem.value = listItem.value.concat(res)
   }
   loading.value = false
 }
@@ -105,7 +104,11 @@ const key = ref<string>(uuid());
 onMounted(function () {
   // 得到数据汇总
   onLoadReactive(summary, () => api.getSummary());
-  onLoadRef(listItem, () => api.getNftList(params));
+  onLoadRef(list, () => api.getNftList(params));
+  if(params.status != 'history') {
+    listVal.value = sortTime(list.value);
+    listItem.value = dapp(listVal.value);
+  }
 });
 
 useWatch($router, (n) => {
@@ -129,6 +132,12 @@ const changeSort=(sort:string)=>{
   params.sort_field = sort;
   getData(true);
 }
+//重置数组
+const clearArr = function () {
+  listItem.value = [];
+  list.value = [];
+  listVal.value = [];
+}
 </script>
 <template>
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
@@ -148,12 +157,12 @@ const changeSort=(sort:string)=>{
         <DappNftsSearch :data="summary.nft"></DappNftsSearch>
       </div>
       <!-- 列表数据 -->
-      <div class="w-full py-8 overflow-x-scroll showX">
+      <div class="w-full py-8 overflow-x-scroll showX" v-if="listItem.length > 0 && !loading">
         <div class="w-315" v-if="$router.query.type === logic.NftTabTypes.history">
-          <DappNftsEndlist @changeSort="changeSort" :params="params" :list="list"></DappNftsEndlist>
+          <DappNftsEndlist @changeSort="changeSort" :params="params" :list="listItem"></DappNftsEndlist>
         </div>
         <div v-else>
-          <div v-for="(item, index) in list" :key="index">
+          <div v-for="(item, index) in listItem" :key="index">
             <span class="text-kd18px24px text-global-bgBlack font-kdFang">{{ getTodayTime(item.date)}}</span>
             <div class="w-315 grid grid-cols-5 gap-6 my-4">
               <DappNftsList v-for="( item, index ) in item.list" :key="index" :data="item"></DappNftsList>
@@ -162,7 +171,7 @@ const changeSort=(sort:string)=>{
         </div>
       </div>
     </div>
-    <div v-if="list?.length>0 && resultNumber>=params.page_size" @click="getMore" class="more">加载更多</div>
+    <div v-if="listItem?.length>0 && resultNumber>=params.page_size" @click="getMore" class="more">加载更多</div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>
 </template>

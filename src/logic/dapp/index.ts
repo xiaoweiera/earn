@@ -203,13 +203,13 @@ export const sortVal = function(list: any[], diff?: string, reverse?: boolean) {
 }
 
 const dayTimes = 1000 * 60 * 60 * 24;
-const todayTime = new Date().getTime();
+const todayTime = new Date(new Date().toLocaleDateString()).getTime();
 const tomorrowTime = new Date().getTime() + dayTimes;
 //判断是否是今天和明天
 export const getTodayTime = function (val:number) {
-	if((val- todayTime) <= dayTimes) {
+	if((val- todayTime) < dayTimes) {
 		return 'Today';
-	}else if(dayTimes < (val - todayTime) && (val -todayTime) <= (dayTimes * 2) ) {
+	}else if(dayTimes <= (val - todayTime) && (val -todayTime) < (dayTimes * 2) ) {
 		return 'Tomorrow';
 	}else {
 		return getDateMDY(val);
