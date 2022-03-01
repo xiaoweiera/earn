@@ -66,7 +66,7 @@ onMounted(function () {
 });
 useWatch(route, (n) => {
   const querys: any = getParam<string>()
-  key.value = uuid();
+  // key.value = uuid();
   params.chain = querys.bracket;
   params.category = querys.category;
   params.platform = querys.platform;
@@ -110,14 +110,14 @@ const changeSort = (sort: string) => {
     <!--移动端展示-->
     <div class="block md:hidden">
       <div class="flex items-center">
-        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.chain" :href="config.home" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
+        <DappDiscoversContentChain :key="key" class="w-1/2" :chainData="summary.ixo.chain" :href="config.home" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
         <IconFont v-if="summary.ixo && summary.ixo" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
-        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.category" :href="config.home" name="category" :title="i18n.home.topList.category"/>
+        <DappDiscoversContentChain :key="key" class="w-1/2" :chainData="summary.ixo.category" :href="config.home" name="category" :title="i18n.home.topList.category"/>
       </div>
       <div class="flex items-center mt-4">
-        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" :title="i18n.home.topList.plat"/>
+        <DappDiscoversContentChain :key="key" class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" :title="i18n.home.topList.plat"/>
         <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
-        <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" :title="i18n.dapp.group.search"/>
+        <DappDiscoversContentField :key="key" class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" :title="i18n.dapp.group.search"/>
       </div>
     </div>
     <div class="overflow-x-scroll showX mt-4">
