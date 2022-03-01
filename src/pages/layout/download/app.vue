@@ -6,16 +6,20 @@
 import I18n from "src/utils/i18n";
 import {getEnv} from "src/config/";
 import { UA } from "src/types/common/ua";
-import {UserAgent} from "express-useragent";
 import window from "src/plugins/browser/window";
+import ClientOnly from "~/components/client/only.vue";
 
 const i18n = I18n();
 const env = getEnv();
 
 const getUA = function () {
-  if (window.navigator.userAgent) {
-    const userAgent = new UserAgent();
-    return userAgent.parse(window.navigator.userAgent) as UA;
+  try {
+    if (window.navigator.userAgent && window.UserAgent) {
+      const userAgent = new window.UserAgent();
+      return userAgent.parse(window.navigator.userAgent) as UA;
+    }
+  } catch (e) {
+    // todo
   }
   return {} as UA;
 }
@@ -40,7 +44,7 @@ const onClick = function (e: Event) {
 </script>
 
 <template>
-  <div class="download-app is-web">
+  <client-only class="download-app is-web">
     <div class="md:hidden">
       <div class="download-wrap">
         <v-router :href="env.appDownload"
@@ -51,7 +55,7 @@ const onClick = function (e: Event) {
         </v-router>
       </div>
     </div>
-  </div>
+  </client-only>
 </template>
 
 <style lang="scss" scoped>

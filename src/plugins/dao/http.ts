@@ -108,7 +108,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 				return res;
 			} else {
 				console.log('API Error %s, %s, %s', res.status, res.config.method, url, res.config.params);
-				return Promise.reject("error");
+				return Promise.reject(res);
 			}
 
 		},
@@ -117,6 +117,7 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 			if (code === 0) {
 				return Promise.resolve(error);
 			}
+			console.log(error);
 			return Promise.reject(error)
 		},
 	)
