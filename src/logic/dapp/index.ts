@@ -3,7 +3,7 @@ import {Query, Status, ProjectItem, AdItem} from "src/types/dapp/ixo";
 import {nftQuery, nftStatus, ProjectNftItem, AdNftItem} from "src/types/dapp/nft";
 import { config } from "src/router/config";
 import * as R from "ramda";
-import { getValue } from "src/utils/ssr/ref";
+import { getValue } from "src/utils/root/data";
 import { SiteConfig } from "src/types/common/chain";
 import * as alias from "src/utils/root/alias";
 import I18n from "src/utils/i18n";
