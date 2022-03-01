@@ -27,11 +27,9 @@ const list = createRef<MenuItem[]>("common.footer", []);
             <div class="menu-label hidden lg:block">
               <span class="text-18">{{ i18n.common.nav.download }}</span>
             </div>
-            <input class="menu-active hidden" id="footer-menu-download" type="checkbox" name="footer-menu-download">
-            <label class="menu-label cursor-pointer block lg:hidden" for="footer-menu-download">
+            <label class="menu-label cursor-pointer block lg:hidden">
               <span class="select-none w-full flex justify-between items-center">
                 <span class="text-base ">{{ i18n.common.nav.download }}</span>
-                <IconFont class="arrow" type="icon-arrow-down" size="16"/>
               </span>
             </label>
             <div class="pt-3 lg:pt-6 w-27 menu-content">

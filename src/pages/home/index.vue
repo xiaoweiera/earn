@@ -12,7 +12,7 @@ import DappHomenft from "src/pages/dapp/homenft.vue"
 import DappHomediscoverend from "src/pages/dapp/homediscoverend"
 import {onMounted} from 'vue'
 import {Model} from "src/logic/home";
-import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
+import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 import {summaryModel} from "src/types/home";
 import * as alias from "src/utils/root/alias";
 

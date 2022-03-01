@@ -9,10 +9,10 @@ import SwiperCore, {Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import {createRef, onLoadRef} from "~/utils/ssr/ref";
-import {Model} from "~/logic/home";
-import {timeago, dataToTimestamp, formatDefaultTime} from "~/lib/tool";
-import I18n from "~/utils/i18n";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import {Model} from "src/logic/home";
+import {timeago, dataToTimestamp, formatDefaultTime} from "src/lib/tool";
+import I18n from "src/utils/i18n";
 const i18n = I18n();
 const env = getEnv();
 // 装载 swiper 组件

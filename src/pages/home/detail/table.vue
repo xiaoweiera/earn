@@ -6,11 +6,11 @@ import {ref, onMounted, PropType, watch, reactive} from 'vue'
 import {ElSelect, ElOption, ElInput} from 'element-plus';
 import {useRoute, useRouter} from "vue-router";
 import {getParam} from "src/utils/router";
-import {createReactive, onLoadReactive} from "~/utils/ssr/ref";
-import {detail} from "~/types/home";
-import {Model} from "~/logic/home";
-import {config as routerConfig} from "~/router/config";
-import I18n from "~/utils/i18n";
+import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
+import {detail} from "src/types/home";
+import {Model} from "src/logic/home";
+import {config as routerConfig} from "src/router/config";
+import I18n from "src/utils/i18n";
 
 const props = defineProps({
   info: Object as PropType<detail>

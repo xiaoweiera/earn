@@ -1,5 +1,5 @@
 import API from "src/api";
-import {projectParams, recommendModel, summaryModel} from "~/types/home";
+import {projectParams, recommendModel, summaryModel} from "src/types/home";
 
 
 //得到header数据 headerName,headerCss

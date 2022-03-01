@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getHeader} from "~/logic/home";
+import {getHeader} from "src/logic/home";
 import {onMounted, ref} from "vue";
 const props = defineProps({
   params: {

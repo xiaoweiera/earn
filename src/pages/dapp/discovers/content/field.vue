@@ -33,8 +33,8 @@ watch(searchval, (val: any) => {
 </script>
 <template>
   <div>
-    <div class="w-41 md:w-50 flex md:ml-3 mt-3 md:mt-0 relative">
-      <input class="w-41 md:w-50 h-8 text-kd14px18px text-global-highTitle text-opacity-85 bg-global-topBg border border-global-highTitle border-opacity-4 rounded-md" v-model="searchval" :placeholder="title" type="text">
+    <div class="w-37.5 md:w-50 flex md:ml-3 relative">
+      <input class="w-37.5 md:w-50 h-8 text-kd14px18px text-global-highTitle text-opacity-85 bg-global-white md:bg-global-topBg border border-global-highTitle border-opacity-4 rounded-md" v-model="searchval" :placeholder="title" type="text">
       <IconFont class="absolute left-3.25 top-2.5" type="icon-sousuo" size='14'/>
     </div>
   </div>

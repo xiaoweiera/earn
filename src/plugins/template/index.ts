@@ -27,30 +27,33 @@ const makeScript = function (data: Result): string {
 	const env = getEnv();
 
 	const value = _.omit(data, [ "title", "keywords", "description", "content", "libs" ]);
-	const dataCode = `window["${rootData}"] = "${Crypto(value)}";`;
-	let seoCode = '';
+	let scriptCodes: string[] = [];
+	const scriptLibs: string[] = [ ...Icons ];
 
-	// 谷歌人机教验
-	const recaptcha = `https://www.recaptcha.net/recaptcha/api.js?render=${env.google.captcha}`;
-
-	const libs = [ ...Icons, recaptcha ];
-
-	// 正式环境下生效
-	if (env.VITE_mode === production) {
-		// 百度统计
-		libs.push('https://hm.baidu.com/hm.js?fdb9f024136898f0d5822f8a4b71b036');
-		// 谷歌统计
-		libs.push('https://www.googletagmanager.com/gtag/js?id=G-0L1ZS5F062');
-		seoCode = `window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-0L1ZS5F062');`;
+	// 百度
+	if (env.baidu && env.baidu.tag) {
+		scriptLibs.push(`https://hm.baidu.com/hm.js?${env.baidu.tag}`);
 	}
+	// 谷歌
+	if (env.google && env.google.tag) {
+		const id = env.google.tag;
+		scriptLibs.push(`https://www.googletagmanager.com/gtag/js?id=${id}`);
+		scriptCodes.push(`window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${id}');`);
+	}
+	// 人机教验
+	if (env.google && env.google.captcha) {
+		scriptLibs.push(`https://www.recaptcha.net/recaptcha/api.js?render=${env.google.captcha}`);
+	}
+	// 缓存数据
+	scriptCodes.push(`window["${rootData}"] = "${Crypto(value)}";`);
+
 	const html: string[] = [];
-	_.each(libs, function (src: string) {
-		html.push(`<script src="${src}" async></script>`);
+	_.each(scriptLibs, function (src: string) {
+		html.push(`<script src="${src}" async="async"></script>`);
 	});
-	if (seoCode) {
-		html.push(`<script>${seoCode}</script>`);
-	}
-	html.push(`<script>${dataCode}</script>`);
+	_.each(scriptCodes, function (value: string) {
+		html.push(`<script>${value}</script>`);
+	});
 	return html.join("");
 }
 

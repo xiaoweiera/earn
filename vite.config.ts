@@ -75,7 +75,6 @@ export default defineConfig(async function () {
   const config = await getConfig(argv);
   const data = getSassData({ ...argv, ...config });
   console.log("vite config : ", config);
-  console.log("sass data: ", data.sass);
   const buildConfig = getBuildConfig(config);
   return {
     base: /^.+\/$/.test(data.staticUrl) ? data.staticUrl : `${data.staticUrl}/`,

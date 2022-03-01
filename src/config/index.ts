@@ -9,7 +9,11 @@ export * from "src/types/env";
 
 export const title = "KingData";
 
-export interface Google {
+export interface Baidu {
+	tag?: string;
+}
+
+export interface Google extends Baidu{
 	captcha: string;
 }
 
@@ -21,6 +25,7 @@ export interface Env extends Process{
 	appDownload: string;
 	domain: string;
 	google: Google,
+	baidu: Baidu,
 }
 
 export const getEnv = function (): Env {
@@ -30,8 +35,12 @@ export const getEnv = function (): Env {
 		ApiVersion: "v1",
 		template: "index.html",
 		api: opt.VITE_api, // api 接口域名
+		baidu: {
+			tag: opt.VITE_baiduTag
+		},
 		google: {
-			captcha: opt.VITE_google // 谷歌人机校验 key
+			tag: opt.VITE_googleTag,
+			captcha: opt.VITE_googleCaptcha // 谷歌人机校验 key
 		},
 		domain: opt.VITE_domain,
 		home: `${opt.VITE_domain ? opt.VITE_domain : ""}/`, // 默认首页
