@@ -7,20 +7,15 @@ import DappNftsList from './nfts/list.vue';
 import {onMounted, reactive, ref, watch} from "vue"
 import DBList from "@fengqiaogang/dblist";
 import * as R from "ramda";
-import safeGet from "@fengqiaogang/safe-get";
  import * as logic from "src/types/dapp/";
-import {toLower, uuid} from "src/utils";
-import { includes } from 'ramda';
+import { uuid} from "src/utils";
 import { useRoute } from 'vue-router'
 import {Model, sortVal, sortTime, getTodayTime} from "src/logic/dapp";
 import {createReactive, createRef, onLoadReactive, onLoadRef} from "src/utils/ssr/ref";
 import {summaryModel} from "src/types/home";
-import {Model as Homemodel} from "src/logic/home";
 import * as alias from "src/utils/root/alias";
 import {useWatch} from "~/utils/use/state";
 import {getParam} from "~/utils/router";
-import {ProjectItem} from "src/types/dapp/";
-import { getDateMDY } from "src/utils";
 
 
 //路由
