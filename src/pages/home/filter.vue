@@ -18,7 +18,7 @@ const route = useRoute()
 const router = useRouter()
 const query = getParam<object>();
 const i18n = I18n();
-const chain = ref(getParam<object>('chain'))
+const chain = ref(getParam<object>('chain')?getParam<object>('chain'):'All')
 const search = ref(getParam<object>('search'))
 const chainData: any = ref([])
 const categoryData: any = ref([])
@@ -39,7 +39,6 @@ const mergeData = (key: string, data: any) => {
 }
 mergeData('chain', chainData)
 mergeData('category', categoryData)
-
 const change = (name: any) => {
   const item = chainData.value.find((item: any) => item.name === name)
   router.push(item.href)
@@ -100,49 +99,5 @@ const isCategory = computed(() => {
 
 .is-tab {
   @apply flex items-center;
-  ::v-deep(.tab-wrap) {
-    @apply items-center flex;
-    .tab-item {
-      @apply flex px-3 py-2   rounded-md;
-      &:after {
-        @apply h-0;
-      }
-
-      &:not(a) {
-        &:not([href]) {
-          @apply cursor-pointer ml-4;
-          @extend %first-ml0;
-        }
-      }
-
-      &:not(:first-child) {
-        @apply ml-4;
-      }
-    }
-
-    span {
-      @apply text-kd14px18px font-medium font-kdFang;
-    }
-
-    .active {
-      @apply flex px-3  py-2 max-h-8 bg-global-darkblue bg-opacity-6 rounded-md;
-    }
-  }
-
-  ::v-deep(.el-input__inner) {
-    display: flex;
-    align-items: center !important;
-    border: 1px solid rgba(3, 54, 102, 0) !important;
-    background: none;
-    height: 34px !important;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-    border-radius: 6px !important;
-    @apply text-kd14px18px w-24 text-center font-medium font-kdFang text-global-highTitle text-opacity-45;
-  }
-
-  ::v-deep(.el-input__suffix) {
-    right: 0px !important;
-  }
 }
 </style>

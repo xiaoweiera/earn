@@ -21,13 +21,13 @@ const props = defineProps({
     <div class="showX">
       <table class="table-my">
         <thead>
-        <tr class="h-5">
+        <tr class="min-h-5">
           <td>
             <div class="text-left w-3.5">#</div>
           </td>
           <template v-for="(item,index) in data.table.header" :key="index">
             <td class="text-left" v-if="item.key!=='id'">
-              <HomeTableHeader :item="item"/>
+              <HomeTableHeader height="h-5" name="Dapp Name" :item="item"/>
             </td>
           </template>
         </tr>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HomeTable from './table/index.vue'
-import {onMounted, ref} from 'vue'
+import {onMounted, ref,onUnmounted} from 'vue'
 import {oss} from "src/config";
 import {createRef, onLoadRef} from "src/utils/ssr/ref";
 import {Model} from "src/logic/home";
@@ -10,11 +10,22 @@ const topicIndex = ref(0)
 const selectTopic = (index: number) => topicIndex.value = index
 const rank = createRef("API.home.getTopicRank", []);
 const i18n = I18n();
+let timeTool:any
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总
   onLoadRef(rank, () => api.getTopicRank());
+  timeTool=setInterval(()=>{
+    if(topicIndex.value+1<rank.value.length){
+      topicIndex.value++
+    }else{
+      topicIndex.value=0
+    }
+  },3000)
 });
+onUnmounted(()=>{
+  clearInterval(timeTool)
+})
 </script>
 <template>
   <div class="w-full flex justify-between md:flex-wrap">

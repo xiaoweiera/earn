@@ -3,9 +3,9 @@ import {projectParams, recommendModel, summaryModel} from "src/types/home";
 
 
 //得到header数据 headerName,headerCss
-export const getHeader=(key:string)=>{
+export const getHeader=(key:string,name?:string)=>{
 		if(key==='name'){
-			return ['Name','justify-begin']
+			return [name,'justify-begin']
 		}else if(key==='chains'){
 			return ['Chain','justify-center']
 		}else if(key==='tge_platform'){
@@ -35,25 +35,25 @@ export const getHeader=(key:string)=>{
 		}else if(key==='mint_price'){
 			return ['Mint Price','justify-center']
 		}else if(key==='ido_sale_amount'){
-			return ['Tokens for Sale','text-center']
+			return ['Tokens for Sale','justify-center']
 		}else if(key==='owners'){
-			return ['Owners','text-center']
+			return ['Owners','justify-center']
 		}else if(key==='assets'){
-			return ['Assets','text-center']
+			return ['Assets','justify-center']
 		}else if(key==='mcap_tvl'){
-			return ['MCap/TVL','text-center']
+			return ['MCap/TVL','justify-center']
 		}else if(key==='users_24h'){
-			return ['User(24h)/Change','text-center']
+			return ['User(24h)/Change','justify-center']
 		}else if(key==='users_7d'){
-			return ['User(7d)/Change','text-center']
+			return ['User(7d)/Change','justify-center']
 		}else if(key==='tvl'){
-			return ['TVL/Change','text-center']
+			return ['TVL/Change','justify-center']
 		}else if(key==='ath_since_ido'){
-			return ['ATH Since IDO','text-center']
+			return ['ATH Since IDO','justify-center']
 		}else if(key==='current_roi_usd'){
-			return ['Current ROI USD','text-center']
+			return ['Current ROI USD','justify-center']
 		}
-		return ['No','text-center']
+		return ['No Data','justify-center']
 }
 //得到td数据
 export const getData=(key:string,data:any)=>{

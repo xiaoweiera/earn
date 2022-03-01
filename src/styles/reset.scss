@@ -2,6 +2,20 @@
   @file 重置某些样式
  */
 
+[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+  @at-root .el-input & {
+    border: var(--el-input-border, var(--el-border-base));
+  }
+}
+
+.el-input {
+  .el-input__prefix {
+    .el-input__prefix-inner {
+      @apply items-center;
+    }
+  }
+}
+
 .el-popover {
   &.ui-hover {
     @apply p-0;

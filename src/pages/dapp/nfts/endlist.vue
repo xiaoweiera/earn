@@ -4,7 +4,7 @@ import { getLog, getNextUrl } from 'src/logic/dapp';
 import I18n from "src/utils/i18n";
 const props = defineProps({
   list: {
-    type: Object,
+    type: Array,
   },
   params: {
     type: Object,
@@ -87,7 +87,7 @@ const getIcon = (item:string) => {
             <td><div class="numberDefault text-number">{{toNumberCashFormat(item.floor_price,'$','','Not Set')}}</div></td>
             <td><div class="numberDefault text-number">{{toNumberCashFormat(item.mint_price,'$','','Not Set')}}</div></td>
             <td>
-              <div class="flex-center justify-center">              
+              <div class="flex-center justify-center">
                 <IconFont v-if="item.chain" size="16" :type="getLog(item.chain)"/>
               </div>
             </td>

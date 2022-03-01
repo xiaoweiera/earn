@@ -11,7 +11,7 @@ import {detail} from "src/types/home";
 import {Model} from "src/logic/home";
 import {config as routerConfig} from "src/router/config";
 import I18n from "src/utils/i18n";
-
+import window from "~/plugins/browser/window";
 const props = defineProps({
   info: Object as PropType<detail>
 })
@@ -62,11 +62,11 @@ const data: any = createReactive<detail>("API.home.getProjects", {} as any);
 //得到表格数据
 const getData = async (clear?: boolean) => {
   loading.value = true
-  const res: any = await api.getProjects(params)
   if (clear) {
     params.page = 1
     data.items = []
   }
+  const res: any = await api.getProjects(params)
   resultNumber.value = res?.items?.length
   data.items = data.items.concat(res.items)
   loading.value = false
@@ -82,7 +82,9 @@ onMounted(function () {
   onLoadReactive(data, () => api.getProjects(params));
 });
 //排序
-const sort = (key: string) => {
+const sort = (item: any) => {
+  const key=item.key
+  if(!item.sort) return
   if (!params.sort_type || params.sort_field !== key) {
     params.sort_type = 'desc'
   } else if (params.sort_type === 'desc') {
@@ -92,6 +94,11 @@ const sort = (key: string) => {
   }
   params.sort_field = key
   getData(true)
+}
+const toProject=(url:string )=>{
+  if(url){
+    window.location.href = `${url}?lang=${i18n.getLang()}`
+  }
 }
 //是否有筛选
 const isFilter = () => {
@@ -122,20 +129,20 @@ const isFilter = () => {
     <div class="showX">
       <table class="table-my min-w-243">
         <thead>
-        <tr class="h-10">
+        <tr class="min-h-10">
           <td class="h-full border-tb">
             <div class="text-left  w-5">#</div>
           </td>
           <template v-for="(item,index) in data.header" :key="index">
-            <td class="text-left border-tb" v-if="item.key!=='id'">
-              <HomeTableHeader @click="sort(item.key)" :params="params" :item="item"/>
+            <td class="text-left border-tb" :class="item.key==='name'?'min-w-30':''" v-if="item.key!=='id'">
+              <HomeTableHeader @click="sort(item)" name="Project Name" :params="params" :item="item"/>
             </td>
           </template>
         </tr>
         </thead>
         <tbody>
         <template v-for="(item,index) in data.items">
-          <tr class="h-12.5 md:h-19.5">
+          <tr class="min-h-12.5 h-12.5 md:min-h19.5 md:h-19.5 hand" @click="toProject(item.url)">
             <td class="number">
               <div class="text-left  w-5">{{ index + 1 }}</div>
             </td>

@@ -2,7 +2,7 @@
 import {PropType, ref} from 'vue';
 import DappDiscoversContentType from './content/type.vue';
 import DappDiscoversContentChain from './content/chain.vue';
-import DappDiscoversContentField from './content/field.vue';
+// import DappDiscoversContentField from './content/field.vue';
 import I18n from "src/utils/i18n";
 
 import {summaryItem} from "src/types/home";
@@ -39,7 +39,7 @@ const keyID = ref<string>(uuid());
           </div>
         </div>
         <!-- 搜索框 -->
-        <DappDiscoversContentField :herf="config.dappList" :title="i18n.dapp.group.search"/>
+<!--        <DappDiscoversContentField :herf="config.dappList" title="项目名称"/>-->
       </div>
       <!-- platform -->
       <DappDiscoversContentType :key="keys" :list="tabPlat(data.platform, 'platform', config.dappList)" class="mt-4" name="platform" :split="5" :title="i18n.home.topList.plat"/>

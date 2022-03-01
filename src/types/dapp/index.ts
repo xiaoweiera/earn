@@ -3,11 +3,11 @@
  * @author svon.me@gmail.com
  */
 
- import I18n from "src/utils/i18n";
- import { config } from "src/router/config";
- import { getParam } from "src/utils/router";
+import I18n from "src/utils/i18n";
+import {config} from "src/router/config";
+import {getParam} from "src/utils/router";
 
- const i18n = I18n();
+const i18n = I18n();
 // export enum ProjectGroup {
 // 	online = 'online', // 待上线
 // 	history = 'history', // 历史项目
@@ -130,7 +130,7 @@ export enum NftTabTypes {
 	history = 'history', // 已结束
 }
 export interface NftTabItem {
-	type: NftTabTypes;
+	status: NftTabTypes;
 	name: string;
 	icon?: string;
 	href: string | object;
@@ -139,29 +139,29 @@ export interface NftTabItem {
 export const nftTabs = function (): NftTabItem[]  {
 	const query = getParam<object>();
 	return [
-			{
-				type: NftTabTypes.upcoming,
-				icon: '',
-				name: i18n.airdrop.tabs.upcoming,
-				href: {
-					path: `${config.nft}/discover`,
-					query: {
-						...query,
-						type: NftTabTypes.upcoming
-					}
-				},
-			},{
-				type: NftTabTypes.history,
-				icon: '',
-				name: i18n.dapp.sort.history,
-				href: {
-					path: `${config.nft}/discover`,
-					query: {
-						...query,
-						type: NftTabTypes.history
-					}
-				},
-			}
-		]
+		{
+			status: NftTabTypes.upcoming,
+			icon: '',
+			name: i18n.airdrop.tabs.upcoming,
+			href: {
+				path: `${config.nft}/discover`,
+				query: {
+					...query,
+					status: NftTabTypes.upcoming
+				}
+			},
+		}, {
+			status: NftTabTypes.history,
+			icon: '',
+			name: i18n.dapp.sort.history,
+			href: {
+				path: `${config.nft}/discover`,
+				query: {
+					...query,
+					status: NftTabTypes.history
+				}
+			},
+		}
+	];
 	}
 
