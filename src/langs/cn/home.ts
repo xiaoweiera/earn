@@ -1,6 +1,6 @@
 export default {
-    title:'最新最全的 DApp 聚合平台',
-    twoTitle:'一站式服务：Web3.0、DeFi、游戏、NFT、Airdorps',
+    title:'Web3 一站式投资平台',
+    twoTitle:'发现、跟踪、投资 DeFi、NFT、游戏，数据驱动投资',
     platData:{
         avgAth:'平均收益',
         desc:{

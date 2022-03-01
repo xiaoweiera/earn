@@ -49,19 +49,24 @@ export const detail = async function (req: Request, res: Response) {
         category:category || '',
         query:search || ''
     }
-    const [detail,projects,recommend,top3] = await Promise.all([
-        api.getDetail(id),
-        api.getProjects(projectParams),
-        api.getRecommend(params),
-        api.getTop3(id)
-    ]);
-    const result = {
-        "API.home.getDetail":detail,//话题详情
-        "API.home.getProjects":projects,//话题项目
-        "API.home.getRecommend": recommend, //推荐话题
-        "API.home.getTop3":top3 //话题项目top3
-    };
-    res.send(result);
+    try {
+        const [detail,projects,recommend,top3] = await Promise.all([
+            api.getDetail(id),
+            api.getProjects(projectParams),
+            api.getRecommend(params),
+            api.getTop3(id)
+        ]);
+        const result = {
+            "API.home.getDetail":detail,//话题详情
+            "API.home.getProjects":projects,//话题项目
+            "API.home.getRecommend": recommend, //推荐话题
+            "API.home.getTop3":top3 //话题项目top3
+        };
+        res.send(result);
+    }catch{
+        redirect(req,res,config.home)
+    }
+
 }
 
 

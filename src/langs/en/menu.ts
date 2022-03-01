@@ -35,7 +35,7 @@ export default {
     title: 'Indicators'
   },
   blog: {
-    blog: 'Blog'
+    blog: 'Research'
   },
   growthPad: {
     growthPad: 'GrowthPad'
