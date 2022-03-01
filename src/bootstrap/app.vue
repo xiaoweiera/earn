@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import {Device} from "src/config/process";
 import {onMounted, ref} from "vue";
+import Cookie from "src/plugins/browser/cookie";
 
-const device = ref<Device>();
+const device = ref<string>("");
 
-onMounted(function () {
-  device.value = Device.web;
-});
+const init = async function () {
+  const cookie = new Cookie();
+  device.value = await cookie.getDeviceValue();
+};
+
+onMounted(init);
 
 </script>
 <template>
