@@ -16,7 +16,7 @@ const getNumber = (value: any) => {
   return ``
 }
 const getColor = (value: any) => {
-  if (value >= 0) {
+  if (value > 0) {
     return `green-value`
   } else if (value < 0) {
     return `red-value`
@@ -30,7 +30,7 @@ const getColor = (value: any) => {
       <p class="title font-kdSemiBold">{{i18n.home.title}}</p>
       <p class="des i8n-font-inter">{{i18n.home.twoTitle}}</p>
     </div>
-    <div class="flex items-center justify-between flex-wrap md:mt-0 mt-6">
+    <div class="flex items-center justify-between md:justify-start flex-wrap md:flex-nowrap md:mt-0 mt-6">
       <div class="info-item">
         <div>
           <ui-popover
@@ -41,7 +41,7 @@ const getColor = (value: any) => {
             <template #reference>
               <div class="flex justify-end cursor-pointer flex items-center max-w-fit">
                 <div class="item-name name-scale mr-1">{{i18n.home.platData.avgAth}}</div>
-                <IconFont size="12" class="text-global-white text-opacity-65 relative right-1" type="icon-infoNo"/>
+                <IconFont size="12" class="text-global-white text-opacity-65 relative right-1 md:ml-1" type="icon-infoNo"/>
               </div>
             </template>
             <template #content>
@@ -63,7 +63,7 @@ const getColor = (value: any) => {
         <div class="info-des">
           <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.nft.total) }}</span>
           <span class="time  time-scale font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(data.nft['24h_increase'])">{{ getNumber(data.nft['24h_increase']) }}</span>
+          <span class="number-rate text-number" :class="getColor(data.nft['increase_24h'])">{{ getNumber(data.nft['increase_24h']) }}</span>
         </div>
       </div>
       <div class="info-item">
@@ -71,7 +71,7 @@ const getColor = (value: any) => {
         <div class="info-des">
           <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.ixo.total) }}</span>
           <span class="time time-scale  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(data.ixo['24h_increase'])">{{ getNumber(data.ixo['24h_increase']) }}</span>
+          <span class="number-rate text-number" :class="getColor(data.ixo['increase_24h'])">{{ getNumber(data.ixo['increase_24h']) }}</span>
         </div>
       </div>
       <div class="info-item">
@@ -79,7 +79,7 @@ const getColor = (value: any) => {
         <div class="info-des">
           <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.airdrop.total) }}</span>
           <span class="time time-scale  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(data.airdrop['24h_increase'])">{{ getNumber(data.airdrop['24h_increase']) }}</span>
+          <span class="number-rate text-number" :class="getColor(data.airdrop['increase_24h'])">{{ getNumber(data.airdrop['increase_24h']) }}</span>
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@ const getColor = (value: any) => {
   color: red;
 }
 .default-color {
-  @apply text-global-highTitle text-opacity-85;
+  @apply text-global-white;
 }
 .title {
   @apply text-kd32px32px md:text-kd40px40px font-semibold text-global-white;

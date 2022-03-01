@@ -26,7 +26,7 @@ defineProps({
         <div class="flex h-full">
           <template v-for="(data, index) in list" :key="index">
             <template v-if="data.header">
-              <v-router class="sub-menu-item text-14-18 whitespace-nowrap" :class="{'active': data.active}" :href="data.href" :target="data.target ? '_blank': '_self'">
+              <v-router class="sub-menu-item text-14-18 whitespace-nowrap font-kdFang" :class="{'active': data.active}" :href="data.href" :target="data.target ? '_blank': '_self'">
                 <span>{{ data.name }}</span>
                 <i :class="{'hidden': toInteger(data.message) === 0}">{{ toInteger(data.message) }}</i>
               </v-router>

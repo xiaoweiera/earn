@@ -42,7 +42,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="ui-image" :class="{'error': error}">
+  <div class="ui-image overflow-hidden" :class="{'error': error}">
     <img v-if="src && fit === 'none'" class="" :src="src">
     <i :class="fit" :style="value"></i>
   </div>

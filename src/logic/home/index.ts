@@ -3,9 +3,9 @@ import {projectParams, recommendModel, summaryModel} from "src/types/home";
 
 
 //得到header数据 headerName,headerCss
-export const getHeader=(key:string)=>{
+export const getHeader=(key:string,name?:string)=>{
 		if(key==='name'){
-			return ['Name','justify-begin']
+			return [name,'justify-begin']
 		}else if(key==='chains'){
 			return ['Chain','justify-center']
 		}else if(key==='tge_platform'){

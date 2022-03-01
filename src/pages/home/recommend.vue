@@ -12,6 +12,7 @@ import "swiper/swiper-bundle.css";
 import {createRef, onLoadRef} from "src/utils/ssr/ref";
 import {Model} from "src/logic/home";
 import I18n from "src/utils/i18n";
+import {config} from "src/router/config";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
 const i18n = I18n();
@@ -46,7 +47,7 @@ const getImg = (type: string, item: any) => {
 }
 const getHref = (type: string, item: any) => {
   if (type === 'topic') {
-    return `/home/detail?id=${item.id}`
+    return `${config.homeDetail}?id=${item.id}`
   }
   return item.url
 }
@@ -73,13 +74,13 @@ onMounted(function () {
                 @setTranslate="change">
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="getHref(item['data_type'],item)" target="_blank" class="w-35 h-35 md:h-48.5 md:w-47.5 rounded-kd6px block relative">
+              <v-router :href="getHref(item['data_type'],item)" target="_blank" class="w-35 h-35 md:h-47.5 md:w-47.5 rounded-kd6px block relative">
                 <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
                 <div class="info">
                   <div class="name text-number">{{ item.name }}</div>
                   <div class="go">Go</div>
                 </div>
-                <img class="rounded-kd6px h-full" :src="getImg(item['data_type'],item)" fit="cover"/>
+                <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'],item)" fit="cover"/>
               </v-router>
             </SwiperSlide>
           </template>
@@ -107,7 +108,7 @@ onMounted(function () {
 }
 
 .info {
-  @apply flex items-center justify-between px-2.5 md:px-4 w-full  absolute bottom-1.5 md:bottom-3;
+  @apply flex items-center justify-between px-2.5 md:px-4 w-full  absolute bottom-1.5 md:bottom-2 z-999;
   .name {
     @apply text-kd14px18px font-medium text-global-white;
   }

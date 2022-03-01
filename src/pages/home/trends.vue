@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 import document from "src/plugins/browser/document";
 import {getEnv} from "src/config";
+import safeGet from "@fengqiaogang/safe-get";
 // 引入 swiper vue 组件
 // @ts-ignore
 import SwiperCore, {Pagination, Autoplay} from "swiper";
@@ -9,10 +10,13 @@ import SwiperCore, {Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import {createRef, getValue, onLoadRef} from "src/utils/ssr/ref";
 import {Model} from "src/logic/home";
 import {timeago, dataToTimestamp, formatDefaultTime} from "src/lib/tool";
 import I18n from "src/utils/i18n";
+import {SiteConfig} from "~/types/common/chain";
+import * as alias from "~/utils/root/alias";
+const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const i18n = I18n();
 const env = getEnv();
 // 装载 swiper 组件
@@ -94,10 +98,10 @@ onMounted(function () {
                   <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
                   <img class="rounded-kd6px h-23.5 w-47.5" :src="getImg(item)" alt="">
                   <div class="absolute top-0  top-5 left-4 flex items-center">
-                    <ui-image v-if="item['data_type']==='dapp'" class="min-w-12.5 min-h-12.5 rounded-full"  fit="cover" src="icon-EthYuan" />
+                    <img v-if="item['data_type']==='dapp'" class="min-w-12.5 min-h-12.5 rounded-full"  fit="cover" :src="item['logo']" />
                     <div class="ml-3 font-kdSemiBold font-bold text-kd18px18px   text-global-white">
                       <div>{{item.name}}</div>
-                      <span class="chain-tip">Chain</span>
+                      <span class="chain-tip">{{safeGet(config,`chain.${item.chain}.name`)}}</span>
                     </div>
                   </div>
                 </div>
