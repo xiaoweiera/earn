@@ -10,7 +10,8 @@ import SwiperCore, {Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import {createRef, getValue, onLoadRef} from "src/utils/ssr/ref";
+import { getValue } from "src/utils/root/data";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
 import {Model} from "src/logic/home";
 import {timeago, dataToTimestamp, formatDefaultTime} from "src/lib/tool";
 import I18n from "src/utils/i18n";
@@ -28,7 +29,6 @@ const next = () => document.querySelector('.swiper-topic').swiper.slideNext()
 //上一页
 const last = () => document.querySelector('.swiper-topic').swiper.slidePrev()
 const change = (swiper: any) => {
-  console.log(swiper)
   isBegin.value = swiper.isBeginning
   isEnd.value = swiper.isEnd
 

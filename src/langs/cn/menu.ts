@@ -35,7 +35,7 @@ export default {
     title: '指标监控'
   },
   blog: {
-    blog: '博客'
+    blog: '研究院'
   },
   growthPad: {
     growthPad: 'GrowthPad'

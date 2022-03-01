@@ -74,7 +74,7 @@ const getDom = () => {
   } else if (timeType.includes(name)) {
     return 'timeType'
   } else {
-    return 'txt'
+    return ''
   }
 }
 onMounted(() => {
@@ -163,6 +163,7 @@ onMounted(() => {
     <div v-else-if="typeDom==='timeType'" class="numberDefault text-number text-center">
       {{ domData ? getDateMDY(dataToTimestamp(domData)) : 'TBA' }}
     </div>
+    <div v-else>-</div>
   </div>
 </template>
 <style scoped lang="scss">
