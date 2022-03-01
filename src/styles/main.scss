@@ -45,15 +45,17 @@ a {
 
 
 .device {
-  @apply hidden;
+  &.web, &.app {
+    @at-root #app & {
+      @apply block;
+    }
+  }
   &.web {
-    @apply block;
     .is-app {
       @apply hidden;
     }
   }
   &.app {
-    @apply block;
     .is-web {
       @apply hidden;
     }

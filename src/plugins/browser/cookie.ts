@@ -1,5 +1,6 @@
 /**
  * @file 操作 cookie
+ * @author svon.me@gmail.com
  */
 
 import jsCookie from "js-cookie";
@@ -50,7 +51,7 @@ export default class Cookie {
 			return jsCookie.set(name, value, Cookie.cookieOption(expires));
 		}
 	}
-
+	// 删除 cookie
 	remove(name: string) {
 		if (this.res) {
 			return this.res.clearCookie(name, Cookie.cookieOption());
@@ -88,7 +89,7 @@ export default class Cookie {
 	removeUserToken() {
 		return this.remove(tokenName);
 	}
-
+	// 获取当前设备类型
 	async getDeviceValue() {
 		// 从移动端获取用户信息
 		const process = await webkit.env.process();
@@ -99,7 +100,7 @@ export default class Cookie {
 		}
 		return this.get(deviceName) || Device.web;
 	}
-
+	// 设置当前设备类型
 	setDeviceValue(value?: string) {
 		if (value) {
 			return this.set(deviceName, value);
