@@ -1,3 +1,4 @@
+import _ from "lodash";
 import API from "src/api/index";
 import {Query, Status, ProjectItem, AdItem} from "src/types/dapp/ixo";
 import {nftQuery, nftStatus, ProjectNftItem, AdNftItem} from "src/types/dapp/nft";
@@ -8,11 +9,10 @@ import { SiteConfig } from "src/types/common/chain";
 import * as alias from "src/utils/root/alias";
 import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router/";
-import { getDateMDY } from "src/utils/time"
+import { getDateMDY, dateFormat, dateTime, dateYMDFormat, toInteger } from "src/utils/"
 import safeGet from "@fengqiaogang/safe-get";
 import * as logic from "~/types/dapp";
-
-import {dateTime, dateYMDFormat} from "src/utils";
+import DBList from "@fengqiaogang/dblist";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
@@ -204,5 +204,21 @@ export const getTodayTime = function (val:number) {
 	}else {
 		return getDateMDY(val);
 	}
+}
+
+export const transformNftList = function (list: ProjectNftItem[]) {
+	const days: number[] = [];
+	const db = new DBList([], "mint_start_at", "date");
+	_.forEach(list, function (item: ProjectNftItem) {
+		const date = dateTime(dateFormat(item.mint_start_at, "YYYY-MM-DD") + '00:00:00');
+		days.push(date)
+		db.insert({ ...item, date });
+	});
+	return _.map(_.sortBy(_.uniq(days)), function (date: number) {
+		return {
+			title: getTodayTime(date),
+			list: db.select({ date }),
+		}
+	});
 }
 

@@ -46,6 +46,7 @@ export interface ProjectNftItem {
   issue_volume: number;
   // nft Drops开始时间
   mint_start_at: number;
+  date?: number;
 }
 export interface AdNftItem {
   // 广告ID
