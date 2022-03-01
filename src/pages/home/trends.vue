@@ -73,7 +73,7 @@ onMounted(function () {
               <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
                 <div v-if="item['data_type']==='blog' && index===0" class="relative">
                   <div class="absolute border-1 w-full h-full px-3">
-                    <div class="blog-name pt-2 font-kdSemiBold">{{ item['name'] }}
+                    <div class="blog-name pt-2 font-kdSemiBold font-semibold">{{ item['name'] }}
                       ({{ formatDefaultTime(item['release_date'], 'MM/DD') }})
                     </div>
                     <div v-if="item['label'].length>0" class="blog-label mt-1.5 font-kdFang">
@@ -83,8 +83,8 @@ onMounted(function () {
                       </template>
                     </div>
                     <div class="blog-label absolute bottom-1.5">
-                      <span>{{ item['viewers'] ? item['viewers'] : 0 }}{{i18n.home.todayTrend.read}}</span>
-                      <span class="mx-2.5" v-if="item['release_date']">|</span>
+                      <span>{{ item['viewers'] ? item['viewers'] : 0 }} {{i18n.home.todayTrend.read}}</span>
+                      <span class="mx-1" v-if="item['release_date']">|</span>
                       <span v-if="item['release_date']">{{i18n.home.todayTrend.updateTime}}:{{ timeago(dataToTimestamp(item['release_date'])) }}</span>
                     </div>
                   </div>
@@ -94,7 +94,7 @@ onMounted(function () {
                   <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
                   <img class="rounded-kd6px h-23.5 w-47.5" :src="getImg(item)" alt="">
                   <div class="absolute top-0  top-5 left-4 flex items-center">
-                    <ui-image v-if="item['data_type']==='dapp'" class="w-12.5 h-12.5 rounded-full"  fit="cover" src="icon-EthYuan" />
+                    <ui-image v-if="item['data_type']==='dapp'" class="min-w-12.5 min-h-12.5 rounded-full"  fit="cover" src="icon-EthYuan" />
                     <div class="ml-3 font-kdSemiBold font-bold text-kd18px18px   text-global-white">
                       <div>{{item.name}}</div>
                       <span class="chain-tip">Chain</span>

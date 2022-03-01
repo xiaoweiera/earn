@@ -28,9 +28,9 @@ const getIcon = () => {
 }
 </script>
 <template>
-  <div class="flex items-center hand" :class="cssData[1]">
+  <div class="flex items-center" :class="cssData[1]">
     <div class="relative">
-      <IconFont v-if="item.sort && params" class="relative top-0.5 mr-1" size="14" :type="getIcon()"/>
+      <IconFont v-if="item.sort && params" class="relative top-0.5 mr-1" :class="item.sort?'hand':''" size="14" :type="getIcon()"/>
       <span>{{ cssData[0] }}</span>
       <div :class="item.key===params?.sort_field?'sort-border':''"></div>
     </div>

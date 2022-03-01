@@ -122,7 +122,7 @@ const isFilter = () => {
     <div class="showX">
       <table class="table-my min-w-243">
         <thead>
-        <tr class="h-10">
+        <tr class="min-h-10">
           <td class="h-full border-tb">
             <div class="text-left  w-5">#</div>
           </td>
@@ -135,7 +135,7 @@ const isFilter = () => {
         </thead>
         <tbody>
         <template v-for="(item,index) in data.items">
-          <tr class="h-12.5 md:h-19.5">
+          <tr class="min-h-12.5 h-12.5 md:min-h19.5 md:h-19.5">
             <td class="number">
               <div class="text-left  w-5">{{ index + 1 }}</div>
             </td>

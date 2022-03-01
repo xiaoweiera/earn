@@ -30,7 +30,7 @@ const getColor = (value: any) => {
       <p class="title font-kdSemiBold">{{i18n.home.title}}</p>
       <p class="des i8n-font-inter">{{i18n.home.twoTitle}}</p>
     </div>
-    <div class="flex items-center flex-wrap md:mt-0 mt-6">
+    <div class="flex items-center justify-between flex-wrap md:mt-0 mt-6">
       <div class="info-item">
         <div>
           <ui-popover
@@ -58,7 +58,7 @@ const getColor = (value: any) => {
           {{ toNumberCashFormat(data.avg_ath, 'x') }}
         </div>
       </div>
-      <div class="info-item">
+      <div class="info-item ">
         <div class="item-name name-scale">{{i18n.home.platData.nft}}</div>
         <div class="info-des">
           <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.nft.total) }}</span>
@@ -106,7 +106,7 @@ const getColor = (value: any) => {
 }
 
 .info-item {
-  @apply md:w-40.75 md:min-h-11;
+  @apply md:w-40.75 md:min-h-11 min-h-10.5;
   .info-des {
     @apply mt-1 md:mt-2 flex justify-begin ml-2 md:ml-0 md:justify-end items-center;
   }
