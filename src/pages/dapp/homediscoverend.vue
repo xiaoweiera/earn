@@ -4,7 +4,7 @@
 import DappHomeHeader from './home/header.vue';
 import DappDiscoversContentType from './discovers/content/type.vue';
 import DappDiscoversContentChain from './discovers/content/chain.vue';
-import DappDiscoversContentField from './discovers/content/field.vue';
+// import DappDiscoversContentField from './discovers/content/field.vue';
 import DappDiscoversEndlist from './discovers/endlist.vue';
 import I18n from "src/utils/i18n";
 
@@ -98,7 +98,7 @@ const changeSort = (sort: string) => {
         </div>
         <!-- 搜索框 -->
         <div>
-          <DappDiscoversContentField :herf="config.home" title="项目名称"></DappDiscoversContentField>
+<!--          <DappDiscoversContentField :herf="config.home" title="项目名称"></DappDiscoversContentField>-->
         </div>
       </div>
       <!-- platform -->
@@ -117,7 +117,7 @@ const changeSort = (sort: string) => {
       <div class="flex items-center mt-4">
         <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" title="platform"/>
         <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
-        <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" title="项目名称"/>
+<!--        <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" title="项目名称"/>-->
       </div>
     </div>
     <div class="overflow-x-scroll showX mt-4">

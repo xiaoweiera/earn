@@ -2,7 +2,7 @@
 import {PropType, ref} from 'vue';
 import DappDiscoversContentType from './content/type.vue';
 import DappDiscoversContentChain from './content/chain.vue';
-import DappDiscoversContentField from './content/field.vue';
+// import DappDiscoversContentField from './content/field.vue';
 
 import {summaryItem} from "src/types/home";
 import { tabCage, tabPlat, tabChain } from "src/logic/dapp/";
@@ -36,7 +36,7 @@ const keyID = ref<string>(uuid());
           </div>
         </div>
         <!-- 搜索框 -->
-        <DappDiscoversContentField :herf="config.dappList" title="项目名称"/>
+<!--        <DappDiscoversContentField :herf="config.dappList" title="项目名称"/>-->
       </div>
       <!-- platform -->
       <DappDiscoversContentType :key="keys" :list="tabPlat(data.platform, 'platform', config.dappList)" class="mt-4" name="platform" :split="5" title="platform"/>

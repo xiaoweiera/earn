@@ -15,13 +15,13 @@ onMounted(function () {
   const api = new Model();
   // 得到数据汇总
   onLoadRef(rank, () => api.getTopicRank());
-  // timeTool=setInterval(()=>{
-  //   if(topicIndex.value+1<rank.value.length){
-  //     topicIndex.value++
-  //   }else{
-  //     topicIndex.value=0
-  //   }
-  // },3000)
+  timeTool=setInterval(()=>{
+    if(topicIndex.value+1<rank.value.length){
+      topicIndex.value++
+    }else{
+      topicIndex.value=0
+    }
+  },3000)
 });
 onUnmounted(()=>{
   clearInterval(timeTool)

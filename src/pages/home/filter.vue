@@ -39,7 +39,6 @@ const mergeData = (key: string, data: any) => {
 }
 mergeData('chain', chainData)
 mergeData('category', categoryData)
-
 const change = (name: any) => {
   const item = chainData.value.find((item: any) => item.name === name)
   router.push(item.href)
