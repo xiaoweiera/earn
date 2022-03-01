@@ -2,6 +2,10 @@
 export const common = {
 	user: "common.user",
 	ua: "common.ua",
+	layout: {
+		header: "common.layout.header",
+		footer: "common.layout.footer"
+	},
 	chain: {
 		site: "common.chainSite"
 	},
