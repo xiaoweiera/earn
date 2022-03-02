@@ -5,56 +5,77 @@ import _ from "lodash";
 import ApiTemplate from "../template";
 import * as api from "src/config/api";
 import getLang  from "src/utils/url/lang";
-import request from "src/plugins/dao/service";
 import { User } from "src/types/common/user";
 import safeGet from "@fengqiaogang/safe-get";
 import Cookie from "src/plugins/browser/cookie";
-import { asyncCheck } from "src/plugins/dao/response";
+
+import { NullValue, get, post, required, validate, tryError, userToken} from "src/plugins/dao/http";
 
 
 export default class extends ApiTemplate{
 	// 获取用户详情
-	getInfo () {
-		return asyncCheck<User>(request(this.lang).get(api.user.info));
+	@tryError(NullValue)
+	@get(api.user.info)
+	@userToken(true)
+	getInfo<T>(): Promise<T> {
+		return [] as any;
 	}
 	// 手机号重置密码
-	resetMobilePassword(data: object) {
+	@post(api.user.resetMobilePassword)
+	@userToken(true)
+	@validate
+	resetMobilePassword<T>(@required data: object): Promise<T> {
 		const lang = getLang(this.lang);
 		const value = { ...data, lang };
-		return asyncCheck(request(this.lang).post(api.user.resetMobilePassword, value));
+		return [value] as any;
 	}
 	// 邮箱重置密码
-	resetEmailPassword(data: object) {
+	@post(api.user.resetEmailPassword)
+	@userToken(true)
+	@validate
+	resetEmailPassword<T>(@required data: object): Promise<T> {
 		const lang = getLang(this.lang);
 		const value = { ...data, lang };
-		return asyncCheck(request(this.lang).post(api.user.resetEmailPassword, value));
+		return [value] as any;
 	}
 	// 获取邮箱验证码
-	getEmailCaptcha(params: any, type: string) {
+	@post(api.user.getEmailCaptcha)
+	@userToken(true)
+	@validate
+	getEmailCaptcha<T>(@required params: object, @required type: string): Promise<T> {
 		const lang = getLang(this.lang);
 		const data = { ...params, forget_type: type, lang };
-		return asyncCheck(request(this.lang).post(api.user.getEmailCaptcha, data));
+		return [data] as any;
 	}
 
 	// 获取手机验证码
-	getMobileCaptcha(params: any, type: string): Promise<any> {
+	@post(api.user.getMobileCaptcha)
+	@userToken(true)
+	@validate
+	getMobileCaptcha<T>(@required params: object, @required type: string): Promise<T> {
 		const lang = getLang(this.lang);
 		const value = Object.assign({ area_code: '+86' }, params, { type, lang });
-		return asyncCheck(request(this.lang).post(api.user.getMobileCaptcha, value));
+		return [value] as any;
 	}
 
 	// 邮箱注册
-	registerEmail (data: object) {
+	@post(api.user.registerEmail)
+	@userToken(false)
+	@validate
+	registerEmail<T>(@required data: object): Promise<T> {
 		const lang = getLang(this.lang);
 		const value = { ...data, lang };
-		return asyncCheck(request(this.lang).post(api.user.registerEmail, value));
+		return [value] as any;
 	}
 	// 邮箱登录
-	async emailLogin (data: object): Promise<User | undefined> {
+	@post(api.user.emailLogin)
+	@userToken(false)
+	@validate
+	emailLogin (@required data: object): Promise<User | undefined> {
 		const lang = getLang(this.lang);
 		const value = Object.assign({ lang }, _.pick(data, ["email", "password"]));
-		try {
-			const result: User = await asyncCheck(request(this.lang).post(api.user.emailLogin, value));
+
+		const callback = function (result: User) {
 			const token = safeGet<string>(result, "token");
 			if (token) {
 				const cookie = new Cookie();
@@ -63,16 +84,19 @@ export default class extends ApiTemplate{
 			} else {
 				return Promise.reject(result);
 			}
-		} catch (e) {
-			return Promise.reject(e);
-		}
+		};
+		return [value, callback] as any;
 	}
+
 	// 手机号登录
-	async mobileLogin (data: object): Promise<User | undefined> {
+	@post(api.user.mobileLogin)
+	@userToken(false)
+	@validate
+	mobileLogin (@required data: object): Promise<User | undefined> {
 		const lang = getLang(this.lang);
 		const value = Object.assign({ lang }, _.pick(data, ["mobile", "password", "area_code"]));
-		try {
-			const result: User = await asyncCheck(request(this.lang).post(api.user.mobileLogin, value));
+
+		const callback = function (result: User) {
 			const token = safeGet<string>(result, "token");
 			if (token) {
 				const cookie = new Cookie();
@@ -81,8 +105,7 @@ export default class extends ApiTemplate{
 			} else {
 				return Promise.reject(result);
 			}
-		} catch (e) {
-			return Promise.reject(e);
-		}
+		};
+		return [value, callback] as any;
 	}
 }
