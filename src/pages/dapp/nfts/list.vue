@@ -23,13 +23,13 @@ const detailUrl = function (data: object) {
 };
 </script>
 <template>
-  <div class="min-w-55 md:w-58 h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer">
+  <div class="h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer">
     <div class="h-full" v-if="data.data_type === ProjectType.ad">
       <DappNftsAd :data="data"/>
     </div>
     <div class="w-full h-full" @click="getNextUrl(data)" v-else>
       <!-- 背景图 -->
-      <DappNftsHeader class="w-55 md:w-58 h-50" :data="data"></DappNftsHeader>
+      <DappNftsHeader class="w-full h-50" :data="data"></DappNftsHeader>
       <!-- footer -->
       <div>
         <DappNftsFooter :data="data"></DappNftsFooter>

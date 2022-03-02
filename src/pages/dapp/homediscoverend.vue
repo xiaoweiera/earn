@@ -124,7 +124,7 @@ onMounted(function() {
         <!-- 搜索框 -->
         <div>
          <!-- 搜索框 -->
-          <client-only class="w-50">
+          <client-only class="w-50 input-style">
             <ElInput class="w-full" v-model="searchVal" :placeholder="i18n.common.placeholder.search" @change="onSearch">
               <template #prefix>
                 <IconFont type="icon-sousuo" size="16" @click="onSearch"/>
@@ -150,7 +150,7 @@ onMounted(function() {
         <DappDiscoversContentChain :key="key" class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" :title="i18n.home.topList.plat"/>
         <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
         <!-- 搜索框 -->
-        <client-only class="w-50">
+        <client-only class="max-w-50 input-style">
           <ElInput class="w-full" v-model="searchVal" :placeholder="i18n.common.placeholder.search" @change="onSearch">
             <template #prefix>
               <IconFont type="icon-sousuo" size="16" @click="onSearch"/>
@@ -171,3 +171,30 @@ onMounted(function() {
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>
 </template>
+<style lang="scss" scoped>
+.input-style {
+  ::v-deep(.el-input__inner) {
+    @apply border border-global-highTitle border-opacity-4 bg-global-white rounded-md;
+  }
+  ::v-deep(input::-webkit-input-placeholder) {
+    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+  }
+  ::v-deep(input::-ms-input-placeholder) {
+    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+  }
+}
+
+@screen md{
+  .input-style {
+    ::v-deep(.el-input__inner) {
+      @apply border border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
+    }
+    ::v-deep(input::-webkit-input-placeholder) {
+      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+    }
+    ::v-deep(input::-ms-input-placeholder) {
+      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+    }
+  }
+}
+</style>

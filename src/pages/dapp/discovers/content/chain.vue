@@ -98,10 +98,7 @@ const change = _.debounce(async function (value: string) {
   @screen md {
     ::v-deep(.el-input__inner) {
       border: 1px solid rgba(3, 54, 102, 0.1) !important;
-      background: none;
-      height: 34px !important;
-      padding-left: 12px !important;
-      @apply text-kd14px18px md:w-25 text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
+      @apply text-kd14px18px md:w-25 h-8 pl-3 bg-global-topBg text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
     }
   }
 }
