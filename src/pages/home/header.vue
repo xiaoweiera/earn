@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {toNumberCashFormat} from 'src/utils/convert/to'
 import I18n from "src/utils/i18n";
+import safeGet from "@fengqiaogang/safe-get";
 const i18n = I18n();
 const props = defineProps({
   data: Object
@@ -54,32 +55,32 @@ const getColor = (value: any) => {
             </template>
           </ui-popover>
         </div>
-        <div class="info-des   number-value text-number " :class="data.avg_ath>=0?'green-value':'red-value'">
+        <div class="info-des  number-value text-number min-h-5 md:pr-1" :class="getColor(data.avg_ath)">
           {{ toNumberCashFormat(data.avg_ath, 'x') }}
         </div>
       </div>
       <div class="info-item ">
         <div class="item-name name-scale">{{i18n.home.platData.nft}}</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.nft.total) }}</span>
+          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(safeGet(data,'nft.total')) }}</span>
           <span class="time  time-scale font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(data.nft['increase_24h'])">{{ getNumber(data.nft['increase_24h']) }}</span>
+          <span class="number-rate text-number" :class="getColor(safeGet(data,'nft.increase_24h'))">{{ safeGet(data,'nft.increase_24h') }}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name name-scale">{{i18n.home.platData.ido}}</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.ixo.total) }}</span>
+          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(safeGet(data,'ixo.total')) }}</span>
           <span class="time time-scale  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(data.ixo['increase_24h'])">{{ getNumber(data.ixo['increase_24h']) }}</span>
+          <span class="number-rate text-number" :class="getColor(safeGet(data,'ixo.increase_24h'))">{{ getNumber(safeGet(data,'ixo.increase_24h')) }}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name name-scale">{{i18n.home.platData.air}}</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(data.airdrop.total) }}</span>
+          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(safeGet(data,'airdrop.total')) }}</span>
           <span class="time time-scale  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(data.airdrop['increase_24h'])">{{ getNumber(data.airdrop['increase_24h']) }}</span>
+          <span class="number-rate text-number" :class="getColor(safeGet(data,'airdrop.increase_24h'))">{{ getNumber(safeGet(data,'airdrop.increase_24h')) }}</span>
         </div>
       </div>
     </div>
@@ -123,9 +124,6 @@ const getColor = (value: any) => {
 }
 .item-name {
   @apply  text-right text-kd10px16px md:text-kd12px16px font-medium font-kdFang text-global-white text-opacity-65;
-}
-.info-item:not(:first-child){
-  @apply ml-0;
 }
 @media screen and (max-width: 768px) {
   .name-scale {
