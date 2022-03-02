@@ -4,7 +4,8 @@
 import DappHomeHeader from './home/header.vue';
 import DappDiscoversContentType from './discovers/content/type.vue';
 import DappDiscoversContentChain from './discovers/content/chain.vue';
-// import DappDiscoversContentField from './discovers/content/field.vue';
+import ClientOnly from "~/components/client/only.vue";
+import { ElInput } from "element-plus";
 import DappDiscoversEndlist from './discovers/endlist.vue';
 import I18n from "src/utils/i18n";
 
@@ -15,9 +16,12 @@ import * as alias from "src/utils/root/alias";
 import {AdItem, ProjectItem, Status} from "src/types/dapp/ixo";
 import {config} from "src/router/config";
 import {getParam} from "src/utils/router";
-import {useWatch} from "src/utils/use/state";
+import {setInject, stateAlias, useWatch} from "src/utils/use/state";
 import {uuid} from "src/utils";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import _ from "lodash";
+import {createHref} from "~/plugins/router/pack";
+import window from "~/plugins/browser/window";
 
 const props = defineProps({
   summary: {
@@ -83,6 +87,23 @@ const changeSort = (sort: string) => {
   params.sort_field = sort;
   getEndedList(true);
 }
+
+const $router = useRouter()
+const onChangeParam = setInject(stateAlias.ui.tab);
+const searchVal = ref<string>();
+
+const onSearch = _.debounce(async function () {
+  const query = { ...getParam<object>(), search: searchVal.value || "" };
+  const url = createHref(window.location.pathname, query);
+  await $router.push(url);
+  if (onChangeParam) {
+    onChangeParam(query);
+  }
+}, 300);
+
+onMounted(function() {
+  search.value = getParam<string>("search") || "";
+});
 </script>
 <template>
   <div class="mt-5 p-4 bg-global-white rounded-md">
@@ -102,7 +123,14 @@ const changeSort = (sort: string) => {
         </div>
         <!-- 搜索框 -->
         <div>
-<!--          <DappDiscoversContentField :herf="config.home" title="项目名称"></DappDiscoversContentField>-->
+         <!-- 搜索框 -->
+          <client-only class="w-50">
+            <ElInput class="w-full" v-model="searchVal" :placeholder="i18n.common.placeholder.search" @change="onSearch">
+              <template #prefix>
+                <IconFont type="icon-sousuo" size="16" @click="onSearch"/>
+              </template>
+            </ElInput>
+          </client-only>
         </div>
       </div>
       <!-- platform -->
@@ -121,7 +149,14 @@ const changeSort = (sort: string) => {
       <div class="flex items-center mt-4">
         <DappDiscoversContentChain :key="key" class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" :title="i18n.home.topList.plat"/>
         <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
-<!--        <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" title="项目名称"/>-->
+        <!-- 搜索框 -->
+        <client-only class="w-50">
+          <ElInput class="w-full" v-model="searchVal" :placeholder="i18n.common.placeholder.search" @change="onSearch">
+            <template #prefix>
+              <IconFont type="icon-sousuo" size="16" @click="onSearch"/>
+            </template>
+          </ElInput>
+        </client-only>
       </div>
     </div>
     <div class="overflow-x-scroll showX mt-4" v-if="EndedList.length > 0">

@@ -11,7 +11,7 @@ defineProps({
 })
 </script>
 <template>
-  <div class="discover-item">
+  <div  class="discover-item">
     <div>
       <!--遍历展示项目列表信息-->
       <div class="discover-list relative h-87.5 border border-global-highTitle border-opacity-6 rounded-md cursor-pointer">

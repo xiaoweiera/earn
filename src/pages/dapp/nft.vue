@@ -16,8 +16,15 @@ import { alias, createReactive, onLoadReactive} from "src/utils/ssr/ref";
 import {stateAlias, useReactiveProvide, useWatch} from "src/utils/use/state";
 
 const key = ref<string>(uuid());
+const sortKey = ref<string>(uuid());
+
 const i18n = I18n();
 let initStatus = true;
+
+let sort = {
+  sort_type:'',
+  sort_field:''
+};
 
 const [ query ] = useReactiveProvide<object>(stateAlias.ui.tab, {});
 
@@ -25,7 +32,7 @@ const [ query ] = useReactiveProvide<object>(stateAlias.ui.tab, {});
 const requestList = function (data: object) {
   const model = new Model();
   const params = toRaw(query);
-  return model.getNftList({ ...params, ...data });
+  return model.getNftList({ ...params, ...data, ...sort });
 }
 
 //获取类型
@@ -46,10 +53,19 @@ onMounted(function () {
   });
   // 监听路由变化
   useWatch(query, function () {
+    sort = {
+      sort_type:'',
+      sort_field:''
+    }; // 置空排序参数，此处逻辑不需要设置排序参数
     key.value = uuid();
   });
 });
-
+const changeSort = function (val:any) {
+  // 定义排序参数
+  sort.sort_field = val
+  // 重新渲染列表
+  sortKey.value = uuid();
+};
 </script>
 <template>
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
@@ -67,12 +83,12 @@ onMounted(function () {
         <DAppNftSearch :data="summary.nft"/>
       </div>
 
-      <div class="mt-4">
+      <div class="mt-4" :key="sortKey">
         <ui-pagination :limit="10" :init-value="initValue()" :request="requestList">
           <template #default="scope">
             <!--历史项目-->
-            <div v-if="query.status === 'history'">
-              <DAppNftEndList :list="scope.list"/>
+            <div v-if="query.status === 'history'" class="overflow-x-scroll showX">
+              <DAppNftEndList class="w-315" @changeSort="changeSort" :params="sort" :list="scope.list"/>
             </div>
             <!--进行中-->
             <div class="pb-1" v-else>

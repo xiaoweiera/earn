@@ -26,7 +26,7 @@ defineProps({
         <div class="mt-3.5">
           <ul class="flex">
             <li class="flex items-center mr-3" v-if="data.tge_platform" v-for="( item, index ) in data.tge_platform" :key="index">
-              <IconFont class="text-global-gemstone" :type="getTegLog(item)" size="16"/>
+                <IconFont  class="text-global-gemstone" :type="getTegLog(item)" size="16"/>
               <span class="text-kd12px16px ml-1.5 text-global-highTitle font-medium text-opacity-85 font-kdFang">{{ item }}</span>
             </li>
           </ul>

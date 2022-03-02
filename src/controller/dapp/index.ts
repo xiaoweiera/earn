@@ -25,11 +25,11 @@ export const list = async function (req: Request, res: Response) {
         page:params.page,
         page_size:params.page_size,
         status: status ? status : 'upcoming',
-        chain,
-        platform,
-        category,
-        sort_field,
-        sort_type,
+        chain: chain || '',
+        platform: platform || '',
+        category: category || '',
+        sort_field: sort_field || '',
+        sort_type: sort_type || '',
         paginate,
         is_igo: is_igo ? is_igo : '',
         query:search ? search : '',
@@ -48,6 +48,7 @@ export const list = async function (req: Request, res: Response) {
 // nft列表
 export const nftList = async function (req: Request, res: Response) {
 	const api = new Model(req);
+  res.locals.menuActive = names.dapp.nft;
 	const query: any = {...req.query, paginate: true};
 	if (!query.status) {
 		query.status = "upcoming";

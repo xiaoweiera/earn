@@ -90,14 +90,10 @@ const key = ref<string>(uuid());
 //获取类型
 const summary = createRef<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 
-// 获取ido列表
-
-const igolist = createRef("API.dapp.getIGOList", {});
 
 onMounted(function () {
   // 得到数据汇总
   onLoadRef(list, () => api.getList(params));
-  onLoadRef(igolist, () => api.getIGOList());
 
   // 得到数据汇总
   onLoadRef(summary, () => {
@@ -124,6 +120,7 @@ const changeSort = (sort: string) => {
         <ui-tab :key="key" :list="logic.tabs"  active-name="type"/>
       </ui-sticky>
       <!-- 搜索条件 -->
+
       <div v-if="summary && summary.ido">
         <DappDiscoversSearch :data="summary.ido" :keys="key"/>
       </div>
@@ -135,7 +132,7 @@ const changeSort = (sort: string) => {
           </div>
         </div>
         <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DappDiscoversList v-for="(item, index) in list" v-if="params" :key='index' :data="item"></DappDiscoversList>
+          <DappDiscoversList v-for="(item, index) in list" :key='index' :data="item"></DappDiscoversList>
         </div>
       </div>
       <div v-else>

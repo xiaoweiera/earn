@@ -31,7 +31,7 @@ const props = defineProps({
 
 const router = useRouter();
 
-const chain = ref<string>("");
+const routerParam = ref<string>("");
 const i18n = I18n();
 
 const onChangeParam = setInject(stateAlias.ui.tab);
@@ -60,7 +60,7 @@ const list = computed(function () {
 })
 
 onMounted(function () {
-  chain.value = getParam<string>(props.name) || allValue;
+  routerParam.value = getParam<string>(props.name) || allValue;
 })
 
 const change = _.debounce(async function (value: string) {

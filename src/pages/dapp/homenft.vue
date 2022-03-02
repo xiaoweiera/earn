@@ -39,13 +39,17 @@
   })
   const urlType = false;
 
-  //nft drops
-  const getUpcomingNftList = function () {
-    const model = new Model();
-    return model.getNftList(params);
-  }
   // 创建列表对象并获取缓存数据
-  const UpcomingNftList = createRef<Array<ProjectNftItem | AdNftItem>>(alias.dApp.ixo.upcoming, []);
+  const UpcomingNftList = createRef<Array<ProjectNftItem | AdNftItem>>(alias.dApp.ixo.upcoming, [] as any);
+  //nft drops
+  const getUpcomingNftList =async function (flag:boolean) {
+    const model = new Model();
+    if(flag){
+      UpcomingNftList.value = [];
+    }
+    UpcomingNftList.value =await model.getNftList(params) as any
+  }
+
   // 创建更新列表钩子函数
   const updateUpcomingList = onUpdateRef(UpcomingNftList, getUpcomingNftList);
 
@@ -57,7 +61,7 @@
     const querys: any = getParam<string>();
     keys.value = uuid();
     params.chain = querys.group;
-    getUpcomingNftList();
+    getUpcomingNftList(true);
     // todo 可以在此处更新某些数据
   })
 </script>

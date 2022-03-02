@@ -1,17 +1,33 @@
 <script setup lang="ts">
-defineProps({
+// @ts-ignore
+import {Swiper, SwiperSlide} from "swiper/vue";
+import SwiperCore, {Autoplay, Navigation, Pagination, Scrollbar, A11y} from "swiper";
+import {uuid} from "src/utils";
+// 装载 swiper 组件
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay])
+const props = defineProps({
   data: {
     type: Object,
   }
 })
-
+console.log(props.data)
 </script>
 <template>
   <div class="w-full h-full relative" v-if="data">
-    <div class="w-full h-full rounded-md overflow-hidden" v-for="(item, index) in data.gallery" :key="index">
-      <ui-image class="w-full h-full" fit="cover" :src="item" :lazy="true"/>
+    <div class="w-full h-full">
+      <Swiper class="w-full h-full swiper-recom"
+        :loop="true"
+        :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
+        :slides-per-view="1"
+        :space-between="0">
+        <template class="w-full h-full" v-for="(item, index) in data.gallery" :key="index">
+          <SwiperSlide class="w-full h-full rounded-kd6px">
+            <ui-image class="w-full h-full" fit="cover" :src="item" :lazy="true"/>
+          </SwiperSlide>
+        </template>
+      </Swiper>
     </div>
-    <div class="w-full absolute top-4 left-0">
+    <div class="w-full absolute top-4 left-0 z-1">
       <div class="flex justify-between px-4">
         <p class="h-5.5 flex items-center bg-global-bgBlack px-2 border border-global-white border-opacity-25 rounded-2xl"> 
           <span class="text-kd12px14px text-global-white font-kdFang font-medium">{{ data.data_type }}</span>
@@ -22,7 +38,7 @@ defineProps({
         </p>
       </div>
     </div>
-    <div class="is-cover"></div>
+    <div class="is-cover z-1"></div>
   </div>
 </template>
 <style lang="scss" scoped>
