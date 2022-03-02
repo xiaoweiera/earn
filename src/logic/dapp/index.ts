@@ -162,7 +162,7 @@ export const getLog = function (name:string) {
 }
 //获取tegicon
 export const getTegLog = function (name:string) {
-	return safeGet<string>(configs, `tge_platform.${name}`) || "";
+	return safeGet<string>(configs, `tge_platform.${name}.logo`) || "";
 }
 //获取跳转链接
 export const getTegUrl = function (name:string) {

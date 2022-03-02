@@ -2,6 +2,7 @@
 import HomeTableTd from './td.vue'
 import HomeTableHeader from './header.vue'
 import {config} from "src/router/config";
+import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
 const i18n = I18n();
 const props = defineProps({
@@ -25,7 +26,7 @@ const props = defineProps({
           <td>
             <div class="text-left w-3.5">#</div>
           </td>
-          <template v-for="(item,index) in data.table.header" :key="index">
+          <template v-for="(item,index) in safeGet(data,'table.header')" :key="index">
             <td class="text-left" v-if="item.key!=='id'">
               <HomeTableHeader height="h-5" name="Dapp Name" :item="item"/>
             </td>
@@ -33,12 +34,12 @@ const props = defineProps({
         </tr>
         </thead>
         <tbody>
-        <template v-for="(item,index) in data.table.items" :key="index">
+        <template v-for="(item,index) in safeGet(data,'table.items')" :key="index">
           <tr class="h-10 md:h-11.5">
             <td class="number">
               <div class=" text-left w-3.5">{{ index + 1 }}</div>
             </td>
-            <template v-for="(itemTwo,index) in data.table.header" :key="index">
+            <template v-for="(itemTwo,index) in safeGet(data,'table.header')" :key="index">
               <td v-if="itemTwo.key!=='id'">
                 <HomeTableTd :typeName="itemTwo.key" :data="item"/>
               </td>

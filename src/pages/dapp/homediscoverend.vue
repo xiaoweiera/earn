@@ -18,7 +18,7 @@ import {getParam} from "src/utils/router";
 import {useWatch} from "src/utils/use/state";
 import {uuid} from "src/utils";
 import {useRoute} from "vue-router";
-
+import safeGet from "@fengqiaogang/safe-get";
 const props = defineProps({
   summary: {
     type: Object,
@@ -91,10 +91,10 @@ const changeSort = (sort: string) => {
       <div class="flex justify-between items-center mt-4">
         <div class="flex items-center">
           <!-- 公链 -->
-          <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'bracket', config.home)" active-name="bracket" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
+          <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabChain(safeGet(summary,'ixo.chain'), 'bracket', config.home)" active-name="bracket" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
           <!-- 类型 -->
-          <DappDiscoversContentChain v-if="summary.ixo" :href="config.home" :chainData="summary.ixo.category" name="category" :title="i18n.home.topList.category"/>
+          <DappDiscoversContentChain v-if="summary.ixo" :href="config.home" :chainData="safeGet(summary,'ixo.category')" name="category" :title="i18n.home.topList.category"/>
         </div>
         <!-- 搜索框 -->
         <div>
@@ -103,20 +103,20 @@ const changeSort = (sort: string) => {
       </div>
       <!-- platform -->
       <div class="mt-4">
-        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(summary.ixo.platform, 'platform', config.home)" active-name="platform" name="platform" title="platform"/>
+        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(safeGet(summary,'ixo.platform'), 'platform', config.home)" active-name="platform" name="platform" title="platform"/>
       </div>
     </div>
 
     <!--移动端展示-->
     <div class="block md:hidden">
       <div class="flex items-center">
-        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.chain" :href="config.home" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
-        <IconFont v-if="summary.ixo && summary.ixo" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
-        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.category" :href="config.home" name="category" :title="i18n.home.topList.category"/>
+        <DappDiscoversContentChain class="w-1/2" :chainData="safeGet(summary,'ixo.chain')" :href="config.home" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
+        <IconFont v-if="summary.ixo" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
+        <DappDiscoversContentChain class="w-1/2" :chainData="safeGet(summary,'ixo.category')" :href="config.home" name="category" :title="i18n.home.topList.category"/>
       </div>
       <div class="flex items-center mt-4">
-        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" title="platform"/>
-        <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
+        <DappDiscoversContentChain class="w-1/2" :chainData="safeGet(summary,'ixo.platform')" :href="config.home" name="platform" title="platform"/>
+        <IconFont v-if="safeGet(summary,'ixo.platform')" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
 <!--        <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" title="项目名称"/>-->
       </div>
     </div>
