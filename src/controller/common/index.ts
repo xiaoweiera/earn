@@ -40,7 +40,7 @@ common.use(async function (req: Request, res: Response, next: NextFunction) {
 	if (lang && _.isArray(lang)) {
 		redirect(req, res, req.url, { ...query, [languageKey]: value});
 	} else {
-		safeSet(req.query, value);
+		safeSet(req.query, languageKey, value);
 		try {
 			await next();
 		} catch (e) {
