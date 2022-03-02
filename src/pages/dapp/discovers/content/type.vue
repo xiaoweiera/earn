@@ -66,7 +66,7 @@ const props = defineProps({
     }
 
     .active {
-      @apply flex px-3  py-2 max-h-8 bg-global-darkblue bg-opacity-6 rounded-md;
+      @apply flex max-h-8 bg-global-darkblue bg-opacity-6 rounded-md;
     }
   }
 }

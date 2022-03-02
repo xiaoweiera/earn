@@ -18,8 +18,8 @@ import DBList from "@fengqiaogang/dblist";
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = 'all';
 
+const i18n = I18n();
 export const getAll = function () {
-	const i18n = I18n();
 	return {
 		id: tabAll,
 		name: "All",
@@ -201,9 +201,9 @@ const tomorrowTime = new Date().getTime() + dayTimes;
 //判断是否是今天和明天
 export const getTodayTime = function (val:number) {
 	if((val- todayTime) < dayTimes) {
-		return 'Today';
+		return i18n.home.nfts.today;
 	}else if(dayTimes <= (val - todayTime) && (val -todayTime) < (dayTimes * 2) ) {
-		return 'Tomorrow';
+		return i18n.home.nfts.tomorrow;
 	}else {
 		return getDateMDY(val);
 	}

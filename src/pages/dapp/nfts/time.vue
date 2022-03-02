@@ -22,11 +22,11 @@ const detailUrl = function (data: object) {
 <template>
   <div>
     <div class="w-full h-13 flex justify-between items-center">
-      <div class="mr-1.25">
+      <div class="min-w-22.5 mr-1.25">
         <DappNftsCutdown :value="value.mint_start_at"></DappNftsCutdown>
       </div>
       <v-router target="_blank" :href='value.url'>
-        <div class="w-20 h-6 bg-global-darkblue md:bg-global-white md:bg-opacity-0 go-part md:border-1 border-global-white border-opacity-45 rounded-md py-1.5 px-3 flex items-center justify-center">
+        <div class="w-18 h-6 bg-global-darkblue md:bg-global-white md:bg-opacity-0 go-part md:border-1 border-global-white border-opacity-45 rounded-md py-1.5 px-3 flex items-center justify-center">
           <span class="text-kd12px16px text-global-white font-medium font-kdFang">{{ i18n.home.nftProject.mint }}</span>
         </div>
       </v-router>
