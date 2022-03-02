@@ -22,7 +22,7 @@ const detailUrl = function (data: object) {
 <template>
   <div>
     <div class="w-full h-13 flex justify-between items-center">
-      <div>
+      <div class="mr-1.25">
         <DappNftsCutdown :value="value.mint_start_at"></DappNftsCutdown>
       </div>
       <v-router target="_blank" :href='value.url'>

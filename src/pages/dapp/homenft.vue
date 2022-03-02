@@ -67,7 +67,7 @@
 </script>
 <template>
   <div>
-    <div class="overflow-x-scroll showX">
+    <div>
       <!-- header -->
       <div>
         <DappHomeHeader title="NFT Drops 🎯" :tips="i18n.home.idoIgoProject.never" :status="nftStatus.upcoming" :type="urlType"/>
@@ -80,9 +80,11 @@
         <DappDiscoversContentChain :key="keys" class="w-full" v-if="summary.nft" :chainData="summary.nft.chain" :href="config.home" name="group" :title="i18n.home.idoIgoProject.chain"/>
       </div>
       <!-- nft项目 -->
-      <div class="mt-4" v-if="UpcomingNftList.length > 0">
-        <div class="w-315 grid grid-cols-5 gap-6">
-          <DappNftsList v-for="( item, index ) in UpcomingNftList" :key="index" :data="item"></DappNftsList>
+      <div class="mt-4 nft-item showX" v-if="UpcomingNftList.length > 0">
+        <div class="coming-item">
+          <div v-for="( item, index ) in UpcomingNftList" class="md:ml-0" :class="{'ml-6' : index > 0}">
+            <DappNftsList :key="index" :data="item"/>
+          </div>
         </div>
       </div>
       <div v-else>
@@ -92,3 +94,18 @@
     </div>
   </div>
 </template>
+<style lang="scss" scoped>
+  .nft-item {
+    .coming-item {
+      @apply flex items-center flex-nowrap;
+    }
+  }
+  @screen md {
+    .nft-item {
+      @apply overflow-auto;
+      .coming-item {
+        @apply grid grid-cols-5 gap-6;
+      }
+    }
+  }
+</style>
