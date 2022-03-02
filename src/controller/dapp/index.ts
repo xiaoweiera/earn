@@ -6,7 +6,6 @@ import { names } from "src/config/header";
 export const list = async function (req: Request, res: Response) {
     const api = new Model(req);
     const is_igo =req.query['isigo'] as string;
-    console.log(is_igo);
     if (is_igo) {
         res.locals.menuActive = names.dapp.gamefi;
     }else {
@@ -31,7 +30,7 @@ export const list = async function (req: Request, res: Response) {
         sort_field: sort_field || '',
         sort_type: sort_type || '',
         paginate,
-        is_igo: is_igo ? is_igo : '',
+        is_igo: is_igo ? is_igo : false,
         query:search ? search : '',
     }
     const [ list, summary ] = await Promise.all([
