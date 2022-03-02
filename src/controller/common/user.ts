@@ -15,6 +15,7 @@ import {NextFunction, Request, Response} from "express";
 
 // 用户详情
 export const userInfo = async function (req: Request, res: Response) {
+	const result = {};
 	const cookie = new Cookie(req, res);
 	const token = await cookie.getUserToken();
 	if (token) {
@@ -22,18 +23,16 @@ export const userInfo = async function (req: Request, res: Response) {
 		try {
 			const data = await api.user.getInfo();
 			if (data) {
-				const result = {};
 				safeSet(result, alias.common.user, data);
 				// 刷新 token 数据
 				cookie.setUserToken(token);
-				return result;
 			}
 		} catch (e) {
 			// 如果有 token 并且获取用户信息失败，则删除用户 token
 			cookie.removeUserToken();
 		}
 	}
-	return {};
+	return result;
 }
 
 // 处理用户退出

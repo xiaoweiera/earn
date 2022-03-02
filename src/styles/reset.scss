@@ -70,3 +70,10 @@
     }
   }
 }
+
+/* swiper 样式重置 */
+.swiper-loop-wrap {
+  .swiper-slide {
+    width: fit-content !important;
+  }
+}

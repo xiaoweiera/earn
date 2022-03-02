@@ -39,7 +39,7 @@ onMounted(function () {
 <template>
   <div>
     <div class="mt-4 relative px-2.5">
-      <div class="w-full">
+      <div class="w-full swiper-loop-wrap">
         <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
           <ui-image class="left shadow" @click="last" :src="`${oss}/dapp/zuojian.png`" fit="cover"/>
         </div>
@@ -78,10 +78,6 @@ onMounted(function () {
 .right {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute right-0 z-10 top-0;
-}
-
-.swiper-slide {
-  width: auto !important;
 }
 
 .shadow {
