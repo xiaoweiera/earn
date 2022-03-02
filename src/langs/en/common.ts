@@ -110,7 +110,8 @@ export default {
     read: 'I have read and agree to the ',
     agreement: '《Service agreement》',
     terms: '《Terms of service》',
-    use:'《Instructions of use》'
+    use:'《Instructions of use》',
+    push: "I areee to receive promotional and marketing material"
   },
   chat: {
     telegram: 'Telegram',
