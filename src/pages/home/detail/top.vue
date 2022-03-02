@@ -4,13 +4,14 @@ import {onMounted} from "vue";
 import {Model} from "src/logic/home";
 import {getParam} from "src/utils/router";
 
-
 const top3:any = createRef("API.home.getTop3", []);
 onMounted(function () {
-  const api = new Model();
-  const id = getParam<string>('id', '') as string
   // 得到数据汇总
-  onLoadRef(top3, () => api.getTop3(id));
+  onLoadRef(top3, () => {
+    const id = getParam<string>('id')
+    const api = new Model();
+    return api.getTop3(id);
+  });
 });
 
 </script>

@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import HomeTableModel from './model.vue'
 import {ref} from 'vue'
-const props = defineProps({
-  topicIndex: [String, Number],
-  data: Object
+defineProps({
+  topicIndex: {
+    type: [String, Number]
+  },
+  data: {
+    type: Object
+  }
 })
 const id=ref(0)
 const changeTopic=(index:number)=>id.value=index

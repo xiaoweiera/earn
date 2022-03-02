@@ -3,9 +3,13 @@ import {toNumberCashFormat} from 'src/utils/convert/to'
 import I18n from "src/utils/i18n";
 import safeGet from "@fengqiaogang/safe-get";
 const i18n = I18n();
-const props = defineProps({
-  data: Object
-})
+
+defineProps({
+  data: {
+    type: Object
+  }
+});
+
 const getNumber = (value: any) => {
   if (value > 0) {
     return `+${toNumberCashFormat(value)}`

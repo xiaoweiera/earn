@@ -6,12 +6,16 @@ import I18n from "src/utils/i18n";
 import {copyTxtMessage} from "src/lib/tool";
 
 const i18n = I18n();
-const props=defineProps({
-  data: Object as PropType<detail>
+defineProps({
+  data: {
+    type: Object as PropType<detail>
+  }
 })
 const getTwitter=`https://twitter.com/share?url=${window.location.href}`
 const getTelegram =`https://t.me/share/url?url=${window.location.href}`;
-const copyUrl=()=>copyTxtMessage(window?.location?.href,i18n.common.message.copyAlert)
+const copyUrl = function () {
+  copyTxtMessage(window.location.href, i18n.common.message.copyAlert);
+}
 </script>
 <template>
   <div>
