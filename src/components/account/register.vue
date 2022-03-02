@@ -141,8 +141,10 @@ onMounted(function () {
       <!--推送-->
       <el-form-item style="margin-bottom: 10px;">
         <el-checkbox v-model="formData.push" :true-label="true" :false-label="false">
-          <span class="block whitespace-pre-wrap">
-            <span class="inline">{{ i18n.common.user.push }}</span>
+          <span class="flex">
+            <span class="block whitespace-pre-wrap">
+              <span class="inline">{{ i18n.common.user.push }}</span>
+            </span>
           </span>
         </el-checkbox>
       </el-form-item>
