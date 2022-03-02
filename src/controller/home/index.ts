@@ -42,6 +42,7 @@ export const detail = async function (req: Request, res: Response) {
     const id=req.query['id'] as string
     if(!id){
         redirect(req,res,config.home)
+        return
     }
     const chain=req.query['chain'] as string
     const category=req.query['category'] as string
