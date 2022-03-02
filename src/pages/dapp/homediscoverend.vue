@@ -136,7 +136,7 @@ onMounted(function() {
       </div>
       <!-- platform -->
       <div class="mt-4">
-        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(tabPlat(safeGet(summary,'ixo.platform'), 'platform', config.home)" active-name="platform" name="platform" :title="i18n.home.topList.plat"/>
+        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(safeGet(summary,'ixo.platform'), 'platform', config.home)" active-name="platform" name="platform" :title="i18n.home.topList.plat"/>
       </div>
     </div>
 
