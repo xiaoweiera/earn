@@ -27,7 +27,7 @@ const main = async function () {
 
 	app.use(cors);
 
-
+	// 静态资源
 	const assets = await Assets(root, config);
 	app.use(assets);
 
@@ -35,19 +35,6 @@ const main = async function () {
 	// app.use(userAgent.express());
 	// 处理公共数据
 	app.use(common);
-
-	// // 处理常用数据
-	// app.use(function (req: Request, res: Response, next: NextFunction) {
-	// 	const i18n = I18n(req);
-	//
-	// 	Object.assign(res.locals, {
-	// 		keywords: "",
-	// 		description: "",
-	// 		// 标题
-	// 		title: i18n.common.site.name,
-	// 	});
-	// 	next();
-	// });
 
 	const router = await Router(root, config);
 	app.use(router);

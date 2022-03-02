@@ -4,60 +4,50 @@
 
 import ApiTemplate from "../template";
 import * as api from "src/config/api";
-import request from "src/plugins/dao/service";
-import { asyncCheck } from "src/plugins/dao/response";
-import { userToken, validate, required, tryError, ErrorDefault } from "src/utils/decorate";
+import {DefaultValue, get, required, validate, tryError, userToken} from "src/plugins/dao/http";
 
 export default class extends ApiTemplate {
-
-	// 该接口不传 token
-	@userToken(false)
-	async ads<T>(user: object = {}): Promise<T[]> {
-		try {
-			return await asyncCheck<T[]>(request(this.lang).get(api.blog.adv, {
-				params: user
-			}));
-		} catch (e) {
-			// todo
-		}
-		return [];
+	// 广告 banner 数据
+	@tryError(DefaultValue([])) // 处理默认值
+	@get(api.blog.adv) // 定义一个 get 请求
+	@userToken(false) // 不需要用户信息
+	ads<T>(): Promise<T> {
+		return [] as any;
 	}
 
-	// 分组
+	// 博客分组
+	@tryError(DefaultValue([]))
+	@get(api.blog.tabs)
 	@userToken(false)
-	tabs<T>(user: object = {}) {
-		return asyncCheck<T>(request(this.lang).get(api.blog.tabs, {
-			params: user
-		}));
+	tabs<T>(): Promise<T> {
+		return [] as any;
 	}
 
 	// 博客列表
+	@tryError(DefaultValue([])) // 处理默认值
+	@get(api.blog.list) // 定义一个 get 请求
 	@userToken(false)
-	getList<T>(query: object = {}, user: object = {}) {
-		const result = request(this.lang).get(api.blog.list, {
-			params: Object.assign({}, query, user)
-		});
-		return asyncCheck<T>(result);
+	getList<T>(query: object = {}): Promise<T> {
+		// 返回参数
+		return [query] as any;
 	}
+
 	// 热门数据
 	getHostList<T>(query: object = {}) {
-		return this.getList<T>({ ...query, is_hot: true});
+		return this.getList<T>({...query, is_hot: true});
 	}
 
 	// 置顶数据
 	getTopList<T>(query: object = {}) {
-		return this.getList<T>({ ...query, recommend: true});
+		return this.getList<T>({...query, recommend: true});
 	}
 
-	@tryError(ErrorDefault())
+	@tryError(DefaultValue())
+	@get(api.blog.detail)
 	@userToken(false)
 	@validate
-	async getDetail<T>(@required id: string | number, user: object = {}) {
-		const params = { blog_id: id, ...user};
-		if (id) {
-			const result = request(this.lang).get(api.blog.detail, { params });
-			return asyncCheck<T>(result);
-		}
-		return void 0;
+	getDetail<T>(@required id: string | number): Promise<T> {
+		const params = {blog_id: id};
+		return [params] as any;
 	}
 }

@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import {onMounted, ref, toRaw} from "vue";
 import I18n from "src/utils/i18n";
-import {Model} from "src/logic/dapp";
+import {Model, transformNftList} from "src/logic/dapp";
 import {nftTabs} from "src/types/dapp";
 import { uuid } from "src/utils";
 import DAppNftList from './nfts/list.vue';
+import DAppNftEndList from './nfts/endlist.vue';
 import DAppDiscoversHeader from './discovers/header.vue';
 import DAppNftSearch from './nfts/search.vue';
 import {summaryModel} from "src/types/home";
@@ -69,9 +70,17 @@ onMounted(function () {
       <div class="mt-4">
         <ui-pagination :limit="10" :init-value="initValue()" :request="requestList">
           <template #default="scope">
-            <div class="pb-1">
-              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-6">
-                <DAppNftList v-for="(item, index ) in scope.list" :key="index" :data="item"/>
+            <!--历史项目-->
+            <div v-if="query.status === 'history'">
+              <DAppNftEndList :list="scope.list"/>
+            </div>
+            <!--进行中-->
+            <div class="pb-1" v-else>
+              <div v-for="data in transformNftList(scope.list)" :key="data.title">
+                <h3 class="py-4">{{ data.title }}</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-6">
+                  <DAppNftList v-for="(item, index ) in data.list" :key="index" :data="item"/>
+                </div>
               </div>
             </div>
           </template>

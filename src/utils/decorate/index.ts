@@ -4,8 +4,6 @@
 import "reflect-metadata";
 import {compact, isEmpty, isFunction, isString, toBoolean} from "src/utils";
 
-export { userToken } from "src/plugins/dao/directive";
-
 type CallBack = <T>(...args: any[]) => T
 export type ErrCatch = (e: Error, ...args: any[]) => void
 
@@ -33,9 +31,10 @@ const runCallback = function <T>(callback?: string | CallBack | ErrCatch, args?:
 }
 
 // 处理异常默认值
-export const ErrorDefault = function (value?: any, log?: boolean) {
+export const DefaultValue = function (value?: any, log?: boolean) {
 	return function (e: Error, ...args: any[]) {
 		if (log) {
+			console.log(e);
 			if (args.length > 0) {
 				console.log(...args)
 			}
@@ -45,7 +44,7 @@ export const ErrorDefault = function (value?: any, log?: boolean) {
 }
 
 // 处理异常，默认返回空
-export const ErrorNull = ErrorDefault(void 0);
+export const NullValue = DefaultValue(void 0);
 
 
 export const before = function (callback: string | CallBack | any) {
@@ -64,7 +63,7 @@ export const before = function (callback: string | CallBack | any) {
 			}
 		}
 	}
-}
+};
 
 export const tryError = function (errCatch?: string | ErrCatch) {
 	return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
@@ -93,14 +92,14 @@ export const tryError = function (errCatch?: string | ErrCatch) {
 				}
 				console.warn('Function %s trigger Error', methodName);
 				// @ts-ignore
-				return ErrorNull(...query);
+				return NullValue(...query);
 			}
 		}
 	}
-}
+};
 
 
-const requiredMetadataKey = Symbol('required')
+const requiredMetadataKey = Symbol('required');
 
 export const required = function (target: Object, propertyKey: string | symbol, parameterIndex: number) {
 	// @ts-ignore
@@ -108,7 +107,7 @@ export const required = function (target: Object, propertyKey: string | symbol, 
 	existingRequiredParameters.push(parameterIndex);
 	// @ts-ignore
 	Reflect.defineMetadata(requiredMetadataKey, existingRequiredParameters, target, propertyKey);
-}
+};
 
 export const validate = function (target: any, propertyName: string, descriptor: PropertyDescriptor) {
 	const fun = descriptor.value;
@@ -125,4 +124,4 @@ export const validate = function (target: any, propertyName: string, descriptor:
 		// @ts-ignore
 		return fun.apply(this, args);
 	}
-}
+};

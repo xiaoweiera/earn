@@ -30,8 +30,8 @@ export const list = async function (req: Request, res: Response) {
 		description: i18n.blog.meta.description,
 
 		"API.blog.ads": ads,      // 广告
-		"API.blog.tabs": tabs,    // 分组
-		"API.blog.getList": list, // 列表数据
+		[alias.blog.tabs]: tabs,    // 分组
+		[alias.blog.list]: list, // 列表数据
 		"API.blog.getTopList": tops, // 置顶数据
 		"API.blog.getHotList": hots, // 热门数据
 	};
