@@ -76,8 +76,8 @@ onMounted(function () {
             <SwiperSlide class="rounded-kd6px">
               <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
                 <div v-if="item['data_type']==='blog' && index===0" class="relative">
-                  <div class="absolute border-1 w-full h-full px-3">
-                    <div class="blog-name pt-2 font-kdSemiBold font-semibold">{{ item['name'] }}
+                  <div class="absolute  w-full h-full px-2 md:px-3">
+                    <div class="blog-name pt-1.5 md:pt-2 font-kdSemiBold font-semibold">{{ item['name'] }}
                       ({{ formatDefaultTime(item['release_date'], 'MM/DD') }})
                     </div>
                     <div v-if="item['label'].length>0" class="blog-label mt-1.5 font-kdFang">
@@ -86,7 +86,7 @@ onMounted(function () {
                         <span>{{ label }}</span><span v-if="i+1<item['label'].length">、</span>
                       </template>
                     </div>
-                    <div class="blog-label absolute bottom-1.5">
+                    <div class="blog-label absolute bottom-1 md:bottom-1.5">
                       <span>{{ item['viewers'] ? item['viewers'] : 0 }} {{i18n.home.todayTrend.read}}</span>
                       <span class="mx-1" v-if="item['release_date']">|</span>
                       <span v-if="item['release_date']">{{i18n.home.todayTrend.updateTime}}:{{ timeago(dataToTimestamp(item['release_date'])) }}</span>
