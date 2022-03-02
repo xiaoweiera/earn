@@ -41,7 +41,8 @@ export default {
             sec:'Sec'
         },
         join:'去参与',
-        ongoing:'Ongoing Projects'
+        ongoing:'Ongoing Projects',
+        never:'不要错过NFTGO上任何一个有趣的NFT空投!',
     },
 
     nftProject:{
@@ -58,7 +59,8 @@ export default {
 
     endProject:{
         title:'Ended IDO & IGO Projects',
-        desc:'聚合 14 条公链，68 个IDO平台最新优质 Dapp 项目'
+        desc:'聚合 14 条公链，68 个IDO平台最新优质 Dapp 项目',
+        projectName:'项目名',
     },
 
     topList:{

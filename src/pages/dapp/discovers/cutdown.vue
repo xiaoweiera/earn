@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import I18n from "src/utils/i18n";
+const i18n = I18n();
 defineProps({
   value: {
     type: String || Number,
@@ -12,28 +14,28 @@ defineProps({
         <div class="flex items-center">
           <span class="flex flex-col items-center">
             <span class="time-value">{{ scope.day }}</span>
-            <span class="time-label">Day</span>
+            <span class="time-label">{{ i18n.home.idoIgoProject.time.day }}</span>
           </span>
           <span class="time-middle">
             :
           </span>
           <span class="flex flex-col items-center">
             <span class="time-value">{{ scope.hour }}</span>
-            <span class="time-label">Hrs</span>
+            <span class="time-label">{{ i18n.home.idoIgoProject.time.hrs }}</span>
           </span>
           <span class="time-middle">
             :
           </span>
           <span class="flex flex-col items-center">
             <span class="time-value">{{ scope.minute }}</span>
-            <span class="time-label">Min</span>
+            <span class="time-label">{{ i18n.home.idoIgoProject.time.min }}</span>
           </span>
           <span class="time-middle">
             :
           </span>
           <span class="flex flex-col items-center">
             <span class="time-value">{{ scope.second }}</span>
-            <span class="time-label">Sec</span>
+            <span class="time-label">{{ i18n.home.idoIgoProject.time.sec }}</span>
           </span>
         </div>
       </template>

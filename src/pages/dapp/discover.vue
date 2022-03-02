@@ -90,14 +90,10 @@ const key = ref<string>(uuid());
 //获取类型
 const summary = createRef<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 
-// 获取ido列表
-
-const igolist = createRef("API.dapp.getIGOList", {});
 
 onMounted(function () {
   // 得到数据汇总
   onLoadRef(list, () => api.getList(params));
-  onLoadRef(igolist, () => api.getIGOList());
 
   // 得到数据汇总
   onLoadRef(summary, () => {
@@ -124,19 +120,24 @@ const changeSort = (sort: string) => {
         <ui-tab :key="key" :list="logic.tabs"  active-name="type"/>
       </ui-sticky>
       <!-- 搜索条件 -->
+
       <div v-if="summary && summary.ido">
         <DappDiscoversSearch :data="summary.ido" :keys="key"/>
       </div>
       <!-- 列表内容 -->
-      <div class="py-8">
+      <div class="py-8" v-if="list.length > 0">
         <div v-if="query.type === logic.TabTypes.ended" class="overflow-x-scroll showX">
           <div class="w-315">
             <DappDiscoversEndlist @changeSort="changeSort" :params="params" class="px-4" :list="list"></DappDiscoversEndlist>
           </div>
         </div>
         <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DappDiscoversList v-for="(item, index) in list" v-if="params" :key='index' :data="item"></DappDiscoversList>
+          <DappDiscoversList v-for="(item, index) in list" :key='index' :data="item"></DappDiscoversList>
         </div>
+      </div>
+      <div v-else>
+        <ui-empty class="pb-3"/>
+        <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">{{ i18n.address.noData }}</p>
       </div>
     </div>
     <div v-if="list?.length>0 && resultNumber>=params.page_size" class="more" @click="getMore">{{ i18n.home.loadingMore }}</div>

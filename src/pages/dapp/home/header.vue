@@ -27,7 +27,7 @@ const i18n = I18n();
     <div class="hidden md:block">
       <div class="flex justify-between items-center">
         <div class="flex items-center">
-          <p class="text-kd32px32px text-global-highTitle font-kdSemiBold">{{title}}</p>
+          <p class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">{{title}}</p>
           <p class="text-kd14px18px text-global-highTitle text-opacity-45 font-kdFang ml-4">{{tips}}</p>
         </div>
         <div class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2 flex items-center">
@@ -42,7 +42,7 @@ const i18n = I18n();
         <div class="flex items-center justify-between">
           <p class="text-kd24px24px text-global-highTitle font-semibold font-kdSemiBold">{{title}}</p>
           <v-router :href="getUrl(status, type)" target="_blank" class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2 flex items-center">
-            <span class="text-kd14px18px text-global-darkblue font-kdFang">{{ i18n.home.idoIgoProject.all }}</span>
+            <span class="text-kd14px18px text-global-darkblue font-kdFang">{{ i18n.home.more }}</span>
           </v-router>
         </div>
         <div class="mt-4">

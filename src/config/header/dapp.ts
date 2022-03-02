@@ -30,13 +30,6 @@ export const DApp = function (lang?: Lang): MenuItem {
 				header: true,
 				more: true,
 				icon: 'icon-defi',
-			}, {
-				id: name.nft,
-				name: i18n.menu.nft.discover,
-				icon: 'icon-a-NFTxinxiangmu',
-				more: true,
-				header: true,
-				href: `${config.nft}/discover`,
 			},
 			{
 				id: name.gamefi,
@@ -44,7 +37,14 @@ export const DApp = function (lang?: Lang): MenuItem {
 				header: true,
 				more: true,
 				icon: 'icon-defi',
-				href: `${config.dapp}/discover?category=gamefi`,
+				href: `${config.dapp}/discover?isigo=true`,
+			}, {
+				id: name.nft,
+				name: i18n.menu.nft.discover,
+				icon: 'icon-a-NFTxinxiangmu',
+				more: true,
+				header: true,
+				href: `${config.nft}/discover`,
 			},
 			{
 				id: name.airdrop,

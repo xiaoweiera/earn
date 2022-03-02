@@ -157,12 +157,15 @@ export const getUrl = function (name:string, type:boolean) {
 }
 
 //获取公链logo
-export const getLog = function (name:string) {
-	return safeGet<string>(configs, `chain.${name}.logo`) || "N/A";
+export const getLog = function (name:any) {
+	if(configs.chain[name]) {
+		return configs.chain[name].logo;
+	}
+	return "N/A";
 }
 //获取tegicon
 export const getTegLog = function (name:string) {
-	return safeGet<string>(configs, `tge_platform.${name}`) || "";
+	return safeGet<string>(configs, `tge_platform.${name}.logo`) || "";
 }
 //获取跳转链接
 export const getTegUrl = function (name:string) {
@@ -203,6 +206,12 @@ export const getTodayTime = function (val:number) {
 		return 'Tomorrow';
 	}else {
 		return getDateMDY(val);
+	}
+}
+//跳转路由
+export const getNextUrl = function (val:any) {
+	if(val.url) {
+		window.open(val.url);
 	}
 }
 

@@ -17,7 +17,7 @@ defineProps({
     <div class="h-29 px-4 bg-global-textBlack text-global-white">
       <!-- 项目名称 -->
       <div class="flex items-center">
-        <span class="text-kd20px20px text-global-white font-semibold font-kdBarlow">{{ data.name }}</span>
+        <span class="text-kd20px20px text-global-white font-semibold font-kdBarlow small">{{ data.name }}</span>
         <IconFont :type="data.logo" size="16" class="ml-2"/>
       </div>
       <!-- 价格总量 -->
@@ -40,3 +40,12 @@ defineProps({
     </div>
   </div>
 </template>
+<style lang="scss" scoped>
+.small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+</style>
