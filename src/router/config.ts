@@ -7,8 +7,8 @@ const user = {
 }
 
 export const config = {
-	home:'/home',
-	homeDetail:'/home/detail',
+	home:'/',
+	homeDetail:'/subject/detail',
 	topic: '/topic',
 	growthpad: '/growthpad',
 	apy: '/apy',
