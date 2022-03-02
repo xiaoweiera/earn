@@ -1,26 +1,28 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import DappDiscoversHeader from './discovers/header.vue';
 import DappDiscoversSearch from './discovers/search.vue';
 import DappDiscoversEndlist from './discovers/endlist.vue';
 import DappDiscoversList from './discovers/list.vue';
+import I18n from "src/utils/i18n";
+
 import * as alias from "src/utils/root/alias";
-import {onMounted, reactive, ref, watch} from "vue"
-import safeGet from "@fengqiaogang/safe-get";
+import {onMounted, reactive, ref} from "vue"
 import * as logic from "src/types/dapp/";
-import {toLower, uuid} from "src/utils";
-import { includes } from 'ramda';
+import {uuid} from "src/utils";
 import {Model} from "src/logic/dapp";
 import {createRef, onLoadRef} from "src/utils/ssr/ref";
 import {summaryModel} from "src/types/home";
 // 引入 use state
-import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
-import {getParam} from "~/utils/router";
+import {stateAlias, useReactiveProvide, useWatch} from "src/utils/use/state";
+import {getParam} from "src/utils/router";
 import {useRoute} from "vue-router";
 
+const i18n = I18n();
 const api = new Model();
 const route = useRoute();
 // 定义一个 provide 数据，给子组件（ui-tab）使用
 const [ query ] = useReactiveProvide<Query>(stateAlias.ui.tab, {} as Query);
+const isIgo = ref(getParam<boolean>("isIgo"))
 const chain = ref(getParam<string>("chain"));
 const category = ref(getParam<string>("group"));
 const platform = ref(getParam<string>("platform"));
@@ -32,6 +34,7 @@ let list: any = createRef("API.dapp.list", {} as any);
 const params = reactive({
   page: 1,
   page_size: 8,
+  is_igo: isIgo.value ? isIgo : false,
   chain: chain.value,
   category: category.value,
   platform: platform.value,
@@ -78,6 +81,7 @@ interface Query {
   group: string;
   platform: string;
   type: string;
+
   [key: string]: string
 }
 
@@ -102,7 +106,7 @@ onMounted(function () {
 });
 
 //排序方法
-const changeSort=(sort:string)=>{
+const changeSort = (sort: string) => {
   params.sort_field = sort;
   getData(true);
 }
@@ -113,41 +117,45 @@ const changeSort=(sort:string)=>{
     <div class="content pt-8">
       <!-- 头部 -->
       <div class="header">
-        <DappDiscoversHeader></DappDiscoversHeader>
+        <DappDiscoversHeader :title="i18n.home.IdoIgo.title" :tips="i18n.home.IdoIgo.desc"></DappDiscoversHeader>
       </div>
-       <!-- 分类 -->
+      <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
-        <ui-tab :key="key" :list="logic.tabs" active-name="type"/>
+        <ui-tab :key="key" :list="logic.tabs"  active-name="type"/>
       </ui-sticky>
       <!-- 搜索条件 -->
       <div v-if="summary && summary.ido">
-        <DappDiscoversSearch :keys="key" :data="summary.ido"/>
+        <DappDiscoversSearch :data="summary.ido" :keys="key"/>
       </div>
       <!-- 列表内容 -->
       <div class="py-8">
-        <div v-if="query.type === logic.TabTypes.ended">
-          <DappDiscoversEndlist @changeSort="changeSort" :params="params" class="px-4" :list="list"></DappDiscoversEndlist>
+        <div v-if="query.type === logic.TabTypes.ended" class="overflow-x-scroll showX">
+          <div class="w-315">
+            <DappDiscoversEndlist @changeSort="changeSort" :params="params" class="px-4" :list="list"></DappDiscoversEndlist>
+          </div>
         </div>
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" v-else>
-          <DappDiscoversList v-if="params" v-for="(item, index) in list" :key='index' :data="item"></DappDiscoversList>
+        <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <DappDiscoversList v-for="(item, index) in list" v-if="params" :key='index' :data="item"></DappDiscoversList>
         </div>
       </div>
     </div>
-    <div v-if="list?.length>0 && resultNumber>=params.page_size" @click="getMore" class="more">加载更多</div>
+    <div v-if="list?.length>0 && resultNumber>=params.page_size" class="more" @click="getMore">{{ i18n.home.loadingMore }}</div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .discover-warp {
   @apply pb-15 bg-global-topBg;
 
   .content {
     @apply max-w-320 mx-auto;
   }
+
   .is-tab {
     box-shadow: 0px 1px 0px rgba(3, 54, 102, 0.06);
   }
+
   .more {
     @apply w-30 h-8 flex items-center justify-center mx-auto w-fit cursor-pointer rounded-kd6px;
     @apply text-kd14px18px font-medium font-kdFang text-global-primary;

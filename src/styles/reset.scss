@@ -2,11 +2,18 @@
   @file 重置某些样式
  */
 
-// 隐藏谷歌人机校验提示内容
-[class~=grecaptcha], [class*=grecaptcha], .grecaptcha-badge {
-  display: none !important;
-  visibility: hidden;
-  opacity: 0;
+[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+  @at-root .el-input & {
+    border: var(--el-input-border, var(--el-border-base));
+  }
+}
+
+.el-input {
+  .el-input__prefix {
+    .el-input__prefix-inner {
+      @apply items-center;
+    }
+  }
 }
 
 .el-popover {

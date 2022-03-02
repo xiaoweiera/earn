@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import {ref, onMounted, PropType} from 'vue'
 import {toNumberCashFormat} from 'src/utils/convert/to'
-import {getData} from "~/logic/home";
-import {getRedGreen,dataToTimestamp} from "~/lib/tool";
-import {detail} from "~/types/home";
+import {getData} from "src/logic/home";
+import {getRedGreen,dataToTimestamp} from "src/lib/tool";
+import {detail} from "src/types/home";
 import * as alias from "src/utils/root/alias";
-import {getValue} from "src/utils/ssr/ref";
+import {getValue} from "src/utils/root/data";
 import {SiteConfig} from "src/types/common/chain";
-import {getDateMDY} from "~/utils";
+import {getDateMDY} from "src/utils";
+import safeGet from "@fengqiaogang/safe-get";
 // 公链配置
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const props = defineProps({
@@ -73,32 +74,32 @@ const getDom = () => {
   } else if (timeType.includes(name)) {
     return 'timeType'
   } else {
-    return 'txt'
+    return ''
   }
 }
 onMounted(() => {
   typeDom.value = getDom()
   domData.value = getData(props.typeName, props.data)
 })
+
 </script>
 <template>
-  <div>
+  <div v-if="data">
     <!--projectName-->
-    <div v-if="(typeName==='name' && !info ) || typeName==='name' && info?.show_type==='data'" class="flex-center  max-w-25 whitespace-nowrap">
+    <div v-if="(typeName==='name' && !info ) || typeName==='name' && safeGet(info,'show_type') ==='data'" class="flex-center  max-w-28 whitespace-nowrap">
       <IconFont :size="info?32:24" :type="data.logo"/>
       <div class="ml-1.5">
-        <div class="numberDefault text-number line-height-no smallTxt   max-w-20 whitespace-nowrap">{{ data['name'] }}
-        </div>
+        <div class="numberDefault text-number line-height-no smallTxt   max-w-28 whitespace-nowrap">{{ data['name'] }}</div>
         <div class="nameTag text-number  text-left line-height-no">{{ data['symbol'] }}</div>
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='name' && (info && info?.show_type==='desc')" class="flex-center short">
+    <div v-else-if="typeName==='name' && (info && safeGet(info,'show_type') ==='desc')" class="flex-center short">
       <img class="w-8 h-8 md:w-12 md:h-12 rounded-kd6px" :src="data.logo"/>
-      <div class="ml-3 short">
+      <div  class="ml-3 short">
         <div class="nameNameDes text-number line-height-no flex-center">
           <span>{{ data['name'] }}</span>
-          <IconFont v-if="config.chain[data.chain]" size="16" :type="config.chain[data.chain].logo"/>
+          <IconFont v-if="data.chain" size="16" :type="safeGet(config,`chain.${data.chain}.logo`)"/>
         </div>
         <div class="nameDes md:mt-1.5 text-number line-height-no max-w-140 short text-left">{{ data['description'] }}</div>
       </div>
@@ -110,11 +111,11 @@ onMounted(() => {
       </div>
       <div v-else class="numberDefault text-number text-center">N/A</div>
     </div>
-<!--    iconHref  tge_platform-->
+    <!--    iconHref  tge_platform-->
     <div v-else-if="typeDom==='iconHref'" class="flex-center justify-right justify-center">
-      <div v-if="domData" class="w-full flex items-center justify-center">
-        <IconFont v-if="config.tge_platform[domData]" size="16" :type="config.tge_platform[domData].logo"/>
-        <v-router class="link text-number" href="https:www.baidu.com">{{ domData }}</v-router>
+      <div v-if="domData && safeGet(config,`tge_platform.${domData}`)" class="w-full flex items-center justify-center">
+        <IconFont v-if="config"  size="16" :type="safeGet(config,`tge_platform.${domData}.logo`)"/>
+        <div class="link text-number">{{ domData }}</div>
       </div>
       <div v-else class="numberDefault text-number text-center">Not Set</div>
     </div>
@@ -134,7 +135,7 @@ onMounted(() => {
     </div>
     <!--chainNumber-->
     <div v-else-if="typeDom==='chainNumber'" class="flex-center justify-center">
-      <IconFont size="16" :type="config.chain[data.chain]?.logo"/>
+      <IconFont size="16" :type="safeGet(config,`chain.${data.chain}.logo`)"/>
       <span class="numberDefault text-number ml-1">{{ domData }}</span>
     </div>
     <!--numberUnit-->
@@ -162,6 +163,7 @@ onMounted(() => {
     <div v-else-if="typeDom==='timeType'" class="numberDefault text-number text-center">
       {{ domData ? getDateMDY(dataToTimestamp(domData)) : 'TBA' }}
     </div>
+    <div v-else>-</div>
   </div>
 </template>
 <style scoped lang="scss">

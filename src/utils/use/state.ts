@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import {uuid} from "src/utils/";
+// import {uuid} from "src/utils/";
 
 export * as stateAlias from "./alias";
 import {inject, provide, ref, Ref, reactive, UnwrapNestedRefs, watch as VueWatch} from "vue";
@@ -25,14 +25,12 @@ export const useRefProvide = function <T>(name: string, value?: T, watch?: Watch
 	const state = value ? ref<T | undefined>(value) : ref<T>();
 	const setState = function (data?: T) {
 		state.value = data;
+		if (watch) {
+			watch(state);
+		}
 	};
 	provide(name, setState);
 	provide(`get.${key}`, state);
-	if (watch) {
-		VueWatch([ state ], function () {
-			watch(state);
-		});
-	}
 	cache.add(key);
 	return [ state as Ref<T>, setState ];
 }
@@ -41,6 +39,7 @@ export const useReactiveProvide = function <T>(name: string, value?: T, watch?: 
 	const key = makeName(name);
 	// @ts-ignore
 	const state = reactive<T>(value ? value : {} as T);
+
 	const setState = function (data?: T) {
 		if (data) {
 			for (const key in data) {
@@ -54,21 +53,20 @@ export const useReactiveProvide = function <T>(name: string, value?: T, watch?: 
 				delete state[key];
 			}
 		}
+		if (watch) {
+			watch(state);
+		}
 	};
 	provide(name, setState);
 	provide(`get.${key}`, state);
-	if (watch) {
-		VueWatch([ state ], function () {
-			watch(state);
-		});
-	}
+
 	cache.add(key);
 	return [ state as Ref<T>, setState ];
 }
 
 export const useWatch = function<T>(state: Ref<T> | UnwrapNestedRefs<T>, watch?: Watch) {
 	if (state && watch) {
-		VueWatch([ state ], function () {
+		VueWatch(state as any, function () {
 			watch(state);
 		});
 	}

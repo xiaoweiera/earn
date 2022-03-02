@@ -1,28 +1,39 @@
 <script setup lang="ts">
 import HomeTable from './table/index.vue'
-import {onMounted, ref} from 'vue'
+import {onMounted, ref,onUnmounted} from 'vue'
 import {oss} from "src/config";
-import {createRef, onLoadRef} from "~/utils/ssr/ref";
-import {Model} from "~/logic/home";
-import I18n from "~/utils/i18n";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import {Model} from "src/logic/home";
+import I18n from "src/utils/i18n";
 
 const topicIndex = ref(0)
 const selectTopic = (index: number) => topicIndex.value = index
 const rank = createRef("API.home.getTopicRank", []);
 const i18n = I18n();
+let timeTool:any
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总
   onLoadRef(rank, () => api.getTopicRank());
+  timeTool=setInterval(()=>{
+    if(topicIndex.value+1<rank.value.length){
+      topicIndex.value++
+    }else{
+      topicIndex.value=0
+    }
+  },3000)
 });
+onUnmounted(()=>{
+  clearInterval(timeTool)
+})
 </script>
 <template>
-  <div class="w-full flex justify-between">
+  <div class="w-full flex justify-between md:flex-wrap">
     <!--   topic tag-->
     <div class="xshidden">
       <div class="flex items-center mt-2.5">
         <img class="w-4 h-4 mr-1.5 " :src="`${oss}/dapp/timeIcon.png`" alt="">
-        <span class="des font-kdFang">{{i18n.home.topTip}}</span>
+        <span class="des font-kdFang font-semibold">{{i18n.home.topTip}}</span>
       </div>
       <div class="py-2.5">
         <template v-for="(item,index) in rank" :key="item.key">

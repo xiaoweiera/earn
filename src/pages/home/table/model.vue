@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import HomeTableTd from './td.vue'
 import HomeTableHeader from './header.vue'
-import {config} from "~/router/config";
-import I18n from "~/utils/i18n";
+import {config} from "src/router/config";
+import I18n from "src/utils/i18n";
 const i18n = I18n();
 const props = defineProps({
   data: Object,
 })
 </script>
 <template>
-  <div class="table-box bg-global-white relative" >
+  <div class="table-box bg-global-white relative">
     <div class="flex items-center justify-between flex-wrap ">
       <span class="title">{{ data.name }}</span>
       <v-router :href="`${config.homeDetail}?id=${data.id}`" target="_blank" class="flex items-center hand">
@@ -21,13 +21,13 @@ const props = defineProps({
     <div class="showX">
       <table class="table-my">
         <thead>
-        <tr class="h-5">
+        <tr class="min-h-5">
           <td>
             <div class="text-left w-3.5">#</div>
           </td>
           <template v-for="(item,index) in data.table.header" :key="index">
             <td class="text-left" v-if="item.key!=='id'">
-              <HomeTableHeader :item="item"/>
+              <HomeTableHeader height="h-5" name="Dapp Name" :item="item"/>
             </td>
           </template>
         </tr>

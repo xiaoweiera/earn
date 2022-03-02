@@ -1,6 +1,6 @@
 export default {
-    title:'The best DApp store in the world',
-    twoTitle:'Comprehensive Services: Web3.0, DeFi, GameFi, NFTs,  Airdorps',
+    title:'One-stop investment platform on Web3',
+    twoTitle:'Discover, Track, Invest DeFi, NFT, Gaming, Data-driven investing',
     platData:{
         avgAth:'Avg Revenue',
         desc:{
@@ -45,8 +45,8 @@ export default {
     },
 
     nftProject:{
-        price:'Price',
-        supply:'Supply',
+        price:'Price:',
+        supply:'Supply:',
         time:{
             d:'d',
             h:'h',
@@ -93,6 +93,18 @@ export default {
     nfts:{
         title:'Comprehensive aggregation platform for NFT',
         desc:'Comprehensive Services: Web3.0,DeFi,GameFi,NFTs,Airdorps'
+    },
+    webInfo:{
+        home:{
+            title:`KingData | One-stop investment platform on Web3`,
+            key:`Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing`,
+            des:`Explore NFTs, NFT Marketplaces, Blockchain Games, De-Fi, Dapps On The Blockchain And More On The World’s DApp Store`
+        },
+        homeDetail:{
+            title:`Recommended Topics | KingData`,
+            key:`Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing`,
+            des:`Find out the most popular trending items on KingData today, this week and this month`
+        }
     }
 
 }

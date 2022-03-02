@@ -1,16 +1,19 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+/**
+ * @file 底部-菜单
+ * @author svon.me@gmail.com
+ */
 import Hover from "./hover.vue";
 import Column from "./column.vue";
 import I18n from "src/utils/i18n";
-import { getEnv } from "src/config/";
-import { MenuItem } from "src/types/menu";
-import { createRef } from "src/utils/ssr/ref";
+import {getEnv} from "src/config/";
+import {MenuItem} from "src/types/menu";
+import {alias, createRef} from "src/utils/ssr/ref";
 
 const env = getEnv();
 const i18n = I18n();
 
-const list = createRef<MenuItem[]>("common.footer", []);
-
+const list = createRef<MenuItem[]>(alias.common.layout.footer, []);
 </script>
 
 <template>
@@ -19,7 +22,7 @@ const list = createRef<MenuItem[]>("common.footer", []);
       <div class="text-global-highTitle text-opacity-65">
         <ul class="lg:flex lg:justify-between">
 
-          <li class="menu-list-box" v-for="(data, index) in list" :key="index">
+          <li v-for="(data, index) in list" :key="index" class="menu-list-box">
             <Column :data="data" :index="index"/>
           </li>
 
@@ -27,23 +30,21 @@ const list = createRef<MenuItem[]>("common.footer", []);
             <div class="menu-label hidden lg:block">
               <span class="text-18">{{ i18n.common.nav.download }}</span>
             </div>
-            <input class="menu-active hidden" id="footer-menu-download" type="checkbox" name="footer-menu-download">
-            <label class="menu-label cursor-pointer block lg:hidden" for="footer-menu-download">
+            <label class="menu-label cursor-pointer block lg:hidden">
               <span class="select-none w-full flex justify-between items-center">
                 <span class="text-base ">{{ i18n.common.nav.download }}</span>
-                <IconFont class="arrow" type="icon-arrow-down" size="16"/>
               </span>
             </label>
             <div class="pt-3 lg:pt-6 w-27 menu-content">
               <div class="mb-4">
-                <Hover :href="env.appDownload" :desc="i18n.menu.hover.app">
-                  <ui-image fit="none" class="block" src="https://res.kingdata.xyz/common/download_apple.jpg"/>
+                <Hover :desc="i18n.menu.hover.app" :href="env.appDownload">
+                  <ui-image class="block" fit="none" src="https://res.kingdata.xyz/common/download_apple.jpg"/>
                 </Hover>
               </div>
 
               <div>
-                <Hover :href="env.appDownload" :desc="i18n.menu.hover.app">
-                  <ui-image fit="none" class="block" src="https://res.kingdata.xyz/common/download_android.jpg"/>
+                <Hover :desc="i18n.menu.hover.app" :href="env.appDownload">
+                  <ui-image class="block" fit="none" src="https://res.kingdata.xyz/common/download_android.jpg"/>
                 </Hover>
               </div>
             </div>
@@ -57,7 +58,7 @@ const list = createRef<MenuItem[]>("common.footer", []);
 
       <div class="lg:flex lg:items-end lg:justify-between text-global-highTitle text-opacity-65">
         <div>
-          <v-router class="md:flex md:items-end" :href="env.dashboard">
+          <v-router :href="env.dashboard" class="md:flex md:items-end">
             <div>
               <img class="min-w-28" src="/images/common/logo.svg">
             </div>
@@ -66,12 +67,33 @@ const list = createRef<MenuItem[]>("common.footer", []);
             </div>
           </v-router>
         </div>
+        <div class="flex items-center mt-5 lg:mt-0">
+
+          <v-router :href="i18n.chat.medium" class="flex" target="_blank">
+            <IconFont class="flex text-global-primary" type="medium"/>
+          </v-router>
+
+          <v-router :href="i18n.chat.discord" class="flex ml-6" target="_blank">
+            <IconFont class="flex text-global-primary" type="discord"/>
+          </v-router>
+
+          <div class="flex ml-6">
+            <Hover :desc="i18n.menu.hover.telegram" :href="i18n.chat.telegram">
+              <IconFont class="flex text-global-primary" type="icon-telegram"/>
+            </Hover>
+          </div>
+
+
+          <v-router :href="i18n.chat.twitter" class="flex ml-6" target="_blank">
+            <IconFont class="flex text-global-primary" type="icon-twitter"/>
+          </v-router>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .wrap-footer-box {
   background-color: #F6F9FC;
   @apply pt-4 pb-8;
@@ -79,6 +101,7 @@ const list = createRef<MenuItem[]>("common.footer", []);
     @apply py-16;
   }
 }
+
 .wrap-footer {
   @apply max-w-300 px-4;
   @screen lg {

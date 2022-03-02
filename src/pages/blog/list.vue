@@ -9,27 +9,29 @@ import BlogAd from "./ad.vue";
 import BlogHot from "./hot.vue";
 import BlogRow from "./row.vue";
 import I18n from "src/utils/i18n";
-import {toArray, Equals} from "src/utils";
+import {toArray} from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import {BlogTab, BlogData} from "src/types/blog/";
-import {createRef, getValue, onLoadRef} from "src/utils/ssr/ref";
+import {getValue} from "src/utils/root/data"
+import {alias, createRef, onLoadRef} from "src/utils/ssr/ref";
 import {getAll, tabAll, Model, transformTabs, activeName} from "src/logic/blog";
 
 const i18n = I18n();
 
-const tabs = createRef<BlogTab[]>("API.blog.tabs", toArray(getAll()));
+let initValue = true;
+
+const tabs = createRef<BlogTab[]>(alias.blog.tabs, toArray(getAll()));
 const groupId = createRef<string | number | undefined>(`query.${activeName}`, tabAll);
 
 const getInitValue = function () {
-  const queryGroup = getValue<string>(`query.${activeName}`, tabAll);
-  if (Equals(queryGroup, groupId.value as string)) {
-    return getValue<BlogData[]>("API.blog.getList", []);
+  if (initValue) {
+    initValue = false;
+    return getValue<BlogData[]>(alias.blog.list, []);
   }
-  return [];
 }
 
 // 获取列表数据
-const requestList = async function (data: object) {
+const requestList = function (data: object) {
   const api = new Model();
   const page = safeGet<number>(data, "page");
   const size = safeGet<number>(data, "page_size");
@@ -48,7 +50,9 @@ const onChangeTab = function (data: object) {
 onMounted(function () {
   const api = new Model();
   // 如果 tabs 数据为空，则执行 blog.getTabs 将放回结果赋值给 tabs
-  onLoadRef(tabs, () => api.getTabs());
+  onLoadRef(tabs, () => {
+    return api.getTabs();
+  });
 });
 </script>
 <template>
@@ -59,7 +63,7 @@ onMounted(function () {
           <div class="pt-1">
             <!--顶部数据-->
             <BlogAd/>
-            <div class="px-4 lg:px-0 py-3">
+            <div class="py-3">
               <!-- 分类 -->
               <div class="hidden md:block">
                 <ui-tab active-name="group" :list="transformTabs(tabs)" @change="onChangeTab"/>

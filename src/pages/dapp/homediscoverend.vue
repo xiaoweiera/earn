@@ -1,113 +1,129 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 
-  import DappHomeHeader from './home/header.vue';
-  import DappDiscoversContentType from './discovers/content/type.vue';
-  import DappDiscoversContentChain from './discovers/content/chain.vue';
-  import DappDiscoversContentField from './discovers/content/field.vue';
-  import DappDiscoversEndlist from './discovers/endlist.vue';
+import DappHomeHeader from './home/header.vue';
+import DappDiscoversContentType from './discovers/content/type.vue';
+import DappDiscoversContentChain from './discovers/content/chain.vue';
+// import DappDiscoversContentField from './discovers/content/field.vue';
+import DappDiscoversEndlist from './discovers/endlist.vue';
+import I18n from "src/utils/i18n";
 
-  import {onMounted, reactive, ref} from "vue";
-  import {Model, tabChain, tabPlat} from "~/logic/dapp";
-  import {createRef, onLoadRef, onUpdateRef} from "~/utils/ssr/ref";
-  import {AdNftItem, ProjectNftItem} from "~/types/dapp/nft";
-  import * as alias from "~/utils/root/alias";
-  import {Status, AdItem, ProjectItem} from "~/types/dapp/ixo";
-  import { config } from "src/router/config";
-  import {getParam} from "src/utils/router";
-  import {useWatch} from "src/utils/use/state";
-  import {uuid} from "src/utils";
-  import {useRoute} from "vue-router";
+import {onMounted, reactive, ref} from "vue";
+import {Model, tabChain, tabPlat} from "src/logic/dapp";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import * as alias from "src/utils/root/alias";
+import {AdItem, ProjectItem, Status} from "src/types/dapp/ixo";
+import {config} from "src/router/config";
+import {getParam} from "src/utils/router";
+import {useWatch} from "src/utils/use/state";
+import {uuid} from "src/utils";
+import {useRoute} from "vue-router";
 
-  const props= defineProps({
-    summary: {
-      type: Object,
-      default: () => {}
+const props = defineProps({
+  summary: {
+    type: Object,
+    default: () => {
     }
-  })
-
-  const chain = ref(getParam<string>("bracket"));
-  const category = ref(getParam<string>("category"));
-  const platform = ref(getParam<string>("platform"));
-  const type = ref(getParam<string>("type"));
-  const search = ref(getParam<string>("search"));
-  const params = reactive({
-    chain: chain.value,
-    category: category.value,
-    platform: platform.value,
-    status: 'ended',
-    query: '',
-    sort_field: '',
-    sort_type: '',//desc asc
-  })
-  const urlType = true;
-
-  const route = useRoute();
-  const key = ref<string>(uuid());
-
-  const model = new Model();
-  //nft drops
-  const getEndedList = async (flag:boolean) => {
-    const res: any = await model.getEndedProjects(params);
-    if (flag) {
-      EndedList.value = []
-    }
-    EndedList.value = res;
   }
-  // 创建列表对象并获取缓存数据
-  const EndedList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.ended, []);
-  // 创建更新列表钩子函数
-  // const updateEndedList = onUpdateRef(EndedList, getEndedList);
+})
+const i18n = I18n();
+const chain = ref(getParam<string>("bracket"));
+const category = ref(getParam<string>("category"));
+const platform = ref(getParam<string>("platform"));
+const type = ref(getParam<string>("type"));
+const search = ref(getParam<string>("search"));
+const params = reactive({
+  chain: chain.value,
+  category: category.value,
+  platform: platform.value,
+  status: 'ended',
+  query: '',
+  sort_field: '',
+  sort_type: '',//desc asc
+})
+const urlType = true;
 
-  onMounted(function () {
-    // 判断列表数据是否为空，如果为空则获取最新数据
-    onLoadRef(EndedList, () => model.getEndedProjects(params));
-  });
-  useWatch(route, (n) => {
-    const querys: any = getParam<string>()
-    key.value = uuid();
-    params.chain = querys.bracket;
-    params.category = querys.category;
-    params.platform = querys.platform;
-    params.query = querys.search ? querys.search : '';
-    getEndedList(true)
-    // todo 可以在此处更新某些数据
-  })
-  //排序方法
-  const changeSort=(sort:string)=>{
-    params.sort_field = sort;
-    getEndedList(true);
+const route = useRoute();
+const key = ref<string>(uuid());
+
+const model = new Model();
+//nft drops
+const getEndedList = async (flag: boolean) => {
+  const res: any = await model.getEndedProjects(params);
+  if (flag) {
+    EndedList.value = []
   }
+  EndedList.value = res;
+}
+// 创建列表对象并获取缓存数据
+const EndedList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.ended, []);
+// 创建更新列表钩子函数
+// const updateEndedList = onUpdateRef(EndedList, getEndedList);
+
+onMounted(function () {
+  // 判断列表数据是否为空，如果为空则获取最新数据
+  onLoadRef(EndedList, () => model.getEndedProjects(params));
+});
+useWatch(route, (n) => {
+  const querys: any = getParam<string>()
+  key.value = uuid();
+  params.chain = querys.bracket;
+  params.category = querys.category;
+  params.platform = querys.platform;
+  params.query = querys.search ? querys.search : '';
+  getEndedList(true)
+  // todo 可以在此处更新某些数据
+})
+//排序方法
+const changeSort = (sort: string) => {
+  params.sort_field = sort;
+  getEndedList(true);
+}
 </script>
 <template>
   <div class="mt-5 p-4 bg-global-white rounded-md">
     <!-- header -->
-    <div class="border-b-1 border-global-highTitle border-opacity-6 pb-4">
-      <DappHomeHeader title="Ended IDO & IGO Projects" tips="Data supported by 14 public chain and 65 platforms" :status="Status.ended" :type="urlType"/>
+    <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
+      <DappHomeHeader :title="i18n.home.endProject.title" :tips="i18n.home.endProject.desc" :status="Status.ended" :type="urlType"/>
     </div>
-    <!-- 项目类型、公链、搜索框 -->
-    <div class="flex justify-between items-center mt-4">
+    <div class="hidden md:block">
+      <!-- 项目类型、公链、搜索框 -->
+      <div class="flex justify-between items-center mt-4">
+        <div class="flex items-center">
+          <!-- 公链 -->
+          <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'bracket', config.home)" active-name="bracket" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
+          <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
+          <!-- 类型 -->
+          <DappDiscoversContentChain v-if="summary.ixo" :href="config.home" :chainData="summary.ixo.category" name="category" :title="i18n.home.topList.category"/>
+        </div>
+        <!-- 搜索框 -->
+        <div>
+<!--          <DappDiscoversContentField :herf="config.home" title="项目名称"></DappDiscoversContentField>-->
+        </div>
+      </div>
+      <!-- platform -->
+      <div class="mt-4">
+        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(summary.ixo.platform, 'platform', config.home)" active-name="platform" name="platform" title="platform"/>
+      </div>
+    </div>
+
+    <!--移动端展示-->
+    <div class="block md:hidden">
       <div class="flex items-center">
-        <!-- 公链 -->
-          <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'bracket', config.home)" active-name="bracket" name="bracket" title="公链"></DappDiscoversContentType>
-        <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
-        <!-- 类型 -->
-        <DappDiscoversContentChain :key="key" v-if="summary.ixo" :href="config.home" :chainData="summary.ixo.chain" name="category" title="类型"></DappDiscoversContentChain>
+        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.chain" :href="config.home" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
+        <IconFont v-if="summary.ixo && summary.ixo" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
+        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.category" :href="config.home" name="category" :title="i18n.home.topList.category"/>
       </div>
-      <!-- 搜索框 -->
-      <div>
-        <DappDiscoversContentField :herf="config.home" title="项目名称"></DappDiscoversContentField>
+      <div class="flex items-center mt-4">
+        <DappDiscoversContentChain class="w-1/2" :chainData="summary.ixo.platform" :href="config.home" name="platform" title="platform"/>
+        <IconFont v-if="summary.ixo.platform" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
+<!--        <DappDiscoversContentField class="w-1/2 bg-global-white md:bg-global-topBg" :herf="config.home" title="项目名称"/>-->
       </div>
     </div>
-    <!-- platform -->
-    <div class="mt-4 border-b-1 border-global-highTitle border-opacity-6 pb-4">
-       <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(summary.ixo.platform, 'platform', config.home)" active-name="platform" name="platform" title="platform"></DappDiscoversContentType>
-    </div>
-    <div>
-       <DappDiscoversEndlist :key="key" @changeSort="changeSort" :list="EndedList" :params="params"></DappDiscoversEndlist>
+    <div class="overflow-x-scroll showX mt-4">
+      <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
+        <DappDiscoversEndlist :key="key" @changeSort="changeSort" :list="EndedList" :params="params"/>
+      </div>
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-
-</style>

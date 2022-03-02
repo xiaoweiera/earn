@@ -27,6 +27,7 @@ export const config = {
 	dappList: '/dapp/discover',
 	dappApply: '/dapp/apply',
 	nft: '/nft',
+	nftList: '/nft/discover',
 	quota: '/indicators', // 指标监控
 	airdrop: '/airdrops', // 最新空投
 	address:'/whaleaddress',

@@ -1,15 +1,18 @@
+import _ from "lodash";
 import API from "src/api/index";
 import {Query, Status, ProjectItem, AdItem} from "src/types/dapp/ixo";
 import {nftQuery, nftStatus, ProjectNftItem, AdNftItem} from "src/types/dapp/nft";
 import { config } from "src/router/config";
 import * as R from "ramda";
-import { getValue } from "src/utils/ssr/ref";
+import { getValue } from "src/utils/root/data";
 import { SiteConfig } from "src/types/common/chain";
 import * as alias from "src/utils/root/alias";
 import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router/";
+import { getDateMDY, dateFormat, dateTime, dateYMDFormat, toInteger } from "src/utils/"
 import safeGet from "@fengqiaogang/safe-get";
-import {platform} from "os";
+import * as logic from "~/types/dapp";
+import DBList from "@fengqiaogang/dblist";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
@@ -19,7 +22,7 @@ export const getAll = function () {
 	const i18n = I18n();
 	return {
 		id: tabAll,
-		name: i18n.address.all
+		name: "All",
 	};
 }
 
@@ -79,22 +82,18 @@ export const tabPlat = function (data:any, key: string, href:string) {
 //获取项目类型
 export const tabCage = function (data:any, key: string, href:string) {
 	return function (): any[] {
-		let arr:any = [getAll()];
-		R.forEach((item:any) => {
-			if(configs.category[item]){
-				arr.push(configs.category[item])
-			}
-		},data);
+		let arr:any = ['All'].concat(data);
 		const query = getParam<object>();
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.name,
+				[key]: item,
+				name:item,
 				href: {
 					path: href,
 					query: {
 						...query,
-						[key]: item.name,
+						[key]: item,
 					}
 				}
 			}
@@ -102,7 +101,13 @@ export const tabCage = function (data:any, key: string, href:string) {
 	};
 }
 
+interface T {
+}
+
 export class Model extends API {
+    getSummary(): T {
+        throw new Error('Method not implemented.');
+    }
   //IDO数据
 	getList(query:any) {
 		return this.dApp.getList(query);
@@ -112,12 +117,8 @@ export class Model extends API {
     return this.dApp.getIGOList();
   }
   //nft数据
-  getNftList(chain?: string) {
-		const query: nftQuery = {
-			chain: chain ? chain : "all",
-			status: nftStatus.upcoming
-		};
-    return this.dApp.getNftList<ProjectNftItem | AdNftItem>(query);
+  getNftList(query:any) {
+		return this.dApp.getNftList(query);
   }
 	getUpcomingProjects(chain?: string) {
 		const query: Query = {
@@ -154,3 +155,70 @@ export const getUrl = function (name:string, type:boolean) {
 		}
 	}
 }
+
+//获取公链logo
+export const getLog = function (name:string) {
+	return safeGet<string>(configs, `chain.${name}.logo`) || "N/A";
+}
+//获取tegicon
+export const getTegLog = function (name:string) {
+	return safeGet<string>(configs, `tge_platform.${name}`) || "";
+}
+//获取跳转链接
+export const getTegUrl = function (name:string) {
+	return safeGet<string>(configs, `tge_platform.${name}.website`) || "";
+}
+
+export  const sortTime = function (list:any) {
+	return R.map(function (data: logic.ProjectItem) {
+		const value = dateYMDFormat(data.mint_start_at);
+		data.pid = dateTime(value);
+		return data;
+	}, list);
+}
+export const sortVal = function(list: any[], diff?: string, reverse?: boolean) {
+	const app = function(value1: any, value2: any) {
+		if (diff) {
+			if (reverse) {
+				return safeGet<number>(value2, diff) - safeGet<number>(value1, diff)
+			}
+			return safeGet<number>(value1, diff) - safeGet<number>(value2, diff)
+		}
+		if (reverse) {
+			return value2 - value1
+		}
+		return value1 - value2
+	}
+	return R.sort(app, list)
+}
+
+const dayTimes = 1000 * 60 * 60 * 24;
+const todayTime = new Date(new Date().toLocaleDateString()).getTime();
+const tomorrowTime = new Date().getTime() + dayTimes;
+//判断是否是今天和明天
+export const getTodayTime = function (val:number) {
+	if((val- todayTime) < dayTimes) {
+		return 'Today';
+	}else if(dayTimes <= (val - todayTime) && (val -todayTime) < (dayTimes * 2) ) {
+		return 'Tomorrow';
+	}else {
+		return getDateMDY(val);
+	}
+}
+
+export const transformNftList = function (list: ProjectNftItem[]) {
+	const days: number[] = [];
+	const db = new DBList([], "mint_start_at", "date");
+	_.forEach(list, function (item: ProjectNftItem) {
+		const date = dateTime(dateFormat(item.mint_start_at, "YYYY-MM-DD") + '00:00:00');
+		days.push(date)
+		db.insert({ ...item, date });
+	});
+	return _.map(_.sortBy(_.uniq(days)), function (date: number) {
+		return {
+			title: getTodayTime(date),
+			list: db.select({ date }),
+		}
+	});
+}
+

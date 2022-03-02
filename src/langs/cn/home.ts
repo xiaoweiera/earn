@@ -1,6 +1,6 @@
 export default {
-    title:'最新最全的 DApp 聚合平台',
-    twoTitle:'一站式服务：Web3.0、DeFi、游戏、NFT、Airdorps',
+    title:'Web3 一站式投资平台',
+    twoTitle:'发现、跟踪、投资 DeFi、NFT、游戏，数据驱动投资',
     platData:{
         avgAth:'平均收益',
         desc:{
@@ -45,8 +45,8 @@ export default {
     },
 
     nftProject:{
-      price:'价格',
-      supply:'总量',
+      price:'价格：',
+      supply:'总量：',
       time:{
           d:'d',
           h:'h',
@@ -93,6 +93,18 @@ export default {
     nfts:{
         title:'最新最全的 NFT 聚合平台',
         desc:'一站式服务：Web3.0、DeFi、游戏、NFT、Airdorps'
+    },
+    webInfo:{
+        home:{
+            title:`KingData | Web3 一站式投资平台`,
+            key:`发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资`,
+            des:`在全球 DApp Store 上探索 NFT、NFT 市场、区块链游戏、De-Fi、区块链上的 Dapp 等`
+        },
+        homeDetail:{
+            title:`热门话题 | KingData`,
+            key:`发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资`,
+            des:`快速查看今天、本周和本月 KingData 上最流行的趋势项目。`
+        }
     }
 
 }

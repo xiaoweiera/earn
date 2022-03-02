@@ -3,9 +3,8 @@
  */
 
 import { ref } from "vue";
-import {getValue} from "src/utils/ssr/ref";
+import {getValue} from "src/utils/root/data";
 import {User} from "src/types/common/user";
-import {address} from "~/logic/common/wallet";
 
 export enum FlagStatus {
 	none = 0, // 空状态

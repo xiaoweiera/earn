@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import {getHeader} from "~/logic/home";
+import {getHeader} from "src/logic/home";
 import {onMounted, ref} from "vue";
 const props = defineProps({
+  height:{
+    type:String,
+    default: () =>'h-10.5'
+  },
+  name:String,
   params: {
     type: Object
   },
@@ -13,7 +18,7 @@ const props = defineProps({
 //[headerName,headerCss]
 const cssData: any = ref([])
 onMounted(() => {
-  cssData.value = getHeader(props.item.key)
+  cssData.value = getHeader(props.item.key,props.name)
 })
 const sortIcon: any = {
   'desc': 'icon-shuangxiangjiantou-down',
@@ -28,9 +33,9 @@ const getIcon = () => {
 }
 </script>
 <template>
-  <div class="flex items-center hand" :class="cssData[1]">
-    <div class="relative">
-      <IconFont v-if="item.sort && params" class="relative top-0.5 mr-1" size="14" :type="getIcon()"/>
+  <div class="flex items-center" :class="`${cssData[1]} ${height}`">
+    <div class="relative h-full flex items-center" :class="item.sort?'hand':''">
+      <IconFont v-if="item.sort && params" class="relative mr-1"  size="14" :type="getIcon()"/>
       <span>{{ cssData[0] }}</span>
       <div :class="item.key===params?.sort_field?'sort-border':''"></div>
     </div>
@@ -39,9 +44,9 @@ const getIcon = () => {
 </template>
 <style scoped lang="scss">
 .sort-border{
-  @apply border-1 absolute w-full -bottom-2.5 border-global-primary;
+  @apply border-1 absolute w-full -bottom-0.5 border-global-primary;
 }
 .sort-border-no{
-  @apply border-1 absolute w-full -bottom-2.5 border-global-primary border-global-opacity-0;
+  @apply border-1 absolute w-full -bottom-0.5 border-global-primary border-global-opacity-0;
 }
 </style>

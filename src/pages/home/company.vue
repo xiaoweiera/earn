@@ -9,8 +9,8 @@ import SwiperCore, {Pagination, Autoplay} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import {createRef, onLoadRef} from "~/utils/ssr/ref";
-import {Model} from "~/logic/home";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import {Model} from "src/logic/home";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay])
 const isBegin = ref(true)
@@ -30,7 +30,6 @@ const init = (swiper: any) => {
   })
 }
 const platform = createRef("API.home.getPlatform", []);
-
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总
@@ -47,16 +46,19 @@ onMounted(function () {
         <Swiper class="h-full swiper-company"
                 @init="init"
                 :initialSlide="0"
+                :loop="true"
+                :autoplay="{ delay: 1000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
                 slidesPerView="auto"
-                :space-between="30"
+                :space-between="32"
                 :resize-observer="true"
                 @setTranslate="change">
           <template v-for="(item, index) in platform" :key="index">
             <SwiperSlide>
-              <v-router :href="item['website']" class="h-9 flex items-center hand">
+<!--              :href="item['website']"-->
+              <span  class="h-9 w-fit flex items-center">
                 <ui-image class="w-6 h-6" fit="cover" :src="item.logo" :lazy="true"/>
-                <span class="text-kd16px18px text-global-highTitle text-opacity-85 ml-2">{{ item.name }}</span>
-              </v-router>
+                <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-kdSemiBold font-medium ml-1.5">{{ item.name }}</span>
+              </span>
             </SwiperSlide>
           </template>
         </Swiper>
@@ -68,16 +70,6 @@ onMounted(function () {
   </div>
 </template>
 <style lang="scss" scoped>
-//.jian-right {
-//  background: linear-gradient(to right, #ff000000, #ffffffc9);
-//  @apply w-35 h-full absolute right-0 top-0 z-2;
-//}
-//
-//.jian-left {
-//  background: linear-gradient(to right, #ffffffc9, #ff000000);
-//  @apply w-35 h-full absolute left-0 top-0 z-2;
-//}
-
 .left {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute left-0 z-10 top-0;

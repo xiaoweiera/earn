@@ -3,12 +3,9 @@
  * @author svon.me@gmail.com
  */
 
-import {IsSSR} from "~/config/ssr";
-
-export { IsSSR } from "./ssr";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
-import { ImportMetaEnv, Command, oss } from "../types/env";
+import {Command, ImportMetaEnv, oss} from "../types/env";
 
 const _getOsProcess = function (): ImportMetaEnv {
 	const env: ImportMetaEnv = {
@@ -24,11 +21,13 @@ const _getOsProcess = function (): ImportMetaEnv {
 			"VITE_LanApi",
 			"VITE_domain",
 			"VITE_cookie",
-			"VITE_google",
+			"VITE_baiduTag",
+			"VITE_googleTag",
+			"VITE_googleCaptcha",
 			"VITE_staticPath",
 			"VITE_staticDomain"
 		];
-		for(const name of keys) {
+		for (const name of keys) {
 			const value = safeGet<string>(data, name);
 			safeSet(env, name, value);
 		}
@@ -47,7 +46,7 @@ const _getOsProcess = function (): ImportMetaEnv {
 }
 
 export enum Device {
-	web= "web",
+	web = "web",
 	app = "app"
 }
 

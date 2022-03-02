@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import I18n from '~/utils/i18n/index'
+import I18n from "src/utils/i18n";
+const i18n = I18n();
 defineProps({
   value: {
     type: String || Number,
@@ -13,19 +14,19 @@ defineProps({
         <div class="flex items-center">
           <span class="font-kdBarlow">
             <span class="time-value">{{ scope.day }}</span>
-            <span class="time-label">d</span>
+            <span class="time-label">{{ i18n.home.nftProject.time.d }}</span>
           </span>
           <span class="ml-1 font-kdBarlow">
             <span class="time-value">{{ scope.hour }}</span>
-            <span class="time-label">h</span>
+            <span class="time-label">{{ i18n.home.nftProject.time.h }}</span>
           </span>
           <span class="ml-1 font-kdBarlow">
             <span class="time-value">{{ scope.minute }}</span>
-            <span class="time-label">m</span>
+            <span class="time-label">{{ i18n.home.nftProject.time.m }}</span>
           </span>
           <span class="ml-1 font-kdBarlow">
             <span class="time-value">{{ scope.second }}</span>
-            <span class="time-label">s</span>
+            <span class="time-label">{{ i18n.home.nftProject.time.s }}</span>
           </span>
         </div>
       </template>

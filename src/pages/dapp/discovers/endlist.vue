@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { toNumberCashFormat } from 'src/utils/convert/to'
+import { toNumberCashFormat } from 'src/utils/convert/to';
+import { getTegLog, getLog, getTegUrl } from 'src/logic/dapp';
+import I18n from "src/utils/i18n";
+
 const emit=defineEmits(['changeSort'])
 const props = defineProps({
   list: {
@@ -10,18 +13,19 @@ const props = defineProps({
     default: () => {}
   }
 })
+const i18n = I18n();
 const data={
   header: [
     { name: 'Project Name', key: 'name' },//nameProject
-    { name: 'Type', key: 'category' },
-    { name: 'Total Ralsed', key: 'ido_fundraising_goal' },
-    { name: 'Sale Price', key: 'ido_price' },
-    { name: 'Current Price', key: 'current_price' },
-    { name: 'Current ROI USD', key: 'current_roi_usd' },
-    { name: 'ATH ROI USD', key: 'ath_since_ido' },
-    { name: 'Chain', key: 'chain' },
-    { name: 'TGE Platform', key: 'tge_platform' },
-    { name: 'Rating', key: 'overall_score' },
+    { name: i18n.home.topList.category, key: 'category' },
+    { name: i18n.home.idoIgoProject.totalRaised, key: 'ido_fundraising_goal' },
+    { name: i18n.home.topList.salePrice, key: 'ido_price' },
+    { name: i18n.home.topList.currentPrice, key: 'current_price' },
+    { name: i18n.home.topList.nowCurrent, key: 'current_roi_usd' },
+    { name: i18n.home.topList.idoAth, key: 'ath_since_ido' },
+    { name: i18n.home.topList.chain, key: 'chain' },
+    { name: i18n.home.topList.plat, key: 'tge_platform' },
+    { name: i18n.home.topList.rate, key: 'overall_score' },
   ]
 }
 //排序
@@ -57,7 +61,7 @@ const getIcon = (item:string) => {
         <template v-for="(item, index) in data.header" :key="index">
           <td class="thead-hr hand">
             <div class="flex items-center" @click="sort(item.key)" :class="index === 0 ? 'justify-start' : 'justify-center'">
-              <IconFont class="mr-1" size="14" v-if="index !== 0" :type="getIcon(item.key)"/>
+              <IconFont class="mr-1" size="14" v-if="index !== 0 && index !== 1 && index !== 7 && index !== 8" :type="getIcon(item.key)"/>
               <span>{{item.name}}</span>
             </div>
           </td>
@@ -66,45 +70,52 @@ const getIcon = (item:string) => {
       </thead>
       <tbody>
         <template v-for="(item,index) in list" :key="index">
-          <tr class="h-14">
-            <td>
-              <div class="flex-center">
-                <IconFont size="32" type="icon-HECOYuan"/>
-                <div class="ml-1.5">
-                  <div class="numberDefault text-number line-height-no">{{item.name}}</div>
-                  <div class="nameTag text-number text-left line-height-no">{{item.symbol}}</div>
+          <tr class="h-14 hand">
+<!--            <v-router target="_blank" class="inline-block w-full" :href="item.url">-->
+              <td>
+                <div class="flex-center">
+                  <IconFont size="32" :type="item.logo"/>
+                  <div class="ml-1.5">
+                    <div class="numberDefault text-number line-height-no">{{item.name}}</div>
+                    <div class="nameTag text-number text-left line-height-no">{{item.symbol}}</div>
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td>
-              <div class="numberDefault text-number" v-if="item.categories">{{item.category}}</div>
-            </td>
-            <td>
-              <div class="numberDefault text-number">{{toNumberCashFormat(item.ido_fundraising_goal,'$','','Not Set')}}</div>
-            </td>
-            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.ido_price,'$','','Not Set')}}</div></td>
-            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.current_price,'$','','Not Set')}}</div></td>
-            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.current_roi_usd,'x','','Not Set')}}</div></td>
-            <td>
-              <div class="numberDefault text-number">{{toNumberCashFormat(item.ath_since_ido,'x','','Not Set')}}</div>
-            </td>
-            <td>
-              <div class="flex-center justify-center">              
-                <IconFont size="16" type="icon-HECO"/>
-              </div>
-            </td>
-            <td> 
-              <div class="flex-center justify-center">
-                <IconFont size="16" type="icon-HECO"/>
-                <v-router class="link text-number" href="https:www.baidu.com">Gate.io</v-router>
-              </div>
-            </td>
-            <td>
-              <div class="flex-center justify-center">
-                <IconFont size="12" type="icon-star"/>
-                <span class="star-txt">{{ item.overall_score}}</span>
-              </div>
-            </td>
+              </td>
+              <td>
+                <div class="numberDefault text-number" v-if="item.categories">{{item.category}}</div>
+              </td>
+              <td>
+                <div class="numberDefault text-number">{{toNumberCashFormat(item.ido_fundraising_goal,'$','','N/A')}}</div>
+              </td>
+              <td><div class="numberDefault text-number">{{toNumberCashFormat(item.ido_price,'$','','Not Set')}}</div></td>
+              <td><div class="numberDefault text-number">{{toNumberCashFormat(item.current_price,'$','','Not Set')}}</div></td>
+              <td><div class="numberDefault text-number">{{toNumberCashFormat(item.current_roi_usd,'x','','N/A')}}</div></td>
+              <td>
+                <div class="numberDefault text-number">{{toNumberCashFormat(item.ath_since_ido,'x','','N/A')}}</div>
+              </td>
+              <td>
+                <div class="flex-center justify-center">
+                  <IconFont size="16" :type="getLog(item.chain)"/>
+                </div>
+              </td>
+              <td>
+                <div v-if="item.tge_platform">
+                  <div class="flex-center justify-center" v-for="(item, index) in item.tge_platform" :key="index">
+                    <IconFont size="16" :type="getTegLog(item)"/>
+                    <v-router class="link text-number" target="_blank" :href="getTegUrl(item)">{{ item }}</v-router>
+                  </div>
+                </div>
+                <div v-else>
+                  <span>Not Set</span>
+                </div>
+              </td>
+              <td>
+                <div class="flex-center justify-center">
+                  <IconFont size="12" type="icon-star"/>
+                  <span class="star-txt">{{ item.overall_score}}</span>
+                </div>
+              </td>
+<!--            </v-router>-->
           </tr>
         </template>
       </tbody>

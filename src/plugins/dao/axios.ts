@@ -101,22 +101,26 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 	)
 	service.interceptors.response.use(
 		(res: AxiosResponse) => {
-			const url = res.request.res.responseUrl;
+			const url = safeGet<string>(res, "request.res.responseUrl") || safeGet<string>(res, "request.responseURL") || safeGet<string>(res, "config.url");
 			const status = parseInt(res.status as any, 10);
 			if (status >= 200 && status < 300) {
 				console.log('API Success %s, %s, %s', res.status, res.config.method, url, res.config.params);
 				return res;
 			} else {
 				console.log('API Error %s, %s, %s', res.status, res.config.method, url, res.config.params);
-				return Promise.reject("error");
+				return Promise.reject(res);
 			}
-
 		},
 		(error) => {
 			let code = safeGet<number>(error, "code");
 			if (code === 0) {
 				return Promise.resolve(error);
 			}
+			const method = safeGet<string>(error, "config.method");
+			const url = safeGet<string>(error, "config.url");
+			const params = safeGet<string>(error, "config.params") || {};
+			const data = safeGet<string>(error, "config.data") || {};
+			console.log('API Error %s, %s', method, url, { ...params, ...data });
 			return Promise.reject(error)
 		},
 	)

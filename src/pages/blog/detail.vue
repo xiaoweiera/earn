@@ -10,7 +10,8 @@ import I18n from "src/utils/i18n";
 import {BlogDetail} from "src/types/blog/";
 import safeGet from "@fengqiaogang/safe-get";
 import * as alias from "src/utils/root/alias";
-import {createReactive, onLoadReactive, getValue} from "src/utils/ssr/ref";
+import {getValue} from "src/utils/root/data";
+import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 
 const i18n = I18n();
 

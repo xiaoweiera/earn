@@ -3,22 +3,33 @@
 <head>
   <meta charset="UTF-8"/>
   <title>{title}</title>
-  <link rel="icon" href="/favicon.ico"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="ahrefs-site-verification" content="a41a2ea87b23852e5ff4ba882ec1ae7d210002c1f090bc6a9f01bbc8942fed50">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@KingData_com">
-  <meta name="twitter:image" content="https://kingdata.com/assets/kingdata.png">
-  <meta name="twitter:description" content="{description}">
-  <meta name="keywords" content="{keywords}">
-  <meta name="description" content="{description}">
+  <link href="/favicon.ico" rel="icon"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="a41a2ea87b23852e5ff4ba882ec1ae7d210002c1f090bc6a9f01bbc8942fed50" name="ahrefs-site-verification">
+  <meta content="summary" name="twitter:card">
+  <meta content="@KingData_com" name="twitter:site">
+  <meta content="https://kingdata.com/assets/kingdata.png" name="twitter:image">
+  <meta content="{description}" name="twitter:description">
+  <meta content="{keywords}" name="keywords">
+  <meta content="{description}" name="description">
   <script src="/libs/web3.min.js"></script>
+  <script src="/libs/express-useragent.min.js"></script>
+  <style>
+    [class~=grecaptcha], [class*=grecaptcha], .grecaptcha-badge {
+      display: none !important;
+      visibility: hidden;
+      opacity: 0;
+    }
+    .device {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 <div id="app" class="{lang}">{content}</div>
 <div class="hidden">
-{libs}
+  {libs}
 </div>
-<script type="module" src="/src/entry-client.ts"></script>
+<script src="/src/entry-client.ts" type="module"></script>
 </body>
 </html>

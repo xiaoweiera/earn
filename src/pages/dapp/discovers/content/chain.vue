@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import {ElSelect, ElOption, ElInput} from 'element-plus';
-import {config as routerConfig} from "~/router/config";
-import {useRoute, useRouter} from "vue-router";
-import {getParam} from "~/utils/router";
-import I18n from "~/utils/i18n";
-import {computed, ref} from "vue";
+import {ElOption, ElSelect} from 'element-plus';
+import {useRouter} from "vue-router";
+import {getParam} from "src/utils/router";
+import I18n from "src/utils/i18n";
+import {ref, computed, onMounted} from "vue";
+
+// 引入 use state
+import {stateAlias, setInject} from "src/utils/use/state";
+import _ from "lodash";
+import {createHref} from "~/plugins/router/pack";
 
 const props = defineProps({
   title: {
@@ -12,8 +16,8 @@ const props = defineProps({
     default: () => '',
   },
   chainData: {
-    type: Array as any,
-    default: () => {},
+    type: Array,
+    default: () => [],
   },
   href: {
     type: String,
@@ -24,46 +28,60 @@ const props = defineProps({
     default: () => '',
   }
 })
-const route = useRoute();
-const router = useRouter();
-const query = getParam<object>();
-const chainDatas: any = ref([]);
-const chain = ref(getParam<object>('chain'))
 
+const router = useRouter();
+
+const chain = ref<string>("");
 const i18n = I18n();
-//重组数据
-const mergeData = (key: string, data: any) => {
-  const list = ['All'].concat(props?.chainData)
-  list.forEach((item: string) => {
-    const param: any = {...query}
-    param[key] = item
-    const prop: any = {name: item}
-    prop[key] = item
-    data.value.push({
-      ...prop,
+
+const onChangeParam = setInject(stateAlias.ui.tab);
+
+const allValue = "All";
+
+const list = computed(function () {
+  // @ts-ignore
+  const array: string[] = props.chainData ? [allValue].concat(props.chainData) : [allValue];
+  const data: any[] = [];
+  const query = getParam<object>();
+  array.forEach(function (value: string) {
+    data.push({
+      value,
+      [props.name]: value,
       href: {
         path: props.href,
-        query: param
+        query: {
+          ...query,
+          [props.name]: value,
+        }
       }
     })
-  })
-}
-mergeData(props.name, chainDatas)
+  });
+  return data;
+})
 
-const change = (name: any) => {
-  const item = chainDatas.value.find((item: any) => item.name === name)
-  router.push(item.href)
-}
+onMounted(function () {
+  chain.value = getParam<string>(props.name) || allValue;
+})
+
+const change = _.debounce(async function (value: string) {
+  const query = { ...getParam<object>(), [props.name]: value };
+  const url = createHref(props.href, query);
+  await router.push(url);
+  if (onChangeParam) {
+    onChangeParam(query);
+  }
+}, 300);
 </script>
 <template>
   <div>
     <div class="flex items-center">
-      <div class="text-14-18 text-global-highTitle text-opacity-65">{{ title }}</div>
-      <div class="flex items-center w-25 h-8 ml-4">
-        <div class="flex items-center">
+      <div class="text-kd12px16px md:text-14-18 text-global-highTitle text-opacity-65">{{ title }}</div>
+      <div class="flex items-center flex-1 w-full md:w-25 h-8 ml-2 md:ml-4">
+        <div class="w-full">
           <client-only class="flex items-center justify-between">
-            <el-select @change="change" class="projectMining  flex-1 select" :popper-append-to-body="false" v-model="chain" size="small">
-              <el-option v-for="item in chainDatas" :label="item.name" :value="item.name" :key="item.name"></el-option>
+            <el-select v-model="chain" :popper-append-to-body="false" class="projectMining  flex-1 select"
+                       size="small" @change="change">
+              <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.value"></el-option>
             </el-select>
           </client-only>
         </div>
@@ -74,11 +92,17 @@ const change = (name: any) => {
 <style lang="scss" scoped>
 .select {
   ::v-deep(.el-input__inner) {
-    border: 1px solid rgba(3, 54, 102, 0.1) !important;
-    background: none;
-    height: 34px !important;
-    padding-left: 12px !important;
-    @apply text-kd14px18px md:w-25 text-left    text-global-highTitle text-opacity-85  flex items-center  text-kd14px18px;
+    @apply bg-global-white h-8 rounded-md border border-global-highTitle border-opacity-6;
+    @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
+  }
+  @screen md {
+    ::v-deep(.el-input__inner) {
+      border: 1px solid rgba(3, 54, 102, 0.1) !important;
+      background: none;
+      height: 34px !important;
+      padding-left: 12px !important;
+      @apply text-kd14px18px md:w-25 text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
+    }
   }
 }
 </style>

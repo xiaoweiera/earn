@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {createRef, onLoadRef} from "~/utils/ssr/ref";
+import {createRef, onLoadRef} from "src/utils/ssr/ref";
 import {onMounted} from "vue";
-import {Model} from "~/logic/home";
-import {getParam} from "~/utils/router";
+import {Model} from "src/logic/home";
+import {getParam} from "src/utils/router";
 
 
 const top3:any = createRef("API.home.getTop3", []);
@@ -15,7 +15,7 @@ onMounted(function () {
 
 </script>
 <template>
-  <div class="w-full bg h-37.5 p-3 font-kdFang">
+  <div class="w-full bg-global-topBg h-37.5 p-3 font-kdFang">
     <div class="flex">
       <IconFont size="16" type="icon-hot"/>
       <span class="ml-1.5 text-kd14px18px font-medium font-kdFang text-global-highTitle">Tag Top 3</span>
@@ -36,9 +36,3 @@ onMounted(function () {
     </template>
   </div>
 </template>
-<style scoped lang="scss">
-.bg{
-  background: #FAFBFC;
-}
-
-</style>

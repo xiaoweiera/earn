@@ -29,11 +29,6 @@ export const userToken = function (status: boolean = false) {
 	};
 };
 
-const http = async function (self: any, method: string, url: string, app: Function, args: any) {
-
-
-}
-
 /**
  * @file get 请求
  * @param url 请求地址
@@ -45,7 +40,7 @@ export const get = function (url: string, production?: boolean) {
 		descriptor.value = async function (...args: any[]) {
 			const self: any = this;
 			const http = service(self.lang, production);
-			const [ params, callback ]: [ object, (value?: any) => void ] = await Promise.resolve(app.apply(self, args));
+			const [ params = {}, callback ]: [ object, (value?: any) => void ] = await Promise.resolve(app.apply(self, args));
 			const result = await asyncCheck(http.get(url, { params }));
 			if (callback && isFunction(callback)) {
 				return callback(result);
@@ -65,7 +60,7 @@ export const post = function (url: string, production?: boolean) {
 		descriptor.value = async function (...args: any[]) {
 			const self: any = this;
 			const http = service(self.lang, production);
-			const [ data, callback ]: [ object, (value?: any) => void ] = await Promise.resolve(app.apply(self, args));
+			const [ data = {}, callback ]: [ object, (value?: any) => void ] = await Promise.resolve(app.apply(self, args));
 			const _user = safeGet<string>(data, "_user");
 			const result = await asyncCheck(http.post(url, data, {
 				params: { _user }
