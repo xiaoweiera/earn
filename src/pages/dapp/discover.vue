@@ -132,7 +132,7 @@ const changeSort = (sort: string) => {
           </div>
         </div>
         <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DappDiscoversList v-for="(item, index) in list" :key='index' :data="item"></DappDiscoversList>
+          <DappDiscoversList v-for="(item, index) in list" :key='index' :data="item"/>
         </div>
       </div>
       <div v-else>

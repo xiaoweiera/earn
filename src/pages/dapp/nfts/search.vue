@@ -68,7 +68,7 @@ onMounted(function() {
           <DAppDiscoversContentChain :title="i18n.home.idoIgoProject.chain" :chainData="data.chain" :href="config.nftList" name="chain"/>
         </div>
         <!-- 搜索框 -->
-        <client-only class="w-50">
+        <client-only class="w-50 input-style">
           <ElInput class="w-full" v-model="search" :placeholder="i18n.common.placeholder.search" @change="onSearch">
             <template #prefix>
               <IconFont type="icon-sousuo" size="16" @click="onSearch"/>
@@ -80,8 +80,8 @@ onMounted(function() {
     <div class="block md:hidden">
       <div class="flex items-center">
         <DAppDiscoversContentChain :key="keys" :title="i18n.home.idoIgoProject.chain" :chainData="data.chain" :href="config.nftList" name="chain"/>
-        <IconFont v-if="data.chain" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
-        <client-only class="w-50">
+        <IconFont v-if="data.chain" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative  h-full" type="icon-gang"/>
+        <client-only class="max-w-50 input-style">
           <ElInput class="w-full" v-model="search" :placeholder="i18n.common.placeholder.search" @change="onSearch">
             <template #prefix>
               <IconFont type="icon-sousuo" size="16" @click="onSearch"/>
@@ -92,3 +92,30 @@ onMounted(function() {
     </div>
   </div>
 </template>
+<style lang="scss" scoped>
+.input-style {
+  ::v-deep(.el-input__inner) {
+    @apply border border-global-highTitle border-opacity-4 bg-global-white rounded-md;
+  }
+  ::v-deep(input::-webkit-input-placeholder) {
+    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+  }
+  ::v-deep(input::-ms-input-placeholder) {
+    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+  }
+}
+
+@screen md{
+  .input-style {
+    ::v-deep(.el-input__inner) {
+      @apply border border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
+    }
+    ::v-deep(input::-webkit-input-placeholder) {
+      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+    }
+    ::v-deep(input::-ms-input-placeholder) {
+      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+    }
+  }
+}
+</style>

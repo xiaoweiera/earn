@@ -6,11 +6,11 @@ import {config as router} from "src/router/config";
 
 const routes = [
 	{
-		path: router.home,
+		path: '/',
 		component: () => import("src/pages/home/index.vue")
 	},
 	{
-		path: `${router.home}/detail`,
+		path: `${router.homeDetail}`,
 		component: () => import("src/pages/home/detail/index.vue")
 	},
 ];
