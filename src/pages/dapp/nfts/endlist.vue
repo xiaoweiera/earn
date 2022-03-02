@@ -2,6 +2,7 @@
 import { toNumberCashFormat } from 'src/utils/convert/to'
 import { getLog, getNextUrl } from 'src/logic/dapp';
 import I18n from "src/utils/i18n";
+import { toFixed } from 'src/utils'
 const props = defineProps({
   list: {
     type: Array,
@@ -94,7 +95,7 @@ const getIcon = (item:string) => {
             <td>
               <div class="flex-center justify-center">
                 <IconFont size="12" type="icon-star"/>
-                <span class="star-txt">{{ item.overall_score}}</span>
+                <span class="star-txt">{{ toFixed(item.overall_score, 1)}}</span>
               </div>
             </td>
           </tr>

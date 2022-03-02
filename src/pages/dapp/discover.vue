@@ -89,7 +89,7 @@ const key = ref<string>(uuid());
 
 //获取类型
 const summary = createRef<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
-
+console.log(summary);
 
 onMounted(function () {
   // 得到数据汇总
@@ -135,7 +135,7 @@ const changeSort = (sort: string) => {
           <DappDiscoversList v-for="(item, index) in list" :key='index' :data="item"/>
         </div>
       </div>
-      <div v-else>
+      <div v-else-if="!loading">
         <ui-empty class="pb-3"/>
         <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">{{ i18n.address.noData }}</p>
       </div>
