@@ -88,7 +88,7 @@ const changeSort = function (val:any) {
           <template #default="scope">
             <!--历史项目-->
             <div v-if="query.status === 'history'" class="overflow-x-scroll showX">
-              <DAppNftEndList class="w-315" @changeSort="changeSort" :params="sort" :list="scope.list"/>
+              <DAppNftEndList class="min-w-315" @changeSort="changeSort" :params="sort" :list="scope.list"/>
             </div>
             <!--进行中-->
             <div class="pb-1" v-else>
