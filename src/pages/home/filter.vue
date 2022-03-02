@@ -68,10 +68,8 @@ const isCategory = computed<boolean>(function () {
       <div class="flex items-center justify-between w-full">
         <div class="flex items-center w-full">
           <div v-if="isCategory" class="is-tab relative">
-            <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">
-              {{ i18n.home.category }}
-            </div>
-            <ui-tab :list="categoryData" :split="2" active-name="category" class="relative z-22"></ui-tab>
+            <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">{{i18n.home.category}}</div>
+            <ui-tab class="relative z-22" :list="categoryData" :split="4" active-name="category"></ui-tab>
           </div>
           <IconFont v-if="isCategory && isChain"
                     class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
