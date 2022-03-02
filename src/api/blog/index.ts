@@ -4,7 +4,7 @@
 
 import ApiTemplate from "../template";
 import * as api from "src/config/api";
-import {DefaultValue, get, required, validate, tryError, userToken} from "src/plugins/dao/http";
+import {DefaultValue, cache, get, required, validate, tryError, userToken} from "src/plugins/dao/http";
 
 export default class extends ApiTemplate {
 	// 广告 banner 数据
@@ -43,7 +43,7 @@ export default class extends ApiTemplate {
 	}
 
 	@tryError(DefaultValue())
-	@get(api.blog.detail)
+	@get(api.blog.detail, cache.day2)
 	@userToken(false)
 	@validate
 	getDetail<T>(@required id: string | number): Promise<T> {
