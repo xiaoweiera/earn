@@ -96,8 +96,9 @@ const sort = (item: any) => {
   getData(true)
 }
 const toProject=(url:string )=>{
+  alert(url)
   if(url){
-    window.location.href = `${url}?lang=${i18n.getLang()}`
+    window.location.href = `https://kingdata.com${url}?lang=${i18n.getLang()}`
   }
 }
 //是否有筛选

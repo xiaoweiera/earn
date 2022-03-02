@@ -11,10 +11,12 @@ import {getParam} from "src/utils/router";
 
 const data = createReactive<detail>("API.home.getDetail", {} as any);
 onMounted(function () {
-  const api = new Model();
-  const id = getParam<string>('id', '') as string
   // 得到数据汇总
-  onLoadReactive(data, () => api.getDetail(id));
+  onLoadReactive(data, function () {
+    const api = new Model();
+    const id = getParam<string>("id");
+    return api.getDetail(id);
+  });
 });
 </script>
 <template>

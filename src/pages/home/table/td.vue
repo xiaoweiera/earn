@@ -87,7 +87,8 @@ onMounted(() => {
   <div v-if="data">
     <!--projectName-->
     <div v-if="(typeName==='name' && !info ) || typeName==='name' && safeGet(info,'show_type') ==='data'" class="flex-center  max-w-28 whitespace-nowrap">
-      <IconFont :size="info?32:24" :type="data.logo"/>
+<!--      <IconFont :size="info?32:24" :type="data.logo"/>-->
+      <ui-image :class="info?'min-w-8 min-h-8 w-8 h-8':'min-w-6 min-h-6 w-6 h-6'"  class="rounded-full" :src="safeGet(data,'logo')"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt   max-w-28 whitespace-nowrap">{{ data['name'] }}</div>
         <div class="nameTag text-number  text-left line-height-no">{{ data['symbol'] }}</div>
@@ -136,7 +137,7 @@ onMounted(() => {
     <!--chainNumber-->
     <div v-else-if="typeDom==='chainNumber'" class="flex-center justify-center">
       <IconFont size="16" :type="safeGet(config,`chain.${data.chain}.logo`)"/>
-      <span class="numberDefault text-number ml-1">{{ domData }}</span>
+      <span class="numberDefault text-number ml-1">{{ domData?domData:'Not Set' }}</span>
     </div>
     <!--numberUnit-->
     <div v-else-if="typeDom==='numberUnit'" class="flex-center justify-center">

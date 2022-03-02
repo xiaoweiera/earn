@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {getHeader} from "src/logic/home";
 import {onMounted, ref} from "vue";
+import safeGet from "@fengqiaogang/safe-get";
 const props = defineProps({
   height:{
     type:String,
@@ -26,10 +27,13 @@ const sortIcon: any = {
   '': 'icon-shuangxiangjiantou'
 }
 const getIcon = () => {
-  if (props?.params?.sort_field === props.item.key) {
-    return sortIcon[props?.params?.sort_type]
+  const params = props.params || {};
+  const type = safeGet<string>(params, "sort_type");
+  const sort_field = safeGet<string>(params, "sort_field");
+  if (type && sort_field && sort_field === props.item.key) {
+    return sortIcon[type];
   }
-  return 'icon-shuangxiangjiantou'
+  return 'icon-shuangxiangjiantou';
 }
 </script>
 <template>

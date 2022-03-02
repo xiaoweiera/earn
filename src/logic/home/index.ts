@@ -75,7 +75,7 @@ export const getData=(key:string,data:any)=>{
 	}else{
 		value=data[key]
 	}
-	return value?value:{}
+	return value?value:''
 
 }
 export class Model extends API {

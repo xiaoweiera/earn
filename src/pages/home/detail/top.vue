@@ -4,13 +4,14 @@ import {onMounted} from "vue";
 import {Model} from "src/logic/home";
 import {getParam} from "src/utils/router";
 
-
 const top3:any = createRef("API.home.getTop3", []);
 onMounted(function () {
-  const api = new Model();
-  const id = getParam<string>('id', '') as string
   // 得到数据汇总
-  onLoadRef(top3, () => api.getTop3(id));
+  onLoadRef(top3, () => {
+    const id = getParam<string>('id')
+    const api = new Model();
+    return api.getTop3(id);
+  });
 });
 
 </script>
@@ -23,7 +24,7 @@ onMounted(function () {
     <template v-for="item in top3">
       <div class="flex items-center justify-between mt-3 h-6">
         <div class="flex items-center">
-          <IconFont size="24" :type="item.logo"/>
+          <ui-image class="w-6 h-6" :src="item.logo"/>
           <span class="text-kd14px18px ml-1.5 font-medium text-global-highTitle text-opacity-85">{{item.name}}</span>
           <span class="text-kd12px16px ml-1.5 text-global-highTitle text-opacity-45">{{item.symbol}}</span>
         </div>

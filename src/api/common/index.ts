@@ -11,7 +11,7 @@ import {AreaCode} from "src/types/common/area";
 import {asyncCheck} from "src/plugins/dao/response";
 import {SiteConfig} from "src/types/common/chain";
 import {TidingList} from "src/types/common/tiding";
-import { userToken, tryError, DefaultValue } from "src/plugins/dao/http";
+import { userToken, tryError, DefaultValue, get } from "src/plugins/dao/http";
 
 // 国际区号默认数据
 const areaCodeDefault = DefaultValue([{
@@ -31,26 +31,29 @@ const chainSiteDefault = DefaultValue({
 export default class extends ApiTemplate {
 	// 获取国际区号
 	@tryError(areaCodeDefault)
+	@get(api.common.areaCodeList)
 	@userToken(false)
-	getAreaCodeList() {
-		return asyncCheck<AreaCode[]>(request(this.lang).get(api.common.areaCodeList));
+	getAreaCodeList(): Promise<AreaCode[]> {
+		return [] as any
 	}
 
 	// 公链站点配置
 	@tryError(chainSiteDefault)
+	@get(api.common.chainSiteConfig)
 	@userToken(false)
 	getChainSiteConfig(): Promise<SiteConfig> {
-		return asyncCheck<SiteConfig>(request(this.lang).get(api.common.chainSiteConfig));
+		return [] as any;
 	}
 
 	// 获取导航菜单消息列表
 	@tryError(DefaultValue([]))
+	@get(api.common.tidingTime)
 	@userToken(false)
-	async getTidings(): Promise<TidingList[]> {
+	getTidings(): Promise<TidingList[]> {
 		const cookie = new Cookie(this.getRequest());
 		const params = {
 			[tidingName]: cookie.getTidingTime()
 		};
-		return asyncCheck<TidingList[]>(request(this.lang).get(api.common.tidingTime, {params}));
+		return [params] as any;
 	}
 }
