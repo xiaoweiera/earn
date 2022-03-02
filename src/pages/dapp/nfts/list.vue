@@ -27,13 +27,15 @@ const detailUrl = function (data: object) {
     <div class="nft-row h-full" v-if="data.data_type === ProjectType.ad">
       <DappNftsAd :data="data"/>
     </div>
-    <div class="nft-row w-full h-full" @click="getNextUrl(data)" v-else>
-      <!-- 背景图 -->
-      <DappNftsHeader class="w-full max-h-50 overflow-hidden" :data="data"></DappNftsHeader>
-      <!-- footer -->
-      <div>
-        <DappNftsFooter :data="data"></DappNftsFooter>
-      </div>
+    <div class="nft-row w-full h-full" v-else>
+      <v-router  target="_blank" :href="data.url">
+        <!-- 背景图 -->
+        <DappNftsHeader class="w-full max-h-50 overflow-hidden" :data="data"></DappNftsHeader>
+        <!-- footer -->
+        <div>
+          <DappNftsFooter :data="data"></DappNftsFooter>
+        </div>
+      </v-router>
     </div>
   </div>
 </template>

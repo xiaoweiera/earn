@@ -82,7 +82,7 @@
       <!-- nft项目 -->
       <div class="mt-4 nft-item showX" v-if="UpcomingNftList.length > 0">
         <div class="coming-item">
-          <div v-for="( item, index ) in UpcomingNftList" class="md:ml-0" :class="{'ml-6' : index > 0}">
+          <div v-for="( item, index ) in UpcomingNftList" class="lg:ml-0" :class="{'ml-6' : index > 0}">
             <DappNftsList :key="index" :data="item"/>
           </div>
         </div>
@@ -100,7 +100,7 @@
       @apply flex items-center flex-nowrap;
     }
   }
-  @screen md {
+  @screen lg {
     .nft-item {
       @apply overflow-auto;
       .coming-item {

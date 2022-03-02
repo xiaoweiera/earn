@@ -14,8 +14,10 @@ defineProps({
       <div class="w-full h-full" v-if="data.cover">
         <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true"/>
       </div>
-      <div v-else class="is-flater w-full h-full">
-        <ui-image class="w-full h-full" fit="cover" :src="data.logo" :lazy="true"/>
+      <div v-else class="is-flater w-full h-full ">
+        <div class="is-flater w-full h-full">
+          <ui-image class="iw-full h-full" fit="cover" :src="data.logo" :lazy="true"/>
+        </div>
       </div>
     </div>
     <div class="w-full absolute top-4 left-0">
@@ -47,11 +49,11 @@ defineProps({
   text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
 }
 .is-flater{
-  background: rgba(0, 0, 0, 0.28);
-  filter:blur(14px);
-  -webkit-filter:blur(14px);
-  -moz-filter:blur(14px);
-  -ms-filter:blur(14px);
-  -o-filter:blur(14px);
+  @apply bg-global-hei bg-opacity-28;
+  filter:blur(16px);
+  -webkit-filter:blur(16px);
+  -moz-filter:blur(16px);
+  -ms-filter:blur(16px);
+  -o-filter:blur(16px);
 }
 </style>

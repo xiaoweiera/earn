@@ -94,7 +94,9 @@ export default {
     },
     nfts:{
         title:'最新最全的 NFT 聚合平台',
-        desc:'一站式服务：Web3.0、DeFi、游戏、NFT、Airdorps'
+        desc:'一站式服务：Web3.0、DeFi、游戏、NFT、Airdorps',
+        today: '今天',
+        tomorrow: '明天'
     },
     webInfo:{
         home:{
