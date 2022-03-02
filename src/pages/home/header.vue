@@ -54,7 +54,7 @@ const getColor = (value: any) => {
             </template>
           </ui-popover>
         </div>
-        <div class="info-des   number-value text-number " :class="data.avg_ath>=0?'green-value':'red-value'">
+        <div class="info-des  number-value text-number min-h-5" :class="data.avg_ath>=0?'green-value':'red-value'">
           {{ toNumberCashFormat(data.avg_ath, 'x') }}
         </div>
       </div>
@@ -123,9 +123,6 @@ const getColor = (value: any) => {
 }
 .item-name {
   @apply  text-right text-kd10px16px md:text-kd12px16px font-medium font-kdFang text-global-white text-opacity-65;
-}
-.info-item:not(:first-child){
-  @apply ml-0;
 }
 @media screen and (max-width: 768px) {
   .name-scale {
