@@ -9,28 +9,29 @@ import BlogAd from "./ad.vue";
 import BlogHot from "./hot.vue";
 import BlogRow from "./row.vue";
 import I18n from "src/utils/i18n";
-import {toArray, Equals} from "src/utils";
+import {toArray} from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import {BlogTab, BlogData} from "src/types/blog/";
 import {getValue} from "src/utils/root/data"
-import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import {alias, createRef, onLoadRef} from "src/utils/ssr/ref";
 import {getAll, tabAll, Model, transformTabs, activeName} from "src/logic/blog";
 
 const i18n = I18n();
 
-const tabs = createRef<BlogTab[]>("API.blog.tabs", toArray(getAll()));
+let initValue = true;
+
+const tabs = createRef<BlogTab[]>(alias.blog.tabs, toArray(getAll()));
 const groupId = createRef<string | number | undefined>(`query.${activeName}`, tabAll);
 
 const getInitValue = function () {
-  const queryGroup = getValue<string>(`query.${activeName}`, tabAll);
-  if (Equals(queryGroup, groupId.value as string)) {
-    return getValue<BlogData[]>("API.blog.getList", []);
+  if (initValue) {
+    initValue = false;
+    return getValue<BlogData[]>(alias.blog.list, []);
   }
-  return [];
 }
 
 // 获取列表数据
-const requestList = async function (data: object) {
+const requestList = function (data: object) {
   const api = new Model();
   const page = safeGet<number>(data, "page");
   const size = safeGet<number>(data, "page_size");
@@ -52,10 +53,6 @@ onMounted(function () {
   onLoadRef(tabs, () => {
     return api.getTabs();
   });
-
-  api.getList(groupId.value, 1, 10).then(function (list) {
-    console.log(list);
-  })
 });
 </script>
 <template>

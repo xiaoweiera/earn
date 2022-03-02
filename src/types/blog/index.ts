@@ -20,9 +20,6 @@ export interface BlogData {
 	release_date?: number; // 更新时间
 	author?: string; // 作者
 }
-export interface BlogList {
-	blogs: BlogData[]
-}
 
 export interface BlogDetail extends BlogData{
 	body: string; // 博客内容
