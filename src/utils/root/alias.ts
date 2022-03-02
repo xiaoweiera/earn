@@ -15,6 +15,8 @@ export const common = {
 }
 
 export const blog = {
+	tabs: "API.blog.tabs",
+	list: "API.blog.getList",
 	detail: "API.blog.getDetail"
 }
 
