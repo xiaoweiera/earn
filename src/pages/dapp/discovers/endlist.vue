@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { toNumberCashFormat } from 'src/utils/convert/to';
 import { getTegLog, getLog, getTegUrl, getNextUrl } from 'src/logic/dapp';
+import { toFixed } from 'src/utils'
 import I18n from "src/utils/i18n";
 
 const emit=defineEmits(['changeSort'])
@@ -111,7 +112,7 @@ const getIcon = (item:string) => {
             <td>
               <div class="flex-center justify-center">
                 <IconFont size="12" type="icon-star"/>
-                <span class="star-txt">{{ item.overall_score}}</span>
+                <span class="star-txt">{{ toFixed(item.overall_score, 1)}}</span>
               </div>
             </td>
           </tr>

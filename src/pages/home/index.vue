@@ -15,8 +15,8 @@ import {Model} from "src/logic/home";
 import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
 import {summaryModel} from "src/types/home";
 import * as alias from "src/utils/root/alias";
-
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
+console.log(summary);
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总
