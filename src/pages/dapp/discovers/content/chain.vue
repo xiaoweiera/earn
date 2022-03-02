@@ -31,7 +31,7 @@ const props = defineProps({
 
 const router = useRouter();
 
-const chain = ref<string>("");
+const routerParam = ref<string>("");
 const i18n = I18n();
 
 const onChangeParam = setInject(stateAlias.ui.tab);
@@ -60,7 +60,7 @@ const list = computed(function () {
 })
 
 onMounted(function () {
-  chain.value = getParam<string>(props.name) || allValue;
+  routerParam.value = getParam<string>(props.name) || allValue;
 })
 
 const change = _.debounce(async function (value: string) {
@@ -79,7 +79,7 @@ const change = _.debounce(async function (value: string) {
       <div class="flex items-center flex-1 w-full md:w-25 h-8 ml-2 md:ml-4">
         <div class="w-full">
           <client-only class="flex items-center justify-between">
-            <el-select v-model="chain" :popper-append-to-body="false" class="projectMining  flex-1 select"
+            <el-select v-model="routerParam" :popper-append-to-body="false" class="projectMining  flex-1 select"
                        size="small" @change="change">
               <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.value"></el-option>
             </el-select>

@@ -35,9 +35,9 @@ defineProps({
 </template>
 <style lang="scss" scoped>
   .time-label {
-    @apply font-kdBarlow text-kd14px20px text-global-white font-medium i8n-font-Barlow;
+    @apply font-kdBarlow text-kd16px20px text-global-white font-medium i8n-font-Barlow;
   }
   .time-value {
-    @apply font-kdBarlow text-kd14px20px text-global-white font-medium i8n-font-Barlow;
+    @apply font-kdBarlow text-kd16px20px text-global-white font-medium i8n-font-Barlow;
   }
 </style>

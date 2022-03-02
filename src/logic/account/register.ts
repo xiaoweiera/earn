@@ -29,11 +29,12 @@ export interface FormData {
 	platform?: string; // 平台标识
 	token?: string; // 人机校验签名
 	area_code?: string; // 手机号区号
+	push?: boolean; // 推送
 }
 
 export const createFormData = function (value?: FormData) {
 	const data = {
-		checked: false, // 注册协议
+		checked: true, // 注册协议
 		code: "", // 验证码
 		invitation_code: "", // 邀请码
 		email: "", // 邮箱账号
@@ -42,7 +43,8 @@ export const createFormData = function (value?: FormData) {
 		platform: void 0, // 平台标识
 		token: "", // 人机校验签名
 		area_code: "+86",
-		new_password: ""
+		new_password: "",
+		push: true
 	};
 	if (value) {
 		return reactive<FormData>({ ...data, ...value });

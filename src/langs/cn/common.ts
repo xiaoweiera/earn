@@ -109,7 +109,8 @@ export default {
     read: '注册前请阅读',
     agreement: '《用户协议》',
     terms: '《服务条款》',
-    use:'《使用须知》'
+    use:'《使用须知》',
+    push: "我同意接收来自 KingData 的邮件"
   },
   chat: {
     telegram: '电报',

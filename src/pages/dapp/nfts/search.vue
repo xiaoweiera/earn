@@ -16,6 +16,11 @@ import { config } from "src/router/config";
 // 引入 use state
 import {stateAlias, setInject} from "src/utils/use/state";
 
+import I18n from "src/utils/i18n";
+import ClientOnly from "src/components/client/only.vue";
+import {uuid} from "src/utils";
+
+const keys = ref<string>(uuid());
 interface Query {
   query: string;
   [key: string]: string;
@@ -29,8 +34,6 @@ defineProps({
 });
 
 const $router = useRouter();
-import I18n from "src/utils/i18n";
-import ClientOnly from "~/components/client/only.vue";
 const i18n = I18n();
 
 
@@ -54,17 +57,30 @@ onMounted(function() {
 </script>
 <template>
   <div class="mt-5" v-if="data">
-    <div>
+    <div class="hidden md:block">
       <!-- 项目类型、公链、搜索框 -->
       <div class="flex justify-between items-center">
         <div class="flex items-center">
           <!-- 项目类型 -->
-          <DAppDiscoversContentType v-if="data.category" :list="tabCage(data.category,'group', config.nftList)" :split="3" title="项目类型" name="group"/>
+          <DAppDiscoversContentType v-if="data.category" :list="tabCage(data.category,'category', `${config.nft}/discover`)" :key="key" :split="3" :title="i18n.home.topList.category" name="category"/>
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
           <!-- 公链 -->
           <DAppDiscoversContentChain :title="i18n.home.idoIgoProject.chain" :chainData="data.chain" :href="config.nftList" name="chain"/>
         </div>
         <!-- 搜索框 -->
+        <client-only class="w-50">
+          <ElInput class="w-full" v-model="search" :placeholder="i18n.common.placeholder.search" @change="onSearch">
+            <template #prefix>
+              <IconFont type="icon-sousuo" size="16" @click="onSearch"/>
+            </template>
+          </ElInput>
+        </client-only>
+      </div>
+    </div>
+    <div class="block md:hidden">
+      <div class="flex items-center">
+        <DAppDiscoversContentChain :key="keys" :title="i18n.home.idoIgoProject.chain" :chainData="data.chain" :href="config.nftList" name="chain"/>
+        <IconFont v-if="data.chain" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
         <client-only class="w-50">
           <ElInput class="w-full" v-model="search" :placeholder="i18n.common.placeholder.search" @change="onSearch">
             <template #prefix>

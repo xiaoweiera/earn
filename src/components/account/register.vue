@@ -138,6 +138,15 @@ onMounted(function () {
                   autocomplete="off" :disabled="invitation"/>
       </el-form-item>
 
+      <!--推送-->
+      <el-form-item style="margin-bottom: 10px;">
+        <el-checkbox v-model="formData.push" :true-label="true" :false-label="false">
+          <span class="block whitespace-pre-wrap">
+            <span class="inline">{{ i18n.common.user.push }}</span>
+          </span>
+        </el-checkbox>
+      </el-form-item>
+
       <!-- 注册协议 -->
       <el-form-item prop="checked">
         <el-checkbox v-model="formData.checked" :true-label="true" :false-label="false">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toNumberCashFormat } from 'src/utils/convert/to'
-import { getLog } from 'src/logic/dapp';
+import { getLog, getNextUrl } from 'src/logic/dapp';
 import I18n from "src/utils/i18n";
 const props = defineProps({
   list: {
@@ -15,7 +15,7 @@ const i18n = I18n();
 const emit=defineEmits(['changeSort'])
 const data={
   header: [
-    { name: 'Project Name', key: 'name' },
+    { name: i18n.home.endProject.projectName, key: 'name' },
     { name: i18n.home.topList.nowCurrent, key: 'category' },
     { name: i18n.home.topList.owner, key: 'owners' },
     { name: i18n.home.topList.supply, key: 'issue_volume' },
@@ -57,7 +57,7 @@ const getIcon = (item:string) => {
       <tr class="h-11.5 ">
         <template v-for="(item, index) in data.header" :key="index">
           <td class="thead-hr hand">
-            <div class="flex items-center" @click="sort(item.key)" :class="index === 0 ? 'justify-start' : 'justify-center'">
+            <div class="flex items-center" @click="index !== 0 && index !== 1 && index !== 6 ? sort(item.key) : '' " :class="index === 0 ? 'justify-start' : 'justify-center'">
               <IconFont class="mr-1" size="14" v-if="index !== 0 && index !== 1 && index !== 6" :type="getIcon(item.key)"/>
               <span>{{item.name}}</span>
             </div>
@@ -67,7 +67,7 @@ const getIcon = (item:string) => {
       </thead>
       <tbody>
         <template v-for="(item,index) in list" :key="index">
-          <tr class="h-14 hand">
+          <tr class="h-14 hand" @click="getNextUrl(item)">
             <td>
               <div class="flex-center">
                 <IconFont size="32" :type="item.logo"/>

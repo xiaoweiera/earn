@@ -2,18 +2,18 @@ export default {
   dapp: {
     title: '新项目',
     ranking: 'DApp 排行榜',
-    discover: '最新 DApp',
-    gamefi: '最新 GameFi',
+    discover: 'IDO',
+    gamefi: 'IGO',
     game: 'GameFi 排行榜',
     defi: 'DeFi 排行榜'
   },
   airdrop: {
-    title: '最新空投'
+    title: 'Airdrops'
   },
   nft: {
     title: '排行榜',
     ranking: 'NFT 排行榜',
-    discover: '最新 NFT'
+    discover: 'NFTs'
   },
   apy: {
     mining: '挖矿 APY',
