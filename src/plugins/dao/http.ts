@@ -5,7 +5,7 @@
  */
 
 import service from "./service";
-import { isFunction } from "src/utils/";
+import {isFunction, isObject} from "src/utils/";
 import { asyncCheck } from "src/plugins/dao/response";
 import safeGet from "@fengqiaogang/safe-get";
 
@@ -21,10 +21,12 @@ export const userToken = function (status: boolean = false) {
 		const app = descriptor.value;
 		descriptor.value = async function (...args: any[]) {
 			const self = this;
-			args.push({
-				_user: status ? "required" : "none"
-			});
-			return app.apply(self, args);
+			const _user = status ? "required" : "none";
+			const [query, callback] = await app.apply(self, args);
+			if (query && isObject(query)) {
+				return [{ ...query, _user }, callback];
+			}
+			return [{ _user }, callback];
 		}
 	};
 };
