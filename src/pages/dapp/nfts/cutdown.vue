@@ -12,19 +12,19 @@ defineProps({
     <ui-time-countdown :value="value">
       <template #default="scope">
         <div class="flex items-center">
-          <span class="font-kdBarlow">
+          <span class="font-kdBarlow w-5.65">
             <span class="time-value">{{ scope.day }}</span>
             <span class="time-label">{{ i18n.home.nftProject.time.d }}</span>
           </span>
-          <span class="ml-1 font-kdBarlow">
+          <span class="ml-1 font-kdBarlow w-5.65">
             <span class="time-value">{{ scope.hour }}</span>
             <span class="time-label">{{ i18n.home.nftProject.time.h }}</span>
           </span>
-          <span class="ml-1 font-kdBarlow">
+          <span class="ml-1 font-kdBarlow w-5.65">
             <span class="time-value">{{ scope.minute }}</span>
             <span class="time-label">{{ i18n.home.nftProject.time.m }}</span>
           </span>
-          <span class="ml-1 font-kdBarlow">
+          <span class="ml-1 font-kdBarlow w-5.65">
             <span class="time-value">{{ scope.second }}</span>
             <span class="time-label">{{ i18n.home.nftProject.time.s }}</span>
           </span>
