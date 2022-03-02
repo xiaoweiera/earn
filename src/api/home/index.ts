@@ -12,7 +12,7 @@ import {DefaultValue, get, required, validate, tryError, userToken} from "src/pl
 export default class extends ApiTemplate {
     // 数据汇总
     @tryError(DefaultValue([])) // 处理默认值
-    @get(api.blog.adv) // 定义一个 get 请求
+    @get(api.home.summary) // 定义一个 get 请求
     @userToken(false) // 不需要用户信息
     getSummary<T>(): Promise<T> {
         return [] as any;
@@ -20,7 +20,7 @@ export default class extends ApiTemplate {
 
     //首页顶部话题榜单接口
     @tryError(DefaultValue([])) // 处理默认值
-    @get(api.blog.adv) // 定义一个 get 请求
+    @get(api.home.topicRank) // 定义一个 get 请求
     @userToken(false) // 不需要用户信息
     getTopicRank<T>(): Promise<T> {
         return [] as any;

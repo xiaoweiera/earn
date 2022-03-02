@@ -77,8 +77,9 @@ onMounted(function () {
               <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
                 <div v-if="item['data_type']==='blog' && index===0" class="relative">
                   <div class="absolute  w-full h-full px-2 md:px-3">
-                    <div class="blog-name pt-1.5 md:pt-2 font-kdSemiBold font-semibold">{{ item['name'] }}
-                      ({{ formatDefaultTime(item['release_date'], 'MM/DD') }})
+                    <div class="blog-name pt-1.5 md:pt-2 font-kdSemiBold font-semibold">
+                      <span>Daily Trending</span>
+                      <span class="ml-1">({{ formatDefaultTime(item['release_date'], 'MM/DD') }})</span>
                     </div>
                     <div v-if="item['label'].length>0" class="blog-label mt-1.5 font-kdFang">
                       <span>{{i18n.home.todayTrend.key}}: </span>
