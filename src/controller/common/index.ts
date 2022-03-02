@@ -4,6 +4,7 @@
  */
 
 import _ from "lodash";
+import { Equals } from "src/utils/";
 import redirect from "./redirect";
 import I18n from "src/utils/i18n";
 import {getTidings} from "./tiding";
@@ -54,12 +55,15 @@ common.all(routerConfig.user.logout, userLogout);
 
 // 处理公共数据
 common.use(async function (req: Request, res: Response, next: NextFunction) {
-	const i18n = I18n();
-	const array = await Promise.all([
-		chainSiteConfig(req),
+	const promises: Array<any> = [
 		userInfo(req, res),
 		getTidings(req, res),
-	]);
+	];
+	if (!Equals(req.url, routerConfig.E404)) {
+		promises.push(chainSiteConfig(req));
+	}
+	const i18n = I18n();
+	const array = await Promise.all(promises);
 	const data = {
 		title,
 		keywords: i18n.menu.seo.key,
