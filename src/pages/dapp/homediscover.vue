@@ -107,7 +107,7 @@ onMounted(function () {
                   class="h-full swiper-recom">
             <template v-for="(item, index) in UpcomingList" :key="index" class="w-full h-87.25">
               <SwiperSlide class="w-full h-full rounded-kd6px">
-                <DAppDiscoversList :data="item" class="w-full h-full hand"/>
+                <DAppDiscoversList status="upcoming" :data="item" class="w-full h-full hand"/>
               </SwiperSlide>
             </template>
           </Swiper>
@@ -134,7 +134,7 @@ onMounted(function () {
                   class="h-full swiper-recom">
             <template v-for="(item, index) in OngoingList" :key="index" class="w-full h-87.25">
               <SwiperSlide class="w-full h-full rounded-kd6px">
-                <DAppDiscoversList :data="item" class="w-full h-full hand"/>
+                <DAppDiscoversList status="ongoing" :data="item" class="w-full h-full hand"/>
               </SwiperSlide>
             </template>
           </Swiper>
