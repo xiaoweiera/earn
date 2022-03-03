@@ -5,56 +5,68 @@
 
 import ApiTemplate from "../template";
 import * as api from "src/config/api";
-import request from "src/plugins/dao/service";
-import {asyncCheck} from "src/plugins/dao/response";
 import {Query} from "src/types/dapp/ixo";
 import {nftQuery, nftStatus} from "src/types/dapp/nft";
+import {userToken, tryError, DefaultValue, get, validate, required} from "src/plugins/dao/http";
 
 
 export default class extends ApiTemplate {
 	// 项目库列表
-	getList<T>(query: any) {
-		const result = request(this.lang).get(api.dapp.list, {params: query})
-		return asyncCheck(result);
+	@tryError(DefaultValue([]))
+	@get(api.dapp.list)
+	@userToken(false)
+	getList<T>(query: object = {}): Promise<T> {
+		return [query] as any;
 	}
 
 	// 获取IGO列表
-	getIGOList<T>() {
-		const result = request(this.lang).get(api.dapp.igoList, {
-			params: Object.assign({
-				page: 1,
-				page_size: 10,
-				status: 'upcoming',
-				category: 'all',
-				platform: 'all',
-				chain: "all",
-				query: '',
-				sort_field: '',
-				sort_type: '',
-			}, {})
-		})
-		return asyncCheck(result);
+	@tryError(DefaultValue([]))
+	@get(api.dapp.igoList)
+	@userToken(false)
+	getIGOList<T>(): Promise<T> {
+		const query = {
+			page: 1,
+			page_size: 10,
+			status: 'upcoming',
+			category: 'all',
+			platform: 'all',
+			chain: "all",
+			query: '',
+			sort_field: '',
+			sort_type: '',
+		};
+		return [query] as any;
 	}
 
 	// 分组
-	tabs<T>() {
-		return asyncCheck<T>(request(this.lang).get(api.dapp.tabs));
+	@tryError(DefaultValue([]))
+	@get(api.dapp.tabs)
+	@userToken(false)
+	tabs<T>(): Promise<T> {
+		return [] as any;
 	}
 
 	//	获取nft列表
-	getNftList<T>(query: nftQuery) {
+	@tryError(DefaultValue([]))
+	@get(api.dapp.nftList)
+	@userToken(false)
+	@validate
+	getNftList<T>(@required query: nftQuery): Promise<T> {
 		const params = Object.assign({
 			page: 1,
 			page_size: 10,
 			status: nftStatus.upcoming, // 默认状态
 			query: "", // 默认搜索为空
 		}, query);
-		const result = request(this.lang).get(api.dapp.nftList, {params})
-		return asyncCheck(result);
+		return [params] as any;
 	}
 
 	// ixo 数据
-	ixo<T>(query: Query) {
+	@tryError(DefaultValue([]))
+	@get(api.dapp.ixo)
+	@userToken(false)
+	@validate
+	ixo<T>(@required query: Query) {
 		const params = Object.assign({
 			page: 1,
 			page_size: 10,
@@ -62,16 +74,24 @@ export default class extends ApiTemplate {
 			category: "all",
 			paginate: false,
 		}, query);
-		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, {params}));
+		return [params] as any;
 	}
 
 	// ixoEnd 数据
-	ixoEnd<T>(query: Query) {
+	@tryError(DefaultValue([]))
+	@get(api.dapp.ixo)
+	@userToken(false)
+	@validate
+	ixoEnd<T>(@required query: Query) {
 		const params = Object.assign({
 			page: 1,
 			page_size: 10,
 			paginate: false,
+			status: "ended",
+			query: "",
+			sort_field: "",
+			sort_type: ""
 		}, query);
-		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, {params}));
+		return [params] as any;
 	}
 }

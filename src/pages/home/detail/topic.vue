@@ -49,7 +49,7 @@ onMounted(function () {
 </script>
 <template>
   <div class="w-full font-kdFang">
-    <div class="header">
+    <div class="header h-10.5">
       <span class="text-kd14px18px text-global-highTitle font-medium">{{ i18n.home.hotTopic }}</span>
       <div class="flex items-center">
         <IconFont class="mr-6" :class="lastPage>1?'fan':'fan-no'" size="10" type="icon-leftNo" @click="last()"></IconFont>
@@ -77,7 +77,7 @@ onMounted(function () {
 }
 
 .header {
-  @apply py-2.5;
+  @apply py-2.5 min-h-10;
   @apply flex items-center justify-between header-border;
   @apply border-t-1 border-b-1 border-global-highTitle border-opacity-6;
 }

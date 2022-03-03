@@ -7,7 +7,6 @@ import I18n from "src/utils/i18n";
 import {config} from "src/router/config";
 import {getParam} from "src/utils/router";
 
-const i18n = I18n();
 // export enum ProjectGroup {
 // 	online = 'online', // 待上线
 // 	history = 'history', // 历史项目
@@ -86,6 +85,7 @@ export interface TabItem {
 	href: string | object;
 }
 export const tabs = function (): TabItem[] {
+	const i18n = I18n();
 	const query = getParam<object>();
 	return [
 		{
@@ -137,6 +137,7 @@ export interface NftTabItem {
 }
 // nft分类切换
 export const nftTabs = function (): NftTabItem[]  {
+	const i18n = I18n();
 	const query = getParam<object>();
 	return [
 		{

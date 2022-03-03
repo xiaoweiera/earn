@@ -19,7 +19,7 @@ const copyUrl = function () {
 </script>
 <template>
   <div>
-    <div class="flex items-end justify-between flex-wrap w-full md:py-2.5 ">
+    <div class="flex items-end justify-between flex-wrap w-full md:py-2.5">
       <div class="md:flex items-center flex-wrap break-all md:mr-6">
         <span class="text-kd32px32px whitespace-pre-line md:text-kd36px36px font-kdSemiBold text-global-primary font-bold ">#</span>
         <span class="text-kd32px32px whitespace-pre-line  md:text-kd40px40px font-kdSemiBold ml-2 text-global-highTitle text-opacity-85 font-semibold">{{data.name}}</span>

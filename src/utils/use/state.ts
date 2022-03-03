@@ -35,7 +35,7 @@ export const useRefProvide = function <T>(name: string, value?: T, watch?: Watch
 	return [ state as Ref<T>, setState ];
 }
 // 创建 Reactive 数据
-export const useReactiveProvide = function <T>(name: string, value?: T, watch?: Watch): [ Ref<T>, SetState ] {
+export const useReactiveProvide = function <T>(name: string, value?: T, watch?: Watch): [ UnwrapNestedRefs<T>, SetState ] {
 	const key = makeName(name);
 	// @ts-ignore
 	const state = reactive<T>(value ? value : {} as T);
@@ -61,7 +61,7 @@ export const useReactiveProvide = function <T>(name: string, value?: T, watch?: 
 	provide(`get.${key}`, state);
 
 	cache.add(key);
-	return [ state as Ref<T>, setState ];
+	return [ state as UnwrapNestedRefs<T>, setState ];
 }
 
 export const useWatch = function<T>(state: Ref<T> | UnwrapNestedRefs<T>, watch?: Watch) {
