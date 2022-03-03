@@ -14,7 +14,7 @@
   import {getParam} from "src/utils/router";
   import {useRoute} from "vue-router";
   import { config } from "src/router/config";
-  import {uuid} from "~/utils";
+  import {uuid} from "src/utils";
 
   defineProps({
     summary: {
