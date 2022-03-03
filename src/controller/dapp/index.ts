@@ -2,8 +2,10 @@ import {Model} from "src/logic/dapp";
 import {Request, Response} from "express";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
+import I18n from "src/utils/i18n";
 
 export const list = async function (req: Request, res: Response) {
+    const i18n = I18n(req);
     const api = new Model(req);
     const is_igo =req.query['isigo'] as string;
     if (is_igo) {
@@ -38,6 +40,10 @@ export const list = async function (req: Request, res: Response) {
         api.home.getSummary()
     ]);
     const result = {
+        title: i18n.home.webIdo.title,
+        keywords: i18n.home.webIdo.key,
+        description: i18n.home.webIdo.des,
+
         "API.dapp.list": list,      // IDO数据
         [alias.dApp.summary.list]: summary
     };
@@ -46,6 +52,7 @@ export const list = async function (req: Request, res: Response) {
 
 // nft列表
 export const nftList = async function (req: Request, res: Response) {
+  const i18n = I18n(req);
 	const api = new Model(req);
   res.locals.menuActive = names.dapp.nft;
 	const query: any = {...req.query, paginate: true};
@@ -57,6 +64,10 @@ export const nftList = async function (req: Request, res: Response) {
 		api.home.getSummary()
 	]);
 	const result = {
+    title: i18n.home.webNft.title,
+    keywords: i18n.home.webNft.key,
+    description: i18n.home.webNft.des,
+
 		[alias.nft.list]: list,      // nft数据
 		[alias.dApp.summary.list]: summary
 	};
