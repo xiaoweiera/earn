@@ -20,6 +20,10 @@
 .hand{
   @apply cursor-pointer;
 }
+.hint{
+  --el-message-min-width: auto !important;
+}
+
 @media screen and (max-width: 768px) {
   .xshidden {
     display: none !important;

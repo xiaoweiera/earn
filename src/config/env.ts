@@ -72,6 +72,12 @@ export const getConfig = async function(env: ConfigEnv | object): Promise<Import
 	if (result && result.parsed) {
 		let VITE_cookie = getCookieDomain(result.parsed);
 		const data = { ...result.parsed, VITE_cookie };
+		const value = `${data.VITE_staticPath}/${Date.now()}`;
+		if (data.VITE_staticDomain) {
+			data.VITE_staticDomain = `${data.VITE_staticDomain}${value}`;
+		} else {
+			data.VITE_staticDomain = value;
+		}
 		return Promise.resolve(data);
 	}
 	return env as any;
