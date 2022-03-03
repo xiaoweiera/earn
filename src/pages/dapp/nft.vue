@@ -75,8 +75,8 @@ const changeSort = function (val:any) {
         <DAppDiscoversHeader :tips="i18n.home.nfts.desc" :title="i18n.home.nfts.title"/>
       </div>
       <!-- 分类 -->
-      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
-        <ui-tab :list="nftTabs" active-name="status"/>
+      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
+        <ui-tab class="mt-8" :list="nftTabs" active-name="status"/>
       </ui-sticky>
       <!-- 搜索条件 -->
       <div v-if="summary && summary.nft">
