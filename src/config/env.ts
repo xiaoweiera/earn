@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 import {ConfigEnv} from "vite";
 import UrlPattern from "url-pattern";
 import safeGet from "@fengqiaogang/safe-get";
-import { ImportMetaEnv, production } from "../types/env";
+import { ImportMetaEnv, production, Command } from "../types/env";
 
 interface Result {
 	error?: boolean;
@@ -72,11 +72,13 @@ export const getConfig = async function(env: ConfigEnv | object): Promise<Import
 	if (result && result.parsed) {
 		let VITE_cookie = getCookieDomain(result.parsed);
 		const data = { ...result.parsed, VITE_cookie };
-		const value = `${data.VITE_staticPath}/${Date.now()}`;
-		if (data.VITE_staticDomain) {
-			data.VITE_staticDomain = `${data.VITE_staticDomain}${value}`;
-		} else {
-			data.VITE_staticDomain = value;
+		if (data.VITE_command === Command.build) {
+			const value = `${data.VITE_staticPath}/${Date.now()}`;
+			if (data.VITE_staticDomain) {
+				data.VITE_staticDomain = `${data.VITE_staticDomain}${value}`;
+			} else {
+				data.VITE_staticDomain = value;
+			}
 		}
 		return Promise.resolve(data);
 	}
