@@ -112,12 +112,12 @@ const changeSort = (sort: string) => {
   <div class="discover-warp px-3 md:px-22.5">
     <div class="content pt-8">
       <!-- 头部 -->
-      <div class="header">
+      <div class="header mb-8">
         <DappDiscoversHeader :title="i18n.home.IdoIgo.title" :tips="i18n.home.IdoIgo.desc"></DappDiscoversHeader>
       </div>
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
-        <ui-tab class="mt-8" :key="key" :list="logic.tabs"  active-name="type"/>
+        <ui-tab :key="key" :list="logic.tabs"  active-name="type"/>
       </ui-sticky>
       <!-- 搜索条件 -->
 
