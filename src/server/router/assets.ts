@@ -36,16 +36,17 @@ const Assets = async function(root: string, env: Env) {
 
 	router.all("/index", goHome);
 	router.all("/index.html", goHome);
-	router.all(env.VITE_staticPath, goHome);
-	router.all(`${env.VITE_staticPath}/index`, goHome);
-	router.all(`${env.VITE_staticPath}/index.html`, goHome);
 
 	if (env.VITE_command === Command.build) {
 		router.use(Compression());
 		if (env.VITE_staticPath && !/^http/.test(env.VITE_staticPath)) {
+			router.all(`${env.VITE_staticPath}/:date`, goHome);
+			router.all(`${env.VITE_staticPath}/:date/index`, goHome);
+			router.all(`${env.VITE_staticPath}/:date/index.html`, goHome);
+
 			const dist = path.join(root, "dist/client");
 			// 设置静态文件代理
-			router.use(env.VITE_staticPath, Express.static(dist, {
+			router.use(`${env.VITE_staticPath}/:date`, Express.static(dist, {
 				// 设置强缓
 				immutable: true,
 				maxAge: '31536000000'
