@@ -89,7 +89,6 @@ const key = ref<string>(uuid());
 
 //获取类型
 const summary = createRef<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
-console.log(summary);
 
 onMounted(function () {
   // 得到数据汇总
