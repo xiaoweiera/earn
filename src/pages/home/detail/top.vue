@@ -3,6 +3,8 @@ import {createRef, onLoadRef} from "src/utils/ssr/ref";
 import {onMounted} from "vue";
 import {Model} from "src/logic/home";
 import {getParam} from "src/utils/router";
+import {getSaveNumber} from "src/lib/tool";
+
 
 const top3:any = createRef("API.home.getTop3", []);
 onMounted(function () {
@@ -24,12 +26,12 @@ onMounted(function () {
       <div class="flex items-center justify-between mt-3 h-6">
         <div class="flex items-center">
           <ui-image class="w-6 h-6" :src="item.logo"/>
-          <span class="text-kd14px18px ml-1.5 font-medium text-global-highTitle text-opacity-85">{{item.name}}</span>
-          <span class="text-kd12px16px ml-1.5 text-global-highTitle text-opacity-45">{{item.symbol}}</span>
+          <span class="text-kd14px18px ml-1.5 font-medium text-global-highTitle text-opacity-85 max-w-23 short">{{item.name}}</span>
+          <span class="text-kd12px16px ml-1.5 text-global-highTitle text-opacity-45 max-w-15 short">{{item.symbol}}</span>
         </div>
         <div class="flex items-center">
           <IconFont size="16" type="icon-star"/>
-          <span class="ml-1 text-kd14px16px text-number text-global-highTitle">{{item.overall_score}}</span>
+          <span class="ml-1 text-kd14px16px text-number text-global-highTitle">{{item.overall_score?getSaveNumber(item.overall_score,1):0}}</span>
         </div>
       </div>
     </template>
