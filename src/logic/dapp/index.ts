@@ -134,6 +134,10 @@ export class Model extends API {
 		};
 		return this.dApp.ixo<ProjectItem | AdItem>(query);
 	}
+	//获取首页nft进行时
+	getUpcomingNftList(query:any) {
+		return this.dApp.getNftList(query);
+	}
 	getEndedProjects(query:object) {
 		return this.dApp.ixoEnd<ProjectItem | AdItem>(query);
 	}

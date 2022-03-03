@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 
 
-import DappHomeHeader from './home/header.vue';
-import DappDiscoversContentType from './discovers/content/type.vue';
-import DappDiscoversContentChain from './discovers/content/chain.vue';
+import DAppHomeHeader from './home/header.vue';
+import DAppDiscoversContentType from './discovers/content/type.vue';
+import DAppDiscoversContentChain from './discovers/content/chain.vue';
 import { ElInput } from "element-plus";
-import DappDiscoversEndlist from './discovers/endlist.vue';
+import DAppDiscoversEndlist from './discovers/endlist.vue';
 import I18n from "src/utils/i18n";
 
 import {onMounted, reactive, ref} from "vue";
@@ -34,7 +34,6 @@ const i18n = I18n();
 const chain = ref(getParam<string>("bracket"));
 const category = ref(getParam<string>("category"));
 const platform = ref(getParam<string>("platform"));
-const type = ref(getParam<string>("type"));
 const search = ref(getParam<string>("search"));
 const params = reactive({
   chain: chain.value,
@@ -109,17 +108,17 @@ onMounted(function() {
   <div class="mt-5 p-4 bg-global-white rounded-md">
     <!-- header -->
     <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
-      <DappHomeHeader :title="i18n.home.endProject.title" :tips="i18n.home.endProject.desc" :status="Status.ended" :type="urlType"/>
+      <DAppHomeHeader :title="i18n.home.endProject.title" :tips="i18n.home.endProject.desc" :status="Status.ended" :type="urlType"/>
     </div>
     <div class="hidden md:block">
       <!-- 项目类型、公链、搜索框 -->
       <div class="flex justify-between items-center mt-4">
         <div class="flex items-center">
           <!-- 公链 -->
-          <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabChain(safeGet(summary,'ixo.chain'), 'bracket', config.home)" active-name="bracket" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
+          <DAppDiscoversContentType :key="key" v-if="summary.ixo" :list="tabChain(safeGet(summary,'ixo.chain'), 'bracket', config.home)" active-name="bracket" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
           <!-- 类型 -->
-          <DappDiscoversContentChain v-if="summary.ixo" :href="config.home" :chainData="safeGet(summary,'ixo.category')" name="category" :title="i18n.home.topList.category"/>
+          <DAppDiscoversContentChain v-if="summary.ixo" :href="config.home" :chainData="safeGet(summary,'ixo.category')" name="category" :title="i18n.home.topList.category"/>
         </div>
         <!-- 搜索框 -->
         <div>
@@ -135,19 +134,19 @@ onMounted(function() {
       </div>
       <!-- platform -->
       <div class="mt-4">
-        <DappDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(safeGet(summary,'ixo.platform'), 'platform', config.home)" active-name="platform" name="platform" :title="i18n.home.topList.plat"/>
+        <DAppDiscoversContentType :key="key" v-if="summary.ixo" :list="tabPlat(safeGet(summary,'ixo.platform'), 'platform', config.home)" active-name="platform" name="platform" :title="i18n.home.topList.plat"/>
       </div>
     </div>
 
     <!--移动端展示-->
     <div class="block md:hidden">
       <div class="flex items-center">
-        <DappDiscoversContentChain :key="key" class="w-1/2" :chainData="safeGet(summary,'ixo.chain')" :href="config.home" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
+        <DAppDiscoversContentChain :key="key" class="w-1/2" :chainData="safeGet(summary,'ixo.chain')" :href="config.home" name="bracket" :title="i18n.home.idoIgoProject.chain"/>
         <IconFont v-if="summary.ixo" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
-        <DappDiscoversContentChain :key="key" class="w-1/2" :chainData="safeGet(summary,'ixo.category')" :href="config.home" name="category" :title="i18n.home.topList.category"/>
+        <DAppDiscoversContentChain :key="key" class="w-1/2" :chainData="safeGet(summary,'ixo.category')" :href="config.home" name="category" :title="i18n.home.topList.category"/>
       </div>
       <div class="flex items-center mt-4">
-        <DappDiscoversContentChain :key="key" class="w-1/2" :chainData="safeGet(summary,'ixo.platform')" :href="config.home" name="platform" :title="i18n.home.topList.plat"/>
+        <DAppDiscoversContentChain :key="key" class="w-1/2" :chainData="safeGet(summary,'ixo.platform')" :href="config.home" name="platform" :title="i18n.home.topList.plat"/>
         <IconFont v-if="safeGet(summary,'ixo.platform')" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
         <!-- 搜索框 -->
         <client-only class="max-w-50 input-style">
@@ -161,7 +160,7 @@ onMounted(function() {
     </div>
     <div class="overflow-x-scroll showX mt-4" v-if="EndedList.length > 0">
       <div class="w-307 border-t-1 border-global-highTitle border-opacity-6">
-        <DappDiscoversEndlist :key="key" @changeSort="changeSort" :list="EndedList" :params="params"/>
+        <DAppDiscoversEndlist :key="key" @changeSort="changeSort" :list="EndedList" :params="params"/>
       </div>
     </div>
     <div v-else>

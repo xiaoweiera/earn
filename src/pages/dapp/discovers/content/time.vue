@@ -23,10 +23,10 @@ const detailUrl = function (data: object) {
 <template>
   <div v-if="data">
     <div class="w-full h-15.5 flex justify-between items-center">
-      <div class="flex-1">
+      <div>
         <DappDiscoversCutdown :value="data.ido_start_at"></DappDiscoversCutdown>
       </div>
-      <v-router target="_blank" :href='data.url' class="ml-6.5">
+      <v-router target="_blank" :href='data.url'>
         <div class="min-w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center">
           <span class="text-kd14px18px text-global-darkblue font-medium">{{ i18n.home.idoIgoProject.join }}</span>
         </div>
