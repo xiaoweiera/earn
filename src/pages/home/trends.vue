@@ -94,11 +94,11 @@ onMounted(function () {
                   </div>
                   <ui-image class="rounded-kd6px h-23.5 w-65 md:w-101 " :src="getImg(item)" fit="cover"/>
                 </div>
-                <div v-else class="h-23.5 w-47.5">
+                <div v-else class="h-23.5 w-47.5 overflow-hidden">
                   <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
                   <ui-image class="rounded-kd6px w-full h-full" :class="getImg(item)?'':'mohu'" :src="getImg(item)?getImg(item):item['logo']" />
                   <div class="absolute top-0  top-5 left-2 flex items-center">
-                    <ui-image v-if="item['data_type']==='dapp'" class="w-12.5 h-12.5  rounded-full relative z-3"  fit="cover" :src="item['logo']" />
+                    <ui-image v-if="item['data_type']==='dapp'" class="w-12.5 h-12.5 border-2 border-global-white  rounded-full relative z-3"  fit="cover" :src="item['logo']" />
                     <div class="ml-3 font-kdSemiBold  font-bold text-kd18px18px text-global-white relative z-3">
                       <div class="w-26 whitespace-nowrap short">{{item.name}}</div>
                       <span class="chain-tip w-26 whitespace-nowrap short">{{safeGet(config,`chain.${item.chain}.name`)}}</span>
@@ -157,11 +157,11 @@ onMounted(function () {
   @apply text-kd18px18px md:text-kd20px20px font-semiBold text-global-white;
 }
 .mohu{
-  filter:blur(2px);
-  -webkit-filter:blur(2px);
-  -moz-filter:blur(px);
-  -ms-filter:blur(px);
-  -o-filter:blur(2px);
+  filter:blur(3px);
+  -webkit-filter:blur(3px);
+  -moz-filter:blur(3px);
+  -ms-filter:blur(3px);
+  -o-filter:blur(3px);
 }
 .jian{
   background: linear-gradient(to right, #1010103b , #ffff0000);

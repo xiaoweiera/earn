@@ -13,10 +13,9 @@ onMounted(function () {
     return api.getTop3(id);
   });
 });
-
 </script>
 <template>
-  <div class="w-full bg-global-topBg h-37.5 p-3 font-kdFang">
+  <div class="w-full bg-global-topBg h-37.5 p-3 font-kdFang rounded-kd8px">
     <div class="flex">
       <IconFont size="16" type="icon-hot"/>
       <span class="ml-1.5 text-kd14px18px font-medium font-kdFang text-global-highTitle">Tag Top 3</span>
@@ -33,7 +32,6 @@ onMounted(function () {
           <span class="ml-1 text-kd14px16px text-number text-global-highTitle">{{item.overall_score}}</span>
         </div>
       </div>
-
     </template>
   </div>
 </template>
