@@ -55,6 +55,8 @@ export interface ProjectItem {
 	ido_fundraising_goal: number;
 	// IDO开始时间
 	ido_start_at: number;
+	// IDO结束时间
+	ido_end_at: number;
 }
 export interface AdItem {
 	// 广告ID

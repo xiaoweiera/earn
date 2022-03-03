@@ -103,9 +103,10 @@ watch(route, () => {
         <DAppHomeTitle :status="Status.upcoming" :type="urlType" :title="i18n.home.idoIgoProject.upcoming"/>
         <div class="hidden md:block">
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
-            <DAppDiscoversList v-for="(item, index) in UpcomingList" :key="index" :data="item"/>
+            <DAppDiscoversList v-for="(item, index) in UpcomingList" :key="index" status="upcoming" :data="item"/>
           </div>
         </div>
+        <!-- 手机端IDO&IGO即将开始项目 -->
         <div class="block md:hidden mt-3 h-95" v-if="UpcomingList.length > 0">
           <Swiper class="h-full swiper-recom"
                   :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
@@ -114,7 +115,7 @@ watch(route, () => {
                   :pagination="{ clickable: true }">
             <template class="w-full h-87.25" v-for="(item, index) in UpcomingList" :key="index">
               <SwiperSlide class="w-full h-full rounded-kd6px">
-                <DAppDiscoversList class="w-full h-full hand" :data="item"/>
+                <DAppDiscoversList class="w-full h-full hand" status="upcoming" :data="item"/>
               </SwiperSlide>
             </template>
           </Swiper>
@@ -129,9 +130,10 @@ watch(route, () => {
         <DAppHomeTitle :status="Status.ongoing" :type="urlType" :title="i18n.home.idoIgoProject.ongoing"/>
         <div class="hidden md:block">
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-3">
-            <DAppDiscoversList v-for="(item, index) in OngoingList" :key="index" :data="item"/>
+            <DAppDiscoversList v-for="(item, index) in OngoingList" :key="index" status="ongoing" :data="item"/>
           </div>
         </div>
+        <!--手机端IDO&IGO进行中项目 -->
         <div class="block md:hidden mt-3 h-95" v-if="OngoingList.length > 0">
           <Swiper class="h-full swiper-recom"
                   :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
@@ -140,7 +142,7 @@ watch(route, () => {
                   :pagination="{ clickable: true }">
             <template class="w-full h-87.25" v-for="(item, index) in OngoingList" :key="index">
               <SwiperSlide class="w-full h-full rounded-kd6px">
-                <DAppDiscoversList class="w-full h-full hand" :data="item"/>
+                <DAppDiscoversList class="w-full h-full hand" status="ongoing" :data="item"/>
               </SwiperSlide>
             </template>
           </Swiper>
