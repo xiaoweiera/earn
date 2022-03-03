@@ -16,6 +16,7 @@ import DBList from "@fengqiaogang/dblist";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
+console.log(configs)
 export const tabAll = 'all';
 
 const i18n = I18n();
@@ -40,12 +41,12 @@ export const tabChain = function (data:any, key: string, href:string) {
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.name,
+				[key]: item.slug,
 				href: {
 					path: href,
 					query: {
 						...query,
-						[key]: item.name,
+						[key]: item.slug,
 					}
 				}
 			}
@@ -67,12 +68,12 @@ export const tabPlat = function (data:any, key: string, href:string) {
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.name,
+				[key]: item.slug,
 				href: {
 					path: href,
 					query: {
 						...query,
-						[key]: item.name,
+						[key]: item.slug,
 					}
 				}
 			}
