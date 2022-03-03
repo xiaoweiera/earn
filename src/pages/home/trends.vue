@@ -55,7 +55,7 @@ onMounted(function () {
 </script>
 <template>
   <div>
-    <div class="flex items-center text-global-white">
+    <div class="flex items-end text-global-white">
       <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow font-semibold">{{i18n.home.todayTrend.title}}</span>
       <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">{{i18n.home.todayTrend.time}}</span>
     </div>
@@ -94,7 +94,7 @@ onMounted(function () {
                   </div>
                   <ui-image class="rounded-kd6px h-23.5 w-65 md:w-101 " :src="getImg(item)" fit="cover"/>
                 </div>
-                <div v-else class="h-23.5 w-47.5 overflow-hidden">
+                <div v-else class="h-23.5 w-47.5 overflow-hidden rounded-kd6px">
                   <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
                   <ui-image class="rounded-kd6px w-full h-full" :class="getImg(item)?'':'mohu'" :src="getImg(item)?getImg(item):item['logo']" />
                   <div class="absolute top-0  top-5 left-2 flex items-center">
@@ -104,7 +104,7 @@ onMounted(function () {
                       <span class="chain-tip w-26 whitespace-nowrap short">{{safeGet(config,`chain.${item.chain}.name`)}}</span>
                     </div>
                   </div>
-                  <div class="w-47.5 h-23.5 absolute top-0 left-0  rounded-kd6px jian  z-2"></div>
+                  <div class="w-47.5 h-23.5 absolute top-0 left-0  rounded-kd6px jian z-2"></div>
                 </div>
               </v-router>
             </SwiperSlide>
