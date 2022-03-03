@@ -12,6 +12,8 @@ import {Model} from "src/logic/home";
 import {config as routerConfig} from "src/router/config";
 import I18n from "src/utils/i18n";
 import window from "src/plugins/browser/window";
+import _ from "lodash";
+import {createHref} from "src/plugins/router/pack";
 const props = defineProps({
   info: Object as PropType<detail>
 })
@@ -44,6 +46,9 @@ watch(route, (n) => {
   key.value++
   getData(true)
 })
+
+
+
 //搜索
 const search = ref(getParam<object>('search'))
 watch(search, (n: any) => {
@@ -59,8 +64,12 @@ watch(search, (n: any) => {
   })
 })
 const data: any = createReactive<detail>("API.home.getProjects", {} as any);
+//防抖
+const getData = _.debounce(async function (clear?: boolean) {
+  await debounceData(clear)
+}, 300);
 //得到表格数据
-const getData = async (clear?: boolean) => {
+const debounceData = async (clear?: boolean) => {
   loading.value = true
   if (clear) {
     params.page = 1
@@ -137,7 +146,7 @@ const isFilter = () => {
         </div>
       </client-only>
     </div>
-    <div class="showX">
+    <div v-if="data.items.length>0" class="showX">
       <table class="table-my min-w-243">
         <thead>
         <tr class="min-h-10">
@@ -167,6 +176,7 @@ const isFilter = () => {
         </tbody>
       </table>
     </div>
+    <ui-empty v-else class="pb-3 pt-10"/>
     <div v-if="data?.items?.length>0 && resultNumber>=params.page_size" @click="more" class="more">{{i18n.home.loadingMore}}</div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>
