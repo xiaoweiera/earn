@@ -25,7 +25,7 @@ import * as alias from "src/utils/root/alias";
 import zhEn from "element-plus/es/locale/lang/en";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import Decrypt from "src/plugins/encryption/decrypt";
-import {AppId, languageKey, rootData, getEnv} from "src/config";
+import {AppId, languageKey, rootData, getEnv, tokenName} from "src/config";
 import {NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded} from "vue-router";
 
 // 前置处理
@@ -38,13 +38,19 @@ const prepend = async function () {
 	if (process && process.device) {
 		// 设置设备类型
 		cookie.setDeviceValue(process.device);
-		// 修改用户身份
-		cookie.setUserToken(process.token);
-		if (safeGet<object>(data, alias.common.user)) {
+
+		// 判断浏览器中是否有 token 信息
+		if (cookie.get(tokenName)) {
 			return data;
-		} else {
-			window.location.reload(); // 刷新页面
 		}
+		// 如果有 token 信息
+		if (process.token) {
+			// 修改 token 数据
+			cookie.setUserToken(process.token);
+			// 刷新页面
+			window.location.reload();
+		}
+		return data;
 	} else {
 		// 设置默认类型
 		cookie.setDeviceValue(Device.web);
