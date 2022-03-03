@@ -49,11 +49,11 @@ defineProps({
   text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
 }
 .is-flater{
-  @apply bg-global-hei bg-opacity-28;
-  filter:blur(16px);
-  -webkit-filter:blur(16px);
-  -moz-filter:blur(16px);
-  -ms-filter:blur(16px);
-  -o-filter:blur(16px);
+  @apply bg-global-hei;
+  filter:blur(14px);
+  -webkit-filter:blur(14px);
+  -moz-filter:blur(14px);
+  -ms-filter:blur(14px);
+  -o-filter:blur(14px);
 }
 </style>

@@ -17,7 +17,6 @@ import dayjs from "dayjs";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
-console.log(configs)
 export const tabAll = 'All';
 
 

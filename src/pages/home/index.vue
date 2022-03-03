@@ -43,7 +43,7 @@ onMounted(function () {
 @import "src/styles/function";
 
 .top {
-  background: #e5e5e51a;
+  background-color: #e5e5e51a;
   background-image: cdn("/dapp/homebeijing.jpeg");
   background-size: 100% 652px;
   background-repeat: no-repeat;

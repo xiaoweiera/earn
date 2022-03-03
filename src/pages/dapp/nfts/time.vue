@@ -10,14 +10,6 @@ defineProps({
   }
 })
 const i18n = I18n();
-const detailUrl = function (data: object) {
-  const category=getParam<string>('category', '') as string
-  const id = safeGet<number>(data, 'dapp_id');
-  if (id) {
-    return `${config.dapp}/rank/${id}?category=${category}`;
-  }
-  return safeGet<string>(data, 'website');
-};
 </script>
 <template>
   <div>

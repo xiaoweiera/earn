@@ -7,6 +7,9 @@ import {ProjectItem, AdItem, ProjectType} from "src/types/dapp/ixo";
 defineProps({
   data: {
     type: Object as PropType<ProjectItem | AdItem>,
+  },
+  status: {
+    type: String,
   }
 })
 </script>
@@ -16,7 +19,7 @@ defineProps({
       <!--遍历展示项目列表信息-->
       <div class="discover-list relative h-87.5 border border-global-highTitle border-opacity-6 rounded-md cursor-pointer">
         <DappDiscoversContentAd v-if="data.data_type === ProjectType.ad" :data="data"/>
-        <DappDiscoversContent v-else :data="data"/>
+        <DappDiscoversContent v-else :status='status' :data="data"/>
       </div>
     </div>
   </div>

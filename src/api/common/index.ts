@@ -5,10 +5,8 @@
 import * as api from "src/config/api";
 import ApiTemplate from "../template";
 import { tidingName } from "src/config/";
-import request from "src/plugins/dao/service";
 import Cookie from "src/plugins/browser/cookie";
 import {AreaCode} from "src/types/common/area";
-import {asyncCheck} from "src/plugins/dao/response";
 import {SiteConfig} from "src/types/common/chain";
 import {TidingList} from "src/types/common/tiding";
 import { userToken, tryError, DefaultValue, get } from "src/plugins/dao/http";

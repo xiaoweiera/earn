@@ -24,7 +24,7 @@ export const createReactive = function<T>(key: string, auto: T) {
 }
 
 type ApiFun = <T>(query?: object | string | number) => T;
-type UpdateCallback = (query?: object | string | number) => Promise<void>
+type UpdateCallback = (...args: any[]) => Promise<void>
 
 const getData = async function<T>(api: string | ApiFun | Function, query?: object | string | number) {
 	if (_.isString(api)) {
