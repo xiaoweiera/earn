@@ -71,6 +71,10 @@ export default class extends ApiTemplate {
 			page: 1,
 			page_size: 10,
 			paginate: false,
+			status: "ended",
+			query: "",
+			sort_field: "",
+			sort_type: ""
 		}, query);
 		return asyncCheck<T>(request(this.lang).get(api.dapp.ixo, {params}));
 	}
