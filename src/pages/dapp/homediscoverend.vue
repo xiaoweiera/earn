@@ -31,7 +31,7 @@ const props = defineProps({
   }
 })
 const i18n = I18n();
-const search = ref<string>();
+const search = ref<string>("");
 const params = getParam<Query>();
 
 const urlType = true;
@@ -53,8 +53,8 @@ const EndedList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.ended, [
 const updateEndedList = onUpdateRef(EndedList, getEndedList);
 
 onMounted(function () {
-  params.search = getParam<string>("search") || "";
-  search.value = params.value;
+  params.query = getParam<string>("query") || "";
+  search.value = params.query;
 
   // 判断列表数据是否为空，如果为空则获取最新数据
   onLoadRef(EndedList, getEndedList);
@@ -63,7 +63,6 @@ onMounted(function () {
     params.chain = route.bracket;
     params.category = route.category;
     params.platform = route.platform;
-    params.query = route.search || "";
     updateEndedList();
   }
 
@@ -76,7 +75,7 @@ onMounted(function () {
       onUpdate();
     } else if (params.platform !== route.platform) {
       onUpdate();
-    } else if (params.query !== route.search) {
+    } else if (params.query !== route.query) {
       onUpdate();
     }
 
@@ -93,8 +92,10 @@ const $router = useRouter()
 const onChangeParam = setInject(stateAlias.ui.tab);
 
 const onSearch = _.debounce(async function () {
-  const query = {...getParam<object>(), search: search.value || ""};
+  const value = search.value || "";
+  const query = {...getParam<object>(), query: value};
   const url = createHref(window.location.pathname, query);
+  params.query = value;
   await $router.push(url);
   if (onChangeParam) {
     onChangeParam(query);
@@ -126,7 +127,7 @@ const onSearch = _.debounce(async function () {
         <div>
           <!-- 搜索框 -->
           <client-only class="w-50 input-style">
-            <ElInput v-model="searchVal" :placeholder="i18n.common.placeholder.search" class="w-full"
+            <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full"
                      @change="onSearch">
               <template #prefix>
                 <IconFont size="16" type="icon-sousuo" @click="onSearch"/>
