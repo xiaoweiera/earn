@@ -96,10 +96,20 @@ const sort = (item: any) => {
   getData(true)
 }
 const toProject=(url:string )=>{
-  alert(url)
   if(url){
     window.location.href = `https://kingdata.com${url}?lang=${i18n.getLang()}`
   }
+}
+const getNameWidth=(item:any)=>{
+  console.log(props.info)
+  //@ts-ignore
+  if(item.key==='name' && props.info.show_type==='data'){
+    return 'min-w-30 max-w-30'
+    //@ts-ignore
+  }else if(item.key==='name' && props.info.show_type==='desc'){
+    return 'w-150'
+  }
+  return ''
 }
 //是否有筛选
 const isFilter = () => {
@@ -135,7 +145,7 @@ const isFilter = () => {
             <div class="text-left  w-5">#</div>
           </td>
           <template v-for="(item,index) in data.header" :key="index">
-            <td class="text-left border-tb" :class="item.key==='name'?'min-w-30':''" v-if="item.key!=='id'">
+            <td class="text-left border-tb" :class="getNameWidth(item)" v-if="item.key!=='id'">
               <HomeTableHeader @click="sort(item)" name="Project Name" :params="params" :item="item"/>
             </td>
           </template>
