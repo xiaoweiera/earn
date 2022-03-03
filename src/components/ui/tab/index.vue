@@ -100,8 +100,8 @@ const getActiveValue = function () {
   }
 }
 
-const onChange = function (value = getActiveValue()) {
-  if (value && active.value !== value) {
+const onChange = function (value = getActiveValue(), important: boolean = false) {
+  if (value && (active.value !== value || important)) {
     active.value = value;
     const data = selectData(value);
     emitEvent("change", data);
@@ -142,7 +142,7 @@ const onChangeSelect = async function (value: string) {
     const url = createHref(href);
     await $router.push(url);
   }
-  onChange(value);
+  onChange(value, true);
 }
 
 onMounted(function () {
