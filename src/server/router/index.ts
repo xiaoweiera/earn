@@ -36,9 +36,6 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 	// 装载博客相关路由
 	router.use(blog);
 
-	// router.all('/', function (req: Request, res: Response) {
-	// 	redirect(req, res, routerConfig.home);
-	// });
 	// 404
 	router.get(routerConfig.E404, function (req: Request, res: Response) {
 		res.send({});
