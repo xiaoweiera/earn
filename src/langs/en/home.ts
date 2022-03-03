@@ -89,7 +89,8 @@ export default {
     },
     tagTop:'Tag Top 3',
     IdoIgo:{
-        title:'Comprehensive aggregation platform for IDO/IGO',
+        title:'Comprehensive aggregation platform for IDO',
+        igotitle:'Comprehensive aggregation platform for IGO',
         desc:'Comprehensive Services: Web3.0,DeFi,GameFi,NFTs,Airdorps'
     },
     nfts:{

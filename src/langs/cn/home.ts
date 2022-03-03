@@ -89,7 +89,8 @@ export default {
     },
     tagTop:'Tag Top 3',
     IdoIgo:{
-        title:'最新最全的 IDO / IGO 聚合平台',
+        title:'最新最全的 IDO 聚合平台',
+        igotitle:'最新最全的 IGO 聚合平台',
         desc:'一站式服务：Web3.0、DeFi、游戏、NFT、Airdorps'
     },
     nfts:{

@@ -36,22 +36,30 @@ const urlType = true;
 const chain = ref(getParam<string>("chain"));
 const keys = ref<string>(uuid());
 
-// 即将上线列表
-const getUpcomingList = function () {
-  const model = new Model();
-  return model.getUpcomingProjects(chain.value);
-}
 // 创建列表对象并获取缓存数据
-const UpcomingList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.upcoming, []);
+const UpcomingList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.upcoming, [] as any);
+// 即将上线列表
+const getUpcomingList = async function (flag:boolean) {
+  const model = new Model();
+  if(flag){
+    UpcomingList.value = [];
+  }
+  UpcomingList.value = await model.getUpcomingProjects(chain.value) as any;
+}
+
 // 创建更新列表钩子函数
 const updateUpcomingList = onUpdateRef(UpcomingList, getUpcomingList);
 
-// 进行中列表
-const getOngoingList = function () {
-  const model = new Model();
-  return model.getOngoingProjects(chain.value);
-}
+
 const OngoingList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.ongoing, []);
+// 进行中列表
+const getOngoingList = async function (flag:boolean) {
+  const model = new Model();
+  if(flag){
+    OngoingList.value = [];
+  }
+  OngoingList.value = await model.getOngoingProjects(chain.value) as any;
+}
 const updateOngoingList = onUpdateRef(OngoingList, getOngoingList);
 
 onMounted(function () {
@@ -71,8 +79,8 @@ watch(route, () => {
   const querys: any = getParam<string>();
   keys.value = uuid();
   chain.value = querys.chain;
-  getUpcomingList();
-  getOngoingList();
+  getUpcomingList(true);
+  getOngoingList(true);
   // todo 可以在此处更新某些数据
 })
 </script>

@@ -67,7 +67,7 @@ useWatch(route, (n) => {
   params.platform = querys.platform;
   params.status = querys.type ? querys.type : 'upcoming';
   params.query = querys.search ? querys.search : '';
-  getData(true)
+  getData(true);
   // todo 可以在此处更新某些数据
 })
 
@@ -89,7 +89,6 @@ const key = ref<string>(uuid());
 
 //获取类型
 const summary = createRef<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
-console.log(summary);
 
 onMounted(function () {
   // 得到数据汇总
@@ -106,7 +105,15 @@ const changeSort = (sort: string) => {
   params.sort_field = sort;
   getData(true);
 }
-
+const getName = function () {
+  const isIgo = getParam<boolean>("isigo");
+  console.log(isIgo)
+  if(isIgo){
+    return i18n.home.IdoIgo.igotitle;
+  }else {
+    return i18n.home.IdoIgo.title;
+  }
+}
 </script>
 <template>
   <div class="discover-warp px-3 md:px-22.5">

@@ -40,7 +40,7 @@
   const urlType = false;
 
   // 创建列表对象并获取缓存数据
-  const UpcomingNftList = createRef<Array<ProjectNftItem | AdNftItem>>(alias.dApp.ixo.upcoming, [] as any);
+  const UpcomingNftList = createRef<Array<ProjectNftItem | AdNftItem>>(alias.nft.upcoming, [] as any);
   //nft drops
   const getUpcomingNftList =async function (flag:boolean) {
     const model = new Model();

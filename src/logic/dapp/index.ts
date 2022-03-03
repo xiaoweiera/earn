@@ -9,20 +9,23 @@ import { SiteConfig } from "src/types/common/chain";
 import * as alias from "src/utils/root/alias";
 import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router/";
-import { getDateMDY, dateFormat, dateTime, dateYMDFormat, toInteger } from "src/utils/"
+import { getDateMDY, dateFormat, dateTime, dateYMDFormat } from "src/utils/"
 import safeGet from "@fengqiaogang/safe-get";
 import * as logic from "src/types/dapp";
 import DBList from "@fengqiaogang/dblist";
+import dayjs from "dayjs";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
-export const tabAll = 'all';
+console.log(configs)
+export const tabAll = 'All';
 
-const i18n = I18n();
+
 export const getAll = function () {
 	return {
 		id: tabAll,
 		name: "All",
+		slug: "All"
 	};
 }
 
@@ -40,12 +43,12 @@ export const tabChain = function (data:any, key: string, href:string) {
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.name,
+				[key]: item.slug,
 				href: {
 					path: href,
 					query: {
 						...query,
-						[key]: item.name,
+						[key]: item.slug,
 					}
 				}
 			}
@@ -67,12 +70,12 @@ export const tabPlat = function (data:any, key: string, href:string) {
 		return R.map(function (item: any) {
 			return {
 				...item,
-				[key]: item.name,
+				[key]: item.slug,
 				href: {
 					path: href,
 					query: {
 						...query,
-						[key]: item.name,
+						[key]: item.slug,
 					}
 				}
 			}
@@ -134,6 +137,10 @@ export class Model extends API {
 		};
 		return this.dApp.ixo<ProjectItem | AdItem>(query);
 	}
+	//获取首页nft进行时
+	getUpcomingNftList(query:any) {
+		return this.dApp.getNftList(query);
+	}
 	getEndedProjects(query:object) {
 		return this.dApp.ixoEnd<ProjectItem | AdItem>(query);
 	}
@@ -157,9 +164,10 @@ export const getUrl = function (name:string, type:boolean) {
 }
 
 //获取公链logo
-export const getLog = function (name:any) {
-	if(configs.chain[name]) {
-		return configs.chain[name].logo;
+export const getLog = function (name:string) {
+	const data = safeGet<object>(configs, `chain.${name}`);
+	if(data) {
+		return safeGet<string>(data, "logo");
 	}
 	return "N/A";
 }
@@ -195,18 +203,23 @@ export const sortVal = function(list: any[], diff?: string, reverse?: boolean) {
 	return R.sort(app, list)
 }
 
-const dayTimes = 1000 * 60 * 60 * 24;
-const todayTime = new Date(new Date().toLocaleDateString()).getTime();
-const tomorrowTime = new Date().getTime() + dayTimes;
 //判断是否是今天和明天
-export const getTodayTime = function (val:number) {
-	if((val- todayTime) < dayTimes) {
+export const getTodayTime = function (value: number) {
+	const today = dayjs();
+	const date = dayjs(value);
+
+	// 判断是否是今天
+	if (today.isSame(date, "day")) {
+		const i18n = I18n();
 		return i18n.home.nfts.today;
-	}else if(dayTimes <= (val - todayTime) && (val -todayTime) < (dayTimes * 2) ) {
-		return i18n.home.nfts.tomorrow;
-	}else {
-		return getDateMDY(val);
 	}
+	const tomorrow = dayjs().add(1, "day");
+	// 判断是否是明天
+	if (tomorrow.isSame(date, "day")) {
+		const i18n = I18n();
+		return i18n.home.nfts.tomorrow;
+	}
+	return getDateMDY(value);
 }
 //跳转路由
 export const getNextUrl = function (val:any) {
