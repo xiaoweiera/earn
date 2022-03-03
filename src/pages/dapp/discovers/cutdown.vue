@@ -3,7 +3,7 @@ import I18n from "src/utils/i18n";
 const i18n = I18n();
 defineProps({
   value: {
-    type: String || Number,
+    type: Number || String,
   }
 })
 </script>
