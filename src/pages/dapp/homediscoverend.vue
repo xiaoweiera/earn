@@ -4,7 +4,6 @@
 import DappHomeHeader from './home/header.vue';
 import DappDiscoversContentType from './discovers/content/type.vue';
 import DappDiscoversContentChain from './discovers/content/chain.vue';
-import ClientOnly from "~/components/client/only.vue";
 import { ElInput } from "element-plus";
 import DappDiscoversEndlist from './discovers/endlist.vue';
 import I18n from "src/utils/i18n";
@@ -21,8 +20,8 @@ import {uuid} from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import {useRoute, useRouter} from "vue-router";
 import _ from "lodash";
-import {createHref} from "~/plugins/router/pack";
-import window from "~/plugins/browser/window";
+import {createHref} from "src/plugins/router/pack";
+import window from "src/plugins/browser/window";
 
 const props = defineProps({
   summary: {

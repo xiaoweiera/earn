@@ -11,12 +11,11 @@ import {Swiper, SwiperSlide} from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
 import { getValue } from "src/utils/root/data";
-import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import {alias, createRef, onLoadRef} from "src/utils/ssr/ref";
 import {Model} from "src/logic/home";
 import {timeago, dataToTimestamp, formatDefaultTime} from "src/lib/tool";
 import I18n from "src/utils/i18n";
-import {SiteConfig} from "~/types/common/chain";
-import * as alias from "~/utils/root/alias";
+import {SiteConfig} from "src/types/common/chain";
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const i18n = I18n();
 const env = getEnv();

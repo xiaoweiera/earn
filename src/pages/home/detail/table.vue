@@ -11,7 +11,7 @@ import {detail} from "src/types/home";
 import {Model} from "src/logic/home";
 import {config as routerConfig} from "src/router/config";
 import I18n from "src/utils/i18n";
-import window from "~/plugins/browser/window";
+import window from "src/plugins/browser/window";
 const props = defineProps({
   info: Object as PropType<detail>
 })

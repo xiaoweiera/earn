@@ -2,7 +2,6 @@
 import {onMounted, PropType, ref} from 'vue';
 import DappDiscoversContentType from './content/type.vue';
 import DappDiscoversContentChain from './content/chain.vue';
-import ClientOnly from "~/components/client/only.vue";
 import { ElInput } from "element-plus";
 import I18n from "src/utils/i18n";
 
@@ -11,11 +10,11 @@ import { tabCage, tabPlat } from "src/logic/dapp/";
 
 import { config } from "src/router/config";
 import {uuid} from "src/utils";
-import {setInject, stateAlias} from "~/utils/use/state";
+import {setInject, stateAlias} from "src/utils/use/state";
 import _ from "lodash";
-import {getParam} from "~/utils/router";
-import {createHref} from "~/plugins/router/pack";
-import window from "~/plugins/browser/window";
+import {getParam} from "src/utils/router";
+import {createHref} from "src/plugins/router/pack";
+import window from "src/plugins/browser/window";
 import {useRouter} from "vue-router";
 
 const props = defineProps({
