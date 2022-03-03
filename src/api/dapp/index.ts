@@ -8,7 +8,7 @@ import * as api from "src/config/api";
 import request from "src/plugins/dao/service";
 import {asyncCheck} from "src/plugins/dao/response";
 import {Query} from "src/types/dapp/ixo";
-import {nftQuery} from "src/types/dapp/nft";
+import {nftQuery, nftStatus} from "src/types/dapp/nft";
 
 
 export default class extends ApiTemplate {
@@ -43,7 +43,12 @@ export default class extends ApiTemplate {
 
 	//	获取nft列表
 	getNftList<T>(query: nftQuery) {
-		const params = Object.assign({page: 1, page_size: 10}, query);
+		const params = Object.assign({
+			page: 1,
+			page_size: 10,
+			status: nftStatus.upcoming, // 默认状态
+			query: "", // 默认搜索为空
+		}, query);
 		const result = request(this.lang).get(api.dapp.nftList, {params})
 		return asyncCheck(result);
 	}
