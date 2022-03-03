@@ -86,7 +86,7 @@ export default class extends ApiTemplate {
 		const params = Object.assign({
 			page: 1,
 			page_size: 10,
-			paginate: false,
+			paginate: true,
 			status: "ended",
 			query: "",
 			sort_field: "",
