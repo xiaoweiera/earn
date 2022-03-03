@@ -4,13 +4,13 @@
  * @author svon.me@gmail.com
  */
 
-import {PropType} from "vue";
+import {PropType, onBeforeMount} from "vue";
 import {getEnv} from "src/config/";
 import {isFunction} from "src/utils";
 import I18n from "src/utils/i18n/index";
 import safeGet from "@fengqiaogang/safe-get";
 import window from "src/plugins/browser/window";
-
+import document from "src/plugins/browser/document";
 
 type Callback = () => void
 
@@ -73,6 +73,17 @@ const text = function () {
   return i18n.common.message.verification;
 }
 
+onBeforeMount(function () {
+  const env = getEnv();
+  // 人机教验
+  if (env.google && env.google.captcha) {
+    const head = document.querySelector("head");
+    const src = `https://www.recaptcha.net/recaptcha/api.js?render=${env.google.captcha}`;
+    const script = document.createElement("script");
+    script.src = src;
+    head.appendChild(script);
+  }
+});
 </script>
 
 <template>
