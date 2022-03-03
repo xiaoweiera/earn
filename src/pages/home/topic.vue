@@ -5,12 +5,14 @@ import {oss} from "src/config";
 import {createRef, onLoadRef} from "src/utils/ssr/ref";
 import {Model} from "src/logic/home";
 import I18n from "src/utils/i18n";
-
+let timeTool:any
 const topicIndex = ref(0)
-const selectTopic = (index: number) => topicIndex.value = index
+const selectTopic = (index: number) => {
+  clearInterval(timeTool)
+  topicIndex.value = index
+}
 const rank = createRef("API.home.getTopicRank", []);
 const i18n = I18n();
-let timeTool:any
 onMounted(function () {
   const api = new Model();
   // 得到数据汇总

@@ -11,7 +11,7 @@ import {detail} from "src/types/home";
 import {Model} from "src/logic/home";
 import {config as routerConfig} from "src/router/config";
 import I18n from "src/utils/i18n";
-import window from "~/plugins/browser/window";
+import window from "src/plugins/browser/window";
 const props = defineProps({
   info: Object as PropType<detail>
 })
@@ -96,8 +96,9 @@ const sort = (item: any) => {
   getData(true)
 }
 const toProject=(url:string )=>{
+  alert(url)
   if(url){
-    window.location.href = `${url}?lang=${i18n.getLang()}`
+    window.location.href = `https://kingdata.com${url}?lang=${i18n.getLang()}`
   }
 }
 //是否有筛选

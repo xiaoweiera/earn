@@ -94,7 +94,9 @@ export default {
     },
     nfts:{
         title:'Comprehensive aggregation platform for NFT',
-        desc:'Comprehensive Services: Web3.0,DeFi,GameFi,NFTs,Airdorps'
+        desc:'Comprehensive Services: Web3.0,DeFi,GameFi,NFTs,Airdorps',
+        today: 'Today',
+        tomorrow: 'Tomorrow'
     },
     webInfo:{
         home:{

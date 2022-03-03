@@ -8,7 +8,7 @@ import {ref, computed, onMounted} from "vue";
 // 引入 use state
 import {stateAlias, setInject} from "src/utils/use/state";
 import _ from "lodash";
-import {createHref} from "~/plugins/router/pack";
+import {createHref} from "src/plugins/router/pack";
 
 const props = defineProps({
   title: {

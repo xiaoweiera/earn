@@ -100,7 +100,6 @@ export default defineConfig(async function () {
     resolve: {
       extensions: [".ts", ".vue", ".js", ".tsx"],
       alias: {
-        '~/': `${path.resolve(__dirname, "src")}/`,
         'src/': `${path.resolve(__dirname, "src")}/`,
       },
     },

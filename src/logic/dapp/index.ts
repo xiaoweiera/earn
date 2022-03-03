@@ -1,7 +1,7 @@
 import _ from "lodash";
 import API from "src/api/index";
 import {Query, Status, ProjectItem, AdItem} from "src/types/dapp/ixo";
-import {nftQuery, nftStatus, ProjectNftItem, AdNftItem} from "src/types/dapp/nft";
+import {ProjectNftItem} from "src/types/dapp/nft";
 import { config } from "src/router/config";
 import * as R from "ramda";
 import { getValue } from "src/utils/root/data";
@@ -11,15 +11,15 @@ import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router/";
 import { getDateMDY, dateFormat, dateTime, dateYMDFormat, toInteger } from "src/utils/"
 import safeGet from "@fengqiaogang/safe-get";
-import * as logic from "~/types/dapp";
+import * as logic from "src/types/dapp";
 import DBList from "@fengqiaogang/dblist";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = 'all';
 
+const i18n = I18n();
 export const getAll = function () {
-	const i18n = I18n();
 	return {
 		id: tabAll,
 		name: "All",
@@ -201,9 +201,9 @@ const tomorrowTime = new Date().getTime() + dayTimes;
 //判断是否是今天和明天
 export const getTodayTime = function (val:number) {
 	if((val- todayTime) < dayTimes) {
-		return 'Today';
+		return i18n.home.nfts.today;
 	}else if(dayTimes <= (val - todayTime) && (val -todayTime) < (dayTimes * 2) ) {
-		return 'Tomorrow';
+		return i18n.home.nfts.tomorrow;
 	}else {
 		return getDateMDY(val);
 	}

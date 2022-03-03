@@ -36,7 +36,6 @@
       "src/types/env.d.ts"
     ],
     "paths": {
-      "~/*": ["src/*"],
       "src/*": ["src/*"]
     }
   },
