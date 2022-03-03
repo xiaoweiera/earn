@@ -71,12 +71,12 @@ const changeSort = function (val:any) {
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
     <div class="max-w-315 mx-auto pt-8" :key="key">
       <!-- 项目名称 -->
-      <div>
+      <div class="mb-8">
         <DAppDiscoversHeader :tips="i18n.home.nfts.desc" :title="i18n.home.nfts.title"/>
       </div>
       <!-- 分类 -->
-      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
-        <ui-tab :list="nftTabs" active-name="status"/>
+      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
+        <ui-tab  :list="nftTabs" active-name="status"/>
       </ui-sticky>
       <!-- 搜索条件 -->
       <div v-if="summary && summary.nft">

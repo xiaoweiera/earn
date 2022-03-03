@@ -59,6 +59,9 @@ a {
     .is-web {
       @apply hidden;
     }
+    .top-header {
+      top: 0 !important;
+    }
   }
 }
 

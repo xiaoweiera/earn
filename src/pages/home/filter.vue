@@ -71,8 +71,7 @@ const isCategory = computed<boolean>(function () {
             <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">{{i18n.home.category}}</div>
             <ui-tab class="relative z-22" :list="categoryData" :split="4" active-name="category"></ui-tab>
           </div>
-          <IconFont v-if="isCategory && isChain"
-                    class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
+          <IconFont v-if="isCategory && isChain" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
           <div v-if="isChain" class="flex items-center">
             <span class="mr-4 text-kd14px18px text-global-highTitle text-opacity-65">{{ i18n.home.chain }}</span>
             <client-only class="flex items-center justify-between">
@@ -94,11 +93,40 @@ const isCategory = computed<boolean>(function () {
     background: none;
     height: 34px !important;
     padding-left: 12px !important;
+    border-radius: 6px !important;
     @apply text-kd14px18px md:w-25 text-left    text-global-highTitle text-opacity-85  flex items-center  text-kd14px18px;
   }
 }
 
+
 .is-tab {
   @apply flex items-center;
+  ::v-deep(.tab-wrap) {
+    @apply items-center flex;
+    .tab-item {
+      @apply flex px-3 py-2   rounded-md;
+      &:after {
+        @apply h-0;
+      }
+
+      &:not(a) {
+        &:not([href]) {
+          @apply cursor-pointer ml-4;
+        }
+      }
+
+      &:not(:first-child) {
+        @apply ml-4;
+      }
+    }
+
+    span {
+      @apply text-kd14px18px font-medium font-kdFang;
+    }
+
+    .active {
+      @apply flex max-h-8 bg-global-darkblue bg-opacity-6 rounded-md;
+    }
+  }
 }
 </style>

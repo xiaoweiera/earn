@@ -1,4 +1,6 @@
 
+import { dashboard } from "src/config/";
+
 const user = {
 	login: "/account/login",          // 登录
 	logout: "/account/logout",        // 退出
@@ -7,7 +9,8 @@ const user = {
 }
 
 export const config = {
-	home:'/',
+	dashboard,
+	home: dashboard,
 	homeDetail:'/subject/detail',
 	topic: '/topic',
 	growthpad: '/growthpad',
