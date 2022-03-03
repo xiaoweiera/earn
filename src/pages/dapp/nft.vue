@@ -53,6 +53,7 @@ onMounted(function () {
   });
   // 监听路由变化
   useWatch(query, function () {
+    console.log(1111);
     sort = {
       sort_type:'',
       sort_field:''
