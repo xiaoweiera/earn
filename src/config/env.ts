@@ -4,6 +4,7 @@
  */
 
 import fs from "fs";
+import dayjs from "dayjs";
 import path  from "path";
 import dotenv from "dotenv";
 import {ConfigEnv} from "vite";
@@ -72,6 +73,14 @@ export const getConfig = async function(env: ConfigEnv | object): Promise<Import
 	if (result && result.parsed) {
 		let VITE_cookie = getCookieDomain(result.parsed);
 		const data = { ...result.parsed, VITE_cookie };
+		const today = dayjs().format("YYYYMMDD");
+		const value = `${data.VITE_staticPath}/${today}`;
+		data.VITE_staticPath = value;
+		if (data.VITE_staticDomain) {
+			data.VITE_staticDomain = `${data.VITE_staticDomain}${value}`;
+		} else {
+			data.VITE_staticDomain = value;
+		}
 		return Promise.resolve(data);
 	}
 	return env as any;
