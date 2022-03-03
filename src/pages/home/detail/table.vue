@@ -14,6 +14,7 @@ import I18n from "src/utils/i18n";
 import window from "src/plugins/browser/window";
 import _ from "lodash";
 import {createHref} from "src/plugins/router/pack";
+import safeGet from "@fengqiaogang/safe-get";
 const props = defineProps({
   info: Object as PropType<detail>
 })
@@ -34,7 +35,7 @@ const params = reactive({
   sort_field: '',
   sort_type: '',//desc asc
 })
-const resultNumber = ref(params.page_size)
+const resultNumber = ref(0)
 const loading = ref(false)
 const key = ref(0)
 
@@ -89,6 +90,7 @@ const isSearch = ref(false)
 onMounted(function () {
   // 得到数据汇总
   onLoadReactive(data, () => api.getProjects(params));
+  resultNumber.value=safeGet(data,'items.length')?safeGet(data,'items.length'):0
 });
 //排序
 const sort = (item: any) => {
@@ -151,7 +153,7 @@ const isFilter = () => {
         <thead>
         <tr class="min-h-10">
           <td class="h-full border-tb">
-            <div class="text-left  w-5">#</div>
+            <div class="text-left w-5">#</div>
           </td>
           <template v-for="(item,index) in data.header" :key="index">
             <td class="text-left border-tb" :class="getNameWidth(item)" v-if="item.key!=='id'">
