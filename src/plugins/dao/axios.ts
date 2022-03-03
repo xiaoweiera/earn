@@ -103,11 +103,12 @@ const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
 		(res: AxiosResponse) => {
 			const url = safeGet<string>(res, "request.res.responseUrl") || safeGet<string>(res, "request.responseURL") || safeGet<string>(res, "config.url");
 			const status = parseInt(res.status as any, 10);
+			const query = { ...res.config.params, ...res.config.data };
 			if (status >= 200 && status < 300) {
-				console.log('API Success %s, %s, %s', res.status, res.config.method, url, res.config.params);
+				console.log('API Success %s, %s, %s', res.status, res.config.method, url, query);
 				return res;
 			} else {
-				console.log('API Error %s, %s, %s', res.status, res.config.method, url, res.config.params);
+				console.log('API Error %s, %s, %s', res.status, res.config.method, url, query);
 				return Promise.reject(res);
 			}
 		},
