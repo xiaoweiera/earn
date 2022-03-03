@@ -17,13 +17,14 @@ import DBList from "@fengqiaogang/dblist";
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 console.log(configs)
-export const tabAll = 'all';
+export const tabAll = 'All';
 
 const i18n = I18n();
 export const getAll = function () {
 	return {
 		id: tabAll,
 		name: "All",
+		slug: "All"
 	};
 }
 
