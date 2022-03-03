@@ -18,11 +18,11 @@ const i18n = I18n();
       <div>
         <DappDiscoversCutdown :value="status === 'ongoing' ? data.ido_end_at : data.ido_start_at"></DappDiscoversCutdown>
       </div>
-      <v-router target="_blank" :href='data.url'>
+      <div>
         <div class="min-w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center">
           <span class="text-kd14px18px text-global-darkblue font-medium">{{ i18n.home.idoIgoProject.join }}</span>
         </div>
-      </v-router>
+      </div>
     </div>
   </div>
 </template>
