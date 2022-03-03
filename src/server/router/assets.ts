@@ -7,6 +7,8 @@ import {createServer} from "vite";
 import Compression from "compression";
 import { getProcess } from "src/config/process";
 import {Env, Command} from "src/config";
+import redirect from "src/controller/common/redirect";
+import { config as routerConfig } from "src/router/config";
 import Express, {Router, NextFunction, Request, Response} from "express";
 
 const Assets = async function(root: string, env: Env) {
@@ -28,11 +30,26 @@ const Assets = async function(root: string, env: Env) {
 		});
 	});
 
+	const goHome = function (req: Request, res: Response) {
+		redirect(req, res, routerConfig.home);
+	};
+
+	router.all("/index", goHome);
+	router.all("/index.html", goHome);
+	router.all(env.VITE_staticPath, goHome);
+	router.all(`${env.VITE_staticPath}/index`, goHome);
+	router.all(`${env.VITE_staticPath}/index.html`, goHome);
+
 	if (env.VITE_command === Command.build) {
 		router.use(Compression());
 		if (env.VITE_staticPath && !/^http/.test(env.VITE_staticPath)) {
 			const dist = path.join(root, "dist/client");
-			router.use(env.VITE_staticPath, Express.static(dist));
+			// 设置静态文件代理
+			router.use(env.VITE_staticPath, Express.static(dist, {
+				// 设置强缓
+				immutable: true,
+				maxAge: '31536000000'
+			}));
 		}
 	} else {
 		const vite = await createServer({

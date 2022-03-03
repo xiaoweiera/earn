@@ -12,6 +12,7 @@ import Send from "src/plugins/express/send";
 import redirect from "src/controller/common/redirect";
 import {config as routerConfig} from "src/router/config";
 import {Request, Response, Router as ExpressRouter} from "express";
+import * as home from "src/controller/home";
 
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
