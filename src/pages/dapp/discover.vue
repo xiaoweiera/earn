@@ -116,8 +116,8 @@ const changeSort = (sort: string) => {
         <DappDiscoversHeader :title="i18n.home.IdoIgo.title" :tips="i18n.home.IdoIgo.desc"></DappDiscoversHeader>
       </div>
       <!-- 分类 -->
-      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg mt-8">
-        <ui-tab :key="key" :list="logic.tabs"  active-name="type"/>
+      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
+        <ui-tab class="mt-8" :key="key" :list="logic.tabs"  active-name="type"/>
       </ui-sticky>
       <!-- 搜索条件 -->
 
