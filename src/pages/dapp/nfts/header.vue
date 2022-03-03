@@ -41,11 +41,11 @@ defineProps({
   background: linear-gradient(180deg, rgba(110, 110, 110, 0) 0%, #212121 100%);
 }
 .is-flater{
-  background: rgba(0, 0, 0, 0.28);
-  filter:blur(14px);
-  -webkit-filter:blur(14px);
-  -moz-filter:blur(14px);
-  -ms-filter:blur(14px);
-  -o-filter:blur(14px);
+  @apply bg-global-hei;
+  filter:blur(16px);
+  -webkit-filter:blur(16px);
+  -moz-filter:blur(16px);
+  -ms-filter:blur(16px);
+  -o-filter:blur(16px);
 }
 </style>

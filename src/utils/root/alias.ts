@@ -32,5 +32,6 @@ export const dApp = {
 }
 
 export const nft = {
-	list: "API.nft.list"
+	list: "API.nft.list",
+	upcoming: "API.dApp.nft?status=upcoming",
 }

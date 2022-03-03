@@ -8,6 +8,9 @@ import { getNextUrl } from 'src/logic/dapp';
 defineProps({
   data: {
     type: Object,
+  },
+  status: {
+    type: String,
   }
 })
 
@@ -35,7 +38,7 @@ defineProps({
 
         <!-- 项目时间 -->
         <div>
-          <DappDiscoversContentTime :data="data"/>
+          <DappDiscoversContentTime :status='status' :data="data"/>
         </div>
       </div>
     </v-router>

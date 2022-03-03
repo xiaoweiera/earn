@@ -4,12 +4,18 @@ import HomeTableHeader from './header.vue'
 import {config} from "src/router/config";
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
+import window from "src/plugins/browser/window";
 const i18n = I18n();
 defineProps({
   data: {
     type: Object
   },
 })
+const toProject=(url:string )=>{
+  if(url){
+    window.location.href = `https://kingdata.com${url}?lang=${i18n.getLang()}`
+  }
+}
 </script>
 <template>
   <div class="table-box bg-global-white relative">
@@ -37,7 +43,7 @@ defineProps({
         </thead>
         <tbody>
         <template v-for="(item,index) in safeGet(data,'table.items')" :key="index">
-          <tr class="h-10 md:h-11.5">
+          <tr class="h-10 md:h-11.5" @click="toProject(item.url)">
             <td class="number">
               <div class=" text-left w-3.5">{{ index + 1 }}</div>
             </td>

@@ -89,7 +89,8 @@ export default {
     },
     tagTop:'Tag Top 3',
     IdoIgo:{
-        title:'最新最全的 IDO / IGO 聚合平台',
+        title:'最新最全的 IDO 聚合平台',
+        igotitle:'最新最全的 IGO 聚合平台',
         desc:'一站式服务：Web3.0、DeFi、游戏、NFT、Airdorps'
     },
     nfts:{
@@ -109,6 +110,16 @@ export default {
             key:`发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资`,
             des:`快速查看今天、本周和本月 KingData 上最流行的趋势项目。`
         }
+    },
+    webIdo:{
+        title:`IDO/IGO 列表 | KingData`,
+        key:`发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资`,
+        des:`即将举行的代币生成活动和代币销售列表`
+    },
+    webNft:{
+        title:`NFTs 列表 | KingData`,
+        key:`发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资`,
+        des:`发掘热门NFT項目，通过 KingData 找出潜力NFT`
     }
 
 }

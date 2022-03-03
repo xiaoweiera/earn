@@ -10,8 +10,8 @@ export interface ImportMetaEnv {
 	readonly VITE_googleTag?: string; // google 收录
 	readonly VITE_googleCaptcha: string; // google Captcha key
 	readonly VITE_oss: string; // oss 资源域名
-	readonly VITE_staticPath: string; // 静态资源虚拟路径
-	readonly VITE_staticDomain: string; // 静态资源域名或者是域名+路径
+	VITE_staticPath: string; // 静态资源虚拟路径
+	VITE_staticDomain: string; // 静态资源域名或者是域名+路径
 }
 
 export interface ImportMeta {

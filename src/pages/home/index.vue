@@ -25,11 +25,11 @@ onMounted(function () {
     <div class="md:max-w-360 md:px-22.5 px-3  mx-auto">
       <!--      顶部信息-->
       <HomeHeader v-if="summary" :data="summary"/>
-      <!--      话题切换-->
+<!--            话题切换-->
       <HomeTopic class="mt-6 md:mt-9"/>
-      <!--      趋势-->
+<!--            趋势-->
       <HomeTrends class="mt-6"/>
-      <!--      topic推荐-->
+<!--            topic推荐-->
       <HomeRecommend class="mt-6"/>
       <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-8 md:mt-16.5"/>
       <!--      项目方-->
@@ -43,8 +43,8 @@ onMounted(function () {
 @import "src/styles/function";
 
 .top {
-  background: #e5e5e51a;
-  background-image: cdn("/dapp/dappsBg.jpg");
+  background-color: #e5e5e51a;
+  background-image: cdn("/dapp/homebeijing.jpeg");
   background-size: 100% 652px;
   background-repeat: no-repeat;
 }

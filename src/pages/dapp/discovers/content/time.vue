@@ -1,36 +1,28 @@
 <script setup lang="ts">
 import DappDiscoversCutdown from '../cutdown.vue'
-import {getParam} from "src/utils/router";
-import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
 
-import { config } from "src/router/config";
 defineProps({
   data: {
     type: Object,
+  },
+  status: {
+    type: String,
   }
 })
 const i18n = I18n();
-const detailUrl = function (data: object) {
-  const category=getParam<string>('category', '') as string
-  const id = safeGet<number>(data, 'dapp_id');
-  if (id) {
-    return `${config.dapp}/rank/${id}?category=${category}`;
-  }
-  return safeGet<string>(data, 'website');
-};
 </script>
 <template>
   <div v-if="data">
     <div class="w-full h-15.5 flex justify-between items-center">
-      <div class="flex-1">
-        <DappDiscoversCutdown :value="data.ido_start_at"></DappDiscoversCutdown>
+      <div>
+        <DappDiscoversCutdown :value="status === 'ongoing' ? data.ido_end_at : data.ido_start_at"></DappDiscoversCutdown>
       </div>
-      <v-router target="_blank" :href='data.url' class="ml-6.5">
+      <div>
         <div class="min-w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center">
           <span class="text-kd14px18px text-global-darkblue font-medium">{{ i18n.home.idoIgoProject.join }}</span>
         </div>
-      </v-router>
+      </div>
     </div>
   </div>
 </template>

@@ -68,7 +68,7 @@ const getColor = (value: any) => {
         <div class="info-des">
           <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(safeGet(data,'nft.total')) }}</span>
           <span class="time  time-scale font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(safeGet(data,'nft.increase_24h'))">({{ getNumber(safeGet(data,'nft.increase_24h')) }})</span>
+          <span class="number-rate text-number" :class="getColor(safeGet(data,'nft.increase_24h'))">{{ getNumber(safeGet(data,'nft.increase_24h')) }}</span>
         </div>
       </div>
       <div class="info-item">

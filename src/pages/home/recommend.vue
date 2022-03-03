@@ -74,13 +74,14 @@ onMounted(function () {
                 @setTranslate="change">
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="getHref(item['data_type'],item)" target="_blank" class="w-35 h-35 md:h-47.5 md:w-47.5 rounded-kd6px block relative">
-                <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
-                <div class="info">
+              <v-router :href="getHref(item['data_type'],item)" target="_blank" class="item-card">
+                <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute z-5"/>
+                <div class="info relative z-10">
                   <div class="name text-number">{{ item.name }}</div>
                   <div class="go">Go</div>
                 </div>
                 <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'],item)" fit="cover"/>
+                <div class="bottom-bg"></div>
               </v-router>
             </SwiperSlide>
           </template>
@@ -102,7 +103,13 @@ onMounted(function () {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute right-3 z-10 top-20;
 }
-
+.item-card{
+  @apply w-35 h-35 md:h-47.5 md:w-47.5 rounded-kd6px block relative;
+}
+.bottom-bg{
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+  @apply w-full h-19.5 bottom-0 left-0 absolute z-2 rounded-kd6px;
+}
 .swiper-slide {
   width: auto !important;
 }

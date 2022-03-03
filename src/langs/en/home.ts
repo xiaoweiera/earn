@@ -89,7 +89,8 @@ export default {
     },
     tagTop:'Tag Top 3',
     IdoIgo:{
-        title:'Comprehensive aggregation platform for IDO/IGO',
+        title:'Comprehensive aggregation platform for IDO',
+        igotitle:'Comprehensive aggregation platform for IGO',
         desc:'Comprehensive Services: Web3.0,DeFi,GameFi,NFTs,Airdorps'
     },
     nfts:{
@@ -109,6 +110,16 @@ export default {
             key:`Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing`,
             des:`Find out the most popular trending items on KingData today, this week and this month`
         }
+    },
+    webIdo:{
+        title:`List of IDO / IGO | KingData`,
+        key:`Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing`,
+        des:`List of upcoming token generation events and token sales`
+    },
+    webNft:{
+        title:`List of NFTs | KingData`,
+        key:`Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing`,
+        des:`Popular NFTs, potential NFTs through the KingData project`
     }
 
 }

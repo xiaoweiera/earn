@@ -85,9 +85,8 @@ onMounted(() => {
 </script>
 <template>
   <div v-if="data">
-    <!--projectName-->
+    <!--Name-->
     <div v-if="(typeName==='name' && !info ) || typeName==='name' && safeGet(info,'show_type') ==='data'" class="flex-center  max-w-28 whitespace-nowrap">
-<!--      <IconFont :size="info?32:24" :type="data.logo"/>-->
       <ui-image :class="info?'min-w-8 min-h-8 w-8 h-8':'min-w-6 min-h-6 w-6 h-6'"  class="rounded-full" :src="safeGet(data,'logo')"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt   max-w-28 whitespace-nowrap">{{ data['name'] }}</div>
@@ -95,14 +94,14 @@ onMounted(() => {
       </div>
     </div>
     <!--NameDes-->
-    <div v-else-if="typeName==='name' && (info && safeGet(info,'show_type') ==='desc')" class="flex-center short">
-      <img class="w-8 h-8 md:w-12 md:h-12 rounded-kd6px" :src="data.logo"/>
+    <div v-else-if="typeName==='name' && (info && safeGet(info,'show_type') ==='desc')" class="flex-center short min-w-140">
+      <ui-image class="w-8 h-8 md:w-12 md:h-12 rounded-kd6px" :src="data.logo"/>
       <div  class="ml-3 short">
         <div class="nameNameDes text-number line-height-no flex-center">
           <span>{{ data['name'] }}</span>
           <IconFont v-if="data.chain" size="16" :type="safeGet(config,`chain.${data.chain}.logo`)"/>
         </div>
-        <div class="nameDes md:mt-1.5 text-number line-height-no max-w-140 short text-left">{{ data['description'] }}</div>
+        <div class="nameDes md:mt-1.5 text-number line-height-no w-130  short text-left">{{ data['description'] }}</div>
       </div>
     </div>
     <!--chainIcon-->
@@ -121,12 +120,12 @@ onMounted(() => {
       <div v-else class="numberDefault text-number text-center">Not Set</div>
     </div>
     <!--starNumber overall_score-->
-    <div v-else-if="typeDom==='starNumber'" class="flex-center text-center">
+    <div v-else-if="typeDom==='starNumber'" class="flex-center justify-center">
       <div v-if="domData || domData===0" class="w-full flex items-center justify-center">
         <IconFont size="12" type="icon-star"/>
         <span class="star-txt text-number">{{ domData }}</span>
       </div>
-      <div v-else class="numberDefault text-number text-center">Not Set</div>
+      <div v-else class="numberDefault text-number text-center ">Not Set</div>
     </div>
     <!--txt categories-->
     <div v-else-if="typeDom==='txt'" class="numberDefault text-number text-center">{{ domData ? domData : 'N/A' }}</div>
@@ -151,10 +150,11 @@ onMounted(() => {
     <!--numberChange-->
     <div v-else-if="typeDom==='numberChange'">
       <div class="numberDefault text-number text-center">{{ toNumberCashFormat(domData[0], '', '', 'N/A') }}</div>
-      <div class="flex-center  justify-center">
-        <IconFont class="" size="8" type="icon-zheng"/>
-        <span :class="getRedGreen(domData[1])" class="numberChange text-number ml-1">{{ toNumberCashFormat(domData[1], '', '', '0') }}%</span>
+      <div v-if="domData[1]>0 || domData[1]<0" class="flex-center  justify-center">
+        <IconFont size="8" :type="domData[1]>0?'icon-zheng':'icon-fu'"/>
+        <span  :class="getRedGreen(domData[1])" class="numberChange text-number ml-1">{{ toNumberCashFormat(domData[1], '', '', '0') }}%</span>
       </div>
+      <div v-else-if="domData[1]===0" class="numberDefault text-number">0</div>
     </div>
     <!--lever-->
     <div v-else-if="typeDom==='lever'" class="numberDefault text-number justify-right">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import I18n from 'src/utils/i18n';
 import { isFunction } from 'src/utils';
 
