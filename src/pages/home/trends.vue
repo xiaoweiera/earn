@@ -101,7 +101,7 @@ onMounted(function () {
                     <ui-image v-if="item['data_type']==='dapp'" class="w-12.5 h-12.5 border-2 border-global-white  rounded-full relative z-3"  fit="cover" :src="item['logo']" />
                     <div class="ml-3 font-kdSemiBold  font-bold text-kd18px18px text-global-white relative z-3">
                       <div class="w-26 whitespace-nowrap short">{{item.name}}</div>
-                      <span class="chain-tip w-26 whitespace-nowrap short">{{safeGet(config,`chain.${item.chain}.name`)}}</span>
+                      <span v-if="safeGet(config,`chain.${item.chain}.name`)" class="chain-tip w-26 whitespace-nowrap short">{{safeGet(config,`chain.${item.chain}.name`)}}</span>
                     </div>
                   </div>
                   <div class="w-47.5 h-23.5 absolute top-0 left-0  rounded-kd6px jian z-2"></div>
