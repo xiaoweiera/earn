@@ -15,6 +15,9 @@ const props = defineProps({
   fit: {
     type: String as PropType<Fit>,
     default: () => "cover"
+  },
+  rounded: {
+    type: Boolean
   }
 });
 
@@ -42,7 +45,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="ui-image overflow-hidden" :class="{'error': error}">
+  <div class="ui-image overflow-hidden" :class="{'error': error, rounded}">
     <img v-if="src && fit === 'none'" class="" :src="src">
     <i :class="fit" :style="value"></i>
   </div>
@@ -90,6 +93,12 @@ onMounted(function () {
       @extend %contain;
       @apply absolute left-0 top-0 right-0 bottom-0;
       background-image: static("/assets/kingdata.png") !important;
+    }
+  }
+  &.rounded {
+    border-radius: 50%;
+    i, img {
+      border-radius: 50%;
     }
   }
 }
