@@ -81,14 +81,14 @@ onMounted(function () {
                         title="IDO & IGO Projects"/>
       </div>
       <!-- 公链数据 -->
-      <div class="mt-4 hidden md:block" v-if="summary.ixo" :key="keys">
-        <DAppDiscoversContentType :list="tabChain(summary.ixo.chain, 'chain', config.home)"
+      <div class="mt-4 hidden md:block" v-if="summary.ixo_upcoming" :key="keys">
+        <DAppDiscoversContentType :list="tabChain(summary.ixo_upcoming.chain, 'chain', config.home)"
                                   :split="6" :title="i18n.home.idoIgoProject.chain" class="pb-2.5 border-b-1 border-global-highTitle border-opacity-6"
                                   name="chain"/>
       </div>
       <!--手机端-->
-      <div class="mt-4 block md:hidden" v-if="summary.ixo" :key="keys" >
-        <DAppDiscoversContentChain :chainData="summary.ixo.chain" :href="config.home"
+      <div class="mt-4 block md:hidden" v-if="summary.ixo_upcoming" :key="keys" >
+        <DAppDiscoversContentChain :chainData="summary.ixo_upcoming.chain" :href="config.home"
                                    :title="i18n.home.idoIgoProject.chain" class="w-full" name="chain"/>
       </div>
       <!-- IDO&IGO即将开始项目 -->

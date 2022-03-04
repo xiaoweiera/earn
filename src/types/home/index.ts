@@ -11,6 +11,7 @@ export interface summaryModel{
     avg_ath:number;
     nft:summaryItem;
     ixo:summaryItem;
+    ixo_upcoming:summaryItem;
     ido:summaryItem;
     igo:summaryItem;
     airdrop:summaryItem

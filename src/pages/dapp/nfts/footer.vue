@@ -14,14 +14,14 @@ defineProps({
 </script>
 <template>
   <div v-if="data">
-    <div class="h-29 px-4 bg-global-textBlack text-global-white">
+    <div class="w-full h-39.5 px-4 pt-10.5 text-global-white">
       <!-- 项目名称 -->
       <div class="flex items-center h-6">
-        <span class="max-w-40 w-40 items-center h-full text-kd20px20px short text-global-white font-semibold font-kdBarlow">{{ data.name }}</span>
+        <span class="max-w-40 items-center h-full text-kd20px20px short text-global-white font-semibold font-kdBarlow">{{ data.name }}</span>
         <IconFont v-if="data.chain" :type="getLog(data.chain)" size="16" class="h-full items-center ml-2"/>
       </div>
       <!-- 价格总量 -->
-      <div class="h-10 flex justify-between items-center border-b-1 border-global-white border-opacity-15">
+      <div class="nft-price h-10 flex justify-between items-center border-b-1 border-global-white border-opacity-15">
         <p class="flex items-center">
           <span class="text-kd12px16px text-global-white text-opacity-65 font-kdFang">{{ i18n.home.nftProject.price }}</span>
           <span class="text-kd16px20px font-kdBarlow ml-1 font-medium">{{valueFormat(data.mint_price)}}</span>
@@ -34,7 +34,7 @@ defineProps({
         </p>
       </div>
       <!-- 时间 -->
-      <div>
+      <div class="relative z-1">
         <DappNftsTime :value="data"/>
       </div>
     </div>
@@ -47,5 +47,8 @@ defineProps({
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
+}
+.nft-price {
+  filter: drop-shadow(0px 2px 0px rgba(0, 0, 0, 0.24));
 }
 </style>

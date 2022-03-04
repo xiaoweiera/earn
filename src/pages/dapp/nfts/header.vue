@@ -27,7 +27,6 @@ defineProps({
         </p>
       </div>
     </div>
-    <div v-if="data.gallery.length > 0" class="w-full is-cover z-1"></div>
   </div>
 </template>
 <style lang="scss" scoped>
