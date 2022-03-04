@@ -19,11 +19,10 @@ const root: string = path.resolve(__dirname, "../..");
 
 const main = async function () {
 	const app = Express();
-
 	const redis = await getRedisClient();
-	setClient(redis as any);
-	console.log("redis success");
-
+	if (redis) {
+		setClient(redis as any);
+	}
 	const config = Object.assign({}, getEnv(), {
 		port: process.env.port || 3333,
 		host: process.env.host || "0.0.0.0",
