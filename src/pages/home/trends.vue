@@ -64,7 +64,7 @@ onMounted(function () {
         <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
           <img class="left" @click="last" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="">
         </div>
-        <Swiper class="h-full swiper-topic"
+        <Swiper v-if="trend.length>0" class="h-full swiper-topic"
                 @init="init"
                 :initialSlide="0"
                 slidesPerView="auto"

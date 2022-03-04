@@ -65,7 +65,7 @@ onMounted(function () {
         <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
           <ui-image class="left" @click="last" :src="`${oss}/dapp/zuojian.png`" fit="cover"/>
         </div>
-        <Swiper class="h-full swiper-recom"
+        <Swiper v-if="recommend.length>0" class="h-full swiper-recom"
                 @init="init"
                 :initialSlide="0"
                 slidesPerView="auto"
