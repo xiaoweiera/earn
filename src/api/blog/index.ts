@@ -17,7 +17,7 @@ export default class extends ApiTemplate {
 
 	// 博客分组
 	@tryError(DefaultValue([]))
-	@get(api.blog.tabs, expire.day1)
+	@get(api.blog.tabs, expire.min30)
 	@userToken(false)
 	tabs<T>(): Promise<T> {
 		return [] as any;
@@ -25,7 +25,7 @@ export default class extends ApiTemplate {
 
 	// 博客列表
 	@tryError(DefaultValue([])) // 处理默认值
-	@get(api.blog.list, expire.hour12) // 定义一个 get 请求
+	@get(api.blog.list, expire.min30) // 定义一个 get 请求
 	@userToken(false)
 	getList<T>(query: object = {}): Promise<T> {
 		// 返回参数
@@ -43,7 +43,7 @@ export default class extends ApiTemplate {
 	}
 
 	@tryError(DefaultValue())
-	@get(api.blog.detail, expire.day1)
+	@get(api.blog.detail, expire.hour12)
 	@userToken(false)
 	@validate
 	getDetail<T>(@required id: string | number): Promise<T> {
