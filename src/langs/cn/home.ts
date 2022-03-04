@@ -122,9 +122,12 @@ export default {
         }
     },
     webIdo:{
-        title:`IDO/IGO 列表 | KingData`,
+        title:`IDO 列表 | KingData`,
         key:`发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资`,
         des:`即将举行的代币生成活动和代币销售列表`
+    },
+    webIgo:{
+        title:`IGO 列表 | KingData`,
     },
     webNft:{
         title:`NFTs 列表 | KingData`,

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toFixed } from 'src/utils'
+import DappNftsFooter from './footer.vue';
 defineProps({
   data: {
     type: Object,
@@ -27,7 +28,10 @@ defineProps({
         </p>
       </div>
     </div>
-    <div v-if="data.gallery.length > 0" class="w-full is-cover z-1"></div>
+    <!-- footer -->
+    <div class="nft-footer w-full absolute bottom-0 left-0">
+      <DappNftsFooter :data="data"></DappNftsFooter>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>

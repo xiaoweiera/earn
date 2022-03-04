@@ -122,9 +122,12 @@ export default {
         }
     },
     webIdo:{
-        title:`List of IDO / IGO | KingData`,
+        title:`List of IDO | KingData`,
         key:`Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing`,
         des:`List of upcoming token generation events and token sales`
+    },
+    webIgo:{
+        title:`List of IGO | KingData`,
     },
     webNft:{
         title:`List of NFTs | KingData`,

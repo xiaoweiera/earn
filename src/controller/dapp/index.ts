@@ -40,7 +40,7 @@ export const list = async function (req: Request, res: Response) {
         api.home.getSummary()
     ]);
     const result = {
-        title: i18n.home.webIdo.title,
+        title: is_igo ? i18n.home.webIgo.title : i18n.home.webIdo.title,
         keywords: i18n.home.webIdo.key,
         description: i18n.home.webIdo.des,
 
