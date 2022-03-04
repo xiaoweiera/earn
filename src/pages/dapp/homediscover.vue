@@ -6,7 +6,7 @@ import {AdItem, ProjectItem, Status} from "src/types/dapp/ixo";
 import {Model, tabChain} from "src/logic/dapp/";
 import * as alias from "src/utils/root/alias";
 import {createRef, onLoadRef, onUpdateRef} from "src/utils/ssr/ref";
-import { useReactiveProvide, stateAlias, useWatch } from "src/utils/use/state";
+import {stateAlias, useWatch, getReactiveInject} from "src/utils/use/state";
 
 import DAppHomeHeader from './home/header.vue';
 import DAppHomeTitle from './home/title.vue';
@@ -31,7 +31,7 @@ defineProps({
   }
 })
 const i18n = I18n();
-const [ route ] = useReactiveProvide<Query>(stateAlias.ui.tab);
+const route = getReactiveInject<Query>(stateAlias.ui.tab) || {};
 const urlType = true;
 // 公链类型
 const chain = ref(getParam<string>("chain"));
@@ -81,14 +81,14 @@ onMounted(function () {
                         title="IDO & IGO Projects"/>
       </div>
       <!-- 公链数据 -->
-      <div class="mt-4 hidden md:block">
-        <DAppDiscoversContentType v-if="summary.ixo" :list="tabChain(summary.ixo.chain, 'chain', config.home)"
+      <div class="mt-4 hidden md:block" v-if="summary.ixo" :key="keys">
+        <DAppDiscoversContentType :list="tabChain(summary.ixo.chain, 'chain', config.home)"
                                   :split="6" :title="i18n.home.idoIgoProject.chain" class="pb-2.5 border-b-1 border-global-highTitle border-opacity-6"
                                   name="chain"/>
       </div>
       <!--手机端-->
-      <div class="mt-4 block md:hidden">
-        <DAppDiscoversContentChain v-if="summary.ixo" :key="keys" :chainData="summary.ixo.chain" :href="config.home"
+      <div class="mt-4 block md:hidden" v-if="summary.ixo" :key="keys" >
+        <DAppDiscoversContentChain :chainData="summary.ixo.chain" :href="config.home"
                                    :title="i18n.home.idoIgoProject.chain" class="w-full" name="chain"/>
       </div>
       <!-- IDO&IGO即将开始项目 -->

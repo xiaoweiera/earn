@@ -11,6 +11,9 @@ import {onMounted} from 'vue'
 import {Model} from "src/logic/home";
 import {alias, createReactive, onLoadReactive} from "src/utils/ssr/ref";
 import {summaryModel} from "src/types/home";
+import {stateAlias, useReactiveProvide} from "src/utils/use/state";
+
+useReactiveProvide(stateAlias.ui.tab);
 
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(function () {
