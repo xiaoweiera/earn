@@ -7,7 +7,7 @@ import I18n from "src/utils/i18n";
 export const list = async function (req: Request, res: Response) {
     const i18n = I18n(req);
     const api = new Model(req);
-    const is_igo =req.query['isigo'] as string;
+    const is_igo =req.query['isIgo'] as string;
     if (is_igo) {
         res.locals.menuActive = names.dapp.gamefi;
     }else {
