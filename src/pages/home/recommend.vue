@@ -90,8 +90,8 @@ onMounted(function () {
       <div :class="isEnd?'hidden':'jian-right'" class="xshidden">
         <img class="right shadow" @click="next" :src="`${oss}/dapp/rightjian.png`" alt="">
       </div>
-      <div class="absolute top-0 left-0 left-jian  w-47.5 h-47.5 z-9"></div>
-      <div class="absolute top-0 right-0 right-jian  w-47.5 h-47.5 z-9"></div>
+      <div v-if="!isBegin" class="absolute top-0 left-0 left-jian  w-47.5 h-47.5 z-9"></div>
+      <div v-if="!isEnd" class="absolute top-0 right-0 right-jian  w-47.5 h-47.5 z-9"></div>
     </div>
 
   </div>
