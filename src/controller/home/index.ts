@@ -4,7 +4,7 @@
  */
 
 import {Model} from "src/logic/home";
-import { Model as DAppModel } from "src/logic/dapp";
+import {Model as DAppModel} from "src/logic/dapp";
 import {Request, Response} from "express";
 import * as alias from "src/utils/root/alias";
 import redirect from "src/controller/common/redirect";
@@ -15,7 +15,7 @@ export const begin = async function (req: Request, res: Response) {
     const i18n = I18n(req);
     const api = new Model(req);
     const DAppApi = new DAppModel(req);
-    const params = {page: 1, page_size: 100,show_commercial:true};
+    const params = {page: 1, page_size: 100, show_commercial: true};
     //IXO接口参数
     const chain = req.query['chain'] as string;
     //nft接口参数
@@ -45,7 +45,7 @@ export const begin = async function (req: Request, res: Response) {
         sort_field: '',
         sort_type: '',//desc asc
     })
-    const [summary, topicRank, recommend, trend,platforms,UpcomingList,OngoingList,UpcomingNftList,EndedList] = await Promise.all([
+    const [summary, topicRank, recommend, trend, platforms, UpcomingList, OngoingList, UpcomingNftList, EndedList] = await Promise.all([
         api.getSummary(),
         api.getTopicRank(),
         api.getRecommend(params),
@@ -65,7 +65,7 @@ export const begin = async function (req: Request, res: Response) {
         "API.home.getTopicRank": topicRank,    // 首页顶部话题榜单接口
         "API.home.getRecommend": recommend, //推荐话题
         "API.home.getTrend": trend, //今日趋势
-        "API.home.getPlatform":platforms, //TGE平台列表
+        "API.home.getPlatform": platforms, //TGE平台列表
         [alias.dApp.ixo.upcoming]: UpcomingList,//IXO即将开始
         [alias.dApp.ixo.ongoing]: OngoingList,//IXO进行时
         [alias.nft.upcoming]: UpcomingNftList, //nft进行时
@@ -78,45 +78,48 @@ export const begin = async function (req: Request, res: Response) {
 export const detail = async function (req: Request, res: Response) {
     const i18n = I18n(req);
     const api = new Model(req);
-    const id=req.query['id'] as string
-    if(!id){
-        redirect(req,res,config.home)
+    const id = req.query['id'] as string
+    if (!id) {
+        redirect(req, res, config.home)
         return
     }
-    const chain=req.query['chain'] as string
-    const category=req.query['category'] as string
-    const search=req.query['search'] as string
+    const chain = req.query['chain'] as string
+    const category = req.query['category'] as string
+    const search = req.query['search'] as string
     const params = {page: 1, page_size: 10}
     //项目列表
-    const projectParams={
-        id:id,
-        page:1,
-        page_size:10,
-        chain:chain || '',
-        category:category || '',
-        query:search || ''
+    const projectParams = {
+        id: id,
+        page: 1,
+        page_size: 10,
+        chain: chain || '',
+        category: category || '',
+        query: search || ''
     }
 
 
     try {
-        const [detail,projects,recommend,top3] = await Promise.all([
+        const [detail, projects, recommend, top3] = await Promise.all([
             api.getDetail(id),
             api.getProjects(projectParams),
             api.getRecommend(params),
             api.getTop3(id),
         ]);
         const result = {
-            title: i18n.home.webInfo.homeDetail.title,
+            //@ts-ignore
+            title: (detail && detail.id) ? detail.name : i18n.home.webInfo.homeDetail.title,
             keywords: i18n.home.webInfo.homeDetail.key,
-            description: i18n.home.webInfo.homeDetail.des,
-            "API.home.getDetail":detail,//话题详情
-            "API.home.getProjects":projects,//话题项目
+            //@ts-ignore
+            description: (detail && detail.id) ? detail.desc : i18n.home.webInfo.homeDetail.des,
+
+            "API.home.getDetail": detail,//话题详情
+            "API.home.getProjects": projects,//话题项目
             "API.home.getRecommend": recommend, //推荐话题
-            "API.home.getTop3":top3, //话题项目top3
+            "API.home.getTop3": top3, //话题项目top3
         };
         res.send(result);
-    }catch{
-        redirect(req,res,config.home)
+    } catch {
+        redirect(req, res, config.home)
     }
 
 }
