@@ -105,7 +105,7 @@ const changeSort = (sort: string) => {
   getData(true);
 }
 const getName = function () {
-  const isIgo = getParam<boolean>("isigo");
+  const isIgo = getParam<boolean>("isIgo");
   if(isIgo){
     return i18n.home.IdoIgo.igotitle;
   }else {

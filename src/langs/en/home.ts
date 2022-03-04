@@ -67,7 +67,7 @@ export default {
         chain:'Chain',
         rate:'Rating',
         plat:'TGE Platform',
-        category:'Category',
+        category:'Type',
         salePrice:'Sale Price',
         currentPrice:'Current Price',
         idoPrice:'IDO Price',
