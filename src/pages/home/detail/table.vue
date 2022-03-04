@@ -191,7 +191,7 @@ const isFilter = () => {
     height: 34px !important;
     padding-left: 35px !important;
     border-radius: 6px !important;
-    @apply text-kd14px18px md:w-50 text-left    text-global-highTitle text-opacity-85  flex items-center  text-kd14px18px;
+    @apply text-kd14px18px md:w-50 text-left  text-global-highTitle  flex items-center  text-kd14px18px;
   }
 }
 
