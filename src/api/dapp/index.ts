@@ -14,7 +14,7 @@ export default class extends ApiTemplate {
 	// 项目库列表
 	@tryError(DefaultValue([]))
 	@get(api.dapp.list, expire.min30)
-	@userToken(false)
+	@userToken()
 	getList<T>(query: object = {}): Promise<T> {
 		return [query] as any;
 	}
@@ -22,7 +22,7 @@ export default class extends ApiTemplate {
 	// 获取IGO列表
 	@tryError(DefaultValue([]))
 	@get(api.dapp.igoList)
-	@userToken(false)
+	@userToken()
 	getIGOList<T>(): Promise<T> {
 		const query = {
 			page: 1,
@@ -41,7 +41,7 @@ export default class extends ApiTemplate {
 	// 分组
 	@tryError(DefaultValue([]))
 	@get(api.dapp.tabs)
-	@userToken(false)
+	@userToken()
 	tabs<T>(): Promise<T> {
 		return [] as any;
 	}
@@ -49,7 +49,7 @@ export default class extends ApiTemplate {
 	//	获取nft列表
 	@tryError(DefaultValue([]))
 	@get(api.dapp.nftList, expire.min30)
-	@userToken(false)
+	@userToken()
 	@validate
 	getNftList<T>(@required query: nftQuery): Promise<T> {
 		const params = Object.assign({
@@ -64,7 +64,7 @@ export default class extends ApiTemplate {
 	// ixo 数据
 	@tryError(DefaultValue([]))
 	@get(api.dapp.ixo, expire.min30)
-	@userToken(false)
+	@userToken()
 	@validate
 	ixo<T>(@required query: Query) {
 		const params = Object.assign({
@@ -80,7 +80,7 @@ export default class extends ApiTemplate {
 	// ixoEnd 数据
 	@tryError(DefaultValue([]))
 	@get(api.dapp.ixo, expire.min30)
-	@userToken(false)
+	@userToken()
 	@validate
 	ixoEnd<T>(@required query: Query) {
 		const params = Object.assign({

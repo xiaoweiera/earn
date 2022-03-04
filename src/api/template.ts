@@ -3,9 +3,6 @@
  * @author svon.me@gmail.com
  */
 
-import Dao from "src/plugins/dao/axios";
-
-class ApiTemplate extends Dao{
-}
+import ApiTemplate from "src/plugins/dao/axios";
 
 export default ApiTemplate;

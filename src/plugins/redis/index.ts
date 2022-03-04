@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import { random } from "lodash";
 import {uuid} from "src/utils";
 import { RedisClientType } from "redis";
 import safeGet from "@fengqiaogang/safe-get";
@@ -32,7 +33,12 @@ export const expire = async function (name: string, time?: number) {
 		const client = getClient();
 		if (client) {
 			try {
-				await client.expire(name, time);
+				let value = time;
+				if (time >= 60) {
+					value = time + random(0, 200) - random(0, 15);
+				}
+				console.log(name, value);
+				await client.expire(name, value);
 			} catch (e) {
 				// todo
 			}

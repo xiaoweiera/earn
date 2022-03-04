@@ -71,7 +71,13 @@ class Dao {
 			if (expire && expire > 0) {
 				const method = safeGet<string>(config, "method");
 				const url = this.getUri(config);
-				const key = redis.makeKey(method, url);
+				const token = safeGet(config, "headers.Authorization");
+				let key: string | undefined;
+				if (token) {
+					key = redis.makeKey(method, url, token);
+				} else {
+					key = redis.makeKey(method, url);
+				}
 				return { key, expire };
 			}
 		}
@@ -123,7 +129,6 @@ class Dao {
 		if (req.url) {
 			req.url = i18n.template(req.url, parameter);
 		}
-
 		const { key } = this.redisKey(req);
 		if (key) {
 			// 判断 Key 是否存在
@@ -132,6 +137,7 @@ class Dao {
 				// 读取缓存数据
 				const data = await redis.get(key);
 				// 如果数据不为空，则中断请求逻辑
+				// @ts-ignore
 				if (data) {
 					throw { code: 0, data };
 				}

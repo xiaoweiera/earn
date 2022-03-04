@@ -30,7 +30,7 @@ export default class extends ApiTemplate {
 	// 获取国际区号
 	@tryError(areaCodeDefault)
 	@get(api.common.areaCodeList, expire.day2)
-	@userToken(false)
+	@userToken()
 	getAreaCodeList(): Promise<AreaCode[]> {
 		return [] as any
 	}
@@ -38,7 +38,7 @@ export default class extends ApiTemplate {
 	// 公链站点配置
 	@tryError(chainSiteDefault)
 	@get(api.common.chainSiteConfig, expire.min10)
-	@userToken(false)
+	@userToken()
 	getChainSiteConfig(): Promise<SiteConfig> {
 		return [] as any;
 	}
@@ -46,7 +46,7 @@ export default class extends ApiTemplate {
 	// 获取导航菜单消息列表
 	@tryError(DefaultValue([]))
 	@get(api.common.tidingTime)
-	@userToken(false)
+	@userToken()
 	getTidings(): Promise<TidingList[]> {
 		const cookie = new Cookie(this.getRequest());
 		const params = {

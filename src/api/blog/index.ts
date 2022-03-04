@@ -10,7 +10,7 @@ export default class extends ApiTemplate {
 	// 广告 banner 数据
 	@tryError(DefaultValue([])) // 处理默认值
 	@get(api.blog.adv, expire.min30) // 定义一个 get 请求
-	@userToken(false) // 不需要用户信息
+	@userToken() // 不需要用户信息
 	ads<T>(): Promise<T> {
 		return [] as any;
 	}
@@ -18,7 +18,7 @@ export default class extends ApiTemplate {
 	// 博客分组
 	@tryError(DefaultValue([]))
 	@get(api.blog.tabs, expire.min30)
-	@userToken(false)
+	@userToken()
 	tabs<T>(): Promise<T> {
 		return [] as any;
 	}
@@ -26,7 +26,7 @@ export default class extends ApiTemplate {
 	// 博客列表
 	@tryError(DefaultValue([])) // 处理默认值
 	@get(api.blog.list, expire.min30) // 定义一个 get 请求
-	@userToken(false)
+	@userToken()
 	getList<T>(query: object = {}): Promise<T> {
 		// 返回参数
 		return [query] as any;
@@ -44,7 +44,7 @@ export default class extends ApiTemplate {
 
 	@tryError(DefaultValue())
 	@get(api.blog.detail, expire.hour12)
-	@userToken(false)
+	@userToken()
 	@validate
 	getDetail<T>(@required id: string | number): Promise<T> {
 		const params = {blog_id: id};
