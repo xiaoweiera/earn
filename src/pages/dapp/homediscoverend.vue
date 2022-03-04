@@ -156,7 +156,7 @@ const onSearch = _.debounce(async function () {
         <IconFont v-if="safeGet(summary,'ixo.platform')"
                   class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
         <!-- 搜索框 -->
-        <client-only class="max-w-50 input-style">
+        <client-only class="w-1/2 input-style">
           <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
             <template #prefix>
               <IconFont size="16" type="icon-sousuo" @click="onSearch"/>
