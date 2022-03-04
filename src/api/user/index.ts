@@ -9,13 +9,13 @@ import { User } from "src/types/common/user";
 import safeGet from "@fengqiaogang/safe-get";
 import Cookie from "src/plugins/browser/cookie";
 
-import { NullValue, get, post, required, validate, tryError, userToken} from "src/plugins/dao/http";
+import { NullValue, expire, get, post, required, validate, tryError, userToken} from "src/plugins/dao/http";
 
 
 export default class extends ApiTemplate{
 	// 获取用户详情
 	@tryError(NullValue)
-	@get(api.user.info)
+	@get(api.user.info, expire.min2)
 	@userToken(true)
 	getInfo<T>(): Promise<T> {
 		return [] as any;
@@ -60,7 +60,7 @@ export default class extends ApiTemplate{
 
 	// 邮箱注册
 	@post(api.user.registerEmail)
-	@userToken(false)
+	@userToken()
 	@validate
 	registerEmail<T>(@required data: object): Promise<T> {
 		const lang = getLang(this.lang);
@@ -69,7 +69,7 @@ export default class extends ApiTemplate{
 	}
 	// 邮箱登录
 	@post(api.user.emailLogin)
-	@userToken(false)
+	@userToken()
 	@validate
 	emailLogin (@required data: object): Promise<User | undefined> {
 		const lang = getLang(this.lang);
@@ -90,7 +90,7 @@ export default class extends ApiTemplate{
 
 	// 手机号登录
 	@post(api.user.mobileLogin)
-	@userToken(false)
+	@userToken()
 	@validate
 	mobileLogin (@required data: object): Promise<User | undefined> {
 		const lang = getLang(this.lang);
