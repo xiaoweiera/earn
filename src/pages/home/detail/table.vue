@@ -28,7 +28,7 @@ const query = ref(getParam<string>("search"))
 const params = reactive({
   id: id,
   page: 1,
-  page_size: 10,
+  page_size: 30,
   chain: chain.value,
   category: category.value,
   query: query.value,
@@ -163,7 +163,7 @@ const isFilter = () => {
         </thead>
         <tbody>
         <template v-for="(item,index) in data.items">
-          <tr class="min-h-12.5 h-12.5 md:min-h19.5 md:h-19.5 hand" @click="toProject(item.url)">
+          <tr class="min-h-12.5 h-12.5 md:min-h19.5 hand" :class="info.show_type==='desc'?'md:h-18':'md:h-13'" @click="toProject(item.url)">
             <td class="number">
               <div class="text-left  w-5">{{ index + 1 }}</div>
             </td>

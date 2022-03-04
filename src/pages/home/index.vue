@@ -34,11 +34,11 @@ onMounted(function () {
       <HomeTrends class="mt-6"/>
 <!--            topic推荐-->
       <HomeRecommend class="mt-6"/>
-      <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-8 md:mt-16.5"/>
+      <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-8 md:mt-20"/>
       <!--      项目方-->
       <HomeCompany class="mt-6"/>
-      <DAppHomeNft v-if="summary" :summary="summary" class="mt-4 md:mt-16.5"/>
-      <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-4 md:mt-16.5"/>
+      <DAppHomeNft v-if="summary" :summary="summary" class="mt-4 md:mt-20"/>
+      <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-4 md:mt-20"/>
     </div>
   </div>
 </template>
