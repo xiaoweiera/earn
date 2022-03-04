@@ -16,12 +16,12 @@ defineProps({
   <div v-if="data">
     <div class="h-29 px-4 bg-global-textBlack text-global-white">
       <!-- 项目名称 -->
-      <div class="flex items-center">
-        <span class="max-w-31.25 text-kd20px20px text-global-white font-semibold font-kdBarlow small">{{ data.name }}</span>
-        <IconFont :type="data.logo" size="16" class="ml-2"/>
+      <div class="flex items-center h-6">
+        <span class="max-w-31.25 items-center h-full text-kd20px20px text-global-white font-semibold font-kdBarlow small">{{ data.name }}</span>
+        <IconFont :type="data.logo" size="16" class="h-full items-center ml-2"/>
       </div>
       <!-- 价格总量 -->
-      <div class="h-11 flex justify-between items-center border-b-1 border-global-white border-opacity-15">
+      <div class="h-10 flex justify-between items-center border-b-1 border-global-white border-opacity-15">
         <p class="flex items-center">
           <span class="text-kd12px16px text-global-white text-opacity-65 font-kdFang">{{ i18n.home.nftProject.price }}</span>
           <span class="text-kd16px20px font-kdBarlow ml-1 font-medium">{{valueFormat(data.mint_price)}}</span>

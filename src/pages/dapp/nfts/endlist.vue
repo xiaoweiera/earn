@@ -17,7 +17,7 @@ const emit=defineEmits(['changeSort'])
 const data={
   header: [
     { name: i18n.home.endProject.projectName, key: 'name' },
-    { name: i18n.home.topList.nowCurrent, key: 'category' },
+    { name: i18n.home.topList.category, key: 'category' },
     { name: i18n.home.topList.owner, key: 'owners' },
     { name: i18n.home.topList.supply, key: 'issue_volume' },
     { name: i18n.home.topList.floorPrice, key: 'floor_price' },
