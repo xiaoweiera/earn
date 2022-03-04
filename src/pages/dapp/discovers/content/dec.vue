@@ -7,8 +7,8 @@ defineProps({
 </script>
 <template>
   <div>
-    <div  class="h-8 mt-3">
-      <span class="small h-full text-kd12px16px text-global-highTitle text-opacity-65 mt-3 font-kdFang">{{data.description}}</span>
+    <div class="h-8 mt-3">
+      <span class="small h-full text-kd12px16px text-global-highTitle text-opacity-65 mt-3 font-kdFang" v-text="data.description"></span>
     </div>
   </div>
 </template>
