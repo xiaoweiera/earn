@@ -30,12 +30,12 @@ const getColor = (value: any) => {
 }
 </script>
 <template>
-  <div class="w-full md:flex  justify-between items-center">
-    <div class="md:min-w-125">
+  <div class="w-full md:flex  justify-between items-center md:flex-wrap">
+    <div class="md:flex-1 md:min-w-105">
       <p class="title font-kdSemiBold">{{i18n.home.title}}</p>
       <p class="des i8n-font-inter">{{i18n.home.twoTitle}}</p>
     </div>
-    <div class="flex items-center  w-full  justify-between md:justify-end flex-wrap md:flex-nowrap md:mt-0 mt-6">
+    <div class="flex items-center md:w-140  w-full  justify-between md:justify-end flex-wrap md:flex-nowrap md:mt-0 mt-6">
       <div class="info-item">
         <div>
           <ui-popover
