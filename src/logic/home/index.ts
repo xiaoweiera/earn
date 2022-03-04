@@ -1,59 +1,61 @@
 import API from "src/api";
 import {projectParams, recommendModel, summaryModel} from "src/types/home";
+import I18n from "src/utils/i18n";
 
 
 //得到header数据 headerName,headerCss
 export const getHeader=(key:string,name?:string)=>{
+	const i18n = I18n();
 		if(key==='name'){
-			return [name,'justify-begin']
+			return [i18n.home.topList.name,'justify-begin']
 		}else if(key==='chains'){
-			return ['Chain','justify-center']
+			return [i18n.home.topList.chain,'justify-center']
 		}else if(key==='tge_platform'){
-			return ['TGE Platform','justify-center']
+			return [i18n.home.topList.plat,'justify-center']
 		}else if(key==='overall_score'){
-			return ['Rating','justify-center']
+			return [i18n.home.topList.rate,'justify-center']
 		}else if(key==='categories'){
-			return ['项目类型','justify-center']
+			return [i18n.home.topList.category,'justify-center']
 		}else if(key==='current_price'){
-			return ['Current Price','justify-center']
+			return [i18n.home.topList.currentPrice,'justify-center']
 		}else if(key==='ido_price'){
-			return ['IDO Price','justify-center']
+			return [i18n.home.topList.idoPrice,'justify-center']
 		}else if(key==='balance_24h'){
-			return ['Balance(24h)','justify-center']
+			return [i18n.home.topList.balance24h,'justify-center']
 		}else if(key==='balance_7d'){
-			return ['Balance(7d)','justify-center']
+			return [i18n.home.topList.balance7d,'justify-center']
 		}else if(key==='volume_24h'){
-			return ['Volume(24h)','justify-center']
+			return [i18n.home.topList.volume24h,'justify-center']
 		}else if(key==='volume_7d'){
-			return ['volume(7d)','justify-center']
+			return [i18n.home.topList.volume7d,'justify-center']
 		}else if(key==='ido_fundraising_goal'){
-			return ['Total Raised','justify-center']
+			return [i18n.home.topList.totalRaised,'justify-center']
 		}else if(key==='mcap'){
-			return ['Market Cap','justify-center']
+			return ['MarketCap','justify-center']
 		}else if(key==='floor_price'){
-			return ['Floor Price','justify-center']
+			return [i18n.home.topList.floorPrice,'justify-center']
 		}else if(key==='mint_price'){
-			return ['Mint Price','justify-center']
+			return [i18n.home.topList.mintPrice,'justify-center']
 		}else if(key==='ido_sale_amount'){
-			return ['Tokens for Sale','justify-center']
+			return [i18n.home.topList.tokenSale,'justify-center']
 		}else if(key==='owners'){
-			return ['Owners','justify-center']
+			return [i18n.home.topList.owner,'justify-center']
 		}else if(key==='assets'){
-			return ['Assets','justify-center']
+			return [i18n.home.topList.assets,'justify-center']
 		}else if(key==='mcap_tvl'){
 			return ['MCap/TVL','justify-center']
 		}else if(key==='users_24h'){
-			return ['User(24h)/Change','justify-center']
+			return [i18n.home.topList.user24Change,'justify-center']
 		}else if(key==='users_7d'){
-			return ['User(7d)/Change','justify-center']
+			return [i18n.home.topList.user7Change,'justify-center']
 		}else if(key==='tvl'){
-			return ['TVL/Change','justify-center']
+			return [i18n.home.topList.tvlChange,'justify-center']
 		}else if(key==='ath_since_ido'){
-			return ['ATH Since IDO','justify-center']
+			return [i18n.home.topList.idoAth,'justify-center']
 		}else if(key==='current_roi_usd'){
-			return ['Current ROI USD','justify-center']
+			return [i18n.home.topList.nowCurrent,'justify-center']
 		}
-		return ['No Data','justify-center']
+		return [i18n.home.topList.noData,'justify-center']
 }
 //得到td数据
 export const getData=(key:string,data:any)=>{
