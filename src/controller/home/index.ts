@@ -91,7 +91,7 @@ export const detail = async function (req: Request, res: Response) {
     const projectParams = {
         id: id,
         page: 1,
-        page_size: 10,
+        page_size: 30,
         chain: chain || '',
         category: category || '',
         query: search || ''
