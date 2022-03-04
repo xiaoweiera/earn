@@ -59,11 +59,11 @@ onMounted(function () {
 </script>
 <template>
   <div>
-    <div class="text-kd20px20px md:text-kd24px24px  font-kdSemiBold text-global-highTitle font-semibold">{{i18n.home.hotTopic}}</div>
+    <div class="text-kd20px20px md:text-kd24px24px relative  font-kdSemiBold text-global-highTitle font-semibold">{{i18n.home.hotTopic}}</div>
     <div class="mt-4 relative">
       <div class="w-full">
         <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
-          <ui-image class="left" @click="last" :src="`${oss}/dapp/zuojian.png`" fit="cover"/>
+          <ui-image class="left shadow" @click="last" :src="`${oss}/dapp/zuojian.png`" fit="cover"/>
         </div>
         <Swiper v-if="recommend.length>0" class="h-full swiper-recom"
                 @init="init"
@@ -88,10 +88,14 @@ onMounted(function () {
         </Swiper>
       </div>
       <div :class="isEnd?'hidden':'jian-right'" class="xshidden">
-        <img class="right" @click="next" :src="`${oss}/dapp/rightjian.png`" alt="">
+        <img class="right shadow" @click="next" :src="`${oss}/dapp/rightjian.png`" alt="">
       </div>
+      <div class="absolute top-0 left-0 left-jian  w-47.5 h-47.5 z-9"></div>
+      <div class="absolute top-0 right-0 right-jian  w-47.5 h-47.5 z-9"></div>
     </div>
+
   </div>
+
 </template>
 <style lang="scss" scoped>
 .left {
@@ -113,7 +117,6 @@ onMounted(function () {
 .swiper-slide {
   width: auto !important;
 }
-
 .info {
   @apply flex items-center justify-between px-2.5 md:px-4 w-full  absolute bottom-1.5 md:bottom-2 z-999;
   .name {
@@ -125,5 +128,14 @@ onMounted(function () {
     @apply bg-global-primary w-fit px-2 rounded-kd34px;
     @apply text-kd12px16px font-medium text-global-white font-kdFang;
   }
+}
+.shadow {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
+}
+.right-jian{
+  background: linear-gradient(to right, rgba(250, 251, 252, 0),rgba(250, 251, 252, 1));
+}
+.left-jian{
+  background: linear-gradient(to right, rgba(250, 251, 252, 1),rgba(250, 251, 252, 0));
 }
 </style>
