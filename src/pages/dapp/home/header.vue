@@ -26,7 +26,7 @@ const i18n = I18n();
   <div>
     <div class="hidden md:block">
       <div class="flex justify-between items-center">
-        <div class="flex items-center">
+        <div class="flex items-end">
           <p class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">{{title}}</p>
           <p class="text-kd14px18px text-global-highTitle text-opacity-45 font-kdFang ml-4">{{tips}}</p>
         </div>
