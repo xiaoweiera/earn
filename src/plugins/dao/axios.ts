@@ -2,17 +2,20 @@
  * @file 构造请求对象
  * @author svon.me@gmail.com
  */
-
-import {omit} from "lodash";
-import {Request} from "express";
+import { omit } from "lodash";
 import I18n from "src/utils/i18n";
+import {Request} from "express";
+import {asyncCheck} from "./response";
 import {Lang} from "src/types/language";
+import * as redis from "src/plugins/redis";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import Cookie from "src/plugins/browser/cookie";
 import {getEnv, languageKey} from "src/config/";
-import {Equals, isObject, isRequest} from "src/utils/";
-import Axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+import {Equals, isObject, isRequest, toInteger} from "src/utils/";
+import AxiosHttp, {Axios, AxiosRequestConfig, AxiosResponse} from "axios";
+
+const timeoutValue = 3 * 1000;
 
 // 用户信息
 const getUserAuth = async function (config: AxiosRequestConfig, lang?: Lang) {
@@ -32,100 +35,207 @@ const isKindDataDomain = function (config: AxiosRequestConfig): boolean {
 	return true
 }
 
-const Dao = function (lang?: Lang, option?: AxiosRequestConfig): AxiosInstance {
-	const env = getEnv();
-	const setting = Object.assign(
-		{
-			timeout: 20 * 1000, // request timeout
-			baseURL: isRequest(lang) ? env.VITE_LanApi : env.api, // 根据当前环境配置接口域名
+class Dao {
+	protected lang: Lang | undefined;
+
+	constructor(lang?: Lang) {
+		this.lang = lang;
+		this.CallbackError = this.CallbackError.bind(this);
+		this.responseCallback = this.responseCallback.bind(this);
+		this.requestCallback = this.requestCallback.bind(this);
+	}
+
+	log(res: AxiosResponse, error?: boolean) {
+		const url = this.getUri(res.config);
+		const method = safeGet<string>(res, "config.method");
+		const status = safeGet<number | string>(res, "status") || "error";
+		const message = status === "error" ? safeGet<string>(res, "message") : "";
+		if (Equals(method, "get")) {
+			if (error || message) {
+				console.warn("API", status, method, url, message);
+			} else {
+				console.log("API", status, method, url);
+			}
+		} else {
+			const data = safeGet<string>(res, "config.data");
+			if (error || message) {
+				console.warn("API", status, method, url, data, message);
+			} else {
+				console.log("API", status, method, url, data);
+			}
+		}
+	}
+	private redisKey (config: AxiosRequestConfig) {
+		if (config) {
+			const expire = toInteger(safeGet<number>(config, "params.expire"));
+			if (expire && expire > 0) {
+				const method = safeGet<string>(config, "method");
+				const url = this.getUri(config);
+				const key = redis.makeKey(method, url);
+				return { key, expire };
+			}
+		}
+		return {};
+	}
+	// 响应前拦截
+	async requestCallback(req: AxiosRequestConfig) {
+		const env = getEnv();
+		const i18n = I18n(this.lang);
+		// 判断当前请求域名是否为 KingData 域名
+		if (isKindDataDomain(req)) {
+			let token: string | undefined;
+			// 判断是否需要传用户信息
+			const userStatus = safeGet<string>(req, "params._user");
+			if (userStatus && Equals(userStatus, "none")) {
+				token = "";
+			} else {
+				// 获取 token
+				token = await getUserAuth(req, this.lang);
+			}
+			// 如果当前请求必须携带 token, 并且当前用户未登录
+			if (userStatus && Equals(userStatus, "required") && !token) {
+				// 抛异常
+				throw {
+					code: 0,
+					data: null
+				}
+			}
+			if (token) {
+				safeSet(req, "headers.Authorization", `Token ${token}`);
+			}
+			// 设置当前系统语言环境
+			safeSet(req, `params.${languageKey}`, i18n.getLang());
+			safeSet(req, "headers.accept-language", i18n.getLang());
+			safeSet(req, "params", omit(req.params, [ "_user" ]));
+		}
+		// 处理 url 中的变量
+		const parameter: any = {
+			...env,
+			language: i18n.getLang(), // 当前环境语言类型
+			version: env.ApiVersion,  // API 版本
+		};
+		if (req.params) {
+			Object.assign(parameter, req.params);
+		}
+		if (req.data) {
+			Object.assign(parameter, req.data);
+		}
+		if (req.url) {
+			req.url = i18n.template(req.url, parameter);
+		}
+
+		const { key } = this.redisKey(req);
+		if (key) {
+			// 判断 Key 是否存在
+			const status = await redis.has(key);
+			if (status) {
+				// 读取缓存数据
+				const data = await redis.get(key);
+				// 如果数据不为空，则中断请求逻辑
+				if (data) {
+					throw { code: 0, data };
+				}
+			}
+		}
+		// 继续执行请求逻辑
+		return req;
+	}
+
+	async responseCallback(res: AxiosResponse) {
+		const status = parseInt(res.status as any, 10);
+		if (status >= 200 && status < 300) {
+			this.log(res);
+			const { key, expire } = this.redisKey(res.config);
+			// 如果缓存时间大于 0
+			if (key && expire && expire > 0) {
+				const data = await asyncCheck(res);
+				// 写入缓存
+				await redis.set(key, data, expire);
+				return data;
+			} else {
+				return asyncCheck(res);
+			}
+		} else {
+			this.log(res, true);
+			return Promise.reject(res);
+		}
+	}
+
+	async CallbackError(error: any) {
+		let code = safeGet<number>(error, "code");
+		if (code === 0) {
+			return asyncCheck({ data: error });
+		}
+		this.log(error, true);
+		return Promise.reject(error);
+	}
+
+	get<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> {
+		const axios = this.getAxios();
+		return axios.get<T, R>(url, config);
+	}
+
+	delete<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> {
+		const axios = this.getAxios();
+		return axios.delete(url, config);
+	}
+
+	getUri(config?: AxiosRequestConfig): string {
+		const axios = this.getAxios();
+		return axios.getUri(config);
+	}
+
+	head<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> {
+		const axios = this.getAxios();
+		return axios.head(url, config);
+	}
+
+	options<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> {
+		const axios = this.getAxios();
+		return axios.options(url, config);
+	}
+
+	patch<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> {
+		const axios = this.getAxios();
+		return axios.patch(url, data, config);
+	}
+
+	post<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> {
+		const axios = this.getAxios();
+		return axios.post(url, data, config);
+	}
+
+	put<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> {
+		const axios = this.getAxios();
+		return axios.put(url, data, config);
+	}
+
+	request<T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R> {
+		const axios = this.getAxios();
+		return axios.request(config);
+	}
+
+	protected getAxios(): Axios {
+		const env = getEnv();
+		const config = {
+			timeout: timeoutValue, // 超时时间
+			baseURL: isRequest(this.lang) ? env.VITE_LanApi : env.api, // 根据当前环境配置接口域名
 			withCredentials: false,
 			maxRedirects: 3, // 支持三次重定向
-		},
-		option || {},
-	);
-	const service = Axios.create(setting);
+		};
+		const axios = AxiosHttp.create(config);
+		// 响应前拦截
+		axios.interceptors.request.use(this.requestCallback, this.CallbackError)
+		// 响应好拦截
+		axios.interceptors.response.use(this.responseCallback, this.CallbackError);
+		return axios;
+	}
 
-	service.interceptors.request.use(
-		async (config: AxiosRequestConfig) => {
-			const i18n = I18n(lang);
-			const current: string = i18n.getLang();
-			const status = isKindDataDomain(config);
-			if (status) {
-				let token: string | undefined;
-				// 判断是否需要传用户信息
-				const userStatus = safeGet<string>(config, "params._user");
-				if (userStatus && Equals(userStatus, "none")) {
-					token = "";
-				} else {
-					// 获取 token
-					token = await getUserAuth(config, lang);
-				}
-				if (userStatus && Equals(userStatus, "required") && !token) {
-					throw {
-						code: 0,
-						data: null
-					}
-				}
-				if (token) {
-					safeSet(config, "headers.Authorization", `Token ${token}`);
-				}
-				// 设置当前系统语言环境
-				safeSet(config, `params.${languageKey}`, current);
-				safeSet(config, "headers.accept-language", current);
-				safeSet(config, 'params', omit(config.params, [ "_user" ]));
-			}
-			// 处理 url 中的变量
-			const parameter: any = {
-				...env,
-				language: current, // 当前环境语言类型
-				version: env.ApiVersion,  // API 版本
-			};
-			if (config.params) {
-				Object.assign(parameter, config.params);
-			}
-			if (config.data) {
-				Object.assign(parameter, config.data);
-			}
-			if (config.url) {
-				/**
-				 * 借助 i18n 模块中的 template 可以对字符串中的变量进行替换
-				 * const url = "xxx/{id}/{name}/xxx"
-				 * const params = { id: "1", name: "aaa" }
-				 * 替换后为 "xxx/1/aaa/xxx"
-				 */
-				config.url = i18n.template(config.url, parameter)
-			}
-			return config;
-		},
-		(error) => Promise.reject(error),
-	)
-	service.interceptors.response.use(
-		(res: AxiosResponse) => {
-			const url = safeGet<string>(res, "request.res.responseUrl") || safeGet<string>(res, "request.responseURL") || safeGet<string>(res, "config.url");
-			const status = parseInt(res.status as any, 10);
-			const query = { ...res.config.params, ...res.config.data };
-			if (status >= 200 && status < 300) {
-				console.log('API Success %s, %s, %s', res.status, res.config.method, url, query);
-				return res;
-			} else {
-				console.log('API Error %s, %s, %s', res.status, res.config.method, url, query);
-				return Promise.reject(res);
-			}
-		},
-		(error) => {
-			let code = safeGet<number>(error, "code");
-			if (code === 0) {
-				return Promise.resolve(error);
-			}
-			const method = safeGet<string>(error, "config.method");
-			const url = safeGet<string>(error, "config.url");
-			const params = safeGet<string>(error, "config.params") || {};
-			const data = safeGet<string>(error, "config.data") || {};
-			console.log('API Error %s, %s', method, url, { ...params, ...data });
-			return Promise.reject(error)
-		},
-	)
-	return service;
+	protected getRequest(): Request | undefined {
+		if (isRequest(this.lang)) {
+			return this.lang as Request;
+		}
+	}
 }
 
 export default Dao;

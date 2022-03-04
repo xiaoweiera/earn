@@ -8,8 +8,9 @@ import Express from "express";
 import {getEnv} from "src/config";
 import Router from "./router/index";
 import Assets from "./router/assets";
+import { getRedisClient } from "./redis";
+import { setClient } from "src/plugins/redis";
 import CookieParser from "cookie-parser";
-// import userAgent from "express-useragent";
 import common from "src/controller/common/";
 import cors from "src/controller/common/cors";
 
@@ -18,7 +19,10 @@ const root: string = path.resolve(__dirname, "../..");
 
 const main = async function () {
 	const app = Express();
-
+	const redis = await getRedisClient();
+	if (redis) {
+		setClient(redis as any);
+	}
 	const config = Object.assign({}, getEnv(), {
 		port: process.env.port || 3333,
 		host: process.env.host || "0.0.0.0",
