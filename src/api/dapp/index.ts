@@ -7,13 +7,13 @@ import ApiTemplate from "../template";
 import * as api from "src/config/api";
 import {Query} from "src/types/dapp/ixo";
 import {nftQuery, nftStatus} from "src/types/dapp/nft";
-import {userToken, tryError, DefaultValue, get, validate, required} from "src/plugins/dao/http";
+import {userToken, expire, tryError, DefaultValue, get, validate, required} from "src/plugins/dao/http";
 
 
 export default class extends ApiTemplate {
 	// 项目库列表
 	@tryError(DefaultValue([]))
-	@get(api.dapp.list)
+	@get(api.dapp.list, expire.min30)
 	@userToken(false)
 	getList<T>(query: object = {}): Promise<T> {
 		return [query] as any;
@@ -48,7 +48,7 @@ export default class extends ApiTemplate {
 
 	//	获取nft列表
 	@tryError(DefaultValue([]))
-	@get(api.dapp.nftList)
+	@get(api.dapp.nftList, expire.min30)
 	@userToken(false)
 	@validate
 	getNftList<T>(@required query: nftQuery): Promise<T> {
@@ -63,7 +63,7 @@ export default class extends ApiTemplate {
 
 	// ixo 数据
 	@tryError(DefaultValue([]))
-	@get(api.dapp.ixo)
+	@get(api.dapp.ixo, expire.min30)
 	@userToken(false)
 	@validate
 	ixo<T>(@required query: Query) {
@@ -79,7 +79,7 @@ export default class extends ApiTemplate {
 
 	// ixoEnd 数据
 	@tryError(DefaultValue([]))
-	@get(api.dapp.ixo)
+	@get(api.dapp.ixo, expire.min30)
 	@userToken(false)
 	@validate
 	ixoEnd<T>(@required query: Query) {
