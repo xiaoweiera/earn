@@ -21,7 +21,7 @@ const connect = async function (url?: string) {
 }
 
 export const getRedisClient = async function () {
-	const value = [ process.env.VITE_REDIS_URL, process.env.REDIS_URL ];
+	const value = [ process.env.VITE_REDIS_URL ];
 	let client;
 	for(const url of value) {
 		client = await connect(url);

@@ -22,7 +22,8 @@ export const getClient = function (): RedisClientType | undefined {
 // 创建 Key
 export const makeKey = function (...args: any[]) {
 	if (getClient()) {
-		return uuid(args);
+		const value = uuid(args);
+		return `web_${value}`;
 	}
 }
 // 设置过期时间
