@@ -41,7 +41,12 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 		res.send({});
 	});
 	router.get("*", function (req: Request, res: Response) {
-		redirect(req, res, routerConfig.E404);
+		const reg = /^.+(\.js|\.css|\.jpg|.jpeg|\.gif|\.svg|\.ttf)$/i;
+		if (reg.test(req.url)) {
+			return res.send(404);
+		} else {
+			redirect(req, res, routerConfig.E404);
+		}
 	});
 	return router;
 }
