@@ -88,8 +88,8 @@ onMounted(function () {
                     </div>
                     <div class="blog-label absolute bottom-1 md:bottom-1.5">
                       <span>{{ item['viewers'] ? item['viewers'] : 0 }} {{i18n.home.todayTrend.read}}</span>
-                      <span class="mx-1" v-if="item['release_date']">|</span>
-                      <span v-if="item['release_date']">{{i18n.home.todayTrend.updateTime}}:{{ timeago(dataToTimestamp(item['release_date'])) }}</span>
+                      <span class="mx-1 gang  text-kd12px16px" v-if="item['release_date']">|</span>
+                      <span v-if="item['release_date']">{{i18n.home.todayTrend.updateTime}}: {{ timeago(dataToTimestamp(item['release_date'])) }}</span>
                     </div>
                   </div>
                   <ui-image class="rounded-kd6px h-23.5 w-65 md:w-101  " :src="getImg(item)" fit="cover"/>
@@ -127,7 +127,6 @@ onMounted(function () {
   @apply flex items-center px-2  rounded-kd20px text-kd12px14px font-kdFang h-5.5 mt-2.5;
 }
 .jian-right {
-  //background: linear-gradient(to right,#ff000000, #ffffffc9);
   @apply w-35 h-full absolute right-0 top-0 z-2;
 }
 .blog-jian{
@@ -139,7 +138,6 @@ onMounted(function () {
 }
 
 .jian-left {
-  //background: linear-gradient(to right, #ffffffc9, #ff000000);
   @apply w-35 h-full absolute left-0 top-0 z-2;
 }
 
@@ -156,7 +154,9 @@ onMounted(function () {
 .swiper-slide {
   width: auto !important;
 }
-
+.gang{
+  opacity:0.4;
+}
 .blog-name {
   @apply text-kd18px18px md:text-kd20px20px font-semiBold text-global-white;
 }

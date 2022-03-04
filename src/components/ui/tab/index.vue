@@ -212,11 +212,12 @@ onMounted(function () {
   }
 }
 %active {
-  @apply text-global-highTitle text-opacity-85;
+  @apply text-global-primary;
 }
 .tab-wrap {
   .el-select {
     ::v-deep(input) {
+      color:#033666 !important;
       @apply font-m font-kd18px24px;
     }
     &.active {
