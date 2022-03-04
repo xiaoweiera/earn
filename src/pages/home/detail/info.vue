@@ -21,7 +21,7 @@ const copyUrl = function () {
   <div>
     <div class="flex items-end justify-between flex-wrap w-full md:py-2.5">
       <div class="md:flex items-center flex-wrap break-all md:mr-6">
-        <span class="text-kd32px32px whitespace-pre-line  md:text-kd40px40px font-kdSemiBold ml-2 text-global-highTitle text-opacity-85 font-semibold">{{data.name}}</span>
+        <span class="text-kd32px32px whitespace-pre-line  md:text-kd40px40px font-kdSemiBold  text-global-highTitle text-opacity-85 font-semibold">{{data.name}}</span>
       </div>
       <v-router href="https://kingdata.com/dapp/apply" target="_blank" class="min-w-25 h-8  bg-global-primary rounded-kd6px flex items-center justify-center cursor-pointer">
         <IconFont class="text-global-white" size="16" type="icon-updata"/>
