@@ -15,7 +15,7 @@ import {getParam} from "src/utils/router";
 import {config} from "src/router/config";
 import {uuid} from "src/utils";
 
-import { useReactiveProvide, stateAlias, useWatch } from "src/utils/use/state";
+import {stateAlias, useWatch, getReactiveInject} from "src/utils/use/state";
 import {Query} from "src/types/common";
 
 defineProps({
@@ -26,7 +26,7 @@ defineProps({
   }
 })
 const i18n = I18n();
-const [ route ] = useReactiveProvide<Query>(stateAlias.ui.tab);
+const route = getReactiveInject<Query>(stateAlias.ui.tab);
 const chain = ref(getParam<string>("group"));
 const keys = ref<string>(uuid());
 const params = reactive({
@@ -68,6 +68,7 @@ onMounted(function () {
 </script>
 <template>
   <div>
+    <p>B - {{ keys }}</p>
     <div>
       <!-- header -->
       <div>
@@ -75,12 +76,12 @@ onMounted(function () {
                         title="NFT Drops 🎯"/>
       </div>
       <!-- 搜索 -->
-      <div class="mt-4 hidden md:block">
+      <div class="mt-4 hidden md:block" :key="keys">
         <DAppDiscoverContentType v-if="summary.nft" :list="tabChain(summary.nft.chain, 'group', config.home)"
                                  :split="6" :title="i18n.home.idoIgoProject.chain" active-name="group" name="group"/>
       </div>
-      <div class="mt-4 block md:hidden">
-        <DAppDiscoverContentChain v-if="summary.nft" :key="keys" :chainData="summary.nft.chain" :href="config.home"
+      <div class="mt-4 block md:hidden" :key="keys">
+        <DAppDiscoverContentChain v-if="summary.nft" :chainData="summary.nft.chain" :href="config.home"
                                   :title="i18n.home.idoIgoProject.chain" class="w-full" name="group"/>
       </div>
       <!-- nft项目 -->
