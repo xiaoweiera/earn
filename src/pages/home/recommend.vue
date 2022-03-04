@@ -90,10 +90,9 @@ onMounted(function () {
       <div :class="isEnd?'hidden':'jian-right'" class="xshidden">
         <img class="right shadow" @click="next" :src="`${oss}/dapp/rightjian.png`" alt="">
       </div>
-      <div v-if="!isBegin" class="absolute top-0 left-0 left-jian  w-47.5 h-47.5 z-9"></div>
-      <div v-if="!isEnd" class="absolute top-0 right-0 right-jian  w-47.5 h-47.5 z-9"></div>
+      <div v-if="!isBegin" class="xshidden absolute top-0 left-0 left-jian w-35 h-35 md:w-47.5 md:h-47.5 z-9"></div>
+      <div v-if="!isEnd" class="xshidden absolute top-0 right-0 right-jian w-35 h-35  md:w-47.5 md:h-47.5 z-9"></div>
     </div>
-
   </div>
 
 </template>
@@ -102,7 +101,6 @@ onMounted(function () {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute left-3 z-10 top-20;
 }
-
 .right {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute right-3 z-10 top-20;
