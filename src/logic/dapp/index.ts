@@ -223,8 +223,8 @@ export const getTodayTime = function (value: number) {
 }
 //跳转路由
 export const getNextUrl = function (val:any) {
-	if(val.url) {
-		window.open(createHref(`${val.url}?type=dashboard`));
+	if(val && val.url) {
+		window.open(createHref(val.url, {type:'dashboard'}));
 	}
 }
 
