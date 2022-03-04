@@ -4,10 +4,8 @@
 
 import ApiTemplate from "../template";
 import * as api from "src/config/api";
-import request from "src/plugins/dao/service";
-import {asyncCheck} from "src/plugins/dao/response";
 import {projectParams, recommendModel} from "src/types/home";
-import {DefaultValue, get, required, validate, tryError, userToken} from "src/plugins/dao/http";
+import {DefaultValue, get, tryError, userToken} from "src/plugins/dao/http";
 
 export default class extends ApiTemplate {
     // 数据汇总

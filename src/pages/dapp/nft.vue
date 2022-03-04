@@ -94,9 +94,6 @@ const changeSort = function (val:any) {
             <div class="pb-1" v-else>
               <div v-for="data in transformNftList(scope.list)" :key="data.title">
                 <h3 class="py-4">{{ data.title }}</h3>
-<!--                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-6">-->
-<!--                  <DAppNftList v-for="(item, index ) in data.list" :key="index" :data="item"/>-->
-<!--                </div>-->
                 <div class="coming-item showX">
                   <div v-for="(item, index ) in data.list" :key="index">
                     <DAppNftList :data="item" class="md:ml-0 xl:ml-0 lg:ml-0" :class="{'ml-6' : index > 0}"/>

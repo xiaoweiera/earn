@@ -33,11 +33,11 @@ let list: any = createRef("API.dapp.list", {} as any);
 
 const params = reactive({
   page: 1,
-  page_size: 8,
+  page_size: 16,
   is_igo: isIgo.value ? isIgo : false,
-  chain: chain.value,
-  category: category.value,
-  platform: platform.value,
+  chain: chain.value || '',
+  category: category.value || '',
+  platform: platform.value || '',
   status: type.value ? type.value : 'upcoming',
   query: search.value ? search.value : '',
   sort_field: '',
@@ -49,11 +49,11 @@ const loading = ref(false);
 
 const getData = async (clear?: boolean) => {
   loading.value = true
-  const res: any = await api.getList(params);
   if (clear) {
     params.page = 1
     list.value = []
   }
+  const res: any = await api.getList(params);
   resultNumber.value = res?.length;
   list.value = list.value.concat(res)
   loading.value = false

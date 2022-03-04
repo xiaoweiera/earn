@@ -14,6 +14,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import * as logic from "src/types/dapp";
 import DBList from "@fengqiaogang/dblist";
 import dayjs from "dayjs";
+import {createHref} from "src/plugins/router/pack";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
@@ -223,7 +224,7 @@ export const getTodayTime = function (value: number) {
 //跳转路由
 export const getNextUrl = function (val:any) {
 	if(val.url) {
-		window.open(val.url);
+		window.open(createHref(`${val.url}?type=dashboard`));
 	}
 }
 
