@@ -43,7 +43,7 @@ onMounted(function () {
         <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
           <ui-image class="left shadow" @click="last" :src="`${oss}/dapp/zuojian.png`" fit="cover"/>
         </div>
-        <Swiper class="h-full swiper-company"
+        <Swiper v-if="platform.length>0" class="h-full swiper-company"
                 @init="init"
                 :initialSlide="0"
                 :loop="true"
