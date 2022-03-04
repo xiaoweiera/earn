@@ -62,7 +62,7 @@ onMounted(function () {
     <div class="mt-4 relative">
       <div class="w-full h-full">
         <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
-          <img class="left" @click="last" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="">
+          <img class="left shadow" @click="last" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="">
         </div>
         <Swiper v-if="trend.length>0" class="h-full swiper-topic"
                 @init="init"
@@ -113,7 +113,7 @@ onMounted(function () {
         </Swiper>
       </div>
       <div class="xshidden" :class="isEnd?'hidden':'jian-right'">
-        <img class="right" @click="next" :src="`${env.VITE_oss}/dapp/rightjian.png`" alt="">
+        <img class="right shadow" @click="next" :src="`${env.VITE_oss}/dapp/rightjian.png`" alt="">
       </div>
     </div>
   </div>
@@ -172,5 +172,8 @@ onMounted(function () {
 }
 .blog-label {
   @apply text-kd12px16px font-medium text-global-white;
+}
+.shadow {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
 }
 </style>
