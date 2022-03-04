@@ -54,6 +54,10 @@ export const getHeader=(key:string,name?:string)=>{
 			return [i18n.home.topList.idoAth,'justify-center']
 		}else if(key==='current_roi_usd'){
 			return [i18n.home.topList.nowCurrent,'justify-center']
+		}else if(key==='mint_start_at'){
+			return ['Ended in (UTC)','justify-center']
+		}else if(key==='ido_end_at'){
+			return ['Mint (UTC)','justify-center']
 		}
 		return [i18n.home.topList.noData,'justify-center']
 }

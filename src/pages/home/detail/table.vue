@@ -147,7 +147,7 @@ const isFilter = () => {
         </div>
       </client-only>
     </div>
-    <div v-if="data.items.length>0 || loading" class="showX">
+    <div v-if="safeGet(data,'items.length') || loading" class="showX">
       <table class="table-my min-w-243">
         <thead>
         <tr class="min-h-10">
@@ -177,8 +177,8 @@ const isFilter = () => {
         </tbody>
       </table>
     </div>
-    <ui-empty v-else-if="data.items.length===0 && !loading" class="pb-3 pt-10"/>
-    <div v-if="data?.items?.length>0 && resultNumber>=params.page_size" @click="more" class="more">{{i18n.home.loadingMore}}</div>
+    <ui-empty v-else-if="safeGet(data,'items.length')===0 && !loading" class="pb-3 pt-10"/>
+    <div v-if="safeGet(data,'items.length')>0 && resultNumber>=params.page_size" @click="more" class="more">{{i18n.home.loadingMore}}</div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>
 </template>
