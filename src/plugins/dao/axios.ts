@@ -15,6 +15,7 @@ import {getEnv, languageKey} from "src/config/";
 import {Equals, isObject, isRequest, toInteger} from "src/utils/";
 import AxiosHttp, {Axios, AxiosRequestConfig, AxiosResponse} from "axios";
 
+const timeoutValue = 3 * 1000;
 
 // 用户信息
 const getUserAuth = async function (config: AxiosRequestConfig, lang?: Lang) {
@@ -217,7 +218,7 @@ class Dao {
 	protected getAxios(): Axios {
 		const env = getEnv();
 		const config = {
-			timeout: 2 * 1000, // request timeout
+			timeout: timeoutValue, // 超时时间
 			baseURL: isRequest(this.lang) ? env.VITE_LanApi : env.api, // 根据当前环境配置接口域名
 			withCredentials: false,
 			maxRedirects: 3, // 支持三次重定向

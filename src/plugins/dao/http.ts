@@ -4,6 +4,7 @@
  * @description 根据某些场景做一些处理
  */
 
+import { AxiosRequestConfig } from "axios";
 import safeGet from "@fengqiaogang/safe-get";
 import {isFunction, isObject} from "src/utils/";
 
@@ -46,15 +47,16 @@ export enum expire {
  * @file get 请求
  * @param url 请求地址
  * @param expire 缓存时间
+ * @param config Axios 配置
  */
-export const get = function (url: string, expire = 0) {
+export const get = function (url: string, expire = 0, config: AxiosRequestConfig = {}) {
 	return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
 		const app = descriptor.value;
 		descriptor.value = async function (...args: any[]) {
 			const self: any = this;
 			const [ query = {}, callback ]: [ object, (value?: any) => any ] = await Promise.resolve(app.apply(self, args));
 			const params = { ...query, expire };
-			let result = await self.get(url, { params });
+			let result = await self.get(url, { ...config, params });
 			if (callback && isFunction(callback)) {
 				result = await callback(result);
 			}
@@ -66,8 +68,9 @@ export const get = function (url: string, expire = 0) {
  * @file post 请求
  * @param url 请求地址
  * @param expire 缓存时间
+ * @param config Axios 配置
  */
-export const post = function (url: string, expire = 0) {
+export const post = function (url: string, expire = 0, config: AxiosRequestConfig = {}) {
 	return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
 		const app = descriptor.value;
 		descriptor.value = async function (...args: any[]) {
@@ -76,6 +79,7 @@ export const post = function (url: string, expire = 0) {
 			const _user = safeGet<string>(data, "_user");
 
 			const result = await self.post(url, data, {
+				...config,
 				params: { _user, expire }
 			});
 			if (callback && isFunction(callback)) {
