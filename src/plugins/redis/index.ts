@@ -27,11 +27,15 @@ export const makeKey = function (...args: any[]) {
 	}
 }
 // 设置过期时间
-export const expire = function (name: string, time?: number) {
+export const expire = async function (name: string, time?: number) {
 	if (time && time > 0) {
 		const client = getClient();
 		if (client) {
-			return client.expire(name, time);
+			try {
+				await client.expire(name, time);
+			} catch (e) {
+				// todo
+			}
 		}
 	}
 }
@@ -51,10 +55,14 @@ export const has = async function (name: string): Promise<boolean> {
 export const get = async function<T>(name: string) {
 	const client = getClient();
 	if (client) {
-		const value = await client.get(name);
-		if (value) {
-			const data: object = JSON.parse(value);
-			return safeGet<T>(data, jsonKey);
+		try {
+			const value = await client.get(name);
+			if (value) {
+				const data: object = JSON.parse(value);
+				return safeGet<T>(data, jsonKey);
+			}
+		} catch(e) {
+			// todo
 		}
 	}
 }
@@ -64,11 +72,11 @@ export const set = async function (name: string, value: any, time?: number) {
 	const client = getClient();
 	if (client) {
 		const d = JSON.stringify({ [jsonKey]: value });
-		if (time) {
+		try {
 			await client.set(name, d);
-			return expire(name, time);
-		} else {
-			return client.set(name, d);
+			await expire(name, time);
+		} catch (e) {
+			// todo
 		}
 	}
 }
