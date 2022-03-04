@@ -39,7 +39,7 @@ onUnmounted(()=>{
       </div>
       <div class="py-2.5">
         <template v-for="(item,index) in rank" :key="item.key">
-          <div class="topic" :class="topicIndex===index?'topic-active':'topic-default'" @click="selectTopic(index)">
+          <div class="topic topic-wh" :class="topicIndex===index?'topic-active':'topic-default'" @click="selectTopic(index)">
             <span>🚀</span>
             <span class="ml-2.5">{{ item.name }}</span>
           </div>
@@ -58,8 +58,25 @@ onUnmounted(()=>{
 .topic {
   transition: all 0.8s;
   @apply text-kd18px24px font-medium font-Fang cursor-pointer;
-  @apply w-115 h-12 flex items-center rounded-kd40px  px-4;
+  @apply flex items-center rounded-kd40px  px-4;
 }
+@screen md {
+  .topic-wh{
+    @apply w-115 h-12;
+  }
+}
+@screen lg {
+  .topic-wh{
+    @apply  max-w-95 h-12;
+  }
+}
+@screen xl {
+  .topic-wh{
+    @apply max-w-115 h-12;
+  }
+}
+
+
 
 .topic:not(:first-child) {
   @apply mt-5;

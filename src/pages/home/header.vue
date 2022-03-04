@@ -63,8 +63,8 @@ const getColor = (value: any) => {
           {{ toNumberCashFormat(data.avg_ath, 'x') }}
         </div>
       </div>
-      <div class="info-item ">
-        <div class="item-name name-scale">{{i18n.home.platData.nft}}</div>
+      <div class="info-item">
+        <div class="item-name name-scale w-full text-left">{{i18n.home.platData.nft}}</div>
         <div class="info-des">
           <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(safeGet(data,'nft.total')) }}</span>
           <span class="time  time-scale font-kdFang  text-global-white">24H</span>
