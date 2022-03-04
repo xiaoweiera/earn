@@ -169,12 +169,12 @@ onMounted(function () {
         </v-router>
       </template>
       <client-only class="tab-item inline-block text-18-24 font-m" v-if="split < tabList.length">
-        <el-select placeholder="other" class="border-0 w-30 md:w-40 active" v-if="isSelectActive()" v-model="active" @change="onChangeSelect">
+        <el-select placeholder="other" class="border-1 rounded-kd6px w-30 md:w-40 active" v-if="isSelectActive()" v-model="active" @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
             <el-option v-if="index >= split" :label="item.name" :value="item[activeName]"></el-option>
           </template>
         </el-select>
-        <el-select placeholder="other" class="border-0 w-30 md:w-40" v-else @change="onChangeSelect">
+        <el-select placeholder="other" class="border-1 rounded-kd6px w-30 md:w-40" v-else @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
             <el-option v-if="index >= split" :label="item.name" :value="item[activeName]"></el-option>
           </template>
@@ -212,7 +212,7 @@ onMounted(function () {
   }
 }
 %active {
-  @apply text-global-darkblue text-opacity-100;
+  @apply text-global-highTitle text-opacity-85;
 }
 .tab-wrap {
   .el-select {
@@ -249,5 +249,9 @@ onMounted(function () {
     }
      */
   }
+}
+
+::v-deep(.el-select) {
+  background: #FAFBFC !important;
 }
 </style>

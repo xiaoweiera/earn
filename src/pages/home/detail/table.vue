@@ -142,8 +142,8 @@ const isFilter = () => {
     <div class="flex xshidden justify-between items-baseline">
       <HomeFilter :key="key" v-if="info.id && isFilter()" :info="info" :filters="info.filters" class="mb-4 -mt-2"/>
       <client-only>
-        <div v-if="isSearch" class="relative flex items-center search">
-          <IconFont class="absolute text-global-highTitle text-opacity-45 left-3" size="16" type="icon-sousuo-da1"/>
+        <div v-if="isSearch"  class="relative flex items-center search">
+          <IconFont class="absolute text-global-highTitle text-opacity-45 z-22 left-3" size="16" type="icon-sousuo-da1"/>
           <el-input v-model="search" placeholder="Search"/>
         </div>
       </client-only>
@@ -187,7 +187,7 @@ const isFilter = () => {
 .search {
   ::v-deep(.el-input__inner) {
     border: 1px solid rgba(3, 54, 102, 0.1) !important;
-    background: none;
+    background: #FAFBFC;
     height: 34px !important;
     padding-left: 35px !important;
     border-radius: 6px !important;

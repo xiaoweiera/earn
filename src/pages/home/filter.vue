@@ -69,7 +69,7 @@ const isCategory = computed<boolean>(function () {
         <div class="flex items-center w-full">
           <div v-if="isCategory" class="is-tab relative">
             <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">{{i18n.home.category}}</div>
-            <ui-tab class="relative z-22" :list="categoryData" :split="4" active-name="category"></ui-tab>
+            <ui-tab class="relative z-22" :list="categoryData" :split="3" active-name="category"></ui-tab>
           </div>
           <IconFont v-if="isCategory && isChain" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang"/>
           <div v-if="isChain" class="flex items-center">
@@ -90,7 +90,7 @@ const isCategory = computed<boolean>(function () {
 .select {
   ::v-deep(.el-input__inner) {
     border: 1px solid rgba(3, 54, 102, 0.1) !important;
-    background: none;
+    background: #FAFBFC;
     height: 34px !important;
     padding-left: 12px !important;
     border-radius: 6px !important;
