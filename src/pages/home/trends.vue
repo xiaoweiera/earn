@@ -75,7 +75,7 @@ onMounted(function () {
             <SwiperSlide class="rounded-kd6px">
               <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
                 <div v-if="item['data_type']==='blog' && index===0" class="relative">
-                  <div class="absolute  w-full h-full px-2 md:px-3">
+                  <div class="absolute z-3  w-full h-full px-2 md:px-3">
                     <div class="blog-name pt-1.5 md:pt-2 font-kdSemiBold font-semibold">
                       <span>Daily Trending</span>
                       <span class="ml-1">({{ formatDefaultTime(item['release_date'], 'MM/DD') }})</span>
@@ -92,7 +92,8 @@ onMounted(function () {
                       <span v-if="item['release_date']">{{i18n.home.todayTrend.updateTime}}:{{ timeago(dataToTimestamp(item['release_date'])) }}</span>
                     </div>
                   </div>
-                  <ui-image class="rounded-kd6px h-23.5 w-65 md:w-101 " :src="getImg(item)" fit="cover"/>
+                  <ui-image class="rounded-kd6px h-23.5 w-65 md:w-101  " :src="getImg(item)" fit="cover"/>
+                  <div class="blog-jian"></div>
                 </div>
                 <div v-else class="h-23.5 w-47.5 overflow-hidden rounded-kd6px">
                   <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute"/>
@@ -129,7 +130,10 @@ onMounted(function () {
   //background: linear-gradient(to right,#ff000000, #ffffffc9);
   @apply w-35 h-full absolute right-0 top-0 z-2;
 }
-
+.blog-jian{
+  background-image: linear-gradient(to right,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  @apply w-full h-full absolute left-0 top-0  z-2 rounded-kd6px;
+}
 .ruo {
   -webkit-mask: -webkit-gradient(linear, left top, right bottom, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
 }

@@ -5,6 +5,7 @@ import {config} from "src/router/config";
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
 import window from "src/plugins/browser/window";
+import {createHref} from "src/plugins/router/pack";
 const i18n = I18n();
 defineProps({
   data: {
@@ -13,7 +14,7 @@ defineProps({
 })
 const toProject=(url:string )=>{
   if(url){
-    window.location.href = `https://kingdata.com${url}?lang=${i18n.getLang()}`
+    window.open(createHref(url))
   }
 }
 </script>
