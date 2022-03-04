@@ -108,7 +108,7 @@ const sort = (item: any) => {
 }
 const toProject=(url:string )=>{
   if(url){
-    window.location.href = `https://kingdata.com${url}?lang=${i18n.getLang()}`
+    window.open(createHref(url))
   }
 }
 const getNameWidth=(item:any)=>{
