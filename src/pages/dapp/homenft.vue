@@ -84,9 +84,9 @@ onMounted(function () {
                                   :title="i18n.home.idoIgoProject.chain" class="w-full" name="group"/>
       </div>
       <!-- nft项目 -->
-      <div v-if="UpcomingNftList.length > 0" class="mt-4 nft-item showX">
+      <div v-if="UpcomingNftList.length > 0" class="mt-4 nft-item w-full showX">
         <div class="coming-item">
-          <div v-for="( item, index ) in UpcomingNftList" :class="{'ml-6' : index > 0}" class="lg:ml-0">
+          <div v-for="( item, index ) in UpcomingNftList" :class="{'ml-6' : index > 0}" class="xl:ml-0">
             <DAppNftList :key="index" :data="item"/>
           </div>
         </div>
@@ -106,7 +106,7 @@ onMounted(function () {
     @apply flex items-center flex-nowrap;
   }
 
-  @screen lg {
+  @screen xl {
     @apply overflow-auto;
     .coming-item {
       @apply grid grid-cols-5 gap-6;

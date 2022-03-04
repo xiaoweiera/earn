@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toFixed } from 'src/utils'
+import DappNftsFooter from './footer.vue';
 defineProps({
   data: {
     type: Object,
@@ -26,6 +27,10 @@ defineProps({
           <span class="ml-0.5 text-kd16px18px text-number font-semibold">{{ toFixed(data.overall_score, 1) }}</span>
         </p>
       </div>
+    </div>
+    <!-- footer -->
+    <div class="nft-footer w-full absolute bottom-0 left-0">
+      <DappNftsFooter :data="data"></DappNftsFooter>
     </div>
   </div>
 </template>
