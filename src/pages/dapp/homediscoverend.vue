@@ -34,7 +34,7 @@ const params = getParam<Query>();
 
 const urlType = true;
 const loading = ref<boolean>(false);
-const route = getReactiveInject<Query>(stateAlias.ui.tab);
+const route = getReactiveInject<Query>(stateAlias.ui.tab) || {};
 const key = ref<string>(uuid());
 
 // nft drops
@@ -103,7 +103,6 @@ const onSearch = _.debounce(async function () {
 </script>
 <template>
   <div class="mt-5 p-4 bg-global-white rounded-md">
-    <p>C - {{ key }}</p>
     <!-- header -->
     <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
       <DAppHomeHeader :status="Status.ended" :tips="i18n.home.endProject.desc" :title="i18n.home.endProject.title"

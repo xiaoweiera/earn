@@ -31,7 +31,7 @@ defineProps({
   }
 })
 const i18n = I18n();
-const route = getReactiveInject<Query>(stateAlias.ui.tab);
+const route = getReactiveInject<Query>(stateAlias.ui.tab) || {};
 const urlType = true;
 // 公链类型
 const chain = ref(getParam<string>("chain"));
@@ -75,7 +75,6 @@ onMounted(function () {
 </script>
 <template>
   <div>
-    <p>A - {{ keys }}</p>
     <div>
       <div>
         <DAppHomeHeader :status="Status.upcoming" :tips="i18n.home.idoIgoProject.title" :type="urlType"

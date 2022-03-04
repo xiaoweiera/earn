@@ -26,7 +26,7 @@ defineProps({
   }
 })
 const i18n = I18n();
-const route = getReactiveInject<Query>(stateAlias.ui.tab);
+const route = getReactiveInject<Query>(stateAlias.ui.tab) || {};
 const chain = ref(getParam<string>("group"));
 const keys = ref<string>(uuid());
 const params = reactive({
@@ -68,7 +68,6 @@ onMounted(function () {
 </script>
 <template>
   <div>
-    <p>B - {{ keys }}</p>
     <div>
       <!-- header -->
       <div>
