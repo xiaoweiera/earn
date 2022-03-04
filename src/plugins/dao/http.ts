@@ -4,11 +4,8 @@
  * @description 根据某些场景做一些处理
  */
 
-import service from "./service";
-import {isFunction, isObject} from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
-import {makeKey, getClient} from "src/plugins/redis/";
-import { asyncCheck } from "src/plugins/dao/response";
+import {isFunction, isObject} from "src/utils/";
 
 export * from "src/utils/decorate";
 
@@ -32,7 +29,7 @@ export const userToken = function (status: boolean = false) {
 	};
 };
 // 缓存时间
-export enum cache {
+export enum expire {
 	min1 = 1000 * 60,
 	min2 = 1000 * 60 * 2,
 	min5 = 1000 * 60 * 5,
@@ -48,33 +45,18 @@ export enum cache {
 /**
  * @file get 请求
  * @param url 请求地址
- * @param cacheTime 缓存时间
- * @param production 是否强制调用线上环境接口
+ * @param expire 缓存时间
  */
-export const get = function (url: string, cacheTime = 0, production?: boolean) {
+export const get = function (url: string, expire = 0) {
 	return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
 		const app = descriptor.value;
 		descriptor.value = async function (...args: any[]) {
 			const self: any = this;
-			const [ params = {}, callback ]: [ object, (value?: any) => any ] = await Promise.resolve(app.apply(self, args));
-
-			const key = makeKey("get", url, params);
-			const redis = getClient();
-			if (redis) {
-				const value = await redis.get(key);
-				if (value) {
-					const d = JSON.parse(value);
-					return safeGet<any>(d, "v");
-				}
-			}
-			const http = service(self.lang, production);
-			let result = await asyncCheck(http.get(url, { params }));
+			const [ query = {}, callback ]: [ object, (value?: any) => any ] = await Promise.resolve(app.apply(self, args));
+			const params = { ...query, expire };
+			let result = await self.get(url, { params });
 			if (callback && isFunction(callback)) {
 				result = await callback(result);
-			}
-			if (result && redis && cacheTime > 0) {
-				await redis.set(key, JSON.stringify({ v: result }));
-				await redis.expire(key, cacheTime);
 			}
 			return result;
 		}
@@ -83,10 +65,9 @@ export const get = function (url: string, cacheTime = 0, production?: boolean) {
 /**
  * @file post 请求
  * @param url 请求地址
- * @param cache 缓存时间
- * @param production 是否强制调用线上环境接口
+ * @param expire 缓存时间
  */
-export const post = function (url: string, cache = 0, production?: boolean) {
+export const post = function (url: string, expire = 0) {
 	return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
 		const app = descriptor.value;
 		descriptor.value = async function (...args: any[]) {
@@ -94,10 +75,9 @@ export const post = function (url: string, cache = 0, production?: boolean) {
 			const [ data = {}, callback ]: [ object, (value?: any) => void ] = await Promise.resolve(app.apply(self, args));
 			const _user = safeGet<string>(data, "_user");
 
-			const http = service(self.lang, production);
-			const result = await asyncCheck(http.post(url, data, {
-				params: { _user }
-			}));
+			const result = await self.post(url, data, {
+				params: { _user, expire }
+			});
 			if (callback && isFunction(callback)) {
 				return callback(result);
 			}
