@@ -37,7 +37,6 @@ const next = async () => {
     lastPage.value++
   } else {
     params.page--
-    lastPage.value--
   }
   loading.value = false
 }
