@@ -37,7 +37,7 @@ export const DApp = function (lang?: Lang): MenuItem {
 				header: true,
 				more: true,
 				icon: 'icon-defi',
-				href: `${config.dapp}/discover?isigo=true`,
+				href: `${config.dapp}/discover?isIgo=true`,
 			}, {
 				id: name.nft,
 				name: i18n.menu.nft.discover,
