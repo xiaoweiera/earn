@@ -71,7 +71,7 @@ export default {
         balance:'Balance',
         balance24h:'Balance(24h)',
         balance7d:'Balance(7d)',
-        category:'Category',
+        category:'Type',
         salePrice:'Sale Price',
         currentPrice:'Current Price',
         idoPrice:'IDO Price',
