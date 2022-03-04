@@ -37,7 +37,7 @@ export default class extends ApiTemplate {
 
 	// 公链站点配置
 	@tryError(chainSiteDefault)
-	@get(api.common.chainSiteConfig, expire.hour12)
+	@get(api.common.chainSiteConfig, expire.min10)
 	@userToken(false)
 	getChainSiteConfig(): Promise<SiteConfig> {
 		return [] as any;
