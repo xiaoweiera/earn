@@ -81,7 +81,7 @@ onMounted(function() {
       <div class="flex items-center">
         <DAppDiscoversContentChain :key="keys" :title="i18n.home.idoIgoProject.chain" :chainData="data.chain" :href="config.nftList" name="chain"/>
         <IconFont v-if="data.chain" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative  h-full" type="icon-gang"/>
-        <client-only class="max-w-50 input-style">
+        <client-only class="w-1/2 input-style">
           <ElInput class="w-full" v-model="search" :placeholder="i18n.common.placeholder.search" @change="onSearch">
             <template #prefix>
               <IconFont type="icon-sousuo" size="16" @click="onSearch"/>

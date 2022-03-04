@@ -58,7 +58,7 @@ const getIcon = (item:string) => {
   <div class="table-box">
     <table class="table-my">
       <thead>
-      <tr class="h-11.5">
+      <tr class="min-h-11.5 h-11.5">
         <template v-for="(item, index) in data.header" :key="index">
           <td class="thead-hr hand">
             <div class="flex items-center" @click="index !== 0 && index !== 1 && index !== 7 && index !== 8 ? sort(item.key) : '' " :class="index === 0 ? 'justify-start' : 'justify-center'">
@@ -123,10 +123,10 @@ const getIcon = (item:string) => {
 </template>
 <style scoped lang="scss">
 .thead-hr{
-  @apply h-full border-b-1 border-global-highTitle border-opacity-6;
+  @apply min-h-11.5 h-11.5 border-b-1 border-global-highTitle border-opacity-6;
 }
 thead td{
-  @apply text-center text-kd12px16px text-global-highTitle text-opacity-45;
+  @apply min-h-11.5 h-11.5 text-center text-kd12px16px text-global-highTitle text-opacity-45;
   &:first-child {
     @apply text-left pl-3;
   }

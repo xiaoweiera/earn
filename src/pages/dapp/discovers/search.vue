@@ -83,7 +83,7 @@ onMounted(function() {
           <DappDiscoversContentChain class="w-1/2" :key="keyID" :chainData="data.platform" :href="config.dappList" name="platform" :title="i18n.home.topList.plat"/>
           <IconFont v-if="data.chain && data.category" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
         <!-- 搜索框 -->
-          <client-only class="max-w-50 input-style">
+          <client-only class="w-1/2 input-style">
             <ElInput class="w-full" v-model="search" :placeholder="i18n.common.placeholder.search" @change="onSearch">
               <template #prefix>
                 <IconFont type="icon-sousuo" size="16" @click="onSearch"/>
