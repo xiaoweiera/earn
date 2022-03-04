@@ -112,7 +112,6 @@ const toProject=(url:string )=>{
   }
 }
 const getNameWidth=(item:any)=>{
-  console.log(props.info)
   //@ts-ignore
   if(item.key==='name' && props.info.show_type==='data'){
     return 'min-w-30 max-w-30'
