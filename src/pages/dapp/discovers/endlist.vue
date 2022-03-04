@@ -123,10 +123,10 @@ const getIcon = (item:string) => {
 </template>
 <style scoped lang="scss">
 .thead-hr{
-  @apply h-full border-b-1 border-global-highTitle border-opacity-6;
+  @apply min-h-11.5 h-11.5 border-b-1 border-global-highTitle border-opacity-6;
 }
 thead td{
-  @apply text-center text-kd12px16px text-global-highTitle text-opacity-45;
+  @apply min-h-11.5 h-11.5 text-center text-kd12px16px text-global-highTitle text-opacity-45;
   &:first-child {
     @apply text-left pl-3;
   }
