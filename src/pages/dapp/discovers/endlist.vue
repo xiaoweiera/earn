@@ -74,7 +74,7 @@ const getIcon = (item:string) => {
           <tr class="h-14 hand" @click="getNextUrl(item)">
             <td>
               <div class="flex-center">
-                <IconFont size="32" :type="item.logo"/>
+                <ui-image class="w-8 h-8" rounded :src="item.logo"/>
                 <div class="ml-1.5">
                   <div class="numberDefault text-number line-height-no">{{item.name}}</div>
                   <div class="nameTag text-number text-left line-height-no">{{item.symbol}}</div>
