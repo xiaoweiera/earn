@@ -24,7 +24,7 @@ const data={
     { name: i18n.home.topList.currentPrice, key: 'current_price' },
     { name: i18n.home.topList.nowCurrent, key: 'current_roi_usd' },
     { name: i18n.home.topList.idoAth, key: 'ath_since_ido' },
-    { name: i18n.home.topList.chain, key: 'chain' },
+    // { name: i18n.home.topList.chain, key: 'chain' },
     { name: i18n.home.topList.plat, key: 'tge_platform' },
     { name: i18n.home.topList.rate, key: 'overall_score' },
   ]
@@ -93,11 +93,11 @@ const getIcon = (item:string) => {
             <td>
               <div class="numberDefault text-number">{{toNumberCashFormat(item.ath_since_ido,'x','','N/A')}}</div>
             </td>
-            <td>
-              <div class="flex-center justify-center">
-                <IconFont size="16" :type="getLog(item.chain)"/>
-              </div>
-            </td>
+<!--            <td>-->
+<!--              <div class="flex-center justify-center">-->
+<!--                <IconFont size="16" :type="getLog(item.chain)"/>-->
+<!--              </div>-->
+<!--            </td>-->
             <td>
               <div v-if="item.tge_platform">
                 <div class="flex-center justify-center" v-for="(item, index) in item.tge_platform" :key="index">

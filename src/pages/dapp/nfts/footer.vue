@@ -17,7 +17,7 @@ defineProps({
     <div class="h-29 px-4 bg-global-textBlack text-global-white">
       <!-- 项目名称 -->
       <div class="flex items-center h-6">
-        <span class="max-w-31.25 items-center h-full text-kd20px20px text-global-white font-semibold font-kdBarlow small">{{ data.name }}</span>
+        <span class="max-w-40 w-40 items-center h-full text-kd20px20px short text-global-white font-semibold font-kdBarlow">{{ data.name }}</span>
         <IconFont v-if="data.chain" :type="getLog(data.chain)" size="16" class="h-full items-center ml-2"/>
       </div>
       <!-- 价格总量 -->
