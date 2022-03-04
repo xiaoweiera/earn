@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n";
 import {detail} from "src/types/home";
-import {computed, PropType, onMounted, ref} from "vue";
+import {PropType, onMounted, ref} from "vue";
 import {copyTxtMessage} from "src/lib/tool";
 import window from "src/plugins/browser/window";
 import { config as routerConfig } from "src/router/config";
