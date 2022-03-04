@@ -2,7 +2,7 @@
 import {ref, onMounted, PropType} from 'vue'
 import {toNumberCashFormat} from 'src/utils/convert/to'
 import {getData} from "src/logic/home";
-import {getRedGreen,dataToTimestamp} from "src/lib/tool";
+import {getRedGreen,dataToTimestamp,getSaveNumber} from "src/lib/tool";
 import {detail} from "src/types/home";
 import * as alias from "src/utils/root/alias";
 import {getValue} from "src/utils/root/data";
@@ -123,7 +123,7 @@ onMounted(() => {
     <div v-else-if="typeDom==='starNumber'" class="flex-center justify-center">
       <div v-if="domData || domData===0" class="w-full flex items-center justify-center">
         <IconFont size="12" type="icon-star"/>
-        <span class="star-txt text-number">{{ domData }}</span>
+        <span class="star-txt text-number">{{ domData?getSaveNumber(domData,1):0 }}</span>
       </div>
       <div v-else class="numberDefault text-number text-center ">Not Set</div>
     </div>
