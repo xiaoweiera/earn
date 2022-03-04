@@ -39,7 +39,7 @@ const onSwitch = function () {
 </script>
 
 <template>
-  <div class="flex items-center text-white">
+  <client-only class="flex items-center text-white">
     <!--中英文切换-->
     <span class="flex items-center cursor-pointer" @click.stop.prevent="onSwitch">
       <span class="inline-block whitespace-nowrap text-14-18">{{ i18n.common.lang }}</span>
@@ -72,13 +72,11 @@ const onSwitch = function () {
               @click.stop.prevent="showRegister">{{ i18n.common.register }}</span>
       </div>
       <!--登录、注册、找回密码-->
-      <client-only>
-        <Dialog/>
-      </client-only>
+      <Dialog/>
     </div>
     <!--钱包-->
     <div class="ml-4 hidden lg:block">
       <ui-wallet-connect/>
     </div>
-  </div>
+  </client-only>
 </template>

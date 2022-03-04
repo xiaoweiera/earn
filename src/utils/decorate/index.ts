@@ -1,6 +1,7 @@
 /**
  * @file 装饰器
  */
+import _ from "lodash";
 import "reflect-metadata";
 import {compact, isEmpty, isFunction, isString, toBoolean} from "src/utils";
 
@@ -44,7 +45,7 @@ export const DefaultValue = function (value?: any, log?: boolean) {
 }
 
 // 处理异常，默认返回空
-export const NullValue = DefaultValue(void 0);
+export const NullValue = DefaultValue(null);
 
 
 export const before = function (callback: string | CallBack | any) {
@@ -87,7 +88,7 @@ export const tryError = function (errCatch?: string | ErrCatch) {
 			} catch (e) {
 				const query: any[] = compact([ e ].concat(args));
 				const result = after(this, query);
-				if (result) {
+				if (!_.isUndefined(result)) {
 					return result;
 				}
 				console.warn('Function %s trigger Error', methodName);

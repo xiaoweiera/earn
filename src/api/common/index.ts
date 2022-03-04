@@ -9,7 +9,7 @@ import Cookie from "src/plugins/browser/cookie";
 import {AreaCode} from "src/types/common/area";
 import {SiteConfig} from "src/types/common/chain";
 import {TidingList} from "src/types/common/tiding";
-import { userToken, tryError, DefaultValue, get } from "src/plugins/dao/http";
+import { userToken, tryError, DefaultValue, get, expire } from "src/plugins/dao/http";
 
 // 国际区号默认数据
 const areaCodeDefault = DefaultValue([{
@@ -29,7 +29,7 @@ const chainSiteDefault = DefaultValue({
 export default class extends ApiTemplate {
 	// 获取国际区号
 	@tryError(areaCodeDefault)
-	@get(api.common.areaCodeList)
+	@get(api.common.areaCodeList, expire.day2)
 	@userToken(false)
 	getAreaCodeList(): Promise<AreaCode[]> {
 		return [] as any
@@ -37,7 +37,7 @@ export default class extends ApiTemplate {
 
 	// 公链站点配置
 	@tryError(chainSiteDefault)
-	@get(api.common.chainSiteConfig)
+	@get(api.common.chainSiteConfig, expire.hour12)
 	@userToken(false)
 	getChainSiteConfig(): Promise<SiteConfig> {
 		return [] as any;
