@@ -28,7 +28,7 @@ const getUserName = function (data: User): string | number {
     <div class="px-4 py-2 flex items-center cursor-pointer">
       <IconFont size="20" type="icon-yonghu"/>
       <span class="ml-2 text-14-18 text-global-grey inline-block">{{ getUserName(user) }}</span>
-      <IconFont class="ml-2" type="vip1"/>
+      <IconFont v-if="user.is_vip" class="ml-2" type="vip1"/>
     </div>
     <div class="border-t border-solid border-gray-300">
       <div v-if="isConnect()" class="py-1 text-global-grey">

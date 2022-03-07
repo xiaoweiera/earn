@@ -22,7 +22,7 @@ export default class extends ApiTemplate{
 	}
 	// 手机号重置密码
 	@post(api.user.resetMobilePassword)
-	@userToken(true)
+	@userToken()
 	@validate
 	resetMobilePassword<T>(@required data: object): Promise<T> {
 		const lang = getLang(this.lang);
@@ -31,7 +31,7 @@ export default class extends ApiTemplate{
 	}
 	// 邮箱重置密码
 	@post(api.user.resetEmailPassword)
-	@userToken(true)
+	@userToken()
 	@validate
 	resetEmailPassword<T>(@required data: object): Promise<T> {
 		const lang = getLang(this.lang);
@@ -40,7 +40,7 @@ export default class extends ApiTemplate{
 	}
 	// 获取邮箱验证码
 	@post(api.user.getEmailCaptcha)
-	@userToken(true)
+	@userToken()
 	@validate
 	getEmailCaptcha<T>(@required params: object, @required type: string): Promise<T> {
 		const lang = getLang(this.lang);
@@ -50,7 +50,7 @@ export default class extends ApiTemplate{
 
 	// 获取手机验证码
 	@post(api.user.getMobileCaptcha)
-	@userToken(true)
+	@userToken()
 	@validate
 	getMobileCaptcha<T>(@required params: object, @required type: string): Promise<T> {
 		const lang = getLang(this.lang);
