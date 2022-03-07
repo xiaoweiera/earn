@@ -126,8 +126,8 @@ const getName = function () {
       </ui-sticky>
       <!-- 搜索条件 -->
 
-      <div v-if="summary && summary.ido">
-        <DappDiscoversSearch :data="summary.ido" :keys="key"/>
+      <div v-if="summary">
+        <DappDiscoversSearch :data="isIgo ? summary.igo : summary.ido" :keys="key"/>
       </div>
       <!-- 列表内容 -->
       <div class="py-8" v-if="list.length > 0">

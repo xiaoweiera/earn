@@ -25,7 +25,8 @@ export const getAll = function () {
 	return {
 		id: tabAll,
 		name: "All",
-		slug: "All"
+		slug: "All",
+		logo: "icon-quanbu"
 	};
 }
 

@@ -87,8 +87,8 @@ const changeSort = function (val:any) {
         <ui-pagination :limit="10" :init-value="initValue()" :request="requestList">
           <template #default="scope">
             <!--历史项目-->
-            <div v-if="query.status === 'history'" class="overflow-x-scroll showX">
-              <DAppNftEndList class="min-w-315" @changeSort="changeSort" :params="sort" :list="scope.list"/>
+            <div v-if="query.status === 'history'" class="showX">
+              <DAppNftEndList class="min-w-307" @changeSort="changeSort" :params="sort" :list="scope.list"/>
             </div>
             <!--进行中-->
             <div class="pb-1" v-else>

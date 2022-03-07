@@ -17,16 +17,16 @@ const props = defineProps({
 const i18n = I18n();
 const data={
   header: [
-    { name: i18n.home.endProject.projectName, key: 'name' },//nameProject
-    { name: i18n.home.topList.category, key: 'category' },
-    { name: i18n.home.idoIgoProject.totalRaised, key: 'ido_fundraising_goal' },
-    { name: i18n.home.topList.salePrice, key: 'ido_price' },
-    { name: i18n.home.topList.currentPrice, key: 'current_price' },
-    { name: i18n.home.topList.nowCurrent, key: 'current_roi_usd' },
-    { name: i18n.home.topList.idoAth, key: 'ath_since_ido' },
+    { name: i18n.home.endProject.projectName, key: 'name', falg:false, width:'w-50' },//nameProject
+    { name: i18n.home.topList.category, key: 'category', falg:false,  width: 'w-40'},
+    { name: i18n.home.idoIgoProject.totalRaised, key: 'ido_fundraising_goal', falg:true, width: 'w-27.5' },
+    { name: i18n.home.topList.salePrice, key: 'ido_price', falg:true, width: 'w-27.5' },
+    { name: i18n.home.topList.currentPrice, key: 'current_price', falg:true, width: 'w-27.5' },
+    { name: i18n.home.topList.nowCurrent, key: 'current_roi_usd', falg:true, width: 'w-27.5' },
+    { name: i18n.home.topList.idoAth, key: 'ath_since_ido', falg:true, width: 'w-27.5' },
     // { name: i18n.home.topList.chain, key: 'chain' },
-    { name: i18n.home.topList.plat, key: 'tge_platform' },
-    { name: i18n.home.topList.rate, key: 'overall_score' },
+    { name: i18n.home.topList.plat, key: 'tge_platform', falg:false, width: 'w-25' },
+    { name: i18n.home.topList.rate, key: 'overall_score', falg:true, width: 'w-15' },
   ]
 }
 //排序
@@ -60,9 +60,9 @@ const getIcon = (item:string) => {
       <thead>
       <tr class="min-h-11.5 h-11.5">
         <template v-for="(item, index) in data.header" :key="index">
-          <td class="thead-hr hand">
-            <div class="flex items-center" @click="index !== 0 && index !== 1 && index !== 7 && index !== 8 ? sort(item.key) : '' " :class="index === 0 ? 'justify-start' : 'justify-center'">
-              <IconFont class="mr-1" size="14" v-if="index !== 0 && index !== 1 && index !== 7 && index !== 8" :type="getIcon(item.key)"/>
+          <td class="thead-hr hand" :class="item.width">
+            <div class="flex items-center" @click="item.falg && sort(item.key)" :class="index === 0 ? 'justify-start' : 'justify-center'">
+              <IconFont class="mr-1" size="14" v-if="item.falg" :type="getIcon(item.key)"/>
               <span>{{item.name}}</span>
             </div>
           </td>

@@ -16,14 +16,14 @@ const i18n = I18n();
 const emit=defineEmits(['changeSort'])
 const data={
   header: [
-    { name: i18n.home.endProject.projectName, key: 'name' },
-    { name: i18n.home.topList.category, key: 'category' },
-    { name: i18n.home.topList.owner, key: 'owners' },
-    { name: i18n.home.topList.supply, key: 'issue_volume' },
-    { name: i18n.home.topList.floorPrice, key: 'floor_price' },
-    { name: i18n.home.topList.mintPrice,  key: 'mint_price' },
-    { name: i18n.home.topList.chain, key: 'chain' },
-    { name: i18n.home.topList.rate, key: 'overall_score' },
+    { name: i18n.home.endProject.projectName, key: 'name', flag:false, width:'min-w-80.5' },
+    { name: i18n.home.topList.category, key: 'category', flag:false, width:'w-27.5' },
+    { name: i18n.home.topList.owner, key: 'owners', flag:true, width:'w-27.5' },
+    { name: i18n.home.topList.supply, key: 'issue_volume', flag:true, width:'w-27.5' },
+    { name: i18n.home.topList.floorPrice, key: 'floor_price', flag:true, width:'w-27.5' },
+    { name: i18n.home.topList.mintPrice,  key: 'mint_price', flag:true, width:'w-27.5' },
+    { name: i18n.home.topList.chain, key: 'chain', width:'w-27.5' },
+    { name: i18n.home.topList.rate, key: 'overall_score', flag:true, width:'w-27.5' },
   ],
 }
 //排序
@@ -57,9 +57,9 @@ const getIcon = (item:string) => {
       <thead>
       <tr class="min-h-11.5 h-11.5">
         <template v-for="(item, index) in data.header" :key="index">
-          <td class="thead-hr hand">
-            <div class="flex items-center" @click="index !== 0 && index !== 1 && index !== 6 ? sort(item.key) : '' " :class="index === 0 ? 'justify-start' : 'justify-center'">
-              <IconFont class="mr-1" size="14" v-if="index !== 0 && index !== 1 && index !== 6" :type="getIcon(item.key)"/>
+          <td class="thead-hr hand" :class="item.width">
+            <div class="flex items-center" @click="item.flag && sort(item.key)" :class="index === 0 ? 'justify-start' : 'justify-center'">
+              <IconFont class="mr-1" size="14" v-if="item.flag" :type="getIcon(item.key)"/>
               <span>{{item.name}}</span>
             </div>
           </td>
@@ -109,7 +109,7 @@ const getIcon = (item:string) => {
   @apply min-h-11.5 h-11.5 border-b-1 border-global-highTitle border-opacity-6;
 }
 thead td{
-  @apply min-h-11.5 h-11.5text-kd12px16px text-global-highTitle text-opacity-65 text-center;
+  @apply min-h-11.5 h-11.5 text-kd12px16px text-global-highTitle text-opacity-65 text-center;
   &:first-child {
     @apply text-left;
   }

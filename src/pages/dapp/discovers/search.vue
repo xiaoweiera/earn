@@ -52,7 +52,7 @@ onMounted(function() {
         <div class="flex items-center flex-1">
           <!-- 项目类型 -->
           <div class="hidden md:block">
-            <DappDiscoversContentType :key="keys" :list="tabCage(data.category, 'group', config.dappList)" name="group" :split="2" :title="i18n.home.topList.category"/>
+            <DappDiscoversContentType :key="keys" :list="tabCage(data.category, 'group', config.dappList)" name="group" :split="4" :title="i18n.home.topList.category"/>
           </div>
           <div class="flex items-center">
             <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
