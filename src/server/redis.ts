@@ -3,12 +3,12 @@
  * @author svon.me@gmail.com
  */
 
-import { createClient } from "redis";
+import {createClient} from "redis";
+import * as console from "src/plugins/log/";
 
 const connect = async function (url?: string) {
 	if (url) {
-		console.log("connect url : ", url);
-		const client = createClient({ url });
+		const client = createClient({url});
 		client.on("error", function (err: any) {
 			console.log('Redis Client Error', err);
 		});
@@ -23,7 +23,7 @@ const connect = async function (url?: string) {
 export const getRedisClient = async function () {
 	const value = [ process.env.VITE_REDIS_URL ];
 	let client;
-	for(const url of value) {
+	for (const url of value) {
 		client = await connect(url);
 		if (client) {
 			break;

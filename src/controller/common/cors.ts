@@ -9,7 +9,6 @@ import {NextFunction, Request, Response} from "express";
 const cors = function(req: Request, res: Response, next: NextFunction) {
 	const origin = req.headers.origin;
 	if (origin) {
-		// console.log("origin = %s, url = %s, method = %s", origin, req.url, req.method);
 		res.set({
 			// * 为允许任何域访问
 			// 如果只允许某个域名 请设置单独的域名

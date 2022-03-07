@@ -3,9 +3,9 @@
  * @author svon.me@gmail.com
  */
 
-import { random } from "lodash";
+import {random} from "lodash";
 import {uuid} from "src/utils";
-import { RedisClientType } from "redis";
+import {RedisClientType} from "redis";
 import safeGet from "@fengqiaogang/safe-get";
 
 let redis: RedisClientType;
@@ -37,7 +37,6 @@ export const expire = async function (name: string, time?: number) {
 				if (time >= 60) {
 					value = time + random(0, 200) - random(0, 15);
 				}
-				console.log(name, value);
 				await client.expire(name, value);
 			} catch (e) {
 				// todo
@@ -58,7 +57,7 @@ export const has = async function (name: string): Promise<boolean> {
 	return false;
 }
 // 读取数据
-export const get = async function<T>(name: string) {
+export const get = async function <T>(name: string) {
 	const client = getClient();
 	if (client) {
 		try {
@@ -67,7 +66,7 @@ export const get = async function<T>(name: string) {
 				const data: object = JSON.parse(value);
 				return safeGet<T>(data, jsonKey);
 			}
-		} catch(e) {
+		} catch (e) {
 			// todo
 		}
 	}
@@ -77,7 +76,7 @@ export const get = async function<T>(name: string) {
 export const set = async function (name: string, value: any, time?: number) {
 	const client = getClient();
 	if (client) {
-		const d = JSON.stringify({ [jsonKey]: value });
+		const d = JSON.stringify({[jsonKey]: value});
 		try {
 			await client.set(name, d);
 			await expire(name, time);

@@ -8,6 +8,10 @@ cd ..
 
 printf "build\n"
 
+printf "sync icon\n"
+
+npm run icon
+
 printf "client\n"
 vite build --mode $mode --outDir dist/client --ssrManifest
 

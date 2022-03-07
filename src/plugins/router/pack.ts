@@ -6,11 +6,12 @@
 import _ from "lodash";
 import I18n from "src/utils/i18n";
 import * as Url from "src/utils/url/";
-import { languageKey } from "src/config/";
+import {languageKey} from "src/config/";
+import * as console from "src/plugins/log/";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import getDomain from "src/plugins/browser/domain";
-import { Location, Href, Query } from "src/types/browser/location";
+import {Href, Location, Query} from "src/types/browser/location";
 
 export const UtmSource = "utm_source";
 
@@ -24,7 +25,7 @@ export const setUtmSource = function (value: string | Location, domain: string =
 
 	const param = "query";
 	let tempQuery = safeGet<object>(location, param) || {};
-	tempQuery = _.omit(tempQuery, [UtmSource]);
+	tempQuery = _.omit(tempQuery, [ UtmSource ]);
 	safeSet(location, param, tempQuery);
 
 	const hostname = location.hostname;
