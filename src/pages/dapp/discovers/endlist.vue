@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { toNumberCashFormat } from 'src/utils/convert/to';
-import { getTegLog, getLog, getTegUrl, getNextUrl } from 'src/logic/dapp';
+import { getTegLog, getLog, getTegUrl, getNextUrl, getClassColor } from 'src/logic/dapp';
 import { toFixed } from 'src/utils'
 import I18n from "src/utils/i18n";
+import { getRedGreen } from "src/lib/tool";
 
 const emit=defineEmits(['changeSort'])
 const props = defineProps({
@@ -89,9 +90,9 @@ const getIcon = (item:string) => {
             </td>
             <td><div class="numberDefault text-number">{{toNumberCashFormat(item.ido_price,'$','','Not Set')}}</div></td>
             <td><div class="numberDefault text-number">{{toNumberCashFormat(item.current_price,'$','','Not Set')}}</div></td>
-            <td><div class="numberDefault text-number">{{toNumberCashFormat(item.current_roi_usd,'x','','N/A')}}</div></td>
+            <td><div class="text-kd14px16px text-number" :class="getClassColor(item.current_roi_usd)">{{toNumberCashFormat(item.current_roi_usd,'x','','N/A')}}</div></td>
             <td>
-              <div class="numberDefault text-number">{{toNumberCashFormat(item.ath_since_ido,'x','','N/A')}}</div>
+              <div class="text-kd14px16px text-number" :class="getClassColor(item.ath_since_ido)">{{toNumberCashFormat(item.ath_since_ido,'x','','N/A')}}</div>
             </td>
 <!--            <td>-->
 <!--              <div class="flex-center justify-center">-->

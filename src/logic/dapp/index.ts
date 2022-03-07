@@ -244,4 +244,6 @@ export const transformNftList = function (list: ProjectNftItem[]) {
 		}
 	});
 }
+//高亮显示
+export const getClassColor = (v: any) => v > 0 ? 'text-global-numGreen' : (v < 0 ? 'text-global-numRed' : 'text-global-highTitle')
 
