@@ -90,6 +90,7 @@ const isCategory = computed<boolean>(function () {
 .select {
   ::v-deep(.el-input__inner) {
     border: 1px solid rgba(3, 54, 102, 0.1) !important;
+    box-shadow:none;
     background: #FAFBFC;
     height: 34px !important;
     padding-left: 12px !important;
@@ -97,7 +98,6 @@ const isCategory = computed<boolean>(function () {
     @apply text-kd14px18px md:w-25 text-left  text-global-highTitle  flex items-center  text-kd14px18px;
   }
 }
-
 
 .is-tab {
   @apply flex items-center;

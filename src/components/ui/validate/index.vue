@@ -9,6 +9,7 @@ import I18n from "src/utils/i18n";
 import {messageError} from "src/lib/tool";
 import { Query } from "src/types/browser/location";
 import {ValidateType, maxTimeValue} from "./config";
+import * as console from "src/plugins/log/";
 
 const props = defineProps({
   type: {

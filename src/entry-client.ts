@@ -21,7 +21,7 @@ import { Device } from "src/types/common/device";
 import ElementPlus from "element-plus";
 import {Language} from "src/types/language";
 import safeGet from "@fengqiaogang/safe-get";
-import * as alias from "src/utils/root/alias";
+import * as console from "src/plugins/log/";
 import zhEn from "element-plus/es/locale/lang/en";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import Decrypt from "src/plugins/encryption/decrypt";

@@ -15,6 +15,7 @@ import window  from "src/plugins/browser/window";
 import {dashboard, languageKey} from "src/config/";
 import { createHref } from "src/plugins/router/pack";
 import { config as routerConfig } from "src/router/config";
+import * as console from "src/plugins/log/";
 
 export const PlatformWeb = "web";
 

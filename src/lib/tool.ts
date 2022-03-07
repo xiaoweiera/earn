@@ -500,6 +500,14 @@ export const getNumberColor = (v: number | string | null) => {
 	}
 	return 'text-global-numGreen'
 }
+export const getUpDownColor=(v: number | string | null)=>{
+	if (v && v>0) {
+		return 'text-global-numGreen'
+	} else if (v && v<0) {
+		return 'text-global-numRed'
+	}
+	return 'text-global-highTitle'
+}
 export const getRedGreen = (v: any) => v >= 0 ? 'text-global-numGreen' : (v < 0 ? 'text-global-numRed' : 'text-global-highTitle text-opacity-65')
 
 export const timeConvert = (timestamp: number, num: number) => {//num:0 YYYY-MM-DD  num:1  YYYY-MM-DD hh:mm:ss // timestamp:时间戳

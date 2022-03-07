@@ -13,3 +13,12 @@ export const IsSSR = function (): boolean {
 	}
 	return false;
 }
+
+export const IsNode = function (): boolean {
+	return IsSSR();
+}
+
+export const IsBrowser = function (): boolean {
+	const status = IsSSR();
+	return !status;
+}

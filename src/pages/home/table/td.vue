@@ -2,7 +2,7 @@
 import {ref, onMounted, PropType} from 'vue'
 import {toNumberCashFormat} from 'src/utils/convert/to'
 import {getData} from "src/logic/home";
-import {getRedGreen,dataToTimestamp,getSaveNumber} from "src/lib/tool";
+import {getUpDownColor,dataToTimestamp,getSaveNumber} from "src/lib/tool";
 import {detail} from "src/types/home";
 import * as alias from "src/utils/root/alias";
 import {getValue} from "src/utils/root/data";
@@ -152,12 +152,12 @@ onMounted(() => {
       <div class="numberDefault text-number text-center">{{ toNumberCashFormat(domData[0], '', '', 'N/A') }}</div>
       <div v-if="domData[1]>0 || domData[1]<0" class="flex-center  justify-center">
         <IconFont size="8" :type="domData[1]>0?'icon-zheng':'icon-fu'"/>
-        <span  :class="getRedGreen(domData[1])" class="numberChange text-number ml-1">{{ toNumberCashFormat(domData[1], '', '', '0') }}%</span>
+        <span  :class="getUpDownColor(domData[1])" class="numberChange text-number ml-1">{{ toNumberCashFormat(domData[1], '', '', '0') }}%</span>
       </div>
       <div v-else-if="domData[1]===0" class="numberDefault text-number">0</div>
     </div>
     <!--lever-->
-    <div v-else-if="typeDom==='lever'" class="numberDefault text-number justify-right">
+    <div v-else-if="typeDom==='lever'" class="text-kd12px16px md:text-kd14px16px text-number justify-right" :class="getUpDownColor(domData)">
       {{ toNumberCashFormat(domData, 'x', '', 'N/A') }}
     </div>
     <!--timeType-->
