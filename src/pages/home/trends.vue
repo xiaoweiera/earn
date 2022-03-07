@@ -168,7 +168,7 @@ onMounted(function () {
   -o-filter:blur(3px);
 }
 .jian{
-  background: linear-gradient(to right, #1010103b , #ffff0000);
+  background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 .blog-label {
   @apply text-kd12px16px font-medium text-global-white;
