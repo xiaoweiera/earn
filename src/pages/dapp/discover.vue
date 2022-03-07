@@ -35,9 +35,9 @@ const params = reactive({
   page: 1,
   page_size: 16,
   is_igo: isIgo.value ? isIgo : false,
-  chain: chain.value || '',
-  category: category.value || '',
-  platform: platform.value || '',
+  chain: chain.value || 'All',
+  category: category.value || 'All',
+  platform: platform.value || 'All',
   status: type.value ? type.value : 'upcoming',
   query: search.value ? search.value : '',
   sort_field: '',
@@ -62,9 +62,9 @@ const getData = async (clear?: boolean) => {
 useWatch(route, (n) => {
   const querys: any = getParam<string>()
   key.value = uuid();
-  params.chain = querys.chain;
-  params.category = querys.group;
-  params.platform = querys.platform;
+  params.chain = querys.chain || 'All';
+  params.category = querys.group || 'All';
+  params.platform = querys.platform || 'All';
   params.status = querys.type ? querys.type : 'upcoming';
   params.query = querys.search ? querys.search : '';
   getData(true);

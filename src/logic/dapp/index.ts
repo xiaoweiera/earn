@@ -117,10 +117,6 @@ export class Model extends API {
 	getList(query:any) {
 		return this.dApp.getList(query);
 	}
-  //IGO数据
-  getIGOList() {
-    return this.dApp.getIGOList();
-  }
   //nft数据
   getNftList(query:any) {
 		return this.dApp.getNftList(query);
@@ -232,7 +228,7 @@ export const getNextUrl = function (val:any) {
 
 export const transformNftList = function (list: ProjectNftItem[]) {
 	const days: number[] = [];
-	const db = new DBList([], "mint_start_at", "date");
+	const db = new DBList([], "id", "date");
 	_.forEach(list, function (item: ProjectNftItem) {
 		const date = dateTime(dateFormat(item.mint_start_at, "YYYY-MM-DD") + '00:00:00');
 		days.push(date)

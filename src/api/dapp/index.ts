@@ -19,33 +19,6 @@ export default class extends ApiTemplate {
 		return [query] as any;
 	}
 
-	// 获取IGO列表
-	@tryError(DefaultValue([]))
-	@get(api.dapp.igoList)
-	@userToken()
-	getIGOList<T>(): Promise<T> {
-		const query = {
-			page: 1,
-			page_size: 10,
-			status: 'upcoming',
-			category: 'all',
-			platform: 'all',
-			chain: "all",
-			query: '',
-			sort_field: '',
-			sort_type: '',
-		};
-		return [query] as any;
-	}
-
-	// 分组
-	@tryError(DefaultValue([]))
-	@get(api.dapp.tabs)
-	@userToken()
-	tabs<T>(): Promise<T> {
-		return [] as any;
-	}
-
 	//	获取nft列表
 	@tryError(DefaultValue([]))
 	@get(api.dapp.nftList, expire.min30)
@@ -54,7 +27,9 @@ export default class extends ApiTemplate {
 	getNftList<T>(@required query: nftQuery): Promise<T> {
 		const params = Object.assign({
 			page: 1,
-			page_size: 10,
+			page_size: 20,
+			category: 'All',
+			chain: "All",
 			status: nftStatus.upcoming, // 默认状态
 			query: "", // 默认搜索为空
 		}, query);
@@ -71,7 +46,7 @@ export default class extends ApiTemplate {
 			page: 1,
 			page_size: 10,
 			query: "",
-			category: "all",
+			category: "All",
 			paginate: false,
 		}, query);
 		return [params] as any;
