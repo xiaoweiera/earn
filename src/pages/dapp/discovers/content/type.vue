@@ -18,6 +18,10 @@ defineProps({
   split: {
     type: Number,
     default: () => 4
+  },
+  titleWidth: {
+    type: String,
+    default: () => ''
   }
 });
 
@@ -26,7 +30,7 @@ defineProps({
 <template>
   <div>
     <div class="flex items-center">
-      <div class="text-14-18 text-global-highTitle text-opacity-65 mr-4" v-if="title">{{title}}</div>
+      <div :class="titleWidth" class="text-14-18 text-global-highTitle text-opacity-65 mr-4" v-if="title">{{title}}</div>
       <div class="flex-1 is-tab">
         <ui-tab :list="list" :active-name="name" :split="split"></ui-tab>
       </div>

@@ -6,7 +6,7 @@ import { ElInput } from "element-plus";
 import I18n from "src/utils/i18n";
 
 import {summaryItem} from "src/types/home";
-import { tabCage, tabPlat } from "src/logic/dapp/";
+import { tabCage, tabPlat, getClassWidth } from "src/logic/dapp/";
 
 import { config } from "src/router/config";
 import {uuid} from "src/utils";
@@ -52,7 +52,7 @@ onMounted(function() {
         <div class="flex items-center flex-1">
           <!-- 项目类型 -->
           <div class="hidden md:block">
-            <DappDiscoversContentType :key="keys" :list="tabCage(data.category, 'group', config.dappList)" name="group" :split="4" :title="i18n.home.topList.category"/>
+            <DappDiscoversContentType :key="keys" :list="tabCage(data.category, 'group', config.dappList)" name="group" :split="4" :title="i18n.home.topList.category" :title-width="getClassWidth()"/>
           </div>
           <div class="flex items-center">
             <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
@@ -70,7 +70,7 @@ onMounted(function() {
         </client-only>
       </div>
       <!-- platform -->
-      <DappDiscoversContentType :key="keys" :list="tabPlat(data.platform, 'platform', config.dappList)" class="mt-4" name="platform" :split="5" :title="i18n.home.topList.plat"/>
+      <DappDiscoversContentType :key="keys" :list="tabPlat(data.platform, 'platform', config.dappList)" class="mt-4" name="platform" :split="5" :title="i18n.home.topList.plat" :title-width="getClassWidth()"/>
     </div>
     <div class="block md:hidden">
       <div>

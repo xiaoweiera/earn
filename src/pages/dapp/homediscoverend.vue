@@ -7,7 +7,7 @@ import DAppDiscoversEndList from './discovers/endlist.vue';
 import I18n from "src/utils/i18n";
 
 import {onMounted, ref} from "vue";
-import {Model, tabChain, tabPlat} from "src/logic/dapp";
+import {Model, tabChain, tabPlat, getClassWidth} from "src/logic/dapp";
 import {alias, createRef, onLoadRef, onUpdateRef} from "src/utils/ssr/ref";
 import {AdItem, ProjectItem, Status} from "src/types/dapp/ixo";
 import {config} from "src/router/config";
@@ -114,7 +114,7 @@ const onSearch = _.debounce(async function () {
         <div class="flex items-center" v-if="summary.ixo">
           <!-- 公链 -->
           <DAppDiscoversContentType :list="tabChain(safeGet(summary,'ixo.chain'), 'bracket', config.home)"
-                                    :title="i18n.home.idoIgoProject.chain" active-name="bracket" name="bracket"/>
+                                    :title="i18n.home.idoIgoProject.chain" active-name="bracket" name="bracket" :title-width="getClassWidth()"/>
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
           <!-- 类型 -->
           <DAppDiscoversContentChain :chainData="safeGet(summary,'ixo.category')" :href="config.home"
@@ -136,7 +136,7 @@ const onSearch = _.debounce(async function () {
       <!-- platform -->
       <div class="mt-4" v-if="summary.ixo" :key="key">
         <DAppDiscoversContentType :list="tabPlat(safeGet(summary,'ixo.platform'), 'platform', config.home)"
-                                  :title="i18n.home.topList.plat" active-name="platform" name="platform"/>
+                                  :title="i18n.home.topList.plat" active-name="platform" name="platform" :title-width="getClassWidth()"/>
       </div>
     </div>
 

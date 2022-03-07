@@ -15,6 +15,7 @@ import * as logic from "src/types/dapp";
 import DBList from "@fengqiaogang/dblist";
 import dayjs from "dayjs";
 import {createHref} from "src/plugins/router/pack";
+import { Language } from "src/types/language";
 
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
@@ -247,3 +248,12 @@ export const transformNftList = function (list: ProjectNftItem[]) {
 //高亮显示
 export const getClassColor = (v: any) => v > 0 ? 'text-global-numGreen' : (v < 0 ? 'text-global-numRed' : 'text-global-highTitle')
 
+//根据语言获取宽度
+export const getClassWidth = function () {
+	const lang = getParam<string>('lang', '') as string;
+	if (lang === Language.cn) {
+		return 'w-15';
+	}else {
+		return 'w-22';
+	}
+}
