@@ -10,10 +10,19 @@ export interface summaryItem{
 export interface summaryModel{
     avg_ath:number;
     nft:summaryItem;
+    nft_upcoming:summaryItem;
+    nft_ended:summaryItem;
     ixo:summaryItem;
     ixo_upcoming:summaryItem;
+    ixo_ended:summaryItem;
     ido:summaryItem;
+    ido_upcoming:summaryItem;
+    ido_ongoing:summaryItem;
+    ido_ended:summaryItem;
     igo:summaryItem;
+    igo_upcoming:summaryItem;
+    igo_ongoing:summaryItem;
+    igo_ended:summaryItem;
     airdrop:summaryItem
 }
 export interface recommendModel{

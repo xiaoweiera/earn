@@ -2,7 +2,7 @@
 import {onMounted, ref, toRaw} from "vue";
 import I18n from "src/utils/i18n";
 import {Model, transformNftList} from "src/logic/dapp";
-import {nftTabs} from "src/types/dapp";
+import {nftTabs, NftTabTypes} from "src/types/dapp";
 import { uuid } from "src/utils";
 import DAppNftList from './nfts/list.vue';
 import DAppNftEndList from './nfts/endlist.vue';
@@ -14,6 +14,7 @@ import { alias, createReactive, onLoadReactive} from "src/utils/ssr/ref";
 
 // 引入 use state
 import {stateAlias, useReactiveProvide, useWatch} from "src/utils/use/state";
+import {getParam} from "src/utils/router";
 
 const key = ref<string>(uuid());
 const sortKey = ref<string>(uuid());
@@ -66,6 +67,16 @@ const changeSort = function (val:any) {
   // 重新渲染列表
   sortKey.value = uuid();
 };
+const getFilter = function (data:any) {
+  const status = getParam<string>("status");
+  if(data && (data.nft_upcoming || data.nft_ended)){
+    if(status === NftTabTypes.history) {
+      return data.nft_ended;
+    }else {
+      return data.nft_upcoming;
+    }
+  }
+}
 </script>
 <template>
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
@@ -79,8 +90,8 @@ const changeSort = function (val:any) {
         <ui-tab  :list="nftTabs" active-name="status"/>
       </ui-sticky>
       <!-- 搜索条件 -->
-      <div v-if="summary && summary.nft">
-        <DAppNftSearch :data="summary.nft"/>
+      <div v-if="summary">
+        <DAppNftSearch :data="getFilter(summary)"/>
       </div>
 
       <div class="mt-4" :key="sortKey">

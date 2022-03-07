@@ -75,12 +75,14 @@ onMounted(function () {
                         title="NFT Drops 🎯"/>
       </div>
       <!-- 搜索 -->
+      <!-- pc端-->
       <div class="mt-4 hidden md:block" :key="keys">
-        <DAppDiscoverContentType v-if="summary.nft" :list="tabChain(summary.nft.chain, 'group', config.home)"
+        <DAppDiscoverContentType v-if="summary.nft_upcoming" :list="tabChain(summary.nft_upcoming.chain, 'group', config.home)"
                                  :split="6" :title="i18n.home.idoIgoProject.chain" active-name="group" name="group"/>
       </div>
+      <!--手机端-->
       <div class="mt-4 block md:hidden" :key="keys">
-        <DAppDiscoverContentChain v-if="summary.nft" :chainData="summary.nft.chain" :href="config.home"
+        <DAppDiscoverContentChain v-if="summary.nft_upcoming" :chainData="summary.nft_upcoming.chain" :href="config.home"
                                   :title="i18n.home.idoIgoProject.chain" class="w-full" name="group"/>
       </div>
       <!-- nft项目 -->

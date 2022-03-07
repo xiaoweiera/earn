@@ -112,6 +112,28 @@ const getName = function () {
     return i18n.home.IdoIgo.title;
   }
 }
+//获取筛选条件
+const getFilter = function (data:any) {
+  const isIgo = getParam<boolean>("isIgo");
+  const status = getParam<string>("type");
+  if(isIgo) {
+    if(status === logic.TabTypes.ended) {
+      return data.igo_ended;
+    }else if(status === logic.TabTypes.ongoing) {
+      return data.igo_ongoing;
+    }else {
+      return data.igo_upcoming;
+    }
+  }else {
+    if(status === logic.TabTypes.ended) {
+      return data.ido_ended;
+    }else if(status === logic.TabTypes.ongoing) {
+      return data.ido_ongoing;
+    }else {
+      return data.ido_upcoming;
+    }
+  }
+}
 </script>
 <template>
   <div class="discover-warp px-3 md:px-22.5">
@@ -127,7 +149,7 @@ const getName = function () {
       <!-- 搜索条件 -->
 
       <div v-if="summary">
-        <DappDiscoversSearch :data="isIgo ? summary.igo : summary.ido" :keys="key"/>
+        <DappDiscoversSearch :data="getFilter(summary)" :keys="key"/>
       </div>
       <!-- 列表内容 -->
       <div class="py-8" v-if="list.length > 0">
@@ -145,7 +167,7 @@ const getName = function () {
         <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">{{ i18n.address.noData }}</p>
       </div>
     </div>
-    <div v-if="list?.length>0 && resultNumber>=params.page_size" class="more" @click="getMore">{{ i18n.home.loadingMore }}</div>
+    <div v-if="list?.length>0 && resultNumber>=params.page_size && resultNumber <= list?.length" class="more" @click="getMore">{{ i18n.home.loadingMore }}</div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
   </div>
 </template>

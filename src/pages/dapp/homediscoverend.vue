@@ -111,13 +111,13 @@ const onSearch = _.debounce(async function () {
     <div class="hidden md:block">
       <!-- 项目类型、公链、搜索框 -->
       <div class="flex justify-between items-center mt-4" :key="key">
-        <div class="flex items-center" v-if="summary.ixo">
+        <div class="flex items-center" v-if="summary.ixo_ended">
           <!-- 公链 -->
-          <DAppDiscoversContentType :list="tabChain(safeGet(summary,'ixo.chain'), 'bracket', config.home)"
+          <DAppDiscoversContentType :list="tabChain(safeGet(summary,'ixo_ended.chain'), 'bracket', config.home)"
                                     :title="i18n.home.idoIgoProject.chain" active-name="bracket" name="bracket" :title-width="getClassWidth()"/>
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4"></span>
           <!-- 类型 -->
-          <DAppDiscoversContentChain :chainData="safeGet(summary,'ixo.category')" :href="config.home"
+          <DAppDiscoversContentChain :chainData="safeGet(summary,'ixo_ended.category')" :href="config.home"
                                      :title="i18n.home.topList.category" name="category"/>
         </div>
         <!-- 搜索框 -->
@@ -134,24 +134,24 @@ const onSearch = _.debounce(async function () {
         </div>
       </div>
       <!-- platform -->
-      <div class="mt-4" v-if="summary.ixo" :key="key">
-        <DAppDiscoversContentType :list="tabPlat(safeGet(summary,'ixo.platform'), 'platform', config.home)"
+      <div class="mt-4" v-if="summary.ixo_ended" :key="key">
+        <DAppDiscoversContentType :list="tabPlat(safeGet(summary,'ixo_ended.platform'), 'platform', config.home)"
                                   :title="i18n.home.topList.plat" active-name="platform" name="platform" :title-width="getClassWidth()"/>
       </div>
     </div>
 
     <!--移动端展示-->
     <div class="block md:hidden" :key="key">
-      <div class="flex items-center" v-if="summary.ixo">
-        <DAppDiscoversContentChain :chainData="safeGet(summary,'ixo.chain')" :href="config.home"
+      <div class="flex items-center" v-if="summary.ixo_ended">
+        <DAppDiscoversContentChain :chainData="safeGet(summary,'ixo_ended.chain')" :href="config.home"
                                    :title="i18n.home.idoIgoProject.chain" class="w-1/2" name="bracket"/>
         <IconFont class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full"
                   type="icon-gang"/>
-        <DAppDiscoversContentChain :chainData="safeGet(summary,'ixo.category')" :href="config.home"
+        <DAppDiscoversContentChain :chainData="safeGet(summary,'ixo_ended.category')" :href="config.home"
                                    :title="i18n.home.topList.category" class="w-1/2" name="category"/>
       </div>
       <div class="flex items-center mt-4">
-        <DAppDiscoversContentChain :chainData="safeGet(summary,'ixo.platform')" :href="config.home"
+        <DAppDiscoversContentChain :chainData="safeGet(summary,'ixo_ended.platform')" :href="config.home"
                                    :title="i18n.home.topList.plat" class="w-1/2" name="platform"/>
         <IconFont v-if="safeGet(summary,'ixo.platform')"
                   class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"/>
