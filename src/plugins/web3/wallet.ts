@@ -3,11 +3,12 @@
  * @author svon.me@gmail.com
  */
 
+import * as console from "src/plugins/log/";
 import DBList from "@fengqiaogang/dblist";
 import safeGet from "@fengqiaogang/safe-get";
-import { Ethereum } from "src/types/ethereum";
+import {Ethereum} from "src/types/ethereum";
 import window from "src/plugins/browser/window";
-import { EventType, Callback } from "./interface";
+import {Callback, EventType} from "./interface";
 
 const getEthereum = function (): Ethereum {
 	if (window.ethereum) {
@@ -30,18 +31,21 @@ class Wallet extends window.Web3 {
 		const ethereum = getEthereum();
 		ethereum.on(name, callback);
 	}
+
 	// 关闭小狐狸弹窗
 	enable() {
 		const ethereum = getEthereum();
 		return ethereum.enable();
 	}
+
 	/**
 	 * 获取小狐狸选中的线路地址(用户钱包地址)
 	 */
-	getChainAddress (): string {
+	getChainAddress(): string {
 		const ethereum = getEthereum();
 		return ethereum.selectedAddress;
 	}
+
 	// 申请权限
 	async requestPermissions() {
 		const ethereum = getEthereum();
@@ -49,21 +53,21 @@ class Wallet extends window.Web3 {
 			const result = await ethereum.request({
 				method: 'wallet_requestPermissions',
 				params: [
-					{ eth_accounts: {} }
+					{eth_accounts: {}}
 				],
 			});
 			if (result) {
 				const db = new DBList(result);
-				const list = db.select({ parentCapability: "eth_accounts" });
+				const list = db.select({parentCapability: "eth_accounts"});
 				if (list && list.length > 0) {
 					console.log('eth_accounts permission successfully requested!');
 					return true
 				}
 			}
-		}catch (e) {
+		} catch (e) {
 			const code = safeGet<number>(e as object, "code");
 			if (code === -32002) {
-				return Promise.reject({ code: 6001 })
+				return Promise.reject({code: 6001})
 			} else if (code === 4001) {
 				return Promise.reject(e);
 			}

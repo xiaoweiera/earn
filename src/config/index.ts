@@ -3,8 +3,10 @@
  * @author svon.me@gmail.com
  */
 
-export { IsSSR } from "./ssr";
+
 import { getProcess, Process } from "./process";
+
+export { IsSSR, IsNode, IsBrowser } from "./ssr";
 export * from "src/types/env";
 
 export const title = "KingData";

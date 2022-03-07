@@ -12,6 +12,7 @@ import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import Cookie from "src/plugins/browser/cookie";
 import {getEnv, languageKey} from "src/config/";
+import * as console from "src/plugins/log/";
 import {Equals, isObject, isRequest, toInteger} from "src/utils/";
 import AxiosHttp, {Axios, AxiosRequestConfig, AxiosResponse} from "axios";
 

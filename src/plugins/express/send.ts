@@ -16,7 +16,7 @@ import {getMenuList} from "src/logic/common/header";
 import redirect from "src/controller/common/redirect";
 import {NextFunction, Request, Response} from "express";
 import {config as routerConfig} from "src/router/config";
-
+import * as console from "src/plugins/log/";
 
 const send = async function (root: string, env: Env) {
 	// Vue 渲染

@@ -39,31 +39,21 @@ const getSassData = function (env: ImportMetaEnv & ConfigEnv) {
 const getBuildConfig = function (config: ImportMetaEnv) {
   if (config.VITE_mode === production) {
     return {
-      minify: "terser",
-      target: 'modules',
+      minify: "esbuild", // 编译速度最快
+      target: "modules",
       manifest: true,
       chunkSizeWarningLimit: 500,
       sourcemap: false, // 是否生成 source map
-      terserOptions: {
-        // 删除 console 日志
-        compress: {
-          drop_console: true,
-          drop_debugger: true
-        },
-      },
       rollupOptions: {
         output: {
           inlineDynamicImports: false,
         },
-        external: [
-          // /element-plus/
-        ],
       },
     };
   } else {
     return {
-      minify: "esbuild", // 编译速度最快
-      target: 'modules',
+      minify: "esbuild",
+      target: "modules",
       sourcemap: true,
     };
   }
@@ -74,7 +64,7 @@ const getBuildConfig = function (config: ImportMetaEnv) {
 export default defineConfig(async function () {
   const config = await getConfig(argv);
   const data = getSassData({ ...argv, ...config });
-  console.log("vite config : ", config);
+  console.info("vite config : ", config);
   const buildConfig = getBuildConfig(config);
   return {
     base: /^.+\/$/.test(data.staticUrl) ? data.staticUrl : `${data.staticUrl}/`,

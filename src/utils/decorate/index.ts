@@ -3,6 +3,7 @@
  */
 import _ from "lodash";
 import "reflect-metadata";
+import * as console from "src/plugins/log/";
 import {compact, isEmpty, isFunction, isString, toBoolean} from "src/utils";
 
 type CallBack = <T>(...args: any[]) => T

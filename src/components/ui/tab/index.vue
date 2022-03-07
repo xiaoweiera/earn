@@ -4,6 +4,7 @@
  * @author svon.me@gmail.com
  */
 
+import * as console from "src/plugins/log/";
 import DBList from "@fengqiaogang/dblist";
 import safeGet from "@fengqiaogang/safe-get";
 import {useRoute, useRouter} from "vue-router";

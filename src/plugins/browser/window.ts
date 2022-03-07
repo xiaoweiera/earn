@@ -6,6 +6,7 @@
 import {getEnv} from "src/config";
 import {IsSSR} from "src/config/ssr";
 import { Ethereum } from "src/types/ethereum";
+import * as console from "src/plugins/log/";
 
 interface Root {
 	[key: string]: any;
