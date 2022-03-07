@@ -13,7 +13,7 @@ import {userToken, expire, tryError, DefaultValue, get, validate, required} from
 export default class extends ApiTemplate {
 	// 项目库列表
 	@tryError(DefaultValue([]))
-	@get(api.dapp.list, expire.min30)
+	@get(api.dapp.list, expire.min5)
 	@userToken()
 	getList<T>(query: object = {}): Promise<T> {
 		return [query] as any;
@@ -21,7 +21,7 @@ export default class extends ApiTemplate {
 
 	//	获取nft列表
 	@tryError(DefaultValue([]))
-	@get(api.dapp.nftList, expire.min30)
+	@get(api.dapp.nftList, expire.min5)
 	@userToken()
 	@validate
 	getNftList<T>(@required query: nftQuery): Promise<T> {
@@ -38,7 +38,7 @@ export default class extends ApiTemplate {
 
 	// ixo 数据
 	@tryError(DefaultValue([]))
-	@get(api.dapp.ixo, expire.min30)
+	@get(api.dapp.ixo, expire.min5)
 	@userToken()
 	@validate
 	ixo<T>(@required query: Query) {
