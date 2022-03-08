@@ -90,6 +90,30 @@ export const sitemap = function(env: Env): Site[] {
     loc: routerConfig.address,
     changefreq: Change.weekly,
     priority: 1
+  }, {
+    // DApp 排行榜
+    loc: `${routerConfig.dapp}/rank`,
+    changefreq: Change.daily,
+    lastmod: today,
+    priority: 0.7
+  }, {
+    // NFT 排行榜
+    loc: `${routerConfig.dapp}/nft`,
+    changefreq: Change.daily,
+    lastmod: today,
+    priority: 0.7
+  }, {
+    // game 排行榜
+    loc: `${routerConfig.dapp}/rank?category=game`,
+    changefreq: Change.daily,
+    lastmod: today,
+    priority: 0.7
+  }, {
+    // defi 排行榜
+    loc: `${routerConfig.dapp}/rank?category=defi`,
+    changefreq: Change.daily,
+    lastmod: today,
+    priority: 0.7
   }];
   const data: Site[] = [];
   _.each(list, function(item: Site) {
