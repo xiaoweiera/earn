@@ -34,6 +34,7 @@ export const robots = function(env: Env) {
   robots.push("\n\n");
   // 运行访问的目录
   robots.push(allow(["/"]));
-
+  robots.push("\n");
+  robots.push(`Sitemap: ${env.VITE_domain ? env.VITE_domain : ""}/sitemap.xml`);
   return robots.join("");
 }
