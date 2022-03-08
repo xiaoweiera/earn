@@ -8,17 +8,25 @@ import path from "path";
 import { Env } from "src/config/";
 import { robots } from "./robots";
 import { sitemap, Site } from "./sitemap";
-import {NextFunction, Request, Response, Router} from "express";
+import {Request, Response, Router} from "express";
 
 const Site = function(root: string, env: Env) {
   const router = Router();
 
-  const favicon = path.join(root, "public/favicon.ico");
   const robotsValue = robots(env);
+  const favicon = path.join(root, "public/favicon.ico");
+  const ahrefs = "ahrefs_a41a2ea87b23852e5ff4ba882ec1ae7d210002c1f090bc6a9f01bbc8942fed50";
+  const ahrefsFile = path.join(root, `public/${ahrefs}`);
 
-  router.all("/favicon.ico", function (req: Request, res: Response, next: NextFunction) {
+  router.all("/favicon.ico", function (req: Request, res: Response) {
     res.status(200);
     res.sendFile(favicon);
+  });
+
+  router.all("/ahrefs_a41a2ea87b23852e5ff4ba882ec1ae7d210002c1f090bc6a9f01bbc8942fed50", function (req: Request, res: Response) {
+    res.status(200);
+    res.type("html");
+    res.send("ahrefs-site-verification_a41a2ea87b23852e5ff4ba882ec1ae7d210002c1f090bc6a9f01bbc8942fed50");
   });
 
   router.all("/robots.txt", function(req: Request, res: Response) {
