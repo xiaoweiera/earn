@@ -34,12 +34,12 @@ const Site = function(root: string, env: Env) {
 
   router.all("/sitemap.xml", function(req: Request, res: Response) {
     res.type("xml");
-    const html = ['<?xml version="1.0" encoding="UTF-8" ?>'];
-    html.push('<sitemapindex>');
+    const html = ['<?xml version="1.0" encoding="UTF-8"?>'];
+    html.push('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
 
     _.each(sitemap(env), function(data: Site) {
       if (data.loc) {
-        html.push("<sitemap>");
+        html.push("<url>");
         html.push(`<loc>${data.loc}</loc>`);
         if (data.lastmod) {
           html.push(`<lastmod>${data.lastmod}</lastmod>`);
@@ -50,10 +50,10 @@ const Site = function(root: string, env: Env) {
         if (data.priority) {
           html.push(`<priority>${data.priority}</priority>`);
         }
-        html.push("</sitemap>\n");
+        html.push("</url>");
       }
     });
-    html.push('</sitemapindex>');
+    html.push('</urlset>');
     const value = html.join("\n");
     // 对 & 进行字符转译
     res.send(value.replace(/&/g, "&amp;"));
