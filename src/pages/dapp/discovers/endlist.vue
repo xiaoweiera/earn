@@ -83,7 +83,7 @@ const getIcon = (item:string) => {
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number" v-if="item.categories">{{item.category}}</div>
+              <div class="numberDefault text-number">{{item.category ? item.category : '-'}}</div>
             </td>
             <td>
               <div class="numberDefault text-number">{{toNumberCashFormat(item.ido_fundraising_goal,'$','','N/A')}}</div>

@@ -79,7 +79,7 @@ const getIcon = (item:string) => {
               </div>
             </td>
             <td>
-              <div class="text-center text-kd14px16px text-global-highTitle text text-number">{{item.category}}</div>
+              <div class="text-center text-kd14px16px text-global-highTitle text text-number">{{item.category ? item.category : '-'}}</div>
             </td>
             <td>
               <div class="numberDefault text-number">{{toNumberCashFormat(item.owners,'','','Not Set')}}</div>
