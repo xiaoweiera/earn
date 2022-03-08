@@ -9,27 +9,10 @@ import { getProcess } from "src/config/process";
 import {Env, Command} from "src/config";
 import redirect from "src/controller/common/redirect";
 import { config as routerConfig } from "src/router/config";
-import Express, {Router, NextFunction, Request, Response} from "express";
+import Express, {Router, Request, Response} from "express";
 
 const Assets = async function(root: string, env: Env) {
 	const router = Router();
-	const name = "favicon.ico";
-	router.all(`/${name}`, function (req: Request, res: Response, next: NextFunction) {
-		const options = {
-			root: path.join(root, "public"),
-			dotfiles: 'deny',
-			headers: {
-				'x-timestamp': Date.now(),
-				'x-sent': true
-			}
-		};
-		res.sendFile(name, options, function (err) {
-			if (err) {
-				next(err);
-			}
-		});
-	});
-
 	const goHome = function (req: Request, res: Response) {
 		redirect(req, res, routerConfig.home);
 	};

@@ -13,6 +13,7 @@ import { setClient } from "src/plugins/redis";
 import CookieParser from "cookie-parser";
 import common from "src/controller/common/";
 import cors from "src/controller/common/cors";
+import Site from "src/controller/site/";
 
 
 const root: string = path.resolve(__dirname, "../..");
@@ -28,7 +29,7 @@ const main = async function () {
 		host: process.env.host || "0.0.0.0",
 	});
 	console.log(config);
-
+	app.use(Site(root, config));
 	app.use(cors);
 
 	// 静态资源
