@@ -22,7 +22,7 @@ const api = new Model();
 const route = useRoute();
 // 定义一个 provide 数据，给子组件（ui-tab）使用
 const [ query ] = useReactiveProvide<Query>(stateAlias.ui.tab, {} as Query);
-const isIgo = ref(getParam<boolean>("isIgo"))
+const igo = ref(getParam<boolean>("igo"))
 const chain = ref(getParam<string>("chain"));
 const category = ref(getParam<string>("group"));
 const platform = ref(getParam<string>("platform"));
@@ -34,7 +34,7 @@ let list: any = createRef("API.dapp.list", {} as any);
 const params = reactive({
   page: 1,
   page_size: 16,
-  is_igo: isIgo.value ? isIgo : false,
+  is_igo: igo.value ? igo : false,
   chain: chain.value || 'All',
   category: category.value || 'All',
   platform: platform.value || 'All',
@@ -105,8 +105,8 @@ const changeSort = (sort: string) => {
   getData(true);
 }
 const getName = function () {
-  const isIgo = getParam<boolean>("isIgo");
-  if(isIgo){
+  const igo = getParam<boolean>("igo");
+  if(igo){
     return i18n.home.IdoIgo.igotitle;
   }else {
     return i18n.home.IdoIgo.title;
@@ -114,9 +114,9 @@ const getName = function () {
 }
 //获取筛选条件
 const getFilter = function (data:any) {
-  const isIgo = getParam<boolean>("isIgo");
+  const igo = getParam<boolean>("igo");
   const status = getParam<string>("type");
-  if(isIgo) {
+  if(igo) {
     if(status === logic.TabTypes.ended) {
       return data.igo_ended;
     }else if(status === logic.TabTypes.ongoing) {
