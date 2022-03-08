@@ -43,7 +43,7 @@ export default class extends ApiTemplate {
 	}
 
 	@tryError(DefaultValue())
-	@get(api.blog.detail, expire.hour12)
+	@get(api.blog.detail, expire.min30)
 	@userToken()
 	@validate
 	getDetail<T>(@required id: string | number): Promise<T> {

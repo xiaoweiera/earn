@@ -85,3 +85,11 @@ export const set = async function (name: string, value: any, time?: number) {
 		}
 	}
 }
+
+// 删除缓存
+export const remove = async function (name: string) {
+	const client = getClient();
+	if (name && client) {
+		return client.del(name);
+	}
+}
