@@ -2,6 +2,7 @@
 import { dashboard } from "src/config/";
 
 const user = {
+	index: "/account",
 	login: "/account/login",          // 登录
 	logout: "/account/logout",        // 退出
 	register: "/account/register", // 注册
@@ -24,7 +25,7 @@ export const config = {
 	// reports: `https://kingdata.com/reports/`, // 研究报告
 	blog: `/blog`, // 研究报告 (博客)
 	// news: 'https://kingdata.com/news/', // 7x24小时监控
-	news: '/signals', // 7x24小时监控
+	news: '/signals', // 7x24小时监控, 指标异动
 
 	dapp: '/dapp',
 	dappList: '/dapp/discover',

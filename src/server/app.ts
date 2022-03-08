@@ -14,6 +14,8 @@ import CookieParser from "cookie-parser";
 import common from "src/controller/common/";
 import cors from "src/controller/common/cors";
 import * as console from "src/plugins/log/";
+import Site from "src/controller/site/";
+
 
 const root: string = path.resolve(__dirname, "../..");
 
@@ -31,8 +33,8 @@ const main = async function () {
 		port: process.env.port || 3333,
 		host: process.env.host || "0.0.0.0",
 	});
-	console.info(config);
-
+	console.log(config);
+	app.use(Site(root, config));
 	app.use(cors);
 
 	const assets = await Assets(root, config);
