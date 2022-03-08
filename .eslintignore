@@ -1,0 +1,14 @@
+node_modules
+.DS_Store
+dist
+*.local
+.vscode
+.idea
+yarn.lock
+pnpm-lock.yaml
+components.d.ts
+src/config/iconname.ts
+src/config/header
+src/config/footer
+auto-imports.d.ts
+.env.*.local
