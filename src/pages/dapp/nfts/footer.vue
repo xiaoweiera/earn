@@ -16,9 +16,9 @@ defineProps({
   <div v-if="data">
     <div class="w-full h-39.5 px-4 pt-7 text-global-white">
       <!-- 项目名称 -->
-      <div class="flex items-center max-h-9 h-9">
-        <span class="max-w-full inline-flex items-center h-full text-kd16px16px text-global-white font-semibold font-kdBarlow">{{ data.name }}</span>
-        <IconFont v-if="data.chain" :type="getLog(data.chain)" size="16" class="h-full items-center ml-2"/>
+      <div class="flex items-end max-h-9 h-9">
+        <span class="max-w-full inline-flex items-end h-full text-kd16px16px text-global-white font-semibold font-kdBarlow">{{ data.name }}</span>
+        <IconFont v-if="data.chain" :type="getLog(data.chain)" size="16" class="h-full items-end ml-2"/>
       </div>
       <!-- 价格总量 -->
       <div class="nft-price h-10 flex justify-between items-center border-b-1 border-global-white border-opacity-15">

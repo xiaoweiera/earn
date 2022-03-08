@@ -42,7 +42,7 @@ export default {
         },
         join:'Participate',
         ongoing:'Ongoing Projects',
-        never:'Never miss an interesting NFT drop on King Data!',
+        never:'Never miss an interesting NFT drop on KingData!',
     },
 
     nftProject:{
