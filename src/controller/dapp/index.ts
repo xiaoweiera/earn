@@ -1,3 +1,4 @@
+import safeGet from "@fengqiaogang/safe-get";
 import {Model} from "src/logic/dapp";
 import {Request, Response} from "express";
 import * as alias from "src/utils/root/alias";
@@ -7,7 +8,8 @@ import I18n from "src/utils/i18n";
 export const list = async function (req: Request, res: Response) {
     const i18n = I18n(req);
     const api = new Model(req);
-    const is_igo =req.query['igo'] as string;
+    // 判断当前是否为 igo
+    const is_igo = safeGet<string>(req, "query.igo") || safeGet<string>(req, "query.isIgo");
     if (is_igo) {
         res.locals.menuActive = names.dapp.gamefi;
     }else {
@@ -32,7 +34,7 @@ export const list = async function (req: Request, res: Response) {
         sort_field: sort_field || '',
         sort_type: sort_type || '',
         paginate,
-        is_igo: is_igo ? is_igo : false,
+        is_igo: !!is_igo,
         query:search ? search : '',
     }
     const [ list, summary ] = await Promise.all([

@@ -4,8 +4,8 @@
  */
 
 import _ from "lodash";
+import dayjs from "dayjs";
 import {Env, languageKey } from "src/config";
-import { dateFormat } from "src/utils/time";
 import { Language } from "src/types/language";
 import { createHref } from "src/plugins/router/pack";
 import { config as routerConfig } from "src/router/config";
@@ -28,10 +28,11 @@ export interface Site {
 }
 
 export const sitemap = function(env: Env): Site[] {
+  const today = dayjs().format("YYYY-MM-DD");
   const list: Site[] = [{
     // 首页
     loc: routerConfig.home,
-    lastmod: dateFormat("YYYY-MM-DD"),
+    lastmod: today,
     changefreq: Change.daily,
     priority: 0.3
   }, {
@@ -46,13 +47,13 @@ export const sitemap = function(env: Env): Site[] {
   }, {
     // 博客
     loc: routerConfig.blog,
-    lastmod: dateFormat("YYYY-MM-DD"),
+    lastmod: today,
     changefreq: Change.daily,
     priority: 0.7
   }, {
     // 指标异动
     loc: routerConfig.news,
-    lastmod: dateFormat("YYYY-MM-DD"),
+    lastmod: today,
     changefreq: Change.hourly,
     priority: 0.3
   }, {
@@ -64,25 +65,25 @@ export const sitemap = function(env: Env): Site[] {
     // 空投
     loc: routerConfig.airdrop,
     changefreq: Change.daily,
-    lastmod: dateFormat("YYYY-MM-DD"),
+    lastmod: today,
     priority: 0.5
   }, {
     // DApp 列表
     loc: routerConfig.dappList,
     changefreq: Change.daily,
-    lastmod: dateFormat("YYYY-MM-DD"),
+    lastmod: today,
     priority: 0.5
   },{
     // IGO 列表
     loc: `${routerConfig.dappList}?igo=true`,
     changefreq: Change.daily,
-    lastmod: dateFormat("YYYY-MM-DD"),
+    lastmod: today,
     priority: 0.5
   },{
     // NFT 列表
     loc: routerConfig.nftList,
     changefreq: Change.daily,
-    lastmod: dateFormat("YYYY-MM-DD"),
+    lastmod: today,
     priority: 0.5
   }, {
     // NFT 列表
