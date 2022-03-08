@@ -20,7 +20,7 @@ export default {
         read:'人阅读',
         updateTime:'更新时间'
     },
-    hotTopic:'热门话题',
+    hotTopic:'热门趋势榜单',
     more:'更多',
     loadingMore:'加载更多',
     projectApply: '申请收录',

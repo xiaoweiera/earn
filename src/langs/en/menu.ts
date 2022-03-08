@@ -8,7 +8,7 @@ export default {
     defi: 'DeFi Rankings'
   },
   nft: {
-    title: 'Rankings',
+    title: 'Trends Rankings',
     ranking: 'NFT Rankings',
     discover: 'NFTs'
   },
