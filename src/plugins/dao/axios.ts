@@ -69,7 +69,7 @@ class Dao {
 	private redisKey (config: AxiosRequestConfig) {
 		if (config) {
 			const expire = toInteger(safeGet<number>(config, "params.expire"));
-			if (expire && expire > 0) {
+			if (expire && expire !== 0) {
 				const method = safeGet<string>(config, "method");
 				const url = this.getUri(config);
 				const token = safeGet(config, "headers.Authorization");
@@ -82,7 +82,10 @@ class Dao {
 				return { key, expire };
 			}
 		}
-		return {};
+		return {
+			key: "",
+			expire: 0
+		};
 	}
 	// 响应前拦截
 	async requestCallback(req: AxiosRequestConfig) {
@@ -130,18 +133,23 @@ class Dao {
 		if (req.url) {
 			req.url = i18n.template(req.url, parameter);
 		}
-		const { key } = this.redisKey(req);
+		const { key, expire } = this.redisKey(req);
+		console.info("111", key, expire, req.url);
+		// 判断 Key 是否存在
 		if (key) {
-			// 判断 Key 是否存在
-			const status = await redis.has(key);
-			if (status) {
-				// 读取缓存数据
-				const data = await redis.get(key);
-				// 如果数据不为空，则中断请求逻辑
-				// @ts-ignore
-				if (data) {
-					throw { code: 0, data };
+			if (expire > 0) {
+				const status = await redis.has(key);
+				if (status) {
+					// 读取缓存数据
+					const data = await redis.get(key);
+					// 如果数据不为空，则中断请求逻辑
+					// @ts-ignore
+					if (data) {
+						throw { code: 0, data };
+					}
 				}
+			} else {
+				await redis.remove(key);
 			}
 		}
 		// 继续执行请求逻辑

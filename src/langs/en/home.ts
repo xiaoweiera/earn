@@ -20,7 +20,7 @@ export default {
         read:'people reading',
         updateTime:'Update time'
     },
-    hotTopic:'Hot Topics',
+    hotTopic:'Top Trends List',
     more:'More',
     loadingMore:'More',
     projectApply: 'Apply',

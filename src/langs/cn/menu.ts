@@ -11,7 +11,7 @@ export default {
     title: 'Airdrops'
   },
   nft: {
-    title: '排行榜',
+    title: '趋势榜单',
     ranking: 'NFT 排行榜',
     discover: 'NFTs'
   },

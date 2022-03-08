@@ -5,7 +5,7 @@
 
 import { getEnv, Command } from "src/config/";
 
-// Node 环境并且为已编译后的运行环境
+// 根据环境觉得是否输出日志
 const IsOutput = function () {
 	const env = getEnv();
 	return env.VITE_command !== Command.build;

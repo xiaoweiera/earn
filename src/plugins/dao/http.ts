@@ -55,7 +55,7 @@ export const get = function (url: string, expire = 0, config: AxiosRequestConfig
 		descriptor.value = async function (...args: any[]) {
 			const self: any = this;
 			const [ query = {}, callback ]: [ object, (value?: any) => any ] = await Promise.resolve(app.apply(self, args));
-			const params = { ...query, expire };
+			const params = { expire, ...query };
 			let result = await self.get(url, { ...config, params });
 			if (callback && isFunction(callback)) {
 				result = await callback(result);
@@ -80,7 +80,7 @@ export const post = function (url: string, expire = 0, config: AxiosRequestConfi
 
 			const result = await self.post(url, data, {
 				...config,
-				params: { _user, expire }
+				params: { expire, _user }
 			});
 			if (callback && isFunction(callback)) {
 				return callback(result);
