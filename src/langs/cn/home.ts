@@ -42,7 +42,7 @@ export default {
         },
         join:'去参与',
         ongoing:'Ongoing Projects',
-        never:'不要错过King Data上任何一个有趣的NFT空投!',
+        never:'不要错过 King Data 上任何一个有趣的NFT空投!',
     },
 
     nftProject:{

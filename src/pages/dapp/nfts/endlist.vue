@@ -68,7 +68,7 @@ const getIcon = (item:string) => {
       </thead>
       <tbody>
         <template v-for="(item,index) in list" :key="index">
-          <tr class="h-14 hand" @click="getNextUrl(item)">
+          <tr class="h-14 hand" @click="getNextUrl(item)" v-if="item.data_type !== 'ad'">
             <td>
               <div class="flex-center">
                 <ui-image class="w-8 h-8" rounded :src="item.logo"/>
