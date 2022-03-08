@@ -15,7 +15,7 @@ const Router = async function (root: string, env: Env) {
 		if (igo) {
 			// 兼容老项目，修正错误参数
 			const query: object = _.omit(req.query, "isIgo");
-			redirect(req, res, req.url, { ...query, igo });
+			redirect(req, res, req.path, { ...query, igo });
 		} else {
 			dApp.list(req, res)
 		}
