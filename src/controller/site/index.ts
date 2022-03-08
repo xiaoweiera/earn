@@ -16,7 +16,6 @@ const Site = function(root: string, env: Env) {
   const robotsValue = robots(env);
   const favicon = path.join(root, "public/favicon.ico");
   const ahrefs = "ahrefs_a41a2ea87b23852e5ff4ba882ec1ae7d210002c1f090bc6a9f01bbc8942fed50";
-  const ahrefsFile = path.join(root, `public/${ahrefs}`);
 
   router.all("/favicon.ico", function (req: Request, res: Response) {
     res.status(200);
