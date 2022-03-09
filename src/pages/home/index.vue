@@ -24,7 +24,7 @@ onMounted(function () {
 
 </script>
 <template>
-  <div class="top  min-h-164 pt-3 md:pt-6 ">
+  <div class="top  min-h-164 pt-3 md:pt-6 md:pb-16 pb-7">
     <div class="md:max-w-360 md:px-22.5 px-3  mx-auto">
       <!--      顶部信息-->
       <HomeHeader v-if="summary" :data="summary"/>
