@@ -3,6 +3,7 @@
     "allowJs": true,
     "baseUrl": ".",
     "target": "esnext",
+    "isolatedModules": true,
     "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",

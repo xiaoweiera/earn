@@ -72,7 +72,7 @@ onMounted(function () {
       <!-- header -->
       <div>
         <DAppHomeHeader :status="nftStatus.upcoming" :tips="i18n.home.idoIgoProject.never" :type="urlType"
-                        title="NFT Drops 🎯"/>
+                        title="NFT Projects 🎯"/>
       </div>
       <!-- 搜索 -->
       <!-- pc端-->

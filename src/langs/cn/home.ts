@@ -20,7 +20,7 @@ export default {
         read:'人阅读',
         updateTime:'更新时间'
     },
-    hotTopic:'热门话题',
+    hotTopic:'热门趋势榜单',
     more:'更多',
     loadingMore:'加载更多',
     projectApply: '申请收录',
@@ -42,7 +42,7 @@ export default {
         },
         join:'去参与',
         ongoing:'Ongoing Projects',
-        never:'不要错过King Data上任何一个有趣的NFT空投!',
+        never:'不要错过 KingData 上任何一个有趣的NFT项目!',
     },
 
     nftProject:{

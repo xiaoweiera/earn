@@ -20,7 +20,7 @@ export default {
         read:'people reading',
         updateTime:'Update time'
     },
-    hotTopic:'Hot Topics',
+    hotTopic:'Top Trends List',
     more:'More',
     loadingMore:'More',
     projectApply: 'Apply',
@@ -42,7 +42,7 @@ export default {
         },
         join:'Participate',
         ongoing:'Ongoing Projects',
-        never:'Never miss an interesting NFT drop on NFTGo!',
+        never:'Never miss an interesting NFT projects on KingData!',
     },
 
     nftProject:{

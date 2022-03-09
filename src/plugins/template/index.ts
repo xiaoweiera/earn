@@ -60,10 +60,11 @@ const makeScript = function (data: Result): string {
 }
 
 const template = function (html: string, result: Result): string {
+	const env = getEnv();
 	result.libs = makeScript(result);
 	// 处理 Html 中的转译字符
 	result.content = htmlEncode.htmlDecode(result.content);
-	const option = Object.assign({}, result, {languageKey});
+	const option = Object.assign({ ...env }, result, {languageKey});
 	return tpl(html, option);
 }
 

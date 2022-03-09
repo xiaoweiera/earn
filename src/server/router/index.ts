@@ -3,38 +3,31 @@
  * @author svon.me@gmail.com
  */
 
-import Blog from "./blog";
-import Home from "./home";
-import Dapp from "./dapp";
-import User from "./user";
+import blog from "./blog";
+import home from "./home";
+import dApp from "./dapp";
+import user from "./user";
 import {Env} from "src/config";
 import Send from "src/plugins/express/send";
 import redirect from "src/controller/common/redirect";
 import {config as routerConfig} from "src/router/config";
 import {Request, Response, Router as ExpressRouter} from "express";
-import * as home from "src/controller/home";
 
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
 	const router = ExpressRouter();
-	// Dapp
-	const dapp = await Dapp(root, env);
-	//Home
-	const home = await Home(root, env);
-	// 博客
-	const blog = await Blog(root, env);
-	const send = await Send(root, env);
 	// 封装 send 方法
+	const send = await Send(root, env);
 	router.use(send);
 
-	// 装载DAPP相关路由
-	router.use(dapp);
+	// 装载 DApp 相关路由
+	router.use(dApp());
 	// 封装 user 相关路由
-	router.use(User());
+	router.use(user());
 	// 装载Home相关路由
-	router.use(home);
+	router.use(home());
 	// 装载博客相关路由
-	router.use(blog);
+	router.use(blog());
 
 	// 404
 	router.get(routerConfig.E404, function (req: Request, res: Response) {

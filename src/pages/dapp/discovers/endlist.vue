@@ -72,7 +72,7 @@ const getIcon = (item:string) => {
       </thead>
       <tbody>
         <template v-for="(item,index) in list" :key="index">
-          <tr class="h-14 hand" @click="getNextUrl(item)">
+          <tr class="h-14 hand" @click="getNextUrl(item)" v-if="item.data_type !== 'ad'">
             <td>
               <div class="flex-center">
                 <ui-image class="w-8 h-8" rounded :src="item.logo"/>
@@ -83,7 +83,7 @@ const getIcon = (item:string) => {
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number" v-if="item.categories">{{item.category}}</div>
+              <div class="numberDefault text-number">{{item.category ? item.category : '-'}}</div>
             </td>
             <td>
               <div class="numberDefault text-number">{{toNumberCashFormat(item.ido_fundraising_goal,'$','','N/A')}}</div>

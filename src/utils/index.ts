@@ -3,51 +3,15 @@
  * @author svon.me@gmail.com
  */
 
+import uuid from "./uuid/";
+import { isArray, Equals } from "./check/is";
 import _, {size, compact, flatten, toLower, toUpper} from "lodash";
-// @ts-ignore
-import { v1 as uuidV1, v4 as uuidV4, v5 as uuidV5 } from "uuid";
-import { isString, isArray } from "./check/is";
+
 export * from "./check/is";
 export * from "./convert/to";
 export * from "./time/index";
+export { uuid, size, compact, flatten, Equals };
 
-export { size, compact, flatten };
-
-// 生成唯一ID
-export const uuid = function(value?: any): string {
-	function create(): string {
-		if (value) {
-			if (isString(value)) {
-				return uuidV5(value, uuidV5.URL);
-			}
-			const text = JSON.stringify({ value });
-			return uuidV5(text, uuidV5.URL);
-		}
-		if (Math.random() > 0.5) {
-			return uuidV1();
-		}
-		return uuidV4();
-	}
-	const text = create();
-	return text.replace(/-/g, '');
-}
-
-
-export const Equals = function (...args: Array<string | number>): boolean {
-	const len = args.length;
-	let status = false;
-	for (let i = 1; i < len && len > 1; i++) {
-		const value1 = _.trim(`${args[i - 1]}`);
-		const value2 = _.trim(`${args[i]}`);
-		if (value1 === value2) {
-			status = true;
-		} else {
-			status = false;
-			break;
-		}
-	}
-	return status;
-}
 // 首字母大写
 export const upperFirst = function(value: string): string {
 	// 将字符串转换为小写

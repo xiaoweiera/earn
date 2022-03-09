@@ -3,12 +3,10 @@
  * @author svon.me@gmail.com
  */
 
-import { IsSSR } from "src/config/ssr";
+import _ from "lodash";
 import {Request} from "express";
-import window from "src/plugins/browser/window";
+import { IsNode } from "src/config/ssr";
 import { is, isNil, isEmpty as _isEmpty } from "ramda";
-
-export { IsSSR };
 
 /**
  * 判断字符串是否是 http 链接
@@ -87,7 +85,7 @@ export const isObject = function(value: any): boolean {
 
 // 判断对象是否是 Request 对象
 export const isRequest = function (value?: any): boolean {
-	if (value && isObject(value) || IsSSR()) {
+	if (value && isObject(value) || IsNode()) {
 		const req: Request = value;
 		if (req.url && req.method || req.header) {
 			return true;
@@ -148,26 +146,18 @@ export const isElement = function(value: any) {
 	return false
 }
 
-// 判断是否是微信
-export const isWechat = function(): boolean {
-	const ua = window.navigator.userAgent.toLowerCase();
-	if (ua.match(/MicroMessenger/i)) {
-		return true;
+export const Equals = function (...args: Array<string | number>): boolean {
+	const len = args.length;
+	let status = false;
+	for (let i = 1; i < len && len > 1; i++) {
+		const value1 = _.trim(`${args[i - 1]}`);
+		const value2 = _.trim(`${args[i]}`);
+		if (value1 === value2) {
+			status = true;
+		} else {
+			status = false;
+			break;
+		}
 	}
-	return ua.indexOf("micromessenger") >= 0;
-};
-
-// 判断是否为 Android
-export const isAndroid = function(): boolean {
-	const ua = window.navigator.userAgent.toLowerCase();
-	if (ua.indexOf("android") >= 0) {
-		return true;
-	}
-	return ua.indexOf("linux") >= 0;
-};
-
-// 判断是否为 Iphone / Ipad
-export const isIphone = function (): boolean {
-	const ua = window.navigator.userAgent.toLowerCase();
-	return !!ua.match(/cpu iphone os (.*?) like mac os/);
+	return status;
 }

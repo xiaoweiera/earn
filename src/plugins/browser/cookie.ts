@@ -7,7 +7,8 @@ import jsCookie from "js-cookie";
 import {Request, Response} from "express";
 import safeGet from "@fengqiaogang/safe-get";
 import * as webkit from "src/plugins/webkit/";
-import {Equals, toInteger} from "src/utils/";
+import {Equals} from "src/utils/check/is";
+import {toInteger} from "src/utils/convert/to";
 import {Device} from "src/types/common/device";
 import {deviceName, getEnv, IsSSR, tokenExpires, tokenName, tidingName} from "src/config/";
 
