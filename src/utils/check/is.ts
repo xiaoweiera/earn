@@ -63,7 +63,7 @@ export const isNumber = (value: any): boolean => {
  * 判断对象是否是数组
  * @param value
  */
-export const isArray = function (value: any): boolean {
+export const isArray = function (value: any | any[]): boolean {
   if (Array.isArray(value)) {
     return true;
   }
@@ -126,23 +126,23 @@ export const isElement = function (value: any) {
   if (isEmpty(value) || isString(value) || isNumber(value) || isArray(value)) {
     return false;
   }
-
-  if (typeof HTMLElement === 'object') {
-    return value instanceof HTMLElement;
+  // @ts-ignore
+  if (value instanceof HTMLElement) {
+    return true;
   }
-  let flag = true;
-  if (typeof value === 'object') {
-    flag = true;
-  }
-
-  if (flag) {
-    if (typeof value.nodeName === 'string') {
-      return true;
-    }
-    if (value?.navigator) {
-      return true;
-    }
-  }
+  // let flag = true;
+  // if (isObject(value)) {
+  //   flag = true;
+  // }
+  //
+  // if (flag) {
+  //   if (typeof value.nodeName === "string") {
+  //     return true;
+  //   }
+  //   if (value?.navigator) {
+  //     return true;
+  //   }
+  // }
   return false;
 };
 

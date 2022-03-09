@@ -51,20 +51,22 @@ export const min = function (...args: any[]): number {
   return void 0;
 };
 
+type eachCallback = (value: never, index: number | string, list: never[] | never) => void;
+
 /**
  * 循环
  */
-export const forEach = function (callback: any, data: any) {
+export const forEach = function (callback: eachCallback, data: never[] | never) {
   if (callback && data) {
     if (isArray(data)) {
-      data.forEach((value: any, index: number) => {
+      data.forEach((value: never, index: number) => {
         callback(value, index, data);
       });
     } else {
       const keys = Object.keys(data);
       keys.forEach((key: string) => {
         // @ts-ignore
-        const value = data[key];
+        const value: never = data[key];
         callback(value, key, data);
       });
     }
