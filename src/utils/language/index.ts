@@ -1,13 +1,13 @@
-import urlParse from "src/utils/url/parse";
-import safeGet from "@fengqiaogang/safe-get";
-import { Language } from "./config";
+import urlParse from 'src/utils/url/parse';
+import safeGet from '@fengqiaogang/safe-get';
+import { Language } from 'src/types/language/';
 
 // 获取 url 中的 lang 数据
 export function getQueryLang(): Language {
   try {
     const data = urlParse();
     if (data) {
-      const lang = safeGet<string | string[]>(data, "query.lang");
+      const lang = safeGet<string | string[]>(data, 'query.lang');
       if (lang) {
         // @ts-ignore
         const array: Language[] = [].concat([], lang);
@@ -24,7 +24,7 @@ export function getQueryLang(): Language {
 }
 
 // 获取下一个语言类型
-export const nextLang = function(): Language {
+export const nextLang = function (): Language {
   const current = getQueryLang();
   if (current === Language.cn) {
     return Language.en;

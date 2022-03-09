@@ -3,25 +3,25 @@
  * @author svon.me@gmail.com
  */
 
-import _, { compact, flatten, size, toLower, toUpper } from "lodash";
-import uuid from "./uuid/";
-import { Equals, isArray } from "./check/is";
+import { compact, flatten, size, toLower, toUpper } from 'lodash';
+import uuid from './uuid/';
+import { Equals, isArray } from './check/is';
 
-export * from "./check/is";
-export * from "./convert/to";
-export * from "./time/index";
+export * from './check/is';
+export * from './convert/to';
+export * from './time/index';
 export { uuid, size, compact, flatten, Equals };
 
 // 首字母大写
-export const upperFirst = function(value: string): string {
+export const upperFirst = function (value: string): string {
   // 将字符串转换为小写
-  const str = toLower(value || "");
-  const first = toUpper(str[0] || "");
+  const str = toLower(value || '');
+  const first = toUpper(str[0] || '');
   const last = str.slice(1);
   return `${first}${last}`;
 };
 
-export const max = function(...args: any[]): number {
+export const max = function (...args: any[]): number {
   const list = compact(flatten(args));
   if (list.length > 0) {
     let value: number = list[0];
@@ -36,7 +36,7 @@ export const max = function(...args: any[]): number {
   return void 0;
 };
 
-export const min = function(...args: any[]): number {
+export const min = function (...args: any[]): number {
   const list = compact(flatten(args));
   if (list.length > 0) {
     let value: number = list[0];
@@ -54,7 +54,7 @@ export const min = function(...args: any[]): number {
 /**
  * 循环
  */
-export const forEach = function(callback: any, data: any) {
+export const forEach = function (callback: any, data: any) {
   if (callback && data) {
     if (isArray(data)) {
       data.forEach((value: any, index: number) => {
@@ -72,10 +72,10 @@ export const forEach = function(callback: any, data: any) {
 };
 
 export class Encryption {
-  private text = "";
+  private text = '';
   private $1 = 4; // 开头保留几位
   private $2 = 4; // 结尾保留几位
-  private replace = "."; // 用什么字符替换
+  private replace = '.'; // 用什么字符替换
   private replaceCount = 4; // 替换的字符保留几位
   constructor(value: string) {
     this.text = value;
@@ -102,12 +102,12 @@ export class Encryption {
   }
 
   value() {
-    const reg = new RegExp(`^([0-9a-z]{${this.$1}}).+([0-9a-z]{${this.$2}})$`, "ig");
-    const replaceText = new Array(this.replaceCount + 1).fill(this.replace).join("");
+    const reg = new RegExp(`^([0-9a-z]{${this.$1}}).+([0-9a-z]{${this.$2}})$`, 'ig');
+    const replaceText = new Array(this.replaceCount + 1).fill(this.replace).join('');
     const replace = `$1${replaceText}$2`;
     return this.text.replace(reg, replace);
   }
 }
-export const encryption = function(value: string): Encryption {
-  return new Encryption(value || "");
+export const encryption = function (value: string): Encryption {
+  return new Encryption(value || '');
 };

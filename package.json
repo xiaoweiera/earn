@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "precommit": "sh scripts/precommit.sh",
+    "eslint": "eslint --ext .ts,.vue ./src --fix",
     "icon": "node scripts/icon.js",
     "dev": "scripts/dev.sh",
     "build:prod": "scripts/build.sh production",
@@ -19,7 +20,6 @@
   "lint-staged": {
     "./src/**/*.{vue,ts}": [
       "prettier --write",
-      "eslint --ext .ts,.vue ./src --fix",
       "git add"
     ]
   },
