@@ -9,12 +9,16 @@ import { Env } from "src/config/";
 import { robots } from "./robots";
 import { sitemap, Site } from "./sitemap";
 import {Request, Response, Router} from "express";
+import { goHome } from "src/controller/common/redirect";
 
 const Site = function(root: string, env: Env) {
   const router = Router();
 
   const robotsValue = robots(env);
   const favicon = path.join(root, "public/favicon.ico");
+
+  router.all("/index", goHome);
+  router.all("/index.html", goHome);
 
   router.all("/favicon.ico", function (req: Request, res: Response) {
     res.status(200);
