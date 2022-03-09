@@ -134,7 +134,6 @@ class Dao {
 			req.url = i18n.template(req.url, parameter);
 		}
 		const { key, expire } = this.redisKey(req);
-		console.info("111", key, expire, req.url);
 		// 判断 Key 是否存在
 		if (key) {
 			if (expire > 0) {
