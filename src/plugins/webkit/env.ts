@@ -4,7 +4,7 @@
  * @description 网页嵌套在 App 下时，获取终端设备信息
  */
 
-import {uuid} from "src/utils";
+import uuid from "src/utils/uuid";
 import window from "src/plugins/browser/window";
 import {Device} from "src/types/common/device";
 
