@@ -7,6 +7,6 @@ import LanguageEn from "src/langs/en/index";
 import { Language } from "src/types/language";
 
 export default {
-	[Language.cn]: LanguageCn,
-	[Language.en]: LanguageEn,
-}
+  [Language.cn]: LanguageCn,
+  [Language.en]: LanguageEn,
+};

@@ -2,25 +2,25 @@
 defineProps({
   loading: {
     type: Boolean,
-    default () {
-      return false
-    }
+    default() {
+      return false;
+    },
   },
   fit: {
     type: Boolean,
-    default () {
-      return true
-    }
-  }
-})
+    default() {
+      return true;
+    },
+  },
+});
 </script>
 
 <template>
   <div class="spin">
-    <slot></slot>
-    <span class="loading-icon" :class="{'fit': fit}" v-show="loading">
+    <slot />
+    <span v-show="loading" class="loading-icon" :class="{'fit': fit}">
       <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none"></circle>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" />
       </svg>
     </span>
   </div>
@@ -73,6 +73,3 @@ defineProps({
   }
 }
 </style>
-
-
-

@@ -1,12 +1,12 @@
 export interface ImportMetaEnv {
-	readonly VITE_mode: string;   // 运行模式
+	readonly VITE_mode: string; // 运行模式
 	readonly VITE_command: string;
-	readonly VITE_api: string;    // 接口域名
-	VITE_productionApi: string;   // 线上环境接口地址
+	readonly VITE_api: string; // 接口域名
+	VITE_productionApi: string; // 线上环境接口地址
 	VITE_LanApi: string; // 局域网接口地址
 	readonly VITE_domain: string; // 网站域名
 	readonly VITE_cookie: string; // 设置 cookie 的安全域
-	readonly VITE_baiduTag?: string;  // baidu 收录
+	readonly VITE_baiduTag?: string; // baidu 收录
 	readonly VITE_googleTag?: string; // google 收录
 	readonly VITE_googleCaptcha: string; // google Captcha key
 	readonly VITE_oss: string; // oss 资源域名
@@ -16,7 +16,7 @@ export interface ImportMetaEnv {
 }
 
 export interface ImportMeta {
-	readonly env: ImportMetaEnv
+	readonly env: ImportMetaEnv;
 }
 
 export const production = "production";
@@ -25,7 +25,7 @@ export const test = "test";
 
 export enum Command {
 	build = "build",
-	serve = "serve"
+	serve = "serve",
 }
 
 export const title = "KingData";

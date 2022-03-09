@@ -3,5 +3,5 @@
  * @author svon.me@gmail.com
  */
 
-export * as user from "./user"
+export * as user from "./user";
 export * as env from "./env";

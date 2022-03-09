@@ -2,15 +2,15 @@
 defineProps({
   data: {
     type: Object,
-  }
-})
+  },
+});
 </script>
 <template>
   <v-router :href="data.url" target="_blank">
     <div class="relative w-full h-full bg-white">
       <div class="h-full rounded-md overflow-hidden">
         <!-- 电脑上展示 -->
-        <ui-image class="w-full h-full" fit="cover" :src="data.image" :lazy="true"/>
+        <ui-image class="w-full h-full" fit="cover" :src="data.image" :lazy="true" />
         <!-- 移动端展示 -->
         <!-- <img class="block md:hidden w-full"> -->
       </div>

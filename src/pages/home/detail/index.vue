@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import HomeDetailInfo from './info.vue'
-import HomeDetailTable from './table.vue'
-import HomeDetailTop from './top.vue'
-import HomeDetailTopic from './topic.vue'
-import {onMounted} from 'vue'
-import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
-import {detail} from "src/types/home";
-import {Model} from "src/logic/home";
-import {getParam} from "src/utils/router";
+import { onMounted } from "vue";
+import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
+import type { detail } from "src/types/home";
+import { Model } from "src/logic/home";
+import { getParam } from "src/utils/router";
+import HomeDetailTopic from "./topic.vue";
+import HomeDetailTop from "./top.vue";
+import HomeDetailTable from "./table.vue";
+import HomeDetailInfo from "./info.vue";
 
 const data = createReactive<detail>("API.home.getDetail", {} as any);
-onMounted(function () {
+onMounted(() => {
   // 得到数据汇总
-  onLoadReactive(data, function () {
+  onLoadReactive(data, () => {
     const api = new Model();
     const id = getParam<string>("id");
     return api.getDetail(id);
@@ -22,12 +22,12 @@ onMounted(function () {
 <template>
   <div class="md:max-w-360 md:py-8 md:pb-30 md:px-20  mx-auto px-3 flex">
     <div class="w-full md:mr-12">
-      <HomeDetailInfo class="mt-6 md:mt-0 min-h-37.5" :data="data"/>
-      <HomeDetailTable v-if="data.id" class="mt-8" :info="data"/>
+      <HomeDetailInfo class="mt-6 md:mt-0 min-h-37.5" :data="data" />
+      <HomeDetailTable v-if="data.id" class="mt-8" :info="data" />
     </div>
     <div class="min-w-65 xshidden">
-      <HomeDetailTop/>
-      <HomeDetailTopic class="mt-8"/>
+      <HomeDetailTop />
+      <HomeDetailTopic class="mt-8" />
     </div>
   </div>
 </template>

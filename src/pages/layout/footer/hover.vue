@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import {computed} from "vue";
-import {isHttp} from "src/utils";
+import { computed } from "vue";
+import { isHttp } from "src/utils";
 
 const props = defineProps({
   desc: {
-    type: String
+    type: String,
   },
   href: {
-    type: String
+    type: String,
   },
 });
 
-const url = computed<string>(function () {
+const url = computed<string>(() => {
   if (props.href && isHttp(props.href)) {
-    return props.href
+    return props.href;
   }
-  return ''
+  return "";
 });
 
 </script>
@@ -26,14 +26,14 @@ const url = computed<string>(function () {
       <div class="flex cursor-pointer">
         <template v-if="url">
           <v-router :href="url" class="flex md:hidden" target="_blank">
-            <slot></slot>
+            <slot />
           </v-router>
           <div class="hidden md:flex">
-            <slot></slot>
+            <slot />
           </div>
         </template>
         <template v-else>
-          <slot></slot>
+          <slot />
         </template>
       </div>
     </template>
@@ -41,7 +41,7 @@ const url = computed<string>(function () {
       <div class="p-2">
         <div class="text-center">
           <div class="flex">
-            <ui-qrcode :value="href" height="90" href width="90"/>
+            <ui-qrcode :value="href" height="90" href width="90" />
           </div>
         </div>
         <div class="pt-1 text-center whitespace-nowrap">
@@ -51,5 +51,3 @@ const url = computed<string>(function () {
     </template>
   </ui-hover>
 </template>
-
-

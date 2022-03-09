@@ -3,7 +3,7 @@
  * @file 公告
  * @author svon.me@gmail.com
  */
-import {createRef} from "src/utils/ssr/ref";
+import { createRef } from "src/utils/ssr/ref";
 const notice = createRef<string[]>("notice", []);
 </script>
 

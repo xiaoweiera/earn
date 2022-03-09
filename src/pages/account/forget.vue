@@ -19,13 +19,10 @@ const type = createRef<Type>("query.type", Type.email); // 登录类型，默认
     </div>
     <!-- 引用公共的密码找回功能 -->
     <template v-if="type === Type.mobile">
-      <account-forget-mobile/>
+      <account-forget-mobile />
     </template>
     <template v-else>
-      <account-forget-email/>
+      <account-forget-email />
     </template>
   </div>
 </template>
-
-
-

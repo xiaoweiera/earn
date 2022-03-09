@@ -16,7 +16,7 @@ const props = defineProps({
   },
   showLoading: {
     type: Boolean,
-    default: () => true
+    default: () => true,
   },
   // 加载更多按钮提示语
   nextMore: {
@@ -25,25 +25,25 @@ const props = defineProps({
   // 每页数据条数
   limit: {
     type: Number,
-    default: () => 20
+    default: () => 20,
   },
   data: {
     type: Object,
     default: () => {
       return {};
-    }
+    },
   },
   initValue: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
 });
 
-const emitEvent = defineEmits(['change']);
+const emitEvent = defineEmits(["change"]);
 
 const { list, page, loading, next, empty, handleData } = Pagination(props as any);
 
-const onNext = async function () {
+const onNext = async function() {
   const query = Object.assign({}, {
     page: page.value,
     page_size: props.limit,
@@ -61,7 +61,7 @@ const onNext = async function () {
     }
   }
   return emitEvent("change", [[], []]);
-}
+};
 
 let initFlat = true;
 
@@ -72,7 +72,7 @@ if (props.initValue) {
   }
 }
 
-onMounted(function () {
+onMounted(() => {
   if (initFlat && size(list.value) < 1) {
     onNext();
   }
@@ -84,24 +84,21 @@ onMounted(function () {
   <div class="min-h-100 ui-pagination auto-h">
     <div v-if="empty">
       <slot name="empty">
-        <ui-empty/>
+        <ui-empty />
       </slot>
     </div>
 
     <div v-else>
       <div>
         <ui-spin :loading="showLoading && loading">
-          <slot :list="list"></slot>
+          <slot :list="list" />
         </ui-spin>
       </div>
-      <div class="page-more" v-if="request">
-        <div class="pt-3 text-center" v-show="next">
-          <ui-button-more :value="nextMore" :request="onNext"/>
+      <div v-if="request" class="page-more">
+        <div v-show="next" class="pt-3 text-center">
+          <ui-button-more :value="nextMore" :request="onNext" />
         </div>
       </div>
     </div>
   </div>
 </template>
-
-
-

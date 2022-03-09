@@ -6,34 +6,34 @@
 
 import { onMounted } from "vue";
 import { getAll, makeDetailLink } from "src/logic/blog";
-import {BlogData} from "src/types/blog";
-import {createRef, onLoadRef} from "src/utils/ssr/ref";
-import {toArray, dateYMDFormat} from "src/utils";
+import type { BlogData } from "src/types/blog";
+import { createRef, onLoadRef } from "src/utils/ssr/ref";
+import { dateYMDFormat, toArray } from "src/utils";
 
 const apiName = "API.blog.getHotList";
 const hots = createRef<BlogData[]>(apiName, toArray(getAll()));
 
-onMounted(function () {
+onMounted(() => {
   onLoadRef<BlogData[]>(hots, apiName);
-})
+});
 
 </script>
 
 <template>
   <div>
-    <v-router v-for="data in hots" :href="makeDetailLink(data.id)" target="_blank" class="hot-item" :key="data.id">
+    <v-router v-for="data in hots" :key="data.id" :href="makeDetailLink(data.id)" target="_blank" class="hot-item">
       <p class="blog-date text-global-highTitle text-opacity-65 text-12-16">{{ dateYMDFormat(data.release_date) }}</p>
       <div class="blog-content mt-1">
         <div class="w-58.5 h-29.5 relative">
           <div class="w-full h-full">
-            <ui-image class="w-full md:h-full" fit="cover" :src="data.cover" :lazy="true"/>
+            <ui-image class="w-full md:h-full" fit="cover" :src="data.cover" :lazy="true" />
           </div>
         </div>
         <div class="pt-1.5">
           <h3 class="title font-medium text-14-18 text-global-highTitle font-m max-w-full line-clamp-2">
             <span>{{ data.name }}</span>
           </h3>
-          <div v-if="data.desc" class="mt-1.5 text-global-highTitle text-opacity-65 text-14-18 line-clamp-3" v-text="data.desc"></div>
+          <div v-if="data.desc" class="mt-1.5 text-global-highTitle text-opacity-65 text-14-18 line-clamp-3" v-text="data.desc" />
         </div>
       </div>
     </v-router>

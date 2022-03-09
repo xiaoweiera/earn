@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import {Request} from "express";
+import type { Request } from "express";
 
 export type Lang = Request | Language | string;
 

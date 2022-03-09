@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import {PropType} from "vue";
+import type { PropType } from "vue";
+import type { MenuItem } from "src/types/menu/";
 import MenuSub from "./sub.vue";
 import isShowChildren from "./isshow";
 import MenuContent from "./content.vue";
-import { MenuItem } from "src/types/menu/";
 
-const props = defineProps({
+defineProps({
   menus: {
     default: () => [],
     type: Array as PropType<MenuItem[]>,
-  }
+  },
 });
-
 
 </script>
 <template>
@@ -22,12 +21,12 @@ const props = defineProps({
         <div class="relative">
           <MenuContent class="wrap-menu-item" :data="data">
             <template #children="scope">
-              <div class="menu-children" v-if="isShowChildren(scope.list)">
+              <div v-if="isShowChildren(scope.list)" class="menu-children">
                 <template v-if="data.active">
-                  <MenuSub :list="scope.list" :sub="data.expand"></MenuSub>
+                  <MenuSub :list="scope.list" :sub="data.expand" />
                 </template>
                 <template v-else>
-                  <MenuSub :list="scope.list"></MenuSub>
+                  <MenuSub :list="scope.list" />
                 </template>
               </div>
             </template>

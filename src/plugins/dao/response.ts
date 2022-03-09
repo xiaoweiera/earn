@@ -2,11 +2,11 @@
  * @file API 响应结果校验
  */
 
-import {AxiosResponse} from "axios";
+import type { AxiosResponse } from "axios";
 import safeGet from "@fengqiaogang/safe-get";
-import { isString, isObject, isNumber } from "src/utils/";
+import { isNumber, isObject, isString } from "src/utils/";
 
-const getResult = function (response: AxiosResponse) {
+const getResult = function(response: AxiosResponse) {
   if (response && response.data) {
     const data = response.data;
     if (isString(data)) {

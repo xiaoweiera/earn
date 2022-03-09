@@ -1,57 +1,57 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
+import { computed, onMounted, ref } from "vue";
 import document from "src/plugins/browser/document";
-import {oss} from "src/config";
+import { oss } from "src/config";
 // 引入 swiper vue 组件
 // @ts-ignore
-import SwiperCore, {Pagination, Autoplay} from "swiper";
+import SwiperCore, { Autoplay, Pagination } from "swiper";
 // @ts-ignore
-import {Swiper, SwiperSlide} from "swiper/vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import {createRef, onLoadRef} from "src/utils/ssr/ref";
-import {Model} from "src/logic/home";
+import { createRef, onLoadRef } from "src/utils/ssr/ref";
+import { Model } from "src/logic/home";
 import I18n from "src/utils/i18n";
-import {config} from "src/router/config";
+import { config } from "src/router/config";
 // 装载 swiper 组件
-SwiperCore.use([Pagination, Autoplay])
+SwiperCore.use([Pagination, Autoplay]);
 const i18n = I18n();
 const params = {
   page: 1,
   page_size: 10,
-  show_commercial: true
-}
-const isBegin = ref(true)
-const isEnd = ref(false)
-//下一页
-const next = () => document.querySelector('.swiper-recom').swiper.slideNext()
-//上一页
-const last = () => document.querySelector('.swiper-recom').swiper.slidePrev()
+  show_commercial: true,
+};
+const isBegin = ref(true);
+const isEnd = ref(false);
+// 下一页
+const next = () => document.querySelector(".swiper-recom").swiper.slideNext();
+// 上一页
+const last = () => document.querySelector(".swiper-recom").swiper.slidePrev();
 const change = (swiper: any) => {
-  isBegin.value = swiper.isBeginning
-  isEnd.value = swiper.isEnd
-}
+  isBegin.value = swiper.isBeginning;
+  isEnd.value = swiper.isEnd;
+};
 const init = (swiper: any) => {
   setTimeout(() => {
-    isBegin.value = swiper.isBeginning
-    isEnd.value = swiper.isEnd
-  })
-}
+    isBegin.value = swiper.isBeginning;
+    isEnd.value = swiper.isEnd;
+  });
+};
 
 const recommend = createRef("API.home.getRecommend", []);
 const getImg = (type: string, item: any) => {
-  if (type === 'topic') {
-    return item.cover
+  if (type === "topic") {
+    return item.cover;
   }
-  return item.image
-}
+  return item.image;
+};
 const getHref = (type: string, item: any) => {
-  if (type === 'topic') {
-    return `${config.homeDetail}?id=${item.id}`
+  if (type === "topic") {
+    return `${config.homeDetail}?id=${item.id}`;
   }
-  return item.url
-}
-onMounted(function () {
+  return item.url;
+};
+onMounted(() => {
   const api = new Model();
   // 得到数据汇总
   onLoadRef(recommend, () => api.getRecommend(params));
@@ -59,42 +59,43 @@ onMounted(function () {
 </script>
 <template>
   <div>
-    <div class="text-kd20px20px md:text-kd24px24px relative  font-kdSemiBold text-global-highTitle font-semibold">{{i18n.home.hotTopic}}</div>
+    <div class="text-kd20px20px md:text-kd24px24px relative  font-kdSemiBold text-global-highTitle font-semibold">{{ i18n.home.hotTopic }}</div>
     <div class="mt-4 relative">
       <div class="w-full">
         <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
-          <ui-image class="left shadow" @click="last" :src="`${oss}/dapp/zuojian.png`" fit="cover"/>
+          <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" fit="cover" @click="last" />
         </div>
-        <Swiper v-if="recommend.length>0" class="h-full swiper-recom"
-                @init="init"
-                :initialSlide="0"
-                slidesPerView="auto"
-                :space-between="24"
-                :resize-observer="true"
-                @setTranslate="change">
+        <Swiper
+          v-if="recommend.length>0" class="h-full swiper-recom"
+          :initial-slide="0"
+          slides-per-view="auto"
+          :space-between="24"
+          :resize-observer="true"
+          @init="init"
+          @set-translate="change"
+        >
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
               <v-router :href="getHref(item['data_type'],item)" target="_blank" class="item-card">
-                <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute z-5"/>
+                <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute z-5" />
                 <div class="info relative z-10">
                   <div class="name text-number">{{ item.name }}</div>
                   <div class="go">Go</div>
                 </div>
-                <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'],item)" fit="cover"/>
-                <div class="bottom-bg"></div>
+                <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'],item)" fit="cover" />
+                <div class="bottom-bg" />
               </v-router>
             </SwiperSlide>
           </template>
         </Swiper>
       </div>
       <div :class="isEnd?'hidden':'jian-right'" class="xshidden">
-        <img class="right shadow" @click="next" :src="`${oss}/dapp/rightjian.png`" alt="">
+        <img class="right shadow" :src="`${oss}/dapp/rightjian.png`" alt="" @click="next">
       </div>
-      <div v-if="!isBegin" class="xshidden absolute top-0 left-0 left-jian w-15 h-full  z-9"></div>
-      <div v-if="!isEnd" class="xshidden  absolute top-0 right-0 right-jian w-15 h-full  z-9"></div>
+      <div v-if="!isBegin" class="xshidden absolute top-0 left-0 left-jian w-15 h-full  z-9" />
+      <div v-if="!isEnd" class="xshidden  absolute top-0 right-0 right-jian w-15 h-full  z-9" />
     </div>
   </div>
-
 </template>
 <style lang="scss" scoped>
 .left {

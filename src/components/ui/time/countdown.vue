@@ -1,96 +1,96 @@
 <script setup lang="ts">
 // 倒计时
-import dayjs from 'dayjs'
-import { dateTime } from 'src/utils'
+import dayjs from "dayjs";
+import { dateTime } from "src/utils";
 // @ts-ignore
-import { ref, watch, onMounted } from 'vue'
+import { onMounted, ref, watch } from "vue";
 // @ts-ignore
-import I18n from 'src/utils/i18n/index'
+import I18n from "src/utils/i18n/index";
 
 const i18n = I18n();
-const format = 'YYYY-MM-DD HH:mm:ss'
+const format = "YYYY-MM-DD HH:mm:ss";
 const props = defineProps({
   value: [String, Number],
-})
-const day = ref<string>('00')
-const hour = ref<string>('00')
-const minute = ref<string>('00')
-const second = ref<string>('00')
-const end = ref(0)
+});
+const day = ref<string>("00");
+const hour = ref<string>("00");
+const minute = ref<string>("00");
+const second = ref<string>("00");
+const end = ref(0);
 
-const emitEvent = defineEmits(['change'])
+const emitEvent = defineEmits(["change"]);
 
 const calcEndValue = function() {
-  end.value = dateTime(props.value)
-}
+  end.value = dateTime(props.value);
+};
 
 // 计算倒计时 - 天
 const getDay = function(duration: number): string {
-  const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
-}
+  const number = parseInt((duration / 1000 / 60 / 60 / 24) as any, 10);
+  return number < 10 ? `0${number}` : String(number);
+};
 // 计算倒计时 - 时
 const getHour = function(duration: number): string {
-  const number = parseInt(((duration / 1000 / 60 / 60) % 24) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
-}
+  const number = parseInt(((duration / 1000 / 60 / 60) % 24) as any, 10);
+  return number < 10 ? `0${number}` : String(number);
+};
 // 计算倒计时 - 分
 const getMinute = function(duration: number): string {
-  const number = parseInt(((duration / 1000 / 60) % 60) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
-}
+  const number = parseInt(((duration / 1000 / 60) % 60) as any, 10);
+  return number < 10 ? `0${number}` : String(number);
+};
 // 计算倒计时 - 秒
 const getSecond = function(duration: number): string {
-  const number = parseInt(((duration / 1000) % 60) as any, 10)
-  return number < 10 ? `0${number}` : String(number)
-}
+  const number = parseInt(((duration / 1000) % 60) as any, 10);
+  return number < 10 ? `0${number}` : String(number);
+};
 
 // 倒计时
-let intemout: any
+let intemout: any;
 const timeout = () => {
-  clearTimeout(intemout)
+  clearTimeout(intemout);
   // 当前时间
-  const now = dayjs().valueOf()
-  const duration = end.value - now
+  const now = dayjs().valueOf();
+  const duration = end.value - now;
   // 结束倒计时
   if (duration < 0) {
-    day.value = '00'
-    hour.value = '00'
-    minute.value = '00'
-    second.value = '00'
-    return
+    day.value = "00";
+    hour.value = "00";
+    minute.value = "00";
+    second.value = "00";
+    return;
   }
   // 计算倒计时剩余天
-  day.value = getDay(duration)
+  day.value = getDay(duration);
   // 计算倒计时剩余时
-  hour.value = getHour(duration)
+  hour.value = getHour(duration);
   // 计算倒计时剩余分
-  minute.value = getMinute(duration)
+  minute.value = getMinute(duration);
   // 计算倒计时剩余秒
-  second.value = getSecond(duration)
+  second.value = getSecond(duration);
 
   const res = {
     day: day.value,
     hour: hour.value,
     minute: minute.value,
-    second: second.value
-  }
-  emitEvent('change', res)
+    second: second.value,
+  };
+  emitEvent("change", res);
 
-  intemout = setTimeout(timeout, 1000)
-}
+  intemout = setTimeout(timeout, 1000);
+};
 
 // 监听传入进来的时间值
 // @ts-ignore
-watch(props.value, function(){
-  calcEndValue()
-  timeout()
-}, { immediate: true })
+watch(props.value, () => {
+  calcEndValue();
+  timeout();
+}, { immediate: true });
 
-onMounted(function() {
-  calcEndValue()
-  timeout()
-})
+onMounted(() => {
+  calcEndValue();
+  timeout();
+});
 </script>
 
 <template>
@@ -118,4 +118,3 @@ onMounted(function() {
     </span>
   </slot>
 </template>
-

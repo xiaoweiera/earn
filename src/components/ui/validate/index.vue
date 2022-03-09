@@ -4,12 +4,13 @@
  * @author svon.me@gmail.com
  */
 import API from "src/api/index";
-import {PropType, ref} from "vue";
+import type { PropType } from "vue";
+import { ref } from "vue";
 import I18n from "src/utils/i18n";
-import {messageError} from "src/lib/tool";
-import { Query } from "src/types/browser/location";
-import {ValidateType, maxTimeValue} from "./config";
+import { messageError } from "src/lib/tool";
+import type { Query } from "src/types/browser/location";
 import * as console from "src/plugins/log/";
+import { ValidateType, maxTimeValue } from "./config";
 
 const props = defineProps({
   type: {
@@ -19,35 +20,34 @@ const props = defineProps({
   },
   // 是否发送手机验证码
   mobile: {
-    type: Boolean
+    type: Boolean,
   },
   before: {
-    type: Function
+    type: Function,
   },
   query: {
     type: Object as PropType<Query>,
-    default () {
+    default() {
       return {};
-    }
-  }
+    },
+  },
 });
-
 
 let _timeTask: any;
 const times = ref<number>(0);
 
-const countDownTime = function (value: number) {
+const countDownTime = function(value: number) {
   clearTimeout(_timeTask);
   times.value = value - 1;
   if (times.value > 0) {
-    _timeTask = setTimeout(function () {
+    _timeTask = setTimeout(() => {
       countDownTime(value - 1);
     }, 1000);
   }
-}
+};
 
 // 获取验证码
-const onSeadCode = async function (value: string | undefined) {
+const onSeadCode = async function(value: string | undefined) {
   if (value) {
     countDownTime(maxTimeValue); // 开始倒计时
     const data = Object.assign({}, props.query || {}, {
@@ -79,7 +79,7 @@ const onSeadCode = async function (value: string | undefined) {
 
 <template>
   <div class="min-w-10 text-center">
-    <span v-if="times > 0">{{times}}s</span>
-    <ui-captcha v-else  @click="onSeadCode" :before="before"/>
+    <span v-if="times > 0">{{ times }}s</span>
+    <ui-captcha v-else :before="before" @click="onSeadCode" />
   </div>
 </template>

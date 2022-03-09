@@ -6,13 +6,13 @@
 import safeGet from "@fengqiaogang/safe-get";
 
 export enum TriggerValue {
-	click = 'div',
-	router = 'router-link',
+	click = "div",
+	router = "router-link",
 }
 
 export enum Trigger {
-	click = 'click',
-	router = 'router',
+	click = "click",
+	router = "router",
 }
 
 export interface Item {
@@ -20,24 +20,24 @@ export interface Item {
 	name: string;
 	icon?: string; // 是否需要在名称前显示图标
 	href?: string | object; // 跳转链接
-	className?: string
+	className?: string;
 }
 
 export type CallbackList = () => Item[];
 
 // 生成 tab 链接
-export const makeLink = function (activeName: string,data: Item, trigger: Trigger) {
-	if (trigger === Trigger.router) {
-		if (data.href) {
-			return data.href;
-		}
-		const value = safeGet<string>(data, activeName);
-		if (value) {
-			return {
-				query: {
-					[activeName]: safeGet<string>(data, activeName)
-				}
-			};
-		}
-	}
-}
+export const makeLink = function(activeName: string, data: Item, trigger: Trigger) {
+  if (trigger === Trigger.router) {
+    if (data.href) {
+      return data.href;
+    }
+    const value = safeGet<string>(data, activeName);
+    if (value) {
+      return {
+        query: {
+          [activeName]: safeGet<string>(data, activeName),
+        },
+      };
+    }
+  }
+};

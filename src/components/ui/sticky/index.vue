@@ -3,17 +3,16 @@
  * @file 吸顶特效
  * @author svon.me@gmail.com
  */
-import { uuid, toInteger } from "src/utils"
+import { toInteger, uuid } from "src/utils";
 import * as scroll from "src/plugins/browser/scroll";
-import { ref, onMounted, onBeforeUnmount } from "vue";
-
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
 const props = defineProps({
   // 触发吸顶时激活样式
   activeClass: {
     type: String,
     required: false,
-  }
+  },
 });
 
 const key = uuid();
@@ -21,13 +20,13 @@ const stickyRef = ref<any>(null);
 const active = ref<string>("");
 
 const getDom = function() {
-  if (stickyRef && stickyRef.value) {
-    const dom = stickyRef.value
+  if (stickyRef.value && stickyRef.value) {
+    const dom = stickyRef.value;
     if (dom && dom.getBoundingClientRect) {
       return dom;
     }
   }
-}
+};
 
 const isActive = function() {
   const dom = getDom();
@@ -45,16 +44,16 @@ const isActive = function() {
       active.value = "";
     }
   }
-}
+};
 
-onMounted(function() {
+onMounted(() => {
   if (props.activeClass) {
-    scroll.bind(key, isActive)
+    scroll.bind(key, isActive);
     setTimeout(isActive);
   }
 });
 
-onBeforeUnmount(function() {
+onBeforeUnmount(() => {
   scroll.unbind(key);
 });
 
@@ -62,7 +61,6 @@ onBeforeUnmount(function() {
 
 <template>
   <div ref="stickyRef" class="sticky top-header z-999" :class="active">
-    <slot></slot>
+    <slot />
   </div>
 </template>
-

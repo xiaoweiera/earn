@@ -4,9 +4,9 @@
  */
 
 export enum Language {
-	auto = 'auto', // 自动检测
-	cn = 'cn', // 中文
-	en = 'en', // 英语
+	auto = "auto", // 自动检测
+	cn = "cn", // 中文
+	en = "en", // 英语
 	// yue = 'yue', // 粤语
 	// wyw = 'wyw', // 文言文
 	// jp = 'jp', // 日语
@@ -35,4 +35,4 @@ export enum Language {
 	// vie = 'vie', // 越南语
 }
 
-export default Language
+export default Language;

@@ -25,10 +25,7 @@ const type = createRef<Type>("query.type", Type.email); // 登录类型，默认
         <h3 class="text-16-24 text-center text-global-darkblue">{{ i18n.common.email }}</h3>
       </div>
       <!-- 引用邮箱登录功能 -->
-      <account-login-email/>
+      <account-login-email />
     </template>
   </div>
 </template>
-
-
-

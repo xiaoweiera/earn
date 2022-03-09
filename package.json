@@ -2,6 +2,7 @@
   "name": "vite-project",
   "version": "0.0.0",
   "scripts": {
+    "precommit": "sh scripts/precommit.sh",
     "eslint": "eslint --ext .ts,.vue ./src --fix",
     "icon": "node scripts/icon.js",
     "dev": "scripts/dev.sh",
@@ -10,8 +11,7 @@
     "build:debug": "scripts/build.sh debug",
     "serve:prod": "scripts/serve.sh production 3333",
     "serve:test": "scripts/serve.sh test 3333",
-    "serve:debug": "scripts/serve.sh debug 3333",
-    "precommit": "sh scripts/precommit.sh"
+    "serve:debug": "scripts/serve.sh debug 3333"
   },
   "_moduleAliases": {
     "@root": ".",

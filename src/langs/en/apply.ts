@@ -19,8 +19,8 @@ export default {
     contact: "Email or Tel",
     audit: {
       name: "Audit Website",
-      url: "Audit Website"
-    }
+      url: "Audit Website",
+    },
   },
   placeholder: {
     name: "", // Please enter the project name
@@ -36,21 +36,21 @@ export default {
     contact: "", // Email or Tel
     audit: {
       name: "Audit company's name ",
-      url: "Link"
-    }
+      url: "Link",
+    },
   },
   rules: {
     required: "Required",
     checkbox: "Choose at least one",
-    url: "Please fill in the platform link"
+    url: "Please fill in the platform link",
   },
   tips: {
-    error: 'The server is abnormal, please try again later!',
+    error: "The server is abnormal, please try again later!",
     confirm: "OK",
     title: "Success",
     content: "The application will be reviewed within 1 working day. ",
     message: `My project is included by KingData! 
 https://kingdata.com/dapp/{id} 
 You take a look`,
-  }
-}
+  },
+};

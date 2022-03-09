@@ -1,9 +1,9 @@
 <script lang="ts">
-import Box from "./box";
 import { defineComponent } from "vue";
+import Box from "./box";
 export default defineComponent({
   name: "UiBox",
-  extends: Box
+  extends: Box,
 });
 </script>
 

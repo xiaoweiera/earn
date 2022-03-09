@@ -10,9 +10,7 @@ export interface ChainItem {
 	logo_square: string; // 图标链接
 }
 
-export interface Chain {
-	[key: string]: ChainItem
-}
+export type Chain = Record<string, ChainItem>;
 
 export interface Platform extends Chain{
 }

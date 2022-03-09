@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import HomeTableModel from './model.vue'
-import {ref} from 'vue'
+import { ref } from "vue";
+import HomeTableModel from "./model.vue";
 defineProps({
   topicIndex: {
-    type: [String, Number]
+    type: [String, Number],
   },
   data: {
-    type: Object
-  }
-})
-const id=ref(0)
-const changeTopic=(index:number)=>id.value=index
+    type: Object,
+  },
+});
+const id = ref(0);
+const changeTopic = (index: number) => id.value = index;
 
 </script>
 <template>
   <div class="md:w-150 w-full  md:min-h-86 md:py-3  relative">
-    <div class="bg xshidden"></div>
+    <div class="bg xshidden" />
     <div class="relative md:min-h-86 md:bg-global-white rounded-kd16px md:min-w-150">
       <template v-for="(item,index) in data" :key="item.id">
-        <HomeTableModel class="xshidden h-full  md:absolute top-0" :class="topicIndex===index?'active':'active-no'" :data="item"/>
-        <HomeTableModel v-if="index===id" class="h-full mdhidden" :class="id===index?'block':'hidden'" :data="item"/>
+        <HomeTableModel class="xshidden h-full  md:absolute top-0" :class="topicIndex===index?'active':'active-no'" :data="item" />
+        <HomeTableModel v-if="index===id" class="h-full mdhidden" :class="id===index?'block':'hidden'" :data="item" />
       </template>
     </div>
     <!--手机端翻页-->
     <div class="mdhidden flex items-center justify-center mt-4">
       <template v-for="(item,index) in data">
-        <div  @click="changeTopic(index)" class="dian hand" :class="id===index?'yuan':'yuan-no'"></div>
+        <div class="dian hand" :class="id===index?'yuan':'yuan-no'" @click="changeTopic(index)" />
       </template>
     </div>
   </div>

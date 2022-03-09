@@ -1,185 +1,184 @@
 <script setup lang="ts">
-import HomeTableHeader from '../table/header.vue'
-import HomeTableTd from '../table/td.vue'
-import HomeFilter from "../filter.vue"
-import {ref, onMounted, PropType, watch, reactive} from 'vue'
-import {ElSelect, ElOption, ElInput} from 'element-plus';
-import {useRoute, useRouter} from "vue-router";
-import {getParam} from "src/utils/router";
-import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
-import {detail} from "src/types/home";
-import {Model} from "src/logic/home";
-import {config as routerConfig} from "src/router/config";
+import type { PropType } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
+import { ElInput, ElOption, ElSelect } from "element-plus";
+import { useRoute, useRouter } from "vue-router";
+import { getParam } from "src/utils/router";
+import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
+import type { detail } from "src/types/home";
+import { Model } from "src/logic/home";
+import { config as routerConfig } from "src/router/config";
 import I18n from "src/utils/i18n";
 import window from "src/plugins/browser/window";
 import _ from "lodash";
-import {createHref} from "src/plugins/router/pack";
+import { createHref } from "src/plugins/router/pack";
 import safeGet from "@fengqiaogang/safe-get";
+import HomeFilter from "../filter.vue";
+import HomeTableTd from "../table/td.vue";
+import HomeTableHeader from "../table/header.vue";
 const props = defineProps({
-  info: Object as PropType<detail>
-})
+  info: Object as PropType<detail>,
+});
 const i18n = I18n();
-const route = useRoute()
-const router = useRouter()
-const id = getParam<string>("id")
-const chain = ref(getParam<string>("chain"))
-const category = ref(getParam<string>("category"))
-const query = ref(getParam<string>("search"))
+const route = useRoute();
+const router = useRouter();
+const id = getParam<string>("id");
+const chain = ref(getParam<string>("chain"));
+const category = ref(getParam<string>("category"));
+const query = ref(getParam<string>("search"));
 const params = reactive({
-  id: id,
+  id,
   page: 1,
   page_size: 30,
   chain: chain.value,
   category: category.value,
   query: query.value,
-  sort_field: '',
-  sort_type: '',//desc asc
-})
-const resultNumber = ref(0)
-const loading = ref(false)
-const key = ref(0)
+  sort_field: "",
+  sort_type: "", // desc asc
+});
+const resultNumber = ref(0);
+const loading = ref(false);
+const key = ref(0);
 
 const api = new Model();
 watch(route, (n) => {
-  const query: any = getParam<string>()
-  params.chain = query.chain
-  params.category = query.category
-  key.value++
-  getData(true)
-})
+  const query: any = getParam<string>();
+  params.chain = query.chain;
+  params.category = query.category;
+  key.value++;
+  getData(true);
+});
 
-
-
-//搜索
-const search = ref(getParam<object>('search'))
+// 搜索
+const search = ref(getParam<object>("search"));
 watch(search, (n: any) => {
   const query: any = getParam<object>();
-  params.query = n
+  params.query = n;
   router.push({
     path: routerConfig.homeDetail,
     query: {
       ...query,
-      //@ts-ignore
-      search: n
-    }
-  })
-})
+      // @ts-ignore
+      search: n,
+    },
+  });
+});
 const data: any = createReactive<detail>("API.home.getProjects", {} as any);
-//防抖
-const getData = _.debounce(async function (clear?: boolean) {
-  await debounceData(clear)
+// 防抖
+const getData = _.debounce(async(clear?: boolean) => {
+  await debounceData(clear);
 }, 300);
-//得到表格数据
-const debounceData = async (clear?: boolean) => {
-  loading.value = true
+// 得到表格数据
+const debounceData = async(clear?: boolean) => {
+  loading.value = true;
   if (clear) {
-    params.page = 1
-    data.items = []
+    params.page = 1;
+    data.items = [];
   }
-  const res: any = await api.getProjects(params)
-  resultNumber.value = res?.items?.length
-  data.items = data.items.concat(res.items)
-  loading.value = false
-}
-//more
+  const res: any = await api.getProjects(params);
+  resultNumber.value = res?.items?.length;
+  data.items = data.items.concat(res.items);
+  loading.value = false;
+};
+// more
 const more = () => {
-  params.page++
-  getData()
-}
-const isSearch = ref(false)
-onMounted(function () {
+  params.page++;
+  getData();
+};
+const isSearch = ref(false);
+onMounted(() => {
   // 得到数据汇总
   onLoadReactive(data, () => api.getProjects(params));
-  resultNumber.value=safeGet(data,'items.length')?safeGet(data,'items.length'):0
+  resultNumber.value = safeGet(data, "items.length") ? safeGet(data, "items.length") : 0;
 });
-//排序
+// 排序
 const sort = (item: any) => {
-  const key=item.key
-  if(!item.sort) return
+  const key = item.key;
+  if (!item.sort) return;
   if (!params.sort_type || params.sort_field !== key) {
-    params.sort_type = 'desc'
-  } else if (params.sort_type === 'desc') {
-    params.sort_type = 'asc'
+    params.sort_type = "desc";
+  } else if (params.sort_type === "desc") {
+    params.sort_type = "asc";
   } else {
-    params.sort_type = ''
+    params.sort_type = "";
   }
-  params.sort_field = key
-  getData(true)
-}
-const toProject=(url:string )=>{
-  if(url){
-    window.open(createHref(url))
+  params.sort_field = key;
+  getData(true);
+};
+const toProject = (url: string) => {
+  if (url) {
+    window.open(createHref(url));
   }
-}
-const getNameWidth=(item:any)=>{
-  //@ts-ignore
-  if(item.key==='name' && props.info.show_type==='data'){
-    return 'min-w-30 max-w-30'
-    //@ts-ignore
-  }else if(item.key==='name' && props.info.show_type==='desc'){
-    return 'w-150'
+};
+const getNameWidth = (item: any) => {
+  // @ts-ignore
+  if (item.key === "name" && props.info.show_type === "data") {
+    return "min-w-30 max-w-30";
+    // @ts-ignore
+  } else if (item.key === "name" && props.info.show_type === "desc") {
+    return "w-150";
   }
-  return ''
-}
-//是否有筛选
+  return "";
+};
+// 是否有筛选
 const isFilter = () => {
-  //@ts-ignore
+  // @ts-ignore
   if (props.info.filters.chain.show && props.info.filters.chain.options.length > 0) {
-    return true
-    //@ts-ignore
+    return true;
+    // @ts-ignore
   } else if (props.info.filters.category.show && props.info.filters.category.options.length > 0) {
-    return true
-    //@ts-ignore
+    return true;
+    // @ts-ignore
   } else if (props.info.filters?.search?.show && props.info.filters?.search?.options.length > 0) {
-    return true
+    return true;
   }
-  return false
-}
+  return false;
+};
 </script>
 <template>
   <div class="table-box md:mb-0 mb-4">
     <div class="flex xshidden justify-between items-baseline">
-      <HomeFilter :key="key" v-if="info.id && isFilter()" :info="info" :filters="info.filters" class="mb-4 -mt-2"/>
+      <HomeFilter v-if="info.id && isFilter()" :key="key" :info="info" :filters="info.filters" class="mb-4 -mt-2" />
       <client-only>
-        <div v-if="isSearch"  class="relative flex items-center search">
-          <IconFont class="absolute text-global-highTitle text-opacity-45 z-22 left-3" size="16" type="icon-sousuo-da1"/>
-          <el-input v-model="search" placeholder="Search"/>
+        <div v-if="isSearch" class="relative flex items-center search">
+          <IconFont class="absolute text-global-highTitle text-opacity-45 z-22 left-3" size="16" type="icon-sousuo-da1" />
+          <el-input v-model="search" placeholder="Search" />
         </div>
       </client-only>
     </div>
     <div v-if="safeGet(data,'items.length') || loading" class="showX">
       <table class="table-my min-w-243">
         <thead>
-        <tr class="min-h-10">
-          <td class="h-full border-tb">
-            <div class="text-left w-5">#</div>
-          </td>
-          <template v-for="(item,index) in data.header" :key="index">
-            <td class="text-left border-tb" :class="getNameWidth(item)" v-if="item.key!=='id'">
-              <HomeTableHeader @click="sort(item)" name="Project Name" :params="params" :item="item"/>
+          <tr class="min-h-10">
+            <td class="h-full border-tb">
+              <div class="text-left w-5">#</div>
             </td>
-          </template>
-        </tr>
-        </thead>
-        <tbody>
-        <template v-for="(item,index) in data.items">
-          <tr class="min-h-12.5 h-12.5 md:min-h19.5 hand" :class="info.show_type==='desc'?'md:h-18':'md:h-13'" @click="toProject(item.url)">
-            <td class="number">
-              <div class="text-left  w-5">{{ index + 1 }}</div>
-            </td>
-            <template v-for="(itemTwo,index) in data.header" :key="index">
-              <td v-if="itemTwo.key!=='id'">
-                <HomeTableTd :info="info" :typeName="itemTwo.key" :data="item"/>
+            <template v-for="(item,index) in data.header" :key="index">
+              <td v-if="item.key!=='id'" class="text-left border-tb" :class="getNameWidth(item)">
+                <HomeTableHeader name="Project Name" :params="params" :item="item" @click="sort(item)" />
               </td>
             </template>
           </tr>
-        </template>
+        </thead>
+        <tbody>
+          <template v-for="(item,index) in data.items">
+            <tr class="min-h-12.5 h-12.5 md:min-h19.5 hand" :class="info.show_type==='desc'?'md:h-18':'md:h-13'" @click="toProject(item.url)">
+              <td class="number">
+                <div class="text-left  w-5">{{ index + 1 }}</div>
+              </td>
+              <template v-for="(itemTwo,index) in data.header" :key="index">
+                <td v-if="itemTwo.key!=='id'">
+                  <HomeTableTd :info="info" :type-name="itemTwo.key" :data="item" />
+                </td>
+              </template>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
-    <ui-empty v-else-if="safeGet(data,'items.length')===0 && !loading" class="pb-3 pt-10"/>
-    <div v-if="safeGet(data,'items.length')>0 && resultNumber>=params.page_size" @click="more" class="more">{{i18n.home.loadingMore}}</div>
-    <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
+    <ui-empty v-else-if="safeGet(data,'items.length')===0 && !loading" class="pb-3 pt-10" />
+    <div v-if="safeGet(data,'items.length')>0 && resultNumber>=params.page_size" class="more" @click="more">{{ i18n.home.loadingMore }}</div>
+    <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0" />
   </div>
 </template>
 <style scoped lang="scss">

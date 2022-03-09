@@ -5,7 +5,8 @@
 
 import _ from "lodash";
 import dayjs from "dayjs";
-import {Env, languageKey } from "src/config";
+import type { Env } from "src/config";
+import { languageKey } from "src/config";
 import { Language } from "src/types/language";
 import { createHref } from "src/plugins/router/pack";
 import { config as routerConfig } from "src/router/config";
@@ -34,102 +35,101 @@ export const sitemap = function(env: Env): Site[] {
     loc: routerConfig.home,
     lastmod: today,
     changefreq: Change.daily,
-    priority: 0.3
+    priority: 0.3,
   }, {
     // 数据报表
     loc: routerConfig.topic,
     changefreq: Change.weekly,
-    priority: 1
+    priority: 1,
   }, {
     // growthpad
     loc: routerConfig.growthpad,
-    priority: 1
+    priority: 1,
   }, {
     // 博客
     loc: routerConfig.blog,
     lastmod: today,
     changefreq: Change.daily,
-    priority: 0.7
+    priority: 0.7,
   }, {
     // 指标异动
     loc: routerConfig.news,
     lastmod: today,
     changefreq: Change.hourly,
-    priority: 0.3
+    priority: 0.3,
   }, {
     // 推荐指标
     loc: routerConfig.quota,
     changefreq: Change.weekly,
-    priority: 1
+    priority: 1,
   }, {
     // 空投
     loc: routerConfig.airdrop,
     changefreq: Change.daily,
     lastmod: today,
-    priority: 0.5
+    priority: 0.5,
   }, {
     // DApp 列表
     loc: routerConfig.dappList,
     changefreq: Change.daily,
     lastmod: today,
-    priority: 0.5
-  },{
+    priority: 0.5,
+  }, {
     // IGO 列表
     loc: `${routerConfig.dappList}?igo=true`,
     changefreq: Change.daily,
     lastmod: today,
-    priority: 0.5
-  },{
+    priority: 0.5,
+  }, {
     // NFT 列表
     loc: routerConfig.nftList,
     changefreq: Change.daily,
     lastmod: today,
-    priority: 0.5
+    priority: 0.5,
   }, {
     // NFT 列表
     loc: routerConfig.address,
     changefreq: Change.weekly,
-    priority: 1
+    priority: 1,
   }, {
     // DApp 排行榜
     loc: `${routerConfig.dapp}/rank`,
     changefreq: Change.daily,
     lastmod: today,
-    priority: 0.7
+    priority: 0.7,
   }, {
     // NFT 排行榜
     loc: `${routerConfig.dapp}/nft`,
     changefreq: Change.daily,
     lastmod: today,
-    priority: 0.7
+    priority: 0.7,
   }, {
     // game 排行榜
     loc: `${routerConfig.dapp}/rank?category=game`,
     changefreq: Change.daily,
     lastmod: today,
-    priority: 0.7
+    priority: 0.7,
   }, {
     // defi 排行榜
     loc: `${routerConfig.dapp}/rank?category=defi`,
     changefreq: Change.daily,
     lastmod: today,
-    priority: 0.7
+    priority: 0.7,
   }];
   const data: Site[] = [];
-  _.each(list, function(item: Site) {
+  _.each(list, (item: Site) => {
     const url = env.VITE_domain ? `${env.VITE_domain}${item.loc}` : item.loc;
     data.push({
       ...item,
       loc: createHref(url, {
-        [languageKey]: Language.en
-      })
+        [languageKey]: Language.en,
+      }),
     }, {
       ...item,
       loc: createHref(url, {
-        [languageKey]: Language.cn
-      })
+        [languageKey]: Language.cn,
+      }),
     });
   });
   return data;
 };
-

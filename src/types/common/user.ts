@@ -1,6 +1,6 @@
 
 export enum Type {
-	email = "email",   // 邮箱登录
+	email = "email", // 邮箱登录
 	mobile = "mobile", // 手机号登录
 }
 
@@ -25,7 +25,7 @@ export interface User {
 	nickname: string; // 昵称
 	points: number;
 	recommend_push_enabled: boolean;
-	registration_rank: number
+	registration_rank: number;
 	user_wallet_address: string[];
 	username: string; // 名称
 	vip_effective_date: string;

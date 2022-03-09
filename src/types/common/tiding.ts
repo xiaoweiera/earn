@@ -10,5 +10,5 @@ export interface TidingItem {
 }
 
 export interface TidingList extends TidingItem{
-	sub_sections: TidingItem[]
+	sub_sections: TidingItem[];
 }

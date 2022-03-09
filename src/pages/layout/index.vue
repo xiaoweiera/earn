@@ -11,20 +11,18 @@ import DownloadApp from "./download/app.vue";
 </script>
 <template>
   <div class="layout">
-    <input class="hidden" type="checkbox" name="ui-header-mobile" id="ui-header-mobile">
+    <input id="ui-header-mobile" class="hidden" type="checkbox" name="ui-header-mobile">
     <!--导航-->
-    <Header/>
+    <Header />
     <!--content-->
     <div class="main">
       <!--全局消息-->
-      <Notice/>
-      <router-view/>
+      <Notice />
+      <router-view />
     </div>
     <!--底部-->
-    <Footer/>
+    <Footer />
     <!--download app-->
-    <DownloadApp/>
+    <DownloadApp />
   </div>
 </template>
-
-

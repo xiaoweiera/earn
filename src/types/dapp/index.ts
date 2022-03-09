@@ -4,8 +4,8 @@
  */
 
 import I18n from "src/utils/i18n";
-import {config} from "src/router/config";
-import {getParam} from "src/utils/router";
+import { config } from "src/router/config";
+import { getParam } from "src/utils/router";
 
 // export enum ProjectGroup {
 // 	online = 'online', // 待上线
@@ -15,11 +15,11 @@ import {getParam} from "src/utils/router";
 
 export interface DataMap {
 	date: string;
-	list: ProjectItem[]
+	list: ProjectItem[];
 }
 export enum ProjectType {
 	dApp = "dapp",
-	ad = "ad"
+	ad = "ad",
 }
 
 export interface ProjectItem {
@@ -62,21 +62,21 @@ export interface AdItem {
 }
 
 export interface Query {
-	page?: number,
-	page_size?: number,
-	type: TabTypes,
-	sort_field?: string,
-	sort_type?: string,
-	is_nft?: boolean,
-	query?: string,
-	chain?: string,
+	page?: number;
+	page_size?: number;
+	type: TabTypes;
+	sort_field?: string;
+	sort_type?: string;
+	is_nft?: boolean;
+	query?: string;
+	chain?: string;
 }
 
 // tab 切换
 export enum TabTypes {
-	upcoming = 'upcoming', // 即将开始
-	ongoing = 'ongoing', // 进行中
-	ended = 'ended', // 已结束
+	upcoming = "upcoming", // 即将开始
+	ongoing = "ongoing", // 进行中
+	ended = "ended", // 已结束
 }
 export interface TabItem {
 	type: TabTypes;
@@ -84,50 +84,50 @@ export interface TabItem {
 	icon?: string;
 	href: string | object;
 }
-export const tabs = function (): TabItem[] {
-	const i18n = I18n();
-	const query = getParam<object>();
-	return [
-		{
-			type: TabTypes.upcoming,
-			icon: '',
-			name: i18n.airdrop.tabs.upcoming,
-			href: {
-				path: config.dappList,
-				query: {
-					...query,
-					type: TabTypes.upcoming
-				}
-			},
-		},{
-			type: TabTypes.ongoing,
-			icon: '',
-			name: i18n.airdrop.tabs.ongoing,
-			href: {
-				path: config.dappList,
-				query: {
-					...query,
-					type: TabTypes.ongoing
-				}
-			},
-		}, {
-			type: TabTypes.ended,
-			icon: '',
-			name: i18n.growthpad.status.closure,
-			href: {
-				path: config.dappList,
-				query: {
-					...query,
-					type: TabTypes.ended
-				}
-			},
-		}
-	]
-}
+export const tabs = function(): TabItem[] {
+  const i18n = I18n();
+  const query = getParam<object>();
+  return [
+    {
+      type: TabTypes.upcoming,
+      icon: "",
+      name: i18n.airdrop.tabs.upcoming,
+      href: {
+        path: config.dappList,
+        query: {
+          ...query,
+          type: TabTypes.upcoming,
+        },
+      },
+    }, {
+      type: TabTypes.ongoing,
+      icon: "",
+      name: i18n.airdrop.tabs.ongoing,
+      href: {
+        path: config.dappList,
+        query: {
+          ...query,
+          type: TabTypes.ongoing,
+        },
+      },
+    }, {
+      type: TabTypes.ended,
+      icon: "",
+      name: i18n.growthpad.status.closure,
+      href: {
+        path: config.dappList,
+        query: {
+          ...query,
+          type: TabTypes.ended,
+        },
+      },
+    },
+  ];
+};
 // nft tab 切换
 export enum NftTabTypes {
-	upcoming = 'upcoming', // 即将开始
-	history = 'history', // 已结束
+	upcoming = "upcoming", // 即将开始
+	history = "history", // 已结束
 }
 export interface NftTabItem {
 	status: NftTabTypes;
@@ -136,33 +136,32 @@ export interface NftTabItem {
 	href: string | object;
 }
 // nft分类切换
-export const nftTabs = function (): NftTabItem[]  {
-	const i18n = I18n();
-	const query = getParam<object>();
-	return [
-		{
-			status: NftTabTypes.upcoming,
-			icon: '',
-			name: i18n.airdrop.tabs.upcoming,
-			href: {
-				path: `${config.nft}/discover`,
-				query: {
-					...query,
-					status: NftTabTypes.upcoming
-				}
-			},
-		}, {
-			status: NftTabTypes.history,
-			icon: '',
-			name: i18n.dapp.sort.history,
-			href: {
-				path: `${config.nft}/discover`,
-				query: {
-					...query,
-					status: NftTabTypes.history
-				}
-			},
-		}
-	];
-	}
-
+export const nftTabs = function(): NftTabItem[] {
+  const i18n = I18n();
+  const query = getParam<object>();
+  return [
+    {
+      status: NftTabTypes.upcoming,
+      icon: "",
+      name: i18n.airdrop.tabs.upcoming,
+      href: {
+        path: `${config.nft}/discover`,
+        query: {
+          ...query,
+          status: NftTabTypes.upcoming,
+        },
+      },
+    }, {
+      status: NftTabTypes.history,
+      icon: "",
+      name: i18n.dapp.sort.history,
+      href: {
+        path: `${config.nft}/discover`,
+        query: {
+          ...query,
+          status: NftTabTypes.history,
+        },
+      },
+    },
+  ];
+};

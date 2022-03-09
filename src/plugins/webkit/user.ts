@@ -10,25 +10,25 @@ export const IosLogin = function(): boolean {
   try {
     // @ts-ignore
     window.webkit.messageHandlers.userLogin.postMessage(true);
-    return true
+    return true;
   } catch (e) {
-    return false
+    return false;
   }
-}
+};
 export const AndroidLogin = function(): boolean {
   // alert('尝试调用 android')
   try {
     // @ts-ignore
     window.kingdata.userLogin(true);
-    return true
+    return true;
   } catch (e) {
-    return false
+    return false;
   }
-}
+};
 
 export const Login = function() {
   if (IosLogin()) {
-    return true
+    return true;
   }
   return AndroidLogin();
-}
+};

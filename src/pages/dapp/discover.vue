@@ -1,95 +1,95 @@
 <script lang="ts" setup>
-import DappDiscoversHeader from './discovers/header.vue';
-import DappDiscoversSearch from './discovers/search.vue';
-import DappDiscoversEndlist from './discovers/endlist.vue';
-import DappDiscoversList from './discovers/list.vue';
 import I18n from "src/utils/i18n";
 
 import * as alias from "src/utils/root/alias";
-import {onMounted, reactive, ref} from "vue"
+import { onMounted, reactive, ref } from "vue";
 import * as logic from "src/types/dapp/";
-import {uuid} from "src/utils";
-import {Model} from "src/logic/dapp";
-import {createRef, onLoadRef} from "src/utils/ssr/ref";
-import {summaryModel} from "src/types/home";
+import { uuid } from "src/utils";
+import { Model } from "src/logic/dapp";
+import { createRef, onLoadRef } from "src/utils/ssr/ref";
+import type { summaryModel } from "src/types/home";
 // 引入 use state
-import {stateAlias, useReactiveProvide, useWatch} from "src/utils/use/state";
-import {getParam} from "src/utils/router";
-import {useRoute} from "vue-router";
+import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
+import { getParam } from "src/utils/router";
+import { useRoute } from "vue-router";
+import DappDiscoversList from "./discovers/list.vue";
+import DappDiscoversEndlist from "./discovers/endlist.vue";
+import DappDiscoversSearch from "./discovers/search.vue";
+import DappDiscoversHeader from "./discovers/header.vue";
 
 const i18n = I18n();
 const api = new Model();
 const route = useRoute();
 // 定义一个 provide 数据，给子组件（ui-tab）使用
-const [ query ] = useReactiveProvide<Query>(stateAlias.ui.tab, {} as Query);
-const igo = ref(getParam<boolean>("igo"))
+const [query] = useReactiveProvide<Query>(stateAlias.ui.tab, {} as Query);
+const igo = ref(getParam<boolean>("igo"));
 const chain = ref(getParam<string>("chain"));
 const category = ref(getParam<string>("group"));
 const platform = ref(getParam<string>("platform"));
 const type = ref(getParam<string>("type"));
 const search = ref(getParam<string>("search"));
 
-let list: any = createRef("API.dapp.list", {} as any);
+const list: any = createRef("API.dapp.list", {} as any);
 
 const params = reactive({
   page: 1,
   page_size: 16,
   is_igo: igo.value ? igo : false,
-  chain: chain.value || 'All',
-  category: category.value || 'All',
-  platform: platform.value || 'All',
-  status: type.value ? type.value : 'upcoming',
-  query: search.value ? search.value : '',
-  sort_field: '',
-  sort_type: '',//desc asc
+  chain: chain.value || "All",
+  category: category.value || "All",
+  platform: platform.value || "All",
+  status: type.value ? type.value : "upcoming",
+  query: search.value ? search.value : "",
+  sort_field: "",
+  sort_type: "", // desc asc
   paginate: true,
-})
+});
 const resultNumber = ref(params.page_size);
 const loading = ref(false);
 
-const getData = async (clear?: boolean) => {
-  loading.value = true
+const getData = async(clear?: boolean) => {
+  loading.value = true;
   if (clear) {
-    params.page = 1
-    list.value = []
+    params.page = 1;
+    list.value = [];
   }
   const res: any = await api.getList(params);
   resultNumber.value = res?.length;
-  list.value = list.value.concat(res)
-  loading.value = false
-}
+  list.value = list.value.concat(res);
+  loading.value = false;
+};
 
 useWatch(route, (n) => {
-  const querys: any = getParam<string>()
+  const querys: any = getParam<string>();
   key.value = uuid();
-  params.chain = querys.chain || 'All';
-  params.category = querys.group || 'All';
-  params.platform = querys.platform || 'All';
-  params.status = querys.type ? querys.type : 'upcoming';
-  params.query = querys.search ? querys.search : '';
+  params.chain = querys.chain || "All";
+  params.category = querys.group || "All";
+  params.platform = querys.platform || "All";
+  params.status = querys.type ? querys.type : "upcoming";
+  params.query = querys.search ? querys.search : "";
   getData(true);
   // todo 可以在此处更新某些数据
-})
+});
 
 // 加载更多
 const getMore = () => {
-  params.page++
-  getData()
-}
+  params.page++;
+  getData();
+};
 
 interface Query {
   group: string;
   platform: string;
   type: string;
 
-  [key: string]: string
+  [key: string]: string;
 }
 
 const key = ref<string>(uuid());
 
-//获取类型
+// 获取类型
 const summary = createRef<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
-onMounted(function () {
+onMounted(() => {
   // 得到数据汇总
   onLoadRef(list, () => api.getList(params));
 
@@ -99,76 +99,76 @@ onMounted(function () {
   });
 });
 
-//排序方法
+// 排序方法
 const changeSort = (sort: string) => {
   params.sort_field = sort;
   getData(true);
-}
-const getName = function () {
+};
+const getName = function() {
   const igo = getParam<boolean>("igo");
-  if(igo){
+  if (igo) {
     return i18n.home.IdoIgo.igotitle;
-  }else {
+  } else {
     return i18n.home.IdoIgo.title;
   }
-}
-//获取筛选条件
-const getFilter = function (data:any) {
+};
+// 获取筛选条件
+const getFilter = function(data: any) {
   const igo = getParam<boolean>("igo");
   const status = getParam<string>("type");
-  if(igo) {
-    if(status === logic.TabTypes.ended) {
+  if (igo) {
+    if (status === logic.TabTypes.ended) {
       return data.igo_ended;
-    }else if(status === logic.TabTypes.ongoing) {
+    } else if (status === logic.TabTypes.ongoing) {
       return data.igo_ongoing;
-    }else {
+    } else {
       return data.igo_upcoming;
     }
-  }else {
-    if(status === logic.TabTypes.ended) {
+  } else {
+    if (status === logic.TabTypes.ended) {
       return data.ido_ended;
-    }else if(status === logic.TabTypes.ongoing) {
+    } else if (status === logic.TabTypes.ongoing) {
       return data.ido_ongoing;
-    }else {
+    } else {
       return data.ido_upcoming;
     }
   }
-}
+};
 </script>
 <template>
   <div class="discover-warp px-3 md:px-22.5">
     <div class="content pt-8">
       <!-- 头部 -->
       <div class="header mb-8">
-        <DappDiscoversHeader :title="getName()" :tips="i18n.home.IdoIgo.desc"/>
+        <DappDiscoversHeader :title="getName()" :tips="i18n.home.IdoIgo.desc" />
       </div>
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
-        <ui-tab :key="key" :list="logic.tabs"  active-name="type"/>
+        <ui-tab :key="key" :list="logic.tabs" active-name="type" />
       </ui-sticky>
       <!-- 搜索条件 -->
 
       <div v-if="summary">
-        <DappDiscoversSearch :data="getFilter(summary)" :keys="key"/>
+        <DappDiscoversSearch :data="getFilter(summary)" :keys="key" />
       </div>
       <!-- 列表内容 -->
-      <div class="py-8" v-if="list.length > 0">
+      <div v-if="list.length > 0" class="py-8">
         <div v-if="query.type === logic.TabTypes.ended" class="overflow-x-scroll showX">
           <div class="w-315">
-            <DappDiscoversEndlist @changeSort="changeSort" :params="params" class="px-4" :list="list"></DappDiscoversEndlist>
+            <DappDiscoversEndlist :params="params" class="px-4" :list="list" @change-sort="changeSort" />
           </div>
         </div>
         <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DappDiscoversList v-for="(item, index) in list" :key='index' :status="params.status" :data="item"/>
+          <DappDiscoversList v-for="(item, index) in list" :key="index" :status="params.status" :data="item" />
         </div>
       </div>
       <div v-else-if="!loading">
-        <ui-empty class="pb-3"/>
+        <ui-empty class="pb-3" />
         <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">{{ i18n.address.noData }}</p>
       </div>
     </div>
     <div v-if="list?.length>0 && resultNumber>=params.page_size && resultNumber <= list?.length" class="more" @click="getMore">{{ i18n.home.loadingMore }}</div>
-    <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0"/>
+    <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0" />
   </div>
 </template>
 

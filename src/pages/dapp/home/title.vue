@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-import {getUrl} from "src/logic/dapp";
+import { getUrl } from "src/logic/dapp";
 
 defineProps({
   title: {
     type: String,
-    default: () => '',
+    default: () => "",
   },
   status: {
     type: String,
-    default: () => ''
+    default: () => "",
   },
   type: {
     type: Boolean,
     default: () => true,
-  }
-})
+  },
+});
 
 </script>
 <template>
@@ -23,7 +23,7 @@ defineProps({
     <div class="flex items-center">
       <v-router :href="getUrl(status, type)" target="_blank">
         <span class="text-14px18px text-global-darkblue font-kdFang">More</span>
-        <IconFont class="text-global-darkblue ml-0.5" size="12" type="icon-rightNo"/>
+        <IconFont class="text-global-darkblue ml-0.5" size="12" type="icon-rightNo" />
       </v-router>
     </div>
   </div>

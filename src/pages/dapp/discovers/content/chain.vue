@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import {ElOption, ElSelect} from 'element-plus';
-import {useRouter} from "vue-router";
-import {getParam} from "src/utils/router";
+import { ElOption, ElSelect } from "element-plus";
+import { useRouter } from "vue-router";
+import { getParam } from "src/utils/router";
 import I18n from "src/utils/i18n";
-import {ref, computed, onMounted} from "vue";
+import { computed, onMounted, ref } from "vue";
 
 // 引入 use state
-import {stateAlias, setInject} from "src/utils/use/state";
+import { setInject, stateAlias } from "src/utils/use/state";
 import _ from "lodash";
-import {createHref} from "src/plugins/router/pack";
+import { createHref } from "src/plugins/router/pack";
 
 const props = defineProps({
   title: {
     type: String,
-    default: () => '',
+    default: () => "",
   },
   chainData: {
     type: Array,
@@ -21,13 +21,13 @@ const props = defineProps({
   },
   href: {
     type: String,
-    default: () => '',
+    default: () => "",
   },
   name: {
     type: String,
-    default: () => '',
-  }
-})
+    default: () => "",
+  },
+});
 
 const router = useRouter();
 
@@ -38,12 +38,12 @@ const onChangeParam = setInject(stateAlias.ui.tab);
 
 const allValue = "All";
 
-const list = computed(function () {
+const list = computed(() => {
   // @ts-ignore
   const array: string[] = props.chainData ? [allValue].concat(props.chainData) : [allValue];
   const data: any[] = [];
   const query = getParam<object>();
-  array.forEach(function (value: string) {
+  array.forEach((value: string) => {
     data.push({
       value,
       [props.name]: value,
@@ -52,18 +52,18 @@ const list = computed(function () {
         query: {
           ...query,
           [props.name]: value,
-        }
-      }
-    })
+        },
+      },
+    });
   });
   return data;
-})
+});
 
-onMounted(function () {
+onMounted(() => {
   routerParam.value = getParam<string>(props.name) || allValue;
-})
+});
 
-const change = _.debounce(async function (value: string) {
+const change = _.debounce(async(value: string) => {
   const query = { ...getParam<object>(), [props.name]: value };
   const url = createHref(props.href, query);
   await router.push(url);
@@ -79,9 +79,11 @@ const change = _.debounce(async function (value: string) {
       <div class="flex items-center flex-1 w-full md:w-25 h-8 ml-2 md:ml-4">
         <div class="w-full">
           <client-only class="flex items-center justify-between">
-            <el-select v-model="routerParam" :popper-append-to-body="false" class="projectMining flex-1 select"
-                       size="small" @change="change">
-              <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.value"></el-option>
+            <el-select
+              v-model="routerParam" :popper-append-to-body="false" class="projectMining flex-1 select"
+              size="small" @change="change"
+            >
+              <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.value" />
             </el-select>
           </client-only>
         </div>

@@ -5,22 +5,22 @@
  */
 
 import I18n from "src/utils/i18n";
-import {getEnv} from "src/config/";
-import {ElDialog, ElTabs, ElTabPane} from "element-plus";
+import { getEnv } from "src/config/";
+import { ElDialog, ElTabPane, ElTabs } from "element-plus";
 import {
-  visible,
   FlagStatus,
-  showLogin,
-  switchStatus,
-  showRegister,
   emailForget,
-  mobileForget
+  mobileForget,
+  showLogin,
+  showRegister,
+  switchStatus,
+  visible,
 } from "src/logic/user/login";
 
 const i18n = I18n();
 const env = getEnv();
 
-const handleClose = function (next: () => void) {
+const handleClose = function(next: () => void) {
   return next();
 };
 
@@ -31,7 +31,7 @@ const handleClose = function (next: () => void) {
     <div>
       <div class="text-center mb-6">
         <div class="inline-block w-37.5">
-          <ui-image :src="`${env.VITE_oss}/nav/logoJpg.png`" fit="none"/>
+          <ui-image :src="`${env.VITE_oss}/nav/logoJpg.png`" fit="none" />
         </div>
       </div>
       <!--登录-->
@@ -103,4 +103,3 @@ const handleClose = function (next: () => void) {
     </div>
   </el-dialog>
 </template>
-

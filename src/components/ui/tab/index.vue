@@ -7,21 +7,22 @@
 import * as console from "src/plugins/log/";
 import DBList from "@fengqiaogang/dblist";
 import safeGet from "@fengqiaogang/safe-get";
-import {useRoute, useRouter} from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { createHref } from "src/plugins/router/pack";
-import {isFunction, toInteger, uuid} from "src/utils";
-import {ElOption, ElScrollbar, ElSelect} from "element-plus";
-import { stateAlias, setInject } from "src/utils/use/state";
-import {computed, onMounted, PropType, ref, toRaw, watch} from "vue";
-import {CallbackList, Item, makeLink, Trigger, TriggerValue} from "src/logic/ui/tab";
-
+import { isFunction, toInteger, uuid } from "src/utils";
+import { ElOption, ElScrollbar, ElSelect } from "element-plus";
+import { setInject, stateAlias } from "src/utils/use/state";
+import type { PropType } from "vue";
+import { computed, onMounted, ref, toRaw, watch } from "vue";
+import type { CallbackList, Item } from "src/logic/ui/tab";
+import { Trigger, TriggerValue, makeLink } from "src/logic/ui/tab";
 
 const $route = useRoute();
 const $router = useRouter();
 const key = ref<string>(uuid());
 const triggerTabChange = setInject(stateAlias.ui.tab);
 const active = ref<string | number>("");
-const emitEvent = defineEmits(['change'])
+const emitEvent = defineEmits(["change"]);
 
 const props = defineProps({
   /**
@@ -34,7 +35,7 @@ const props = defineProps({
     default: () => "id",
   },
   def: {
-    type: String
+    type: String,
   },
   list: {
     required: true,
@@ -47,13 +48,11 @@ const props = defineProps({
   },
   split: {
     type: Number,
-    default: () => 0
-  }
+    default: () => 0,
+  },
 });
 
-
-
-const getList = function (): Item[] {
+const getList = function(): Item[] {
   if (props.list) {
     if (isFunction(props.list)) {
       try {
@@ -67,20 +66,20 @@ const getList = function (): Item[] {
     return props.list as Item[];
   }
   return [];
-}
+};
 
 const tabList = computed<Item[]>(getList);
 
-const selectData = function (value: string | number, list = getList()): Item {
+const selectData = function(value: string | number, list = getList()): Item {
   const db = new DBList(list, props.activeName);
   const where: Array<string | number> = [value];
   if (/^[\d]+$/.test(value as string)) {
     where.push(toInteger(value));
   }
   return db.selectOne<Item>({ [props.activeName]: where });
-}
+};
 
-const getActiveValue = function () {
+const getActiveValue = function() {
   let item: Item | undefined = void 0;
   const value = safeGet<string>(toRaw($route.query), props.activeName);
   if (value) {
@@ -99,9 +98,9 @@ const getActiveValue = function () {
   if (item) {
     return safeGet<string>(item, props.activeName);
   }
-}
+};
 
-const onChange = function (value = getActiveValue(), important: boolean = false) {
+const onChange = function(value = getActiveValue(), important = false) {
   if (value && (active.value !== value || important)) {
     active.value = value;
     const data = selectData(value);
@@ -111,32 +110,32 @@ const onChange = function (value = getActiveValue(), important: boolean = false)
       triggerTabChange(query);
     }
   }
-}
+};
 
-const onClick = function (data: Item) {
+const onClick = function(data: Item) {
   // 只处理为 click 模式的切换
   if (props.trigger === Trigger.click) {
     return onChange(safeGet<string>(data, props.activeName));
   }
-}
+};
 
-const className = function (data: Item): string {
+const className = function(data: Item): string {
   let value: string = data.className ? data.className : "";
   if (safeGet<string>(data, props.activeName) === active.value) {
     value = value ? `${value} active` : "active";
   }
   return value;
-}
+};
 
 // 判断是否选中 select 中的数据
-const isSelectActive = function () {
-  const array = getList()
+const isSelectActive = function() {
+  const array = getList();
   const list = array.slice(props.split);
   const item = selectData(active.value, list);
   return !!item;
-}
+};
 
-const onChangeSelect = async function (value: string) {
+const onChangeSelect = async function(value: string) {
   if (props.trigger === Trigger.router) {
     const item = selectData(value);
     const href = makeLink(props.activeName, item, props.trigger);
@@ -144,11 +143,11 @@ const onChangeSelect = async function (value: string) {
     await $router.push(url);
   }
   onChange(value, true);
-}
+};
 
-onMounted(function () {
+onMounted(() => {
   onChange();
-  watch($route, function () {
+  watch($route, () => {
     onChange();
   });
 });
@@ -156,28 +155,28 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="ui-tab max-w-full" :class="{'overflow-hidden': split < 1, 'w-full': split > 0}" v-show="tabList.length > 0">
-    <div class="tab-wrap" v-if="split > 0" :key="key">
+  <div v-show="tabList.length > 0" class="ui-tab max-w-full" :class="{'overflow-hidden': split < 1, 'w-full': split > 0}">
+    <div v-if="split > 0" :key="key" class="tab-wrap">
       <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
-        <v-router v-show="index < props.split" :href="makeLink(activeName, item, trigger)" @click="onClick(item)" class="inline-block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]">
+        <v-router v-show="index < props.split" :href="makeLink(activeName, item, trigger)" class="inline-block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]" @click="onClick(item)">
           <slot name="default" :data="item">
             <div v-if="item.logo" class="flex items-center">
-              <IconFont class="mr-1.5" :type="item.logo" size="16"/>
+              <IconFont class="mr-1.5" :type="item.logo" size="16" />
               <span class="text-18-24 font-m">{{ item.name }}</span>
             </div>
             <span v-else class="text-18-24 font-m">{{ item.name }}</span>
           </slot>
         </v-router>
       </template>
-      <client-only class="tab-item inline-block text-18-24 font-m" style="padding: 0" v-if="split < tabList.length">
-        <el-select placeholder="other" class="rounded-kd6px w-30 md:w-40 active" v-if="isSelectActive()" v-model="active" @change="onChangeSelect">
+      <client-only v-if="split < tabList.length" class="tab-item inline-block text-18-24 font-m" style="padding: 0">
+        <el-select v-if="isSelectActive()" v-model="active" placeholder="other" class="rounded-kd6px w-30 md:w-40 active" @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
-            <el-option v-if="index >= split" :label="item.name" :value="item[activeName]"></el-option>
+            <el-option v-if="index >= split" :label="item.name" :value="item[activeName]" />
           </template>
         </el-select>
-        <el-select placeholder="other" class="rounded-kd6px w-30 md:w-40" v-else @change="onChangeSelect">
+        <el-select v-else placeholder="other" class="rounded-kd6px w-30 md:w-40" @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
-            <el-option v-if="index >= split" :label="item.name" :value="item[activeName]"></el-option>
+            <el-option v-if="index >= split" :label="item.name" :value="item[activeName]" />
           </template>
         </el-select>
       </client-only>
@@ -185,10 +184,10 @@ onMounted(function () {
     <el-scrollbar v-else>
       <div class="flex tab-wrap">
         <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
-          <v-router :href="makeLink(activeName, item, trigger)" @click="onClick(item)" class="block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]">
+          <v-router :href="makeLink(activeName, item, trigger)" class="block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]" @click="onClick(item)">
             <slot name="default" :data="item">
               <div v-if="item.logo" class="flex items-center">
-                <IconFont class="mr-1.5" :type="item.logo" size="16"/>
+                <IconFont class="mr-1.5" :type="item.logo" size="16" />
                 <span class="text-18-24 font-m">{{ item.name }}</span>
               </div>
               <span v-else class="text-18-24 font-m">{{ item.name }}</span>
@@ -199,7 +198,6 @@ onMounted(function () {
     </el-scrollbar>
   </div>
 </template>
-
 
 <style scoped lang="scss">
 /**

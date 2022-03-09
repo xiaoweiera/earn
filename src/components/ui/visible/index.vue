@@ -3,17 +3,17 @@
  * @file 显示与隐藏
  * @auth svon.me@gmail.com
  */
-import {ref} from "vue";
-import {uuid} from "src/utils/";
+import { ref } from "vue";
+import { uuid } from "src/utils/";
 
 const key = ref<string>(`visible-${uuid()}`);
 
 defineProps({
   arrow: {
     type: Boolean,
-    default: () => true
-  }
-})
+    default: () => true,
+  },
+});
 
 </script>
 
@@ -21,11 +21,11 @@ defineProps({
   <div>
     <input :id="key" :name="key" class="hidden visible-input" type="checkbox">
     <label :for="key" class="block select-none visible-label cursor-pointer" :class="{'show-arrow': arrow}">
-      <slot name="label" :id="key"></slot>
-      <IconFont class="arrow-icon hidden" type="icon-arrow-down" size="24"/>
+      <slot :id="key" name="label" />
+      <IconFont class="arrow-icon hidden" type="icon-arrow-down" size="24" />
     </label>
     <div class="visible-content">
-      <slot></slot>
+      <slot />
     </div>
   </div>
 </template>

@@ -4,8 +4,8 @@ const i18n = I18n();
 defineProps({
   value: {
     type: Number || String,
-  }
-})
+  },
+});
 </script>
 <template>
   <div>
@@ -41,7 +41,7 @@ defineProps({
           </div>
         </template>
       </ui-time-countdown>
-     </client-only>
+    </client-only>
   </div>
 </template>
 <style lang="scss" scoped>

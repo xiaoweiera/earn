@@ -3,13 +3,13 @@
 defineProps ({
   title: {
     type: String,
-    default: () => ''
+    default: () => "",
   },
   tips: {
     type: String,
-    default: () => ''
-  }
-})
+    default: () => "",
+  },
+});
 </script>
 <template>
   <div>

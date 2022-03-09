@@ -3,8 +3,8 @@
  * @author svon.me@gmail.com
  */
 
-
-import { getProcess, Process } from "./process";
+import type { Process } from "./process";
+import { getProcess } from "./process";
 
 export { IsSSR, IsNode, IsBrowser } from "./ssr";
 export * from "src/types/env";
@@ -26,29 +26,27 @@ export interface Env extends Process{
 	home: string;
 	appDownload: string;
 	domain: string;
-	google: Google,
-	baidu: Baidu,
+	google: Google;
+	baidu: Baidu;
 }
 
-export const getEnv = function (): Env {
-	const opt = getProcess();
-	const env = {
-		...opt,
-		ApiVersion: "v1",
-		template: "index.html",
-		api: opt.VITE_api, // api 接口域名
-		baidu: {
-			tag: opt.VITE_baiduTag
-		},
-		google: {
-			tag: opt.VITE_googleTag,
-			captcha: opt.VITE_googleCaptcha // 谷歌人机校验 key
-		},
-		domain: opt.VITE_domain,
-		home: `${opt.VITE_domain ? opt.VITE_domain : ""}/`, // 默认首页
-		appDownload: `${opt.VITE_domain ? opt.VITE_domain : ""}/download/`, // 下载页
-	};
-	return env as Env;
-}
-
-
+export const getEnv = function(): Env {
+  const opt = getProcess();
+  const env = {
+    ...opt,
+    ApiVersion: "v1",
+    template: "index.html",
+    api: opt.VITE_api, // api 接口域名
+    baidu: {
+      tag: opt.VITE_baiduTag,
+    },
+    google: {
+      tag: opt.VITE_googleTag,
+      captcha: opt.VITE_googleCaptcha, // 谷歌人机校验 key
+    },
+    domain: opt.VITE_domain,
+    home: `${opt.VITE_domain ? opt.VITE_domain : ""}/`, // 默认首页
+    appDownload: `${opt.VITE_domain ? opt.VITE_domain : ""}/download/`, // 下载页
+  };
+  return env as Env;
+};

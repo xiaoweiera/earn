@@ -21,7 +21,7 @@ const uuid = function(value?: any): string {
     return uuidV4();
   }
   const text = create();
-  return text.replace(/-/g, '');
-}
+  return text.replace(/-/g, "");
+};
 
 export default uuid;

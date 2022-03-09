@@ -6,12 +6,12 @@
 
 import API from "src/api/index";
 import I18n from "src/utils/i18n";
-import {computed, ref, toRaw, onMounted} from "vue";
+import { computed, onMounted, ref, toRaw } from "vue";
 import { messageError } from "src/lib/tool";
-import { AreaCode } from "src/types/common/area";
+import type { AreaCode } from "src/types/common/area";
 import * as Common from "src/logic/account/register";
 import { config as routerConfig } from "src/router/config";
-import { ElForm, ElFormItem, ElInput, ElButton, ElSelect, ElOption, ElCheckbox } from "element-plus";
+import { ElButton, ElCheckbox, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from "element-plus";
 
 const i18n = I18n();
 const areaCode = ref<AreaCode[]>([]);
@@ -24,7 +24,7 @@ const formData = Common.createFormData({
 } as any);
 
 // 提交
-const submit = async function () {
+const submit = async function() {
   try {
     await Common.checkValidate(domForm);
   } catch (e) {
@@ -48,9 +48,9 @@ const submit = async function () {
       messageError(i18n.common.message.loginError);
     }
   }
-}
+};
 
-onMounted(async function () {
+onMounted(async() => {
   const api = new API();
   areaCode.value = await api.common.getAreaCodeList();
 });
@@ -59,14 +59,16 @@ onMounted(async function () {
 
 <template>
   <client-only>
-    <el-form size="large" ref="domForm" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
+    <el-form ref="domForm" size="large" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
       <el-form-item prop="mobile">
-        <el-input class="user-mobile-box" v-model="formData.mobile" name="mobile" type="text" :placeholder="i18n.common.placeholder.tel"
-                  autocomplete="off">
+        <el-input
+          v-model="formData.mobile" class="user-mobile-box" name="mobile" type="text" :placeholder="i18n.common.placeholder.tel"
+          autocomplete="off"
+        >
           <template #prepend>
-            <el-select class="w-24" placeholder="Select" v-model="formData.area_code">
+            <el-select v-model="formData.area_code" class="w-24" placeholder="Select">
               <template v-for="item in areaCode" :key="item.phone_code">
-                <el-option :label="item.phone_code" :value="item.phone_code"></el-option>
+                <el-option :label="item.phone_code" :value="item.phone_code" />
               </template>
             </el-select>
           </template>
@@ -74,8 +76,10 @@ onMounted(async function () {
       </el-form-item>
       <!-- 密码 -->
       <el-form-item prop="password">
-        <el-input v-model="formData.password" name="password" type="password"
-                  :placeholder="i18n.common.placeholder.password" show-password autocomplete="off"/>
+        <el-input
+          v-model="formData.password" name="password" type="password"
+          :placeholder="i18n.common.placeholder.password" show-password autocomplete="off"
+        />
       </el-form-item>
       <el-form-item class="mb-0 py-0.5">
         <el-checkbox v-model="formData.checked">

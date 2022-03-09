@@ -1,4 +1,4 @@
 export default {
-  chainAll:'All',
-  chainOther:'Other'
-}
+  chainAll: "All",
+  chainOther: "Other",
+};

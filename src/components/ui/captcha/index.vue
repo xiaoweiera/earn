@@ -4,34 +4,33 @@
  * @author svon.me@gmail.com
  */
 
-import {PropType, onBeforeMount} from "vue";
-import {getEnv} from "src/config/";
-import {isFunction} from "src/utils";
+import type { PropType } from "vue";
+import { onBeforeMount } from "vue";
+import { getEnv } from "src/config/";
+import { isFunction } from "src/utils";
 import I18n from "src/utils/i18n/index";
 import safeGet from "@fengqiaogang/safe-get";
 import window from "src/plugins/browser/window";
 import document from "src/plugins/browser/document";
 
-type Callback = () => void
+type Callback = () => void;
 
-interface GRecaptcha {
-  [key: string]: Function
-}
+type GRecaptcha = Record<string, Function>;
 
 const props = defineProps({
   before: {
-    type: Function as PropType<Callback>
+    type: Function as PropType<Callback>,
   },
   value: {
-    type: String
-  }
+    type: String,
+  },
 });
 
-const emitEvent = defineEmits([ "click" ]);
+const emitEvent = defineEmits(["click"]);
 
-const execute = async function () {
+const execute = async function() {
   const option = {
-    action: "submit"
+    action: "submit",
   };
   const env = getEnv();
   try {
@@ -48,7 +47,7 @@ const execute = async function () {
   }
 };
 
-const onSendCode = async function (e: Event) {
+const onSendCode = async function(e: Event) {
   if (e && e.preventDefault) {
     e.preventDefault();
   }
@@ -60,20 +59,20 @@ const onSendCode = async function (e: Event) {
     if (recaptcha) {
       recaptcha.ready(execute);
     }
-  } catch (e) {
+  } catch (ee) {
     // todo
   }
-}
+};
 
-const text = function () {
+const text = function() {
   if (props.value) {
     return props.value;
   }
   const i18n = I18n();
   return i18n.common.message.verification;
-}
+};
 
-onBeforeMount(function () {
+onBeforeMount(() => {
   const env = getEnv();
   // 人机教验
   if (env.google && env.google.captcha) {

@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import {Details} from "express-useragent";
+import type { Details } from "express-useragent";
 
 export interface UA extends Details {
 	isWechat: boolean;

@@ -6,12 +6,11 @@
 
 import API from "src/api/index";
 import I18n from "src/utils/i18n";
-import {computed, ref, toRaw} from "vue";
+import { computed, ref, toRaw } from "vue";
 import { messageError } from "src/lib/tool";
 import * as Common from "src/logic/account/register";
 import { config as routerConfig } from "src/router/config";
-import { ElForm, ElFormItem, ElInput, ElButton, ElCheckbox } from "element-plus";
-
+import { ElButton, ElCheckbox, ElForm, ElFormItem, ElInput } from "element-plus";
 
 const i18n = I18n();
 const domForm = ref<any>(null);
@@ -23,7 +22,7 @@ const formData = Common.createFormData({
 } as any);
 
 // 提交
-const submit = async function () {
+const submit = async function() {
   try {
     await Common.checkValidate(domForm);
   } catch (e) {
@@ -47,21 +46,25 @@ const submit = async function () {
       messageError(i18n.common.message.loginError);
     }
   }
-}
+};
 
 </script>
 
 <template>
   <client-only>
-    <el-form size="large" ref="domForm" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
+    <el-form ref="domForm" size="large" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
       <el-form-item prop="email">
-        <el-input v-model="formData.email" name="email" type="email" :placeholder="i18n.common.placeholder.email"
-                  autocomplete="off"/>
+        <el-input
+          v-model="formData.email" name="email" type="email" :placeholder="i18n.common.placeholder.email"
+          autocomplete="off"
+        />
       </el-form-item>
       <!-- 密码 -->
       <el-form-item prop="password">
-        <el-input v-model="formData.password" name="password" type="password"
-                  :placeholder="i18n.common.placeholder.password" show-password autocomplete="off"/>
+        <el-input
+          v-model="formData.password" name="password" type="password"
+          :placeholder="i18n.common.placeholder.password" show-password autocomplete="off"
+        />
       </el-form-item>
       <el-form-item class="mb-0 py-0.5">
         <el-checkbox v-model="formData.checked">
@@ -94,4 +97,3 @@ const submit = async function () {
     </el-form>
   </client-only>
 </template>
-

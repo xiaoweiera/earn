@@ -6,7 +6,7 @@ const env = getEnv();
 <template>
   <div class="text-3xl text-center">
     <v-router class="block" :href="env.home">
-      <ui-empty/>
+      <ui-empty />
     </v-router>
   </div>
 </template>

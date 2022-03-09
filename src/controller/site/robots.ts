@@ -4,24 +4,24 @@
  */
 
 import _ from "lodash";
-import {Env} from "src/config";
+import type { Env } from "src/config";
 import { config as routerConfig } from "src/router/config";
 
 const disallow = function(list: string[]): string {
   const arr: string[] = ["User-agent: *"];
-  _.each(list, function(value: string) {
+  _.each(list, (value: string) => {
     arr.push(`Disallow: ${value}`);
   });
   return arr.join("\n");
-}
+};
 
 const allow = function(list: string[]) {
   const arr: string[] = ["User-agent: *"];
-  _.each(list, function(value: string) {
+  _.each(list, (value: string) => {
     arr.push(`Allow: ${value}`);
   });
   return arr.join("\n");
-}
+};
 
 export const robots = function(env: Env) {
   const robots: string[] = [];
@@ -29,7 +29,7 @@ export const robots = function(env: Env) {
   robots.push(disallow([
     env.VITE_staticPath,
     routerConfig.E404,
-    routerConfig.user.index
+    routerConfig.user.index,
   ]));
   robots.push("\n\n");
   // 运行访问的目录
@@ -37,4 +37,4 @@ export const robots = function(env: Env) {
   robots.push("\n");
   robots.push(`Sitemap: ${env.VITE_domain ? env.VITE_domain : ""}/sitemap.xml`);
   return robots.join("");
-}
+};

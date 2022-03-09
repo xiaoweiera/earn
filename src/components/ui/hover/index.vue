@@ -4,32 +4,32 @@ import { ElPopover } from "element-plus";
 defineProps({
   width: {
     type: [Number, String],
-    default: "fit-content"
+    default: "fit-content",
   },
   placement: {
     type: String,
-    default: "bottom"
+    default: "bottom",
   },
   trigger: {
     type: String,
-    default: "hover"
-  }
-})
+    default: "hover",
+  },
+});
 </script>
 
 <template>
   <client-only>
     <template #note>
-      <slot name="label"></slot>
+      <slot name="label" />
     </template>
     <el-popover :placement="placement" :trigger="trigger" :width="width" popper-class="ui-hover">
       <template #reference>
         <div>
-          <slot name="label"></slot>
+          <slot name="label" />
         </div>
       </template>
       <div>
-        <slot name="content"></slot>
+        <slot name="content" />
       </div>
     </el-popover>
   </client-only>

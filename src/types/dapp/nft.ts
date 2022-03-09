@@ -5,22 +5,22 @@ export enum nftStatus {
 }
 
 export enum nftSort {
-  asc = "asc",   // 升序
+  asc = "asc", // 升序
   desc = "desc", // 降序
 }
 
 export enum ProjectType {
   dApp = "dapp",
-  ad = "ad"
+  ad = "ad",
 }
 export interface nftQuery {
   page?: number;
   page_size?: number;
-  chain?: string;    // 公链
+  chain?: string; // 公链
   category?: string; // 类型
-  query?: string; //搜索关键词
+  query?: string; // 搜索关键词
   status?: nftStatus;
-  sort_field?: string;  // 排序字段
+  sort_field?: string; // 排序字段
   sort_type?: nftSort;
 }
 

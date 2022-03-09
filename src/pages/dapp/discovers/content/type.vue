@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {Item, CallbackList} from "src/logic/ui/tab";
-import {PropType} from "vue";
+import type { CallbackList, Item } from "src/logic/ui/tab";
+import type { PropType } from "vue";
 
 defineProps({
   title: {
     type: String,
-    default: () => '',
+    default: () => "",
   },
   list: {
     type: [Function, Array] as PropType<Item[] | CallbackList>,
@@ -17,22 +17,21 @@ defineProps({
   },
   split: {
     type: Number,
-    default: () => 4
+    default: () => 4,
   },
   titleWidth: {
     type: String,
-    default: () => ''
-  }
+    default: () => "",
+  },
 });
-
 
 </script>
 <template>
   <div>
     <div class="flex items-center">
-      <div :class="titleWidth" class="text-14-18 text-global-highTitle text-opacity-65 mr-4" v-if="title">{{title}}</div>
+      <div v-if="title" :class="titleWidth" class="text-14-18 text-global-highTitle text-opacity-65 mr-4">{{ title }}</div>
       <div class="flex-1 is-tab">
-        <ui-tab :list="list" :active-name="name" :split="split"></ui-tab>
+        <ui-tab :list="list" :active-name="name" :split="split" />
       </div>
     </div>
   </div>

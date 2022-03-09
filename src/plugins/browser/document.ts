@@ -5,39 +5,37 @@
 
 import { IsSSR } from "src/config/ssr";
 
-interface Document {
-	[key: string]: any;
-}
+type Document = Record<string, any>;
 
 let doc: Document = {};
 
 if (IsSSR()) {
-	doc = {
-		documentElement: {
-			clientHeight: 600,
-			clientWidth: 1200,
-			scrollTop: 0
-		},
-		scrollingElement: {
-			scrollTop: 0
-		},
-		body: {
-			scrollTop: 0,
-			appendChild: function() {},
-			removeChild: function() {}
-		},
-		execCommand: function() {},
-		querySelector: function() {
-		},
-		createElement: function() {
-		}
-	}
+  doc = {
+    documentElement: {
+      clientHeight: 600,
+      clientWidth: 1200,
+      scrollTop: 0,
+    },
+    scrollingElement: {
+      scrollTop: 0,
+    },
+    body: {
+      scrollTop: 0,
+      appendChild() {},
+      removeChild() {},
+    },
+    execCommand() {},
+    querySelector() {
+    },
+    createElement() {
+    },
+  };
 } else {
-	try {
-		doc = document;
-	} catch (e) {
+  try {
+    doc = document;
+  } catch (e) {
 
-	}
+  }
 }
 
-export default doc;
+export default { ...doc };

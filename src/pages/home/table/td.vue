@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import {ref, onMounted, PropType} from 'vue'
-import {toNumberCashFormat} from 'src/utils/convert/to'
-import {getData} from "src/logic/home";
-import {getUpDownColor,dataToTimestamp,getSaveNumber} from "src/lib/tool";
-import {detail} from "src/types/home";
+import type { PropType } from "vue";
+import { onMounted, ref } from "vue";
+import { toNumberCashFormat } from "src/utils/convert/to";
+import { getData } from "src/logic/home";
+import { dataToTimestamp, getSaveNumber, getUpDownColor } from "src/lib/tool";
+import type { detail } from "src/types/home";
 import * as alias from "src/utils/root/alias";
-import {getValue} from "src/utils/root/data";
-import {SiteConfig} from "src/types/common/chain";
-import {getDateMDY} from "src/utils";
+import { getValue } from "src/utils/root/data";
+import type { SiteConfig } from "src/types/common/chain";
+import { getDateMDY } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 // 公链配置
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
@@ -16,78 +17,78 @@ const props = defineProps({
   data: Object,
   typeName: {
     type: String,
-    default: () => ''
+    default: () => "",
   },
   type: {
     type: String,
-    default: () => 'data'
-  }
-})
-const chainIcon = ['chains']  //icon类
-const iconHref = ['tge_platform'] //icon + href
-const starNumber = ['overall_score'] //星星 + number
-const txt = ['categories'] //txt
+    default: () => "data",
+  },
+});
+const chainIcon = ["chains"]; // icon类
+const iconHref = ["tge_platform"]; // icon + href
+const starNumber = ["overall_score"]; // 星星 + number
+const txt = ["categories"]; // txt
 const numberPrice = [
-  'current_price',
-  'ido_price',
-  'balance_24h',
-  'balance_7d',
-  'volume_24h',
-  'volume_7d',
-  'ido_fundraising_goal',//Total Raised
-  'mcap'// MarketCap-
-] //$number
+  "current_price",
+  "ido_price",
+  "balance_24h",
+  "balance_7d",
+  "volume_24h",
+  "volume_7d",
+  "ido_fundraising_goal", // Total Raised
+  "mcap", // MarketCap-
+]; // $number
 const chainNumber = [
-  'floor_price',//Floor price
-  'mint_price',//Mint price
-] //chain + number
-const numberUnit = ['ido_sale_amount'] //number + 单位 --- Tokens for Sale    ido_symbol
-const numbers = ['owners', 'assets', 'mcap_tvl']//-- Owners Assets MCap/TVL
-const numberChange = ['users_24h', 'users_7d', 'tvl']//User/Change   TVL/Change
-const lever = ['ath_since_ido', 'current_roi_usd'] //number + x  ATH Since IDO   Current ROI USD
-const timeType = ['ido_end_at','mint_start_at'] //time
+  "floor_price", // Floor price
+  "mint_price", // Mint price
+]; // chain + number
+const numberUnit = ["ido_sale_amount"]; // number + 单位 --- Tokens for Sale    ido_symbol
+const numbers = ["owners", "assets", "mcap_tvl"];// -- Owners Assets MCap/TVL
+const numberChange = ["users_24h", "users_7d", "tvl"];// User/Change   TVL/Change
+const lever = ["ath_since_ido", "current_roi_usd"]; // number + x  ATH Since IDO   Current ROI USD
+const timeType = ["ido_end_at", "mint_start_at"]; // time
 
-const typeDom = ref('')// dom类型
-const domData = ref() //dom数据
+const typeDom = ref("");// dom类型
+const domData = ref(); // dom数据
 const getDom = () => {
-  const name: string = props.typeName
+  const name: string = props.typeName;
   if (chainIcon.includes(name)) {
-    return 'chainIcon'
+    return "chainIcon";
   } else if (iconHref.includes(name)) {
-    return 'iconHref'
+    return "iconHref";
   } else if (starNumber.includes(name)) {
-    return 'starNumber'
+    return "starNumber";
   } else if (txt.includes(name)) {
-    return 'txt'
+    return "txt";
   } else if (numberPrice.includes(name)) {
-    return 'numberPrice'
+    return "numberPrice";
   } else if (chainNumber.includes(name)) {
-    return 'chainNumber'
+    return "chainNumber";
   } else if (numberUnit.includes(name)) {
-    return 'numberUnit'
+    return "numberUnit";
   } else if (numbers.includes(name)) {
-    return 'numbers'
+    return "numbers";
   } else if (numberChange.includes(name)) {
-    return 'numberChange'
+    return "numberChange";
   } else if (lever.includes(name)) {
-    return 'lever'
+    return "lever";
   } else if (timeType.includes(name)) {
-    return 'timeType'
+    return "timeType";
   } else {
-    return ''
+    return "";
   }
-}
+};
 onMounted(() => {
-  typeDom.value = getDom()
-  domData.value = getData(props.typeName, props.data)
-})
+  typeDom.value = getDom();
+  domData.value = getData(props.typeName, props.data);
+});
 
 </script>
 <template>
   <div v-if="data">
     <!--Name-->
     <div v-if="(typeName==='name' && !info ) || typeName==='name' && safeGet(info,'show_type') ==='data'" class="flex-center  max-w-28 whitespace-nowrap">
-      <ui-image :class="info?'min-w-8 min-h-8 w-8 h-8':'min-w-6 min-h-6 w-6 h-6'"  class="rounded-full" :src="safeGet(data,'logo')"/>
+      <ui-image :class="info?'min-w-8 min-h-8 w-8 h-8':'min-w-6 min-h-6 w-6 h-6'" class="rounded-full" :src="safeGet(data,'logo')" />
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt   max-w-28 whitespace-nowrap">{{ data['name'] }}</div>
         <div class="nameTag text-number  text-left line-height-no">{{ data['symbol'] }}</div>
@@ -95,11 +96,11 @@ onMounted(() => {
     </div>
     <!--NameDes-->
     <div v-else-if="typeName==='name' && (info && safeGet(info,'show_type') ==='desc')" class="flex-center short min-w-140">
-      <ui-image class="w-8 h-8 md:w-12 md:h-12 rounded-kd6px" :src="data.logo"/>
-      <div  class="ml-3 short">
+      <ui-image class="w-8 h-8 md:w-12 md:h-12 rounded-kd6px" :src="data.logo" />
+      <div class="ml-3 short">
         <div class="nameNameDes text-number line-height-no flex-center">
           <span>{{ data['name'] }}</span>
-          <IconFont v-if="data.chain" size="16" :type="safeGet(config,`chain.${data.chain}.logo`)"/>
+          <IconFont v-if="data.chain" size="16" :type="safeGet(config,`chain.${data.chain}.logo`)" />
         </div>
         <div class="nameDes md:mt-1.5 text-number line-height-no w-130  short text-left">{{ data['description'] }}</div>
       </div>
@@ -107,14 +108,14 @@ onMounted(() => {
     <!--chainIcon-->
     <div v-else-if="typeDom==='chainIcon'">
       <div v-if="data['chains']?.length>0 && config.chain[data.chain]">
-        <IconFont size="16" :type="config.chain[data.chain]?.logo"/>
+        <IconFont size="16" :type="config.chain[data.chain]?.logo" />
       </div>
       <div v-else class="numberDefault text-number text-center">N/A</div>
     </div>
     <!--    iconHref  tge_platform-->
     <div v-else-if="typeDom==='iconHref'" class="flex-center justify-right justify-center">
       <div v-if="domData && safeGet(config,`tge_platform.${domData}`)" class="w-full flex items-center justify-center">
-        <IconFont v-if="config"  size="16" :type="safeGet(config,`tge_platform.${domData}.logo`)"/>
+        <IconFont v-if="config" size="16" :type="safeGet(config,`tge_platform.${domData}.logo`)" />
         <div class="link text-number">{{ domData }}</div>
       </div>
       <div v-else class="numberDefault text-number text-center">Not Set</div>
@@ -122,7 +123,7 @@ onMounted(() => {
     <!--starNumber overall_score-->
     <div v-else-if="typeDom==='starNumber'" class="flex-center justify-center">
       <div v-if="domData || domData===0" class="w-full flex items-center justify-center">
-        <IconFont size="12" type="icon-star"/>
+        <IconFont size="12" type="icon-star" />
         <span class="star-txt text-number">{{ domData?getSaveNumber(domData,1):0 }}</span>
       </div>
       <div v-else class="numberDefault text-number text-center ">Not Set</div>
@@ -135,7 +136,7 @@ onMounted(() => {
     </div>
     <!--chainNumber-->
     <div v-else-if="typeDom==='chainNumber'" class="flex-center justify-center">
-      <IconFont size="16" :type="safeGet(config,`chain.${data.chain}.logo`)"/>
+      <IconFont size="16" :type="safeGet(config,`chain.${data.chain}.logo`)" />
       <span class="numberDefault text-number ml-1">{{ domData?domData:'Not Set' }}</span>
     </div>
     <!--numberUnit-->
@@ -151,8 +152,8 @@ onMounted(() => {
     <div v-else-if="typeDom==='numberChange'">
       <div class="numberDefault text-number text-center">{{ toNumberCashFormat(domData[0], '', '', 'N/A') }}</div>
       <div v-if="domData[1]>0 || domData[1]<0" class="flex-center  justify-center">
-        <IconFont size="8" :type="domData[1]>0?'icon-zheng':'icon-fu'"/>
-        <span  :class="getUpDownColor(domData[1])" class="numberChange text-number ml-1">{{ toNumberCashFormat(domData[1], '', '', '0') }}%</span>
+        <IconFont size="8" :type="domData[1]>0?'icon-zheng':'icon-fu'" />
+        <span :class="getUpDownColor(domData[1])" class="numberChange text-number ml-1">{{ toNumberCashFormat(domData[1], '', '', '0') }}%</span>
       </div>
       <div v-else-if="domData[1]===0" class="numberDefault text-number">0</div>
     </div>

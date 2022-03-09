@@ -4,9 +4,9 @@
  * @author svon.me@gmail.com
  */
 
-import {PropType} from "vue";
+import type { PropType } from "vue";
 import { toInteger } from "src/utils";
-import { MenuItem } from "src/types/menu/";
+import type { MenuItem } from "src/types/menu/";
 
 defineProps({
   list: {
@@ -15,7 +15,7 @@ defineProps({
   },
   sub: {
     type: String,
-  }
+  },
 });
 </script>
 
@@ -35,9 +35,9 @@ defineProps({
         </div>
       </div>
       <div class="extend ml-5 h-full">
-        <div class='hidden md:block h-full' v-if="sub">
+        <div v-if="sub" class="hidden md:block h-full">
           <client-only>
-            <component :is="sub"></component>
+            <component :is="sub" />
           </client-only>
         </div>
       </div>

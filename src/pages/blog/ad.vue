@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import Item from "./item.vue";
 import { onMounted } from "vue";
 import { Model } from "src/logic/blog";
-import { BlogData, AdData } from "src/types/blog/";
-import {createRef, onLoadRef} from "src/utils/ssr/ref";
+import type { AdData, BlogData } from "src/types/blog/";
+import { createRef, onLoadRef } from "src/utils/ssr/ref";
+import Item from "./item.vue";
 
 // 置顶数据
 const topList = createRef<BlogData[]>("API.blog.getTopList", []);
 const adList = createRef<AdData[]>("API.blog.ads", []);
 
-
-onMounted(function () {
+onMounted(() => {
   const api = new Model();
   onLoadRef(topList, api.getTopList);
   onLoadRef(adList, "API.blog.ads");
@@ -24,7 +23,7 @@ onMounted(function () {
         <ui-banner class="w-full h-full" :list="adList">
           <template #item="scope">
             <v-router class="block h-full" :href="scope.data.url" target="_blank">
-              <ui-image class="h-full" :src="scope.data.image" fit="cover"/>
+              <ui-image class="h-full" :src="scope.data.image" fit="cover" />
             </v-router>
           </template>
         </ui-banner>
@@ -34,7 +33,7 @@ onMounted(function () {
     <div class="hot-wrap">
       <!-- 置顶数据 -->
       <template v-for="(value, index) in topList" :key="index">
-        <Item v-if="index < 2" class="hot-content" :data="value" :absolute="true"/>
+        <Item v-if="index < 2" class="hot-content" :data="value" :absolute="true" />
       </template>
     </div>
   </div>

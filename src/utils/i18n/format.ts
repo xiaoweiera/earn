@@ -8,9 +8,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
 import template from "src/plugins/template/template";
 
-interface Data {
-	[key: string]: any;
-}
+type Data = Record<string, any>;
 
 export interface I18nFormat {
 	/**
@@ -41,49 +39,49 @@ export interface I18nFormat {
 }
 
 function i18nFormat(lang: string, langList: object = {}) {
-	let current: string = '';
-	const map = new Map<string, object>();
-	for (const key in langList) {
-		const value = safeGet<object>(langList, key);
-		map.set(key, value);
-	}
-	// @ts-ignore
-	this.getLang = () => current;
-	// @ts-ignore
-	this.setLang = (lang: string) => {
-		current = lang;
-		const data = map.get(lang);
-		if (data) {
-			_.each(data, (value: object | string, key: string) => {
-				// @ts-ignore
-				safeSet(this, key, value);
-			});
-		}
-	};
-	// @ts-ignore
-	this.setLang(lang);
-	// @ts-ignore
-	this.template = function (value: string, data: Data): string {
-		return template(value, data);
-	};
-	// @ts-ignore
-	this.part = function (value: string, index?: number, data: Data = {}): string {
-		if (_.isObject(index)) {
-			data = index as Data;
-			index = 0;
-		}
-		index = _.toInteger(index);
-		if (index < 0) {
-			index = 0;
-		}
-		const array: string[] = _.map(_.split(value, '|'), _.trim);
-		const size = _.size(array);
-		if (index >= size) {
-			index = size - 1;
-		}
-		const text = array[index];
-		return this.template(text, data);
-	}
+  let current = "";
+  const map = new Map<string, object>();
+  for (const key in langList) {
+    const value = safeGet<object>(langList, key);
+    map.set(key, value);
+  }
+  // @ts-ignore
+  this.getLang = () => current;
+  // @ts-ignore
+  this.setLang = (lang: string) => {
+    current = lang;
+    const data = map.get(lang);
+    if (data) {
+      _.each(data, (value: object | string, key: string) => {
+        // @ts-ignore
+        safeSet(this, key, value);
+      });
+    }
+  };
+  // @ts-ignore
+  this.setLang(lang);
+  // @ts-ignore
+  this.template = function(value: string, data: Data): string {
+    return template(value, data);
+  };
+  // @ts-ignore
+  this.part = function(value: string, index?: number, data: Data = {}): string {
+    if (_.isObject(index)) {
+      data = index as Data;
+      index = 0;
+    }
+    index = _.toInteger(index);
+    if (index < 0) {
+      index = 0;
+    }
+    const array: string[] = _.map(_.split(value, "|"), _.trim);
+    const size = _.size(array);
+    if (index >= size) {
+      index = size - 1;
+    }
+    const text = array[index];
+    return this.template(text, data);
+  };
 }
 
 export default i18nFormat;

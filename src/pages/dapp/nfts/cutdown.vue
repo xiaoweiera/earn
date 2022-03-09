@@ -4,8 +4,8 @@ const i18n = I18n();
 defineProps({
   value: {
     type: Number || String,
-  }
-})
+  },
+});
 </script>
 <template>
   <div>

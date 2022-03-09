@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import {getHeader} from "src/logic/home";
-import {onMounted, ref} from "vue";
+import { getHeader } from "src/logic/home";
+import { onMounted, ref } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 const props = defineProps({
-  height:{
-    type:String,
-    default: () =>'h-10.5'
+  height: {
+    type: String,
+    default: () => "h-10.5",
   },
-  name:String,
+  name: String,
   params: {
-    type: Object
+    type: Object,
   },
   item: {
     type: Object,
-    required: true
-  }
-})
-//[headerName,headerCss]
-const cssData: any = ref([])
+    required: true,
+  },
+});
+// [headerName,headerCss]
+const cssData: any = ref([]);
 onMounted(() => {
-  cssData.value = getHeader(props.item.key,props.name)
-})
+  cssData.value = getHeader(props.item.key, props.name);
+});
 const sortIcon: any = {
-  'desc': 'icon-shuangxiangjiantou-down',
-  'asc': 'icon-shuangxiangjiantou-up',
-  '': 'icon-shuangxiangjiantou'
-}
+  "desc": "icon-shuangxiangjiantou-down",
+  "asc": "icon-shuangxiangjiantou-up",
+  "": "icon-shuangxiangjiantou",
+};
 const getIcon = () => {
   const params = props.params || {};
   const type = safeGet<string>(params, "sort_type");
@@ -33,17 +33,16 @@ const getIcon = () => {
   if (type && sort_field && sort_field === props.item.key) {
     return sortIcon[type];
   }
-  return 'icon-shuangxiangjiantou';
-}
+  return "icon-shuangxiangjiantou";
+};
 </script>
 <template>
   <div class="flex items-center" :class="`${cssData[1]} ${height}`">
     <div class="relative h-full flex items-center" :class="item.sort?'hand':''">
-      <IconFont v-if="item.sort && params" class="relative mr-1"  size="14" :type="getIcon()"/>
+      <IconFont v-if="item.sort && params" class="relative mr-1" size="14" :type="getIcon()" />
       <span>{{ cssData[0] }}</span>
-      <div :class="item.key===params?.sort_field?'sort-border':''"></div>
+      <div :class="item.key===params?.sort_field?'sort-border':''" />
     </div>
-
   </div>
 </template>
 <style scoped lang="scss">

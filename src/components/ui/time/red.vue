@@ -1,9 +1,9 @@
 <script lang="ts">
 export default {
   props: {
-    value: [String, Number]
-  }
-}
+    value: [String, Number],
+  },
+};
 </script>
 
 <template>

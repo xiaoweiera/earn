@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DappDiscoversCutdown from '../cutdown.vue'
 import I18n from "src/utils/i18n";
+import DappDiscoversCutdown from "../cutdown.vue";
 
 defineProps({
   data: {
@@ -8,15 +8,15 @@ defineProps({
   },
   status: {
     type: String,
-  }
-})
+  },
+});
 const i18n = I18n();
 </script>
 <template>
   <div v-if="data">
     <div class="w-full h-15.5 flex justify-between items-center">
       <div>
-        <DappDiscoversCutdown :value="status === 'ongoing' ? data.ido_end_at : data.ido_start_at"></DappDiscoversCutdown>
+        <DappDiscoversCutdown :value="status === 'ongoing' ? data.ido_end_at : data.ido_start_at" />
       </div>
       <div>
         <div class="min-w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center">

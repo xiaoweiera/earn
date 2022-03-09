@@ -1,29 +1,29 @@
 <script lang="ts" setup>
-import I18n from 'src/utils/i18n/index'
+import I18n from "src/utils/i18n/index";
 
 const i18n = I18n();
 const props = defineProps({
   value: {
-    type: String
-  }
-})
+    type: String,
+  },
+});
 </script>
 
 <template>
   <span v-if="value === 'high'" class="risk high">
-    <IconFont class="text-global-white" size="14" type="icon-gaofengxian"/>
+    <IconFont class="text-global-white" size="14" type="icon-gaofengxian" />
     <span class="text-12-14 ml-0.5 font-kdFang">{{ i18n.common.risk.high }}</span>
   </span>
   <span v-else-if="value === 'medium'" class="risk medium">
-      <IconFont size="14" type="icon-zhongfengxian"/>
-      <span class="text-12-14 ml-0.5 font-kdFang">{{ i18n.common.risk.medium }}</span>
+    <IconFont size="14" type="icon-zhongfengxian" />
+    <span class="text-12-14 ml-0.5 font-kdFang">{{ i18n.common.risk.medium }}</span>
   </span>
   <span v-else-if="value === 'low'" class="risk low">
-    <IconFont size="14" type="icon-difengxian"/>
+    <IconFont size="14" type="icon-difengxian" />
     <span class="text-12-14 ml-0.5 font-kdFang">{{ i18n.common.risk.low }}</span>
   </span>
   <span v-else-if="value === 'unknown'" class="risk unknown">
-    <IconFont size="14" type="icon-weizhi"/>
+    <IconFont size="14" type="icon-weizhi" />
     <span class="text-12-14 ml-0.5 font-kdFang">{{ i18n.common.risk.unknown }}</span>
   </span>
 </template>

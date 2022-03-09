@@ -23,7 +23,7 @@ export interface BlogData {
 
 export interface BlogDetail extends BlogData{
 	body: string; // 博客内容
-	group: BlogTab, // 博客分组
+	group: BlogTab; // 博客分组
 	label: string[]; // 分类标签
 	relevant: BlogData[]; // 推荐
 }
@@ -35,5 +35,5 @@ export interface BlogHostList extends BlogData{
 
 export interface DataMap {
 	date: string;
-	list: BlogHostList[]
+	list: BlogHostList[];
 }

@@ -1,9 +1,8 @@
 
+import type { Kiwi } from "src/utils/i18n/kiwi";
 
-import {Kiwi} from "src/utils/i18n/kiwi";
-
-import { Request, Response as Res, NextFunction } from "express";
-
+import type { Response as Res } from "express";
+import { NextFunction, Request } from "express";
 
 interface Response extends Res{
 	I18n?: Kiwi;

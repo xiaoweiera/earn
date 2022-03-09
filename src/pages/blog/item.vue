@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { PropType } from "vue";
-import { BlogData } from "src/types/blog/";
+import type { PropType } from "vue";
+import type { BlogData } from "src/types/blog/";
 import { makeDetailLink } from "src/logic/blog";
 
 const props = defineProps({
   data: {
     required: true,
-    type: Object as PropType<BlogData>
+    type: Object as PropType<BlogData>,
   },
   absolute: {
     type: Boolean,
-    default: () => false
-  }
+    default: () => false,
+  },
 });
 </script>
 
@@ -19,7 +19,7 @@ const props = defineProps({
   <v-router :href="makeDetailLink(data.id)" target="_blank" class="block blog-item h-32.75" :class="{'relative': absolute}">
     <div class="w-full h-full">
       <div class="equal-content w-full h-full">
-        <ui-image class="w-full h-full" fit="fill" :src="data.cover"/>
+        <ui-image class="w-full h-full" fit="fill" :src="data.cover" />
       </div>
     </div>
     <div :class="{'blog-detail': absolute}">
@@ -29,8 +29,6 @@ const props = defineProps({
     </div>
   </v-router>
 </template>
-
-
 
 <style scoped lang="scss">
 .blog-item {

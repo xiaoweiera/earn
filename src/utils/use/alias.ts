@@ -3,5 +3,5 @@
  */
 
 export const ui = {
-	tab: "ui-tab"
+  tab: "ui-tab",
 };

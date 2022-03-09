@@ -19,8 +19,8 @@ export default {
     contact: "手机号或电子邮件",
     audit: {
       name: "审计公司",
-      url: "公司链接"
-    }
+      url: "公司链接",
+    },
   },
   placeholder: {
     name: "", // 请输入项目名称
@@ -36,21 +36,21 @@ export default {
     contact: "", // 请输入手机号或电子邮箱
     audit: {
       name: "请输入审计公司名称",
-      url: "请输入审计公司链接"
-    }
+      url: "请输入审计公司链接",
+    },
   },
   rules: {
     required: "此项为必填项",
     checkbox: "请选择至少一项",
-    url: "请填写平台链接"
+    url: "请填写平台链接",
   },
   tips: {
-    error: '服务器异常，请稍后重试！',
+    error: "服务器异常，请稍后重试！",
     confirm: "我知道了",
     title: "提交成功",
     content: "运营将在1个工作日内完成审核，请耐心等待。",
     message: `我的项目被 KingData 收录了! 
 https://kingdata.com/dapp/{id} 
 你看看`,
-  }
-}
+  },
+};

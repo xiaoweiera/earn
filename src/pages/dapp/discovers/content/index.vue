@@ -1,44 +1,44 @@
 <script setup lang="ts">
-import DappDiscoversContentHeader from './header.vue';
-import DappDiscoversContentTitle from './title.vue';
-import DappDiscoversContentDec from './dec.vue';
-import DappDiscoversContentPrice from './price.vue';
-import DappDiscoversContentTime from './time.vue';
-import { getNextUrl } from 'src/logic/dapp';
+import { getNextUrl } from "src/logic/dapp";
+import DappDiscoversContentHeader from "./header.vue";
+import DappDiscoversContentTitle from "./title.vue";
+import DappDiscoversContentDec from "./dec.vue";
+import DappDiscoversContentPrice from "./price.vue";
+import DappDiscoversContentTime from "./time.vue";
 defineProps({
   data: {
     type: Object,
   },
   status: {
     type: String,
-  }
-})
+  },
+});
 
 </script>
 
 <template>
   <div>
-    <v-router  target="_blank" :href="data.url">
+    <v-router target="_blank" :href="data.url">
       <!-- 项目图片和tip角标 -->
       <div class="relative h-40">
-        <DappDiscoversContentHeader :data="data"/>
+        <DappDiscoversContentHeader :data="data" />
       </div>
 
       <!-- 项目头像和项目名 -->
       <div class="w-full h-51.25 px-4 absolute top-35.75 left-0 bg-global-white rounded-md">
-        <DappDiscoversContentTitle :data="data"/>
+        <DappDiscoversContentTitle :data="data" />
         <!-- 项目描述 -->
         <div>
-          <DappDiscoversContentDec :data="data"/>
+          <DappDiscoversContentDec :data="data" />
         </div>
         <!-- 项目价格 -->
         <div>
-          <DappDiscoversContentPrice :data="data"/>
+          <DappDiscoversContentPrice :data="data" />
         </div>
 
         <!-- 项目时间 -->
         <div>
-          <DappDiscoversContentTime :status='status' :data="data"/>
+          <DappDiscoversContentTime :status="status" :data="data" />
         </div>
       </div>
     </v-router>

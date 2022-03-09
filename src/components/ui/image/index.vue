@@ -4,7 +4,8 @@
  * @author svon.me@gmail.com
  */
 
-import { PropType, computed, ref, onMounted } from "vue";
+import type { PropType } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 type Fit = "cover" | "contain" | "fill" | "none";
 
@@ -14,23 +15,23 @@ const props = defineProps({
   },
   fit: {
     type: String as PropType<Fit>,
-    default: () => "cover"
+    default: () => "cover",
   },
   rounded: {
-    type: Boolean
-  }
+    type: Boolean,
+  },
 });
 
 const error = ref<boolean>(false);
 
-const value = computed<string>(function () {
+const value = computed<string>(() => {
   if (props.src) {
     return `background-image: url(${props.src})`;
   }
-  return '';
+  return "";
 });
 
-onMounted(function () {
+onMounted(() => {
   if (props.src) {
     const image = new Image();
     image.src = props.src;
@@ -47,7 +48,7 @@ onMounted(function () {
 <template>
   <div class="ui-image overflow-hidden" :class="{'error': error, rounded}">
     <img v-if="src && fit === 'none'" class="" :src="src">
-    <i :class="fit" :style="value"></i>
+    <i :class="fit" :style="value" />
   </div>
 </template>
 <style scoped lang="scss">
@@ -103,4 +104,3 @@ onMounted(function () {
   }
 }
 </style>
-

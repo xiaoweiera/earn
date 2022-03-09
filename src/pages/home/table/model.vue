@@ -1,60 +1,60 @@
 <script setup lang="ts">
-import HomeTableTd from './td.vue'
-import HomeTableHeader from './header.vue'
-import {config} from "src/router/config";
+import { config } from "src/router/config";
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
 import window from "src/plugins/browser/window";
-import {createHref} from "src/plugins/router/pack";
+import { createHref } from "src/plugins/router/pack";
+import HomeTableHeader from "./header.vue";
+import HomeTableTd from "./td.vue";
 const i18n = I18n();
 defineProps({
   data: {
-    type: Object
+    type: Object,
   },
-})
-const toProject=(url:string )=>{
-  if(url){
-    window.open(createHref(url))
+});
+const toProject = (url: string) => {
+  if (url) {
+    window.open(createHref(url));
   }
-}
+};
 </script>
 <template>
   <div class="table-box bg-global-white relative">
     <div class="flex items-center justify-between flex-wrap ">
       <span class="title">{{ data.name }}</span>
       <v-router :href="`${config.homeDetail}?id=${data.id}`" target="_blank" class="flex items-center hand">
-        <span class="more cursor-pointer">{{i18n.home.more}}</span>
-        <IconFont class="text-global-primary ml-0.5" size="12" type="icon-rightNo"/>
+        <span class="more cursor-pointer">{{ i18n.home.more }}</span>
+        <IconFont class="text-global-primary ml-0.5" size="12" type="icon-rightNo" />
       </v-router>
     </div>
-    <div class="gang"></div>
+    <div class="gang" />
     <div class="showX">
       <table class="table-my">
         <thead>
-        <tr class="min-h-5">
-          <td>
-            <div class="text-left w-3.5">#</div>
-          </td>
-          <template v-for="(item,index) in safeGet(data,'table.header')" :key="index">
-            <td class="text-left" v-if="item.key!=='id'">
-              <HomeTableHeader height="h-5" name="Dapp Name" :item="item"/>
+          <tr class="min-h-5">
+            <td>
+              <div class="text-left w-3.5">#</div>
             </td>
-          </template>
-        </tr>
-        </thead>
-        <tbody>
-        <template v-for="(item,index) in safeGet(data,'table.items')" :key="index">
-          <tr class="h-10 md:h-11.5" @click="toProject(item.url)">
-            <td class="number">
-              <div class=" text-left w-3.5">{{ index + 1 }}</div>
-            </td>
-            <template v-for="(itemTwo,index) in safeGet(data,'table.header')" :key="index">
-              <td v-if="itemTwo.key!=='id'">
-                <HomeTableTd :typeName="itemTwo.key" :data="item"/>
+            <template v-for="(item,index) in safeGet(data,'table.header')" :key="index">
+              <td v-if="item.key!=='id'" class="text-left">
+                <HomeTableHeader height="h-5" name="Dapp Name" :item="item" />
               </td>
             </template>
           </tr>
-        </template>
+        </thead>
+        <tbody>
+          <template v-for="(item,index) in safeGet(data,'table.items')" :key="index">
+            <tr class="h-10 md:h-11.5" @click="toProject(item.url)">
+              <td class="number">
+                <div class=" text-left w-3.5">{{ index + 1 }}</div>
+              </td>
+              <template v-for="(itemTwo,index) in safeGet(data,'table.header')" :key="index">
+                <td v-if="itemTwo.key!=='id'">
+                  <HomeTableTd :type-name="itemTwo.key" :data="item" />
+                </td>
+              </template>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>

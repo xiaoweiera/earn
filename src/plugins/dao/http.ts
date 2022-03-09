@@ -4,9 +4,9 @@
  * @description 根据某些场景做一些处理
  */
 
-import { AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig } from "axios";
 import safeGet from "@fengqiaogang/safe-get";
-import {isFunction, isObject} from "src/utils/";
+import { isFunction, isObject } from "src/utils/";
 
 export * from "src/utils/decorate";
 
@@ -15,19 +15,19 @@ export * from "src/utils/decorate";
  * @param status = true / false
  * @description 等于 true 时如果当前环境为未登录状态则会不进行 http 请求, 等于 false 当前请求则不会携带 token
  */
-export const userToken = function (status: boolean = false) {
-	return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
-		const app = descriptor.value;
-		descriptor.value = async function (...args: any[]) {
-			const self = this;
-			const _user = status ? "required" : "none";
-			const [query, callback] = await app.apply(self, args);
-			if (query && isObject(query)) {
-				return [{ ...query, _user }, callback];
-			}
-			return [{ _user }, callback];
-		}
-	};
+export const userToken = function(status = false) {
+  return function(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const app = descriptor.value;
+    descriptor.value = async function(...args: any[]) {
+      const self = this;
+      const _user = status ? "required" : "none";
+      const [query, callback] = await app.apply(self, args);
+      if (query && isObject(query)) {
+        return [{ ...query, _user }, callback];
+      }
+      return [{ _user }, callback];
+    };
+  };
 };
 // 缓存时间(单位秒)
 export enum expire {
@@ -49,43 +49,43 @@ export enum expire {
  * @param expire 缓存时间
  * @param config Axios 配置
  */
-export const get = function (url: string, expire = 0, config: AxiosRequestConfig = {}) {
-	return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
-		const app = descriptor.value;
-		descriptor.value = async function (...args: any[]) {
-			const self: any = this;
-			const [ query = {}, callback ]: [ object, (value?: any) => any ] = await Promise.resolve(app.apply(self, args));
-			const params = { expire, ...query };
-			let result = await self.get(url, { ...config, params });
-			if (callback && isFunction(callback)) {
-				result = await callback(result);
-			}
-			return result;
-		}
-	};
-}
+export const get = function(url: string, expire = 0, config: AxiosRequestConfig = {}) {
+  return function(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const app = descriptor.value;
+    descriptor.value = async function(...args: any[]) {
+      const self: any = this;
+      const [query = {}, callback]: [ object, (value?: any) => any ] = await Promise.resolve(app.apply(self, args));
+      const params = { expire, ...query };
+      let result = await self.get(url, { ...config, params });
+      if (callback && isFunction(callback)) {
+        result = await callback(result);
+      }
+      return result;
+    };
+  };
+};
 /**
  * @file post 请求
  * @param url 请求地址
  * @param expire 缓存时间
  * @param config Axios 配置
  */
-export const post = function (url: string, expire = 0, config: AxiosRequestConfig = {}) {
-	return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
-		const app = descriptor.value;
-		descriptor.value = async function (...args: any[]) {
-			const self: any = this;
-			const [ data = {}, callback ]: [ object, (value?: any) => void ] = await Promise.resolve(app.apply(self, args));
-			const _user = safeGet<string>(data, "_user");
+export const post = function(url: string, expire = 0, config: AxiosRequestConfig = {}) {
+  return function(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const app = descriptor.value;
+    descriptor.value = async function(...args: any[]) {
+      const self: any = this;
+      const [data = {}, callback]: [ object, (value?: any) => void ] = await Promise.resolve(app.apply(self, args));
+      const _user = safeGet<string>(data, "_user");
 
-			const result = await self.post(url, data, {
-				...config,
-				params: { expire, _user }
-			});
-			if (callback && isFunction(callback)) {
-				return callback(result);
-			}
-			return result;
-		}
-	};
-}
+      const result = await self.post(url, data, {
+        ...config,
+        params: { expire, _user },
+      });
+      if (callback && isFunction(callback)) {
+        return callback(result);
+      }
+      return result;
+    };
+  };
+};

@@ -1,9 +1,7 @@
 
-import Url from "url";
+import type Url from "url";
 
-export interface Query {
-	[key: string]: string
-}
+export type Query = Record<string, string>;
 
 export interface Location extends Url.Url{
 }

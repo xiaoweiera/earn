@@ -6,13 +6,13 @@ export enum Status {
 }
 
 export enum Sort {
-	asc = "asc",   // 升序
+	asc = "asc", // 升序
 	desc = "desc", // 降序
 }
 
 export enum ProjectType {
 	dApp = "dapp",
-	ad = "ad"
+	ad = "ad",
 }
 
 export interface Query {
@@ -20,10 +20,10 @@ export interface Query {
 	page_size?: number;
 	query?: string;
 	status?: Status;
-	chain?: string;    // 公链
+	chain?: string; // 公链
 	platform?: string; // 平台
 	category?: string; // 类型
-	sort_field?: string;  // 排序字段
+	sort_field?: string; // 排序字段
 	sort_type?: Sort;
 }
 

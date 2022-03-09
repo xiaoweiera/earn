@@ -3,19 +3,19 @@ defineProps({
   placement: {
     type: String,
     default() {
-      return 'top'
+      return "top";
     },
   },
-})
+});
 </script>
 
 <template>
   <div class="relative  ui-popover z-100 ">
     <div class="cursor-pointer">
-      <slot name="reference"></slot>
+      <slot name="reference" />
     </div>
     <div class="text-global-default z-11 relative   whitespace-pre-wrap placement-box  text-xs" :class="`placement-${placement}`">
-      <slot name="content"></slot>
+      <slot name="content" />
     </div>
   </div>
 </template>

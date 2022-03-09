@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {PropType} from "vue";
-import { MenuItem } from "src/types/menu/";
+import type { PropType } from "vue";
+import type { MenuItem } from "src/types/menu/";
 
 defineProps({
   data: {
     required: true,
     type: Object as PropType<MenuItem>,
-  }
+  },
 });
 
 </script>
@@ -17,7 +17,7 @@ defineProps({
       <div class="label-box text-16-20 font-r">
         <div class="relative z-1">
           <div v-if="data.newTip" class="tip-hot">
-            <IconFont size="8" type="redTip"/>
+            <IconFont size="8" type="redTip" />
           </div>
           <slot name="label">
             <span>{{ data.name }}</span>
@@ -25,7 +25,7 @@ defineProps({
         </div>
       </div>
     </v-router>
-    <slot name="children" :list="data.children"></slot>
+    <slot name="children" :list="data.children" />
   </div>
 </template>
 

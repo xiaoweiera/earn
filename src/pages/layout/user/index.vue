@@ -5,37 +5,37 @@
  */
 
 import I18n from "src/utils/i18n";
-import Dialog from "./dialog.vue";
-import UserMenu from "./menu.vue";
-import {Language} from "src/types/language";
-import {User} from "src/types/common/user";
+import { Language } from "src/types/language";
+import type { User } from "src/types/common/user";
 import window from "src/plugins/browser/window";
-import {createReactive} from "src/utils/ssr/ref";
-import {createHref} from "src/plugins/router/pack";
-import {getEnv, languageKey} from "src/config";
-import {showLogin, showRegister} from "src/logic/user/login";
+import { createReactive } from "src/utils/ssr/ref";
+import { createHref } from "src/plugins/router/pack";
+import { getEnv, languageKey } from "src/config";
+import { showLogin, showRegister } from "src/logic/user/login";
+import UserMenu from "./menu.vue";
+import Dialog from "./dialog.vue";
 
 const env = getEnv();
 const i18n = I18n();
 const user = createReactive<User>("common.user", {} as User);
 
-const reload = function (value: string) {
+const reload = function(value: string) {
   window.location.href = value;
-}
+};
 
-const onSwitch = function () {
+const onSwitch = function() {
   if (i18n.getLang() === Language.en) {
     const href = createHref(window.location.href, {
-      [languageKey]: Language.cn
+      [languageKey]: Language.cn,
     });
     reload(href);
   } else {
     const href = createHref(window.location.href, {
-      [languageKey]: Language.en
+      [languageKey]: Language.en,
     });
     reload(href);
   }
-}
+};
 </script>
 
 <template>
@@ -56,10 +56,10 @@ const onSwitch = function () {
     <!-- 已登录 -->
     <ui-hover v-if="user && user.id" class="flex" placement="bottom-end" trigger="hover">
       <template #label>
-        <IconFont class="flex cursor-pointer" size="22" type="icon-yonghu1"/>
+        <IconFont class="flex cursor-pointer" size="22" type="icon-yonghu1" />
       </template>
       <template #content>
-        <user-menu :user="user"/>
+        <user-menu :user="user" />
       </template>
     </ui-hover>
 
@@ -67,16 +67,18 @@ const onSwitch = function () {
     <div v-else>
       <div class="flex items-center">
         <span class="whitespace-nowrap cursor-pointer" @click.stop.prevent="showLogin">{{ i18n.common.login }}</span>
-        <img :src="`${env.VITE_oss}/nav/dian.png`" alt="" class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block"/>
-        <span class="whitespace-nowrap cursor-pointer hidden md:inline-block"
-              @click.stop.prevent="showRegister">{{ i18n.common.register }}</span>
+        <img :src="`${env.VITE_oss}/nav/dian.png`" alt="" class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block">
+        <span
+          class="whitespace-nowrap cursor-pointer hidden md:inline-block"
+          @click.stop.prevent="showRegister"
+        >{{ i18n.common.register }}</span>
       </div>
       <!--登录、注册、找回密码-->
-      <Dialog/>
+      <Dialog />
     </div>
     <!--钱包-->
     <div class="ml-4 hidden lg:block">
-      <ui-wallet-connect/>
+      <ui-wallet-connect />
     </div>
   </client-only>
 </template>
