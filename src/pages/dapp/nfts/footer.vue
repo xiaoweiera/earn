@@ -24,7 +24,7 @@ defineProps({
       <div class="nft-price h-10 flex justify-between items-center border-b-1 border-global-white border-opacity-15">
         <p class="flex items-center">
           <span class="text-kd12px16px text-global-white text-opacity-65 font-kdFang">{{ i18n.home.nftProject.price }}</span>
-          <span class="text-kd14px20px font-kdBarlow ml-1 font-medium">12{{toNumberFormat(data.mint_price)}}</span>
+          <span class="text-kd14px20px font-kdBarlow ml-1 font-medium">{{toNumberFormat(data.mint_price)}}</span>
           <IconFont v-if="data.chain" :type="getLog(data.chain)" size="14" class="ml-2 text-global-white"/>
         </p>
         <p class="h-4 border-l-1 border-global-white border-opacity-15"></p>
