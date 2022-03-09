@@ -12,6 +12,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import * as alias from "src/utils/root/alias";
 import {getValue} from "src/utils/root/data";
 import {createReactive, onLoadReactive} from "src/utils/ssr/ref";
+import {dateFormat} from "src/utils";
 
 const i18n = I18n();
 
@@ -38,7 +39,7 @@ onMounted(function () {
           <div class="py-3 border-0 border-b border-dotted border-global-highTitle border-opacity-10">
             <h3 class="text-24 font-m text-global-highTitle">{{ detail.name }}</h3>
             <p class="mt-3 text-14-18 text-global-highTitle text-opacity-65">KingData ·
-              {{ detail.release_date }}</p>
+              {{ dateFormat(detail.release_date,'YYYY-MM-DD') }}</p>
           </div>
         </div>
 
