@@ -1,5 +1,5 @@
 <script lang="ts">
-import { size } from "src/utils/";
+import * as utils from "src/utils/";
 import type { PropType } from "vue";
 import { defineComponent } from "vue";
 import type { MenuItem } from "src/types/menu/";
@@ -12,6 +12,11 @@ export default defineComponent({
       default() {
         return [];
       },
+    },
+  },
+  methods: {
+    size(value: MenuItem[]): number {
+      return utils.size(value);
     },
   },
 });
@@ -57,7 +62,7 @@ export default defineComponent({
     @apply absolute;
     @apply top-3 bottom-1 left-0;
     @apply bg-white bg-opacity-24;
-    content: "";
+    content: '';
     width: 1px;
   }
 

@@ -18,7 +18,7 @@ import { useRouter } from "vue-router";
 import DappDiscoversContentChain from "./content/chain.vue";
 import DappDiscoversContentType from "./content/type.vue";
 
-const props = defineProps({
+defineProps({
   data: {
     required: true,
     type: Object as PropType<summaryItem>,

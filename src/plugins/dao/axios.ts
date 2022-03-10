@@ -20,7 +20,7 @@ import { asyncCheck } from "./response";
 const timeoutValue = 3 * 1000;
 
 // 用户信息
-const getUserAuth = async function(config: AxiosRequestConfig, lang?: Lang) {
+const getUserAuth = async function (config: AxiosRequestConfig, lang?: Lang) {
   // 从 Request 对象中获取用户信息
   if (lang && isObject(lang)) {
     const cookie = new Cookie(lang as Request);
@@ -33,7 +33,8 @@ const getUserAuth = async function(config: AxiosRequestConfig, lang?: Lang) {
 };
 
 // 判断请求的地址是否和业务域名相同
-const isKindDataDomain = function(config: AxiosRequestConfig): boolean {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const isKindDataDomain = function (config: AxiosRequestConfig): boolean {
   return true;
 };
 

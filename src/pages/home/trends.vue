@@ -55,16 +55,21 @@ onMounted(() => {
 <template>
   <div>
     <div class="flex items-end text-global-white">
-      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow font-semibold">{{ i18n.home.todayTrend.title }}</span>
-      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">{{ i18n.home.todayTrend.time }}</span>
+      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow font-semibold">{{
+        i18n.home.todayTrend.title
+      }}</span>
+      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">{{
+        i18n.home.todayTrend.time
+      }}</span>
     </div>
     <div class="mt-4 relative">
       <div class="w-full h-full">
-        <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
-          <img class="left shadow" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="" @click="last">
+        <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
+          <img class="left shadow" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="" @click="last" />
         </div>
         <Swiper
-          v-if="trend.length>0" class="h-full swiper-topic"
+          v-if="trend.length > 0"
+          class="h-full swiper-topic"
           :initial-slide="0"
           slides-per-view="auto"
           :space-between="24"
@@ -75,63 +80,80 @@ onMounted(() => {
           <template v-for="(item, index) in trend" :key="index">
             <SwiperSlide class="rounded-kd6px">
               <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
-                <div v-if="item['data_type']==='blog' && index===0" class="relative">
-                  <div class="absolute z-3  w-full h-full px-2 md:px-3">
+                <div v-if="item['data_type'] === 'blog' && index === 0" class="relative">
+                  <div class="absolute z-3 w-full h-full px-2 md:px-3">
                     <div class="blog-name pt-1.5 md:pt-2 font-kdSemiBold font-semibold">
                       <span>Daily Trending</span>
                       <span class="ml-1">({{ formatDefaultTime(item['release_date'], 'MM/DD') }})</span>
                     </div>
-                    <div v-if="item['label'].length>0" class="blog-label mt-1.5 font-kdFang">
+                    <div v-if="item['label'].length > 0" class="blog-label mt-1.5 font-kdFang">
                       <span>{{ i18n.home.todayTrend.key }}: </span>
-                      <template v-for="(label,i) in item['label']">
-                        <span>{{ label }}</span><span v-if="i+1<item['label'].length">、</span>
+                      <template v-for="(label, i) in item['label']" :key="i">
+                        <span>{{ label }}</span>
+                        <span v-if="i + 1 < item['label'].length">、</span>
                       </template>
                     </div>
                     <div class="blog-label absolute bottom-1 md:bottom-1.5">
                       <span>{{ item['viewers'] ? item['viewers'] : 0 }} {{ i18n.home.todayTrend.read }}</span>
-                      <span v-if="item['release_date']" class="mx-1 gang  text-kd12px16px">|</span>
-                      <span v-if="item['release_date']">{{ i18n.home.todayTrend.updateTime }}: {{ timeago(dataToTimestamp(item['release_date'])) }}</span>
+                      <span v-if="item['release_date']" class="mx-1 gang text-kd12px16px">|</span>
+                      <span v-if="item['release_date']"
+                        >{{ i18n.home.todayTrend.updateTime }}:
+                        {{ timeago(dataToTimestamp(item['release_date'])) }}</span
+                      >
                     </div>
                   </div>
-                  <ui-image class="rounded-kd6px h-23.5 w-65 md:w-101  " :src="getImg(item)" fit="cover" />
+                  <ui-image class="rounded-kd6px h-23.5 w-65 md:w-101" :src="getImg(item)" fit="cover" />
                   <div class="blog-jian" />
                 </div>
                 <div v-else class="h-23.5 w-47.5 overflow-hidden rounded-kd6px">
-                  <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute" />
-                  <ui-image class="rounded-kd6px w-full h-full" :class="getImg(item)?'':'mohu'" :src="getImg(item)?getImg(item):item['logo']" />
-                  <div class="absolute top-0  top-5 left-2 flex items-center">
-                    <ui-image v-if="item['data_type']==='dapp'" class="w-12.5 h-12.5 border-2 border-global-white  rounded-full relative z-3" fit="cover" :src="item['logo']" />
-                    <div class="ml-3 font-kdSemiBold  font-bold text-kd18px18px text-global-white relative z-3">
+                  <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute" />
+                  <ui-image
+                    class="rounded-kd6px w-full h-full"
+                    :class="getImg(item) ? '' : 'mohu'"
+                    :src="getImg(item) ? getImg(item) : item['logo']"
+                  />
+                  <div class="absolute top-0 top-5 left-2 flex items-center">
+                    <ui-image
+                      v-if="item['data_type'] === 'dapp'"
+                      class="w-12.5 h-12.5 border-2 border-global-white rounded-full relative z-3"
+                      fit="cover"
+                      :src="item['logo']"
+                    />
+                    <div class="ml-3 font-kdSemiBold font-bold text-kd18px18px text-global-white relative z-3">
                       <div class="w-26 whitespace-nowrap short">{{ item.name }}</div>
-                      <span v-if="safeGet(config,`chain.${item.chain}.name`)" class="chain-tip w-26 whitespace-nowrap short">{{ safeGet(config,`chain.${item.chain}.name`) }}</span>
+                      <span
+                        v-if="safeGet(config, `chain.${item.chain}.name`)"
+                        class="chain-tip w-26 whitespace-nowrap short"
+                        >{{ safeGet(config, `chain.${item.chain}.name`) }}</span
+                      >
                     </div>
                   </div>
-                  <div class="w-47.5 h-23.5 absolute top-0 left-0  rounded-kd6px jian z-2" />
+                  <div class="w-47.5 h-23.5 absolute top-0 left-0 rounded-kd6px jian z-2" />
                 </div>
               </v-router>
             </SwiperSlide>
           </template>
         </Swiper>
       </div>
-      <div class="xshidden" :class="isEnd?'hidden':'jian-right'">
-        <img class="right shadow" :src="`${env.VITE_oss}/dapp/rightjian.png`" alt="" @click="next">
+      <div class="xshidden" :class="isEnd ? 'hidden' : 'jian-right'">
+        <img class="right shadow" :src="`${env.VITE_oss}/dapp/rightjian.png`" alt="" @click="next" />
       </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
-.chain-tip{
+.chain-tip {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
-  border:1px solid rgba(255, 255, 255, 0.25);
-  width:fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  width: fit-content;
   @apply flex items-center px-2  rounded-kd20px text-kd12px14px font-kdFang h-5.5 mt-2.5;
 }
 .jian-right {
   @apply w-35 h-full absolute right-0 top-0 z-2;
 }
-.blog-jian{
-  background-image: linear-gradient(to right,rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+.blog-jian {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   @apply w-full h-full absolute left-0 top-0  z-2 rounded-kd6px;
 }
 .ruo {
@@ -155,20 +177,20 @@ onMounted(() => {
 .swiper-slide {
   width: auto !important;
 }
-.gang{
-  opacity:0.4;
+.gang {
+  opacity: 0.4;
 }
 .blog-name {
   @apply text-kd18px18px md:text-kd20px20px font-semiBold text-global-white;
 }
-.mohu{
-  filter:blur(3px);
-  -webkit-filter:blur(3px);
-  -moz-filter:blur(3px);
-  -ms-filter:blur(3px);
-  -o-filter:blur(3px);
+.mohu {
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -ms-filter: blur(3px);
+  -o-filter: blur(3px);
 }
-.jian{
+.jian {
   background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 .blog-label {

@@ -2,7 +2,7 @@
 import I18n from "src/utils/i18n/index";
 
 const i18n = I18n();
-const props = defineProps({
+defineProps({
   value: {
     type: String,
     default: () => {

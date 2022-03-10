@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { toNumberCashFormat } from "src/utils/convert/to";
-import { getClassColor, getLog, getNextUrl, getTegLog, getTegUrl } from "src/logic/dapp";
+import { getClassColor, getNextUrl, getTegLog, getTegUrl } from "src/logic/dapp";
 import { toFixed } from "src/utils";
 import I18n from "src/utils/i18n";
-import { getRedGreen } from "src/lib/tool";
 
 const emit = defineEmits(["changeSort"]);
 const props = defineProps({

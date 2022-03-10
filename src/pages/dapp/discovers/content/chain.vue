@@ -2,7 +2,6 @@
 import { ElOption, ElSelect } from "element-plus";
 import { useRouter } from "vue-router";
 import { getParam } from "src/utils/router";
-import I18n from "src/utils/i18n";
 import { computed, onMounted, ref } from "vue";
 
 // 引入 use state
@@ -32,7 +31,6 @@ const props = defineProps({
 const router = useRouter();
 
 const routerParam = ref<string>("");
-const i18n = I18n();
 
 const onChangeParam = setInject(stateAlias.ui.tab);
 
@@ -63,7 +61,7 @@ onMounted(() => {
   routerParam.value = getParam<string>(props.name) || allValue;
 });
 
-const change = _.debounce(async(value: string) => {
+const change = _.debounce(async (value: string) => {
   const query = { ...getParam<object>(), [props.name]: value };
   const url = createHref(props.href, query);
   await router.push(url);
@@ -80,8 +78,11 @@ const change = _.debounce(async(value: string) => {
         <div class="w-full">
           <client-only class="flex items-center justify-between">
             <el-select
-              v-model="routerParam" :popper-append-to-body="false" class="projectMining flex-1 select"
-              size="small" @change="change"
+              v-model="routerParam"
+              :popper-append-to-body="false"
+              class="projectMining flex-1 select"
+              size="small"
+              @change="change"
             >
               <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.value" />
             </el-select>

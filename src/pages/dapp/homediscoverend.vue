@@ -22,7 +22,7 @@ import DAppDiscoversContentChain from "./discovers/content/chain.vue";
 import DAppDiscoversContentType from "./discovers/content/type.vue";
 import DAppHomeHeader from "./home/header.vue";
 
-const props = defineProps({
+defineProps({
   summary: {
     type: Object,
     default: () => {

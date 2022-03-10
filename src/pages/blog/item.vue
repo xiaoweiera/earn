@@ -3,7 +3,7 @@ import type { PropType } from "vue";
 import type { BlogData } from "src/types/blog/";
 import { makeDetailLink } from "src/logic/blog";
 
-const props = defineProps({
+defineProps({
   data: {
     required: true,
     type: Object as PropType<BlogData>,
@@ -16,13 +16,18 @@ const props = defineProps({
 </script>
 
 <template>
-  <v-router :href="makeDetailLink(data.id)" target="_blank" class="block blog-item h-32.75" :class="{'relative': absolute}">
+  <v-router
+    :href="makeDetailLink(data.id)"
+    target="_blank"
+    class="block blog-item h-32.75"
+    :class="{ relative: absolute }"
+  >
     <div class="w-full h-full">
       <div class="equal-content w-full h-full">
         <ui-image class="w-full h-full" fit="fill" :src="data.cover" />
       </div>
     </div>
-    <div :class="{'blog-detail': absolute}">
+    <div :class="{ 'blog-detail': absolute }">
       <h3 class="title text-12-16 md:text-16-24 text-global-highTitle font-m max-w-full truncate">
         <span>{{ data.name }}</span>
       </h3>
@@ -33,7 +38,8 @@ const props = defineProps({
 <style scoped lang="scss">
 .blog-item {
   @apply w-full;
-  .title, .describe {
+  .title,
+  .describe {
     @apply mt-1.5;
   }
   .blog-detail {
@@ -48,5 +54,4 @@ const props = defineProps({
     }
   }
 }
-
 </style>

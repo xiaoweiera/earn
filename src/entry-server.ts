@@ -15,7 +15,7 @@ import { createApp } from "./bootstrap/main";
  */
 type Manifest = Record<string, string[]>;
 
-export const render = async function(url: string, data: object = {}) {
+export const render = async function (url: string, data: object = {}) {
   window.location.href = url;
   const ctx: any = {};
   const { app, router } = createApp(data);
@@ -38,6 +38,7 @@ export const render = async function(url: string, data: object = {}) {
   return [html];
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function renderPreloadLinks(modules: string[], manifest: Manifest) {
   let links = "";
   const seen = new Set();

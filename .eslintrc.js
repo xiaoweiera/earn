@@ -34,6 +34,7 @@ module.exports = {
     },
   },
   rules: {
+    "no-undef": "warn",
     "no-throw-literal": "off",
     "n/no-deprecated-api": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -112,13 +113,9 @@ module.exports = {
     // 运算符前后有空格
     "space-infix-ops": ["error"],
     "no-unreachable": [0],
-    "@typescript-eslint/no-unused-vars": "off",
-    "curly": "off",
     "node/no-callback-literal": 0,
     "@typescript-eslint/indent": "off",
     "vue/singleline-html-element-content-newline": "off",
-    "vue/require-v-for-key": "off",
-    "vue/no-unused-vars": "off",
     "prefer-promise-reject-errors": "off"
   }
 };

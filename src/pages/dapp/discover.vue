@@ -47,7 +47,7 @@ const params = reactive({
 const resultNumber = ref(params.page_size);
 const loading = ref(false);
 
-const getData = async(clear?: boolean) => {
+const getData = async (clear?: boolean) => {
   loading.value = true;
   if (clear) {
     params.page = 1;
@@ -59,7 +59,7 @@ const getData = async(clear?: boolean) => {
   loading.value = false;
 };
 
-useWatch(route, (n) => {
+useWatch(route, () => {
   const querys: any = getParam<string>();
   key.value = uuid();
   params.chain = querys.chain || "All";
@@ -104,7 +104,7 @@ const changeSort = (sort: string) => {
   params.sort_field = sort;
   getData(true);
 };
-const getName = function() {
+const getName = function () {
   const igo = getParam<boolean>("igo");
   if (igo) {
     return i18n.home.IdoIgo.igotitle;
@@ -113,7 +113,7 @@ const getName = function() {
   }
 };
 // 获取筛选条件
-const getFilter = function(data: any) {
+const getFilter = function (data: any) {
   const igo = getParam<boolean>("igo");
   const status = getParam<string>("type");
   if (igo) {
@@ -164,10 +164,18 @@ const getFilter = function(data: any) {
       </div>
       <div v-else-if="!loading">
         <ui-empty class="pb-3" />
-        <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">{{ i18n.address.noData }}</p>
+        <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">
+          {{ i18n.address.noData }}
+        </p>
       </div>
     </div>
-    <div v-if="list?.length>0 && resultNumber>=params.page_size && resultNumber <= list?.length" class="more" @click="getMore">{{ i18n.home.loadingMore }}</div>
+    <div
+      v-if="list?.length > 0 && resultNumber >= params.page_size && resultNumber <= list?.length"
+      class="more"
+      @click="getMore"
+    >
+      {{ i18n.home.loadingMore }}
+    </div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0" />
   </div>
 </template>

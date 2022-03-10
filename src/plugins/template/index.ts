@@ -9,21 +9,21 @@ import Icons from "src/config/iconfont";
 import type { Language } from "src/types/language";
 import Crypto from "src/plugins/encryption/crypto";
 import { languageKey, rootData } from "src/config";
-import { getEnv, production } from "src/config/";
+import { getEnv } from "src/config/";
 import tpl from "./template";
 
 interface Result {
-	lang: Language;
-	title: string;
-	content: string;
-	keywords: string;
-	description: string;
-	data?: string;
-	libs?: string;
-	[key: string]: any;
+  lang: Language;
+  title: string;
+  content: string;
+  keywords: string;
+  description: string;
+  data?: string;
+  libs?: string;
+  [key: string]: any;
 }
 
-const makeScript = function(data: Result): string {
+const makeScript = function (data: Result): string {
   const env = getEnv();
 
   const value = _.omit(data, ["title", "keywords", "description", "content", "libs"]);
@@ -38,7 +38,9 @@ const makeScript = function(data: Result): string {
   if (env.google && env.google.tag) {
     const id = env.google.tag;
     scriptLibs.push(`https://www.googletagmanager.com/gtag/js?id=${id}`);
-    scriptCodes.push(`window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${id}');`);
+    scriptCodes.push(
+      `window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${id}');`,
+    );
   }
   /*
 	// 人机教验
@@ -59,7 +61,7 @@ const makeScript = function(data: Result): string {
   return html.join("");
 };
 
-const template = function(html: string, result: Result): string {
+const template = function (html: string, result: Result): string {
   const env = getEnv();
   result.libs = makeScript(result);
   // 处理 Html 中的转译字符
