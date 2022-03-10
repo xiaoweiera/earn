@@ -12,12 +12,12 @@ import { reactive, ref, toRaw } from "vue";
 
 export * as alias from "src/utils/root/alias";
 
-export const createRef = function<T>(key: string, auto: T) {
+export const createRef = function <T>(key: string, auto: T) {
   const value = getValue<T>(key, auto);
   return ref<T>(value);
 };
 
-export const createReactive = function<T>(key: string, auto: T) {
+export const createReactive = function <T>(key: string, auto: T) {
   const value = getValue<T>(key, auto);
   // @ts-ignore
   return reactive<T>(value);
@@ -26,7 +26,7 @@ export const createReactive = function<T>(key: string, auto: T) {
 type ApiFun = <T>(query?: object | string | number) => T;
 type UpdateCallback = (...args: any[]) => Promise<void>;
 
-const getData = async function<T>(api: string | ApiFun | Function, query?: object | string | number) {
+const getData = async function <T>(api: string | ApiFun, query?: object | string | number) {
   if (_.isString(api)) {
     const model = {
       API: new API(),
@@ -51,8 +51,8 @@ const getData = async function<T>(api: string | ApiFun | Function, query?: objec
 };
 
 // 更新数据
-export const onUpdateRef = function<T>(data: Ref, api: string | ApiFun | Function): UpdateCallback {
-  return async function(query?: object | string | number) {
+export const onUpdateRef = function <T>(data: Ref, api: string | ApiFun): UpdateCallback {
+  return async function (query?: object | string | number) {
     const value = await getData<T>(api, query);
     if (value) {
       data.value = value;
@@ -61,8 +61,8 @@ export const onUpdateRef = function<T>(data: Ref, api: string | ApiFun | Functio
     }
   };
 };
-export const onUpdateReactive = function<T>(data: UnwrapNestedRefs<T>, api: string | ApiFun | Function): UpdateCallback {
-  return async function(query?: object | string | number) {
+export const onUpdateReactive = function <T>(data: UnwrapNestedRefs<T>, api: string | ApiFun): UpdateCallback {
+  return async function (query?: object | string | number) {
     const value = await getData<T>(api, query);
     if (value) {
       for (const key in value) {
@@ -80,9 +80,9 @@ export const onUpdateReactive = function<T>(data: UnwrapNestedRefs<T>, api: stri
 };
 
 // Ref 数据
-export const onLoadRef = async function<T>(data: Ref, api: string | ApiFun | Function, query?: object | string | number) {
+export const onLoadRef = async function <T>(data: Ref, api: string | ApiFun, query?: object | string | number) {
   if (data.value && data.value.length < 1) {
-    const value = await getData(api, query);
+    const value = await getData<T>(api, query);
     if (value) {
       data.value = value;
     }
@@ -90,7 +90,11 @@ export const onLoadRef = async function<T>(data: Ref, api: string | ApiFun | Fun
 };
 
 // Reactive 数据
-export const onLoadReactive = async function<T>(data: UnwrapNestedRefs<T>, api: string | ApiFun | Function, query?: object | string | number) {
+export const onLoadReactive = async function <T>(
+  data: UnwrapNestedRefs<T>,
+  api: string | ApiFun,
+  query?: object | string | number,
+) {
   const obj = toRaw(data);
   const keys = Object.keys(obj);
   if (keys.length < 1) {

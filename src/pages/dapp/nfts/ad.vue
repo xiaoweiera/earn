@@ -2,6 +2,9 @@
 defineProps({
   data: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
 });
 </script>
@@ -14,7 +17,10 @@ defineProps({
       <!-- <img class="block md:hidden w-full"> -->
     </div>
     <div class="absolute top-3 left-3">
-      <span class="bg-global-hei bg-opacity-45 border border-global-white border-opacity-6 rounded-md px-1.5 py-0.5 text-kd10px12px text-global-white">AD</span>
+      <span
+        class="bg-global-hei bg-opacity-45 border border-global-white border-opacity-6 rounded-md px-1.5 py-0.5 text-kd10px12px text-global-white"
+        >AD</span
+      >
     </div>
   </v-router>
 </template>

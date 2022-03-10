@@ -12,7 +12,7 @@ import { isEmpty as _isEmpty, is, isNil } from "ramda";
  * 判断字符串是否是 http 链接
  * @param value
  */
-export const isHttp = function(value?: string): boolean {
+export const isHttp = function (value?: string): boolean {
   if (value) {
     if (/^http/.test(value)) {
       return true;
@@ -33,12 +33,11 @@ export const isHttp = function(value?: string): boolean {
  * @param value
  * @param checkUndefined 是否判断为 "undefined" 情况
  */
-export const isUndefined = function(value: any, checkUndefined?: boolean): boolean {
-  const check = "undefined";
-  if (typeof value === check) {
+export const isUndefined = function (value: any, checkUndefined?: boolean): boolean {
+  if (typeof value === "undefined") {
     return true;
   }
-  return !!(checkUndefined && value === check);
+  return !!(checkUndefined && value === "undefined");
 };
 
 /**
@@ -64,7 +63,7 @@ export const isNumber = (value: any): boolean => {
  * 判断对象是否是数组
  * @param value
  */
-export const isArray = function(value: any): boolean {
+export const isArray = function (value: any | any[]): boolean {
   if (Array.isArray(value)) {
     return true;
   }
@@ -75,7 +74,7 @@ export const isArray = function(value: any): boolean {
  * 判断对象是否 object
  * @param value
  */
-export const isObject = function(value: any): boolean {
+export const isObject = function (value: any): boolean {
   const status = isArray(value);
   if (status) {
     return false;
@@ -84,7 +83,7 @@ export const isObject = function(value: any): boolean {
 };
 
 // 判断对象是否是 Request 对象
-export const isRequest = function(value?: any): boolean {
+export const isRequest = function (value?: any): boolean {
   if (value && isObject(value) && IsNode()) {
     const req: Request = value;
     if (req.url && req.method && req.header) {
@@ -98,7 +97,7 @@ export const isRequest = function(value?: any): boolean {
  * 判断对象是否是函数
  * @param value
  */
-export const isFunction = function(value: any): boolean {
+export const isFunction = function (value: any): boolean {
   return is(Function, value);
 };
 
@@ -107,12 +106,13 @@ export const isFunction = function(value: any): boolean {
  * @param value
  * @param checkUndefined 是否判断字符串 "Undefined"
  */
-export const isEmpty = function(value: any, checkUndefined?: boolean): boolean {
+export const isEmpty = function (value: any, checkUndefined?: boolean): boolean {
   const status = isUndefined(value, checkUndefined);
   if (status) {
     return true;
   }
-  if (_isEmpty(value)) { // 判断 [], '', {}
+  if (_isEmpty(value)) {
+    // 判断 [], '', {}
     return true;
   }
   return isNil(value); // 判断 null, undefined
@@ -122,31 +122,31 @@ export const isEmpty = function(value: any, checkUndefined?: boolean): boolean {
  * 判断对象是否为 Element 类型
  * @param value
  */
-export const isElement = function(value: any) {
+export const isElement = function (value: any) {
   if (isEmpty(value) || isString(value) || isNumber(value) || isArray(value)) {
     return false;
   }
-
-  if (typeof HTMLElement === "object") {
-    return value instanceof HTMLElement;
+  // @ts-ignore
+  if (value instanceof HTMLElement) {
+    return true;
   }
-  let flag = true;
-  if (typeof value === "object") {
-    flag = true;
-  }
-
-  if (flag) {
-    if (typeof value.nodeName === "string") {
-      return true;
-    }
-    if (value?.navigator) {
-      return true;
-    }
-  }
+  // let flag = true;
+  // if (isObject(value)) {
+  //   flag = true;
+  // }
+  //
+  // if (flag) {
+  //   if (typeof value.nodeName === "string") {
+  //     return true;
+  //   }
+  //   if (value?.navigator) {
+  //     return true;
+  //   }
+  // }
   return false;
 };
 
-export const Equals = function(...args: Array<string | number>): boolean {
+export const Equals = function (...args: Array<string | number>): boolean {
   const len = args.length;
   let status = false;
   for (let i = 1; i < len; i++) {

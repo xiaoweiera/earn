@@ -23,6 +23,7 @@ defineProps({
   summary: {
     type: Object,
     default: () => {
+      return {};
     },
   },
 });
@@ -46,7 +47,7 @@ const urlType = false;
 // 创建列表对象并获取缓存数据
 const UpcomingNftList = createRef<Array<ProjectNftItem | AdNftItem>>(alias.nft.upcoming, [] as any);
 // nft drops
-const getUpcomingNftList = async function() {
+const getUpcomingNftList = async function () {
   const model = new Model();
   return model.getNftList(params);
 };
@@ -73,7 +74,9 @@ onMounted(() => {
       <!-- header -->
       <div>
         <DAppHomeHeader
-          :status="nftStatus.upcoming" :tips="i18n.home.idoIgoProject.never" :type="urlType"
+          :status="nftStatus.upcoming"
+          :tips="i18n.home.idoIgoProject.never"
+          :type="urlType"
           title="NFT Projects 🎯"
         />
       </div>
@@ -81,21 +84,29 @@ onMounted(() => {
       <!-- pc端-->
       <div :key="keys" class="mt-4 hidden md:block">
         <DAppDiscoverContentType
-          v-if="summary.nft_upcoming" :list="tabChain(summary.nft_upcoming.chain, 'group', config.home)"
-          :split="6" :title="i18n.home.idoIgoProject.chain" active-name="group" name="group"
+          v-if="summary.nft_upcoming"
+          :list="tabChain(summary.nft_upcoming.chain, 'group', config.home)"
+          :split="6"
+          :title="i18n.home.idoIgoProject.chain"
+          active-name="group"
+          name="group"
         />
       </div>
       <!--手机端-->
       <div :key="keys" class="mt-4 block md:hidden">
         <DAppDiscoverContentChain
-          v-if="summary.nft_upcoming" :chain-data="summary.nft_upcoming.chain" :href="config.home"
-          :title="i18n.home.idoIgoProject.chain" class="w-full" name="group"
+          v-if="summary.nft_upcoming"
+          :chain-data="summary.nft_upcoming.chain"
+          :href="config.home"
+          :title="i18n.home.idoIgoProject.chain"
+          class="w-full"
+          name="group"
         />
       </div>
       <!-- nft项目 -->
       <div v-if="UpcomingNftList.length > 0" class="mt-4 nft-item w-full showX">
         <div class="coming-item">
-          <div v-for="( item, index ) in UpcomingNftList" :class="{'ml-6' : index > 0}" class="xl:ml-0">
+          <div v-for="(item, index) in UpcomingNftList" :class="{ 'ml-6': index > 0 }" class="xl:ml-0">
             <DAppNftList :key="index" :data="item" />
           </div>
         </div>

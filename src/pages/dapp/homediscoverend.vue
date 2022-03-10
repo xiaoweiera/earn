@@ -26,6 +26,7 @@ const props = defineProps({
   summary: {
     type: Object,
     default: () => {
+      return {};
     },
   },
 });
@@ -44,7 +45,7 @@ let sort = {
   sort_field: "",
 };
 // nft drops
-const getEndedList = async function() {
+const getEndedList = async function () {
   loading.value = true;
   const model = new Model();
   const list = await model.getEndedProjects({ ...params, ...sort });
@@ -63,7 +64,7 @@ onMounted(() => {
   // 判断列表数据是否为空，如果为空则获取最新数据
   onLoadRef(EndedList, getEndedList);
 
-  const onUpdate = function() {
+  const onUpdate = function () {
     params.chain = route.bracket;
     params.category = route.category;
     params.platform = route.platform;
@@ -89,7 +90,7 @@ onMounted(() => {
 });
 
 // 排序方法
-const changeSort = function(value: string) {
+const changeSort = function (value: string) {
   params.sort_field = value;
   sortKey.value = uuid();
   updateEndedList();
@@ -98,7 +99,7 @@ const changeSort = function(value: string) {
 const $router = useRouter();
 const onChangeParam = setInject(stateAlias.ui.tab);
 
-const onSearch = _.debounce(async() => {
+const onSearch = _.debounce(async () => {
   const value = search.value || "";
   const query = { ...getParam<object>(), query: value };
   const url = createHref(window.location.pathname, query);
@@ -115,7 +116,9 @@ const onSearch = _.debounce(async() => {
     <!-- header -->
     <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
       <DAppHomeHeader
-        :status="Status.ended" :tips="i18n.home.endProject.desc" :title="i18n.home.endProject.title"
+        :status="Status.ended"
+        :tips="i18n.home.endProject.desc"
+        :title="i18n.home.endProject.title"
         :type="urlType"
       />
     </div>
@@ -125,24 +128,26 @@ const onSearch = _.debounce(async() => {
         <div v-if="summary.ixo_ended" class="flex items-center">
           <!-- 公链 -->
           <DAppDiscoversContentType
-            :list="tabChain(safeGet(summary,'ixo_ended.chain'), 'bracket', config.home)"
-            :title="i18n.home.idoIgoProject.chain" active-name="bracket" name="bracket" :title-width="getClassWidth()"
+            :list="tabChain(safeGet(summary, 'ixo_ended.chain'), 'bracket', config.home)"
+            :title="i18n.home.idoIgoProject.chain"
+            active-name="bracket"
+            name="bracket"
+            :title-width="getClassWidth()"
           />
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4" />
           <!-- 类型 -->
           <DAppDiscoversContentChain
-            :chain-data="safeGet(summary,'ixo_ended.category')" :href="config.home"
-            :title="i18n.home.topList.category" name="category"
+            :chain-data="safeGet(summary, 'ixo_ended.category')"
+            :href="config.home"
+            :title="i18n.home.topList.category"
+            name="category"
           />
         </div>
         <!-- 搜索框 -->
         <div>
           <!-- 搜索框 -->
           <client-only class="w-50 input-style">
-            <ElInput
-              v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full"
-              @change="onSearch"
-            >
+            <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
               <template #prefix>
                 <IconFont size="16" type="icon-sousuo" @click="onSearch" />
               </template>
@@ -153,8 +158,11 @@ const onSearch = _.debounce(async() => {
       <!-- platform -->
       <div v-if="summary.ixo_ended" :key="key" class="mt-4">
         <DAppDiscoversContentType
-          :list="tabPlat(safeGet(summary,'ixo_ended.platform'), 'platform', config.home)"
-          :title="i18n.home.topList.plat" active-name="platform" name="platform" :title-width="getClassWidth()"
+          :list="tabPlat(safeGet(summary, 'ixo_ended.platform'), 'platform', config.home)"
+          :title="i18n.home.topList.plat"
+          active-name="platform"
+          name="platform"
+          :title-width="getClassWidth()"
         />
       </div>
     </div>
@@ -163,26 +171,33 @@ const onSearch = _.debounce(async() => {
     <div :key="key" class="block md:hidden">
       <div v-if="summary.ixo_ended" class="flex items-center">
         <DAppDiscoversContentChain
-          :chain-data="safeGet(summary,'ixo_ended.chain')" :href="config.home"
-          :title="i18n.home.idoIgoProject.chain" class="w-1/2" name="bracket"
+          :chain-data="safeGet(summary, 'ixo_ended.chain')"
+          :href="config.home"
+          :title="i18n.home.idoIgoProject.chain"
+          class="w-1/2"
+          name="bracket"
         />
-        <IconFont
-          class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full"
-          type="icon-gang"
-        />
+        <IconFont class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5 h-full" type="icon-gang" />
         <DAppDiscoversContentChain
-          :chain-data="safeGet(summary,'ixo_ended.category')" :href="config.home"
-          :title="i18n.home.topList.category" class="w-1/2" name="category"
+          :chain-data="safeGet(summary, 'ixo_ended.category')"
+          :href="config.home"
+          :title="i18n.home.topList.category"
+          class="w-1/2"
+          name="category"
         />
       </div>
       <div class="flex items-center mt-4">
         <DAppDiscoversContentChain
-          :chain-data="safeGet(summary,'ixo_ended.platform')" :href="config.home"
-          :title="i18n.home.topList.plat" class="w-1/2" name="platform"
+          :chain-data="safeGet(summary, 'ixo_ended.platform')"
+          :href="config.home"
+          :title="i18n.home.topList.plat"
+          class="w-1/2"
+          name="platform"
         />
         <IconFont
-          v-if="safeGet(summary,'ixo.platform')"
-          class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5  h-full" type="icon-gang"
+          v-if="safeGet(summary, 'ixo.platform')"
+          class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5 h-full"
+          type="icon-gang"
         />
         <!-- 搜索框 -->
         <client-only class="w-1/2 input-style">
@@ -203,9 +218,7 @@ const onSearch = _.debounce(async() => {
     <div v-else>
       <ui-empty class="pb-3 pt-10" />
       <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">
-        {{
-          i18n.address.noData
-        }}
+        {{ i18n.address.noData }}
       </p>
     </div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0" />

@@ -15,6 +15,7 @@ defineProps({
   },
   sub: {
     type: String,
+    default: "",
   },
 });
 </script>
@@ -26,9 +27,14 @@ defineProps({
         <div class="flex h-full">
           <template v-for="(data, index) in list" :key="index">
             <template v-if="data.header">
-              <v-router class="sub-menu-item text-14-18 whitespace-nowrap font-kdFang" :class="{'active': data.active}" :href="data.href" :target="data.target ? '_blank': '_self'">
+              <v-router
+                class="sub-menu-item text-14-18 whitespace-nowrap font-kdFang"
+                :class="{ active: data.active }"
+                :href="data.href"
+                :target="data.target ? '_blank' : '_self'"
+              >
                 <span>{{ data.name }}</span>
-                <i :class="{'hidden': toInteger(data.message) === 0}">{{ toInteger(data.message) }}</i>
+                <i :class="{ hidden: toInteger(data.message) === 0 }">{{ toInteger(data.message) }}</i>
               </v-router>
             </template>
           </template>
@@ -57,16 +63,17 @@ defineProps({
     &:first-child {
       @apply ml-0;
     }
-    &.active, &[href]:hover {
+    &.active,
+    &[href]:hover {
       @apply text-global-primary text-opacity-100;
-      box-shadow: inset 0px -2px 0px #2B8DFE;
+      box-shadow: inset 0px -2px 0px #2b8dfe;
     }
 
     @apply relative;
     i {
       height: 18px;
       min-width: 18px;
-      background-color: #E9592D;
+      background-color: #e9592d;
       border-radius: 18px;
       line-height: 18px;
       font-size: 12px;

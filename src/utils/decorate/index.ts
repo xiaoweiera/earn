@@ -33,8 +33,8 @@ const runCallback = function <T>(callback?: string | CallBack | ErrCatch, args?:
 };
 
 // 处理异常默认值
-export const DefaultValue = function(value?: any, log?: boolean) {
-  return function(e: Error, ...args: any[]) {
+export const DefaultValue = function (value?: any, log?: boolean) {
+  return function (e: Error, ...args: any[]) {
     if (log) {
       console.log(e);
       if (args.length > 0) {
@@ -48,10 +48,10 @@ export const DefaultValue = function(value?: any, log?: boolean) {
 // 处理异常，默认返回空
 export const NullValue = DefaultValue(null);
 
-export const before = function(callback: string | CallBack | any) {
-  return function(target: any, methodName: string, descriptor: PropertyDescriptor) {
+export const before = function (callback: string | CallBack | any) {
+  return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
     const app = descriptor.value;
-    descriptor.value = function(...args: any[]) {
+    descriptor.value = function (...args: any[]) {
       const fun: CallBack = runCallback.bind(this) as any;
       const status = fun<boolean>(callback);
       if (toBoolean(status)) {
@@ -66,11 +66,11 @@ export const before = function(callback: string | CallBack | any) {
   };
 };
 
-export const tryError = function(errCatch?: string | ErrCatch) {
-  return function(target: any, methodName: string, descriptor: PropertyDescriptor) {
+export const tryError = function (errCatch?: string | ErrCatch) {
+  return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
     const app = descriptor.value;
-    descriptor.value = async function(...args: any[]) {
-      const after = function(self: any, query?: any) {
+    descriptor.value = async function (...args: any[]) {
+      const after = function (self: any, query?: any) {
         const callback: CallBack = runCallback.bind(self) as any;
         return callback<any>(errCatch, query);
       };
@@ -101,7 +101,7 @@ export const tryError = function(errCatch?: string | ErrCatch) {
 
 const requiredMetadataKey = Symbol("required");
 
-export const required = function(target: Object, propertyKey: string | symbol, parameterIndex: number) {
+export const required = function (target: object, propertyKey: string | symbol, parameterIndex: number) {
   // @ts-ignore
   const existingRequiredParameters: number[] = Reflect.getOwnMetadata(requiredMetadataKey, target, propertyKey) || [];
   existingRequiredParameters.push(parameterIndex);
@@ -109,9 +109,9 @@ export const required = function(target: Object, propertyKey: string | symbol, p
   Reflect.defineMetadata(requiredMetadataKey, existingRequiredParameters, target, propertyKey);
 };
 
-export const validate = function(target: any, propertyName: string, descriptor: PropertyDescriptor) {
+export const validate = function (target: any, propertyName: string, descriptor: PropertyDescriptor) {
   const fun = descriptor.value;
-  descriptor.value = function(...args: any[]) {
+  descriptor.value = function (...args: any[]) {
     // @ts-ignore
     const requiredParameters: number[] = Reflect.getOwnMetadata(requiredMetadataKey, target, propertyName);
     if (requiredParameters) {

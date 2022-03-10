@@ -5,9 +5,11 @@ import { isHttp } from "src/utils";
 const props = defineProps({
   desc: {
     type: String,
+    default: "",
   },
   href: {
     type: String,
+    default: "",
   },
 });
 
@@ -17,7 +19,6 @@ const url = computed<string>(() => {
   }
   return "";
 });
-
 </script>
 
 <template>

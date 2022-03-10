@@ -12,6 +12,7 @@ const props = defineProps({
   activeClass: {
     type: String,
     required: false,
+    default: "",
   },
 });
 
@@ -19,7 +20,7 @@ const key = uuid();
 const stickyRef = ref<any>(null);
 const active = ref<string>("");
 
-const getDom = function() {
+const getDom = function () {
   if (stickyRef.value && stickyRef.value) {
     const dom = stickyRef.value;
     if (dom && dom.getBoundingClientRect) {
@@ -28,7 +29,7 @@ const getDom = function() {
   }
 };
 
-const isActive = function() {
+const isActive = function () {
   const dom = getDom();
   if (dom) {
     const rect = dom.getBoundingClientRect();
@@ -56,7 +57,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   scroll.unbind(key);
 });
-
 </script>
 
 <template>

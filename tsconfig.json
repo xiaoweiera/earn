@@ -34,7 +34,6 @@
       "node",
       "vite/client",
       "vue-router",
-      "src/types/env.d.ts"
     ],
     "paths": {
       "src/*": ["src/*"]

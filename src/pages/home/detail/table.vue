@@ -1,23 +1,29 @@
-<script setup lang="ts">
-import type { PropType } from "vue";
-import { onMounted, reactive, ref, watch } from "vue";
-import { ElInput, ElOption, ElSelect } from "element-plus";
-import { useRoute, useRouter } from "vue-router";
+<script lang="ts" setup>
+import safeGet from "@fengqiaogang/safe-get";
+import { ElInput } from "element-plus";
+import _ from "lodash";
+import { Model } from "src/logic/home";
+import window from "src/plugins/browser/window";
+import { createHref } from "src/plugins/router/pack";
+import { config as routerConfig } from "src/router/config";
+import type { detail } from "src/types/home";
+import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router";
 import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
-import type { detail } from "src/types/home";
-import { Model } from "src/logic/home";
-import { config as routerConfig } from "src/router/config";
-import I18n from "src/utils/i18n";
-import window from "src/plugins/browser/window";
-import _ from "lodash";
-import { createHref } from "src/plugins/router/pack";
-import safeGet from "@fengqiaogang/safe-get";
+import type { PropType } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import HomeFilter from "../filter.vue";
-import HomeTableTd from "../table/td.vue";
 import HomeTableHeader from "../table/header.vue";
+import HomeTableTd from "../table/td.vue";
+
 const props = defineProps({
-  info: Object as PropType<detail>,
+  info: {
+    type: Object as PropType<detail>,
+    default: () => {
+      return {};
+    },
+  },
 });
 const i18n = I18n();
 const route = useRoute();
@@ -65,11 +71,11 @@ watch(search, (n: any) => {
 });
 const data: any = createReactive<detail>("API.home.getProjects", {} as any);
 // 防抖
-const getData = _.debounce(async(clear?: boolean) => {
+const getData = _.debounce(async (clear?: boolean) => {
   await debounceData(clear);
 }, 300);
 // 得到表格数据
-const debounceData = async(clear?: boolean) => {
+const debounceData = async (clear?: boolean) => {
   loading.value = true;
   if (clear) {
     params.page = 1;
@@ -138,37 +144,45 @@ const isFilter = () => {
 <template>
   <div class="table-box md:mb-0 mb-4">
     <div class="flex xshidden justify-between items-baseline">
-      <HomeFilter v-if="info.id && isFilter()" :key="key" :info="info" :filters="info.filters" class="mb-4 -mt-2" />
+      <HomeFilter v-if="info.id && isFilter()" :key="key" :filters="info.filters" :info="info" class="mb-4 -mt-2" />
       <client-only>
         <div v-if="isSearch" class="relative flex items-center search">
-          <IconFont class="absolute text-global-highTitle text-opacity-45 z-22 left-3" size="16" type="icon-sousuo-da1" />
+          <IconFont
+            class="absolute text-global-highTitle text-opacity-45 z-22 left-3"
+            size="16"
+            type="icon-sousuo-da1"
+          />
           <el-input v-model="search" placeholder="Search" />
         </div>
       </client-only>
     </div>
-    <div v-if="safeGet(data,'items.length') || loading" class="showX">
+    <div v-if="safeGet(data, 'items.length') || loading" class="showX">
       <table class="table-my min-w-243">
         <thead>
           <tr class="min-h-10">
             <td class="h-full border-tb">
               <div class="text-left w-5">#</div>
             </td>
-            <template v-for="(item,index) in data.header" :key="index">
-              <td v-if="item.key!=='id'" class="text-left border-tb" :class="getNameWidth(item)">
-                <HomeTableHeader name="Project Name" :params="params" :item="item" @click="sort(item)" />
+            <template v-for="(item, index) in data.header" :key="index">
+              <td v-if="item.key !== 'id'" :class="getNameWidth(item)" class="text-left border-tb">
+                <HomeTableHeader :item="item" :params="params" name="Project Name" @click="sort(item)" />
               </td>
             </template>
           </tr>
         </thead>
         <tbody>
-          <template v-for="(item,index) in data.items">
-            <tr class="min-h-12.5 h-12.5 md:min-h19.5 hand" :class="info.show_type==='desc'?'md:h-18':'md:h-13'" @click="toProject(item.url)">
+          <template v-for="(item, index) in data.items">
+            <tr
+              :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'"
+              class="min-h-12.5 h-12.5 md:min-h19.5 hand"
+              @click="toProject(item.url)"
+            >
               <td class="number">
-                <div class="text-left  w-5">{{ index + 1 }}</div>
+                <div class="text-left w-5">{{ index + 1 }}</div>
               </td>
-              <template v-for="(itemTwo,index) in data.header" :key="index">
-                <td v-if="itemTwo.key!=='id'">
-                  <HomeTableTd :info="info" :type-name="itemTwo.key" :data="item" />
+              <template v-for="(itemTwo, index) in data.header" :key="index">
+                <td v-if="itemTwo.key !== 'id'">
+                  <HomeTableTd :data="item" :info="info" :type-name="itemTwo.key" />
                 </td>
               </template>
             </tr>
@@ -176,16 +190,18 @@ const isFilter = () => {
         </tbody>
       </table>
     </div>
-    <ui-empty v-else-if="safeGet(data,'items.length')===0 && !loading" class="pb-3 pt-10" />
-    <div v-if="safeGet(data,'items.length')>0 && resultNumber>=params.page_size" class="more" @click="more">{{ i18n.home.loadingMore }}</div>
+    <ui-empty v-else-if="safeGet(data, 'items.length') === 0 && !loading" class="pb-3 pt-10" />
+    <div v-if="safeGet(data, 'items.length') > 0 && resultNumber >= params.page_size" class="more" @click="more">
+      {{ i18n.home.loadingMore }}
+    </div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0" />
   </div>
 </template>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .search {
   ::v-deep(.el-input__inner) {
     border: 1px solid rgba(3, 54, 102, 0.1) !important;
-    background: #FAFBFC;
+    background: #fafbfc;
     height: 34px !important;
     padding-left: 35px !important;
     border-radius: 6px !important;
@@ -210,7 +226,8 @@ const isFilter = () => {
   @apply border-t-1 border-b-1 border-global-highTitle border-opacity-6;
 }
 
-thead td, .number {
+thead td,
+.number {
   @apply text-kd12px16px text-global-highTitle text-opacity-45;
 }
 

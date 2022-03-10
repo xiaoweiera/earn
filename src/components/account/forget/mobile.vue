@@ -11,7 +11,6 @@ import * as Common from "src/logic/account/register";
 import { computed, onMounted, ref, toRaw } from "vue";
 import { ValidateType } from "src/components/ui/validate/config";
 import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from "element-plus";
-import { checkValidateMobile } from "src/logic/account/register";
 
 const i18n = I18n();
 const domForm = ref<any>(null);
@@ -21,23 +20,23 @@ const formData = Common.createFormData();
 
 const rules = computed(Common.rules);
 
-const mobileValidate = function() {
+const mobileValidate = function () {
   return Common.checkValidateMobile(domForm);
 };
 
 // 获取验证码
-const onSeadCode = async function(value: string | undefined) {
+const onSeadCode = async function (value: string | undefined) {
   // 保存人机校验得到的值
   formData.token = value;
 };
 
-const selfGoBack = function() {
+const selfGoBack = function () {
   // 返回登录页面
   Common.onGoBack(domForm);
 };
 
 // 确定，表单提交
-const submit = async function() {
+const submit = async function () {
   try {
     await Common.checkValidate(domForm);
   } catch (e) {
@@ -62,7 +61,7 @@ const submit = async function() {
   }
 };
 
-onMounted(async() => {
+onMounted(async () => {
   const api = new API();
   areaCode.value = await api.common.getAreaCodeList();
 });
@@ -70,11 +69,22 @@ onMounted(async() => {
 
 <template>
   <client-only>
-    <el-form ref="domForm" size="large" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
+    <el-form
+      ref="domForm"
+      size="large"
+      :rules="rules"
+      :model="formData"
+      autocomplete="off"
+      @submit.stop.prevent="submit"
+    >
       <!--手机号-->
       <el-form-item prop="mobile">
         <el-input
-          v-model="formData.mobile" class="user-mobile-box" name="mobile" type="text" :placeholder="i18n.common.placeholder.tel"
+          v-model="formData.mobile"
+          class="user-mobile-box"
+          name="mobile"
+          type="text"
+          :placeholder="i18n.common.placeholder.tel"
           autocomplete="off"
         >
           <template #prepend>
@@ -90,11 +100,19 @@ onMounted(async() => {
       <!-- 验证码 -->
       <el-form-item prop="code">
         <el-input
-          v-model="formData.code" name="code" :placeholder="i18n.common.placeholder.verification"
+          v-model="formData.code"
+          name="code"
+          :placeholder="i18n.common.placeholder.verification"
           autocomplete="off"
         >
           <template #append>
-            <ui-validate mobile :type="ValidateType.forget" :before="mobileValidate" :query="{'mobile': formData.mobile, 'area_code': formData.area_code}" @click="onSeadCode" />
+            <ui-validate
+              mobile
+              :type="ValidateType.forget"
+              :before="mobileValidate"
+              :query="{ mobile: formData.mobile, area_code: formData.area_code }"
+              @click="onSeadCode"
+            />
           </template>
         </el-input>
       </el-form-item>
@@ -102,21 +120,29 @@ onMounted(async() => {
       <!-- 密码 -->
       <el-form-item prop="password">
         <el-input
-          v-model="formData.password" name="password" type="password"
-          :placeholder="i18n.common.placeholder.password" show-password autocomplete="off"
+          v-model="formData.password"
+          name="password"
+          type="password"
+          :placeholder="i18n.common.placeholder.password"
+          show-password
+          autocomplete="off"
         />
       </el-form-item>
 
       <!-- 确认密码 -->
       <el-form-item prop="new_password" :rules="Common.checkedNewPassword(formData)">
         <el-input
-          v-model="formData.new_password" name="password" type="password"
-          :placeholder="i18n.common.placeholder.new_password" show-password autocomplete="off"
+          v-model="formData.new_password"
+          name="password"
+          type="password"
+          :placeholder="i18n.common.placeholder.new_password"
+          show-password
+          autocomplete="off"
         />
       </el-form-item>
 
       <!-- 确定按钮 -->
-      <el-form-item style="margin-bottom: 0;">
+      <el-form-item style="margin-bottom: 0">
         <div class="w-full">
           <!--  :disabled="!toBoolean(formData.token)" -->
           <el-button class="w-full" type="primary" native-type="submit">

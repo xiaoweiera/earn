@@ -1,7 +1,6 @@
-
 interface Request {
-	method: string;
-	params: Array<object>;
+  method: string;
+  params: Array<object>;
 }
 
 class Ethereum {
@@ -10,12 +9,12 @@ class Ethereum {
     return [];
   }
 
-  on(name: string, callBack: Function) {
-
+  on(name: string, callBack: () => void) {
+    // todo
   }
 
   async enable(): Promise<void> {
-
+    // todo
   }
 }
 

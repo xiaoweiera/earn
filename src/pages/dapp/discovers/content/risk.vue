@@ -5,6 +5,9 @@ const i18n = I18n();
 const props = defineProps({
   value: {
     type: String,
+    default: () => {
+      return {};
+    },
   },
 });
 </script>

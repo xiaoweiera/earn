@@ -4,6 +4,9 @@ import DappDiscoversContentRisk from "./risk.vue";
 defineProps({
   data: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
 });
 </script>
@@ -14,7 +17,7 @@ defineProps({
       <div v-if="data.cover" class="w-full h-full">
         <ui-image class="w-full h-full" fit="cover" :src="data.cover" :lazy="true" />
       </div>
-      <div v-else class="is-flater w-full h-full ">
+      <div v-else class="is-flater w-full h-full">
         <div class="is-flater w-full h-full">
           <ui-image class="iw-full h-full" fit="cover" :src="data.logo" :lazy="true" />
         </div>
@@ -24,11 +27,17 @@ defineProps({
       <div class="flex justify-between px-4">
         <p class="flex">
           <DappDiscoversContentRisk class="bg-global-bgBlack" :value="data.risk" />
-          <span v-if="data.category" class="flex items-center bg-global-bgBlack ml-2 px-2 text-kd12px14px text-global-white border border-global-white border-opacity-25 font-kdFang rounded-2xl">{{ data.category }}</span>
+          <span
+            v-if="data.category"
+            class="flex items-center bg-global-bgBlack ml-2 px-2 text-kd12px14px text-global-white border border-global-white border-opacity-25 font-kdFang rounded-2xl"
+            >{{ data.category }}</span
+          >
         </p>
         <p class="bg-global-gemstone px-2 text-global-white border border-global-white border-opacity-25 rounded-2xl">
           <IconFont type="icon-star" size="12" class="is-star" />
-          <span class="ml-0.5 text-kd16px18px font-semibold text-number is-score">{{ toFixed(data.overall_score, 1) }}</span>
+          <span class="ml-0.5 text-kd16px18px font-semibold text-number is-score">{{
+            toFixed(data.overall_score, 1)
+          }}</span>
         </p>
       </div>
     </div>
@@ -48,12 +57,12 @@ defineProps({
 .is-score {
   text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
 }
-.is-flater{
+.is-flater {
   @apply bg-global-hei;
-  filter:blur(14px);
-  -webkit-filter:blur(14px);
-  -moz-filter:blur(14px);
-  -ms-filter:blur(14px);
-  -o-filter:blur(14px);
+  filter: blur(14px);
+  -webkit-filter: blur(14px);
+  -moz-filter: blur(14px);
+  -ms-filter: blur(14px);
+  -o-filter: blur(14px);
 }
 </style>

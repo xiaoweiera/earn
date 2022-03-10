@@ -58,7 +58,7 @@ export const toFixedNumber = (value: any, rounded = 2) => {
   const vil = Math.pow(10, rounded);
   return Math.round(value * vil) / vil;
 };
-export const percent2Precision = (value: any): String => {
+export const percent2Precision = (value: any): string => {
   if (!value && value !== 0) {
     return "";
   }
@@ -75,12 +75,9 @@ export const numColor = (value: any) => {
   }
 };
 export const formatSmallTime = (date: string, format: string) => dayjs(parseInt(`${date}`)).format(format);
-export const formatTime = (date: string, format: string) =>
-  dayjs(parseInt(`${date}000`)).format(format);
-export const formatTimeMD = (date: string) =>
-  dayjs(parseInt(`${date}000`)).format("MM/DD");
-export const formatTimeHour = (date: string) =>
-  dayjs(parseInt(`${date}000`)).format("M/DD HH:mm");
+export const formatTime = (date: string, format: string) => dayjs(parseInt(`${date}000`)).format(format);
+export const formatTimeMD = (date: string) => dayjs(parseInt(`${date}000`)).format("MM/DD");
+export const formatTimeHour = (date: string) => dayjs(parseInt(`${date}000`)).format("M/DD HH:mm");
 export const tooptipsModel = (item: any, color: any, value: any, unit: string, twoCol: boolean, maxWidth: number) => {
   const origin = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.35216 5.53165L5.03262 8.17072C4.77853 8.6789 4.25914 8.9999 3.69098 8.9999H1.33333C0.781043 8.9999 0.333328 8.55219 0.333328 7.9999C0.333328 7.44762 0.781043 6.9999 1.33333 6.9999H3.38196L5.53045 2.70293C6.02868 1.70646 7.49773 1.86772 7.76793 2.94854L9.64783 10.4682L10.9674 7.82908C11.2215 7.32091 11.7409 6.9999 12.309 6.9999H14.6667C15.2189 6.9999 15.6667 7.44762 15.6667 7.9999C15.6667 8.55219 15.2189 8.9999 14.6667 8.9999H12.618L10.4695 13.2969C9.9713 14.2934 8.50226 14.1321 8.23206 13.0513L6.35216 5.53165Z" fill="${color}"/></svg>`;
   const svg = `data:image/svg+xml;base64,${window.btoa(unescape(encodeURIComponent(origin)))}`;
@@ -156,7 +153,7 @@ export const min_max = (min: any, max: any, v: any) => {
   return [min, max];
 };
 
-export const messageError = function(message: any): void {
+export const messageError = function (message: any): void {
   if (message) {
     if (typeof message === "string") {
       ElMessage.warning(message);
@@ -172,7 +169,7 @@ export const messageError = function(message: any): void {
   }
 };
 
-export const messageSuccess = function(text: string): void {
+export const messageSuccess = function (text: string): void {
   ElMessage.success({
     message: text,
     type: "success",
@@ -192,12 +189,15 @@ export const copyTxt = (text: string, alert?: boolean, msg?: string) => {
     document.body.removeChild(dom);
     if (alert) {
       // messageSuccess(i18n.common.message.copy)
-      message.copy({
-        value: i18n.common.message.copyAlert,
-        desc: msg || text,
-      }, {
-        confirmButtonText: i18n.common.button.share,
-      });
+      message.copy(
+        {
+          value: i18n.common.message.copyAlert,
+          desc: msg || text,
+        },
+        {
+          confirmButtonText: i18n.common.button.share,
+        },
+      );
     }
   }
 };
@@ -214,12 +214,7 @@ export const copyTxtMessage = (text: string, msg?: any) => {
   }
 };
 // 更改路由参数
-export const changeRoute = (
-  route: any,
-  router: any,
-  paramName: string,
-  paramValue: string,
-) => {
+export const changeRoute = (route: any, router: any, paramName: string, paramValue: string) => {
   const query = { ...route.query };
   query[paramName] = paramValue;
   router.replace({
@@ -228,13 +223,9 @@ export const changeRoute = (
   });
 };
 // 更改路由参数传对象
-export const changeRouteParam = (
-  route: any,
-  router: any,
-  param: any,
-) => {
+export const changeRouteParam = (route: any, router: any, param: any) => {
   const query = { ...route.query };
-  R.map((key) => query[key] = param[key], R.keys(param));
+  R.map((key) => (query[key] = param[key]), R.keys(param));
   router.replace({
     ...route,
     query: { ...query },
@@ -243,10 +234,7 @@ export const changeRouteParam = (
 // 省略token
 export const smallToken = (tokenId: string) => {
   if (!tokenId) return;
-  return `${tokenId.slice(0, 6)}......${tokenId.slice(
-    tokenId.length - 4,
-    tokenId.length,
-  )}`;
+  return `${tokenId.slice(0, 6)}......${tokenId.slice(tokenId.length - 4, tokenId.length)}`;
 };
 export const isToken = (token: string) => {
   const i18n = I18n();
@@ -289,7 +277,7 @@ export const aboutCn = (value: any) => {
     return parseFloat(v.toFixed(2));
     // return Math.round(value * 100) / 100
   } else {
-    let i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)));
+    let i: number = Math.floor(Math.log(Math.abs(value)) / Math.log(k));
     i = i <= 3 ? i : 3;
     // if(i>3) return v.toFixed(2)
     const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2));
@@ -306,7 +294,7 @@ export const aboutEn = (value: any) => {
     return parseFloat(v.toFixed(2));
     // return Math.round(value * 100) / 100
   } else {
-    let i: number = Math.floor(Math.log(Math.abs(value)) / (Math.log(k)));
+    let i: number = Math.floor(Math.log(Math.abs(value)) / Math.log(k));
     i = i <= 4 ? i : 4;
     // if(i>3) return v.toFixed(2)
     const values = parseFloat((Math.abs(value) / Math.pow(k, i)).toFixed(2));
@@ -337,7 +325,7 @@ export const getVNumber = (value: any, zeroIndex: number, isFour: boolean) => {
     if (zeroIndex === 0) {
       return parseFloat(v.precision(intNumber + 4).toFixed(2));
     } else {
-      return parseFloat(v.precision(intNumber + 4).toFixed(2 + (zeroIndex)));
+      return parseFloat(v.precision(intNumber + 4).toFixed(2 + zeroIndex));
     }
   }
 };
@@ -439,7 +427,7 @@ export const getMaxWidth = (list: string[]) => {
   list.forEach((item) => {
     // @ts-ignore
     const width = getCodeWidth(item.seriesName);
-    max = max === 0 ? width : (width > max) ? width : max;
+    max = max === 0 ? width : width > max ? width : max;
   });
   return max;
 };
@@ -467,13 +455,12 @@ export const formatNumber = (v: number) => {
 // 获取图标
 const chartTipItem = (color: string, v: string) => {
   const svgType = `<svg t="1626927627838"  class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1456" width="16" height="16"><path d="M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z" fill="${color}" p-id="1457"></path></svg>`;
-  const svg = `data:image/svg+xml;base64,${window.btoa(
-    unescape(encodeURIComponent(svgType)),
-  )}`;
+  const svg = `data:image/svg+xml;base64,${window.btoa(unescape(encodeURIComponent(svgType)))}`;
   return `<div style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;line-height: 12px;" class='mt-2 md:mt-0 w-50 md:w-full flex items-center break-words whitespace-pre-wrap'><img style="margin-bottom:1.5px" src='${svg}' style="width:16px;height:auto;"/><div class="ml-1">${v}</div> </div>`;
 };
 
-export const tipResult = (title: string) => `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`;
+export const tipResult = (title: string) =>
+  `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`;
 // 提示文字
 export const getTip = (params: any) => {
   // 水印 遮盖有问题   需要改改改
@@ -485,8 +472,8 @@ export const getTip = (params: any) => {
 export const tolocaleUpperCase = (str: string | undefined) => str?.toUpperCase();
 export const tolocaleLowerCase = (str: string | undefined) => str?.toLowerCase();
 export const getIconType = (name: string) => `icon-${tolocaleUpperCase(R.slice(0, 1, name))}`;
-export const getBoolean = (v: number | undefined) => !!((v || v === 0));
-export const getValue = (v: any) => (v || v === 0) ? v : "-";
+export const getBoolean = (v: number | undefined) => !!(v || v === 0);
+export const getValue = (v: any) => (v || v === 0 ? v : "-");
 export const getNumberColor = (v: number | string | null) => {
   if (!v && v !== 0) {
     return "text-global-highTitle text-opacity-65";
@@ -503,21 +490,23 @@ export const getUpDownColor = (v: number | string | null) => {
   }
   return "text-global-highTitle";
 };
-export const getRedGreen = (v: any) => v >= 0 ? "text-global-numGreen" : (v < 0 ? "text-global-numRed" : "text-global-highTitle text-opacity-65");
+export const getRedGreen = (v: any) =>
+  v >= 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle text-opacity-65";
 
-export const timeConvert = (timestamp: number, num: number) => { // num:0 YYYY-MM-DD  num:1  YYYY-MM-DD hh:mm:ss // timestamp:时间戳
+export const timeConvert = (timestamp: number, num: number) => {
+  // num:0 YYYY-MM-DD  num:1  YYYY-MM-DD hh:mm:ss // timestamp:时间戳
   timestamp = timestamp.toString().length === 10 ? timestamp * 1000 : timestamp;
   const date = new Date(timestamp);
   const y = date.getFullYear();
   let m: number | string = date.getMonth() + 1;
-  m = m < 10 ? (`0${m}`) : m;
+  m = m < 10 ? `0${m}` : m;
   let d: number | string = date.getDate();
-  d = d < 10 ? (`0${d}`) : d;
+  d = d < 10 ? `0${d}` : d;
   let h: string | number = date.getHours();
-  h = h < 10 ? (`0${h}`) : h;
+  h = h < 10 ? `0${h}` : h;
   let minute: string | number = date.getMinutes();
   // let second:string | number  = date.getSeconds();
-  minute = minute < 10 ? (`0${minute}`) : minute;
+  minute = minute < 10 ? `0${minute}` : minute;
   // second = second < 10 ? ('0' + second) : second;
   if (num === 0) {
     return `${m}/${d}`;

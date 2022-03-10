@@ -1,16 +1,18 @@
-<script lang="ts">
-export default {
-  props: {
-    value: [String, Number],
+<script setup lang="ts">
+defineProps({
+  value: {
+    type: [String, Number],
+    default: "",
   },
-};
+});
 </script>
 
 <template>
   <span class="time-count-down">
     <TimeCountdown :value="value">
       <template #default="date">
-        <i class="text-12-12">{{ date.day }}</i> : <i class="text-12-12">{{ date.hour }}</i> : <i class="text-12-12">{{ date.minute }}</i> : <i class="text-12-12">{{ date.second }}</i>
+        <i class="text-12-12">{{ date.day }}</i> : <i class="text-12-12">{{ date.hour }}</i> :
+        <i class="text-12-12">{{ date.minute }}</i> : <i class="text-12-12">{{ date.second }}</i>
       </template>
     </TimeCountdown>
   </span>

@@ -21,20 +21,28 @@ if (IsSSR()) {
     },
     body: {
       scrollTop: 0,
-      appendChild() {},
-      removeChild() {},
+      appendChild() {
+        // todo
+      },
+      removeChild() {
+        // todo
+      },
     },
-    execCommand() {},
+    execCommand() {
+      // todo
+    },
     querySelector() {
+      // todo
     },
     createElement() {
+      // todo
     },
   };
 } else {
   try {
     doc = document;
   } catch (e) {
-
+    // todo
   }
 }
 

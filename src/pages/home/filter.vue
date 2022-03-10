@@ -10,9 +10,15 @@ import safeGet from "@fengqiaogang/safe-get";
 const props = defineProps({
   filters: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
   info: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
 });
 const route = useRoute();
@@ -68,16 +74,25 @@ const isCategory = computed<boolean>(() => {
       <div class="flex items-center justify-between w-full">
         <div class="flex items-center w-full">
           <div v-if="isCategory" class="is-tab relative">
-            <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">{{ i18n.home.category }}</div>
+            <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">
+              {{ i18n.home.category }}
+            </div>
             <ui-tab class="relative z-22" :list="categoryData" :split="3" active-name="category" />
           </div>
-          <IconFont v-if="isCategory && isChain" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5  h-full" type="icon-gang" />
+          <IconFont
+            v-if="isCategory && isChain"
+            class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5 h-full"
+            type="icon-gang"
+          />
           <div v-if="isChain" class="flex items-center">
             <span class="mr-4 text-kd14px18px text-global-highTitle text-opacity-65">{{ i18n.home.chain }}</span>
             <client-only class="flex items-center justify-between">
               <el-select
-                v-model="chain" :popper-append-to-body="false" class="projectMining  flex-1 select"
-                size="small" @change="change"
+                v-model="chain"
+                :popper-append-to-body="false"
+                class="projectMining flex-1 select"
+                size="small"
+                @change="change"
               >
                 <el-option v-for="item in chainData" :key="item.name" :label="item.name" :value="item.name" />
               </el-select>
@@ -92,8 +107,8 @@ const isCategory = computed<boolean>(() => {
 .select {
   ::v-deep(.el-input__inner) {
     border: 1px solid rgba(3, 54, 102, 0.1) !important;
-    box-shadow:none;
-    background: #FAFBFC;
+    box-shadow: none;
+    background: #fafbfc;
     height: 34px !important;
     padding-left: 12px !important;
     border-radius: 6px !important;

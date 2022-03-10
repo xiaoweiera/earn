@@ -21,9 +21,11 @@ const props = defineProps({
   // 是否发送手机验证码
   mobile: {
     type: Boolean,
+    default: () => false,
   },
   before: {
     type: Function,
+    default: () => null,
   },
   query: {
     type: Object as PropType<Query>,
@@ -36,7 +38,7 @@ const props = defineProps({
 let _timeTask: any;
 const times = ref<number>(0);
 
-const countDownTime = function(value: number) {
+const countDownTime = function (value: number) {
   clearTimeout(_timeTask);
   times.value = value - 1;
   if (times.value > 0) {
@@ -47,7 +49,7 @@ const countDownTime = function(value: number) {
 };
 
 // 获取验证码
-const onSeadCode = async function(value: string | undefined) {
+const onSeadCode = async function (value: string | undefined) {
   if (value) {
     countDownTime(maxTimeValue); // 开始倒计时
     const data = Object.assign({}, props.query || {}, {
@@ -74,7 +76,6 @@ const onSeadCode = async function(value: string | undefined) {
     }
   }
 };
-
 </script>
 
 <template>

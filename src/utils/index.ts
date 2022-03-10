@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import _, { compact, flatten, size, toLower, toUpper } from "lodash";
+import { compact, flatten, size, toLower, toUpper } from "lodash";
 import uuid from "./uuid/";
 import { Equals, isArray } from "./check/is";
 
@@ -13,7 +13,7 @@ export * from "./time/index";
 export { uuid, size, compact, flatten, Equals };
 
 // 首字母大写
-export const upperFirst = function(value: string): string {
+export const upperFirst = function (value: string): string {
   // 将字符串转换为小写
   const str = toLower(value || "");
   const first = toUpper(str[0] || "");
@@ -21,7 +21,7 @@ export const upperFirst = function(value: string): string {
   return `${first}${last}`;
 };
 
-export const max = function(...args: any[]): number {
+export const max = function (...args: any[]): number {
   const list = compact(flatten(args));
   if (list.length > 0) {
     let value: number = list[0];
@@ -36,7 +36,7 @@ export const max = function(...args: any[]): number {
   return void 0;
 };
 
-export const min = function(...args: any[]): number {
+export const min = function (...args: any[]): number {
   const list = compact(flatten(args));
   if (list.length > 0) {
     let value: number = list[0];
@@ -51,20 +51,22 @@ export const min = function(...args: any[]): number {
   return void 0;
 };
 
+type eachCallback = (value: never, index: number | string, list: never[] | never) => void;
+
 /**
  * 循环
  */
-export const forEach = function(callback: any, data: any) {
+export const forEach = function (callback: eachCallback, data: never[] | never) {
   if (callback && data) {
     if (isArray(data)) {
-      data.forEach((value: any, index: number) => {
+      data.forEach((value: never, index: number) => {
         callback(value, index, data);
       });
     } else {
       const keys = Object.keys(data);
       keys.forEach((key: string) => {
         // @ts-ignore
-        const value = data[key];
+        const value: never = data[key];
         callback(value, key, data);
       });
     }
@@ -108,6 +110,6 @@ export class Encryption {
     return this.text.replace(reg, replace);
   }
 }
-export const encryption = function(value: string): Encryption {
+export const encryption = function (value: string): Encryption {
   return new Encryption(value || "");
 };

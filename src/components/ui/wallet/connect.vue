@@ -7,19 +7,16 @@ import { onMounted } from "vue";
 import I18n from "src/utils/i18n";
 import { Encryption } from "src/utils/";
 import { ElButton } from "element-plus";
-import type { User } from "src/types/common/user";
 import Wallet from "src/plugins/web3/wallet";
 import { EventType } from "src/plugins/web3/interface";
-import { createReactive } from "src/utils/ssr/ref";
 import { address, isConnect } from "src/logic/common/wallet";
 import safeGet from "@fengqiaogang/safe-get";
 import { messageError } from "src/lib/tool";
 import { getErrorMessageContent } from "src/plugins/web3/message";
 
 const i18n = I18n();
-const user = createReactive<User>("common.user", {} as User);
 
-const walletAddress = function(): string {
+const walletAddress = function (): string {
   if (isConnect()) {
     const encryption = new Encryption(address.value);
     encryption.set$1Count(6);
@@ -31,7 +28,7 @@ const walletAddress = function(): string {
 };
 
 // 链接钱包
-const onConnect = async function() {
+const onConnect = async function () {
   // 如果已获取到地址
   if (isConnect()) {
     return true;
@@ -52,7 +49,7 @@ const onConnect = async function() {
 };
 
 // 同步钱包地址
-const syncAddress = function() {
+const syncAddress = function () {
   // 获取钱包地址
   const wallet = new Wallet();
   address.value = wallet.getChainAddress();
@@ -69,7 +66,6 @@ onMounted(() => {
   });
   syncAddress();
 });
-
 </script>
 
 <template>
