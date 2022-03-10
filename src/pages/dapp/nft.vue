@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref, toRaw } from "vue";
 import I18n from "src/utils/i18n";
-import { Model, transformNftList } from "src/logic/dapp";
-import { NftTabTypes, nftTabs } from "src/types/dapp";
+import { Model, transformNftList, nftTabs } from "src/logic/dapp";
+import { NftTabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import type { summaryModel } from "src/types/home";
 import { getValue } from "src/utils/root/data";
