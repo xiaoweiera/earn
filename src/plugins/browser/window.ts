@@ -9,7 +9,7 @@ import { Ethereum } from "src/types/ethereum";
 import * as console from "src/plugins/log/";
 
 type Root = Record<string, any>;
-
+//@ts-ignore
 let root: Root = {};
 
 class Web3 {
@@ -77,4 +77,4 @@ if (IsSSR()) {
   }
 }
 
-export default { ...root };
+export default root;
