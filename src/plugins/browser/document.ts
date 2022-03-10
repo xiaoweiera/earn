@@ -6,7 +6,7 @@
 import { IsSSR } from "src/config/ssr";
 
 type Document = Record<string, any>;
-
+//@ts-ignore
 let doc: Document = {};
 
 if (IsSSR()) {
@@ -46,4 +46,4 @@ if (IsSSR()) {
   }
 }
 
-export default { ...doc };
+export default doc;
