@@ -3,6 +3,10 @@ import { getHeader } from "src/logic/home";
 import { onMounted, ref } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 const props = defineProps({
+  sort: {
+    type: Boolean,
+    default: true
+  },
   height: {
     type: String,
     default: () => "h-10.5",
@@ -25,7 +29,7 @@ const props = defineProps({
 // [headerName,headerCss]
 const cssData: any = ref([]);
 onMounted(() => {
-  cssData.value = getHeader(props.item.key, props.name);
+  cssData.value = getHeader(props.item.key, props?.name);
 });
 const sortIcon: any = {
   desc: "icon-shuangxiangjiantou-down",
@@ -44,8 +48,8 @@ const getIcon = () => {
 </script>
 <template>
   <div class="flex items-center" :class="`${cssData[1]} ${height}`">
-    <div class="relative h-full flex items-center" :class="item.sort ? 'hand' : ''">
-      <IconFont v-if="item.sort && params" class="relative mr-1" size="14" :type="getIcon()" />
+    <div class="relative h-full flex items-center" :class="(item.sort && sort) ? 'hand' : ''">
+      <IconFont v-if="item.sort && params && sort" class="relative mr-1" size="14" :type="getIcon()" />
       <span>{{ cssData[0] }}</span>
       <div :class="item.key === params?.sort_field ? 'sort-border' : ''" />
     </div>
