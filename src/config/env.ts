@@ -13,11 +13,11 @@ import type { ImportMetaEnv } from "../types/env";
 import { Command, production } from "../types/env";
 
 interface Result {
-	error?: boolean;
-	parsed: ImportMetaEnv;
+  error?: boolean;
+  parsed: ImportMetaEnv;
 }
 
-const getCookieDomain = function(data: ImportMetaEnv): string {
+const getCookieDomain = function (data: ImportMetaEnv): string {
   if (data.VITE_cookie) {
     return data.VITE_cookie;
   }
@@ -30,7 +30,7 @@ const getCookieDomain = function(data: ImportMetaEnv): string {
   return "";
 };
 
-const getFileSrc = function(mode: string, local?: boolean) {
+const getFileSrc = function (mode: string, local?: boolean) {
   const root = path.join(__dirname, "../..");
   if (local) {
     return path.join(root, `.env.${mode}.local`);
@@ -38,10 +38,10 @@ const getFileSrc = function(mode: string, local?: boolean) {
   return path.join(root, `.env.${mode}`);
 };
 
-const fsStat = function(mode: string, local?: boolean): Promise<string> {
+const fsStat = function (mode: string, local?: boolean): Promise<string> {
   const src = getFileSrc(mode, local);
   return new Promise((resolve) => {
-    fs.stat(src, (err, stats) => {
+    fs.stat(src, (err) => {
       if (err) {
         resolve("");
       } else {
@@ -51,11 +51,11 @@ const fsStat = function(mode: string, local?: boolean): Promise<string> {
   });
 };
 
-const getEnv = function(path: string): Result {
+const getEnv = function (path: string): Result {
   return dotenv.config({ path }) as any;
 };
 
-export const getConfig = async function(env: ConfigEnv | object): Promise<ImportMetaEnv> {
+export const getConfig = async function (env: ConfigEnv | object): Promise<ImportMetaEnv> {
   let result: Result | undefined;
   const mode = safeGet<string>(env, "mode");
   if (mode !== production) {

@@ -47,7 +47,7 @@ const loading = ref(false);
 const key = ref(0);
 
 const api = new Model();
-watch(route, (n) => {
+watch(route, () => {
   const query: any = getParam<string>();
   params.chain = query.chain;
   params.category = query.category;
@@ -171,7 +171,7 @@ const isFilter = () => {
           </tr>
         </thead>
         <tbody>
-          <template v-for="(item, index) in data.items">
+          <template v-for="(item, index) in data.items" :key="index">
             <tr
               :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'"
               class="min-h-12.5 h-12.5 md:min-h19.5 hand"

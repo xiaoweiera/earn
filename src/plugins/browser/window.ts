@@ -13,6 +13,7 @@ type Root = Record<string, any>;
 let root: Root = {};
 
 class Web3 {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   constructor(provider?: any, net?: any) {
     console.log("new web3");
   }
@@ -56,9 +57,11 @@ if (IsSSR()) {
       // todo
     },
     grecaptcha: {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       async execute(...args: any[]) {
         // todo
       },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       async ready(...args: any[]) {
         // todo
       },

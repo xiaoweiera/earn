@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-import safeGet from "@fengqiaogang/safe-get";
-import { config } from "src/router/config";
 import { ProjectType } from "src/types/dapp/ixo";
-import { getParam } from "src/utils/router";
 import DappNftsAd from "./ad.vue";
 import DappNftsHeader from "./header.vue";
 
@@ -14,14 +11,6 @@ defineProps({
     },
   },
 });
-const detailUrl = function (data: object) {
-  const category = getParam<string>("category", "") as string;
-  const id = safeGet<number>(data, "id");
-  if (id) {
-    return `${config.dapp}/rank/${id}?category=${category}`;
-  }
-  return safeGet<string>(data, "website");
-};
 </script>
 <template>
   <div

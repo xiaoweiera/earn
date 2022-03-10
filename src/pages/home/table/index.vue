@@ -36,7 +36,7 @@ const changeTopic = (index: number) => (id.value = index);
     </div>
     <!--手机端翻页-->
     <div class="mdhidden flex items-center justify-center mt-4">
-      <template v-for="(item, index) in data">
+      <template v-for="(item, index) in data" :key="index">
         <div class="dian hand" :class="id === index ? 'yuan' : 'yuan-no'" @click="changeTopic(index)" />
       </template>
     </div>

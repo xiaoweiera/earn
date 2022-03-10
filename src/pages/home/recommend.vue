@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import document from "src/plugins/browser/document";
 import { oss } from "src/config";
 // 引入 swiper vue 组件
@@ -59,14 +59,17 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div class="text-kd20px20px md:text-kd24px24px relative  font-kdSemiBold text-global-highTitle font-semibold">{{ i18n.home.hotTopic }}</div>
+    <div class="text-kd20px20px md:text-kd24px24px relative font-kdSemiBold text-global-highTitle font-semibold">
+      {{ i18n.home.hotTopic }}
+    </div>
     <div class="mt-4 relative">
       <div class="w-full">
-        <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
+        <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
           <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" fit="cover" @click="last" />
         </div>
         <Swiper
-          v-if="recommend.length>0" class="h-full swiper-recom"
+          v-if="recommend.length > 0"
+          class="h-full swiper-recom"
           :initial-slide="0"
           slides-per-view="auto"
           :space-between="24"
@@ -76,24 +79,24 @@ onMounted(() => {
         >
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="getHref(item['data_type'],item)" target="_blank" class="item-card">
-                <UiAd v-if="item['data_type']==='ad'" class="top-3 left-3 absolute z-5" />
+              <v-router :href="getHref(item['data_type'], item)" target="_blank" class="item-card">
+                <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute z-5" />
                 <div class="info relative z-10">
                   <div class="name text-number">{{ item.name }}</div>
                   <div class="go">Go</div>
                 </div>
-                <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'],item)" fit="cover" />
+                <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'], item)" fit="cover" />
                 <div class="bottom-bg" />
               </v-router>
             </SwiperSlide>
           </template>
         </Swiper>
       </div>
-      <div :class="isEnd?'hidden':'jian-right'" class="xshidden">
-        <img class="right shadow" :src="`${oss}/dapp/rightjian.png`" alt="" @click="next">
+      <div :class="isEnd ? 'hidden' : 'jian-right'" class="xshidden">
+        <img class="right shadow" :src="`${oss}/dapp/rightjian.png`" alt="" @click="next" />
       </div>
-      <div v-if="!isBegin" class="xshidden absolute top-0 left-0 left-jian w-15 h-full  z-9" />
-      <div v-if="!isEnd" class="xshidden  absolute top-0 right-0 right-jian w-15 h-full  z-9" />
+      <div v-if="!isBegin" class="xshidden absolute top-0 left-0 left-jian w-15 h-full z-9" />
+      <div v-if="!isEnd" class="xshidden absolute top-0 right-0 right-jian w-15 h-full z-9" />
     </div>
   </div>
 </template>
@@ -106,10 +109,10 @@ onMounted(() => {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute right-3 z-10 top-20;
 }
-.item-card{
+.item-card {
   @apply w-35 h-35 md:h-47.5 md:w-47.5 rounded-kd6px block relative;
 }
-.bottom-bg{
+.bottom-bg {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
   @apply w-full h-19.5 bottom-0 left-0 absolute z-2 rounded-kd6px;
 }
@@ -131,10 +134,10 @@ onMounted(() => {
 .shadow {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
 }
-.right-jian{
-  background: linear-gradient(to right, rgba(250, 251, 252, 0),rgba(250, 251, 252, 1));
+.right-jian {
+  background: linear-gradient(to right, rgba(250, 251, 252, 0), rgba(250, 251, 252, 1));
 }
-.left-jian{
-  background: linear-gradient(to right, rgba(250, 251, 252, 1),rgba(250, 251, 252, 0));
+.left-jian {
+  background: linear-gradient(to right, rgba(250, 251, 252, 1), rgba(250, 251, 252, 0));
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import document from "src/plugins/browser/document";
 import { oss } from "src/config";
 // 引入 swiper vue 组件
@@ -40,11 +40,12 @@ onMounted(() => {
   <div>
     <div class="mt-4 relative px-2.5">
       <div class="w-full swiper-loop-wrap">
-        <div :class="isBegin?'hidden':'jian-left'" class="xshidden">
+        <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
           <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" fit="cover" @click="last" />
         </div>
         <Swiper
-          v-if="platform.length>0" class="h-full swiper-company"
+          v-if="platform.length > 0"
+          class="h-full swiper-company"
           :initial-slide="0"
           :loop="true"
           :autoplay="{ delay: 1000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
@@ -59,13 +60,16 @@ onMounted(() => {
               <!--              :href="item['website']"-->
               <span class="h-9 w-fit flex items-center">
                 <ui-image class="w-6 h-6" fit="cover" :src="item.logo" :lazy="true" />
-                <span class="text-kd18px24px text-global-highTitle text-opacity-85 font-kdSemiBold font-medium ml-1.5">{{ item.name }}</span>
+                <span
+                  class="text-kd18px24px text-global-highTitle text-opacity-85 font-kdSemiBold font-medium ml-1.5"
+                  >{{ item.name }}</span
+                >
               </span>
             </SwiperSlide>
           </template>
         </Swiper>
       </div>
-      <div :class="isEnd?'hidden':'jian-right'" class="xshidden">
+      <div :class="isEnd ? 'hidden' : 'jian-right'" class="xshidden">
         <ui-image class="right shadow" :src="`${oss}/dapp/rightjian.png`" fit="cover" @click="next" />
       </div>
     </div>

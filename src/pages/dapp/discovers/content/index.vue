@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getNextUrl } from "src/logic/dapp";
 import DappDiscoversContentHeader from "./header.vue";
 import DappDiscoversContentTitle from "./title.vue";
 import DappDiscoversContentDec from "./dec.vue";

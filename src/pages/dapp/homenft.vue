@@ -3,7 +3,7 @@
  * @file NFT 列表
  */
 import I18n from "src/utils/i18n";
-import { onMounted, reactive, ref, watch } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { Model, tabChain } from "src/logic/dapp";
 import { alias, createRef, onLoadRef, onUpdateRef } from "src/utils/ssr/ref";
 import type { AdNftItem, ProjectNftItem } from "src/types/dapp/nft";
@@ -106,7 +106,7 @@ onMounted(() => {
       <!-- nft项目 -->
       <div v-if="UpcomingNftList.length > 0" class="mt-4 nft-item w-full showX">
         <div class="coming-item">
-          <div v-for="(item, index) in UpcomingNftList" :class="{ 'ml-6': index > 0 }" class="xl:ml-0">
+          <div v-for="(item, index) in UpcomingNftList" :key="index" :class="{ 'ml-6': index > 0 }" class="xl:ml-0">
             <DAppNftList :key="index" :data="item" />
           </div>
         </div>

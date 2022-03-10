@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import I18n from "src/utils/i18n/index";
 import { ElOption, ElSelect } from "element-plus";
 import { getParam } from "src/utils/router";
@@ -21,12 +21,10 @@ const props = defineProps({
     },
   },
 });
-const route = useRoute();
 const router = useRouter();
 const query = getParam<object>();
 const i18n = I18n();
 const chain = ref(getParam<object>("chain") ? getParam<object>("chain") : "All");
-const search = ref(getParam<object>("search"));
 const chainData: any = ref([]);
 const categoryData: any = ref([]);
 // 重组数据

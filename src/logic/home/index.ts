@@ -3,7 +3,7 @@ import type { projectParams, recommendModel, summaryModel } from "src/types/home
 import I18n from "src/utils/i18n";
 
 // 得到header数据 headerName,headerCss
-export const getHeader = (key: string, name?: string) => {
+export const getHeader = (key: string) => {
   const i18n = I18n();
   if (key === "name") {
     return [i18n.home.topList.name, "justify-begin"];
@@ -104,8 +104,8 @@ export class Model extends API {
   }
 
   // 话题项目top3
-  getTop3(id: string) {
-    return this.home.getTop3(id);
+  getTop3<T>(id: string) {
+    return this.home.getTop3<T>(id);
   }
 
   // 话题详情
