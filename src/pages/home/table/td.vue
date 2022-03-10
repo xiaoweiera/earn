@@ -96,15 +96,9 @@ onMounted(() => {
 <template>
   <div v-if="data">
     <!--Name-->
-    <div
-      v-if="(typeName === 'name' && !info) || (typeName === 'name' && safeGet(info, 'show_type') === 'data')"
-      class="flex-center max-w-28 whitespace-nowrap"
-    >
+    <div v-if="(typeName === 'name' && !info.id) || (typeName === 'name' && safeGet(info, 'show_type') === 'data')" class="flex-center max-w-28 whitespace-nowrap">
       <ui-image
-        :class="info ? 'min-w-8 min-h-8 w-8 h-8' : 'min-w-6 min-h-6 w-6 h-6'"
-        class="rounded-full"
-        :src="safeGet(data, 'logo')"
-      />
+        :class="info.id ? 'min-w-8 min-h-8 w-8 h-8' : 'min-w-6 min-h-6 w-6 h-6'" class="rounded-full" :src="safeGet(data, 'logo')"/>
       <div class="ml-1.5">
         <div class="numberDefault text-number line-height-no smallTxt max-w-28 whitespace-nowrap">
           {{ data['name'] }}
@@ -114,7 +108,7 @@ onMounted(() => {
     </div>
     <!--NameDes-->
     <div
-      v-else-if="typeName === 'name' && info && safeGet(info, 'show_type') === 'desc'"
+      v-else-if="typeName === 'name' && info.id && safeGet(info, 'show_type') === 'desc'"
       class="flex-center short min-w-140"
     >
       <ui-image class="w-8 h-8 md:w-12 md:h-12 rounded-kd6px" :src="data.logo" />
