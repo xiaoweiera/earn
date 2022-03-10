@@ -7,6 +7,9 @@ const i18n = I18n();
 defineProps({
   data: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
 });
 
@@ -30,29 +33,32 @@ const getColor = (value: any) => {
 };
 </script>
 <template>
-  <div class="w-full md:flex  justify-between items-center md:flex-wrap">
+  <div class="w-full md:flex justify-between items-center md:flex-wrap">
     <div class="md:flex-1 md:min-w-105">
       <p class="title font-kdSemiBold">{{ i18n.home.title }}</p>
       <p class="des i8n-font-inter">{{ i18n.home.twoTitle }}</p>
     </div>
-    <div class="flex items-center md:w-140  w-full  justify-between md:justify-end flex-wrap md:flex-nowrap md:mt-0 mt-6">
+    <div class="flex items-center md:w-140 w-full justify-between md:justify-end flex-wrap md:flex-nowrap md:mt-0 mt-6">
       <div class="info-item">
         <div>
-          <ui-popover
-            class="break-words"
-            placement="bottom"
-            width="auto"
-            trigger="hover"
-          >
+          <ui-popover class="break-words" placement="bottom" width="auto" trigger="hover">
             <template #reference>
               <div class="flex justify-end cursor-pointer flex items-center max-w-fit">
                 <div class="item-name name-scale mr-1">{{ i18n.home.platData.avgAth }}</div>
-                <IconFont size="12" class="text-global-white text-opacity-65 relative right-1 md:ml-1" type="icon-infoNo" />
+                <IconFont
+                  size="12"
+                  class="text-global-white text-opacity-65 relative right-1 md:ml-1"
+                  type="icon-infoNo"
+                />
               </div>
             </template>
             <template #content>
-              <div class="font-kdFang p-2 md:p-4 shadow w-65 md:w-105 absolute top-2 z-100 bg-global-white rounded-kd4px">
-                <div class="text-kd16px22px md:text-kd16px22px font-medium text-highTitle">{{ i18n.home.platData.desc.title }}</div>
+              <div
+                class="font-kdFang p-2 md:p-4 shadow w-65 md:w-105 absolute top-2 z-100 bg-global-white rounded-kd4px"
+              >
+                <div class="text-kd16px22px md:text-kd16px22px font-medium text-highTitle">
+                  {{ i18n.home.platData.desc.title }}
+                </div>
                 <div class="mt-1 md:mt-1.5 text-kd12px16px md:text-kd14px22px text-global-highTitle text-opacity-45">
                   {{ i18n.home.platData.desc.content }}
                 </div>
@@ -60,32 +66,44 @@ const getColor = (value: any) => {
             </template>
           </ui-popover>
         </div>
-        <div class="info-des  number-value text-number min-h-5 md:pr-1" :class="getColor(data.avg_ath)">
+        <div class="info-des number-value text-number min-h-5 md:pr-1" :class="getColor(data.avg_ath)">
           {{ toNumberCashFormat(data.avg_ath, 'x') }}
         </div>
       </div>
       <div class="info-item">
         <div class="item-name name-scale w-full text-left">{{ i18n.home.platData.nft }}</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(safeGet(data,'nft.total')) }}</span>
-          <span class="time  time-scale font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(safeGet(data,'nft.increase_24h'))">{{ getNumber(safeGet(data,'nft.increase_24h')) }}</span>
+          <span class="number-value text-number text-global-white">{{
+            toNumberCashFormat(safeGet(data, 'nft.total'))
+          }}</span>
+          <span class="time time-scale font-kdFang text-global-white">24H</span>
+          <span class="number-rate text-number" :class="getColor(safeGet(data, 'nft.increase_24h'))">{{
+            getNumber(safeGet(data, 'nft.increase_24h'))
+          }}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name name-scale">{{ i18n.home.platData.ido }}</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(safeGet(data,'ixo.total')) }}</span>
-          <span class="time time-scale  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(safeGet(data,'ixo.increase_24h'))">{{ getNumber(safeGet(data,'ixo.increase_24h')) }}</span>
+          <span class="number-value text-number text-global-white">{{
+            toNumberCashFormat(safeGet(data, 'ixo.total'))
+          }}</span>
+          <span class="time time-scale font-kdFang text-global-white">24H</span>
+          <span class="number-rate text-number" :class="getColor(safeGet(data, 'ixo.increase_24h'))">{{
+            getNumber(safeGet(data, 'ixo.increase_24h'))
+          }}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name name-scale">{{ i18n.home.platData.air }}</div>
         <div class="info-des">
-          <span class="number-value text-number  text-global-white">{{ toNumberCashFormat(safeGet(data,'airdrop.total')) }}</span>
-          <span class="time time-scale  font-kdFang  text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(safeGet(data,'airdrop.increase_24h'))">{{ getNumber(safeGet(data,'airdrop.increase_24h')) }}</span>
+          <span class="number-value text-number text-global-white">{{
+            toNumberCashFormat(safeGet(data, 'airdrop.total'))
+          }}</span>
+          <span class="time time-scale font-kdFang text-global-white">24H</span>
+          <span class="number-rate text-number" :class="getColor(safeGet(data, 'airdrop.increase_24h'))">{{
+            getNumber(safeGet(data, 'airdrop.increase_24h'))
+          }}</span>
         </div>
       </div>
     </div>
@@ -93,7 +111,7 @@ const getColor = (value: any) => {
 </template>
 <style scoped lang="scss">
 .green-value {
-  color: #00FF29;
+  color: #00ff29;
 }
 .shadow {
   box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.12);
@@ -128,13 +146,13 @@ const getColor = (value: any) => {
   }
 }
 .item-name {
-  @apply  text-right text-kd10px16px md:text-kd12px16px font-medium font-kdFang text-global-white text-opacity-65;
+  @apply text-right text-kd10px16px md:text-kd12px16px font-medium font-kdFang text-global-white text-opacity-65;
 }
 @media screen and (max-width: 768px) {
   .name-scale {
     transform: scale(0.83);
   }
-  .time-scale{
+  .time-scale {
     transform: scale(0.66);
   }
 }
@@ -142,7 +160,7 @@ const getColor = (value: any) => {
   .name-scale {
     transform: scale(1);
   }
-  .time-scale{
+  .time-scale {
     transform: scale(1);
   }
 }

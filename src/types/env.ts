@@ -19,26 +19,26 @@ export interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
-export const production = 'production';
-export const development = 'development';
-export const test = 'test';
+export const production = "production";
+export const development = "development";
+export const test = "test";
 
 export enum Command {
   // eslint-disable-next-line no-unused-vars
-  build = 'build',
+  build = "build",
   // eslint-disable-next-line no-unused-vars
-  serve = 'serve',
+  serve = "serve",
 }
 
-export const title = 'KingData';
-export const AppId = 'app';
-export const languageKey = 'lang';
-export const tokenName = 'auth_token';
-export const tokenKey = 'token';
-export const tidingName = 'last_timestamp';
+export const title = "KingData";
+export const AppId = "app";
+export const languageKey = "lang";
+export const tokenName = "auth_token";
+export const tokenKey = "token";
+export const tidingName = "last_timestamp";
 export const tokenExpires = 1000 * 60 * 60 * 24 * 3; // 过期时间
-export const deviceName = 'kd_origin'; // 标记当前设备类型
-export const rootData = '__MlaABWNKPrYLzpbU';
+export const deviceName = "kd_origin"; // 标记当前设备类型
+export const rootData = "__MlaABWNKPrYLzpbU";
 
-export const dashboard = '/';
-export const oss = 'https://res.kingdata.xyz';
+export const dashboard = "/";
+export const oss = "https://res.kingdata.xyz";

@@ -8,9 +8,13 @@ import DappDiscoversContent from "./content/index.vue";
 defineProps({
   data: {
     type: Object as PropType<ProjectItem | AdItem>,
+    default: () => {
+      return {};
+    },
   },
   status: {
     type: String,
+    default: "",
   },
 });
 </script>
@@ -18,7 +22,9 @@ defineProps({
   <div class="discover-item">
     <div>
       <!--遍历展示项目列表信息-->
-      <div class="discover-list relative h-87.5 border border-global-highTitle border-opacity-6 rounded-md cursor-pointer">
+      <div
+        class="discover-list relative h-87.5 border border-global-highTitle border-opacity-6 rounded-md cursor-pointer"
+      >
         <DappDiscoversContentAd v-if="data.data_type === ProjectType.ad" :data="data" />
         <DappDiscoversContent v-else :status="status" :data="data" />
       </div>

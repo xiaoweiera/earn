@@ -3,14 +3,14 @@
  * @file 手机密码找回
  * @author svon.me@gmail.com
  */
-import API from 'src/api/index';
-import I18n from 'src/utils/i18n';
-import { messageError } from 'src/lib/tool';
-import type { AreaCode } from 'src/types/common/area';
-import * as Common from 'src/logic/account/register';
-import { computed, onMounted, ref, toRaw } from 'vue';
-import { ValidateType } from 'src/components/ui/validate/config';
-import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
+import API from "src/api/index";
+import I18n from "src/utils/i18n";
+import { messageError } from "src/lib/tool";
+import type { AreaCode } from "src/types/common/area";
+import * as Common from "src/logic/account/register";
+import { computed, onMounted, ref, toRaw } from "vue";
+import { ValidateType } from "src/components/ui/validate/config";
+import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from "element-plus";
 
 const i18n = I18n();
 const domForm = ref<any>(null);

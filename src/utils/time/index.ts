@@ -3,37 +3,37 @@
  * @author svon.me@gmail.com
  */
 
-import dayjs from 'dayjs';
-import { toLower } from 'ramda';
-import I18n from 'src/utils/i18n';
-import { Language } from 'src/types/language';
-import type { TimeType } from 'src/utils/convert/to';
-import { toDate, toNumber } from 'src/utils/convert/to';
+import dayjs from "dayjs";
+import { toLower } from "ramda";
+import I18n from "src/utils/i18n";
+import { Language } from "src/types/language";
+import type { TimeType } from "src/utils/convert/to";
+import { toDate, toNumber } from "src/utils/convert/to";
 
-export const timeFormat = 'YYYY-MM-DD HH:mm:ss';
+export const timeFormat = "YYYY-MM-DD HH:mm:ss";
 
 export const monthEnName = {
-  '1': 'January',
-  '01': 'January',
-  '2': 'February',
-  '02': 'February',
-  '3': 'March',
-  '03': 'March',
-  '4': 'April',
-  '04': 'April',
-  '5': 'May',
-  '05': 'May',
-  '6': 'June',
-  '06': 'June',
-  '7': 'July',
-  '07': 'July',
-  '8': 'August',
-  '08': 'August',
-  '9': 'September',
-  '09': 'September',
-  '10': 'October',
-  '11': 'November',
-  '12': 'December',
+  "1": "January",
+  "01": "January",
+  "2": "February",
+  "02": "February",
+  "3": "March",
+  "03": "March",
+  "4": "April",
+  "04": "April",
+  "5": "May",
+  "05": "May",
+  "6": "June",
+  "06": "June",
+  "7": "July",
+  "07": "July",
+  "8": "August",
+  "08": "August",
+  "9": "September",
+  "09": "September",
+  "10": "October",
+  "11": "November",
+  "12": "December",
 };
 
 export const dateTime = function (value?: TimeType): number {
@@ -96,40 +96,40 @@ export const dateFormat = function (time?: any, format: string = timeFormat): st
 };
 // 格式化（月/日）
 export const dateMDFormat = function (time?: any): string {
-  return dateFormat(time, 'MM/DD');
+  return dateFormat(time, "MM/DD");
 };
 export const dateYMDFormat = function (time?: any): string {
   const i18n = I18n();
   if (i18n.getLang() === Language.en) {
-    return dateFormat(time, 'MM.DD.YYYY');
+    return dateFormat(time, "MM.DD.YYYY");
   }
-  return dateFormat(time, 'YYYY.MM.DD');
+  return dateFormat(time, "YYYY.MM.DD");
 };
 export const dateYMDHFormat = function (time?: any): string {
   const i18n = I18n();
   if (i18n.getLang() === Language.en) {
-    return dateFormat(time, 'MM.DD.YYYY HH');
+    return dateFormat(time, "MM.DD.YYYY HH");
   }
-  return dateFormat(time, 'YYYY.MM.DD HH');
+  return dateFormat(time, "YYYY.MM.DD HH");
 };
 export const dateYMDHmFormat = function (time?: any): string {
   const i18n = I18n();
   if (i18n.getLang() === Language.en) {
-    return dateFormat(time, 'MM.DD.YYYY HH:mm');
+    return dateFormat(time, "MM.DD.YYYY HH:mm");
   }
-  return dateFormat(time, 'YYYY.MM.DD HH:mm');
+  return dateFormat(time, "YYYY.MM.DD HH:mm");
 };
 export const dateYearFormat = function (time?: any): string {
-  return dateFormat(time, 'YYYY');
+  return dateFormat(time, "YYYY");
 };
 export const dateMonthFormat = function (time?: any): string {
-  return dateFormat(time, 'MM');
+  return dateFormat(time, "MM");
 };
 export const dateDayFormat = function (time?: any): string {
-  return dateFormat(time, 'DD');
+  return dateFormat(time, "DD");
 };
 export const dateHMFormat = function (time?: any): string {
-  return dateFormat(time, 'HH:mm');
+  return dateFormat(time, "HH:mm");
 };
 // 得到年月日 区分中英文
 export const getDateMDY = (t: number) => {
@@ -138,14 +138,14 @@ export const getDateMDY = (t: number) => {
     // @ts-ignore
     return `${monthEnName[dateMonthFormat(t)]} ${dateDayFormat(t)},${dateYearFormat(t)}`;
   } else {
-    return dateFormat(t, 'YYYY年MM月DD日');
+    return dateFormat(t, "YYYY年MM月DD日");
   }
 };
 
 // 分解时间间隔
-export const convertInterval = function (interval = '1d') {
-  const number = toNumber(interval.replace(/[^0-9]/g, ''));
-  const type = toLower(interval.replace(/[^a-zA-Z]/g, ''));
+export const convertInterval = function (interval = "1d") {
+  const number = toNumber(interval.replace(/[^0-9]/g, ""));
+  const type = toLower(interval.replace(/[^a-zA-Z]/g, ""));
   return { number, type };
 };
 

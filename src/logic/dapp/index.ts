@@ -21,7 +21,7 @@ import { Language } from "src/types/language";
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = "All";
 
-export const getAll = function() {
+export const getAll = function () {
   return {
     id: tabAll,
     name: "All",
@@ -31,8 +31,8 @@ export const getAll = function() {
 };
 
 // 获取公链
-export const tabChain = function(data: any, key: string, href: string) {
-  return function() {
+export const tabChain = function (data: any, key: string, href: string) {
+  return function () {
     const arr: any = [getAll()];
     R.forEach((item: any) => {
       const value = safeGet(configs, `chain.${item}`);
@@ -58,8 +58,8 @@ export const tabChain = function(data: any, key: string, href: string) {
 };
 
 // 获取平台
-export const tabPlat = function(data: any, key: string, href: string) {
-  return function() {
+export const tabPlat = function (data: any, key: string, href: string) {
+  return function () {
     const arr: any = [getAll()];
     R.forEach((item: any) => {
       const value = safeGet(configs, `tge_platform.${item}`);
@@ -84,8 +84,8 @@ export const tabPlat = function(data: any, key: string, href: string) {
   };
 };
 // 获取项目类型
-export const tabCage = function(data: any, key: string, href: string) {
-  return function(): any[] {
+export const tabCage = function (data: any, key: string, href: string) {
+  return function (): any[] {
     const arr: any = ["All"].concat(data);
     const query = getParam<object>();
     return R.map((item: any) => {
@@ -105,11 +105,8 @@ export const tabCage = function(data: any, key: string, href: string) {
   };
 };
 
-interface T {
-}
-
 export class Model extends API {
-  getSummary(): T {
+  getSummary() {
     throw new Error("Method not implemented.");
   }
 
@@ -150,7 +147,7 @@ export class Model extends API {
 }
 
 // 跳转IDO链接
-export const getUrl = function(name: string, type: boolean) {
+export const getUrl = function (name: string, type: boolean) {
   if (type) {
     if (name === Status.upcoming) {
       return `${config.dappList}?type=${Status.upcoming}`;
@@ -167,7 +164,7 @@ export const getUrl = function(name: string, type: boolean) {
 };
 
 // 获取公链logo
-export const getLog = function(name: string) {
+export const getLog = function (name: string) {
   const data = safeGet<object>(configs, `chain.${name}`);
   if (data) {
     return safeGet<string>(data, "logo");
@@ -175,23 +172,23 @@ export const getLog = function(name: string) {
   return "N/A";
 };
 // 获取tegicon
-export const getTegLog = function(name: string) {
+export const getTegLog = function (name: string) {
   return safeGet<string>(configs, `tge_platform.${name}.logo`) || "";
 };
 // 获取跳转链接
-export const getTegUrl = function(name: string) {
+export const getTegUrl = function (name: string) {
   return safeGet<string>(configs, `tge_platform.${name}.website`) || "";
 };
 
-export const sortTime = function(list: any) {
+export const sortTime = function (list: any) {
   return R.map((data: logic.ProjectItem) => {
     const value = dateYMDFormat(data.mint_start_at);
     data.pid = dateTime(value);
     return data;
   }, list);
 };
-export const sortVal = function(list: any[], diff?: string, reverse?: boolean) {
-  const app = function(value1: any, value2: any) {
+export const sortVal = function (list: any[], diff?: string, reverse?: boolean) {
+  const app = function (value1: any, value2: any) {
     if (diff) {
       if (reverse) {
         return safeGet<number>(value2, diff) - safeGet<number>(value1, diff);
@@ -207,7 +204,7 @@ export const sortVal = function(list: any[], diff?: string, reverse?: boolean) {
 };
 
 // 判断是否是今天和明天
-export const getTodayTime = function(value: number) {
+export const getTodayTime = function (value: number) {
   const today = dayjs();
   const date = dayjs(value);
 
@@ -225,13 +222,13 @@ export const getTodayTime = function(value: number) {
   return getDateMDY(value);
 };
 // 跳转路由
-export const getNextUrl = function(val: any) {
+export const getNextUrl = function (val: any) {
   if (val && val.url) {
     window.open(createHref(val.url, { type: "dashboard" }));
   }
 };
 
-export const transformNftList = function(list: ProjectNftItem[]) {
+export const transformNftList = function (list: ProjectNftItem[]) {
   const days: number[] = [];
   const db = new DBList([], "id", "date");
   _.forEach(list, (item: ProjectNftItem) => {
@@ -247,10 +244,11 @@ export const transformNftList = function(list: ProjectNftItem[]) {
   });
 };
 // 高亮显示
-export const getClassColor = (v: any) => v > 0 ? "text-global-numGreen" : (v < 0 ? "text-global-numRed" : "text-global-highTitle");
+export const getClassColor = (v: any) =>
+  v > 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle";
 
 // 根据语言获取宽度
-export const getClassWidth = function() {
+export const getClassWidth = function () {
   const lang = getParam<string>("lang", "") as string;
   if (lang === Language.cn) {
     return "w-15";

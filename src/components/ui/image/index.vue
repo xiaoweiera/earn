@@ -12,6 +12,7 @@ type Fit = "cover" | "contain" | "fill" | "none";
 const props = defineProps({
   src: {
     type: String,
+    default: "",
   },
   fit: {
     type: String as PropType<Fit>,
@@ -19,6 +20,7 @@ const props = defineProps({
   },
   rounded: {
     type: Boolean,
+    default: () => false,
   },
 });
 
@@ -42,17 +44,16 @@ onMounted(() => {
     error.value = true;
   }
 });
-
 </script>
 
 <template>
-  <div class="ui-image overflow-hidden" :class="{'error': error, rounded}">
-    <img v-if="src && fit === 'none'" class="" :src="src">
+  <div class="ui-image overflow-hidden" :class="{ error: error, rounded }">
+    <img v-if="src && fit === 'none'" class="" :src="src" />
     <i :class="fit" :style="value" />
   </div>
 </template>
 <style scoped lang="scss">
-@import "src/styles/function";
+@import 'src/styles/function';
 
 %contain {
   background-size: contain;
@@ -72,7 +73,7 @@ onMounted(() => {
     }
   }
 
-  &:not(.error) i{
+  &:not(.error) i {
     &.cover {
       background-size: cover;
     }
@@ -84,7 +85,7 @@ onMounted(() => {
     }
   }
 
-  &.error{
+  &.error {
     @apply relative;
     img {
       @apply opacity-0 invisible;
@@ -93,12 +94,13 @@ onMounted(() => {
       @apply block;
       @extend %contain;
       @apply absolute left-0 top-0 right-0 bottom-0;
-      background-image: static("/assets/kingdata.png") !important;
+      background-image: static('/assets/kingdata.png') !important;
     }
   }
   &.rounded {
     border-radius: 50%;
-    i, img {
+    i,
+    img {
       border-radius: 50%;
     }
   }

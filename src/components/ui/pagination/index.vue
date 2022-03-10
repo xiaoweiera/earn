@@ -21,6 +21,7 @@ const props = defineProps({
   // 加载更多按钮提示语
   nextMore: {
     type: String,
+    default: "",
   },
   // 每页数据条数
   limit: {
@@ -43,13 +44,17 @@ const emitEvent = defineEmits(["change"]);
 
 const { list, page, loading, next, empty, handleData } = Pagination(props as any);
 
-const onNext = async function() {
-  const query = Object.assign({}, {
-    page: page.value,
-    page_size: props.limit,
-    pageSize: props.limit,
-    limit: props.limit,
-  }, props.data);
+const onNext = async function () {
+  const query = Object.assign(
+    {},
+    {
+      page: page.value,
+      page_size: props.limit,
+      pageSize: props.limit,
+      limit: props.limit,
+    },
+    props.data,
+  );
   if (props.request) {
     loading.value = true;
     try {
@@ -77,7 +82,6 @@ onMounted(() => {
     onNext();
   }
 });
-
 </script>
 
 <template>

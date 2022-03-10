@@ -1,4 +1,4 @@
-import type Url from 'url';
+import type Url from "url";
 
 export type Query = Record<string, string>;
 

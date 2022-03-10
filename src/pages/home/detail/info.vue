@@ -11,12 +11,15 @@ const i18n = I18n();
 defineProps({
   data: {
     type: Object as PropType<detail>,
+    default: () => {
+      return {};
+    },
   },
 });
 
 const twitterShare = ref<string>("https://twitter.com/share");
 const telegramShare = ref<string>("https://t.me/share/url");
-const copyUrl = function() {
+const copyUrl = function () {
   copyTxtMessage(window.location.href, i18n.common.message.copyAlert);
 };
 
@@ -24,7 +27,6 @@ onMounted(() => {
   twitterShare.value = `https://twitter.com/share?url=${window.location.href}`;
   telegramShare.value = `https://t.me/share/url?url=${window.location.href}`;
 });
-
 </script>
 <template>
   <div>
@@ -32,10 +34,11 @@ onMounted(() => {
       <div class="md:flex items-center flex-wrap break-all md:mr-6">
         <span
           class="text-kd32px32px whitespace-pre-line md:text-kd40px40px font-kdSemiBold text-global-highTitle text-opacity-85 font-semibold"
-        >{{ data.name }}</span>
+          >{{ data.name }}</span
+        >
       </div>
       <v-router
-        class="min-w-25 h-8  bg-global-primary rounded-kd6px flex items-center justify-center cursor-pointer"
+        class="min-w-25 h-8 bg-global-primary rounded-kd6px flex items-center justify-center cursor-pointer"
         :href="routerConfig.dappApply"
         target="_blank"
       >
@@ -43,7 +46,7 @@ onMounted(() => {
         <span class="text-kd14px18px text-global-white font-medium ml-1">{{ i18n.home.projectApply }}</span>
       </v-router>
     </div>
-    <div class="mt-4  w-full text-kd13px18px md:text-kd14px20px font-medium text-global-highTitle text-opacity-65">
+    <div class="mt-4 w-full text-kd13px18px md:text-kd14px20px font-medium text-global-highTitle text-opacity-65">
       {{ data.desc }}
     </div>
     <div class="mt-4 flex items-center">

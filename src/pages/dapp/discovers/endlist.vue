@@ -9,10 +9,15 @@ const emit = defineEmits(["changeSort"]);
 const props = defineProps({
   list: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
   params: {
     type: Object,
-    default: () => {},
+    default: () => {
+      return {};
+    },
   },
 });
 const i18n = I18n();
@@ -44,8 +49,8 @@ const sort = (key: string) => {
 };
 
 const sortIcon: any = {
-  "desc": "icon-shuangxiangjiantou-down",
-  "asc": "icon-shuangxiangjiantou-up",
+  desc: "icon-shuangxiangjiantou-down",
+  asc: "icon-shuangxiangjiantou-up",
   "": "icon-shuangxiangjiantou",
 };
 const getIcon = (item: string) => {
@@ -62,7 +67,11 @@ const getIcon = (item: string) => {
         <tr class="min-h-11.5 h-11.5">
           <template v-for="(item, index) in data.header" :key="index">
             <td class="thead-hr hand" :class="item.width">
-              <div class="flex items-center" :class="index === 0 ? 'justify-start' : 'justify-center'" @click="item.falg && sort(item.key)">
+              <div
+                class="flex items-center"
+                :class="index === 0 ? 'justify-start' : 'justify-center'"
+                @click="item.falg && sort(item.key)"
+              >
                 <IconFont v-if="item.falg" class="mr-1" size="14" :type="getIcon(item.key)" />
                 <span>{{ item.name }}</span>
               </div>
@@ -71,7 +80,7 @@ const getIcon = (item: string) => {
         </tr>
       </thead>
       <tbody>
-        <template v-for="(item,index) in list" :key="index">
+        <template v-for="(item, index) in list" :key="index">
           <tr v-if="item.data_type !== 'ad'" class="h-14 hand" @click="getNextUrl(item)">
             <td>
               <div class="flex-center">
@@ -86,13 +95,27 @@ const getIcon = (item: string) => {
               <div class="numberDefault text-number">{{ item.category ? item.category : '-' }}</div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ toNumberCashFormat(item.ido_fundraising_goal,'$','','N/A') }}</div>
+              <div class="numberDefault text-number">
+                {{ toNumberCashFormat(item.ido_fundraising_goal, '$', '', 'N/A') }}
+              </div>
             </td>
-            <td><div class="numberDefault text-number">{{ toNumberCashFormat(item.ido_price,'$','','Not Set') }}</div></td>
-            <td><div class="numberDefault text-number">{{ toNumberCashFormat(item.current_price,'$','','Not Set') }}</div></td>
-            <td><div class="text-kd14px16px text-number" :class="getClassColor(item.current_roi_usd)">{{ toNumberCashFormat(item.current_roi_usd,'x','','N/A') }}</div></td>
             <td>
-              <div class="text-kd14px16px text-number" :class="getClassColor(item.ath_since_ido)">{{ toNumberCashFormat(item.ath_since_ido,'x','','N/A') }}</div>
+              <div class="numberDefault text-number">{{ toNumberCashFormat(item.ido_price, '$', '', 'Not Set') }}</div>
+            </td>
+            <td>
+              <div class="numberDefault text-number">
+                {{ toNumberCashFormat(item.current_price, '$', '', 'Not Set') }}
+              </div>
+            </td>
+            <td>
+              <div class="text-kd14px16px text-number" :class="getClassColor(item.current_roi_usd)">
+                {{ toNumberCashFormat(item.current_roi_usd, 'x', '', 'N/A') }}
+              </div>
+            </td>
+            <td>
+              <div class="text-kd14px16px text-number" :class="getClassColor(item.ath_since_ido)">
+                {{ toNumberCashFormat(item.ath_since_ido, 'x', '', 'N/A') }}
+              </div>
             </td>
             <!--            <td>-->
             <!--              <div class="flex-center justify-center">-->
@@ -123,54 +146,55 @@ const getIcon = (item: string) => {
   </div>
 </template>
 <style scoped lang="scss">
-.thead-hr{
+.thead-hr {
   @apply min-h-11.5 h-11.5 border-b-1 border-global-highTitle border-opacity-6;
 }
-thead td{
+thead td {
   @apply min-h-11.5 h-11.5 text-center text-kd12px16px text-global-highTitle text-opacity-45;
   &:first-child {
     @apply text-left pl-3;
   }
 }
-tbody td{
+tbody td {
   @apply text-center text-kd14px18px text-global-highTitle;
   &:first-child {
     @apply pl-3;
   }
 }
-.table-box{
-  @apply  w-full  bg-global-white rounded-kd16px;
+.table-box {
+  @apply w-full  bg-global-white rounded-kd16px;
 }
-.table-my{
-  border-collapse:separate;border-spacing: 0px 0px;
+.table-my {
+  border-collapse: separate;
+  border-spacing: 0px 0px;
   @apply w-full bg-opacity-0 rounded-kd6px;
 }
 
-.flex-center{
+.flex-center {
   @apply flex items-center;
 }
-.link{
+.link {
   @apply ml-1 text-global-primary text-kd14px16px;
 }
-.star-txt{
+.star-txt {
   @apply ml-1 text-number text-kd14px16px text-global-highTitle;
 }
-.numberDefault{
+.numberDefault {
   @apply text-kd14px16px text-global-highTitle;
 }
-.unit{
+.unit {
   @apply ml-1 font-kdFang font-medium text-kd12px16px text-global-highTitle text-opacity-65;
 }
-.numberChange{
+.numberChange {
   @apply text-kd12px18px;
 }
-.nameTag{
+.nameTag {
   @apply text-kd12px16px text-global-highTitle text-opacity-45;
 }
-.nameNameDes{
+.nameNameDes {
   @apply text-kd16px18px text-global-highTitle;
 }
-.nameDes{
-  @apply  text-kd14px16px text-global-highTitle text-opacity-45;
+.nameDes {
+  @apply text-kd14px16px text-global-highTitle text-opacity-45;
 }
 </style>

@@ -4,6 +4,7 @@ const i18n = I18n();
 defineProps({
   value: {
     type: Number || String,
+    default: "",
   },
 });
 </script>
@@ -36,10 +37,10 @@ defineProps({
   </div>
 </template>
 <style lang="scss" scoped>
-  .time-label {
-    @apply font-kdBarlow text-kd16px20px text-global-white font-medium i8n-font-Barlow;
-  }
-  .time-value {
-    @apply font-kdBarlow text-kd16px20px text-global-white font-medium i8n-font-Barlow;
-  }
+.time-label {
+  @apply font-kdBarlow text-kd16px20px text-global-white font-medium i8n-font-Barlow;
+}
+.time-value {
+  @apply font-kdBarlow text-kd16px20px text-global-white font-medium i8n-font-Barlow;
+}
 </style>

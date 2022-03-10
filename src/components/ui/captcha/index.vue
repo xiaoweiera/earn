@@ -15,20 +15,24 @@ import document from "src/plugins/browser/document";
 
 type Callback = () => void;
 
-type GRecaptcha = Record<string, Function>;
+type GRecaptcha = Record<string, Callback>;
 
 const props = defineProps({
   before: {
-    type: Function as PropType<Callback>,
+    type: Function as PropType<Callback | undefined>,
+    default: function () {
+      return void 0;
+    },
   },
   value: {
     type: String,
+    default: "",
   },
 });
 
 const emitEvent = defineEmits(["click"]);
 
-const execute = async function() {
+const execute = async function () {
   const option = {
     action: "submit",
   };
@@ -47,7 +51,7 @@ const execute = async function() {
   }
 };
 
-const onSendCode = async function(e: Event) {
+const onSendCode = async function (e: Event) {
   if (e && e.preventDefault) {
     e.preventDefault();
   }
@@ -64,7 +68,7 @@ const onSendCode = async function(e: Event) {
   }
 };
 
-const text = function() {
+const text = function () {
   if (props.value) {
     return props.value;
   }

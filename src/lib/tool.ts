@@ -1,13 +1,13 @@
-import dayjs from 'dayjs';
-import * as R from 'ramda';
-import { getEnv } from 'src/config';
-import I18n from 'src/utils/i18n/';
-import { BigNumber } from 'bignumber.js';
-import { ElMessage } from 'element-plus';
-import { Language } from 'src/types/language';
-import message from 'src/plugins/message';
-import window from 'src/plugins/browser/window';
-import document from 'src/plugins/browser/document';
+import dayjs from "dayjs";
+import * as R from "ramda";
+import { getEnv } from "src/config";
+import I18n from "src/utils/i18n/";
+import { BigNumber } from "bignumber.js";
+import { ElMessage } from "element-plus";
+import { Language } from "src/types/language";
+import message from "src/plugins/message";
+import window from "src/plugins/browser/window";
+import document from "src/plugins/browser/document";
 
 export function colorHexToRGBA(sHex: string, alpha = 1) {
   // 十六进制颜色值的正则表达式
@@ -16,7 +16,7 @@ export function colorHexToRGBA(sHex: string, alpha = 1) {
   let sColor = sHex.toLowerCase();
   if (sColor && reg.test(sColor)) {
     if (sColor.length === 4) {
-      let sColorNew = '#';
+      let sColorNew = "#";
       for (let i = 1; i < 4; i += 1) {
         sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
       }
@@ -27,7 +27,7 @@ export function colorHexToRGBA(sHex: string, alpha = 1) {
     for (let i = 1; i < 7; i += 2) {
       sColorChange.push(parseInt(`0x${sColor.slice(i, i + 2)}`));
     }
-    return `rgba(${sColorChange.join(',')},${alpha})`;
+    return `rgba(${sColorChange.join(",")},${alpha})`;
   } else {
     return sColor;
   }
@@ -41,7 +41,7 @@ export const numberFormat = (value: any) => {
   }
   const k = 10000;
   // @ts-ignore
-  const sizes = ['', i18n.liquidity.numberUnit.wan, i18n.liquidity.numberUnit.yi, i18n.liquidity.numberUnit.wanyi];
+  const sizes = ["", i18n.liquidity.numberUnit.wan, i18n.liquidity.numberUnit.yi, i18n.liquidity.numberUnit.wanyi];
   if (value < k) {
     return Math.round(value * 100) / 100;
   }
@@ -53,21 +53,21 @@ export const numberFormat = (value: any) => {
 
 export const toFixedNumber = (value: any, rounded = 2) => {
   if (!value && value !== 0) {
-    return '';
+    return "";
   }
   const vil = Math.pow(10, rounded);
   return Math.round(value * vil) / vil;
 };
 export const percent2Precision = (value: any): string => {
   if (!value && value !== 0) {
-    return '';
+    return "";
   }
   return `${toFixedNumber(value)}%`;
 };
 // 数字正负判断
 export const numColor = (value: any) => {
   if (!value) {
-    return '-';
+    return "-";
   } else if (value >= 0) {
     return `+${toFixedNumber(value, 2)}`;
   } else {
@@ -76,13 +76,13 @@ export const numColor = (value: any) => {
 };
 export const formatSmallTime = (date: string, format: string) => dayjs(parseInt(`${date}`)).format(format);
 export const formatTime = (date: string, format: string) => dayjs(parseInt(`${date}000`)).format(format);
-export const formatTimeMD = (date: string) => dayjs(parseInt(`${date}000`)).format('MM/DD');
-export const formatTimeHour = (date: string) => dayjs(parseInt(`${date}000`)).format('M/DD HH:mm');
+export const formatTimeMD = (date: string) => dayjs(parseInt(`${date}000`)).format("MM/DD");
+export const formatTimeHour = (date: string) => dayjs(parseInt(`${date}000`)).format("M/DD HH:mm");
 export const tooptipsModel = (item: any, color: any, value: any, unit: string, twoCol: boolean, maxWidth: number) => {
   const origin = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.35216 5.53165L5.03262 8.17072C4.77853 8.6789 4.25914 8.9999 3.69098 8.9999H1.33333C0.781043 8.9999 0.333328 8.55219 0.333328 7.9999C0.333328 7.44762 0.781043 6.9999 1.33333 6.9999H3.38196L5.53045 2.70293C6.02868 1.70646 7.49773 1.86772 7.76793 2.94854L9.64783 10.4682L10.9674 7.82908C11.2215 7.32091 11.7409 6.9999 12.309 6.9999H14.6667C15.2189 6.9999 15.6667 7.44762 15.6667 7.9999C15.6667 8.55219 15.2189 8.9999 14.6667 8.9999H12.618L10.4695 13.2969C9.9713 14.2934 8.50226 14.1321 8.23206 13.0513L6.35216 5.53165Z" fill="${color}"/></svg>`;
   const svg = `data:image/svg+xml;base64,${window.btoa(unescape(encodeURIComponent(origin)))}`;
-  const info = unit === '$' ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`;
-  let dom = '';
+  const info = unit === "$" ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`;
+  let dom = "";
   if (twoCol) {
     dom = `<span class="flex flex-1 items-center " style="min-width:${maxWidth}px" ><p style="font-size:12px;color:#272C33;line-height:1;" class="flex items-center"><img style="margin-bottom:1.5px;width:16px;height:auto;margin-right:5px;" src='${svg}'/> ${info}</p></span>`;
   } else {
@@ -92,12 +92,12 @@ export const tooptipsModel = (item: any, color: any, value: any, unit: string, t
   return dom;
 };
 export const toopTipsContainer = (divDoms: string[]) => {
-  let domStr = '';
+  let domStr = "";
   const newDoms = divDoms.map((item) => {
     if (item) return item;
   });
   newDoms.forEach((item, i) => {
-    let str = '';
+    let str = "";
     if (item) {
       if (i === 0) {
         str = `<div class="flex" >${item}`;
@@ -107,7 +107,7 @@ export const toopTipsContainer = (divDoms: string[]) => {
       domStr += str;
     }
   });
-  domStr += '</div>';
+  domStr += "</div>";
   return `<div >${domStr}</div>`;
 };
 
@@ -118,9 +118,9 @@ export function dataToTimestamp(time: string) {
 
 // 得到天颗粒度的时间
 export const formatDefaultTime = (date: any, format: string) => {
-  format = format || 'YYYY-MM-DD';
+  format = format || "YYYY-MM-DD";
   if (date) {
-    if (typeof date !== 'number') {
+    if (typeof date !== "number") {
       return dayjs(date).format(format);
     }
     return dayjs(parseInt(`${date}000`)).format(format);
@@ -131,14 +131,14 @@ export const formatDefaultTime = (date: any, format: string) => {
 // 得到小时颗粒度的时间
 export const formatHourTime = (date: number) => {
   if (date) {
-    return dayjs(parseInt(`${date}000`)).format('MM/DD HH:mm');
+    return dayjs(parseInt(`${date}000`)).format("MM/DD HH:mm");
   } else {
-    return dayjs().format('MM/DD HH:mm');
+    return dayjs().format("MM/DD HH:mm");
   }
 };
 // 得到对应时间的时间戳  如 前7天 前30天
 export const getagoTimeStamp = (day: number) => {
-  return dataToTimestamp(dayjs().subtract(day, 'days').format('YYYY-MM-DD'));
+  return dataToTimestamp(dayjs().subtract(day, "days").format("YYYY-MM-DD"));
 };
 export const min_max = (min: any, max: any, v: any) => {
   if (v === null) {
@@ -155,7 +155,7 @@ export const min_max = (min: any, max: any, v: any) => {
 
 export const messageError = function (message: any): void {
   if (message) {
-    if (typeof message === 'string') {
+    if (typeof message === "string") {
       ElMessage.warning(message);
     } else {
       const values = R.values(message);
@@ -172,20 +172,20 @@ export const messageError = function (message: any): void {
 export const messageSuccess = function (text: string): void {
   ElMessage.success({
     message: text,
-    type: 'success',
-    customClass: 'hint',
+    type: "success",
+    customClass: "hint",
   });
 };
 
 // copy
 export const copyTxt = (text: string, alert?: boolean, msg?: string) => {
   const i18n = I18n();
-  const dom = document.createElement('input');
+  const dom = document.createElement("input");
   if (dom) {
-    dom.setAttribute('value', text);
+    dom.setAttribute("value", text);
     document.body.appendChild(dom);
     dom.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     document.body.removeChild(dom);
     if (alert) {
       // messageSuccess(i18n.common.message.copy)
@@ -203,12 +203,12 @@ export const copyTxt = (text: string, alert?: boolean, msg?: string) => {
 };
 // copy message 弱提示
 export const copyTxtMessage = (text: string, msg?: any) => {
-  const dom = document.createElement('input');
+  const dom = document.createElement("input");
   if (dom) {
-    dom.setAttribute('value', text);
+    dom.setAttribute("value", text);
     document.body.appendChild(dom);
     dom.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     document.body.removeChild(dom);
     messageSuccess(msg);
   }
@@ -271,7 +271,7 @@ export const getSaveNumber = (v: any, number: number) => {
 export const aboutCn = (value: any) => {
   const k = 10000;
   // @ts-ignore
-  const sizes = ['', '万', '亿', '兆'];
+  const sizes = ["", "万", "亿", "兆"];
   const v = new BigNumber(value);
   if ((value < 10000 && value >= 0) || (value < 0 && value > -2)) {
     return parseFloat(v.toFixed(2));
@@ -288,7 +288,7 @@ export const aboutCn = (value: any) => {
 export const aboutEn = (value: any) => {
   const k = 1000;
   // @ts-ignore
-  const sizes = ['', 'K', 'M', 'B', 'T'];
+  const sizes = ["", "K", "M", "B", "T"];
   const v = new BigNumber(value);
   if ((value < 10000 && value >= 0) || (value < 0 && value > -2)) {
     return parseFloat(v.toFixed(2));
@@ -303,7 +303,7 @@ export const aboutEn = (value: any) => {
   }
 };
 // 更改数字文案
-export const numberUnitFormat = (value: any, defaultValue = '-') => {
+export const numberUnitFormat = (value: any, defaultValue = "-") => {
   if (!value) {
     return value === 0 ? 0 : defaultValue;
   }
@@ -333,26 +333,26 @@ export const getVNumber = (value: any, zeroIndex: number, isFour: boolean) => {
 export const getBigNumber = (n: string | number) => {
   const v = new BigNumber(n);
   const newV = v.toFixed(); // 科学技术法展开
-  if (newV.split('.')[1].length < 19) return newV;
+  if (newV.split(".")[1].length < 19) return newV;
   else return parseFloat(newV);
 };
 // 数字格式化 约分
-export const getRulesNumber = (v: any, isShowAll = false, defaultValue = '-') => {
+export const getRulesNumber = (v: any, isShowAll = false, defaultValue = "-") => {
   if (!v) {
     return v || (v === 0 ? 0 : defaultValue);
   }
   const bigV = new BigNumber(v);
-  if (!bigV.toFixed().includes('.')) {
+  if (!bigV.toFixed().includes(".")) {
     return v;
   }
   const result = getVNumber(v, 0, true).toString();
-  if (result.split('.')[1].split('0').length - 1 === 5) {
-    return isShowAll ? getBigNumber(v) : '<0.00001'; // result等于0.00000
+  if (result.split(".")[1].split("0").length - 1 === 5) {
+    return isShowAll ? getBigNumber(v) : "<0.00001"; // result等于0.00000
   } else {
-    const twoNumber = result.split('.')[1].split('');
+    const twoNumber = result.split(".")[1].split("");
     let i = 0;
     for (let j = 0; j < twoNumber.length; j++) {
-      if (twoNumber[j] === '0') {
+      if (twoNumber[j] === "0") {
         i++;
       } else {
         break;
@@ -362,7 +362,7 @@ export const getRulesNumber = (v: any, isShowAll = false, defaultValue = '-') =>
   }
 };
 // 统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上
-export const formatRulesNumber = (v: any, isShowAll = false, defaultValue = '-') => {
+export const formatRulesNumber = (v: any, isShowAll = false, defaultValue = "-") => {
   if (!v) {
     return v === 0 ? 0 : defaultValue;
   }
@@ -376,7 +376,7 @@ export const formatRulesNumber = (v: any, isShowAll = false, defaultValue = '-')
 // 统一用这个 isShowAll 是否展示小于0的数并且小数点后面小于18位或者大于18位带e的科学技术法，用于hovr上，默认保留两位
 export const formatRulesPrice = (v: any, isShowAll: boolean) => {
   if (!v) {
-    return v === 0 ? 0 : '-';
+    return v === 0 ? 0 : "-";
   }
   const value = new BigNumber(v);
   if (parseFloat(value.toFixed()) > 1 || parseFloat(value.toFixed()) < -1) {
@@ -388,7 +388,7 @@ export const formatRulesPrice = (v: any, isShowAll: boolean) => {
 // tipModel单位
 export const unitOrder = (v: any, unit: string) => {
   if (!unit) return formatRulesNumber(v, true);
-  if (unit === '$') {
+  if (unit === "$") {
     return `${unit} ${formatRulesNumber(v, true)}`;
   } else {
     return formatRulesNumber(v, true) + unit;
@@ -396,7 +396,7 @@ export const unitOrder = (v: any, unit: string) => {
 };
 export const getCodeWidth = (name: string) => {
   let width = 0;
-  name.split('').forEach((str: string) => {
+  name.split("").forEach((str: string) => {
     // @ts-ignore
     const code = str.charCodeAt();
     if (code >= 97 && code <= 122) {
@@ -434,7 +434,7 @@ export const getMaxWidth = (list: string[]) => {
 export const clacLegendBoxWidth = (legends: string[]) => {
   let width = 0;
   legends.forEach((item: any, index: number) => {
-    if (item || item === ' ') {
+    if (item || item === " ") {
       width += getCodeWidth(item);
       if (index > 0) {
         width += 15;
@@ -464,34 +464,34 @@ export const tipResult = (title: string) =>
 // 提示文字
 export const getTip = (params: any) => {
   // 水印 遮盖有问题   需要改改改
-  const time = formatTime(params[0].axisValue, 'YYYY-MM-DD');
+  const time = formatTime(params[0].axisValue, "YYYY-MM-DD");
   const data = params[0].data; // {value:111,detail:''}
-  const result = chartTipItem('rgba(0, 180, 100, 1)', `$${formatRulesNumber(data.value)}`);
+  const result = chartTipItem("rgba(0, 180, 100, 1)", `$${formatRulesNumber(data.value)}`);
   return `${tipResult(time)} ${result}`;
 };
 export const tolocaleUpperCase = (str: string | undefined) => str?.toUpperCase();
 export const tolocaleLowerCase = (str: string | undefined) => str?.toLowerCase();
 export const getIconType = (name: string) => `icon-${tolocaleUpperCase(R.slice(0, 1, name))}`;
 export const getBoolean = (v: number | undefined) => !!(v || v === 0);
-export const getValue = (v: any) => (v || v === 0 ? v : '-');
+export const getValue = (v: any) => (v || v === 0 ? v : "-");
 export const getNumberColor = (v: number | string | null) => {
   if (!v && v !== 0) {
-    return 'text-global-highTitle text-opacity-65';
+    return "text-global-highTitle text-opacity-65";
   } else if (v < 0) {
-    return 'text-global-numRed';
+    return "text-global-numRed";
   }
-  return 'text-global-numGreen';
+  return "text-global-numGreen";
 };
 export const getUpDownColor = (v: number | string | null) => {
   if (v && v > 0) {
-    return 'text-global-numGreen';
+    return "text-global-numGreen";
   } else if (v && v < 0) {
-    return 'text-global-numRed';
+    return "text-global-numRed";
   }
-  return 'text-global-highTitle';
+  return "text-global-highTitle";
 };
 export const getRedGreen = (v: any) =>
-  v >= 0 ? 'text-global-numGreen' : v < 0 ? 'text-global-numRed' : 'text-global-highTitle text-opacity-65';
+  v >= 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle text-opacity-65";
 
 export const timeConvert = (timestamp: number, num: number) => {
   // num:0 YYYY-MM-DD  num:1  YYYY-MM-DD hh:mm:ss // timestamp:时间戳
@@ -527,36 +527,36 @@ export const timeago = (dateTime: any, isMY?: any) => {
   const timestamp = +new Date(Number(dateTime));
   const timer = (Number(new Date()) - timestamp) / 1000;
   // 如果小于5分钟,则返回"刚刚",其他以此类推
-  let tips = '';
+  let tips = "";
   switch (true) {
-    case timer < 60:
-      tips = `1${i18n.comment.min}`;
-      break;
-    case timer >= 60 && timer < 3600:
-      // @ts-ignore
-      tips = parseInt(timer / 60) + i18n.comment.min;
-      break;
-    case timer >= 3600 && timer < 86400:
-      // @ts-ignore
-      tips = parseInt(timer / 3600) + i18n.comment.hour;
-      break;
-    case timer >= 86400 && timer < 2592000:
-      // @ts-ignore
-      tips = parseInt(timer / 86400) + i18n.comment.day;
-      break;
-    default:
-      // 如果format为false，则无论什么时间戳，都显示xx之前
-      if (!isMY) {
-        if (timer >= 2592000 && timer < 365 * 86400) {
-          // @ts-ignore
-          tips = parseInt(timer / (86400 * 30)) + i18n.comment.month;
-        } else {
-          // @ts-ignore
-          tips = parseInt(timer / (86400 * 365)) + i18n.comment.year;
-        }
+  case timer < 60:
+    tips = `1${i18n.comment.min}`;
+    break;
+  case timer >= 60 && timer < 3600:
+    // @ts-ignore
+    tips = parseInt(timer / 60) + i18n.comment.min;
+    break;
+  case timer >= 3600 && timer < 86400:
+    // @ts-ignore
+    tips = parseInt(timer / 3600) + i18n.comment.hour;
+    break;
+  case timer >= 86400 && timer < 2592000:
+    // @ts-ignore
+    tips = parseInt(timer / 86400) + i18n.comment.day;
+    break;
+  default:
+    // 如果format为false，则无论什么时间戳，都显示xx之前
+    if (!isMY) {
+      if (timer >= 2592000 && timer < 365 * 86400) {
+        // @ts-ignore
+        tips = parseInt(timer / (86400 * 30)) + i18n.comment.month;
       } else {
-        tips = timeConvert(OriginalTime, 1);
+        // @ts-ignore
+        tips = parseInt(timer / (86400 * 365)) + i18n.comment.year;
       }
+    } else {
+      tips = timeConvert(OriginalTime, 1);
+    }
   }
   return tips;
 };

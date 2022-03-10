@@ -2,12 +2,12 @@
  * @file 项目库
  */
 
-import * as api from 'src/config/api';
-import { DefaultValue, expire, get, required, tryError, userToken, validate } from 'src/plugins/dao/http';
-import type { Query } from 'src/types/dapp/ixo';
-import type { nftQuery } from 'src/types/dapp/nft';
-import { nftStatus } from 'src/types/dapp/nft';
-import ApiTemplate from '../template';
+import * as api from "src/config/api";
+import { DefaultValue, expire, get, required, tryError, userToken, validate } from "src/plugins/dao/http";
+import type { Query } from "src/types/dapp/ixo";
+import type { nftQuery } from "src/types/dapp/nft";
+import { nftStatus } from "src/types/dapp/nft";
+import ApiTemplate from "../template";
 
 export default class extends ApiTemplate {
   // 项目库列表
@@ -28,10 +28,10 @@ export default class extends ApiTemplate {
       {
         page: 1,
         page_size: 20,
-        category: 'All',
-        chain: 'All',
+        category: "All",
+        chain: "All",
         status: nftStatus.upcoming, // 默认状态
-        query: '', // 默认搜索为空
+        query: "", // 默认搜索为空
       },
       query,
     );
@@ -48,8 +48,8 @@ export default class extends ApiTemplate {
       {
         page: 1,
         page_size: 10,
-        query: '',
-        category: 'All',
+        query: "",
+        category: "All",
         paginate: false,
       },
       query,
@@ -68,10 +68,10 @@ export default class extends ApiTemplate {
         page: 1,
         page_size: 10,
         paginate: true,
-        status: 'ended',
-        query: '',
-        sort_field: '',
-        sort_type: '',
+        status: "ended",
+        query: "",
+        sort_field: "",
+        sort_type: "",
       },
       query,
     );

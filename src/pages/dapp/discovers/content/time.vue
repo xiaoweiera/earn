@@ -5,9 +5,13 @@ import DappDiscoversCutdown from "../cutdown.vue";
 defineProps({
   data: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
   status: {
     type: String,
+    default: "",
   },
 });
 const i18n = I18n();
@@ -19,7 +23,9 @@ const i18n = I18n();
         <DappDiscoversCutdown :value="status === 'ongoing' ? data.ido_end_at : data.ido_start_at" />
       </div>
       <div>
-        <div class="min-w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center">
+        <div
+          class="min-w-20 go-part border-1 border-global-darkblue rounded-md py-1.5 px-3 flex items-center justify-center"
+        >
           <span class="text-kd14px18px text-global-darkblue font-medium">{{ i18n.home.idoIgoProject.join }}</span>
         </div>
       </div>

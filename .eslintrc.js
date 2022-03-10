@@ -1,40 +1,52 @@
-{
-  "extends": [
-    "@antfu",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "globals": {
-    "typeof": "readonly",
-    "defineProps": "readonly",
-    "defineEmits": "readonly"
+/**
+ * @file Eslint 规则配置
+ * @author svon.me@gmail.com
+ */
+
+module.exports = {
+  root: true,
+  env: {
+    browser: true,
+    node: true
   },
-  "rules": {
-    // html 换行校验
-    "vue/html-indent": ["error", 2, {
-      "attribute": 1,
-      "baseIndent": 1,
-      "closeBracket": 0,
-      "alignAttributesVertically": true,
-      "ignores": []
-    }],
-    "vue/html-closing-bracket-newline": ["error", {
-      "singleline": "never",
-      "multiline": "always"
-    }],
+  // 全局变量
+  globals: {
+    typeof: "readonly",
+    defineProps: "readonly",
+    defineEmits: "readonly"
+  },
+  extends: [
+    "plugin:vue/vue3-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
+  parser: "vue-eslint-parser",
+  parserOptions: {
+    // 指定 ESLint 的解析器
+    parser: "@typescript-eslint/parser",
+    // 允许使用ES语法
+    ecmaVersion: 2020,
+    // 允许使用import
+    sourceType: "module",
+    // 允许解析JSX
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  rules: {
     "no-throw-literal": "off",
     "n/no-deprecated-api": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-this-alias": "off",
     "@typescript-eslint/prefer-ts-expect-error": "off",
+    "vue/multi-word-component-names": "off",
     "no-duplicate-imports": "off",
     "vue/no-template-shadow": "off",
     "no-template-curly-in-string": "off",
     "node/no-deprecated-api": "off",
     "arrow-parens": ["error", "always"],
-
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/member-delimiter-style": [
@@ -50,7 +62,6 @@
         "multilineDetection": "brackets"
       }
     ],
-
     // 缩紧风格 if else 不换行
     "brace-style": ["error", "1tbs"],
     "@typescript-eslint/brace-style": ["error", "1tbs"],
@@ -110,4 +121,4 @@
     "vue/no-unused-vars": "off",
     "prefer-promise-reject-errors": "off"
   }
-}
+};

@@ -3,10 +3,10 @@
  * @author svon.me@gmail.com
  */
 
-import _ from 'lodash';
-import type { Request } from 'express';
-import { IsNode } from 'src/config/ssr';
-import { isEmpty as _isEmpty, is, isNil } from 'ramda';
+import _ from "lodash";
+import type { Request } from "express";
+import { IsNode } from "src/config/ssr";
+import { isEmpty as _isEmpty, is, isNil } from "ramda";
 
 /**
  * 判断字符串是否是 http 链接
@@ -20,7 +20,7 @@ export const isHttp = function (value?: string): boolean {
     if (/^\//.test(value)) {
       return true;
     }
-    const list = value.split('/');
+    const list = value.split("/");
     if (list.length >= 2) {
       return true;
     }
@@ -34,10 +34,10 @@ export const isHttp = function (value?: string): boolean {
  * @param checkUndefined 是否判断为 "undefined" 情况
  */
 export const isUndefined = function (value: any, checkUndefined?: boolean): boolean {
-  if (typeof value === 'undefined') {
+  if (typeof value === "undefined") {
     return true;
   }
-  return !!(checkUndefined && value === 'undefined');
+  return !!(checkUndefined && value === "undefined");
 };
 
 /**

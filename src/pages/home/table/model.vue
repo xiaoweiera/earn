@@ -10,6 +10,9 @@ const i18n = I18n();
 defineProps({
   data: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
 });
 const toProject = (url: string) => {
@@ -20,7 +23,7 @@ const toProject = (url: string) => {
 </script>
 <template>
   <div class="table-box bg-global-white relative">
-    <div class="flex items-center justify-between flex-wrap ">
+    <div class="flex items-center justify-between flex-wrap">
       <span class="title">{{ data.name }}</span>
       <v-router :href="`${config.homeDetail}?id=${data.id}`" target="_blank" class="flex items-center hand">
         <span class="more cursor-pointer">{{ i18n.home.more }}</span>
@@ -35,21 +38,21 @@ const toProject = (url: string) => {
             <td>
               <div class="text-left w-3.5">#</div>
             </td>
-            <template v-for="(item,index) in safeGet(data,'table.header')" :key="index">
-              <td v-if="item.key!=='id'" class="text-left">
+            <template v-for="(item, index) in safeGet(data, 'table.header')" :key="index">
+              <td v-if="item.key !== 'id'" class="text-left">
                 <HomeTableHeader height="h-5" name="Dapp Name" :item="item" />
               </td>
             </template>
           </tr>
         </thead>
         <tbody>
-          <template v-for="(item,index) in safeGet(data,'table.items')" :key="index">
+          <template v-for="(item, index) in safeGet(data, 'table.items')" :key="index">
             <tr class="h-10 md:h-11.5" @click="toProject(item.url)">
               <td class="number">
-                <div class=" text-left w-3.5">{{ index + 1 }}</div>
+                <div class="text-left w-3.5">{{ index + 1 }}</div>
               </td>
-              <template v-for="(itemTwo,index) in safeGet(data,'table.header')" :key="index">
-                <td v-if="itemTwo.key!=='id'">
+              <template v-for="(itemTwo, index) in safeGet(data, 'table.header')" :key="index">
+                <td v-if="itemTwo.key !== 'id'">
                   <HomeTableTd :type-name="itemTwo.key" :data="item" />
                 </td>
               </template>
@@ -71,7 +74,8 @@ const toProject = (url: string) => {
   border: 1px solid rgba(3, 54, 102, 0.06);
   @apply my-3 md:my-5;
 }
-thead td, .number {
+thead td,
+.number {
   @apply whitespace-nowrap md:whitespace-wrap text-kd12px16px text-global-highTitle text-opacity-45 text-center;
 }
 tbody td {

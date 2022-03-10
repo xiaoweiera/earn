@@ -22,6 +22,7 @@ if (IsSSR()) {
   const env = getEnv();
   root = {
     open() {
+      // todo
     },
     screen: {
       width: 1200,
@@ -34,8 +35,10 @@ if (IsSSR()) {
       origin: env.VITE_domain,
       search: "",
       replace() {
+        // todo
       },
       reload() {
+        // todo
       },
     },
     navigator: {
@@ -50,12 +53,14 @@ if (IsSSR()) {
       },
     },
     scrollTo() {
+      // todo
     },
     grecaptcha: {
       async execute(...args: any[]) {
+        // todo
       },
       async ready(...args: any[]) {
-
+        // todo
       },
     },
     Web3,
@@ -65,7 +70,7 @@ if (IsSSR()) {
   try {
     root = window;
   } catch (e) {
-
+    // todo
   }
 }
 

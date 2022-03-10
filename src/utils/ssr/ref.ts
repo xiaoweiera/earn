@@ -3,14 +3,14 @@
  * @author svon.me@gmail.com
  */
 
-import _ from 'lodash';
-import API from 'src/api/index';
-import safeGet from '@fengqiaogang/safe-get';
-import { getValue } from 'src/utils/root/data';
-import type { Ref, UnwrapNestedRefs } from 'vue';
-import { reactive, ref, toRaw } from 'vue';
+import _ from "lodash";
+import API from "src/api/index";
+import safeGet from "@fengqiaogang/safe-get";
+import { getValue } from "src/utils/root/data";
+import type { Ref, UnwrapNestedRefs } from "vue";
+import { reactive, ref, toRaw } from "vue";
 
-export * as alias from 'src/utils/root/alias';
+export * as alias from "src/utils/root/alias";
 
 export const createRef = function <T>(key: string, auto: T) {
   const value = getValue<T>(key, auto);
@@ -26,7 +26,7 @@ export const createReactive = function <T>(key: string, auto: T) {
 type ApiFun = <T>(query?: object | string | number) => T;
 type UpdateCallback = (...args: any[]) => Promise<void>;
 
-const getData = async function <T>(api: string | ApiFun | Function, query?: object | string | number) {
+const getData = async function <T>(api: string | ApiFun, query?: object | string | number) {
   if (_.isString(api)) {
     const model = {
       API: new API(),
@@ -51,7 +51,7 @@ const getData = async function <T>(api: string | ApiFun | Function, query?: obje
 };
 
 // 更新数据
-export const onUpdateRef = function <T>(data: Ref, api: string | ApiFun | Function): UpdateCallback {
+export const onUpdateRef = function <T>(data: Ref, api: string | ApiFun): UpdateCallback {
   return async function (query?: object | string | number) {
     const value = await getData<T>(api, query);
     if (value) {
@@ -61,10 +61,7 @@ export const onUpdateRef = function <T>(data: Ref, api: string | ApiFun | Functi
     }
   };
 };
-export const onUpdateReactive = function <T>(
-  data: UnwrapNestedRefs<T>,
-  api: string | ApiFun | Function,
-): UpdateCallback {
+export const onUpdateReactive = function <T>(data: UnwrapNestedRefs<T>, api: string | ApiFun): UpdateCallback {
   return async function (query?: object | string | number) {
     const value = await getData<T>(api, query);
     if (value) {
@@ -83,11 +80,7 @@ export const onUpdateReactive = function <T>(
 };
 
 // Ref 数据
-export const onLoadRef = async function <T>(
-  data: Ref,
-  api: string | ApiFun | Function,
-  query?: object | string | number,
-) {
+export const onLoadRef = async function <T>(data: Ref, api: string | ApiFun, query?: object | string | number) {
   if (data.value && data.value.length < 1) {
     const value = await getData<T>(api, query);
     if (value) {
@@ -99,7 +92,7 @@ export const onLoadRef = async function <T>(
 // Reactive 数据
 export const onLoadReactive = async function <T>(
   data: UnwrapNestedRefs<T>,
-  api: string | ApiFun | Function,
+  api: string | ApiFun,
   query?: object | string | number,
 ) {
   const obj = toRaw(data);

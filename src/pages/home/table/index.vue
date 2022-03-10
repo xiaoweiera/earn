@@ -4,28 +4,40 @@ import HomeTableModel from "./model.vue";
 defineProps({
   topicIndex: {
     type: [String, Number],
+    default: "",
   },
   data: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
 });
 const id = ref(0);
-const changeTopic = (index: number) => id.value = index;
-
+const changeTopic = (index: number) => (id.value = index);
 </script>
 <template>
-  <div class="md:w-150 w-full  md:min-h-86 md:py-3  relative">
+  <div class="md:w-150 w-full md:min-h-86 md:py-3 relative">
     <div class="bg xshidden" />
     <div class="relative md:min-h-86 md:bg-global-white rounded-kd16px md:min-w-150">
-      <template v-for="(item,index) in data" :key="item.id">
-        <HomeTableModel class="xshidden h-full  md:absolute top-0" :class="topicIndex===index?'active':'active-no'" :data="item" />
-        <HomeTableModel v-if="index===id" class="h-full mdhidden" :class="id===index?'block':'hidden'" :data="item" />
+      <template v-for="(item, index) in data" :key="item.id">
+        <HomeTableModel
+          class="xshidden h-full md:absolute top-0"
+          :class="topicIndex === index ? 'active' : 'active-no'"
+          :data="item"
+        />
+        <HomeTableModel
+          v-if="index === id"
+          class="h-full mdhidden"
+          :class="id === index ? 'block' : 'hidden'"
+          :data="item"
+        />
       </template>
     </div>
     <!--手机端翻页-->
     <div class="mdhidden flex items-center justify-center mt-4">
-      <template v-for="(item,index) in data">
-        <div class="dian hand" :class="id===index?'yuan':'yuan-no'" @click="changeTopic(index)" />
+      <template v-for="(item, index) in data">
+        <div class="dian hand" :class="id === index ? 'yuan' : 'yuan-no'" @click="changeTopic(index)" />
       </template>
     </div>
   </div>
@@ -37,13 +49,13 @@ const changeTopic = (index: number) => id.value = index;
 .table-box {
   @apply w-full h-full bg-global-white rounded-kd16px;
 }
-.yuan{
+.yuan {
   @apply w-2 h-2 bg-global-white rounded-full;
 }
-.yuan-no{
+.yuan-no {
   @apply w-2 h-2 bg-global-white bg-opacity-45 rounded-full;
 }
-.dian:not(:first-child){
+.dian:not(:first-child) {
   @apply ml-6;
 }
 .active {

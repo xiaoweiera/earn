@@ -3,17 +3,17 @@
  * @author svon.me@gmail.com
  */
 
-import type { Request } from 'express';
+import type { Request } from "express";
 
 export type Lang = Request | Language | string;
 
 export enum Language {
   // eslint-disable-next-line no-unused-vars
-  auto = 'en', // 默认英文
+  auto = "en", // 默认英文
   // eslint-disable-next-line no-unused-vars
-  cn = 'cn', // 中文
+  cn = "cn", // 中文
   // eslint-disable-next-line no-unused-vars
-  en = 'en', // 英语
+  en = "en", // 英语
   // yue = 'yue', // 粤语
   // wyw = 'wyw', // 文言文
   // jp = 'jp', // 日语

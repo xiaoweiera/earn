@@ -3,16 +3,16 @@
  * @file 链接钱包
  */
 
-import { onMounted } from 'vue';
-import I18n from 'src/utils/i18n';
-import { Encryption } from 'src/utils/';
-import { ElButton } from 'element-plus';
-import Wallet from 'src/plugins/web3/wallet';
-import { EventType } from 'src/plugins/web3/interface';
-import { address, isConnect } from 'src/logic/common/wallet';
-import safeGet from '@fengqiaogang/safe-get';
-import { messageError } from 'src/lib/tool';
-import { getErrorMessageContent } from 'src/plugins/web3/message';
+import { onMounted } from "vue";
+import I18n from "src/utils/i18n";
+import { Encryption } from "src/utils/";
+import { ElButton } from "element-plus";
+import Wallet from "src/plugins/web3/wallet";
+import { EventType } from "src/plugins/web3/interface";
+import { address, isConnect } from "src/logic/common/wallet";
+import safeGet from "@fengqiaogang/safe-get";
+import { messageError } from "src/lib/tool";
+import { getErrorMessageContent } from "src/plugins/web3/message";
 
 const i18n = I18n();
 
@@ -40,7 +40,7 @@ const onConnect = async function () {
       // todo 授权成功
     }
   } catch (e) {
-    const code = safeGet<number>(e as object, 'code');
+    const code = safeGet<number>(e as object, "code");
     // if (code === 4001) {
     //   // todo 用户取消授权
     // }
@@ -62,7 +62,7 @@ onMounted(() => {
   wallet.on(EventType.account, syncAddress);
   // 断开链接
   wallet.on(EventType.disconnect, () => {
-    address.value = '';
+    address.value = "";
   });
   syncAddress();
 });

@@ -36,6 +36,7 @@ const props = defineProps({
   },
   def: {
     type: String,
+    default: "",
   },
   list: {
     required: true,
@@ -52,7 +53,7 @@ const props = defineProps({
   },
 });
 
-const getList = function(): Item[] {
+const getList = function (): Item[] {
   if (props.list) {
     if (isFunction(props.list)) {
       try {
@@ -70,7 +71,7 @@ const getList = function(): Item[] {
 
 const tabList = computed<Item[]>(getList);
 
-const selectData = function(value: string | number, list = getList()): Item {
+const selectData = function (value: string | number, list = getList()): Item {
   const db = new DBList(list, props.activeName);
   const where: Array<string | number> = [value];
   if (/^[\d]+$/.test(value as string)) {
@@ -79,7 +80,7 @@ const selectData = function(value: string | number, list = getList()): Item {
   return db.selectOne<Item>({ [props.activeName]: where });
 };
 
-const getActiveValue = function() {
+const getActiveValue = function () {
   let item: Item | undefined = void 0;
   const value = safeGet<string>(toRaw($route.query), props.activeName);
   if (value) {
@@ -100,7 +101,7 @@ const getActiveValue = function() {
   }
 };
 
-const onChange = function(value = getActiveValue(), important = false) {
+const onChange = function (value = getActiveValue(), important = false) {
   if (value && (active.value !== value || important)) {
     active.value = value;
     const data = selectData(value);
@@ -112,14 +113,14 @@ const onChange = function(value = getActiveValue(), important = false) {
   }
 };
 
-const onClick = function(data: Item) {
+const onClick = function (data: Item) {
   // 只处理为 click 模式的切换
   if (props.trigger === Trigger.click) {
     return onChange(safeGet<string>(data, props.activeName));
   }
 };
 
-const className = function(data: Item): string {
+const className = function (data: Item): string {
   let value: string = data.className ? data.className : "";
   if (safeGet<string>(data, props.activeName) === active.value) {
     value = value ? `${value} active` : "active";
@@ -128,14 +129,14 @@ const className = function(data: Item): string {
 };
 
 // 判断是否选中 select 中的数据
-const isSelectActive = function() {
+const isSelectActive = function () {
   const array = getList();
   const list = array.slice(props.split);
   const item = selectData(active.value, list);
   return !!item;
 };
 
-const onChangeSelect = async function(value: string) {
+const onChangeSelect = async function (value: string) {
   if (props.trigger === Trigger.router) {
     const item = selectData(value);
     const href = makeLink(props.activeName, item, props.trigger);
@@ -151,14 +152,24 @@ onMounted(() => {
     onChange();
   });
 });
-
 </script>
 
 <template>
-  <div v-show="tabList.length > 0" class="ui-tab max-w-full" :class="{'overflow-hidden': split < 1, 'w-full': split > 0}">
+  <div
+    v-show="tabList.length > 0"
+    class="ui-tab max-w-full"
+    :class="{ 'overflow-hidden': split < 1, 'w-full': split > 0 }"
+  >
     <div v-if="split > 0" :key="key" class="tab-wrap">
       <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
-        <v-router v-show="index < props.split" :href="makeLink(activeName, item, trigger)" class="inline-block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]" @click="onClick(item)">
+        <v-router
+          v-show="index < props.split"
+          :href="makeLink(activeName, item, trigger)"
+          class="inline-block whitespace-nowrap tab-item p-2"
+          :class="className(item)"
+          :name="TriggerValue[trigger]"
+          @click="onClick(item)"
+        >
           <slot name="default" :data="item">
             <div v-if="item.logo" class="flex items-center">
               <IconFont class="mr-1.5" :type="item.logo" size="16" />
@@ -169,7 +180,13 @@ onMounted(() => {
         </v-router>
       </template>
       <client-only v-if="split < tabList.length" class="tab-item inline-block text-18-24 font-m" style="padding: 0">
-        <el-select v-if="isSelectActive()" v-model="active" placeholder="other" class="rounded-kd6px w-30 md:w-40 active" @change="onChangeSelect">
+        <el-select
+          v-if="isSelectActive()"
+          v-model="active"
+          placeholder="other"
+          class="rounded-kd6px w-30 md:w-40 active"
+          @change="onChangeSelect"
+        >
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
             <el-option v-if="index >= split" :label="item.name" :value="item[activeName]" />
           </template>
@@ -184,7 +201,13 @@ onMounted(() => {
     <el-scrollbar v-else>
       <div class="flex tab-wrap">
         <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
-          <v-router :href="makeLink(activeName, item, trigger)" class="block whitespace-nowrap tab-item p-2" :class="className(item)" :name="TriggerValue[trigger]" @click="onClick(item)">
+          <v-router
+            :href="makeLink(activeName, item, trigger)"
+            class="block whitespace-nowrap tab-item p-2"
+            :class="className(item)"
+            :name="TriggerValue[trigger]"
+            @click="onClick(item)"
+          >
             <slot name="default" :data="item">
               <div v-if="item.logo" class="flex items-center">
                 <IconFont class="mr-1.5" :type="item.logo" size="16" />
@@ -216,7 +239,7 @@ onMounted(() => {
 .tab-wrap {
   .el-select {
     ::v-deep(input) {
-      color:#033666 !important;
+      color: #033666 !important;
       @apply font-m font-kd18px24px;
     }
     &.active {
@@ -237,7 +260,7 @@ onMounted(() => {
       @extend %active;
       @apply relative;
       &:after {
-        content: "";
+        content: '';
       }
     }
     ::v-deep(.el-input__inner) {
@@ -255,6 +278,6 @@ onMounted(() => {
 }
 
 ::v-deep(.el-select) {
-  background: #FAFBFC !important;
+  background: #fafbfc !important;
 }
 </style>

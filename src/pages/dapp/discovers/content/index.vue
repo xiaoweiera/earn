@@ -8,12 +8,15 @@ import DappDiscoversContentTime from "./time.vue";
 defineProps({
   data: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
   status: {
     type: String,
+    default: "",
   },
 });
-
 </script>
 
 <template>

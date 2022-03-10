@@ -1,18 +1,20 @@
-<script setup lang="ts">
-
-import { getParam } from "src/utils/router";
+<script lang="ts" setup>
 import safeGet from "@fengqiaogang/safe-get";
 import { config } from "src/router/config";
 import { ProjectType } from "src/types/dapp/ixo";
-import { getNextUrl } from "src/logic/dapp";
+import { getParam } from "src/utils/router";
 import DappNftsAd from "./ad.vue";
 import DappNftsHeader from "./header.vue";
+
 defineProps({
   data: {
     type: Object,
+    default: () => {
+      return {};
+    },
   },
 });
-const detailUrl = function(data: object) {
+const detailUrl = function (data: object) {
   const category = getParam<string>("category", "") as string;
   const id = safeGet<number>(data, "id");
   if (id) {
@@ -22,20 +24,21 @@ const detailUrl = function(data: object) {
 };
 </script>
 <template>
-  <div class="nft-items h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer">
+  <div
+    class="nft-items h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer"
+  >
     <div v-if="data.data_type === ProjectType.ad" class="nft-row h-full">
       <DappNftsAd :data="data" />
     </div>
     <div v-else class="nft-row w-full h-full">
-      <v-router target="_blank" :href="data.url">
+      <v-router :href="data.url" target="_blank">
         <!-- 背景图 -->
-        <DappNftsHeader class="w-full h-full overflow-hidden" :data="data" />
+        <DappNftsHeader :data="data" class="w-full h-full overflow-hidden" />
       </v-router>
     </div>
   </div>
 </template>
 <style lang="scss">
-
 .nft-items {
   @apply w-58;
   &:hover {
@@ -44,6 +47,7 @@ const detailUrl = function(data: object) {
     }
   }
 }
+
 @screen md {
   .nft-item {
     @apply w-auto;

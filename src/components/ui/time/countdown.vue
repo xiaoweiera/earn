@@ -1,23 +1,24 @@
 <script setup lang="ts">
 // 倒计时
-import dayjs from 'dayjs';
-import { dateTime } from 'src/utils';
-// @ts-ignore
-import { onMounted, ref, watch } from 'vue';
-// @ts-ignore
-import I18n from 'src/utils/i18n/index';
+import dayjs from "dayjs";
+import { dateTime } from "src/utils";
+import { onMounted, ref, watch } from "vue";
+import I18n from "src/utils/i18n/index";
 
 const i18n = I18n();
 const props = defineProps({
-  value: [String, Number],
+  value: {
+    type: [String, Number],
+    default: "",
+  },
 });
-const day = ref<string>('00');
-const hour = ref<string>('00');
-const minute = ref<string>('00');
-const second = ref<string>('00');
+const day = ref<string>("00");
+const hour = ref<string>("00");
+const minute = ref<string>("00");
+const second = ref<string>("00");
 const end = ref(0);
 
-const emitEvent = defineEmits(['change']);
+const emitEvent = defineEmits(["change"]);
 
 const calcEndValue = function () {
   end.value = dateTime(props.value);
@@ -53,10 +54,10 @@ const timeout = () => {
   const duration = end.value - now;
   // 结束倒计时
   if (duration < 0) {
-    day.value = '00';
-    hour.value = '00';
-    minute.value = '00';
-    second.value = '00';
+    day.value = "00";
+    hour.value = "00";
+    minute.value = "00";
+    second.value = "00";
     return;
   }
   // 计算倒计时剩余天
@@ -74,7 +75,7 @@ const timeout = () => {
     minute: minute.value,
     second: second.value,
   };
-  emitEvent('change', res);
+  emitEvent("change", res);
 
   intemout = setTimeout(timeout, 1000);
 };
