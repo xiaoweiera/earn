@@ -1,5 +1,5 @@
 // 修复 tsconfig paths 在编译阶段不生效的问题
-require('module-alias/register');
+require("module-alias/register");
 
 const _ = require("lodash");
 const argv = require("@fengqiaogang/argv");
