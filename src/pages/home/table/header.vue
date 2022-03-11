@@ -29,7 +29,7 @@ const props = defineProps({
 // [headerName,headerCss]
 const cssData: any = ref([]);
 onMounted(() => {
-  cssData.value = getHeader(props.item.key, props?.name);
+  cssData.value = getHeader(safeGet(props.item,'key'));
 });
 const sortIcon: any = {
   desc: "icon-shuangxiangjiantou-down",
@@ -40,7 +40,7 @@ const getIcon = () => {
   const params = props.params || {};
   const type = safeGet<string>(params, "sort_type");
   const sort_field = safeGet<string>(params, "sort_field");
-  if (type && sort_field && sort_field === props.item.key) {
+  if (type && sort_field && sort_field === safeGet(props.item,'key')) {
     return sortIcon[type];
   }
   return "icon-shuangxiangjiantou";
