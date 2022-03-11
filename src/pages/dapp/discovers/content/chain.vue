@@ -95,12 +95,12 @@ const change = _.debounce(async (value: string) => {
 <style lang="scss" scoped>
 .select {
   ::v-deep(.el-input__inner) {
-    @apply bg-global-white h-8 rounded-md;
+    @apply border-1 border-global-highTitle border-opacity-4 bg-global-white h-8 rounded-md;
     @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
   }
   @screen md {
     ::v-deep(.el-input__inner) {
-      @apply text-kd14px18px md:w-25 h-8 pl-3 border-0 bg-global-topBg text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
+      @apply border-1 border-global-highTitle border-opacity-4 text-kd14px18px w-25 h-8 pl-3 bg-global-topBg text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
     }
   }
 }

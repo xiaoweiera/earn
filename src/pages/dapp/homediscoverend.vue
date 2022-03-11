@@ -38,12 +38,17 @@ const urlType = true;
 const loading = ref<boolean>(false);
 const route = getReactiveInject<Query>(stateAlias.ui.tab) || {};
 const key = ref<string>(uuid());
+const sortKey = ref<string>(uuid());
 
+let sort = {
+  sort_type: "",
+  sort_field: "",
+};
 // nft drops
 const getEndedList = async function () {
   loading.value = true;
   const model = new Model();
-  const list = await model.getEndedProjects(params);
+  const list = await model.getEndedProjects({ ...params, ...sort });
   loading.value = false;
   return list;
 };
@@ -68,7 +73,10 @@ onMounted(() => {
 
   useWatch(route, () => {
     key.value = uuid();
-
+    sort = {
+      sort_type: "",
+      sort_field: "",
+    }; // 置空排序参数，此处逻辑不需要设置排序参数
     if (params.chain !== route.bracket) {
       onUpdate();
     } else if (params.category !== route.category) {
@@ -84,6 +92,7 @@ onMounted(() => {
 // 排序方法
 const changeSort = function (value: string) {
   params.sort_field = value;
+  sortKey.value = uuid();
   updateEndedList();
 };
 
@@ -201,9 +210,9 @@ const onSearch = _.debounce(async () => {
       </div>
     </div>
 
-    <div v-if="EndedList.length > 0" class="overflow-x-auto showX mt-4">
+    <div :key="sortKey" v-if="EndedList.length > 0" class="overflow-x-auto showX mt-4">
       <div class="w-307 border-t-1 border-global-highTitle border-opacity-6">
-        <DAppDiscoversEndList :key="key" :list="EndedList" :params="params" @change-sort="changeSort" />
+        <DAppDiscoversEndList :key="key" :list="EndedList" :params="sort" @change-sort="changeSort" />
       </div>
     </div>
     <div v-else>
@@ -218,7 +227,7 @@ const onSearch = _.debounce(async () => {
 <style lang="scss" scoped>
 .input-style {
   ::v-deep(.el-input__inner) {
-    @apply border-0 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
+    @apply border-1 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
   }
 
   ::v-deep(input::-webkit-input-placeholder) {
@@ -233,7 +242,7 @@ const onSearch = _.debounce(async () => {
 @screen md {
   .input-style {
     ::v-deep(.el-input__inner) {
-      @apply border-0 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
+      @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
     }
 
     ::v-deep(input::-webkit-input-placeholder) {

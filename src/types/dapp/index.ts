@@ -7,12 +7,6 @@ import I18n from "src/utils/i18n";
 import { config } from "src/router/config";
 import { getParam } from "src/utils/router";
 
-// export enum ProjectGroup {
-// 	online = 'online', // 待上线
-// 	history = 'history', // 历史项目
-// 	recommend = 'recommend' // 运营推荐
-// }
-
 export interface DataMap {
 	date: string;
 	list: ProjectItem[];
@@ -84,46 +78,7 @@ export interface TabItem {
 	icon?: string;
 	href: string | object;
 }
-export const tabs = function(): TabItem[] {
-  const i18n = I18n();
-  const query = getParam<object>();
-  return [
-    {
-      type: TabTypes.upcoming,
-      icon: "",
-      name: i18n.airdrop.tabs.upcoming,
-      href: {
-        path: config.dappList,
-        query: {
-          ...query,
-          type: TabTypes.upcoming,
-        },
-      },
-    }, {
-      type: TabTypes.ongoing,
-      icon: "",
-      name: i18n.airdrop.tabs.ongoing,
-      href: {
-        path: config.dappList,
-        query: {
-          ...query,
-          type: TabTypes.ongoing,
-        },
-      },
-    }, {
-      type: TabTypes.ended,
-      icon: "",
-      name: i18n.growthpad.status.closure,
-      href: {
-        path: config.dappList,
-        query: {
-          ...query,
-          type: TabTypes.ended,
-        },
-      },
-    },
-  ];
-};
+
 // nft tab 切换
 export enum NftTabTypes {
 	upcoming = "upcoming", // 即将开始
@@ -135,33 +90,4 @@ export interface NftTabItem {
 	icon?: string;
 	href: string | object;
 }
-// nft分类切换
-export const nftTabs = function(): NftTabItem[] {
-  const i18n = I18n();
-  const query = getParam<object>();
-  return [
-    {
-      status: NftTabTypes.upcoming,
-      icon: "",
-      name: i18n.airdrop.tabs.upcoming,
-      href: {
-        path: `${config.nft}/discover`,
-        query: {
-          ...query,
-          status: NftTabTypes.upcoming,
-        },
-      },
-    }, {
-      status: NftTabTypes.history,
-      icon: "",
-      name: i18n.dapp.sort.history,
-      href: {
-        path: `${config.nft}/discover`,
-        query: {
-          ...query,
-          status: NftTabTypes.history,
-        },
-      },
-    },
-  ];
-};
+

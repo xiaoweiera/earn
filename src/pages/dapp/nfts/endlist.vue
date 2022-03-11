@@ -71,14 +71,14 @@ const data = {
 };
 // 排序
 const sort = (key: string) => {
-  // if (!props.params.sort_type || props.params.sort_field !== key) {
-  //   props.params.sort_type = "desc";
-  // } else if (props.params.sort_type === "desc") {
-  //   props.params.sort_type = "asc";
-  // } else {
-  //   props.params.sort_type = "";
-  // }
-  // props.params.sort_field = key;
+  if (!props.params.sort_type || props.params.sort_field !== key) {
+    props.params.sort_type = "desc";
+  } else if (props.params.sort_type === "desc") {
+    props.params.sort_type = "asc";
+  } else {
+    props.params.sort_type = "";
+  }
+  props.params.sort_field = key;
   emit("changeSort", key);
 };
 

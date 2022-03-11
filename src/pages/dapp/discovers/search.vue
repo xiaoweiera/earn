@@ -154,7 +154,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .input-style {
   ::v-deep(.el-input__inner) {
-    @apply border-0 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
+    @apply border-1 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
   }
   ::v-deep(input::-webkit-input-placeholder) {
     @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
@@ -167,7 +167,7 @@ onMounted(() => {
 @screen md {
   .input-style {
     ::v-deep(.el-input__inner) {
-      @apply border-0 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
+      @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
     }
     ::v-deep(input::-webkit-input-placeholder) {
       @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;

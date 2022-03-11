@@ -3,7 +3,8 @@ import I18n from "src/utils/i18n";
 
 import * as alias from "src/utils/root/alias";
 import { onMounted, reactive, ref } from "vue";
-import * as logic from "src/types/dapp/";
+import * as logic from "src/logic/dapp/";
+import { TabTypes } from "src/types/dapp"
 import { uuid } from "src/utils";
 import { Model } from "src/logic/dapp";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
@@ -117,17 +118,17 @@ const getFilter = function (data: any) {
   const igo = getParam<boolean>("igo");
   const status = getParam<string>("type");
   if (igo) {
-    if (status === logic.TabTypes.ended) {
+    if (status === TabTypes.ended) {
       return data.igo_ended;
-    } else if (status === logic.TabTypes.ongoing) {
+    } else if (status === TabTypes.ongoing) {
       return data.igo_ongoing;
     } else {
       return data.igo_upcoming;
     }
   } else {
-    if (status === logic.TabTypes.ended) {
+    if (status === TabTypes.ended) {
       return data.ido_ended;
-    } else if (status === logic.TabTypes.ongoing) {
+    } else if (status === TabTypes.ongoing) {
       return data.ido_ongoing;
     } else {
       return data.ido_upcoming;
@@ -153,7 +154,7 @@ const getFilter = function (data: any) {
       </div>
       <!-- 列表内容 -->
       <div v-if="list.length > 0" class="py-8">
-        <div v-if="query.type === logic.TabTypes.ended" class="overflow-x-scroll showX">
+        <div v-if="query.type === TabTypes.ended" class="overflow-x-scroll showX">
           <div class="w-315">
             <DappDiscoversEndlist :params="params" class="px-4" :list="list" @change-sort="changeSort" />
           </div>

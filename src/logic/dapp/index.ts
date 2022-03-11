@@ -17,6 +17,7 @@ import DBList from "@fengqiaogang/dblist";
 import dayjs from "dayjs";
 import { createHref } from "src/plugins/router/pack";
 import { Language } from "src/types/language";
+import { NftTabItem, NftTabTypes, TabItem, TabTypes } from "src/types/dapp";
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = "All";
@@ -158,7 +159,7 @@ export const getUrl = function (name: string, type: boolean) {
     }
   } else {
     if (name === Status.upcoming) {
-      return `${config.nft}/discover?type=${Status.upcoming}`;
+      return `${config.nft}/discover?status=${Status.upcoming}`;
     }
   }
 };
@@ -255,4 +256,77 @@ export const getClassWidth = function () {
   } else {
     return "w-22";
   }
+};
+
+// IDO&IGOtab切换
+export const tabs = function(): TabItem[] {
+  const i18n = I18n();
+  const query = getParam<object>();
+  return [
+    {
+      type: TabTypes.upcoming,
+      icon: "",
+      name: i18n.airdrop.tabs.upcoming,
+      href: {
+        path: config.dappList,
+        query: {
+          ...query,
+          type: TabTypes.upcoming,
+        },
+      },
+    }, {
+      type: TabTypes.ongoing,
+      icon: "",
+      name: i18n.airdrop.tabs.ongoing,
+      href: {
+        path: config.dappList,
+        query: {
+          ...query,
+          type: TabTypes.ongoing,
+        },
+      },
+    }, {
+      type: TabTypes.ended,
+      icon: "",
+      name: i18n.growthpad.status.closure,
+      href: {
+        path: config.dappList,
+        query: {
+          ...query,
+          type: TabTypes.ended,
+        },
+      },
+    },
+  ];
+};
+
+// nft分类切换
+export const nftTabs = function(): NftTabItem[] {
+  const i18n = I18n();
+  const query = getParam<object>();
+  return [
+    {
+      status: NftTabTypes.upcoming,
+      icon: "",
+      name: i18n.airdrop.tabs.upcoming,
+      href: {
+        path: `${config.nft}/discover`,
+        query: {
+          ...query,
+          status: NftTabTypes.upcoming,
+        },
+      },
+    }, {
+      status: NftTabTypes.history,
+      icon: "",
+      name: i18n.dapp.sort.history,
+      href: {
+        path: `${config.nft}/discover`,
+        query: {
+          ...query,
+          status: NftTabTypes.history,
+        },
+      },
+    },
+  ];
 };
