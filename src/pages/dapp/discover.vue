@@ -4,7 +4,7 @@ import I18n from "src/utils/i18n";
 import * as alias from "src/utils/root/alias";
 import { onMounted, reactive, ref } from "vue";
 import * as logic from "src/logic/dapp/";
-import { TabTypes } from "src/types/dapp"
+import { TabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import { Model } from "src/logic/dapp";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";

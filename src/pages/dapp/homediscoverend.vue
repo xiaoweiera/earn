@@ -210,7 +210,7 @@ const onSearch = _.debounce(async () => {
       </div>
     </div>
 
-    <div :key="sortKey" v-if="EndedList.length > 0" class="overflow-x-auto showX mt-4">
+    <div v-if="EndedList.length > 0" :key="sortKey" class="overflow-x-auto showX mt-4">
       <div class="w-307 border-t-1 border-global-highTitle border-opacity-6">
         <DAppDiscoversEndList :key="key" :list="EndedList" :params="sort" @change-sort="changeSort" />
       </div>
