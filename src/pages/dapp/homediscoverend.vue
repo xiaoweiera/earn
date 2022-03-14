@@ -112,7 +112,7 @@ const onSearch = _.debounce(async () => {
 }, 300);
 </script>
 <template>
-  <div class="mt-5 p-4 bg-global-white rounded-md">
+  <div class="mt-5 rounded-md">
     <!-- header -->
     <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
       <DAppHomeHeader
@@ -211,7 +211,7 @@ const onSearch = _.debounce(async () => {
     </div>
 
     <div v-if="EndedList.length > 0" :key="sortKey" class="overflow-x-auto showX mt-4">
-      <div class="w-307 border-t-1 border-global-highTitle border-opacity-6">
+      <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
         <DAppDiscoversEndList :key="key" :list="EndedList" :params="sort" @change-sort="changeSort" />
       </div>
     </div>
