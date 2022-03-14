@@ -5,16 +5,19 @@
 
 import { Model } from "src/logic/home";
 import { Model as DAppModel } from "src/logic/dapp";
+import { Model as BlogModel } from "src/logic/blog"
 import type { Request, Response } from "express";
 import * as alias from "src/utils/root/alias";
 import redirect from "src/controller/common/redirect";
 import { config } from "src/router/config";
 import I18n from "src/utils/i18n";
+import {BlockList} from "net";
 // home页面
 export const begin = async function(req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   const DAppApi = new DAppModel(req);
+  const BlogApi = new BlogModel(req);
   const params = { page: 1, page_size: 100, show_commercial: true };
   // IXO接口参数
   const chain = req.query.chain as string;
@@ -45,7 +48,7 @@ export const begin = async function(req: Request, res: Response) {
     sort_field: "",
     sort_type: "", // desc asc
   });
-  const [summary, topicRank, recommend, trend, platforms, UpcomingList, OngoingList, UpcomingNftList, EndedList] = await Promise.all([
+  const [summary, topicRank, recommend, trend, platforms, UpcomingList, OngoingList, UpcomingNftList, EndedList, BlockList] = await Promise.all([
     api.getSummary(),
     api.getTopicRank(),
     api.getRecommend(params),
@@ -55,6 +58,7 @@ export const begin = async function(req: Request, res: Response) {
     DAppApi.getOngoingProjects(chain),
     DAppApi.getUpcomingNftList(nftParams),
     DAppApi.getEndedProjects(Endedparams),
+    BlogApi.getBlogProjects(),
   ]);
   const result = {
     "title": i18n.home.webInfo.home.title,
@@ -66,10 +70,11 @@ export const begin = async function(req: Request, res: Response) {
     "API.home.getRecommend": recommend, // 推荐话题
     "API.home.getTrend": trend, // 今日趋势
     "API.home.getPlatform": platforms, // TGE平台列表
-    [alias.dApp.ixo.upcoming]: UpcomingList, // IXO即将开始
-    [alias.dApp.ixo.ongoing]: OngoingList, // IXO进行时
-    [alias.nft.upcoming]: UpcomingNftList, // nft进行时
-    [alias.dApp.ixo.ended]: EndedList, // IXO结束
+    // [alias.dApp.ixo.upcoming]: UpcomingList, // IXO即将开始
+    // [alias.dApp.ixo.ongoing]: OngoingList, // IXO进行时
+    // [alias.nft.upcoming]: UpcomingNftList, // nft进行时
+    // [alias.dApp.ixo.ended]: EndedList, // IXO结束
+    // [alias.blog.list]: BlockList,//研究院列表
   };
   res.send(result);
 };

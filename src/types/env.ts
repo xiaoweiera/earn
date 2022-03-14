@@ -11,6 +11,7 @@ export interface ImportMetaEnv {
   readonly VITE_googleCaptcha: string; // google Captcha key
   readonly VITE_oss: string; // oss 资源域名
   readonly VITE_REDIS_URL?: string; // redis 配置
+  readonly VITE_secret: string; // 加密签名
   VITE_staticPath: string; // 静态资源虚拟路径
   VITE_staticDomain: string; // 静态资源域名或者是域名+路径
 }
