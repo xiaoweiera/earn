@@ -134,5 +134,8 @@ export default {
     key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资",
     des: "发掘热门NFT項目，通过 KingData 找出潜力NFT",
   },
-
+  blog: {
+    title: "研究文章",
+    tips: "KingData 研报，带你捕获 Web3 最新趋势。"
+  }
 };

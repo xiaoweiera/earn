@@ -58,4 +58,13 @@ export class Model extends API {
   getHotList() {
     return this.blog.getHostList<BlogData[]>();
   }
+
+  // 首页研究院列表
+  getBlogProjects() {
+    const query = {
+      page: 1,
+      page_size: 3,
+    }
+    return this.blog.getList<BlogData[]>(query);
+  }
 }
