@@ -40,6 +40,7 @@ const prepend = async function () {
         data = value;
       }
     } catch (e) {
+      console.log(e);
       // todo
     }
   }
