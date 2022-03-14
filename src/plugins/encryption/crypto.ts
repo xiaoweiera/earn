@@ -4,15 +4,16 @@
  */
 
 import CryptoJS from "crypto-js";
-import { key, a as secret } from "./value";
+import { compress, key, a as secret } from "./value";
 
-export const Crypto = function(value: string | object): string {
+export const Crypto = async function <T>(value: T): Promise<string> {
   try {
     const text = JSON.stringify({ [key]: value });
-    const data = CryptoJS.AES.encrypt(text, secret);
+    const str = await compress(text);
+    const data = CryptoJS.AES.encrypt(str, secret());
     return data.toString();
   } catch (e) {
-    // todo
+    console.log(e);
   }
   return "";
 };

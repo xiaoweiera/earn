@@ -23,7 +23,7 @@ interface Result {
   [key: string]: any;
 }
 
-const makeScript = function (data: Result): string {
+const makeScript = async function (data: Result): Promise<string> {
   const env = getEnv();
 
   const value = _.omit(data, ["title", "keywords", "description", "content", "libs"]);
@@ -49,7 +49,8 @@ const makeScript = function (data: Result): string {
 	}
 	*/
   // 缓存数据
-  scriptCodes.push(`window["${rootData}"] = "${Crypto(value)}";`);
+  const text = await Crypto(value);
+  scriptCodes.push(`window["${rootData}"] = "${text}";`);
 
   const html: string[] = [];
   _.each(scriptLibs, (src: string) => {
@@ -61,9 +62,9 @@ const makeScript = function (data: Result): string {
   return html.join("");
 };
 
-const template = function (html: string, result: Result): string {
+const template = async function (html: string, result: Result): Promise<string> {
   const env = getEnv();
-  result.libs = makeScript(result);
+  result.libs = await makeScript(result);
   // 处理 Html 中的转译字符
   result.content = htmlEncode.htmlDecode(result.content);
   const option = Object.assign({ ...env }, result, { languageKey });

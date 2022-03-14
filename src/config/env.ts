@@ -5,6 +5,7 @@
 
 import fs from "fs";
 import path from "path";
+import dayjs from "dayjs";
 import dotenv from "dotenv";
 import type { ConfigEnv } from "vite";
 import UrlPattern from "url-pattern";
@@ -72,7 +73,15 @@ export const getConfig = async function (env: ConfigEnv | object): Promise<Impor
   }
   if (result && result.parsed) {
     const VITE_cookie = getCookieDomain(result.parsed);
-    const data = { ...result.parsed, VITE_cookie };
+    const data = Object.assign(
+      {
+        VITE_secret: dayjs().format("MM_YY_DD"),
+      },
+      {
+        ...result.parsed,
+      },
+      { VITE_cookie },
+    );
     if (data.VITE_command === Command.build) {
       const value = `${data.VITE_staticPath}/${Date.now()}`;
       if (data.VITE_staticDomain) {
