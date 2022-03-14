@@ -4,17 +4,14 @@
  */
 
 import type { Router } from "vue-router";
-import {
-  createRouter as _createRouter,
-  createMemoryHistory,
-  createWebHistory,
-} from "vue-router";
+import { createRouter as _createRouter, createMemoryHistory, createWebHistory } from "vue-router";
 import { config } from "./config";
 
 import Home from "./home";
 import DAppList from "./dapp";
 import BlogList from "./blog";
 import User from "./user";
+import quota from "./quota";
 
 const routes = [
   {
@@ -30,7 +27,7 @@ const routes = [
       ...Home,
       ...DAppList,
       ...BlogList,
-
+      ...quota,
       {
         path: config.E404,
         component: () => import("src/pages/error.vue"),
