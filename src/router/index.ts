@@ -15,6 +15,7 @@ import Home from "./home";
 import DAppList from "./dapp";
 import BlogList from "./blog";
 import User from "./user";
+import DownLoad from "./download"
 
 const routes = [
   {
@@ -30,7 +31,7 @@ const routes = [
       ...Home,
       ...DAppList,
       ...BlogList,
-
+      ...DownLoad,
       {
         path: config.E404,
         component: () => import("src/pages/error.vue"),
