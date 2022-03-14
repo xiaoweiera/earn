@@ -35,12 +35,14 @@ onMounted(() => {
       <HomeTrends class="mt-6" />
       <!--            topic推荐-->
       <HomeRecommend class="mt-6" />
-      <DAppHomeResearch/>
-      <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-8 md:mt-20" />
+      <!--  nft模块  -->
+      <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      <!-- 研究文章-->
+      <DAppHomeResearch class="mt-11 md:mt-17.5"/>
+      <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!--      项目方-->
       <HomeCompany class="mt-6" />
-      <DAppHomeNft v-if="summary" :summary="summary" class="mt-4 md:mt-20" />
-      <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-4 md:mt-20" />
+      <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
     </div>
   </div>
 </template>

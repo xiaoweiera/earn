@@ -7,9 +7,26 @@ import BlogResearchHeader from "src/pages/blog/research/header.vue"
 import BlogResearchItem from "src/pages/blog/research/item.vue"
 
 import I18n from "src/utils/i18n";
-
+import { Model } from "src/logic/blog";
+import { createRef, onLoadRef } from "src/utils/ssr/ref";
+import { BlogData } from "src/types/blog/";
+import * as alias from "src/utils/root/alias";
+import { onMounted } from "vue";
 
 const i18n = I18n();
+// 创建列表对象并获取缓存数据
+const BlogList = createRef<BlogData[]>(alias.blog.list, [] as any);
+
+// 即将上线列表
+const getBlogList = async function() {
+  const model = new Model();
+  return model.getBlogProjects();
+};
+
+onMounted(() => {
+  // 判断列表数据是否为空，如果为空则获取最新数据
+  onLoadRef(BlogList, getBlogList);
+});
 </script>
 <template>
   <div>
@@ -18,8 +35,8 @@ const i18n = I18n();
       <BlogResearchHeader/>
     </div>
     <!-- 列表内容 -->
-    <div class="mt-4">
-      <BlogResearchItem/>
+    <div class="w-full overflow-hidden mt-4">
+      <BlogResearchItem v-if="BlogList" :list="BlogList"/>
     </div>
   </div>
 </template>
