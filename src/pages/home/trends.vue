@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 import document from "src/plugins/browser/document";
-import { getEnv } from "src/config";
+import {getEnv} from "src/config";
 import safeGet from "@fengqiaogang/safe-get";
 // 引入 swiper vue 组件
 // @ts-ignore
-import SwiperCore, { Autoplay, Pagination } from "swiper";
+import SwiperCore, {Autoplay, Pagination} from "swiper";
 // @ts-ignore
-import { Swiper, SwiperSlide } from "swiper/vue";
+import {Swiper, SwiperSlide} from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import { getValue } from "src/utils/root/data";
-import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
-import { Model } from "src/logic/home";
-import { dataToTimestamp, formatDefaultTime, timeago } from "src/lib/tool";
+import {getValue} from "src/utils/root/data";
+import {alias, createRef, onLoadRef} from "src/utils/ssr/ref";
+import {Model} from "src/logic/home";
+import {dataToTimestamp, formatDefaultTime, timeago} from "src/lib/tool";
 import I18n from "src/utils/i18n";
-import type { SiteConfig } from "src/types/common/chain";
+import type {SiteConfig} from "src/types/common/chain";
+
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const i18n = I18n();
 const env = getEnv();
@@ -55,34 +56,32 @@ onMounted(() => {
 <template>
   <div>
     <div class="flex items-end text-global-white">
-      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow font-semibold">{{
-        i18n.home.todayTrend.title
-      }}</span>
-      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">{{
-        i18n.home.todayTrend.time
-      }}</span>
+      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow font-semibold">{{ i18n.home.todayTrend.title
+        }}</span>
+      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">{{ i18n.home.todayTrend.time
+        }}</span>
     </div>
     <div class="mt-4 relative">
       <div class="w-full h-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
-          <img class="left shadow" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="" @click="last" />
+          <img class="left shadow" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="" @click="last"/>
         </div>
         <Swiper
-          v-if="trend.length > 0"
-          class="h-full swiper-topic"
-          :initial-slide="0"
-          slides-per-view="auto"
-          :space-between="24"
-          :resize-observer="true"
-          @init="init"
-          @set-translate="change"
+            v-if="trend.length > 0"
+            class="h-full swiper-topic"
+            :initial-slide="0"
+            slides-per-view="auto"
+            :space-between="24"
+            :resize-observer="true"
+            @init="init"
+            @set-translate="change"
         >
           <template v-for="(item, index) in trend" :key="index">
             <SwiperSlide class="rounded-kd6px">
               <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
                 <div v-if="item['data_type'] === 'blog' && index === 0" class="relative">
                   <div class="absolute z-3 w-full h-full px-2 md:px-3">
-                    <div class="blog-name pt-1.5 md:pt-2 font-kdSemiBold font-semibold">
+                    <div class="blog-name pt-1.5 md:pt-2.5 font-kdSemiBold font-semibold">
                       <span>Daily Trending</span>
                       <span class="ml-1">({{ formatDefaultTime(item['release_date'], 'MM/DD') }})</span>
                     </div>
@@ -93,42 +92,38 @@ onMounted(() => {
                         <span v-if="i + 1 < item['label'].length">、</span>
                       </template>
                     </div>
-                    <div class="blog-label absolute bottom-1 md:bottom-1.5">
+                    <div class="blog-label absolute bottom-1 md:bottom-2.5">
                       <span>{{ item['viewers'] ? item['viewers'] : 0 }} {{ i18n.home.todayTrend.read }}</span>
                       <span v-if="item['release_date']" class="mx-1 gang text-kd12px16px">|</span>
                       <span v-if="item['release_date']"
-                        >{{ i18n.home.todayTrend.updateTime }}:
+                      >{{ i18n.home.todayTrend.updateTime }}:
                         {{ timeago(dataToTimestamp(item['release_date'])) }}</span
                       >
                     </div>
                   </div>
-                  <ui-image class="rounded-kd6px h-23.5 w-65 md:w-101" :src="getImg(item)" fit="cover" />
-                  <div class="blog-jian" />
+                  <ui-image class="rounded-kd6px h-28 w-65 md:w-101" :src="getImg(item)" fit="cover"/>
+                  <div class="blog-jian"/>
                 </div>
-                <div v-else class="h-23.5 w-47.5 overflow-hidden rounded-kd6px">
-                  <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute" />
-                  <ui-image
-                    class="rounded-kd6px w-full h-full"
-                    :class="getImg(item) ? '' : 'mohu'"
-                    :src="getImg(item) ? getImg(item) : item['logo']"
-                  />
-                  <div class="absolute top-0 top-5 left-2 flex items-center">
-                    <ui-image
-                      v-if="item['data_type'] === 'dapp'"
-                      class="w-12.5 h-12.5 border-2 border-global-white rounded-full relative z-3"
-                      fit="cover"
-                      :src="item['logo']"
-                    />
-                    <div class="ml-3 font-kdSemiBold font-bold text-kd18px18px text-global-white relative z-3">
-                      <div class="w-26 whitespace-nowrap short">{{ item.name }}</div>
-                      <span
-                        v-if="safeGet(config, `chain.${item.chain}.name`)"
-                        class="chain-tip w-26 whitespace-nowrap short"
-                        >{{ safeGet(config, `chain.${item.chain}.name`) }}</span
-                      >
+                <div v-else class="h-28 w-47.5 relative overflow-hidden rounded-kd6px">
+                  <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute"/>
+                  <ui-image class="rounded-kd6px  w-full h-full" :class="getImg(item) ? '' : 'mohu'" :src="getImg(item) ? getImg(item) : item['logo']"/>
+                  <div class="top-3 absolute w-full px-3 flex flex-col items-center justify-center">
+                    <div class="relative">
+                      <ui-image v-if="item['data_type'] === 'dapp'" class="cover-logo" :src="item['logo']" fit="cover"/>
+                      <div class="chain-logo">
+                        <ui-image class="w-3.5 h-3.5" :src="safeGet(config,`chain.${item.chain}.logo`)" fit="cover"/>
+                      </div>
+                    </div>
+                    <div class="mt-2 font-medium font-kdSemiBold  text-kd14px14px font-kdSemiBold text-global-white relative z-10">
+                      <div class="w-41.5 text-center whitespace-nowrap short">{{ item.name }}</div>
+                    </div>
+                    <div class="relative z-3 mt-2 flex">
+                      <span v-if="safeGet(item, `category`)" :class="safeGet(item, `category`)==='NFT'?'bg-global-money':'bg-global-primary'" class="chain-coin mr-2">{{ safeGet(item, `category`)
+                        }}</span>
+                      <span v-if="safeGet(item, `chain`)" class="chain-tip">{{ safeGet(item, `chain`) }}</span>
                     </div>
                   </div>
-                  <div class="w-47.5 h-23.5 absolute top-0 left-0 rounded-kd6px jian z-2" />
+                  <div class="w-47.5 h-28 absolute top-0 left-0 rounded-kd6px jian z-2"/>
                 </div>
               </v-router>
             </SwiperSlide>
@@ -136,26 +131,42 @@ onMounted(() => {
         </Swiper>
       </div>
       <div class="xshidden" :class="isEnd ? 'hidden' : 'jian-right'">
-        <img class="right shadow" :src="`${env.VITE_oss}/dapp/rightjian.png`" alt="" @click="next" />
+        <img class="right shadow" :src="`${env.VITE_oss}/dapp/rightjian.png`" alt="" @click="next"/>
       </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
+.cover-logo {
+  @apply w-9 h-9 border-2 border-global-white rounded-full relative z-3;
+}
+
+.chain-logo {
+  @apply w-4 h-4  flex justify-center items-center absolute  bottom-0 right-0 bg-global-white rounded-full z-3;
+}
+
+.chain-coin {
+  width: fit-content;
+  @apply flex items-center px-2 whitespace-nowrap text-global-white  rounded-kd20px text-kd12px14px font-kdFang h-5.5;
+}
+
 .chain-tip {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   width: fit-content;
-  @apply flex items-center px-2  rounded-kd20px text-kd12px14px font-kdFang h-5.5 mt-2.5;
+  @apply flex items-center px-2 whitespace-nowrap text-global-white   rounded-kd20px text-kd12px14px font-kdFang h-5.5;
 }
+
 .jian-right {
   @apply w-35 h-full absolute right-0 top-0 z-2;
 }
+
 .blog-jian {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   @apply w-full h-full absolute left-0 top-0  z-2 rounded-kd6px;
 }
+
 .ruo {
   -webkit-mask: -webkit-gradient(linear, left top, right bottom, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
 }
@@ -177,12 +188,15 @@ onMounted(() => {
 .swiper-slide {
   width: auto !important;
 }
+
 .gang {
   opacity: 0.4;
 }
+
 .blog-name {
   @apply text-kd18px18px md:text-kd20px20px font-semiBold text-global-white;
 }
+
 .mohu {
   filter: blur(3px);
   -webkit-filter: blur(3px);
@@ -190,12 +204,15 @@ onMounted(() => {
   -ms-filter: blur(3px);
   -o-filter: blur(3px);
 }
+
 .jian {
-  background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
 }
+
 .blog-label {
   @apply text-kd12px16px font-medium text-global-white;
 }
+
 .shadow {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
 }

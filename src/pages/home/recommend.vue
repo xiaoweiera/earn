@@ -59,31 +59,19 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div class="text-kd20px20px md:text-kd24px24px relative font-kdSemiBold text-global-highTitle font-semibold">
-      {{ i18n.home.hotTopic }}
-    </div>
+    <div class="text-kd20px20px md:text-kd24px24px relative font-kdSemiBold text-global-highTitle font-semibold">{{ i18n.home.hotTopic }}</div>
     <div class="mt-4 relative">
       <div class="w-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
           <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" fit="cover" @click="last" />
         </div>
-        <Swiper
-          v-if="recommend.length > 0"
-          class="h-full swiper-recom"
-          :initial-slide="0"
-          slides-per-view="auto"
-          :space-between="24"
-          :resize-observer="true"
-          @init="init"
-          @set-translate="change"
-        >
+        <Swiper v-if="recommend.length > 0" class="h-full swiper-recom" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
               <v-router :href="getHref(item['data_type'], item)" target="_blank" class="item-card">
                 <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute z-5" />
                 <div class="info relative z-10">
-                  <div class="name text-number">{{ item.name }}</div>
-                  <div class="go">Go</div>
+                  <div class="name font-kdSemiBold">{{ item.name }}</div>
                 </div>
                 <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'], item)" fit="cover" />
                 <div class="bottom-bg" />
@@ -120,15 +108,9 @@ onMounted(() => {
   width: auto !important;
 }
 .info {
-  @apply flex items-center justify-between px-2.5 md:px-4 w-full  absolute bottom-1.5 md:bottom-2 z-999;
+  @apply flex items-center justify-between px-2.5 md:px-3 w-full  absolute bottom-2 md:bottom-2 z-999;
   .name {
-    @apply text-kd14px18px font-medium text-global-white;
-  }
-
-  .go {
-    @apply h-6 flex items-center justify-center cursor-pointer;
-    @apply bg-global-primary w-fit px-2 rounded-kd34px;
-    @apply text-kd12px16px font-medium text-global-white font-kdFang;
+    @apply text-kd22px26px md:text-kd26px31px font-medium text-global-white;
   }
 }
 .shadow {

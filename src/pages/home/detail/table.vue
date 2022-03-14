@@ -16,7 +16,6 @@ import { useRoute, useRouter } from "vue-router";
 import HomeFilter from "../filter.vue";
 import HomeTableHeader from "../table/header.vue";
 import HomeTableTd from "../table/td.vue";
-
 const props = defineProps({
   info: {
     type: Object as PropType<detail>,
@@ -82,7 +81,7 @@ const debounceData = async (clear?: boolean) => {
     data.items = [];
   }
   const res: any = await api.getProjects(params);
-  resultNumber.value = res?.items?.length;
+  resultNumber.value =safeGet(res,'items.length');
   data.items = data.items.concat(res.items);
   loading.value = false;
 };
@@ -118,10 +117,10 @@ const toProject = (url: string) => {
 };
 const getNameWidth = (item: any) => {
   // @ts-ignore
-  if (item.key === "name" && props.info.show_type === "data") {
+  if (item.key === "name" && safeGet(props.info,show_type) === "data") {
     return "min-w-30 max-w-30";
     // @ts-ignore
-  } else if (item.key === "name" && props.info.show_type === "desc") {
+  } else if (item.key === "name" && safeGet(props.info,show_type) === "desc") {
     return "w-150";
   }
   return "";
@@ -129,13 +128,13 @@ const getNameWidth = (item: any) => {
 // 是否有筛选
 const isFilter = () => {
   // @ts-ignore
-  if (props.info.filters.chain.show && props.info.filters.chain.options.length > 0) {
+  if (safeGet(props.info,'filters.chain.show') && safeGet(props.info,'filters.chain.options.length')>0) {
     return true;
     // @ts-ignore
-  } else if (props.info.filters.category.show && props.info.filters.category.options.length > 0) {
+  } else if (safeGet(props.info,'filters.category.show') && safeGet(props.info,'filters.category.options.length')>0) {
     return true;
     // @ts-ignore
-  } else if (props.info.filters?.search?.show && props.info.filters?.search?.options.length > 0) {
+  } else if (safeGet(props.info,'filters.search.show') && safeGet(props.info,'filters.search.options.length')>0) {
     return true;
   }
   return false;
@@ -144,7 +143,7 @@ const isFilter = () => {
 <template>
   <div class="table-box md:mb-0 mb-4">
     <div class="flex xshidden justify-between items-baseline">
-      <HomeFilter v-if="info.id && isFilter()" :key="key" :filters="info.filters" :info="info" class="mb-4 -mt-2" />
+      <HomeFilter v-if="safeGet(info,'id') && isFilter()" :key="key" :filters="safeGet(info,'filters')" :info="info" class="mb-4 -mt-2" />
       <client-only>
         <div v-if="isSearch" class="relative flex items-center search">
           <IconFont
@@ -163,7 +162,7 @@ const isFilter = () => {
             <td class="h-full border-tb">
               <div class="text-left w-5">#</div>
             </td>
-            <template v-for="(item, index) in data.header" :key="index">
+            <template v-for="(item, index) in safeGet(data,'header')" :key="index">
               <td v-if="item.key !== 'id'" :class="getNameWidth(item)" class="text-left border-tb">
                 <HomeTableHeader :item="item" :params="params" name="Project Name" @click="sort(item)" />
               </td>
@@ -172,13 +171,9 @@ const isFilter = () => {
         </thead>
         <tbody>
           <template v-for="(item, index) in data.items" :key="index">
-            <tr
-              :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'"
-              class="min-h-12.5 h-12.5 md:min-h19.5 hand"
-              @click="toProject(item.url)"
-            >
+            <tr :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'" class="min-h-12.5 h-12.5 md:min-h19.5 hand" @click="toProject(item.url)">
               <td class="number">
-                <div class="text-left w-5">{{ index + 1 }}</div>
+                <v-router :href="item.url" @click.prevent target="_blank" class="text-left w-5">{{ index + 1 }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in data.header" :key="index">
                 <td v-if="itemTwo.key !== 'id'">
