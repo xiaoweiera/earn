@@ -212,7 +212,7 @@ const onSearch = _.debounce(async () => {
 
     <div v-if="EndedList.length > 0" :key="sortKey" class="overflow-x-auto showX mt-4">
       <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
-        <DAppDiscoversEndList :key="key" :list="EndedList" :params="sort" @change-sort="changeSort" />
+        <DAppDiscoversEndList class="end-bg" :key="key" :list="EndedList" :params="sort" @change-sort="changeSort" />
       </div>
     </div>
     <div v-else>
@@ -253,5 +253,8 @@ const onSearch = _.debounce(async () => {
       @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
     }
   }
+}
+::v-deep(.table-box) {
+  @apply bg-transparent;
 }
 </style>

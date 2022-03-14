@@ -49,7 +49,7 @@ onMounted(() => {
   <div class="airdrop-list mt-4 hidden md:block">
     <DAppAirdropItem v-for="(data, index) in AirdropList" :key="index" :data="data"/>
   </div>
-  <div class="h-55.5 mt-4 block md:hidden">
+  <div class="h-57 mt-4 block md:hidden">
     <Swiper
       :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
       :pagination="{ clickable: true }"

@@ -72,8 +72,8 @@ const detailLink = function (data: DataItem) {
                 <ui-image class="rounded-md w-full h-full" :src="data.logo" fit="cover" :lazy="true"></ui-image>
               </div>
               <div class="ml-2.5 h-13.5 flex-auto  w-1">
-                <div class="text-kd18px18px text-global-highTitle text-opacity-85 truncate font-semibold font-kdSemiBold">
-                  <b>{{ data.name }}</b>
+                <div class="text-kd18px18px h-5 text-global-highTitle text-opacity-85 truncate font-semibold font-kdSemiBold">
+                  {{ data.name }}
                 </div>
                 <div class="mt-3 flex items-center flex-nowrap">
                   <!-- 项目分类 -->

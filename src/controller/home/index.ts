@@ -48,7 +48,12 @@ export const begin = async function(req: Request, res: Response) {
     sort_field: "",
     sort_type: "", // desc asc
   });
-  const [summary, topicRank, recommend, trend, platforms, UpcomingList, OngoingList, UpcomingNftList, EndedList, BlockList] = await Promise.all([
+  const airdropParams = {
+    page: 1,
+    page_size: 4,
+    status: "ongoing",
+  }
+  const [summary, topicRank, recommend, trend, platforms, UpcomingList, OngoingList, UpcomingNftList, EndedList, BlockList, AirdropList] = await Promise.all([
     api.getSummary(),
     api.getTopicRank(),
     api.getRecommend(params),
@@ -59,6 +64,7 @@ export const begin = async function(req: Request, res: Response) {
     DAppApi.getUpcomingNftList(nftParams),
     DAppApi.getEndedProjects(Endedparams),
     BlogApi.getBlogProjects(),
+    DAppApi.getAirdropProjects(airdropParams),
   ]);
   const result = {
     "title": i18n.home.webInfo.home.title,
@@ -75,6 +81,7 @@ export const begin = async function(req: Request, res: Response) {
     // [alias.nft.upcoming]: UpcomingNftList, // nft进行时
     // [alias.dApp.ixo.ended]: EndedList, // IXO结束
     // [alias.blog.list]: BlockList,//研究院列表
+    // [alias.dApp.airdrop.ongoing]: AirdropList,//airdrop列表
   };
   res.send(result);
 };
