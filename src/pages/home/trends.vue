@@ -78,7 +78,7 @@ onMounted(() => {
               <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
                 <div v-if="item['data_type'] === 'blog' && index === 0" class="relative">
                   <div class="absolute z-3 w-full h-full px-2 md:px-3">
-                    <div class="blog-name pt-1.5 md:pt-2 font-kdSemiBold font-semibold">
+                    <div class="blog-name pt-1.5 md:pt-2.5 font-kdSemiBold font-semibold">
                       <span>Daily Trending</span>
                       <span class="ml-1">({{ formatDefaultTime(item['release_date'], 'MM/DD') }})</span>
                     </div>
@@ -89,7 +89,7 @@ onMounted(() => {
                         <span v-if="i + 1 < item['label'].length">、</span>
                       </template>
                     </div>
-                    <div class="blog-label absolute bottom-1 md:bottom-1.5">
+                    <div class="blog-label absolute bottom-1 md:bottom-2.5">
                       <span>{{ item['viewers'] ? item['viewers'] : 0 }} {{ i18n.home.todayTrend.read }}</span>
                       <span v-if="item['release_date']" class="mx-1 gang text-kd12px16px">|</span>
                       <span v-if="item['release_date']"
@@ -98,20 +98,28 @@ onMounted(() => {
                       >
                     </div>
                   </div>
-                  <ui-image class="rounded-kd6px h-23.5 w-65 md:w-101" :src="getImg(item)" fit="cover" />
+                  <ui-image class="rounded-kd6px h-28 w-65 md:w-101" :src="getImg(item)" fit="cover" />
                   <div class="blog-jian" />
                 </div>
-                <div v-else class="h-23.5 w-47.5 overflow-hidden rounded-kd6px">
+                <div v-else class="h-28 w-47.5 relative overflow-hidden rounded-kd6px">
                   <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute" />
-                  <ui-image class="rounded-kd6px w-full h-full" :class="getImg(item) ? '' : 'mohu'" :src="getImg(item) ? getImg(item) : item['logo']"/>
-                  <div class="absolute top-0 top-5 left-2 flex items-center">
-                    <ui-image v-if="item['data_type'] === 'dapp'" class="w-12.5 h-12.5 border-2 border-global-white rounded-full relative z-3" fit="cover" :src="item['logo']"/>
-                    <div class="ml-3 font-kdSemiBold font-bold text-kd18px18px text-global-white relative z-3">
-                      <div class="w-26 whitespace-nowrap short">{{ item.name }}</div>
-                      <span v-if="safeGet(config, `chain.${item.chain}.name`)" class="chain-tip w-26 whitespace-nowrap short">{{ safeGet(config, `chain.${item.chain}.name`) }}</span>
+                  <ui-image class="rounded-kd6px  w-full h-full" :class="getImg(item) ? '' : 'mohu'" :src="getImg(item) ? getImg(item) : item['logo']"/>
+                  <div class="top-3 absolute w-full px-3 flex flex-col items-center justify-center">
+                    <div class="relative">
+                      <ui-image v-if="item['data_type'] === 'dapp'" class="cover-logo" :src="item['logo']" fit="cover"/>
+                      <div class="chain-logo">
+                        <ui-image class="w-3.5 h-3.5" :src="safeGet(config,`chain.${item.chain}.logo`)" fit="cover"/>
+                      </div>
+                    </div>
+                    <div class="mt-2 font-medium font-kdSemiBold  text-kd14px14px font-kdSemiBold text-global-white relative z-10">
+                      <div class="w-41.5 text-center whitespace-nowrap short">{{ item.name }}</div>
+                    </div>
+                    <div class="relative z-3 mt-2 flex">
+                      <span v-if="safeGet(item, `category`)" :class="safeGet(item, `category`)==='NFT'?'bg-global-money':'bg-global-primary'" class="chain-coin mr-2">{{ safeGet(item, `category`) }}</span>
+                      <span v-if="safeGet(item, `chain`)" class="chain-tip">{{safeGet(item, `chain`)}}</span>
                     </div>
                   </div>
-                  <div class="w-47.5 h-23.5 absolute top-0 left-0 rounded-kd6px jian z-2" />
+                  <div class="w-47.5 h-28 absolute top-0 left-0 rounded-kd6px jian z-2" />
                 </div>
               </v-router>
             </SwiperSlide>
@@ -125,12 +133,22 @@ onMounted(() => {
   </div>
 </template>
 <style lang="scss" scoped>
+.cover-logo{
+  @apply w-9 h-9 border-2 border-global-white rounded-full relative z-3;
+}
+.chain-logo{
+  @apply w-4 h-4  flex justify-center items-center absolute  bottom-0 right-0 bg-global-white rounded-full z-3;
+}
+.chain-coin{
+  width: fit-content;
+  @apply flex items-center px-2 whitespace-nowrap text-global-white  rounded-kd20px text-kd12px14px font-kdFang h-5.5;
+}
 .chain-tip {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   width: fit-content;
-  @apply flex items-center px-2  rounded-kd20px text-kd12px14px font-kdFang h-5.5 mt-2.5;
+  @apply flex items-center px-2 whitespace-nowrap text-global-white   rounded-kd20px text-kd12px14px font-kdFang h-5.5;
 }
 .jian-right {
   @apply w-35 h-full absolute right-0 top-0 z-2;

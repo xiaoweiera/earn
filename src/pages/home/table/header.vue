@@ -2,10 +2,15 @@
 import { getHeader } from "src/logic/home";
 import { onMounted, ref } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
+import { oss } from "src/config";
 const props = defineProps({
   sort: {
     type: Boolean,
     default: true
+  },
+  isHigh:{
+    type:Boolean,
+    default:false
   },
   height: {
     type: String,
@@ -50,7 +55,8 @@ const getIcon = () => {
   <div class="flex items-center" :class="`${cssData[1]} ${height}`">
     <div class="relative h-full flex items-center" :class="(item.sort && sort) ? 'hand' : ''">
       <IconFont v-if="item.sort && params && sort" class="relative mr-1" size="14" :type="getIcon()" />
-      <span>{{ cssData[0] }}</span>
+      <img v-if="item.active && isHigh" class="w-2 h-1 mr-1 relative -top-0.6" :src="`${oss}/common/sortDown.png`">
+      <span :class="item.active && isHigh?'text-global-primary':''">{{ cssData[0] }}</span>
       <div :class="item.key === params?.sort_field ? 'sort-border' : ''" />
     </div>
   </div>
