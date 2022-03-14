@@ -172,7 +172,7 @@ const isFilter = () => {
         <tbody>
           <template v-for="(item, index) in data.items" :key="index">
             <tr :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'" class="min-h-12.5 h-12.5 md:min-h19.5 hand" @click="toProject(item.url)">
-              <td class="number">
+              <td class="number text-left">
                 <v-router :href="item.url" @click.prevent target="_blank" class="text-left w-5">{{ index + 1 }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in data.header" :key="index">

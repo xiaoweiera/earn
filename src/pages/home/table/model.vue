@@ -76,7 +76,7 @@ const toProject = (url: string) => {
 }
 thead td,
 .number {
-  @apply whitespace-nowrap md:whitespace-wrap text-kd12px16px text-global-highTitle text-opacity-45 text-center;
+  @apply whitespace-nowrap md:whitespace-wrap text-kd12px16px text-global-highTitle text-opacity-45 text-left;
 }
 tbody td {
   @apply text-center text-kd14px18px text-global-highTitle;
