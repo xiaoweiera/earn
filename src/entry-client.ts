@@ -29,10 +29,20 @@ import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormali
 import { createApp } from "./bootstrap/main";
 
 // 前置处理
-const prepend = async function() {
+const prepend = async function () {
   const cookie = new Cookie();
   const text = safeGet<string>(window, rootData);
-  const data = text ? Decrypt<object>(text) : {};
+  let data: object = {};
+  if (text) {
+    try {
+      const value = await Decrypt<object>(text);
+      if (value) {
+        data = value;
+      }
+    } catch (e) {
+      // todo
+    }
+  }
   const process = await webkit.env.process(); // 尝试与移动端设备进行交互
   // 如果移动端有返回数据
   if (process && process.device) {
@@ -58,7 +68,7 @@ const prepend = async function() {
   return data;
 };
 
-const main = async function() {
+const main = async function () {
   const data = await prepend();
 
   console.log("env : ", getEnv());

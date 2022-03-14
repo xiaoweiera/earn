@@ -8,12 +8,12 @@ import safeSet from "@fengqiaogang/safe-set";
 import type { ImportMetaEnv } from "../types/env";
 import { Command, oss } from "../types/env";
 
-const _getOsProcess = function(): ImportMetaEnv {
+const _getOsProcess = function (): ImportMetaEnv {
   const env: ImportMetaEnv = {
     VITE_oss: oss,
   } as ImportMetaEnv;
   try {
-    const data = (process.env || {});
+    const data = process.env || {};
     const keys = [
       "VITE_mode",
       "VITE_command",
@@ -27,6 +27,7 @@ const _getOsProcess = function(): ImportMetaEnv {
       "VITE_googleCaptcha",
       "VITE_staticPath",
       "VITE_staticDomain",
+      "VITE_secret",
     ];
     for (const name of keys) {
       const value = safeGet<string>(data, name);
@@ -47,17 +48,17 @@ const _getOsProcess = function(): ImportMetaEnv {
 };
 
 export enum Device {
-	web = "web",
-	app = "app",
+  web = "web",
+  app = "app",
 }
 
 // 环境变量
 export interface Process extends ImportMetaEnv {
-	mode: string;
-	command: Command;
+  mode: string;
+  command: Command;
 }
 
-export const getProcess = function(): Process {
+export const getProcess = function (): Process {
   const env = _getOsProcess();
   return {
     ...env,

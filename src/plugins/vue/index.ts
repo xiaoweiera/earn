@@ -13,7 +13,7 @@ import type { ViteDevServer } from "vite";
 import { createServer as createViteServer } from "vite";
 import template from "../template/";
 
-const getEntryHtml = function(root: string, env: Env) {
+const getEntryHtml = function (root: string, env: Env) {
   if (env.VITE_command === Command.build) {
     const entry = path.join(root, "dist/server", "entry-server.js");
     const templateSrc = path.join(root, "dist/client", env.template);
@@ -44,12 +44,12 @@ class SSR {
     });
   }
 
-  protected getHtml(html: string, data: object, result: string[]): string {
+  protected async getHtml(html: string, data: object, result: string[]): Promise<string> {
     const option = {
       ...data,
       content: [...result].join(""),
     };
-    return template(html, option as any);
+    return await template(html, option as any);
   }
 
   protected nocache(modules: string[]) {
@@ -92,7 +92,7 @@ class SSR {
       const i18n = I18n(url);
       const value = Object.assign({}, data, { lang: i18n.getLang() });
       const result = await render(url, value);
-      return this.getHtml(text, value, result);
+      return await this.getHtml(text, value, result);
     }
     return "";
   }
