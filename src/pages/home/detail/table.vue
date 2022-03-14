@@ -203,7 +203,6 @@ const isFilter = () => {
     @apply text-kd14px18px md:w-50 text-left  text-global-highTitle  flex items-center  text-kd14px18px;
   }
 }
-
 .border-tb {
   @apply border-t-1 border-b-1 border-global-highTitle border-opacity-6;
 }
