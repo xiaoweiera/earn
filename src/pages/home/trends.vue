@@ -192,7 +192,7 @@ onMounted(() => {
   -o-filter: blur(3px);
 }
 .jian {
-  background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
 }
 .blog-label {
   @apply text-kd12px16px font-medium text-global-white;
