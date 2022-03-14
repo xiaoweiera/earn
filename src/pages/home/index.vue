@@ -2,6 +2,7 @@
 import DAppHomeDiscover from "src/pages/dapp/homediscover.vue";
 import DAppHomeNft from "src/pages/dapp/homenft.vue";
 import DAppHomeDiscoverEnd from "src/pages/dapp/homediscoverend.vue";
+import DAppHomeResearch from "src/pages/blog/homeresearch.vue";
 import { onMounted } from "vue";
 import { Model } from "src/logic/home";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
@@ -34,6 +35,7 @@ onMounted(() => {
       <HomeTrends class="mt-6" />
       <!--            topic推荐-->
       <HomeRecommend class="mt-6" />
+      <DAppHomeResearch/>
       <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-8 md:mt-20" />
       <!--      项目方-->
       <HomeCompany class="mt-6" />
