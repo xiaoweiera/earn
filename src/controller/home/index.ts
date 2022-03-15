@@ -17,10 +17,6 @@ export const begin = async function(req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   const params = { page: 1, page_size: 100, show_commercial: true };
-  // IXO接口参数
-  const chain = req.query.chain as string;
-  // nft接口参数
-  const group = req.query.group as string;
   const [summary, topicRank, recommend, trend, platforms,ads] = await Promise.all([
     api.getSummary(),
     api.getTopicRank(),
