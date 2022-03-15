@@ -75,7 +75,9 @@ onMounted(() => {
 }
 
 ::v-deep(.swiper-pagination) {
-  @apply absolute bottom-1 flex  justify-center;
+  position: absolute !important;
+  bottom:4px !important;
+  @apply  flex  justify-center;
 }
 
 @screen md {
@@ -90,7 +92,8 @@ onMounted(() => {
   }
 
   ::v-deep(.swiper-pagination) {
-    @apply absolute bottom-1.5;
+    position: absolute !important;
+    bottom:4px !important;
   }
 }
 ::v-deep(.swiper-pagination-bullet) {
