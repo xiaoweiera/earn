@@ -9,10 +9,10 @@ import { names } from "src/config/header";
 import safeGet from "@fengqiaogang/safe-get";
 import type { BlogDetail } from "src/types/blog/";
 import * as alias from "src/utils/root/alias";
-import redirect from "src/controller/common/redirect";
+import { go404 } from "src/controller/common/redirect";
 import { config as routerConfig } from "src/router/config";
 
-export const list = async function(req: Request, res: Response) {
+export const list = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   res.locals.menuActive = names.blog.blog;
@@ -27,9 +27,9 @@ export const list = async function(req: Request, res: Response) {
   ]);
 
   const result = {
-    "title": i18n.blog.meta.title,
-    "keywords": i18n.blog.meta.keywords,
-    "description": i18n.blog.meta.description,
+    title: i18n.blog.meta.title,
+    keywords: i18n.blog.meta.keywords,
+    description: i18n.blog.meta.description,
 
     "API.blog.ads": ads, // 广告
     [alias.blog.tabs]: tabs, // 分组
@@ -41,7 +41,7 @@ export const list = async function(req: Request, res: Response) {
 };
 
 // 博客详情
-export const detail = async function(req: Request, res: Response) {
+export const detail = async function (req: Request, res: Response) {
   const api = new Model(req);
   const id = safeGet<number>(req.params, "id");
   // 获取详情数据
@@ -51,14 +51,14 @@ export const detail = async function(req: Request, res: Response) {
     const i18n = I18n(req);
     res.locals.menuActive = names.blog.blog;
     const result = {
-      title: (data && data.name) ? `${data.name} | KingData` : i18n.blog.meta.title,
+      title: data && data.name ? `${data.name} | KingData` : i18n.blog.meta.title,
       keywords: i18n.blog.meta.keywords,
-      description: (data && data.name) ? data.desc : i18n.dapp.meta.description,
+      description: data && data.name ? data.desc : i18n.dapp.meta.description,
       [alias.blog.detail]: data,
     };
     res.send(result);
   } else {
     // 重定向到 404
-    redirect(req, res, routerConfig.E404);
+    go404(req, res);
   }
 };

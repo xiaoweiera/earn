@@ -6,15 +6,15 @@
 import type { PropType } from "vue";
 
 export enum Name {
-	a = "a",
-	span = "span",
-	div = "div",
-	link = "router-link",
+  a = "a",
+  span = "span",
+  div = "div",
+  link = "router-link",
 }
 
 export enum Target {
-	self = "_self",
-	blank = "_blank",
+  self = "_self",
+  blank = "_blank",
 }
 
 export const props = {
@@ -29,6 +29,10 @@ export const props = {
     default: () => Target.self,
   },
   login: {
+    type: Boolean,
+    default: () => false,
+  },
+  disable: {
     type: Boolean,
     default: () => false,
   },
