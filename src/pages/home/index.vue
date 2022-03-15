@@ -9,6 +9,7 @@ import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { summaryModel } from "src/types/home";
 import { stateAlias, useReactiveProvide } from "src/utils/use/state";
 import HomeCompany from "./company.vue";
+import HomeAd from "./ad.vue";
 import HomeRecommend from "./recommend.vue";
 import HomeTrends from "./trends.vue";
 import HomeTopic from "./topic.vue";
@@ -29,6 +30,7 @@ onMounted(() => {
     <div class="md:max-w-360 md:px-22.5 px-3  mx-auto">
       <!--      顶部信息-->
       <HomeHeader v-if="summary" :data="summary" />
+<!--      <HomeAd />-->
       <!--            话题切换-->
       <HomeTopic class="mt-6 md:mt-9" />
       <!--            趋势-->

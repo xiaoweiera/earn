@@ -70,11 +70,11 @@ onMounted(() => {
             <SwiperSlide class="rounded-kd6px">
               <v-router :href="getHref(item['data_type'], item)" target="_blank" class="item-card">
                 <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute z-5" />
-                <div class="info relative z-10">
+                <div class="info relative z-10 pt-8">
                   <div class="name font-kdSemiBold">{{ item.name }}</div>
+                  <div class="bottom-bg"></div>
                 </div>
                 <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'], item)" fit="cover" />
-                <div class="bottom-bg" />
               </v-router>
             </SwiperSlide>
           </template>
@@ -102,7 +102,7 @@ onMounted(() => {
 }
 .bottom-bg {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
-  @apply w-full h-19.5 bottom-0 left-0 absolute z-2 rounded-kd6px;
+  @apply w-full h-full left-0 absolute z-2 rounded-kd6px;
 }
 .swiper-slide {
   width: auto !important;
@@ -110,7 +110,8 @@ onMounted(() => {
 .info {
   @apply flex items-center justify-between px-2.5 md:px-3 w-full  absolute bottom-2 md:bottom-2 z-999;
   .name {
-    @apply text-kd22px26px md:text-kd26px31px font-medium text-global-white;
+    text-shadow:  0px 2px 4px rgba(0, 0, 0, 0.48);
+    @apply relative z-5 text-kd22px26px md:text-kd26px31px font-medium text-global-white;
   }
 }
 .shadow {
