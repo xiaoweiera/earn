@@ -122,7 +122,7 @@ export class Model extends API {
     return this.home.getPlatform();
   }
   //ad列表
-  getAdList(){
-    return this.home.getAdList();
+  getAdList(position:number){
+    return this.home.getAdList(position);
   }
 }
