@@ -115,7 +115,7 @@ onMounted(() => {
                       </div>
                     </div>
                     <div class="mt-2 font-medium font-kdSemiBold  text-kd14px14px font-kdSemiBold text-global-white relative z-10">
-                      <div class="w-41.5 text-center whitespace-nowrap short">{{ item.name }}</div>
+                      <div class="w-41.5 text-center font-kdSemiBold whitespace-nowrap short">{{ item.name }}</div>
                     </div>
                     <div class="relative z-3 mt-2 flex">
                       <span v-if="safeGet(item, `category`)" :class="safeGet(item, `category`)==='NFT'?'bg-global-money':'bg-global-primary'" class="chain-coin mr-2">{{ safeGet(item, `category`)
