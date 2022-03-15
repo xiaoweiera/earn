@@ -80,4 +80,12 @@ export default class extends ApiTemplate {
     // 返回参数
     return [] as any;
   }
+  // ad列表
+  @tryError(DefaultValue([])) // 处理默认值
+  @get(api.common.adList) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getAdList<T>(): Promise<T> {
+    // 返回参数
+    return [] as any;
+  }
 }

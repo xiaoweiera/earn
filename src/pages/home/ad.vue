@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import document from "src/plugins/browser/document";
 import {getEnv} from "src/config";
 import safeGet from "@fengqiaogang/safe-get";
@@ -12,32 +12,17 @@ import {Swiper, SwiperSlide} from "swiper/vue";
 import "swiper/swiper-bundle.css";
 import {getValue} from "src/utils/root/data";
 import {alias, createRef, onLoadRef} from "src/utils/ssr/ref";
+import {oss} from "src/config";
 import {Model} from "src/logic/home";
-import {dataToTimestamp, formatDefaultTime, timeago} from "src/lib/tool";
 import I18n from "src/utils/i18n";
 import type {SiteConfig} from "src/types/common/chain";
+import VRouter from "src/components/v/router.vue";
 
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const i18n = I18n();
 const env = getEnv();
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
-const isBegin = ref(true);
-const isEnd = ref(false);
-// 下一页
-const next = () => document.querySelector(".swiper-topic").swiper.slideNext();
-// 上一页
-const last = () => document.querySelector(".swiper-topic").swiper.slidePrev();
-const change = (swiper: any) => {
-  isBegin.value = swiper.isBeginning;
-  isEnd.value = swiper.isEnd;
-};
-const init = (swiper: any) => {
-  setTimeout(() => {
-    isBegin.value = swiper.isBeginning;
-    isEnd.value = swiper.isEnd;
-  });
-};
 // 得到图片
 const getImg = (data: any) => {
   if (data.data_type === "ad") {
@@ -45,35 +30,70 @@ const getImg = (data: any) => {
   }
   return data.cover;
 };
-const trend = createRef("API.home.getTrend", []);
-
+const adsList = createRef("API.home.ads", []);
+const getUrl = (data: any) => {
+  if (document.body.clientWidth > 768) {
+    return safeGet(data, 'image')
+  } else {
+    return safeGet(data, 'image_app') ? safeGet(data, 'image_app') : safeGet(data, 'image')
+  }
+}
 onMounted(() => {
   const api = new Model();
   // 得到数据汇总
-  onLoadRef(trend, () => api.getTrend());
+  onLoadRef(adsList, () => api.getAdList());
 });
 </script>
 <template>
-  <div>
-      <div class="w-full h-full">21
-        <Swiper
-            v-if="trend.length > 0"
-            class="h-full swiper-topic"
-            slides-per-view="auto"
-            :resize-observer="true"
-            @init="init"
-            @set-translate="change"
-        >
-          <template v-for="(item, index) in trend" :key="index">
-            <SwiperSlide class="rounded-kd6px">
-              <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
-
-              </v-router>
-            </SwiperSlide>
-          </template>
-        </Swiper>
-      </div>
+  <div v-if="adsList.length>0" class="w-full h-full mt-6">
+    <Swiper
+        class="h-15 rounded-kd6px"
+        :initial-slide="0"
+        :loop="true"
+        :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
+        slides-per-view="auto"
+        :resize-observer="true"
+        :pagination="{clickable:true}"
+    >
+      <template v-for="(item, index) in adsList" :key="index">
+        <SwiperSlide>
+          <v-router :href="item['url']" target="_blank" class="w-full h-15 hand">
+            <ui-image class="w-full h-full" :src="getUrl(item)" fit="cover"/>
+          </v-router>
+        </SwiperSlide>
+      </template>
+    </Swiper>
   </div>
 </template>
 <style lang="scss" scoped>
+::v-deep(.swiper-pagination-bullet) {
+  background: rgba(255, 255, 255, 0.45) !important;
+}
+
+::v-deep(.swiper-pagination-bullet-active) {
+  background: white !important;
+}
+
+::v-deep(.swiper-pagination) {
+  @apply absolute bottom-1 flex  justify-center;
+}
+
+@screen md {
+  ::v-deep(.swiper-pagination-bullet) {
+    margin-right: 20px !important;
+    background: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  ::v-deep(.swiper-pagination-bullet-active) {
+    margin-right: 20px !important;
+    background: white !important;
+  }
+
+  ::v-deep(.swiper-pagination) {
+    @apply absolute bottom-1.5;
+  }
+}
+::v-deep(.swiper-pagination-bullet) {
+  opacity: 1 !important;
+}
 </style>
