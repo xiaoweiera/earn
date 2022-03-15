@@ -117,10 +117,10 @@ const toProject = (url: string) => {
 };
 const getNameWidth = (item: any) => {
   // @ts-ignore
-  if (item.key === "name" && safeGet(props.info,show_type) === "data") {
+  if (item.key === "name" && safeGet(props.info,"show_type") === "data") {
     return "min-w-30 max-w-30";
     // @ts-ignore
-  } else if (item.key === "name" && safeGet(props.info,show_type) === "desc") {
+  } else if (item.key === "name" && safeGet(props.info,"show_type") === "desc") {
     return "w-150";
   }
   return "";
