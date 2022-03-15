@@ -137,5 +137,9 @@ export default {
   blog: {
     title: "Research",
     tips: "KingData reseach report, tracking the latest trends in Web3"
+  },
+  airdrop: {
+    title: "OnGoing Airdrops",
+    tips: "Collect the latest airdrop projects"
   }
 };

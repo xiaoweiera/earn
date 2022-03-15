@@ -42,7 +42,7 @@ defineProps({
           <v-router class="w-full h-full" :href="makeDetailLink(list[1].id)" target="_blank">
             <div class="flex justify-between h-39.75">
               <div class="mr-4 flex flex-col justify-between">
-                <div class="w-full h-full">
+                <div class="max-w-91 w-91 h-full">
                   <p class="text-kd18px24px text-global-highTitle font-medium blog-font">{{ list[1].name}}</p>
                   <p v-if="list[1].desc" class="mt-2 text-kd14px18px text-global-highTitle text-opacity-65 font-normal line-clamp-2 blog-font" v-text="list[1].desc"></p>
                 </div>
@@ -65,7 +65,7 @@ defineProps({
           <v-router class="w-full h-full" :href="makeDetailLink(list[2].id)" target="_blank">
             <div class="flex justify-between h-39.75">
               <div class="mr-4 flex flex-col justify-between">
-                <div class="w-full h-full">
+                <div class="max-w-91 w-91 h-full">
                   <p class="text-kd18px24px text-global-highTitle font-medium blog-font">{{ list[2].name}}</p>
                   <p v-if="list[2].desc" class="mt-2 text-kd14px18px text-global-highTitle text-opacity-65 font-normal line-clamp-2 blog-font" v-text="list[2].desc"></p>
                 </div>

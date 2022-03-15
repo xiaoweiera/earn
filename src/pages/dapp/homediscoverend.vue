@@ -3,7 +3,7 @@ import { ElInput } from "element-plus";
 import I18n from "src/utils/i18n";
 
 import { onMounted, ref } from "vue";
-import { Model, getClassWidth, tabChain, tabPlat } from "src/logic/dapp";
+import { Model, getClassWidth, tabChain, tabPlat, getUrl } from "src/logic/dapp";
 import { alias, createRef, onLoadRef, onUpdateRef } from "src/utils/ssr/ref";
 import type { AdItem, ProjectItem } from "src/types/dapp/ixo";
 import { Status } from "src/types/dapp/ixo";
@@ -110,17 +110,24 @@ const onSearch = _.debounce(async () => {
   }
   return updateEndedList();
 }, 300);
+
+
+const EndlistComing = function (){
+  if(EndedList.value.length > 10 ) {
+    return EndedList.value.slice(0,10)
+  }else {
+    return EndedList.value;
+  }
+}
 </script>
 <template>
-  <div class="mt-5 p-4 bg-global-white rounded-md">
+  <div class="mt-5 rounded-md">
     <!-- header -->
     <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
-      <DAppHomeHeader
-        :status="Status.ended"
-        :tips="i18n.home.endProject.desc"
-        :title="i18n.home.endProject.title"
-        :type="urlType"
-      />
+      <div class="flex flex-col md:flex-row items-start md:items-end">
+        <p class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">{{ i18n.home.endProject.title }}</p>
+        <p class="text-kd14px18px text-global-highTitle text-opacity-45 font-kdFang mt-4 md:mt-0 ml-0 md:ml-4">{{ i18n.home.endProject.desc }}</p>
+      </div>
     </div>
     <div class="hidden md:block">
       <!-- 项目类型、公链、搜索框 -->
@@ -211,8 +218,16 @@ const onSearch = _.debounce(async () => {
     </div>
 
     <div v-if="EndedList.length > 0" :key="sortKey" class="overflow-x-auto showX mt-4">
-      <div class="w-307 border-t-1 border-global-highTitle border-opacity-6">
-        <DAppDiscoversEndList :key="key" :list="EndedList" :params="sort" @change-sort="changeSort" />
+      <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
+        <DAppDiscoversEndList class="end-bg" :key="key" :list="EndlistComing()" :params="sort" @change-sort="changeSort" />
+      </div>
+      <!-- 查看全部 -->
+      <div v-if="EndedList.length >= 10" class="w-full flex justify-center mt-2">
+        <div class="w-23.75 h-8 bg-global-darkblue bg-opacity-6 rounded-md">
+          <v-router :href="getUrl(Status.ended, urlType)" class="w-full h-full"  target="_blank">
+            <span class="w-full h-full inline-flex items-center justify-center text-kd14px18px text-global-darkblue font-kdFang">{{ i18n.home.idoIgoProject.all }}</span>
+          </v-router>
+        </div>
       </div>
     </div>
     <div v-else>
@@ -253,5 +268,8 @@ const onSearch = _.debounce(async () => {
       @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
     }
   }
+}
+::v-deep(.table-box) {
+  @apply bg-transparent;
 }
 </style>

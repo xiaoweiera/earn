@@ -19,6 +19,7 @@ export const dapp = {
   nftList: "/api/v1/dapps/nft", // nft项目列表
   tabs: "/api/v1/site/config", // 项目类型搜索条件
   ixo: "/api/v1/dapps/ixo",
+  airdropList: "/api/dapps/v1/airdrop",//空投首页列表
 };
 
 export const blog = {

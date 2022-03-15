@@ -29,6 +29,9 @@ export const dApp = {
   summary: {
     list: "API.home.getSummary",
   },
+  airdrop: {
+    ongoing: "Api.dApp.airdrop",
+  }
 };
 
 export const nft = {
