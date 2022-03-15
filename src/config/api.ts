@@ -44,4 +44,5 @@ export const common = {
   areaCodeList: "/api/v1/area_codes/", // 电话区号
   chainSiteConfig: "/api/v1/site/config", // 公链信息
   tidingTime: "/api/generic/alert/web/new_add", // 新数据消息
+  adList: "/api/v2/commercial", // 广告
 };
