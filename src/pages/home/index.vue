@@ -31,13 +31,14 @@ onMounted(() => {
     <div class="md:max-w-360 md:px-22.5 px-3  mx-auto">
       <!--      顶部信息-->
       <HomeHeader v-if="summary" :data="summary" />
-<!--      <HomeAd />-->
       <!--            话题切换-->
       <HomeTopic class="mt-6 md:mt-9" />
       <!--            趋势-->
       <HomeTrends class="mt-6" />
       <!--            topic推荐-->
       <HomeRecommend class="mt-6" />
+      <!--      广告位-->
+      <HomeAd/>
       <!--  nft模块  -->
       <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!-- 研究文章-->

@@ -68,7 +68,7 @@ onMounted(() => {
         <Swiper v-if="recommend.length > 0" class="h-full swiper-recom" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="getHref(item['data_type'], item)" target="_blank" class="item-card">
+              <v-router :href="getHref(item['data_type'], item)" target="_blank" class="item-card rounded-kd6px overflow-hidden">
                 <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute z-5" />
                 <div class="info relative z-10 pt-8">
                   <div class="name font-kdSemiBold">{{ item.name }}</div>
