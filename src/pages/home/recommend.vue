@@ -18,7 +18,7 @@ SwiperCore.use([Pagination, Autoplay]);
 const i18n = I18n();
 const params = {
   page: 1,
-  page_size: 10,
+  page_size: 100,
   show_commercial: true,
 };
 const isBegin = ref(true);
