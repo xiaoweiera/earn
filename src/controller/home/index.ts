@@ -35,7 +35,7 @@ export const begin = async function(req: Request, res: Response) {
     "API.home.getRecommend": recommend, // 推荐话题
     "API.home.getTrend": trend, // 今日趋势
     "API.home.getPlatform": platforms, // TGE平台列表
-    // "API.home.ads":ads //广告
+    "API.home.ads":ads //广告
   };
   res.send(result);
 };
