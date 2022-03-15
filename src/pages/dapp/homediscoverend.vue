@@ -73,17 +73,14 @@ onMounted(() => {
 
   useWatch(route, () => {
     key.value = uuid();
-    sort = {
-      sort_type: "",
-      sort_field: "",
-    }; // 置空排序参数，此处逻辑不需要设置排序参数
+    // 置空排序参数，此处逻辑不需要设置排序参数
     if (params.chain !== route.bracket) {
       onUpdate();
     } else if (params.category !== route.category) {
       onUpdate();
     } else if (params.platform !== route.platform) {
       onUpdate();
-    } else if (params.query !== route.query) {
+    } else if (params.query !== '' && route.query != undefined && params.query !== route.query) {
       onUpdate();
     }
   });
@@ -91,7 +88,14 @@ onMounted(() => {
 
 // 排序方法
 const changeSort = function (value: string) {
-  params.sort_field = value;
+  if (!sort.sort_type || sort.sort_field !== value) {
+    sort.sort_type = "desc";
+  } else if (sort.sort_type === "desc") {
+    sort.sort_type = "asc";
+  } else {
+    sort.sort_type = "";
+  }
+  sort.sort_field = value;
   sortKey.value = uuid();
   updateEndedList();
 };
@@ -216,10 +220,11 @@ const EndlistComing = function (){
         </client-only>
       </div>
     </div>
-
-    <div v-if="EndedList.length > 0" :key="sortKey" class="overflow-x-auto showX mt-4">
-      <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
-        <DAppDiscoversEndList class="end-bg" :key="key" :list="EndlistComing()" :params="sort" @change-sort="changeSort" />
+    <div v-if="EndedList.length > 0">
+      <div :key="sortKey" class="overflow-x-auto showX mt-4">
+        <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
+          <DAppDiscoversEndList class="end-bg" :key="key" :list="EndlistComing()" :params="sort" @change-sort="changeSort" />
+        </div>
       </div>
       <!-- 查看全部 -->
       <div v-if="EndedList.length >= 10" class="w-full flex justify-center mt-2">
