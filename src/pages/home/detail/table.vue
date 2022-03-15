@@ -149,8 +149,7 @@ const isFilter = () => {
           <IconFont
             class="absolute text-global-highTitle text-opacity-45 z-22 left-3"
             size="16"
-            type="icon-sousuo-da1"
-          />
+            type="icon-sousuo-da1"/>
           <el-input v-model="search" placeholder="Search" />
         </div>
       </client-only>
