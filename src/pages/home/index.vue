@@ -2,7 +2,7 @@
 import DAppHomeDiscover from "src/pages/dapp/homediscover.vue";
 import DAppHomeNft from "src/pages/dapp/homenft.vue";
 import DAppHomeDiscoverEnd from "src/pages/dapp/homediscoverend.vue";
-import DAppHomeResearch from "src/pages/blog/homeresearch.vue";
+import DAppHomeResearch from "src/pages/home/research.vue";
 import DAppHomeAirdrop from "src/pages/dapp/homeairdrop.vue";
 import { onMounted } from "vue";
 import { Model } from "src/logic/home";

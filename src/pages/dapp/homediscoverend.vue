@@ -224,10 +224,9 @@ const EndlistComing = function () {
     </div>
     <div v-if="EndedList.length > 0">
       <div :key="sortKey" class="overflow-x-auto showX mt-4">
-        <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
+        <div class="w-315 border-t-1 border-global-highTitle border-opacity-6 end-bg">
           <DAppDiscoversEndList
             :key="key"
-            class="end-bg"
             :list="EndlistComing()"
             :params="sort"
             @change-sort="changeSort"
@@ -285,7 +284,9 @@ const EndlistComing = function () {
     }
   }
 }
-::v-deep(.table-box) {
-  @apply bg-transparent;
+.end-bg {
+  ::v-deep(.table-box) {
+    @apply bg-transparent;
+  }
 }
 </style>
