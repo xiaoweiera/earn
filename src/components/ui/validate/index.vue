@@ -50,8 +50,8 @@ const countDownTime = function (value: number) {
 
 // 获取验证码
 const onSeadCode = async function (value: string | undefined) {
+  countDownTime(maxTimeValue); // 开始倒计时
   if (value) {
-    countDownTime(maxTimeValue); // 开始倒计时
     const data = Object.assign({}, props.query || {}, {
       token: value,
     });

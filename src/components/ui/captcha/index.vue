@@ -66,9 +66,13 @@ const onSendCode = async function (e: Event) {
       console.info("execute");
       // @ts-ignore
       recaptcha.ready(execute);
+    } else {
+      console.error("no GRecaptcha");
     }
   } catch (ee) {
-    // todo
+    emitEvent("click", void 0);
+    console.error("captcha - error");
+    console.info(ee);
   }
 };
 
