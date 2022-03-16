@@ -188,37 +188,40 @@ export const checkValidate = function (form: Ref) {
   return false;
 };
 // 单独验证邮箱
-export const checkValidateEmail = function (form: Ref) {
-  const dom = toRaw(form).value;
-  if (dom) {
-    return new Promise((resolve, reject) => {
-      dom.validateField(["email"], (error: Error) => {
+export const checkValidateEmail = function (form: Ref): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    if (form) {
+      const dom = toRaw(form).value;
+      if (dom) {
+        dom.validateField(["email"], (error: Error) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(true);
+          }
+        });
+        return;
+      }
+    }
+    resolve(true);
+  });
+};
+// 单独校验手机
+export const checkValidateMobile = function (form: Ref): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    const dom = toRaw(form).value;
+    if (dom) {
+      dom.validateField(["mobile"], (error: Error) => {
         if (error) {
           reject(error);
         } else {
           resolve(true);
         }
       });
-    });
-  }
-  return false;
-};
-// 单独校验手机
-export const checkValidateMobile = function (form: Ref) {
-  const dom = toRaw(form).value;
-  if (dom) {
-    return new Promise((resolve, reject) => {
-      dom.validateField(["mobile"], (error: Error) => {
-        if (error) {
-          reject(error);
-        } else {
-          // @ts-ignore
-          resolve();
-        }
-      });
-    });
-  }
-  return false;
+      return;
+    }
+    resolve(true);
+  });
 };
 
 export const resetFields = function (form?: any) {

@@ -71,7 +71,7 @@ const onSendCode = async function (e: Event) {
       console.error("no GRecaptcha");
     }
   } catch (ee) {
-    emitEvent("click", void 0);
+    emitEvent("click", null);
     console.error("captcha - error");
     console.info(ee);
   }
