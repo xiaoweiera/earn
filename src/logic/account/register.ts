@@ -190,11 +190,10 @@ export const checkValidate = function (form: Ref) {
 // 单独验证邮箱
 export const checkValidateEmail = function (form: Ref): Promise<boolean> {
   return new Promise((resolve, reject) => {
-    const callback = function (error?: Error) {
-      if (error) {
+    const callback = function (isValid?: boolean, invalidFields?: Error) {
+      if (isValid && invalidFields) {
         console.error("validateField email");
-        console.info(error);
-        reject(error);
+        reject(invalidFields);
       } else {
         resolve(true);
       }
@@ -212,11 +211,10 @@ export const checkValidateEmail = function (form: Ref): Promise<boolean> {
 // 单独校验手机
 export const checkValidateMobile = function (form: Ref): Promise<boolean> {
   return new Promise((resolve, reject) => {
-    const callback = function (error?: Error) {
-      if (error) {
+    const callback = function (isValid?: boolean, invalidFields?: Error) {
+      if (isValid && invalidFields) {
         console.error("validateField mobile");
-        console.info(error);
-        reject(error);
+        reject(invalidFields);
       } else {
         resolve(true);
       }
