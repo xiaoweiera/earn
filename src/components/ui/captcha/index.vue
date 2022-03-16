@@ -3,7 +3,7 @@
  * @file 谷歌人机校验
  * @author svon.me@gmail.com
  */
-
+import * as console from "src/plugins/log/";
 import type { PropType } from "vue";
 import { onBeforeMount } from "vue";
 import { getEnv } from "src/config/";
@@ -40,6 +40,7 @@ const execute = async function () {
   try {
     const recaptcha = safeGet<GRecaptcha>(window, "grecaptcha");
     if (recaptcha) {
+      // @ts-ignore
       const value: string = await recaptcha.execute(env.google.captcha, option);
       emitEvent("click", value);
     } else {
@@ -55,16 +56,24 @@ const onSendCode = async function (e: Event) {
   if (e && e.preventDefault) {
     e.preventDefault();
   }
+  console.info("captcha");
   try {
     if (props.before && isFunction(props.before)) {
       await props.before();
     }
+    console.info("captcha ready");
     const recaptcha = safeGet<GRecaptcha>(window, "grecaptcha");
     if (recaptcha) {
+      console.info("execute");
+      // @ts-ignore
       recaptcha.ready(execute);
+    } else {
+      console.error("no GRecaptcha");
     }
   } catch (ee) {
-    // todo
+    emitEvent("click", null);
+    console.error("captcha - error");
+    console.info(ee);
   }
 };
 
