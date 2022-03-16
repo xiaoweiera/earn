@@ -39,7 +39,7 @@ const link = computed<string>(function () {
       </p>
     </client-only>
 
-    <div class="py-2">
+    <div v-if="data.chart" class="py-2">
       <!-- 标题 -->
       <v-router :disable="!isList" :href="link" target="_blank">
         <h3 class="text-16-24 text-global-highTitle">{{ data.chart.name }}</h3>
