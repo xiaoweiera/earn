@@ -14,7 +14,8 @@ defineProps({
   <div v-if="data" class="w-full h-full relative">
     <div v-if="data.gallery.length > 0" class="w-full h-full">
       <div v-for="(item, index) in data.gallery" :key="index" class="w-full h-full rounded-md">
-        <ui-image v-if="index === 0" class="w-full h-full" fit="cover" :src="item" :lazy="true" />
+        <ui-image v-if="index === 0" class="w-full" fit="none" :src="item" :lazy="true" />
+        <ui-image v-if="index === 0" class="w-full image-transform" fit="none" :src="item" :lazy="true" />
       </div>
     </div>
     <div v-else class="is-flater w-full h-full">
@@ -49,9 +50,9 @@ defineProps({
     @apply text-global-white;
   }
 }
-.is-cover {
-  @apply absolute bottom-0 left-0 w-full h-20;
-  background: linear-gradient(180deg, rgba(110, 110, 110, 0) 0%, #212121 100%);
+
+.nft-footer {
+  background: linear-gradient(180deg, rgba(45, 45, 45, 0) 0%, rgba(45, 45, 45, 0.931356) 80%);
 }
 .is-flater {
   @apply bg-global-hei;
@@ -60,5 +61,12 @@ defineProps({
   -moz-filter: blur(16px);
   -ms-filter: blur(16px);
   -o-filter: blur(16px);
+}
+.image-transform {
+  transform: matrix(1, 0, 0, -1, 0, 0);
+  -ms-transform: matrix(1, 0, 0, -1, 0, 0);
+  -moz-transform: matrix(1, 0, 0, -1, 0, 0);
+  -webkit-transform: matrix(1, 0, 0, -1, 0, 0);
+  -o-transform: matrix(1, 0, 0, -1, 0, 0);
 }
 </style>

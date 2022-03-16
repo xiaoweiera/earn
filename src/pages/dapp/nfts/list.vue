@@ -42,7 +42,4 @@ defineProps({
     @apply w-auto;
   }
 }
-.nft-footer {
-  background: linear-gradient(180deg, rgba(45, 45, 45, 0) 0%, rgba(45, 45, 45, 0.931356) 60.7%);
-}
 </style>

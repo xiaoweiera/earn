@@ -24,16 +24,16 @@ defineProps({
       </div>
     </div>
     <div class="w-full absolute top-4 left-0">
-      <div class="flex justify-between px-4">
+      <div class="flex justify-between px-2">
         <p class="flex">
           <DappDiscoversContentRisk class="bg-global-bgBlack" :value="data.risk" />
           <span
             v-if="data.category"
-            class="flex items-center bg-global-bgBlack ml-2 px-2 text-kd12px14px text-global-white border border-global-white border-opacity-25 font-kdFang rounded-2xl"
+            class="flex items-center bg-global-bgBlack ml-1 px-2 text-kd12px14px text-global-white border border-global-white border-opacity-25 font-kdFang rounded-2xl"
             >{{ data.category }}</span
           >
         </p>
-        <p class="bg-global-gemstone px-2 text-global-white border border-global-white border-opacity-25 rounded-2xl">
+        <p class="min-w-12.5 bg-global-gemstone px-2 text-global-white border border-global-white border-opacity-25 rounded-2xl">
           <IconFont type="icon-star" size="12" class="is-star" />
           <span class="ml-0.5 text-kd16px18px font-semibold text-number is-score">{{
             toFixed(data.overall_score, 1)
