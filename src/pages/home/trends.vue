@@ -56,12 +56,10 @@ onMounted(() => {
 <template>
   <div>
     <div class="flex items-end text-global-white">
-      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow font-semibold">{{ i18n.home.todayTrend.title
-        }}</span>
-      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">{{ i18n.home.todayTrend.time
-        }}</span>
+      <span class="text-kd20px20px md:text-kd24px24px font-kdBarlow font-semibold">{{ i18n.home.todayTrend.title }}</span>
+      <span class="ml-3 text-kd12px18px md:text-kd14px18px font-medium text-number">{{ i18n.home.todayTrend.time }}</span>
     </div>
-    <div class="mt-4 relative">
+    <div class="mt-3 relative">
       <div class="w-full h-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
           <img class="left shadow" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="" @click="last"/>
