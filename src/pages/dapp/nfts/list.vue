@@ -22,7 +22,7 @@ defineProps({
     <div v-else class="nft-row w-full h-full">
       <v-router :href="data.url" target="_blank">
         <!-- 背景图 -->
-        <DappNftsHeader :data="data" class="w-full h-full overflow-hidden" />
+        <DappNftsHeader :data="data" class="w-full h-full rounded-md overflow-hidden" />
       </v-router>
     </div>
   </div>
@@ -41,8 +41,5 @@ defineProps({
   .nft-item {
     @apply w-auto;
   }
-}
-.nft-footer {
-  background: linear-gradient(180deg, rgba(45, 45, 45, 0) 0%, rgba(45, 45, 45, 0.931356) 60.7%);
 }
 </style>

@@ -3,12 +3,12 @@
  * @file 博客 Reaearch 模块
  * @author 18234114804@163.com
  */
-import BlogResearchHeader from "src/pages/blog/research/header.vue";
-import BlogResearchItem from "src/pages/blog/research/item.vue";
+import BlogResearchHeader from "src/pages/home/article/header.vue";
+import BlogResearchItem from "src/pages/home/article/item.vue";
 
 import { Model } from "src/logic/blog";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
-import { BlogData } from "src/types/blog/";
+import { BlogData } from "src/types/blog";
 import * as alias from "src/utils/root/alias";
 import { onMounted } from "vue";
 

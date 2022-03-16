@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropType } from "vue";
 import { BlogData } from "src/types/blog";
-import { dateDiff } from "src/utils/time/";
+import { dateDiff } from "src/utils/time";
 import { makeDetailLink } from "src/logic/blog";
 
 defineProps({
