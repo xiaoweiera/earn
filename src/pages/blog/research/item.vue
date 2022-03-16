@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {PropType} from "vue";
+import { PropType } from "vue";
 import { BlogData } from "src/types/blog";
 import { dateDiff } from "src/utils/time/";
 import { makeDetailLink } from "src/logic/blog";
@@ -15,7 +15,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="blog-font" v-if="list.length > 0">
+  <div v-if="list.length > 0" class="blog-font">
     <!-- pc端 -->
     <div class="hidden lg:block">
       <div class="w-full h-87.5 flex justify-between">
@@ -26,8 +26,14 @@ defineProps({
               <p class="w-full h-60">
                 <ui-image class="w-full h-full rounded-md" fit="cover" :src="list[0].cover" :lazy="true"></ui-image>
               </p>
-              <p class="w-full h-6 mt-4 text-kd18px24px text-global-highTitle font-medium blog-font line-clamp-1">{{ list[0].name}}</p>
-              <p v-if="list[0].desc" class="w-full h-9 mt-2 text-kd14px18px text-global-highTitle text-opacity-65 font-normal line-clamp-2 blog-font" v-text="list[0].desc"></p>
+              <p class="w-full h-6 mt-4 text-kd18px24px text-global-highTitle font-medium blog-font line-clamp-1">
+                {{ list[0].name }}
+              </p>
+              <p
+                v-if="list[0].desc"
+                class="w-full h-9 mt-2 text-kd14px18px text-global-highTitle text-opacity-65 font-normal line-clamp-2 blog-font"
+                v-text="list[0].desc"
+              ></p>
             </div>
             <div class="w-full h-4.5 mt-2 text-kd14px18px text-global-highTitle text-opacity-85 blog-font">
               <span>{{ list[0].author }}</span>
@@ -43,8 +49,12 @@ defineProps({
             <div class="flex justify-between h-39.75">
               <div class="mr-4 flex flex-col justify-between">
                 <div class="max-w-91 w-91 h-full">
-                  <p class="text-kd18px24px text-global-highTitle font-medium blog-font">{{ list[1].name}}</p>
-                  <p v-if="list[1].desc" class="mt-2 text-kd14px18px text-global-highTitle text-opacity-65 font-normal line-clamp-2 blog-font" v-text="list[1].desc"></p>
+                  <p class="text-kd18px24px text-global-highTitle font-medium blog-font">{{ list[1].name }}</p>
+                  <p
+                    v-if="list[1].desc"
+                    class="mt-2 text-kd14px18px text-global-highTitle text-opacity-65 font-normal line-clamp-2 blog-font"
+                    v-text="list[1].desc"
+                  ></p>
                 </div>
                 <div class="w-full">
                   <p class="text-kd14px18px text-global-highTitle text-opacity-85 blog-font">
@@ -66,8 +76,12 @@ defineProps({
             <div class="flex justify-between h-39.75">
               <div class="mr-4 flex flex-col justify-between">
                 <div class="max-w-91 w-91 h-full">
-                  <p class="text-kd18px24px text-global-highTitle font-medium blog-font">{{ list[2].name}}</p>
-                  <p v-if="list[2].desc" class="mt-2 text-kd14px18px text-global-highTitle text-opacity-65 font-normal line-clamp-2 blog-font" v-text="list[2].desc"></p>
+                  <p class="text-kd18px24px text-global-highTitle font-medium blog-font">{{ list[2].name }}</p>
+                  <p
+                    v-if="list[2].desc"
+                    class="mt-2 text-kd14px18px text-global-highTitle text-opacity-65 font-normal line-clamp-2 blog-font"
+                    v-text="list[2].desc"
+                  ></p>
                 </div>
                 <div class="w-full">
                   <p class="text-kd14px18px text-global-highTitle text-opacity-85 blog-font">
@@ -97,7 +111,10 @@ defineProps({
             </div>
             <div class="flex-1 w-1 ml-4 py-0.5 flex flex-col justify-between">
               <div class="new-top w-full overflow-hidden">
-                <div class="text-kd14px18px font-medium text-global-highTitle w-full line-clamp-2 blog-font" v-text="item.name" />
+                <div
+                  class="text-kd14px18px font-medium text-global-highTitle w-full line-clamp-2 blog-font"
+                  v-text="item.name"
+                />
               </div>
               <div>
                 <div class="text-kd12px16px text-global-highTitle text-opacity-85 blog-font">
@@ -116,6 +133,6 @@ defineProps({
 
 <style lang="scss" scoped>
 .blog-font {
-  font-family: "PingFang SC" !important;
+  font-family: 'PingFang SC' !important;
 }
 </style>

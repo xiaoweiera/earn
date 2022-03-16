@@ -57,8 +57,8 @@ export const nftHeader = function () {
       sort: true,
       width: "w-27.5",
     },
-  ]
-}
+  ];
+};
 //ido完成列表头部
 
 export const IdoHeader = function () {
@@ -74,5 +74,5 @@ export const IdoHeader = function () {
     // { name: i18n.home.topList.chain, key: 'chain' },
     { name: i18n.home.topList.plat, key: "tge_platform", sort: false, width: "w-25" },
     { name: i18n.home.topList.rate, key: "overall_score", sort: true, width: "w-15" },
-  ]
-}
+  ];
+};

@@ -20,7 +20,6 @@ import type { Query } from "src/types/common";
 import DAppDiscoversEndList from "./discovers/endlist.vue";
 import DAppDiscoversContentChain from "./discovers/content/chain.vue";
 import DAppDiscoversContentType from "./discovers/content/type.vue";
-import DAppHomeHeader from "./home/header.vue";
 
 defineProps({
   summary: {
@@ -80,7 +79,7 @@ onMounted(() => {
       onUpdate();
     } else if (params.platform !== route.platform) {
       onUpdate();
-    } else if (params.query !== '' && route.query != undefined && params.query !== route.query) {
+    } else if (params.query !== "" && route.query != undefined && params.query !== route.query) {
       onUpdate();
     }
   });
@@ -115,22 +114,25 @@ const onSearch = _.debounce(async () => {
   return updateEndedList();
 }, 300);
 
-
-const EndlistComing = function (){
-  if(EndedList.value.length > 10 ) {
-    return EndedList.value.slice(0,10)
-  }else {
+const EndlistComing = function () {
+  if (EndedList.value.length > 10) {
+    return EndedList.value.slice(0, 10);
+  } else {
     return EndedList.value;
   }
-}
+};
 </script>
 <template>
   <div class="mt-5 rounded-md">
     <!-- header -->
     <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
       <div class="flex flex-col md:flex-row items-start md:items-end">
-        <p class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">{{ i18n.home.endProject.title }}</p>
-        <p class="text-kd14px18px text-global-highTitle text-opacity-45 font-kdFang mt-4 md:mt-0 ml-0 md:ml-4">{{ i18n.home.endProject.desc }}</p>
+        <p class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">
+          {{ i18n.home.endProject.title }}
+        </p>
+        <p class="text-kd14px18px text-global-highTitle text-opacity-45 font-kdFang mt-4 md:mt-0 ml-0 md:ml-4">
+          {{ i18n.home.endProject.desc }}
+        </p>
       </div>
     </div>
     <div class="hidden md:block">
@@ -223,14 +225,23 @@ const EndlistComing = function (){
     <div v-if="EndedList.length > 0">
       <div :key="sortKey" class="overflow-x-auto showX mt-4">
         <div class="w-315 border-t-1 border-global-highTitle border-opacity-6">
-          <DAppDiscoversEndList class="end-bg" :key="key" :list="EndlistComing()" :params="sort" @change-sort="changeSort" />
+          <DAppDiscoversEndList
+            :key="key"
+            class="end-bg"
+            :list="EndlistComing()"
+            :params="sort"
+            @change-sort="changeSort"
+          />
         </div>
       </div>
       <!-- 查看全部 -->
       <div v-if="EndedList.length >= 10" class="w-full flex justify-center mt-2">
         <div class="w-23.75 h-8 bg-global-darkblue bg-opacity-6 rounded-md">
-          <v-router :href="getUrl(Status.ended, urlType)" class="w-full h-full"  target="_blank">
-            <span class="w-full h-full inline-flex items-center justify-center text-kd14px18px text-global-darkblue font-kdFang">{{ i18n.home.idoIgoProject.all }}</span>
+          <v-router :href="getUrl(Status.ended, urlType)" class="w-full h-full" target="_blank">
+            <span
+              class="w-full h-full inline-flex items-center justify-center text-kd14px18px text-global-darkblue font-kdFang"
+              >{{ i18n.home.idoIgoProject.all }}</span
+            >
           </v-router>
         </div>
       </div>

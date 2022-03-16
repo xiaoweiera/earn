@@ -14,6 +14,5 @@ export const compress = function (value: string) {
 // 解密
 export const decompress = function (value: string) {
   const text = CryptoJS.enc.Base64.parse(value);
-  console.log(text);
   return text.toString(CryptoJS.enc.Utf8);
 };

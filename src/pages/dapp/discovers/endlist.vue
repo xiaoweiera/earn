@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getClassColor, getNextUrl, getTegLog, getTegUrl } from "src/logic/dapp";
-import { IdoHeader } from "src/logic/dapp/config"
+import { IdoHeader } from "src/logic/dapp/config";
 import { toFixed } from "src/utils";
-import I18n from "src/utils/i18n";
 
 const emit = defineEmits(["changeSort"]);
 const props = defineProps({
@@ -20,7 +19,6 @@ const props = defineProps({
     },
   },
 });
-const i18n = I18n();
 // 排序
 const sort = (key: string) => {
   emit("changeSort", key);
