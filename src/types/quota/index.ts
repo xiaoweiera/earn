@@ -54,6 +54,8 @@ export interface Data {
   chart: Chart; // 所属信息流数据
   relation_pair_id: number | string; // 关联行情ID
   published_at: number | string; // 发布时间
+  time: number; // 时间戳
+  date: number; // 年月日
   show_chart_trends: boolean; // 是否展示展示指标趋势,
   collected: boolean; // 是否关注 (无用数据)
 }

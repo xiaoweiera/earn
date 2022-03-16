@@ -47,10 +47,10 @@ const link = computed<string>(function () {
     </div>
 
     <div class="text-global-highTitle text-opacity-65">
-      <div class="text-14-20 whitespace-pre-wrap">
+      <div class="text-14-20">
         <!-- 文案描述 -->
         <v-router :disable="!isList" :href="link" class="block" name="div" target="_blank">
-          <div v-html="data.content"></div>
+          <div class="whitespace-pre-wrap" v-html="data.content"></div>
         </v-router>
         <!-- 原文链接 -->
         <div v-if="data.origin_url" class="mt-2">
@@ -60,7 +60,7 @@ const link = computed<string>(function () {
     </div>
 
     <!-- 图片集合 -->
-    <div v-if="data.image_urls" class="mt-4">
+    <div v-if="data.image_urls && data.image_urls.length > 0" class="mt-4">
       <v-router v-if="isList" :href="link" class="block w-full" target="_blank">
         <Image :list="data.image_urls" />
       </v-router>

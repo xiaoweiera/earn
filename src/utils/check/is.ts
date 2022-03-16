@@ -126,10 +126,15 @@ export const isElement = function (value: any) {
   if (isEmpty(value) || isString(value) || isNumber(value) || isArray(value)) {
     return false;
   }
-  // @ts-ignore
-  if (value instanceof HTMLElement) {
+  if (value && value.activeElement) {
     return true;
   }
+  return false;
+  //
+  // // @ts-ignore
+  // if (value instanceof HTMLElement) {
+  //   return true;
+  // }
   // let flag = true;
   // if (isObject(value)) {
   //   flag = true;

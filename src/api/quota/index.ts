@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { dateTime } from "src/utils/time/";
 import safeGet from "@fengqiaogang/safe-get";
 import * as api from "src/config/api";
+import { toInteger } from "src/utils/";
 import { DefaultValue, expire, get, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
 
@@ -22,8 +23,9 @@ export default class extends ApiTemplate {
       if (list) {
         return map(function (data: T) {
           const published_at = safeGet<number>(data, "published_at") || Date.now();
-          const date = dayjs(dateTime(published_at)).format("YYYYMMDD");
-          return { ...data, published_at, date };
+          const time = dateTime(published_at);
+          const date = toInteger(dayjs(time).format("YYYYMMDD"));
+          return { ...data, published_at, time, date };
         }, list);
       }
       return [];

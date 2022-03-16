@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 /**
  * @file 图片集合
  * @auth svon.me@gmail.com
