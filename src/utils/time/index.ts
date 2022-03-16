@@ -157,7 +157,7 @@ export const dateDiff = function (time: TimeType, now?: TimeType): string {
   if (day > 0) {
     // 大于一周按实际时间展示
     if (day > 7) {
-      return dateYMDFormat(value);
+      return getDateMDY(value);
     }
     // 几天前
     return i18n.part(i18n.common.time.value.day, day, { count: day });

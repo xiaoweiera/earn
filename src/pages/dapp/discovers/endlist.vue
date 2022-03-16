@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getClassColor, getNextUrl, getTegLog, getTegUrl } from "src/logic/dapp";
+import { IdoHeader } from "src/logic/dapp/config";
 import { toFixed } from "src/utils";
-import I18n from "src/utils/i18n";
 
 const emit = defineEmits(["changeSort"]);
 const props = defineProps({
@@ -19,31 +19,8 @@ const props = defineProps({
     },
   },
 });
-const i18n = I18n();
-const data = {
-  header: [
-    { name: i18n.home.endProject.projectName, key: "name", falg: false, width: "w-50" }, // nameProject
-    { name: i18n.home.topList.category, key: "category", falg: false, width: "w-40" },
-    { name: i18n.home.idoIgoProject.totalRaised, key: "ido_fundraising_goal", falg: true, width: "w-27.5" },
-    { name: i18n.home.topList.salePrice, key: "ido_price", falg: true, width: "w-27.5" },
-    { name: i18n.home.topList.currentPrice, key: "current_price", falg: true, width: "w-27.5" },
-    { name: i18n.home.topList.nowCurrent, key: "current_roi_usd", falg: true, width: "w-27.5" },
-    { name: i18n.home.topList.idoAth, key: "ath_since_ido", falg: true, width: "w-27.5" },
-    // { name: i18n.home.topList.chain, key: 'chain' },
-    { name: i18n.home.topList.plat, key: "tge_platform", falg: false, width: "w-25" },
-    { name: i18n.home.topList.rate, key: "overall_score", falg: true, width: "w-15" },
-  ],
-};
 // 排序
 const sort = (key: string) => {
-  // if (!props.params.sort_type || props.params.sort_field !== key) {
-  //   props.params.sort_type = "desc";
-  // } else if (props.params.sort_type === "desc") {
-  //   props.params.sort_type = "asc";
-  // } else {
-  //   props.params.sort_type = "";
-  // }
-  // props.params.sort_field = key;
   emit("changeSort", key);
 };
 
@@ -64,14 +41,14 @@ const getIcon = (item: string) => {
     <table class="table-my">
       <thead>
         <tr class="min-h-11.5 h-11.5">
-          <template v-for="(item, index) in data.header" :key="index">
+          <template v-for="(item, index) in IdoHeader()" :key="index">
             <td class="thead-hr hand" :class="item.width">
               <div
                 class="flex items-center"
                 :class="index === 0 ? 'justify-start' : 'justify-center'"
-                @click="item.falg && sort(item.key)"
+                @click="item.sort && sort(item.key)"
               >
-                <IconFont v-if="item.falg" class="mr-1" size="14" :type="getIcon(item.key)" />
+                <IconFont v-if="item.sort" class="mr-1" size="14" :type="getIcon(item.key)" />
                 <span>{{ item.name }}</span>
               </div>
             </td>

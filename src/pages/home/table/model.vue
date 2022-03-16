@@ -40,16 +40,18 @@ const toProject = (url: string) => {
             </td>
             <template v-for="(item, index) in safeGet(data, 'table.header')" :key="index">
               <td v-if="item.key !== 'id'" class="text-left">
-                <HomeTableHeader :sort="false" height="h-5" name="Dapp Name" :item="item" />
+                <HomeTableHeader :is-high="true" :sort="false" height="h-5" name="Dapp Name" :item="item" />
               </td>
             </template>
           </tr>
         </thead>
         <tbody>
           <template v-for="(item, index) in safeGet(data, 'table.items')" :key="index">
-            <tr class="h-10 md:h-11.5" @click="toProject(item.url)">
+            <tr class="h-10 md:h-11.5 hand" @click="toProject(item.url)">
               <td class="number">
-                <div class="text-left w-3.5">{{ index + 1 }}</div>
+                <v-router :href="item.url" target="_blank" class="text-left w-3.5" @click.prevent>{{
+                  index + 1
+                }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in safeGet(data, 'table.header')" :key="index">
                 <td v-if="itemTwo.key !== 'id'">
@@ -76,7 +78,7 @@ const toProject = (url: string) => {
 }
 thead td,
 .number {
-  @apply whitespace-nowrap md:whitespace-wrap text-kd12px16px text-global-highTitle text-opacity-45 text-center;
+  @apply whitespace-nowrap md:whitespace-wrap text-kd12px16px text-global-highTitle text-opacity-45 text-left;
 }
 tbody td {
   @apply text-center text-kd14px18px text-global-highTitle;

@@ -2,12 +2,15 @@
 import DAppHomeDiscover from "src/pages/dapp/homediscover.vue";
 import DAppHomeNft from "src/pages/dapp/homenft.vue";
 import DAppHomeDiscoverEnd from "src/pages/dapp/homediscoverend.vue";
+import DAppHomeResearch from "src/pages/blog/homeresearch.vue";
+import DAppHomeAirdrop from "src/pages/dapp/homeairdrop.vue";
 import { onMounted } from "vue";
 import { Model } from "src/logic/home";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { summaryModel } from "src/types/home";
 import { stateAlias, useReactiveProvide } from "src/utils/use/state";
 import HomeCompany from "./company.vue";
+import HomeAd from "./ad.vue";
 import HomeRecommend from "./recommend.vue";
 import HomeTrends from "./trends.vue";
 import HomeTopic from "./topic.vue";
@@ -34,11 +37,18 @@ onMounted(() => {
       <HomeTrends class="mt-6" />
       <!--            topic推荐-->
       <HomeRecommend class="mt-6" />
-      <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-8 md:mt-20" />
+      <!--      广告位-->
+      <HomeAd/>
+      <!--  nft模块  -->
+      <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      <!-- 研究文章-->
+      <DAppHomeResearch class="mt-11 md:mt-17.5"/>
+      <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!--      项目方-->
       <HomeCompany class="mt-6" />
-      <DAppHomeNft v-if="summary" :summary="summary" class="mt-4 md:mt-20" />
-      <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-4 md:mt-20" />
+      <!-- Airdrops-->
+      <DAppHomeAirdrop class="mt-11 md:mt-17.5"/>
+      <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
     </div>
   </div>
 </template>

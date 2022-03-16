@@ -62,10 +62,19 @@ onMounted(() => {
   });
 });
 const changeSort = function(val: any) {
+  if (!sort.sort_type || sort.sort_field !== val) {
+    sort.sort_type = "desc";
+  } else if (sort.sort_type === "desc") {
+    sort.sort_type = "asc";
+  } else {
+    sort.sort_type = "";
+  }
   // 定义排序参数
   sort.sort_field = val;
   // 重新渲染列表
   sortKey.value = uuid();
+
+
 };
 const getFilter = function(data: any) {
   const status = getParam<string>("status");

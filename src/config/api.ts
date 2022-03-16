@@ -19,6 +19,7 @@ export const dapp = {
   nftList: "/api/v1/dapps/nft", // nft项目列表
   tabs: "/api/v1/site/config", // 项目类型搜索条件
   ixo: "/api/v1/dapps/ixo",
+  airdropList: "/api/dapps/v1/airdrop",//空投首页列表
 };
 
 export const blog = {
@@ -49,4 +50,5 @@ export const common = {
   areaCodeList: "/api/v1/area_codes/", // 电话区号
   chainSiteConfig: "/api/v1/site/config", // 公链信息
   tidingTime: "/api/generic/alert/web/new_add", // 新数据消息
+  adList: "/api/v2/commercial", // 广告
 };

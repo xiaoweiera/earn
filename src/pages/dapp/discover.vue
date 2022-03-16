@@ -101,8 +101,15 @@ onMounted(() => {
 });
 
 // 排序方法
-const changeSort = (sort: string) => {
-  params.sort_field = sort;
+const changeSort = (val: string) => {
+  if (!params.sort_type || params.sort_field !== val) {
+    params.sort_type = "desc";
+  } else if (params.sort_type === "desc") {
+    params.sort_type = "asc";
+  } else {
+    params.sort_type = "";
+  }
+  params.sort_field = val;
   getData(true);
 };
 const getName = function () {
