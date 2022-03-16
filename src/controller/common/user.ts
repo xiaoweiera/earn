@@ -14,7 +14,7 @@ import redirect from "src/controller/common/redirect";
 import type { NextFunction, Request, Response } from "express";
 
 // 用户详情
-export const userInfo = async function(req: Request, res: Response) {
+export const userInfo = async function (req: Request, res: Response) {
   const result = {};
   const cookie = new Cookie(req, res);
   const token = await cookie.getUserToken();
@@ -36,38 +36,39 @@ export const userInfo = async function(req: Request, res: Response) {
 };
 
 // 处理用户退出
-export const userLogout = function(req: Request, res: Response) {
+export const userLogout = function (req: Request, res: Response) {
   const cookie = new Cookie(req, res);
   cookie.removeUserToken();
   redirect(req, res, dashboard);
 };
 
 // 前置，如果用户已登录，则跳转走
-export const prepend = function(req: Request, res: Response, next: NextFunction) {
-  const cache = safeGet(res.locals, alias.common.user);
-  if (cache) {
-    redirect(req, res, dashboard);
-  } else {
-    next();
-  }
+export const prepend = function (req: Request, res: Response, next: NextFunction) {
+  // const cache = safeGet(res.locals, alias.common.user);
+  // if (cache) {
+  //   redirect(req, res, dashboard); // 已登录，跳转到首页
+  // } else {
+  //   next();
+  // }
+  next();
 };
 
 // 用户找回密码
-export const userForget = function(req: Request, res: Response) {
+export const userForget = function (req: Request, res: Response) {
   const i18n = I18n();
   res.send({
     title: i18n.common.resetPassword,
   });
 };
 // 邮箱注册
-export const register = function(req: Request, res: Response) {
+export const register = function (req: Request, res: Response) {
   const i18n = I18n();
   res.send({
     title: i18n.common.register,
   });
 };
 // 用户登录
-export const login = function(req: Request, res: Response) {
+export const login = function (req: Request, res: Response) {
   const i18n = I18n();
   res.send({
     title: i18n.common.login,
