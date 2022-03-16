@@ -66,8 +66,8 @@ module.exports = {
     // 缩紧风格 if else 不换行
     "brace-style": ["error", "1tbs"],
     "@typescript-eslint/brace-style": ["error", "1tbs"],
-    // 关闭 console 验证
-    "no-console": "off",
+    // console 验证
+    "no-console": ["error", { allow: ["warn", "error"] }],
     "no-void": "off",
     "array-callback-return": "off",
     // 使用单引号

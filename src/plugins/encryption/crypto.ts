@@ -21,7 +21,7 @@ export const Crypto = async function <T>(value: T): Promise<string> {
     // 返回处理后的数据
     return data.toString();
   } catch (e) {
-    console.log(e);
+    // todo
   }
   return "";
 };

@@ -2,8 +2,7 @@
 import { getLog, getNextUrl } from "src/logic/dapp";
 import { toFixed } from "src/utils";
 import { toNumberCashFormat } from "src/utils/convert/to";
-import { nftHeader } from "src/logic/dapp/config"
-import I18n from "src/utils/i18n";
+import { nftHeader } from "src/logic/dapp/config";
 
 const props = defineProps({
   list: {
@@ -17,7 +16,6 @@ const props = defineProps({
     },
   },
 });
-const i18n = I18n();
 const emit = defineEmits(["changeSort"]);
 // 排序
 const sort = (key: string) => {

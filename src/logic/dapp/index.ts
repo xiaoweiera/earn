@@ -18,7 +18,7 @@ import dayjs from "dayjs";
 import { createHref } from "src/plugins/router/pack";
 import { Language } from "src/types/language";
 import { NftTabItem, NftTabTypes, TabItem, TabTypes } from "src/types/dapp";
-import { AirdropQuery, DataItem } from "src/types/dapp/airdrop";
+import { DataItem } from "src/types/dapp/airdrop";
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = "All";
@@ -264,7 +264,7 @@ export const getClassWidth = function () {
 };
 
 // IDO&IGOtab切换
-export const tabs = function(): TabItem[] {
+export const tabs = function (): TabItem[] {
   const i18n = I18n();
   const query = getParam<object>();
   return [
@@ -279,7 +279,8 @@ export const tabs = function(): TabItem[] {
           type: TabTypes.upcoming,
         },
       },
-    }, {
+    },
+    {
       type: TabTypes.ongoing,
       icon: "",
       name: i18n.airdrop.tabs.ongoing,
@@ -290,7 +291,8 @@ export const tabs = function(): TabItem[] {
           type: TabTypes.ongoing,
         },
       },
-    }, {
+    },
+    {
       type: TabTypes.ended,
       icon: "",
       name: i18n.growthpad.status.closure,
@@ -306,7 +308,7 @@ export const tabs = function(): TabItem[] {
 };
 
 // nft分类切换
-export const nftTabs = function(): NftTabItem[] {
+export const nftTabs = function (): NftTabItem[] {
   const i18n = I18n();
   const query = getParam<object>();
   return [
@@ -321,7 +323,8 @@ export const nftTabs = function(): NftTabItem[] {
           status: NftTabTypes.upcoming,
         },
       },
-    }, {
+    },
+    {
       status: NftTabTypes.history,
       icon: "",
       name: i18n.dapp.sort.history,
