@@ -47,7 +47,7 @@ const toProject = (url: string) => {
         </thead>
         <tbody>
           <template v-for="(item, index) in safeGet(data, 'table.items')" :key="index">
-            <tr class="h-10 md:h-11.5 hand" @click="toProject(item.url)">
+            <tr class="h-10 md:h-10.5 hand" @click="toProject(item.url)">
               <td class="number">
                 <v-router :href="item.url" target="_blank" class="text-left w-3.5" @click.prevent>{{
                   index + 1
@@ -74,7 +74,7 @@ const toProject = (url: string) => {
 }
 .gang {
   border: 1px solid rgba(3, 54, 102, 0.06);
-  @apply my-3 md:my-5;
+  @apply my-3 md:my-4;
 }
 thead td,
 .number {
