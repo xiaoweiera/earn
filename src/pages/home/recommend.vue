@@ -60,7 +60,7 @@ onMounted(() => {
 <template>
   <div>
     <div class="text-kd20px20px md:text-kd24px24px relative font-kdSemiBold text-global-highTitle font-semibold">{{ i18n.home.hotTopic }}</div>
-    <div class="mt-4 relative">
+    <div class="mt-3 relative">
       <div class="w-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
           <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" fit="cover" @click="last" />

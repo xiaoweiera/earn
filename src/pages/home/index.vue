@@ -34,9 +34,9 @@ onMounted(() => {
       <!--            话题切换-->
       <HomeTopic class="mt-6" />
       <!--            趋势-->
-      <HomeTrends class="mt-3" />
+      <HomeTrends class="mt-4" />
       <!--            topic推荐-->
-      <HomeRecommend class="mt-5" />
+      <HomeRecommend class="mt-6" />
       <!--      广告位-->
       <HomeAd/>
       <!--  nft模块  -->
