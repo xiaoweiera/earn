@@ -13,7 +13,7 @@ import user from "./user";
 import dApp from "./dapp";
 import home from "./home";
 import blog from "./blog";
-// import quota from "./quota";
+import quota from "./quota";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   const router = ExpressRouter();
@@ -30,7 +30,7 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   // 装载博客相关路由
   router.use(blog());
   // 指标
-  // router.use(quota());
+  router.use(quota());
 
   // 404
   router.get(routerConfig.E404, (req: Request, res: Response) => {

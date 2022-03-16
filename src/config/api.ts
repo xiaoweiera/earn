@@ -29,6 +29,12 @@ export const blog = {
   detail: "/api/blog/v1/blog", // 详情
 };
 
+export const quota = {
+  list: "/api/v2/posts", // 指标列表
+  details: "/api/v2/posts/{id}/details", // 指标详情
+  recommend: "/api/v1/relevant", // 推荐
+};
+
 export const user = {
   info: "/api/v1/users/my", // 用户详情
   resetMobilePassword: "/api/v1/users/change_password", // 手机号重置密码

@@ -1,4 +1,3 @@
-
 export const common = {
   user: "common.user",
   ua: "common.ua",
@@ -18,6 +17,12 @@ export const blog = {
   tabs: "API.blog.tabs",
   list: "API.blog.getList",
   detail: "API.blog.getDetail",
+};
+
+export const quota = {
+  signals: "quota.signals.list",
+  detail: "quota.signals.detail",
+  recommend: "quota.signals.recommend",
 };
 
 export const dApp = {
