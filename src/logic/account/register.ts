@@ -20,20 +20,20 @@ import * as console from "src/plugins/log/";
 export const PlatformWeb = "web";
 
 export interface FormData {
-	checked: boolean; // 是否同意注册协议
-	code: string; // 验证码
-	invitation_code?: string; // 邀请码
-	email: string; // 邮箱账号
-	mobile: string; // 手机号
-	password: string; // 密码
-	new_password?: string; // 密码
-	platform?: string; // 平台标识
-	token?: string; // 人机校验签名
-	area_code?: string; // 手机号区号
-	push?: boolean; // 推送
+  checked: boolean; // 是否同意注册协议
+  code: string; // 验证码
+  invitation_code?: string; // 邀请码
+  email: string; // 邮箱账号
+  mobile: string; // 手机号
+  password: string; // 密码
+  new_password?: string; // 密码
+  platform?: string; // 平台标识
+  token?: string; // 人机校验签名
+  area_code?: string; // 手机号区号
+  push?: boolean; // 推送
 }
 
-export const createFormData = function(value?: FormData) {
+export const createFormData = function (value?: FormData) {
   const data = {
     checked: true, // 注册协议
     code: "", // 验证码
@@ -53,7 +53,7 @@ export const createFormData = function(value?: FormData) {
   return reactive<FormData>(data);
 };
 
-export const rules = function() {
+export const rules = function () {
   const i18n = I18n();
   return {
     checked: [
@@ -67,7 +67,8 @@ export const rules = function() {
         type: "boolean",
         trigger: ["blur", "change"],
         message: i18n.common.message.checked,
-      }, {
+      },
+      {
         trigger: ["blur", "change"],
         validator(rule: any, value: boolean, callback: any) {
           if (toBoolean(value)) {
@@ -79,18 +80,21 @@ export const rules = function() {
       },
     ],
     // 手机
-    mobile: [{
-      required: true,
-      type: "string",
-      trigger: ["blur", "change"],
-      message: i18n.common.placeholder.tel,
-    }, {
-      required: true,
-      type: "string",
-      trigger: ["blur", "change"],
-      pattern: /^[0-9]{8,}$/i,
-      message: i18n.common.message.telError,
-    }],
+    mobile: [
+      {
+        required: true,
+        type: "string",
+        trigger: ["blur", "change"],
+        message: i18n.common.placeholder.tel,
+      },
+      {
+        required: true,
+        type: "string",
+        trigger: ["blur", "change"],
+        pattern: /^[0-9]{8,}$/i,
+        message: i18n.common.message.telError,
+      },
+    ],
     // 邮箱
     email: [
       {
@@ -113,7 +117,8 @@ export const rules = function() {
         type: "string",
         trigger: ["blur", "change"],
         message: i18n.common.placeholder.verification,
-      }, {
+      },
+      {
         trigger: ["blur"],
         type: "string",
         pattern: /^[0-9]{6}$/i,
@@ -146,7 +151,7 @@ export const rules = function() {
   };
 };
 
-export const checkedNewPassword = function(data: FormData) {
+export const checkedNewPassword = function (data: FormData) {
   const i18n = I18n();
   return [
     {
@@ -160,7 +165,8 @@ export const checkedNewPassword = function(data: FormData) {
       trigger: ["blur", "change"],
       pattern: /^.{6,24}$/,
       message: i18n.common.message.passwordError,
-    }, {
+    },
+    {
       trigger: ["blur", "change"],
       validator(rule: any, value: string, callback: any) {
         if (data.password === value) {
@@ -174,7 +180,7 @@ export const checkedNewPassword = function(data: FormData) {
 };
 
 // 验证整个表单的值
-export const checkValidate = function(form: Ref) {
+export const checkValidate = function (form: Ref) {
   const dom = toRaw(form).value;
   if (dom) {
     return dom.validate();
@@ -182,7 +188,7 @@ export const checkValidate = function(form: Ref) {
   return false;
 };
 // 单独验证邮箱
-export const checkValidateEmail = function(form: Ref) {
+export const checkValidateEmail = function (form: Ref) {
   const dom = toRaw(form).value;
   if (dom) {
     return new Promise((resolve, reject) => {
@@ -190,8 +196,7 @@ export const checkValidateEmail = function(form: Ref) {
         if (error) {
           reject(error);
         } else {
-          // @ts-ignore
-          resolve();
+          resolve(true);
         }
       });
     });
@@ -199,7 +204,7 @@ export const checkValidateEmail = function(form: Ref) {
   return false;
 };
 // 单独校验手机
-export const checkValidateMobile = function(form: Ref) {
+export const checkValidateMobile = function (form: Ref) {
   const dom = toRaw(form).value;
   if (dom) {
     return new Promise((resolve, reject) => {
@@ -216,7 +221,7 @@ export const checkValidateMobile = function(form: Ref) {
   return false;
 };
 
-export const resetFields = function(form?: any) {
+export const resetFields = function (form?: any) {
   if (form) {
     try {
       const dom = toRaw(form).value;
@@ -231,7 +236,7 @@ export const resetFields = function(form?: any) {
 };
 
 // 返回登录
-export const onGoBack = function(form?: any) {
+export const onGoBack = function (form?: any) {
   resetFields(form);
   // 唤起移动端登录功能
   if (webkit.Login()) {
@@ -246,7 +251,7 @@ export const onGoBack = function(form?: any) {
 };
 
 // 登录/注册成功后跳转地址处理
-export const onRedirect = function() {
+export const onRedirect = function () {
   const redirect = get<string>("query.redirect");
   // 如果指定了回挑地址，则跳转到指定页面
   if (redirect) {
