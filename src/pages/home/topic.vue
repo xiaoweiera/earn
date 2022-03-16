@@ -76,7 +76,7 @@ onUnmounted(() => {
 }
 
 .topic:not(:first-child) {
-  @apply mt-5;
+  @apply mt-4;
 }
 
 .topic:nth-child(even) {

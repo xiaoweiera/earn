@@ -27,16 +27,16 @@ onMounted(() => {
 
 </script>
 <template>
-  <div class="top  min-h-164 pt-3 md:pt-6 md:pb-16 pb-7">
+  <div class="top  min-h-164 pt-3 md:pt-5 md:pb-16 pb-7">
     <div class="md:max-w-360 md:px-22.5 px-3  mx-auto">
       <!--      顶部信息-->
       <HomeHeader v-if="summary" :data="summary" />
       <!--            话题切换-->
-      <HomeTopic class="mt-6 md:mt-9" />
+      <HomeTopic class="mt-6" />
       <!--            趋势-->
-      <HomeTrends class="mt-6" />
+      <HomeTrends class="mt-3" />
       <!--            topic推荐-->
-      <HomeRecommend class="mt-6" />
+      <HomeRecommend class="mt-5" />
       <!--      广告位-->
       <HomeAd/>
       <!--  nft模块  -->
