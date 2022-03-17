@@ -31,12 +31,12 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="pt-4 md:pt-0 pb-4 md:pb-12">
+  <div class="bg-global-topBg pb-4 md:pb-12">
     <div class="md:max-w-235 mx-auto">
-      <ui-box class="pt-6">
+      <ui-box>
         <!--左侧详情-->
         <template #default>
-          <div class="md:pr-4">
+          <div class="pl-4 lg:pl-0 pt-4 lg:pt-6 pr-4 lg:pr-6">
             <template v-if="detail && detail.id">
               <Chart :data="detail" />
               <Item class="mt-8" :data="detail" :is-list="false" />
@@ -45,7 +45,7 @@ onMounted(function () {
         </template>
         <!--右侧 App 下载-->
         <template #right>
-          <div>
+          <div class="pt-6">
             <Recommend class="mb-3" />
             <ui-app-download direction="horizontal" />
           </div>

@@ -1,13 +1,13 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 日历
  * @auth svon.me@gmail.com
  */
 
 import type { Data } from "src/types/quota/";
-import type { PropType } from "vue";
+import { dateDayFormat, dateMonthFormat, dateTime, toInteger } from "src/utils/";
 import I18n from "src/utils/i18n/";
-import { toInteger, dateMonthFormat, dateTime, dateDayFormat } from "src/utils/";
+import type { PropType } from "vue";
 
 interface Result {
   date: number;
@@ -47,9 +47,9 @@ const getWeek = function (value: number) {
 
 <template>
   <div class="calendar">
-    <ui-sticky class="box-calendar" active-class="calendar-active">
-      <div class="header pb-3 lg:pb-6">
-        <div class="date text-center text-12-18 text-global-highTitle text-opacity-85">
+    <ui-sticky active-class="calendar-active" class="box-calendar transform -translate-y-px">
+      <div class="header inline-block min-w-10">
+        <div class="date relative block text-center text-12-18 text-global-highTitle text-opacity-85">
           <div class="overflow-hidden rounded-lg date-content">
             <span class="block month">{{ getMonth(data.date) }}</span>
             <span class="block day">{{ getDay(data.date) }}</span>
@@ -62,7 +62,7 @@ const getWeek = function (value: number) {
     </ui-sticky>
     <div class="clearfix">
       <div v-for="item in data.list" :key="item.id" class="pb-10 quota-item">
-        <div class="pl-2 lg:pl-3">
+        <div class="pl-2 md:pl-3">
           <slot :data="item"></slot>
         </div>
         <span class="line"></span>
@@ -71,40 +71,15 @@ const getWeek = function (value: number) {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 /* 日历 */
 .header {
-  @apply relative w-10;
-  &:before {
-    @apply absolute left-5;
-    @apply top-12 bottom-1 w-px;
-    @apply bg-global-highTitle bg-opacity-10;
-  }
+  @apply absolute lg:static left-0 top-0;
   @screen md {
-    &:before {
-      content: '';
-      @apply top-15 left-7;
-
-      @at-root .calendar-active & {
-        @apply opacity-0;
-      }
-    }
-  }
-  .date {
-    .week {
-      @at-root .calendar-active & {
+    @at-root .calendar-active & {
+      .week {
         @apply opacity-0 invisible;
       }
-    }
-  }
-}
-
-.box-calendar {
-  @apply transform -translate-y-px;
-  .header {
-    @apply absolute left-0 top-0;
-    @screen md {
-      @apply static;
     }
   }
 }
@@ -119,10 +94,12 @@ const getWeek = function (value: number) {
       @apply absolute left-1/2;
       @apply transform -translate-x-1/2;
     }
+
     &:before {
       @apply top-4 bottom-0 w-px;
       @apply bg-global-highTitle bg-opacity-10;
     }
+
     &:after {
       @apply w-3 h-3 rounded-1/2 top-0;
       @apply border-global-money border-2 border-solid;
@@ -143,38 +120,43 @@ const getWeek = function (value: number) {
 
   .header {
     .date {
-      @apply relative block;
       .date-content {
         @apply border border-solid border-white border-opacity-10 transform -translate-y-px;
         box-shadow: inset 0px -2px 3px rgba(0, 0, 0, 0.08), inset 0px 4px 8px rgba(255, 255, 255, 0.3);
         filter: drop-shadow(0px 4px 18px rgba(44, 140, 248, 0.06));
       }
+
       .month {
         @apply h-5 w-full ml-0;
         @apply bg-global-numRed text-white text-opacity-100;
         line-height: 20px;
       }
+
       .day {
         @apply h-7 bg-white text-xl;
         line-height: 28px;
       }
     }
+
     .week {
       transition: all 0.3s;
       @apply hidden opacity-100 whitespace-nowrap;
       @apply absolute left-full top-1/2 transform -translate-y-1/2;
     }
-    @screen md {
+
+    @screen lg {
       .date {
         @apply w-14;
         .month {
           @apply h-7;
           line-height: 28px;
         }
+
         .day {
           @apply h-8 text-2xl;
         }
       }
+
       .week {
         @apply flex items-center;
       }

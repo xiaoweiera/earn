@@ -10,15 +10,17 @@ import List from "./list/index.vue";
 <template>
   <div class="px-4 lg:px-0 bg-global-topBg">
     <div class="md:max-w-235 mx-auto pb-15">
-      <ui-box class="pt-4">
+      <ui-box>
         <!--左侧列表-->
-        <div class="lg:pr-4">
+        <div class="lg:pr-4 pt-4">
           <Tips />
           <List />
         </div>
         <!--右侧 App 下载-->
         <template #right>
-          <ui-app-download />
+          <div class="pt-4">
+            <ui-app-download />
+          </div>
         </template>
       </ui-box>
     </div>
