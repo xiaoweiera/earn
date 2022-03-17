@@ -17,7 +17,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue([]))
   @get(api.quota.list)
   @userToken()
-  getSignals<T>(query: object): Promise<T[]> {
+  getSignals<T>(query?: object): Promise<T[]> {
     const callback = function (data: object): T[] {
       const list = safeGet<T[]>(data, "results");
       if (list) {
@@ -30,7 +30,8 @@ export default class extends ApiTemplate {
       }
       return [];
     };
-    return [query, callback] as any;
+    const param = Object.assign({ page: 1, page_size: 50 }, query ? query : {});
+    return [param, callback] as any;
   }
 
   // 指标详情
