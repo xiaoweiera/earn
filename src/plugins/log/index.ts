@@ -8,7 +8,12 @@ import { Command, getEnv } from "src/config/";
 // 根据环境觉得是否输出日志
 const IsOutput = function () {
   const env = getEnv();
-  return env.VITE_command !== Command.build;
+  if (env.VITE_command !== Command.build) {
+    return true;
+  }
+  if (env.VITE_domain && env.VITE_domain.includes(".dev")) {
+    return true;
+  }
 };
 
 export const log = function (...args: Array<any>) {
