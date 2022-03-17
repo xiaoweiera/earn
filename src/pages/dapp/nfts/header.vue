@@ -14,8 +14,8 @@ defineProps({
   <div v-if="data" class="w-full h-full relative">
     <div v-if="data.gallery.length > 0" class="w-full h-full">
       <div v-for="(item, index) in data.gallery" :key="index" class="w-full h-full rounded-md">
-        <ui-image v-if="index === 0" class="w-full" fit="none" :src="item" :lazy="true" />
-        <ui-image v-if="index === 0" class="w-full image-transform" fit="none" :src="item" :lazy="true" />
+        <ui-image v-if="index === 0" class="w-full min-h-58 h-58" fit="cover" :src="item" :lazy="true" />
+        <ui-image v-if="index === 0" class="w-full min-h-58 h-58 image-transform" fit="cover" :src="item" :lazy="true" />
       </div>
     </div>
     <div v-else class="is-flater w-full h-full">
