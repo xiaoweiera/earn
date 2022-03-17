@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Pointer } from "@element-plus/icons-vue";
-
 /**
  * @file 指标
  * @auth svon.me@gmail.com
