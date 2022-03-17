@@ -11,7 +11,7 @@ import { config } from "src/router/config";
 import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
 import Calendar from "src/pages/quota/calendar/index.vue";
 import Item from "src/pages/quota/list/item.vue";
-
+import Ad from "./ad.vue"
 const i18n = I18n();
 const list = createRef<Data[]>(alias.quota.signals, []);
 
@@ -45,8 +45,8 @@ onMounted(function () {
         </v-router>
       </div>
     </div>
-    <div class="flex">
-      <div class="h-120 overflow-y-auto mr-6 flex-1 w-1">
+    <div class="md:flex">
+      <div class="h-120 overflow-y-auto mr-6 md:flex-1 w-full">
         <Calendar :data="quotaRes" :small="true">
           <template #default="{ data }">
             <ui-ad v-if="data.type" :data="data" />
@@ -54,7 +54,7 @@ onMounted(function () {
           </template>
         </Calendar>
       </div>
-      <div class="h-120 w-101"></div>
+      <Ad class="h-120 w-101 xshidden"/>
     </div>
   </div>
 </template>
