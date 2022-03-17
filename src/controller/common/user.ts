@@ -7,7 +7,6 @@ import API from "src/api/index";
 import I18n from "src/utils/i18n";
 import { dashboard } from "src/config";
 import safeSet from "@fengqiaogang/safe-set";
-import safeGet from "@fengqiaogang/safe-get";
 import * as alias from "src/utils/root/alias";
 import Cookie from "src/plugins/browser/cookie";
 import redirect from "src/controller/common/redirect";

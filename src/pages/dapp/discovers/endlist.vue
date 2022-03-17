@@ -99,7 +99,7 @@ const getIcon = (item: string) => {
             <!--              </div>-->
             <!--            </td>-->
             <td>
-              <div v-if="item.tge_platform">
+              <div v-if="item.tge_platform && item.tge_platform.length > 0">
                 <div v-for="(item, index) in item.tge_platform" :key="index" class="flex-center justify-center">
                   <IconFont size="16" :type="getTegLog(item)" />
                   <v-router class="link text-number" target="_blank" :href="getTegUrl(item)">{{ item }}</v-router>

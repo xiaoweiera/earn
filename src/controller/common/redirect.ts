@@ -11,7 +11,7 @@ import type { Query } from "src/types/browser/location";
 import { createHref } from "src/plugins/router/pack";
 import { config as routerConfig } from "src/router/config";
 
-const redirect = function (req: Request, res: Response, url: string, query: Query = {}, status = 302) {
+export const redirect = function (req: Request, res: Response, url: string, query: Query = {}, status = 302) {
   // 重定向到指定 url 中
   if (url) {
     const lang = safeGet<string>(req.query, languageKey) || Language.auto;
@@ -25,6 +25,10 @@ const redirect = function (req: Request, res: Response, url: string, query: Quer
 
 export const goHome = function (req: Request, res: Response) {
   redirect(req, res, routerConfig.home);
+};
+
+export const go404 = function (req: Request, res: Response) {
+  redirect(req, res, routerConfig.E404);
 };
 
 export default redirect;

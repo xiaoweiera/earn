@@ -2,7 +2,8 @@
  * @file 常用方法
  * @author svon.me@gmail.com
  */
-
+import safeGet from "@fengqiaogang/safe-get";
+import { sort as _sort } from "ramda";
 import { compact, flatten, size, toLower, toUpper } from "lodash";
 import uuid from "./uuid/";
 import { Equals, isArray } from "./check/is";
@@ -11,6 +12,28 @@ export * from "./check/is";
 export * from "./convert/to";
 export * from "./time/index";
 export { uuid, size, compact, flatten, Equals };
+
+/**
+ * 排序
+ * @param list 排序的列表数据
+ * @param diff 如果数据是集合, 以集合中某一个健值做排序
+ * @param reverse 是否倒序, 默认正序
+ */
+export const sort = function (list: any[], diff?: string, reverse?: boolean) {
+  const app = function (value1: any, value2: any) {
+    if (diff) {
+      if (reverse) {
+        return safeGet<number>(value2, diff) - safeGet<number>(value1, diff);
+      }
+      return safeGet<number>(value1, diff) - safeGet<number>(value2, diff);
+    }
+    if (reverse) {
+      return value2 - value1;
+    }
+    return value1 - value2;
+  };
+  return _sort(app, list);
+};
 
 // 首字母大写
 export const upperFirst = function (value: string): string {
@@ -51,15 +74,15 @@ export const min = function (...args: any[]): number {
   return void 0;
 };
 
-type eachCallback = (value: never, index: number | string, list: never[] | never) => void;
+type eachCallback = (value: any, index: number | string, list: any[] | any) => void;
 
 /**
  * 循环
  */
-export const forEach = function (callback: eachCallback, data: never[] | never) {
+export const forEach = function (callback: eachCallback, data: any[] | never) {
   if (callback && data) {
     if (isArray(data)) {
-      data.forEach((value: never, index: number) => {
+      data.forEach((value: any, index: number) => {
         callback(value, index, data);
       });
     } else {
