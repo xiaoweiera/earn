@@ -33,13 +33,13 @@ const link = computed<string>(function () {
 <template>
   <div class="quota-detail">
     <!-- 发布时间 -->
-    <client-only>
+    <client-only class="mb-5.5">
       <p class="text-12-16 text-global-highTitle text-opacity-65">
         <span>{{ dateDiff(data.published_at) }}</span>
       </p>
     </client-only>
 
-    <div v-if="data.chart" class="py-2">
+    <div v-if="isList && data.chart" class="py-2">
       <!-- 标题 -->
       <v-router :disable="!isList" :href="link" target="_blank">
         <h3 class="text-16-24 text-global-highTitle">{{ data.chart.name }}</h3>
