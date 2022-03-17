@@ -36,7 +36,7 @@ onMounted(function () {
   <div>
     <div class="mb-5 flex items-center justify-between">
       <div class="flex items-end text-global-highTitle">
-        <h3 class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">
+        <h3 class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold font-normal">
           <span>{{ i18n.menu.quota.title }}</span>
         </h3>
         <p class="hidden md:block text-kd14px18px text-opacity-45 font-kdFang ml-4">
