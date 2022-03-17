@@ -12,7 +12,7 @@ export { toLower } from "ramda";
 
 export type TimeType = number | string | Date | dayjs.Dayjs;
 
-const defaultNumberValue = "-";
+const defaultNumberValue = "--";
 
 // 时间类型转行
 export const toDate = function(time?: TimeType) {
