@@ -3,6 +3,7 @@
  * @file 指标详情
  * @auth svon.me@gmail.com
  */
+
 import { computed } from "vue";
 import Image from "../list/image.vue";
 import { config as routerConfig } from "src/router/config";
@@ -28,15 +29,26 @@ const link = computed<string>(function () {
   }
   return routerConfig.news;
 });
+// 分享文案
+const shareText = computed<string>(function () {
+  // if (props.data && props.data.chart) {
+  //   return props.data.chart.name + "\n" + props.data.chart.desc;
+  // }
+  return "";
+});
 </script>
 
 <template>
   <div class="quota-detail">
     <!-- 发布时间 -->
-    <client-only class="mb-5.5">
+    <client-only class="mb-5.5 flex items-center justify-between">
       <p class="text-12-16 text-global-highTitle text-opacity-65">
         <span>{{ dateDiff(data.published_at) }}</span>
       </p>
+      <div>
+        <!--分享-->
+        <ui-share v-if="!isList" :value="shareText" />
+      </div>
     </client-only>
 
     <div v-if="isList && data.chart" class="py-2">

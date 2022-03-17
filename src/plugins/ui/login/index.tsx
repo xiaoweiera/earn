@@ -27,14 +27,16 @@ export default defineComponent({
       default: () => Name.div
     },
     to: {
-      type: [String, Object]
+      type: [String, Object],
+      default: ""
     },
     target: {
       type: String,
       default: Target.self
     },
     href: {
-      type: [String, Object]
+      type: [String, Object],
+      default: ""
     }
   },
   render() {
