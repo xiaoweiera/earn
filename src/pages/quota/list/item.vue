@@ -41,7 +41,7 @@ const shareText = computed<string>(function () {
 <template>
   <div class="quota-detail">
     <!-- 发布时间 -->
-    <client-only class="mb-5.5 flex items-center justify-between">
+    <client-only class="at-time flex items-center justify-between">
       <p class="text-12-16 text-global-highTitle text-opacity-65">
         <span>{{ dateDiff(data.published_at) }}</span>
       </p>
@@ -80,3 +80,12 @@ const shareText = computed<string>(function () {
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.at-time {
+  @apply mb-5.5;
+  @at-root .small & {
+    @apply mb-0;
+  }
+}
+</style>
