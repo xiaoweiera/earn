@@ -71,18 +71,15 @@ class Dao {
 
   private redisKey(config: AxiosRequestConfig) {
     if (config) {
-      const expire = toInteger(safeGet<number>(config, "params.expire"));
-      if (expire && expire !== 0) {
-        const method = safeGet<string>(config, "method");
-        const url = this.getUri(config);
-        const token = safeGet(config, "headers.Authorization");
-        let key: string | undefined;
-        if (token) {
-          key = redis.makeKey(method, url, token);
-        } else {
-          key = redis.makeKey(method, url);
+      const token = safeGet(config, "headers.Authorization");
+      if (!token) {
+        const expire = toInteger(safeGet<number>(config, "params.expire"));
+        if (expire && expire !== 0) {
+          const method = safeGet<string>(config, "method");
+          const url = this.getUri(config);
+          const key = redis.makeKey(method, url);
+          return { key, expire };
         }
-        return { key, expire };
       }
     }
     return {

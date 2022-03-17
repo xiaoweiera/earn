@@ -9,7 +9,7 @@ import { dateTime } from "src/utils/time/";
 import safeGet from "@fengqiaogang/safe-get";
 import * as api from "src/config/api";
 import { toInteger } from "src/utils/";
-import { DefaultValue, expire, get, required, tryError, userToken, validate } from "src/plugins/dao/http";
+import { DefaultValue, expire, get, post, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
 
 export default class extends ApiTemplate {
@@ -33,10 +33,9 @@ export default class extends ApiTemplate {
     return [query, callback] as any;
   }
 
-  // 指标列表
+  // 指标详情
   @tryError(DefaultValue({}))
-  @get(api.quota.details, expire.min30)
-  @userToken()
+  @get(api.quota.details, expire.min2)
   @validate
   getDetail<T>(@required id: number | string): Promise<T> {
     const query = { id };
@@ -51,5 +50,19 @@ export default class extends ApiTemplate {
   getRecommend<T>(@required id: number | string): Promise<T> {
     const query = { id };
     return [query] as any;
+  }
+  // 关注
+  @post(api.quota.follow)
+  @userToken(true)
+  @validate
+  onFollow<T>(@required id: string | number): Promise<T> {
+    return [{ id }] as any;
+  }
+  // 取消关注
+  @post(api.quota.unfollow)
+  @userToken(true)
+  @validate
+  unFollow<T>(@required id: string | number): Promise<T> {
+    return [{ id }] as any;
   }
 }
