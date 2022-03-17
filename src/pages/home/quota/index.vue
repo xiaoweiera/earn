@@ -13,7 +13,7 @@ import { config } from "src/router/config";
 import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
 import Calendar from "src/pages/quota/calendar/index.vue";
 import Item from "src/pages/quota/list/item.vue";
-import Ad from "./ad.vue"
+import Ad from "./ad.vue";
 const i18n = I18n();
 const list = createRef<Data[]>(alias.quota.signals, []);
 
@@ -63,7 +63,7 @@ onMounted(function () {
           </Calendar>
         </div>
       </div>
-      <div class="ml-6 h-120 w-101 hidden md:block">
+      <div class="h-120 hidden md:block">
         <Ad />
       </div>
     </div>
