@@ -1,25 +1,15 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 指标推荐
  * @auth svon.me@gmail.com
  */
+import List from "./list/index.vue";
 </script>
 
 <template>
-  <div class="px-4 md:px-0">
-    <div class="md:max-w-235 flex mx-auto pb-15">
-      <ui-box class="pt-4">
-        <!--左侧列表-->
-        <template #default>
-          <div>1</div>
-        </template>
-        <!--右侧 App 下载-->
-        <template #right>
-          <ui-app-download />
-        </template>
-      </ui-box>
+  <div class="px-4 lg:px-0 bg-global-topBg">
+    <div class="md:max-w-235 mx-auto pb-15">
+      <List />
     </div>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

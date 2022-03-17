@@ -56,6 +56,7 @@ const onSeadCode = async function (value: string | undefined) {
       token: value,
     });
     try {
+      console.info("get validate");
       const api = new API();
       // 发送验证码
       if (props.mobile) {
@@ -64,7 +65,7 @@ const onSeadCode = async function (value: string | undefined) {
         await api.user.getEmailCaptcha(data, props.type);
       }
     } catch (e: any) {
-      console.log(e);
+      console.info(e);
       const { message } = e || {};
       if (message) {
         messageError(message);

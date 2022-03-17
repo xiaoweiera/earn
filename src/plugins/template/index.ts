@@ -50,8 +50,6 @@ const makeScript = async function (data: Result): Promise<string> {
 	*/
   // 缓存数据
   const text = await Crypto(value);
-  scriptCodes.push(`window["${rootData}"] = "${text}";`);
-
   const html: string[] = [];
   _.each(scriptLibs, (src: string) => {
     html.push(`<script src="${src}" async="async"></script>`);
@@ -59,6 +57,7 @@ const makeScript = async function (data: Result): Promise<string> {
   _.each(scriptCodes, (value: string) => {
     html.push(`<script>${value}</script>`);
   });
+  html.push(`<script type="text/html" id="${rootData}">${text}</script>`);
   return html.join("");
 };
 

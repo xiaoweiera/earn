@@ -36,8 +36,8 @@ export const monthEnName = {
   "12": "December",
 };
 
-export const dateTime = function (value?: TimeType): number {
-  const date = toDate(value);
+export const dateTime = function (value?: TimeType, format?: string): number {
+  const date = toDate(value, format);
   return date.valueOf();
 };
 

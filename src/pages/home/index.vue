@@ -15,6 +15,7 @@ import HomeRecommend from "./recommend.vue";
 import HomeTrends from "./trends.vue";
 import HomeTopic from "./topic.vue";
 import HomeHeader from "./header.vue";
+import Quota from "./quota/index.vue";
 
 useReactiveProvide(stateAlias.ui.tab);
 
@@ -24,11 +25,10 @@ onMounted(() => {
   // 得到数据汇总
   onLoadReactive(summary, () => api.getSummary());
 });
-
 </script>
 <template>
-  <div class="top  min-h-164 pt-3 md:pt-5 md:pb-16 pb-7">
-    <div class="md:max-w-360 md:px-22.5 px-3  mx-auto">
+  <div class="top min-h-164 pt-3 md:pt-5 md:pb-16 pb-7">
+    <div class="md:max-w-360 md:px-22.5 px-3 mx-auto">
       <!--      顶部信息-->
       <HomeHeader v-if="summary" :data="summary" />
       <!--            话题切换-->
@@ -38,26 +38,28 @@ onMounted(() => {
       <!--            topic推荐-->
       <HomeRecommend class="mt-6" />
       <!--      广告位-->
-      <HomeAd/>
+      <HomeAd />
+      <!--指标-->
+      <Quota class="mt-15" />
       <!--  nft模块  -->
       <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!-- 研究文章-->
-      <DAppHomeResearch class="mt-11 md:mt-17.5"/>
+      <DAppHomeResearch class="mt-11 md:mt-17.5" />
       <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!--      项目方-->
       <HomeCompany class="mt-6" />
       <!-- Airdrops-->
-      <DAppHomeAirdrop class="mt-11 md:mt-17.5"/>
+      <DAppHomeAirdrop class="mt-11 md:mt-17.5" />
       <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
-@import "src/styles/function";
+@import 'src/styles/function';
 
 .top {
   background-color: #e5e5e51a;
-  background-image: cdn("/dapp/homebeijing.jpeg");
+  background-image: cdn('/dapp/homebeijing.jpeg');
   background-size: 100% 652px;
   background-repeat: no-repeat;
 }
