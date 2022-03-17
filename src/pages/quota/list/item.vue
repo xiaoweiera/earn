@@ -66,7 +66,7 @@ const shareText = computed<string>(function () {
         </v-router>
         <!-- 原文链接 -->
         <div v-if="data.origin_url" class="mt-2">
-          <v-router :href="data.origin_url" target="_blank">原文链接</v-router>
+          <v-router :href="data.origin_url" class="link" target="_blank">原文链接</v-router>
         </div>
       </div>
     </div>
