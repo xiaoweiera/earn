@@ -2,7 +2,7 @@
 import { PropType } from "vue";
 import type { Data } from "src/types/quota/";
 import { toNumberCash } from "src/utils";
-
+import OnFollow from "../follow/on.vue";
 defineProps({
   data: {
     type: Object as PropType<Data>,
@@ -17,6 +17,9 @@ defineProps({
       <!-- 标题 -->
       <div>
         <h3 class="text-24 text-global-highTitle">{{ data.chart.name }}</h3>
+      </div>
+      <div>
+        <OnFollow v-if="data.chart" :id="data.chart.id" v-model:status="data.chart.followed" />
       </div>
     </div>
     <div class="mt-3 flex items-center text-global-highTitle text-opacity-65">
