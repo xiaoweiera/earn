@@ -20,12 +20,6 @@ import { ElAlert } from "element-plus";
 
 let initStatus = true;
 
-// 获取列表数据
-const getList = function (query?: object) {
-  const model = new API();
-  return model.quota.getSignals<Data>(query);
-};
-
 // 初始值
 const initValue = function () {
   if (initStatus) {
@@ -37,6 +31,13 @@ const initValue = function () {
   }
   return null;
 };
+
+// 获取列表数据
+const getList = function (query?: object) {
+  const model = new API();
+  return model.quota.getSignals<Data>(query);
+};
+
 const diffTime = 1000 * 30;
 const contentId = ref<string>(uuid());
 const quotaList = ref<DataMap[]>([]);
@@ -134,7 +135,7 @@ onMounted(function () {
       <!--左侧列表-->
       <div class="lg:pr-4 pt-4">
         <Tips />
-        <ui-pagination :key="contentId" :init-value="initValue" :limit="100" :request="getList" @change="onChange">
+        <ui-pagination :key="contentId" :init-value="initValue()" :limit="100" :request="getList" @change="onChange">
           <template #default>
             <div>
               <Calendar v-for="data in quotaList" :key="data.date" :data="data">

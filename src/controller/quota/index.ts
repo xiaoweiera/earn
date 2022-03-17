@@ -11,9 +11,20 @@ import type { Request, Response } from "express";
 import { go404 } from "src/controller/common/redirect";
 
 // 列表
-export const signals = function (req: Request, res: Response) {
+export const signals = async function (req: Request, res: Response) {
+  const api = new API(req);
+
   res.locals.menuActive = names.quota.signals;
-  res.send({});
+
+  const list = await api.quota.getSignals({
+    page: 1,
+    page_size: 100,
+  });
+
+  const data = {
+    [alias.quota.signals]: list,
+  };
+  res.send(data);
 };
 
 // 详情
