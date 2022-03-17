@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Pointer } from "@element-plus/icons-vue";
+
 /**
  * @file 指标
  * @auth svon.me@gmail.com
@@ -35,9 +37,14 @@ onMounted(function () {
 <template>
   <div>
     <div class="mb-5 flex items-center justify-between">
-      <h3 class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">
-        <span>{{ i18n.menu.quota.title }}</span>
-      </h3>
+      <div class="flex items-end text-global-highTitle">
+        <h3 class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">
+          <span>{{ i18n.menu.quota.title }}</span>
+        </h3>
+        <p class="hidden md:block text-kd14px18px text-opacity-45 font-kdFang ml-4">
+          {{ i18n.news.meta.title.sub }}
+        </p>
+      </div>
       <div class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2">
         <v-router :href="`${config.news}`" target="_blank" class="text-kd14px18px text-global-darkblue">
           <span class="blog-font hidden md:block font-kdFang">{{ i18n.home.idoIgoProject.all }}</span>
@@ -46,17 +53,30 @@ onMounted(function () {
       </div>
     </div>
     <div class="md:flex">
-      <div class="h-120 overflow-y-auto mr-6 md:flex-1 w-full">
-        <Calendar :data="quotaRes" :small="true">
-          <template #default="{ data }">
-            <ui-ad v-if="data.type" :data="data" />
-            <Item v-else :data="data"></Item>
-          </template>
-        </Calendar>
+      <div class="h-120 md:flex-1 md:w-1 quota-shadow">
+        <div class="h-full overflow-y-auto">
+          <Calendar :data="quotaRes" :small="true">
+            <template #default="{ data }">
+              <ui-ad v-if="data.type" :data="data" />
+              <Item v-else :data="data"></Item>
+            </template>
+          </Calendar>
+        </div>
       </div>
-      <Ad class="h-120 w-101 xshidden"/>
+      <div class="ml-6 h-120 w-101 hidden md:block">
+        <Ad />
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.quota-shadow {
+  @apply relative;
+  &:after {
+    content: '';
+    @apply absolute left-0 right-0 bottom-0 h-10;
+    background: linear-gradient(180deg, rgba(250, 251, 252, 0) 0%, #fafbfc 100%);
+  }
+}
+</style>
