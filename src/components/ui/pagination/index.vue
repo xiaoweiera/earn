@@ -71,7 +71,7 @@ const onNext = async function () {
 let initFlat = true;
 
 if (props.initValue) {
-  if (props.initValue && isArray(props.initValue)) {
+  if (props.initValue && isArray(props.initValue) && size(props.initValue) > 0) {
     initFlat = false;
     const value = handleData(props.initValue);
     emitEvent("change", [list.value, value]);

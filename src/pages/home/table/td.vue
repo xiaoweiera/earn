@@ -122,8 +122,8 @@ onMounted(() => {
     </div>
     <!--chainIcon-->
     <div v-else-if="typeDom === 'chainIcon'">
-      <div v-if="data['chains']?.length > 0 && config.chain[data.chain]">
-        <IconFont size="16" :type="config.chain[data.chain]?.logo" />
+      <div v-if="data['chains']?.length > 0 && safeGet(config,`chain.${data.chain}`)">
+        <IconFont size="16" :type="safeGet(config,`chain.${data.chain}.logo`)" />
       </div>
       <div v-else class="numberDefault text-number text-center">N/A</div>
     </div>
