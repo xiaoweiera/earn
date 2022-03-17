@@ -10,6 +10,7 @@ import { config as routerConfig } from "src/router/config";
 import type { Data } from "src/types/quota/";
 import type { PropType } from "vue";
 import AtTime from "./time.vue";
+import OnFollow from "../follow/on.vue";
 
 const props = defineProps({
   data: {
@@ -36,11 +37,14 @@ const link = computed<string>(function () {
     <!-- 发布时间 -->
     <AtTime :is-list="isList" :data="data" />
 
-    <div v-if="isList && data.chart" class="py-2">
+    <div v-if="isList && data.chart" class="py-2 flex justify-between items-center">
       <!-- 标题 -->
       <v-router :disable="!isList" :href="link" target="_blank">
         <h3 class="text-16-24 text-global-highTitle">{{ data.chart.name }}</h3>
       </v-router>
+      <div>
+        <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />
+      </div>
     </div>
 
     <div class="text-global-highTitle text-opacity-65">
