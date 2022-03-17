@@ -19,6 +19,10 @@ defineProps({
     required: true,
     type: Object as PropType<Result>,
   },
+  small: {
+    type: Boolean,
+    default: () => false,
+  },
 });
 
 const i18n = I18n();
@@ -46,8 +50,8 @@ const getWeek = function (value: number) {
 </script>
 
 <template>
-  <div class="calendar">
-    <ui-sticky active-class="calendar-active" class="box-calendar transform -translate-y-px">
+  <div class="calendar" :class="{ small: small }">
+    <ui-sticky v-if="!small" active-class="calendar-active" class="box-calendar transform -translate-y-px">
       <div class="header inline-block min-w-10">
         <div class="date relative block text-center text-12-18 text-global-highTitle text-opacity-85">
           <div class="overflow-hidden rounded-lg date-content">
@@ -61,7 +65,7 @@ const getWeek = function (value: number) {
       </div>
     </ui-sticky>
     <div class="clearfix">
-      <div v-for="item in data.list" :key="item.id" class="pb-10 quota-item">
+      <div v-for="item in data.list" :key="item.id" class="quota-item">
         <div class="pl-2 md:pl-3">
           <slot :data="item"></slot>
         </div>
@@ -85,9 +89,15 @@ const getWeek = function (value: number) {
 }
 
 .quota-item {
-  @apply relative pl-10 lg:pl-14;
+  @apply relative pl-10 lg:pl-14 pb-10;
+  @at-root .small & {
+    @apply pl-6 pb-7.5;
+  }
   .line {
     @apply block absolute left-0 top-0 bottom-0 w-10 lg:w-14;
+    @at-root .small & {
+      @apply w-3 left-1.5;
+    }
     &:before,
     &:after {
       content: '';
@@ -110,7 +120,9 @@ const getWeek = function (value: number) {
 
 .calendar {
   &:last-child {
-    @apply pb-10;
+    &:not(.small) {
+      @apply pb-10;
+    }
     .quota-item {
       &:last-child {
         @apply pb-0;
