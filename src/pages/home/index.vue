@@ -1,23 +1,33 @@
 <script lang="ts" setup>
-import DAppHomeDiscover from "src/pages/dapp/homediscover.vue";
-import DAppHomeNft from "src/pages/dapp/homenft.vue";
-import DAppHomeDiscoverEnd from "src/pages/dapp/homediscoverend.vue";
-import DAppHomeResearch from "src/pages/home/research.vue";
-import DAppHomeAirdrop from "src/pages/dapp/homeairdrop.vue";
-import { onMounted } from "vue";
+import safeGet from "@fengqiaogang/safe-get";
+import { languageKey } from "src/config/";
 import { Model } from "src/logic/home";
-import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
+import DAppHomeAirdrop from "src/pages/dapp/homeairdrop.vue";
+import DAppHomeDiscover from "src/pages/dapp/homediscover.vue";
+import DAppHomeDiscoverEnd from "src/pages/dapp/homediscoverend.vue";
+import DAppHomeNft from "src/pages/dapp/homenft.vue";
+import DAppHomeResearch from "src/pages/home/research.vue";
 import type { summaryModel } from "src/types/home";
+import { Language } from "src/types/language/";
+import { getValue } from "src/utils/root/data";
+import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import { stateAlias, useReactiveProvide } from "src/utils/use/state";
-import HomeCompany from "./company.vue";
+import { onMounted } from "vue";
 import HomeAd from "./ad.vue";
-import HomeRecommend from "./recommend.vue";
-import HomeTrends from "./trends.vue";
-import HomeTopic from "./topic.vue";
+import HomeCompany from "./company.vue";
 import HomeHeader from "./header.vue";
 import Quota from "./quota/index.vue";
+import HomeRecommend from "./recommend.vue";
+import HomeTopic from "./topic.vue";
+import HomeTrends from "./trends.vue";
 
 useReactiveProvide(stateAlias.ui.tab);
+
+const isShowQuota = function () {
+  const query = getValue<object>("query", {});
+  const value = safeGet<Language>(query, languageKey) || Language.en;
+  return value === Language.cn;
+};
 
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(() => {
@@ -40,7 +50,7 @@ onMounted(() => {
       <!--      广告位-->
       <HomeAd />
       <!--指标-->
-      <Quota class="mt-15" />
+      <Quota v-if="isShowQuota()" class="mt-15" />
       <!--  nft模块  -->
       <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!-- 研究文章-->
