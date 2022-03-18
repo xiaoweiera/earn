@@ -36,7 +36,7 @@ export default class extends ApiTemplate {
 
   // 指标详情
   @tryError(DefaultValue({}))
-  @get(api.quota.details, expire.min2)
+  @get(api.quota.details)
   @validate
   getDetail<T>(@required id: number | string): Promise<T> {
     const query = { id };
