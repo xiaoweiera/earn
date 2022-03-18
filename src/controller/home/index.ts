@@ -14,13 +14,12 @@ export const begin = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   const params = { page: 1, page_size: 100, show_commercial: true };
-  const [summary, topicRank, recommend, trend, platforms, ads] = await Promise.all([
+  const [summary, topicRank, recommend, trend, platforms] = await Promise.all([
     api.getSummary(),
     api.getTopicRank(),
     api.getRecommend(params),
     api.getTrend(),
     api.getPlatform(),
-    api.getAdList(21),
   ]);
   const result = {
     title: i18n.home.webInfo.home.title,
@@ -32,7 +31,6 @@ export const begin = async function (req: Request, res: Response) {
     "API.home.getRecommend": recommend, // 推荐话题
     "API.home.getTrend": trend, // 今日趋势
     "API.home.getPlatform": platforms, // TGE平台列表
-    "API.home.ads": ads, //广告
   };
   res.send(result);
 };

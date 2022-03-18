@@ -5,7 +5,7 @@
  */
 
 import { onMounted } from "vue";
-import { size } from "src/utils";
+import { size, isArray } from "src/utils";
 import { Pagination } from "src/logic/ui/pagination";
 
 const props = defineProps({
@@ -71,9 +71,10 @@ const onNext = async function () {
 let initFlat = true;
 
 if (props.initValue) {
-  if (props.initValue && size(props.initValue) > 0) {
+  if (props.initValue && isArray(props.initValue) && size(props.initValue) > 0) {
     initFlat = false;
-    handleData(props.initValue);
+    const value = handleData(props.initValue);
+    emitEvent("change", [list.value, value]);
   }
 }
 

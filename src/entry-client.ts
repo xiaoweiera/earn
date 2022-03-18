@@ -28,22 +28,27 @@ import { AppId, getEnv, languageKey, rootData, tokenName } from "src/config";
 import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded } from "vue-router";
 import { createApp } from "./bootstrap/main";
 
+const getCache = function (): Promise<object> {
+  // 从 script 标签中获取数据
+  const dom = document.getElementById(rootData);
+  if (dom) {
+    const value = dom.innerText;
+    if (value) {
+      try {
+        // 解密
+        return Decrypt<object>(value);
+      } catch (e) {
+        console.log(e);
+        // todo
+      }
+    }
+  }
+  return Promise.resolve({});
+};
+
 // 前置处理
 const prepend = async function () {
   const cookie = new Cookie();
-  const text = safeGet<string>(window, rootData);
-  let data: object = {};
-  if (text) {
-    try {
-      const value = await Decrypt<object>(text);
-      if (value) {
-        data = value;
-      }
-    } catch (e) {
-      console.log(e);
-      // todo
-    }
-  }
   const process = await webkit.env.process(); // 尝试与移动端设备进行交互
   // 如果移动端有返回数据
   if (process && process.device) {
@@ -52,7 +57,7 @@ const prepend = async function () {
 
     // 判断浏览器中是否有 token 信息
     if (cookie.get(tokenName)) {
-      return data;
+      return getCache();
     }
     // 如果有 token 信息
     if (process.token) {
@@ -61,12 +66,12 @@ const prepend = async function () {
       // 刷新页面
       window.location.reload();
     }
-    return data;
+    return getCache();
   } else {
     // 设置默认类型
     cookie.setDeviceValue(Device.web);
   }
-  return data;
+  return getCache();
 };
 
 const main = async function () {

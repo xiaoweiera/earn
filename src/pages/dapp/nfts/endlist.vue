@@ -67,22 +67,22 @@ const getIcon = (item: string) => {
             </td>
             <td>
               <div class="text-center text-kd14px16px text-global-highTitle text text-number">
-                {{ item.category ? item.category : '-' }}
+                {{ item.category ? item.category : '--' }}
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ toNumberCashFormat(item.owners, '', '', 'Not Set') }}</div>
+              <div class="numberDefault text-number">{{ toNumberCashFormat(item.owners, '', '', '--') }}</div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ toNumberCashFormat(item.issue_volume, '', '', 'N/A') }}</div>
+              <div class="numberDefault text-number">{{ toNumberCashFormat(item.issue_volume, '', '', '--') }}</div>
             </td>
             <td>
               <div class="numberDefault text-number">
-                {{ toNumberCashFormat(item.floor_price, '$', '', 'Not Set') }}
+                {{ toNumberCashFormat(item.floor_price, '$', '', '--') }}
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ toNumberCashFormat(item.mint_price, '$', '', 'Not Set') }}</div>
+              <div class="numberDefault text-number">{{ toNumberCashFormat(item.mint_price, '$', '', '--') }}</div>
             </td>
             <td>
               <div class="flex-center justify-center">

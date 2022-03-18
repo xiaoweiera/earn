@@ -19,7 +19,7 @@ export const dapp = {
   nftList: "/api/v1/dapps/nft", // nft项目列表
   tabs: "/api/v1/site/config", // 项目类型搜索条件
   ixo: "/api/v1/dapps/ixo",
-  airdropList: "/api/dapps/v1/airdrop",//空投首页列表
+  airdropList: "/api/dapps/v1/airdrop", //空投首页列表
 };
 
 export const blog = {
@@ -27,6 +27,14 @@ export const blog = {
   tabs: "/api/blog/v1/groups", // 分组
   list: "/api/blog/v1/blogs", // 列表
   detail: "/api/blog/v1/blog", // 详情
+};
+
+export const quota = {
+  list: "/api/v2/posts", // 指标列表
+  details: "/api/v2/posts/{id}/details", // 指标详情
+  recommend: "/api/v1/relevant", // 推荐
+  follow: "/api/v3/charts/{id}/follow", // 关注
+  unfollow: "/api/v3/charts/{id}/unfollow", // 取消关注
 };
 
 export const user = {
