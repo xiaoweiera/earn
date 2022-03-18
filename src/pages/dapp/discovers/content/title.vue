@@ -19,7 +19,7 @@ defineProps({
         <div class="flex justify-between items-center">
           <p class="items-center">
             <span class="text-kd18px18px text-global-white font-semibold font-kdBarlow">{{ data.name }}</span>
-            <span v-if="data.name && data.name.length < 14" class="text-kd14px18px text-global-white text-opacity-65 font-kdBarlow font-medium ml-1.5">{{
+            <span v-if="data.name && data.name.length < 13" class="text-kd14px18px text-global-white text-opacity-65 font-kdBarlow font-medium ml-1.5">{{
               data.symbol
             }}</span>
           </p>
