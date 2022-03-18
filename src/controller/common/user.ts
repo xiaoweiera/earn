@@ -11,24 +11,33 @@ import * as alias from "src/utils/root/alias";
 import Cookie from "src/plugins/browser/cookie";
 import redirect from "src/controller/common/redirect";
 import type { NextFunction, Request, Response } from "express";
-
+import * as redis from "src/plugins/redis/";
+import { expire } from "src/plugins/dao/http";
 // 用户详情
 export const userInfo = async function (req: Request, res: Response) {
   const result = {};
   const cookie = new Cookie(req, res);
   const token = await cookie.getUserToken();
-  if (token) {
-    const api = new API(req);
-    try {
+  // 根据 token 生成对应的 redis key
+  const uKey = redis.makeKey(token);
+  if (uKey) {
+    // 获取 redis 中是否有用户数据
+    const cache = await redis.get(uKey);
+    // 如果用户数据存在
+    if (cache) {
+      safeSet(result, alias.common.user, cache);
+    } else {
+      const api = new API(req);
       const data = await api.user.getInfo();
       if (data) {
         safeSet(result, alias.common.user, data);
         // 刷新 token 数据
         cookie.setUserToken(token);
+        await redis.set(uKey, data, expire.day1);
+      } else {
+        // 如果有 token 并且获取用户信息失败，则删除用户 token, 提示用户重新登录
+        cookie.removeUserToken();
       }
-    } catch (e) {
-      // 如果有 token 并且获取用户信息失败，则删除用户 token
-      cookie.removeUserToken();
     }
   }
   return result;
