@@ -4,7 +4,6 @@
 
 import API from "src/api/index";
 import Cookie from "src/plugins/browser/cookie";
-import * as console from "src/plugins/log";
 import { userLogin } from "src/config/";
 import { ref } from "vue";
 import { getValue } from "src/utils/root/data";
@@ -73,8 +72,6 @@ export const refresh = async function () {
   // 使用现有的 token 换新的 token
   const api = new API();
   const value = await api.user.refreshToken();
-  console.info("old : ", token);
-  console.info("new : ", value);
   if (value) {
     // 重新设置用户信息
     cookie.setUserToken(value);
