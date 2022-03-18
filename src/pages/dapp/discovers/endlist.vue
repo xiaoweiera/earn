@@ -68,19 +68,19 @@ const getIcon = (item: string) => {
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ item.category ? item.category : '-' }}</div>
+              <div class="numberDefault text-number">{{ item.category ? item.category : '--' }}</div>
             </td>
             <td>
               <div class="numberDefault text-number">
-                {{ toNumberCashFormat(item.ido_fundraising_goal, '$', '', 'N/A') }}
+                {{ toNumberCashFormat(item.ido_fundraising_goal, '$', '', 'TBA') }}
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ toNumberCashFormat(item.ido_price, '$', '', 'Not Set') }}</div>
+              <div class="numberDefault text-number">{{ toNumberCashFormat(item.ido_price, '$', '', '--') }}</div>
             </td>
             <td>
               <div class="numberDefault text-number">
-                {{ toNumberCashFormat(item.current_price, '$', '', 'Not Set') }}
+                {{ toNumberCashFormat(item.current_price, '$', '', '--') }}
               </div>
             </td>
             <td>

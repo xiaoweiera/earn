@@ -11,7 +11,7 @@ import { config } from "src/router/config";
 import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
 import Calendar from "src/pages/quota/calendar/index.vue";
 import Item from "src/pages/quota/list/item.vue";
-import Ad from "./ad.vue"
+import Ad from "./ad.vue";
 const i18n = I18n();
 const list = createRef<Data[]>(alias.quota.signals, []);
 
@@ -36,7 +36,7 @@ onMounted(function () {
   <div>
     <div class="mb-5 flex items-center justify-between">
       <div class="flex items-end text-global-highTitle">
-        <h3 class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">
+        <h3 class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold font-normal">
           <span>{{ i18n.menu.quota.title }}</span>
         </h3>
         <p class="hidden md:block text-kd14px18px text-opacity-45 font-kdFang ml-4">
@@ -61,7 +61,7 @@ onMounted(function () {
           </Calendar>
         </div>
       </div>
-      <div class="ml-6 h-120 w-101 hidden md:block">
+      <div class="h-120 hidden md:block">
         <Ad />
       </div>
     </div>

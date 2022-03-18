@@ -122,8 +122,8 @@ onMounted(() => {
     </div>
     <!--chainIcon-->
     <div v-else-if="typeDom === 'chainIcon'">
-      <div v-if="data['chains']?.length > 0 && config.chain[data.chain]">
-        <IconFont size="16" :type="config.chain[data.chain]?.logo" />
+      <div v-if="data['chains']?.length > 0 && safeGet(config,`chain.${data.chain}`)">
+        <IconFont size="16" :type="safeGet(config,`chain.${data.chain}.logo`)" />
       </div>
       <div v-else class="numberDefault text-number text-center">N/A</div>
     </div>
@@ -149,32 +149,31 @@ onMounted(() => {
     </div>
     <!--numberPrice-->
     <div v-else-if="typeDom === 'numberPrice'" class="numberDefault text-number text-center">
-      {{ toNumberCashFormat(domData, '$', '', 'Not Set') }}
+      {{ toNumberCashFormat(domData, '$', '',typeName==='ido_price'?'TBA':'--') }}
     </div>
     <!--chainNumber-->
     <div v-else-if="typeDom === 'chainNumber'" class="flex-center justify-center">
       <IconFont size="16" :type="safeGet(config, `chain.${data.chain}.logo`)" />
-      <span class="numberDefault text-number ml-1">{{ domData ? domData : 'Not Set' }}</span>
+      <span class="numberDefault text-number ml-1">{{ toNumberCashFormat(domData) }}</span>
     </div>
     <!--numberUnit-->
     <div v-else-if="typeDom === 'numberUnit'" class="flex-center justify-center">
-      <span class="numberDefault text-number">{{ toNumberCashFormat(domData[0], '', '', 'Not Set') }}</span>
+      <span class="numberDefault text-number">{{ toNumberCashFormat(domData[0]) }}</span>
       <span class="unit">{{ domData[1] }}</span>
     </div>
     <!--numbers-->
     <div v-else-if="typeDom === 'numbers'" class="numberDefault text-number text-center">
-      {{ toNumberCashFormat(domData, '', '', 'Not Set') }}
+      {{ toNumberCashFormat(domData) }}
     </div>
     <!--numberChange-->
     <div v-else-if="typeDom === 'numberChange'">
-      <div class="numberDefault text-number text-center">{{ toNumberCashFormat(domData[0], '', '', 'N/A') }}</div>
-      <div v-if="domData[1] > 0 || domData[1] < 0" class="flex-center justify-center">
+      <div class="numberDefault text-number text-center">{{ toNumberCashFormat(domData[0]) }}</div>
+      <div v-if="domData[1]!==0" class="flex-center justify-center">
         <IconFont size="8" :type="domData[1] > 0 ? 'icon-zheng' : 'icon-fu'" />
         <span :class="getUpDownColor(domData[1])" class="numberChange text-number ml-1"
-          >{{ toNumberCashFormat(domData[1], '', '', '0') }}%</span
-        >
+          >{{ toNumberCashFormat(domData[1],'%','','N/A') }}</span>
       </div>
-      <div v-else-if="domData[1] === 0" class="numberDefault text-number">0</div>
+      <div v-else class="numberDefault text-number">0</div>
     </div>
     <!--lever-->
     <div

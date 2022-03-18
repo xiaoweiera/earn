@@ -30,8 +30,9 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="adsList.length > 0" class="w-full h-full">
-    <Swiper
+  <div v-if="adsList.length > 0" class="w-101 h-full pl-6">
+    <div class="h-full">
+      <Swiper
         class="h-full rounded-kd6px"
         :initial-slide="0"
         :loop="true"
@@ -39,15 +40,16 @@ onMounted(() => {
         slides-per-view="auto"
         :resize-observer="true"
         :pagination="{ clickable: true }"
-    >
-      <template v-for="(item, index) in adsList" :key="index">
-        <SwiperSlide>
-          <v-router :href="item['url']" target="_blank" class="w-full h-full hand">
-            <ui-image class="w-full h-full" :src="getUrl(item)" fit="cover" />
-          </v-router>
-        </SwiperSlide>
-      </template>
-    </Swiper>
+      >
+        <template v-for="(item, index) in adsList" :key="index">
+          <SwiperSlide>
+            <v-router :href="item['url']" target="_blank" class="w-full h-full hand">
+              <ui-image class="w-full h-full" :src="getUrl(item)" fit="cover" />
+            </v-router>
+          </SwiperSlide>
+        </template>
+      </Swiper>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>

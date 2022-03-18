@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toNumberFormat, valueFormat } from "src/utils/convert/to";
+import { toNumberFormat, valueFormat, toNumberCashFormat } from "src/utils/convert/to";
 import { getLog } from "src/logic/dapp";
 import I18n from "src/utils/i18n";
 import DappNftsTime from "./time.vue";
@@ -31,7 +31,7 @@ defineProps({
           <span class="text-kd12px16px text-global-white text-opacity-65 font-kdFang">{{
             i18n.home.nftProject.price
           }}</span>
-          <span class="text-kd14px20px font-kdBarlow ml-1 font-medium">{{ toNumberFormat(data.mint_price) }}</span>
+          <span class="text-kd14px20px font-kdBarlow ml-1 font-medium">{{ toNumberCashFormat(data.mint_price, '', '', '--') }}</span>
           <IconFont v-if="data.chain" :type="getLog(data.chain)" size="14" class="ml-2 text-global-white" />
         </p>
         <p class="h-4 border-l-1 border-global-white border-opacity-15" />
@@ -39,7 +39,7 @@ defineProps({
           <span class="text-kd12px16px text-global-white text-opacity-65 font-kdFang">{{
             i18n.home.nftProject.supply
           }}</span>
-          <span class="text-kd14px20px font-kdBarlow ml-1 font-medium">{{ valueFormat(data.issue_volume) }}</span>
+          <span class="text-kd14px20px font-kdBarlow ml-1 font-medium">{{ toNumberCashFormat(data.issue_volume, '', '', '--') }}</span>
         </p>
       </div>
       <!-- 时间 -->
