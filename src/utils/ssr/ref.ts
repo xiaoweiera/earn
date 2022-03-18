@@ -3,9 +3,9 @@
  * @author svon.me@gmail.com
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import _ from "lodash";
 import API from "src/api/index";
-import safeGet from "@fengqiaogang/safe-get";
 import { getValue } from "src/utils/root/data";
 import type { Ref, UnwrapNestedRefs } from "vue";
 import { reactive, ref, toRaw } from "vue";
@@ -30,8 +30,10 @@ type UpdateCallback = (...args: any[]) => Promise<void>;
 
 const getData = async function <T>(api: ApiFun, query?: object | string | number) {
   if (_.isString(api)) {
+    const _api = new API();
     const model = {
-      API: new API(),
+      api: _api,
+      API: _api,
     };
     const fun = safeGet<ApiFun>(model, api);
     if (fun && _.isFunction(fun)) {
@@ -93,11 +95,7 @@ export const onLoadRef = async function <T>(data: Ref, api: ApiFun, query?: obje
 };
 
 // Reactive 数据
-export const onLoadReactive = async function <T>(
-  data: UnwrapNestedRefs<T>,
-  api: ApiFun,
-  query?: object | string | number,
-) {
+export const onLoadReactive = async function <T>(data: UnwrapNestedRefs<T>, api: ApiFun, query?: object | string | number) {
   const obj = toRaw(data);
   const keys = Object.keys(obj);
   if (keys.length < 1) {

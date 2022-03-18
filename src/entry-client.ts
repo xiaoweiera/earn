@@ -27,6 +27,7 @@ import Decrypt from "src/plugins/encryption/decrypt";
 import { AppId, getEnv, languageKey, rootData, tokenName } from "src/config";
 import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded } from "vue-router";
 import { createApp } from "./bootstrap/main";
+import { refresh } from "src/logic/user/login";
 
 const getCache = function (): Promise<object> {
   // 从 script 标签中获取数据
@@ -105,6 +106,8 @@ const main = async function () {
   }
   await router.isReady();
   app.mount(`#${AppId}`, true);
+  // 延迟处理用户数据
+  setTimeout(refresh);
 };
 
 setTimeout(main);

@@ -4,26 +4,40 @@
  * @author svon.me@gmail.com
  */
 
+import API from "src/api/index";
+import { onMounted } from "vue";
 import I18n from "src/utils/i18n";
 import { Language } from "src/types/language";
 import type { User } from "src/types/common/user";
 import window from "src/plugins/browser/window";
-import { createReactive } from "src/utils/ssr/ref";
+import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import { createHref } from "src/plugins/router/pack";
 import { getEnv, languageKey } from "src/config";
 import { showLogin, showRegister } from "src/logic/user/login";
+import { set as setValue } from "src/utils/root/data";
 import UserMenu from "./menu.vue";
 import Dialog from "./dialog.vue";
 
 const env = getEnv();
 const i18n = I18n();
-const user = createReactive<User>("common.user", {} as User);
+const user = createReactive<User>(alias.common.user, {} as User);
 
-const reload = function(value: string) {
+const getUserData = async function () {
+  const api = new API();
+  const data = await api.user.getInfo<User>();
+  if (data) {
+    setValue({
+      [alias.common.user]: data,
+    });
+  }
+  return data;
+};
+
+const reload = function (value: string) {
   window.location.href = value;
 };
 
-const onSwitch = function() {
+const onSwitch = function () {
   if (i18n.getLang() === Language.en) {
     const href = createHref(window.location.href, {
       [languageKey]: Language.cn,
@@ -36,6 +50,10 @@ const onSwitch = function() {
     reload(href);
   }
 };
+
+onMounted(function () {
+  return onLoadReactive<User>(user, getUserData);
+});
 </script>
 
 <template>
@@ -67,11 +85,8 @@ const onSwitch = function() {
     <div v-else>
       <div class="flex items-center">
         <span class="whitespace-nowrap cursor-pointer" @click.stop.prevent="showLogin">{{ i18n.common.login }}</span>
-        <img :src="`${env.VITE_oss}/nav/dian.png`" alt="" class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block">
-        <span
-          class="whitespace-nowrap cursor-pointer hidden md:inline-block"
-          @click.stop.prevent="showRegister"
-        >{{ i18n.common.register }}</span>
+        <img :src="`${env.VITE_oss}/nav/dian.png`" alt="" class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block" />
+        <span class="whitespace-nowrap cursor-pointer hidden md:inline-block" @click.stop.prevent="showRegister">{{ i18n.common.register }}</span>
       </div>
       <!--登录、注册、找回密码-->
       <Dialog />
