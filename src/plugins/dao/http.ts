@@ -15,10 +15,10 @@ export * from "src/utils/decorate";
  * @param status = true / false
  * @description 等于 true 时如果当前环境为未登录状态则会不进行 http 请求, 等于 false 当前请求则不会携带 token
  */
-export const userToken = function(status = false) {
-  return function(target: any, methodName: string, descriptor: PropertyDescriptor) {
+export const userToken = function (status = false) {
+  return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
     const app = descriptor.value;
-    descriptor.value = async function(...args: any[]) {
+    descriptor.value = async function (...args: any[]) {
       const self = this;
       const _user = status ? "required" : "none";
       const [query, callback] = await app.apply(self, args);
@@ -31,16 +31,17 @@ export const userToken = function(status = false) {
 };
 // 缓存时间(单位秒)
 export enum expire {
-	min1 = 60,
-	min2 = 60 * 2,
-	min5 = 60 * 5,
-	min10 = 60 * 10,
-	min30 = 60 * 30,
-	hour1 = 60 * 60,
-	hour2 = 60 * 60 * 2,
-	hour12 = 60 * 60 * 12,
-	day1 = 60 * 60 * 24,
-	day2 = 60 * 60 * 24 * 2,
+  min1 = 60,
+  min2 = 60 * 2,
+  min5 = 60 * 5,
+  min10 = 60 * 10,
+  min30 = 60 * 30,
+  hour1 = 60 * 60,
+  hour2 = 60 * 60 * 2,
+  hour12 = 60 * 60 * 12,
+  day1 = 60 * 60 * 24,
+  day2 = 60 * 60 * 24 * 2,
+  day3 = 60 * 60 * 24 * 3,
 }
 
 /**
@@ -49,12 +50,12 @@ export enum expire {
  * @param expire 缓存时间
  * @param config Axios 配置
  */
-export const get = function(url: string, expire = 0, config: AxiosRequestConfig = {}) {
-  return function(target: any, methodName: string, descriptor: PropertyDescriptor) {
+export const get = function (url: string, expire = 0, config: AxiosRequestConfig = {}) {
+  return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
     const app = descriptor.value;
-    descriptor.value = async function(...args: any[]) {
+    descriptor.value = async function (...args: any[]) {
       const self: any = this;
-      const [query = {}, callback]: [ object, (value?: any) => any ] = await Promise.resolve(app.apply(self, args));
+      const [query = {}, callback]: [object, (value?: any) => any] = await Promise.resolve(app.apply(self, args));
       const params = { expire, ...query };
       let result = await self.get(url, { ...config, params });
       if (callback && isFunction(callback)) {
@@ -70,12 +71,12 @@ export const get = function(url: string, expire = 0, config: AxiosRequestConfig 
  * @param expire 缓存时间
  * @param config Axios 配置
  */
-export const post = function(url: string, expire = 0, config: AxiosRequestConfig = {}) {
-  return function(target: any, methodName: string, descriptor: PropertyDescriptor) {
+export const post = function (url: string, expire = 0, config: AxiosRequestConfig = {}) {
+  return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
     const app = descriptor.value;
-    descriptor.value = async function(...args: any[]) {
+    descriptor.value = async function (...args: any[]) {
       const self: any = this;
-      const [data = {}, callback]: [ object, (value?: any) => void ] = await Promise.resolve(app.apply(self, args));
+      const [data = {}, callback]: [object, (value?: any) => void] = await Promise.resolve(app.apply(self, args));
       const _user = safeGet<string>(data, "_user");
 
       const result = await self.post(url, data, {

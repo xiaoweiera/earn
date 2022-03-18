@@ -3,14 +3,15 @@
  * @author svon.me@gmail.com
  */
 
-import API from "src/api/index";
-import I18n from "src/utils/i18n";
-import { dashboard } from "src/config";
 import safeSet from "@fengqiaogang/safe-set";
-import * as alias from "src/utils/root/alias";
-import Cookie from "src/plugins/browser/cookie";
-import redirect from "src/controller/common/redirect";
 import type { NextFunction, Request, Response } from "express";
+import API from "src/api/index";
+import { dashboard } from "src/config";
+import redirect from "src/controller/common/redirect";
+import Cookie from "src/plugins/browser/cookie";
+import type { User } from "src/types/common/user";
+import I18n from "src/utils/i18n";
+import * as alias from "src/utils/root/alias";
 
 // 用户详情
 export const userInfo = async function (req: Request, res: Response) {
@@ -19,16 +20,9 @@ export const userInfo = async function (req: Request, res: Response) {
   const token = await cookie.getUserToken();
   if (token) {
     const api = new API(req);
-    try {
-      const data = await api.user.getInfo();
-      if (data) {
-        safeSet(result, alias.common.user, data);
-        // 刷新 token 数据
-        cookie.setUserToken(token);
-      }
-    } catch (e) {
-      // 如果有 token 并且获取用户信息失败，则删除用户 token
-      cookie.removeUserToken();
+    const data = await api.user.getInfo<User>();
+    if (data) {
+      safeSet(result, alias.common.user, data);
     }
   }
   return result;

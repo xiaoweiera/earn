@@ -7,23 +7,14 @@
 import I18n from "src/utils/i18n";
 import { getEnv } from "src/config/";
 import { ElDialog, ElTabPane, ElTabs } from "element-plus";
-import {
-  FlagStatus,
-  emailForget,
-  mobileForget,
-  showLogin,
-  showRegister,
-  switchStatus,
-  visible,
-} from "src/logic/user/login";
+import { FlagStatus, emailForget, mobileForget, showLogin, showRegister, switchStatus, visible } from "src/logic/user/login";
 
 const i18n = I18n();
 const env = getEnv();
 
-const handleClose = function(next: () => void) {
+const handleClose = function (next: () => void) {
   return next();
 };
-
 </script>
 
 <template>

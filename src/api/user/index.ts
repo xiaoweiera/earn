@@ -12,9 +12,21 @@ import getLang from "src/utils/url/lang";
 import ApiTemplate from "../template";
 
 export default class extends ApiTemplate {
+  @tryError(NullValue)
+  @post(api.user.refreshToken)
+  async refreshToken(): Promise<string> {
+    const req = this.getRequest();
+    const cookie = new Cookie(req);
+    const token = await cookie.getUserToken();
+    const callback = function (data: object): string {
+      return safeGet<string>(data, "token");
+    };
+    return [{ token }, callback] as any;
+  }
+
   // 获取用户详情
   @tryError(NullValue)
-  @get(api.user.info, expire.min2)
+  @get(api.user.info, expire.min5)
   @userToken(true)
   getInfo<T>(): Promise<T> {
     return [] as any;
@@ -94,7 +106,7 @@ export default class extends ApiTemplate {
     const lang = getLang(this.lang);
     const value = Object.assign({ lang }, _.pick(data, ["email", "password"]));
 
-    const callback = function(result: User) {
+    const callback = function (result: User) {
       const token = safeGet<string>(result, "token");
       if (token) {
         const cookie = new Cookie();
@@ -115,7 +127,7 @@ export default class extends ApiTemplate {
     const lang = getLang(this.lang);
     const value = Object.assign({ lang }, _.pick(data, ["mobile", "password", "area_code"]));
 
-    const callback = function(result: User) {
+    const callback = function (result: User) {
       const token = safeGet<string>(result, "token");
       if (token) {
         const cookie = new Cookie();

@@ -38,6 +38,7 @@ export const quota = {
 };
 
 export const user = {
+  refreshToken: "/api/v1/users/refresh_token", // 刷新 token
   info: "/api/v1/users/my", // 用户详情
   resetMobilePassword: "/api/v1/users/change_password", // 手机号重置密码
   resetEmailPassword: "/api/v1/users/email_change_password", // 重置邮箱密码
