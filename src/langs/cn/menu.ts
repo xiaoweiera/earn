@@ -6,6 +6,7 @@ export default {
     gamefi: "IGO",
     game: "GameFi 排行榜",
     defi: "DeFi 排行榜",
+    invest: "投资动向",
   },
   airdrop: {
     title: "Airdrops",

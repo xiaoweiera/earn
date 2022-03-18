@@ -36,6 +36,7 @@ export const config = {
   airdrop: "/airdrops", // 最新空投
   address: "/whaleaddress",
   portfolio: "/portfolio",
+  invest: "/invest",//投融资
   E404: "/404",
 
   user,

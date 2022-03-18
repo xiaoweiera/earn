@@ -75,3 +75,17 @@ export const nftList = async function(req: Request, res: Response) {
   };
   res.send(result);
 };
+
+//投融资列表
+export const investList = async function(req: Request, res: Response) {
+  const i18n = I18n(req);
+  res.locals.menuActive = names.dapp.invest;
+  const result = {
+    title: i18n.home.webNft.title,
+    keywords: i18n.home.webNft.key,
+    description: i18n.home.webNft.des,
+
+
+  };
+  res.send(result);
+};
