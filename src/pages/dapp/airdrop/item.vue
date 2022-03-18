@@ -121,11 +121,11 @@ const detailLink = function (data: DataItem) {
       <slot name="body">
         <div class="mx-4 py-4 border-t border-solid border-global-highTitle border-opacity-6">
           <div class="select-none flex text-center text-global-highTitle text-opacity-45">
-            <div class="flex-1 px-2">
+            <div class="flex-1 px-2 flex-wrap">
               <!--空投名额-->
-              <p class="text-12-16 flex items-center justify-center">
+              <p class="text-12-16 flex items-center flex-wrap justify-center">
                 <span>{{ i18n.airdrop.content.quota }}</span>
-                <IconFont class="ml-1" type="icon-users" size="12" />
+<!--                <IconFont class="ml-1" type="icon-users" size="12" />-->
               </p>
               <p class="mt-1 text-global-highTitle text-opacity-85">
                 <b class="text-kd18px18px font-semibold font-kdSemiBold">{{
