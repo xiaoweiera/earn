@@ -63,7 +63,7 @@ const link = computed<string>(function () {
     <!-- 图片集合 -->
     <div v-if="data.image_urls && data.image_urls.length > 0" class="mt-4">
       <v-router v-if="isList" :href="link" class="block w-full" target="_blank">
-        <Image :list="data.image_urls" />
+        <Image :list="data.image_urls" :preview="!isList" />
       </v-router>
       <Image v-else :list="data.image_urls" />
     </div>
