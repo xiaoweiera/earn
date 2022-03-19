@@ -3,24 +3,35 @@
  * @author svon.me@gmail.com
  */
 
-import * as zStd from "./zstd";
+import { trim } from "lodash";
 import CryptoJS from "crypto-js";
 import * as base64 from "./base64";
 import { key, a as secret } from "./value";
 import safeGet from "@fengqiaogang/safe-get";
+import * as console from "src/plugins/log/index";
 
-const Decrypt = async function <T>(value: string): Promise<T> {
+const decompress = async function <T>(value: string): Promise<T | undefined> {
   // AES 解密
   const text = CryptoJS.AES.decrypt(value, secret());
   const str = text.toString(CryptoJS.enc.Utf8);
-  // 字符串解压
-  const zStdText = await zStd.decompress(str);
   // base64 解密
-  const base64Text = base64.decompress(zStdText);
+  const base64Text = base64.decompress(str);
   // 字符串转数据
   const json = JSON.parse(base64Text);
   // 返回数据
   return safeGet<T>(json, key);
+};
+
+const Decrypt = async function <T>(value: string): Promise<T | undefined> {
+  try {
+    const text = trim(value ? value : "");
+    if (text) {
+      return await decompress(text);
+    }
+  } catch (e) {
+    console.info("Decrypt Error");
+    console.info(e);
+  }
 };
 
 export default Decrypt;

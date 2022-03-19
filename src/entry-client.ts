@@ -29,19 +29,18 @@ import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormali
 import { createApp } from "./bootstrap/main";
 import { refresh } from "src/logic/user/login";
 
-const getCache = function (): Promise<object> {
+const getCache = async function (): Promise<object> {
   // 从 script 标签中获取数据
   const dom = document.getElementById(rootData);
   if (dom) {
     const value = dom.innerText;
     if (value) {
-      try {
-        // 解密
-        return Decrypt<object>(value);
-      } catch (e) {
-        console.log(e);
-        // todo
+      // 解密
+      const data = await Decrypt<object>(value);
+      if (data) {
+        return data;
       }
+      return {};
     }
   }
   return Promise.resolve({});
