@@ -40,10 +40,9 @@ const getCache = async function (): Promise<object> {
       if (data) {
         return data;
       }
-      return {};
     }
   }
-  return Promise.resolve({});
+  return {};
 };
 
 // 前置处理
