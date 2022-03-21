@@ -12,7 +12,7 @@ import window from "src/plugins/browser/window";
 import {useRouter} from "vue-router";
 
 import DAppDiscoversContentChain from "src/pages/dapp/discovers/content/chain.vue";
-import DAppInvestItem from "src/pages/dapp/investment/projects/item.vue"
+import DAppInvestProjectsItem from "src/pages/dapp/investment/projects/item.vue"
 
 
 const i18n = I18n();
@@ -62,7 +62,7 @@ const onSearch = _.debounce(async () => {
       </div>
       <!-- 列表  -->
       <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <DAppInvestItem v-for="(item, index) in 8" :key="index"/>
+        <DAppInvestProjectsItem v-for="(item, index) in 8" :key="index"/>
       </div>
     </div>
   </div>
@@ -86,7 +86,7 @@ const onSearch = _.debounce(async () => {
 @screen md {
   .input-style {
     ::v-deep(.el-input__inner) {
-      @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
+      @apply border-1 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
     }
 
     ::v-deep(input::-webkit-input-placeholder) {

@@ -11,11 +11,11 @@ import DAppInvestFunds from "src/pages/dapp/investment/funds.vue"
       <DAppInvestProject/>
     </div>
     <!-- 广告位 -->
-    <div>
+    <div class="mt-12">
       <DAppInvestAd/>
     </div>
     <!-- 机构 -->
-    <div>
+    <div class="mt-12">
       <DAppInvestFunds/>
     </div>
   </div>

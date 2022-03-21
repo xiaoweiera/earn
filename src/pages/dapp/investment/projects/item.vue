@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const num = 17;
 const getLeft = function () {
-  if(num > 12){
+  if(num > 9){
     return "-ml-1.25"
   }else {
     return "ml-1"
@@ -34,14 +34,14 @@ const getLeft = function () {
       <!-- name -->
       <div class="w-full mt-1.5">
         <p class="w-full text-center">
-          <span class="text-kd24px28px text-global-highTitle font-kdSemiBold">Drunk Robots</span>
+          <span class="text-kd24px28px text-global-highTitle font-kdBarlow">Drunk Robots</span>
         </p>
       </div>
       <!-- 总数 -->
       <div class="w-full mt-2">
         <p class="w-full text-center">
           <span class="text-kd14px18px text-global-highTitle text-opacity-65 font-medium font-kdFang">Total:</span>
-          <span class="mx-1 text-kd20px20px text-global-highTitle text-opacity-85 font-semibold font-kdSemiBold">24</span>
+          <span class="mx-1 text-kd20px20px text-global-highTitle text-opacity-85 font-semibold font-kdBarlow">24</span>
           <span class="text-kd14px18px text-global-highTitle text-opacity-65 font-medium font-kdFang">investors</span>
         </p>
       </div>
@@ -53,7 +53,7 @@ const getLeft = function () {
               <ui-image class="w-full h-full" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/NFT/a808e7d0c37f22b86ceef3abaa0f5161"></ui-image>
             </p>
           </div>
-          <p class="">
+          <p class="flex items-center">
             <span class="text-kd16px20px text-global-darkblue font-kdBarlow font-medium">+24</span>
           </p>
         </div>
