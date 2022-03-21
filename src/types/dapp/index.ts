@@ -78,7 +78,7 @@ export interface TabItem {
 // nft tab 切换
 export enum NftTabTypes {
   upcoming = "upcoming", // 即将开始
-  history = "history", // 已结束
+  history = "ended", // 已结束
 }
 export interface NftTabItem {
   status: NftTabTypes;

@@ -175,7 +175,7 @@ export const getLog = function (name: string) {
   if (data) {
     return safeGet<string>(data, "logo");
   }
-  return "N/A";
+  return "--";
 };
 // 获取tegicon
 export const getTegLog = function (name: string) {
