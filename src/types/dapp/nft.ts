@@ -1,7 +1,7 @@
 
 export enum nftStatus {
   upcoming = "upcoming", // 即将开始
-  history = "history", // 历史项目
+  history = "ended", // 历史项目
 }
 
 export enum nftSort {

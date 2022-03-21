@@ -10,15 +10,19 @@ import * as webkit from "src/plugins/webkit/";
 import { Equals } from "src/utils/check/is";
 import { toInteger } from "src/utils/convert/to";
 import { Device } from "src/types/common/device";
-import { IsSSR, deviceName, getEnv, tidingName, tokenExpires, tokenName } from "src/config/";
+import { IsSSR, deviceName, getEnv, tidingName, tokenExpires, tokenName, userLogin } from "src/config/";
 
 export default class Cookie {
   private readonly req?: Request;
   private readonly res?: Response;
 
   constructor(req?: Request, res?: Response) {
-    this.req = req;
-    this.res = res;
+    if (req) {
+      this.req = req;
+    }
+    if (res) {
+      this.res = res;
+    }
   }
 
   private static cookieOption(expires = 0) {
@@ -77,10 +81,20 @@ export default class Cookie {
     }
     return this.get(tokenName);
   }
-
+  // 修改用户登录时间
+  setUserLoginTime() {
+    const at = 1000 * 60 * 60 * 4; // 4小时过期时间
+    const now = Date.now();
+    this.set(userLogin, `${now}`, at);
+  }
+  // 获取用户登录时间
+  getUserLoginTime() {
+    return this.get(userLogin);
+  }
   // 修改用户信息
   setUserToken(value?: string) {
     if (value) {
+      this.setUserLoginTime();
       return this.set(tokenName, value, tokenExpires);
     } else {
       return this.removeUserToken();

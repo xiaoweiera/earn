@@ -3,13 +3,12 @@
  * @author svon.me@gmail.com
  */
 
+import safeGet from "@fengqiaogang/safe-get";
+import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
-import dayjs from "dayjs";
-import dotenv from "dotenv";
-import type { ConfigEnv } from "vite";
 import UrlPattern from "url-pattern";
-import safeGet from "@fengqiaogang/safe-get";
+import type { ConfigEnv } from "vite";
 import type { ImportMetaEnv } from "../types/env";
 import { Command, production } from "../types/env";
 
@@ -73,15 +72,7 @@ export const getConfig = async function (env: ConfigEnv | object): Promise<Impor
   }
   if (result && result.parsed) {
     const VITE_cookie = getCookieDomain(result.parsed);
-    const data = Object.assign(
-      {
-        VITE_secret: dayjs().format("MM_YY_DD"),
-      },
-      {
-        ...result.parsed,
-      },
-      { VITE_cookie },
-    );
+    const data = Object.assign({ ...result.parsed }, { VITE_cookie });
     if (data.VITE_command === Command.build) {
       const value = `${data.VITE_staticPath}/${Date.now()}`;
       if (data.VITE_staticDomain) {

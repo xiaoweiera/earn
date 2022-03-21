@@ -19,22 +19,18 @@ defineProps({
         <div class="flex justify-between items-center">
           <p class="items-center">
             <span class="text-kd18px18px text-global-white font-semibold font-kdBarlow">{{ data.name }}</span>
-            <span v-if="data.name && data.name.length < 13" class="text-kd14px18px text-global-white text-opacity-65 font-kdBarlow font-medium ml-1.5">{{
-              data.symbol
-            }}</span>
+            <span v-if="data.name && data.name.length < 13" class="text-kd14px18px text-global-white text-opacity-65 font-kdBarlow font-medium ml-1.5">{{ data.symbol }}</span>
           </p>
           <p class="flex items-center">
             <IconFont v-if="data.chain" class="text-global-gemstone" :type="getLog(data.chain)" size="16" />
           </p>
         </div>
         <div class="mt-3.5">
-          <ul class="flex" v-if="data.tge_platform" >
+          <ul v-if="data.tge_platform" class="flex">
             <template v-for="(item, index) in data.tge_platform" :key="index">
               <li v-if="index < 2" class="flex items-center mr-3">
                 <IconFont class="text-global-gemstone" :type="getTegLog(item)" size="16" />
-                <span class="text-kd12px16px ml-1.5 text-global-highTitle font-medium text-opacity-85 font-kdFang">{{
-                  item
-                }}</span>
+                <span class="text-kd12px16px ml-1.5 text-global-highTitle font-medium text-opacity-85 font-kdFang">{{ item }}</span>
               </li>
             </template>
           </ul>

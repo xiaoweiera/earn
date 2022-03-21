@@ -27,23 +27,22 @@ import Decrypt from "src/plugins/encryption/decrypt";
 import { AppId, getEnv, languageKey, rootData, tokenName } from "src/config";
 import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded } from "vue-router";
 import { createApp } from "./bootstrap/main";
+import { refresh } from "src/logic/user/login";
 
-const getCache = function (): Promise<object> {
+const getCache = async function (): Promise<object> {
   // 从 script 标签中获取数据
   const dom = document.getElementById(rootData);
   if (dom) {
     const value = dom.innerText;
     if (value) {
-      try {
-        // 解密
-        return Decrypt<object>(value);
-      } catch (e) {
-        console.log(e);
-        // todo
+      // 解密
+      const data = await Decrypt<object>(value);
+      if (data) {
+        return data;
       }
     }
   }
-  return Promise.resolve({});
+  return {};
 };
 
 // 前置处理
@@ -54,9 +53,9 @@ const prepend = async function () {
   if (process && process.device) {
     // 设置设备类型
     cookie.setDeviceValue(process.device);
-
     // 判断浏览器中是否有 token 信息
     if (cookie.get(tokenName)) {
+      cookie.setUserLoginTime();
       return getCache();
     }
     // 如果有 token 信息
@@ -105,6 +104,8 @@ const main = async function () {
   }
   await router.isReady();
   app.mount(`#${AppId}`, true);
+  // 延迟处理用户数据
+  setTimeout(refresh);
 };
 
 setTimeout(main);
