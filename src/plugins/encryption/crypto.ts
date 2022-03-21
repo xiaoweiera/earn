@@ -3,9 +3,12 @@
  * @author svon.me@gmail.com
  */
 
-import CryptoJS from "crypto-js";
+import { key } from "./value";
 import * as base64 from "./base64";
-import { key, a as secret } from "./value";
+
+/*
+import CryptoJS from "crypto-js";
+
 import * as console from "src/plugins/log/index";
 
 export const Crypto = async function <T>(value: T): Promise<string> {
@@ -24,6 +27,12 @@ export const Crypto = async function <T>(value: T): Promise<string> {
     console.info(e);
   }
   return "";
+};
+*/
+
+export const Crypto = async function <T>(value: T): Promise<string> {
+  const jsonText = JSON.stringify({ [key]: value });
+  return base64.compress(jsonText);
 };
 
 export default Crypto;
