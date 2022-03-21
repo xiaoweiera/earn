@@ -5,7 +5,7 @@ import DAppInvestFunds from "src/pages/dapp/investment/funds.vue"
 </script>
 
 <template>
-  <div>
+  <div class="pt-8 pb-16 max-w-315 mx-auto">
     <!-- 项目 -->
     <div>
       <DAppInvestProject/>
