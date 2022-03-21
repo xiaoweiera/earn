@@ -191,7 +191,7 @@ const isFilter = () => {
                 }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in data.header" :key="index">
-                <td v-if="itemTwo.key !== 'id'">
+                <td v-if="itemTwo.key !== 'id'" class="text-center">
                   <HomeTableTd :data="item" :info="info" :type-name="itemTwo.key" />
                 </td>
               </template>
@@ -241,7 +241,7 @@ thead td,
 }
 
 tbody td {
-  @apply text-center text-kd14px18px text-global-highTitle;
+  @apply text-kd14px18px text-global-highTitle;
 }
 
 .table-box {
