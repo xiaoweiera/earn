@@ -41,6 +41,12 @@ a {
     @apply cursor-pointer;
     @apply text-global-darkblue;
   }
+  @at-root .ui-pagination & {
+    &.disable {
+      cursor: not-allowed;
+      color: #a8abb2;
+    }
+  }
 }
 
 

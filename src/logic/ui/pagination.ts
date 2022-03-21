@@ -10,37 +10,48 @@ type Request = <T>() => T[];
 
 type Data = Record<string, any>;
 
-export interface Props {
-	request: Request;
-	showLoading: boolean;
-	nextMore: string;
-	limit: number;
-	data: Data;
-	initValue: Array<Data>;
+/*
+  加载方式
+  pagination: 上一页，下一页
+  more: 加载更多 (默认样式)
+ */
+export enum PageSkin {
+  pagination = "pagination",
+  more = "more",
 }
 
-export const Pagination = function(props: Props) {
+export interface Props {
+  request: Request;
+  showLoading: boolean;
+  nextMore: string;
+  limit: number;
+  data: Data;
+  initValue: Array<Data>;
+  skin: PageSkin;
+}
+
+export const Pagination = function (props: Props) {
   const list = ref<any[]>([]); // 数据集合
   const page = ref<number>(1); // 当前页码
   const loading = ref<boolean>(true); // 是否为加载中
   const next = ref<boolean>(false); // 是否有下一页数据
   const empty = ref<boolean>(false); // 是否为空数据
 
-  const handleData = function<T>(result: T[]) {
+  const handleData = function <T>(result: T[]) {
     const array = toArray(result || []);
     // 判断是否有下一页
-    if (array.length < props.limit) {
-      next.value = false;
-    } else {
-      page.value = page.value + 1;
-      next.value = true;
-    }
+    next.value = array.length >= props.limit;
 
     if (array.length > 0) {
-      list.value = toArray(list.value, array);
+      // 如果是分页模式
+      if (props.skin === PageSkin.pagination) {
+        list.value = array;
+      } else {
+        list.value = toArray(list.value, array);
+      }
     } else {
       // 判断数据是否为空
-      empty.value = array.length < 1;
+      empty.value = list.value.length < 1;
     }
 
     loading.value = false;
