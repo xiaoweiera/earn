@@ -68,6 +68,7 @@ export default defineConfig({
         "kd26px": "26px",
         "kd28px": "28px",
         "kd30px": "30px",
+        "kd32px": "32px",
         "kd34px": "34px",
         "kd36px": "36px",
         "kd38px": "38px",
