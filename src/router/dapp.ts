@@ -13,6 +13,10 @@ const routes = [
     path: router.invest,
     component: () => import("src/pages/dapp/investment/index.vue"),
   },
+  {
+    path: router.investDetail,
+    component: () => import("src/pages/dapp/investment/detail/index.vue"),
+  },
 ];
 
 export default routes;

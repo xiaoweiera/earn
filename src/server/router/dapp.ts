@@ -5,6 +5,7 @@ import * as dApp from "src/controller/dapp";
 import redirect from "src/controller/common/redirect";
 import type { Request, Response } from "express";
 import { Router as ExpressRouter } from "express";
+import * as home from "src/controller/home";
 
 const Router = function() {
   const router = ExpressRouter();
@@ -22,6 +23,7 @@ const Router = function() {
   });
   router.get(config.nftList, dApp.nftList);
   router.get(config.invest, dApp.investList);
+  router.get(config.investDetail, dApp.investDetail);
   return router;
 };
 export default Router;
