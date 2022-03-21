@@ -139,4 +139,11 @@ export default class extends ApiTemplate {
     };
     return [value, callback] as any;
   }
+
+  // 修改邮箱
+  @userToken()
+  @validate
+  async updateEmail(@required data: object) {
+    return !!data;
+  }
 }

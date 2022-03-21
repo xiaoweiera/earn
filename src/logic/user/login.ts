@@ -56,19 +56,9 @@ export const mobileForget = function () {
   visible.value = true;
 };
 
-// 刷新用户凭证
-export const refresh = async function () {
+// 刷新 token
+const updateToken = async function () {
   const cookie = new Cookie();
-  const token = await cookie.getUserToken();
-  // 如果 token 不存在，则用户为未登录状态
-  if (!token) {
-    return false;
-  }
-  const userAt = cookie.get(userLogin);
-  // 记录的登录时间还存在
-  if (userAt) {
-    return true;
-  }
   // 使用现有的 token 换新的 token
   const api = new API();
   const value = await api.user.refreshToken();
@@ -76,4 +66,27 @@ export const refresh = async function () {
     // 重新设置用户信息
     cookie.setUserToken(value);
   }
+  return value;
+};
+
+/**
+ * 刷新用户凭证
+ * @param important 是否强制更新
+ */
+export const refresh = async function (important?: boolean) {
+  if (important) {
+    return updateToken();
+  }
+  const cookie = new Cookie();
+  const token = await cookie.getUserToken();
+  // 如果 token 不存在，则用户为未登录状态
+  if (!token) {
+    return "";
+  }
+  const userAt = cookie.get(userLogin);
+  // 记录的登录时间还存在
+  if (userAt) {
+    return "";
+  }
+  return updateToken();
 };

@@ -48,15 +48,16 @@ const ossList: string[] = [
   "vector", // vector.svg
 ];
 
-const getLink = function(value: string, suffix = "svg"): string | undefined {
+const getLink = function (value: string, suffix = "svg"): string | undefined {
   if (value) {
     const env = getEnv();
     if (isHttp(value) || value.includes(".")) {
       return value;
     }
-    if (Equals(value, "redTip")) {
-      return `${env.VITE_oss}/common/redTip.png`;
-    }
+    // 由 css 实现
+    // if (Equals(value, "redTip")) {
+    //   return `${env.VITE_oss}/common/redTip.png`;
+    // }
     if (Equals(value, "Optimism") || Equals(value, "OptimismYuan")) {
       return `${env.VITE_oss}/common/weizhi.png`;
     }

@@ -1,4 +1,3 @@
-
 import { dashboard } from "src/config/";
 
 const user = {
@@ -7,6 +6,7 @@ const user = {
   logout: "/account/logout", // 退出
   register: "/account/register", // 注册
   forget: "/account/forget", // 找回密码
+  updateEmail: "/account/update/email", // 修改邮箱
 };
 
 export const config = {

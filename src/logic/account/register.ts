@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import { UpdateEmail } from "src/plugins/webkit/user";
 // 平台标识
 import I18n from "src/utils/i18n";
 import { toBoolean } from "src/utils";
@@ -239,6 +240,17 @@ export const resetFields = function (form?: any) {
       console.log(e);
       // todo
     }
+  }
+};
+
+// 邮箱修改成功
+export const onUpdateEmailCallback = function (form?: any, token?: string) {
+  resetFields(form);
+  // 唤起移动端对应功能
+  if (webkit.UpdateEmail(token)) {
+    return true;
+  } else {
+    window.location.reload(); // 刷新当前页面
   }
 };
 

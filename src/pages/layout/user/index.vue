@@ -74,7 +74,14 @@ onMounted(function () {
     <!-- 已登录 -->
     <ui-hover v-if="user && user.id" class="flex" placement="bottom-end" trigger="hover">
       <template #label>
-        <IconFont class="flex cursor-pointer" size="22" type="icon-yonghu1" />
+        <div class="relative">
+          <span class="flex">
+            <IconFont class="cursor-pointer" size="22" type="icon-yonghu1" />
+          </span>
+          <span class="absolute bottom-0 right-0 leading-2 transform translate-x-1/5 translate-y-1/5">
+            <IconFont size="8" type="redTip" />
+          </span>
+        </div>
       </template>
       <template #content>
         <user-menu :user="user" />
