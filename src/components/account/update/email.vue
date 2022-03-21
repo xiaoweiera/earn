@@ -30,7 +30,7 @@ const onSeadCode = async function (value: string | undefined) {
   formData.token = value;
 };
 const selfGoBack = function (token: string) {
-  // 返回登录页面
+  // 返回
   Common.onUpdateEmailCallback(domForm, token);
 };
 

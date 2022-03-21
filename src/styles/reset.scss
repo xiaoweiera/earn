@@ -48,9 +48,9 @@
 
 /* 重置登录框某些样式 */
 .dialog-user-wrap {
-  width: 400px !important;
+  width: 80% !important;
+  max-width: 350px !important;
   @screen md{
-    width: 350px !important;
     margin-top: 7vh;
   }
   .el-dialog__body {
