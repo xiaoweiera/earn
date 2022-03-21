@@ -5,13 +5,13 @@
  */
 import * as console from "src/plugins/log/";
 import type { PropType } from "vue";
-import { onBeforeMount } from "vue";
+// import { onBeforeMount } from "vue";
 import { getEnv } from "src/config/";
 import { isFunction } from "src/utils";
 import I18n from "src/utils/i18n/index";
 import safeGet from "@fengqiaogang/safe-get";
 import window from "src/plugins/browser/window";
-import document from "src/plugins/browser/document";
+// import document from "src/plugins/browser/document";
 
 type Callback = () => void;
 
@@ -85,6 +85,7 @@ const text = function () {
   return i18n.common.message.verification;
 };
 
+/*
 onBeforeMount(() => {
   const env = getEnv();
   // 人机教验
@@ -96,6 +97,7 @@ onBeforeMount(() => {
     head.appendChild(script);
   }
 });
+ */
 </script>
 
 <template>

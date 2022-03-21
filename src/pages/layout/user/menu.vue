@@ -19,33 +19,35 @@ defineProps({
 const i18n = I18n();
 
 // 获取昵称
-const getUserName = function(data: User): string | number {
+const getUserName = function (data: User): string | number {
   return data.nickname || data.username || data.email || data.mobile;
 };
 </script>
 <template>
   <div class="bg-global-white rounded-md">
     <div class="px-4 py-2 flex items-center cursor-pointer">
-      <IconFont size="20" type="icon-yonghu" />
+      <IconFont class="text-global-primary" size="20" type="icon-yonghu" />
       <span class="ml-2 text-14-18 text-global-grey inline-block">{{ getUserName(user) }}</span>
       <IconFont v-if="user.is_vip" class="ml-2" type="vip1" />
     </div>
     <div class="border-t border-solid border-gray-300">
+      <client-only v-if="!user.email" class="px-4 py-2 cursor-pointer">
+        <div class="flex items-center">
+          <IconFont class="text-global-primary" type="icon-email1" size="20" />
+          <span class="ml-2 text-14-18 whitespace-nowrap text-global-grey">邮箱绑定</span>
+          <IconFont class="ml-2" size="8" type="redTip" />
+        </div>
+      </client-only>
       <div v-if="isConnect()" class="py-1 text-global-grey">
         <client-only>
+          <!--钱包地址-->
           <ui-wallet-portfolio class="px-4 py-1" />
         </client-only>
-        <v-router :href="routerConfig.user.logout" class="px-4 py-1 flex items-center itemMt cursor-pointer">
-          <IconFont size="20" type="icon-tuichu" />
-          <span class="ml-2 text-14-18 flex whitespace-nowrap">{{ i18n.nav.outLogin }}</span>
-        </v-router>
       </div>
-      <div v-else>
-        <v-router :href="routerConfig.user.logout" class="px-4 py-2 flex items-center itemMt cursor-pointer">
-          <IconFont size="20" type="icon-tuichu" />
-          <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.nav.outLogin }}</span>
-        </v-router>
-      </div>
+      <v-router :href="routerConfig.user.logout" class="px-4 py-2 flex items-center cursor-pointer">
+        <IconFont class="text-global-primary" size="20" type="icon-tuichu" />
+        <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.nav.outLogin }}</span>
+      </v-router>
     </div>
   </div>
 </template>
