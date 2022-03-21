@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref, toRaw } from "vue";
+import { onMounted, ref, toRaw, reactive } from "vue";
 import I18n from "src/utils/i18n";
 import { Model, transformNftList, nftTabs } from "src/logic/dapp";
 import { NftTabTypes } from "src/types/dapp";
@@ -22,10 +22,10 @@ const sortKey = ref<string>(uuid());
 const i18n = I18n();
 let initStatus = true;
 
-let sort = {
+const sort = reactive({
   sort_type: "",
   sort_field: "",
-};
+});
 
 const [query] = useReactiveProvide<object>(stateAlias.ui.tab, {});
 
@@ -54,10 +54,8 @@ onMounted(() => {
   });
   // 监听路由变化
   useWatch(query, () => {
-    sort = {
-      sort_type: "",
-      sort_field: "",
-    }; // 置空排序参数，此处逻辑不需要设置排序参数
+    sort.sort_type = "",
+    sort.sort_field = "",// 置空排序参数，此处逻辑不需要设置排序参数
     key.value = uuid();
   });
 });
@@ -107,7 +105,7 @@ const getFilter = function(data: any) {
         <ui-pagination :limit="20" :init-value="initValue()" :request="requestList">
           <template #default="scope">
             <!--历史项目-->
-            <div v-if="query.status === 'history'" class="showX">
+            <div v-if="query.status === NftTabTypes.history" class="showX">
               <DAppNftEndList class="min-w-307" :params="sort" :list="scope.list" @change-sort="changeSort" />
             </div>
             <!--进行中-->

@@ -24,5 +24,15 @@ export const Uint8ArrayToString = function (array: Uint8Array): string {
 export const key = "value";
 export const a = function (): string {
   const env = getEnv();
-  return env.VITE_secret;
+  const value = env.VITE_secret;
+  if (value) {
+    const size: number = value.length;
+    if (size % 8 === 0) {
+      return value;
+    }
+    if (size >= 8) {
+      return value.slice(0, 8);
+    }
+  }
+  return "kd+admin";
 };
