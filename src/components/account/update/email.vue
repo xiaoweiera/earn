@@ -97,7 +97,6 @@ const submit = async function () {
       <!-- 确定按钮 -->
       <el-form-item style="margin-bottom: 0">
         <div class="w-full">
-          <!--  :disabled="!toBoolean(formData.token)" -->
           <el-button class="w-full" type="primary" native-type="submit">
             <span class="text-16">{{ i18n.common.button.confirm }}</span>
           </el-button>

@@ -12,8 +12,10 @@ import getLang from "src/utils/url/lang";
 import ApiTemplate from "../template";
 
 export default class extends ApiTemplate {
+  // 刷新用户 token
   @tryError(NullValue)
   @post(api.user.refreshToken)
+  @userToken(true)
   async refreshToken(): Promise<string> {
     const req = this.getRequest();
     const cookie = new Cookie(req);
@@ -139,9 +141,7 @@ export default class extends ApiTemplate {
     };
     return [value, callback] as any;
   }
-
   // 修改邮箱
-  @userToken()
   @validate
   async updateEmail(@required data: object) {
     return !!data;
