@@ -7,6 +7,7 @@ export interface ImportMetaEnv {
   readonly VITE_domain: string; // 网站域名
   readonly VITE_cookie: string; // 设置 cookie 的安全域
   readonly VITE_baiduTag?: string; // baidu 收录
+  readonly VITE_gio?: string; // google io
   readonly VITE_googleTag?: string; // google 收录
   readonly VITE_googleCaptcha: string; // google Captcha key
   readonly VITE_oss: string; // oss 资源域名
