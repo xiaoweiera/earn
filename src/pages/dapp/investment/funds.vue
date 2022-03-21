@@ -30,7 +30,7 @@ const onSearch = _.debounce(async () => {
     <div>
       <!-- 头部-->
       <div>
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
           <!-- 标题  -->
           <h3 class="text-kd40px40px text-global-highTitle font-kdSemiBold">
             <span>FUNDS 🏦</span>

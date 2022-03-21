@@ -1,21 +1,16 @@
 <script lang="ts" setup>
-const num = 17;
-const getLeft = function () {
-  if(num > 9){
-    return "-ml-1.25"
-  }else {
-    return "ml-1"
-  }
-}
+import { ref } from "vue";
+const list = ref<any[]>([]);
+list.value = new Array(20).fill("");
 </script>
 
 <template>
-  <div>
-    <div class="min-h-94.5 p-1.5 bg-global-white border-1 border-global-highTitle border-opacity-6 rounded-md">
+  <div class="min-h-94.5 p-1.5 bg-global-white border-1 border-global-highTitle border-opacity-6 rounded-md">
+    <v-router href="https://www.baidu.com" target="_blank" name="div">
       <!-- 头部 -->
       <div class="w-full">
         <p class="w-full h-11.25 rounded-md bg-global-numGreen bg-opacity-12 flex items-center justify-center">
-          <span class="text-kd24px24px text-global-numGreen font-semibold font-kdSemiBold">Seed round</span>
+          <span class="text-kd24px24px text-global-numGreen font-semibold font-kdBarlow">Seed round</span>
         </p>
       </div>
       <!-- logo -->
@@ -46,16 +41,16 @@ const getLeft = function () {
         </p>
       </div>
       <!-- 参与logo -->
-      <div class="w-full mt-2 px-1.5">
-        <div class="w-full py-2 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex">
-          <div class="flex-1 flex justify-center">
-            <p :class="getLeft()" class="w-6 h-6 border-2 border-global-white box-content rounded-full" v-for="item in num-3" :key="item">
-              <ui-image class="w-full h-full" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/NFT/a808e7d0c37f22b86ceef3abaa0f5161"></ui-image>
-            </p>
-          </div>
-          <p class="flex items-center">
-            <span class="text-kd16px20px text-global-darkblue font-kdBarlow font-medium">+24</span>
-          </p>
+      <div :class="{'overlap': list.length > 9}" class="w-full mt-2 px-1.5 group-list">
+        <div class="w-full py-2 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex items-center">
+          <template v-for="(item, index) in list" :key="index">
+            <v-router class="block p-0.5 group-item bg-white rounded-1/2" href="https://www.google.com" target="_blank">
+              <ui-image class="w-6 h-6" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/NFT/a808e7d0c37f22b86ceef3abaa0f5161"/>
+            </v-router>
+          </template>
+          <a class="group-more link">
+            <span class="text-kd16px20px font-kdBarlow font-medium">+100</span>
+          </a>
         </div>
       </div>
       <!-- 价格 -->
@@ -67,7 +62,7 @@ const getLeft = function () {
               <span>Total Raised</span>
             </p>
             <p class="mt-1 text-global-highTitle text-opacity-85">
-              <b class="text-kd18px18px font-semibold font-kdSemiBold">$1.8M</b>
+              <b class="text-kd18px18px font-semibold font-kdBarlow">$1.8M</b>
             </p>
           </div>
           <div class="flex-1 px-2 border-l border-solid border-global-highTitle border-opacity-6">
@@ -76,21 +71,49 @@ const getLeft = function () {
               <span>Last Funding</span>
             </p>
             <p class="mt-1 text-global-highTitle text-opacity-85">
-              <b class="text-kd18px18px font-semibold font-kdSemiBold">Mar10,2022</b>
+              <b class="text-kd18px18px font-semibold font-kdBarlow">Mar10,2022</b>
             </p>
           </div>
         </div>
       </div>
       <!-- 更多 -->
       <div class="w-full mt-2">
-        <p class="w-full h-11 bg-global-darkblue rounded-md flex items-center justify-center">
-          <span class="text-kd16px22px text-global-white font-medium font-kdFang">Learn More</span>
-        </p>
+        <v-router class="block" href="https://kingdata.com" target="_blank">
+          <p class="w-full h-11 bg-global-darkblue rounded-md flex items-center justify-center">
+            <span class="text-kd16px22px text-global-white font-medium font-kdFang">Learn More</span>
+          </p>
+        </v-router>
       </div>
-    </div>
+    </v-router>
   </div>
 </template>
 
 <style lang="scss" scoped>
-
+@mixin overlap($num) {
+  .group-item {
+    @apply -ml-1.75;
+    &:nth-child(#{$num}) {
+      & ~ .group-item {
+        @apply hidden;
+      }
+      & ~ .group-more{
+        @apply block;
+      }
+    }
+  }
+}
+.group-list {
+  .group-more {
+    @apply hidden ml-auto;
+  }
+  &.overlap {
+    @include overlap(15);
+    @screen lg {
+      @include overlap(11);
+    }
+  }
+  &:not(.overlap) {
+    @apply justify-center;
+  }
+}
 </style>
