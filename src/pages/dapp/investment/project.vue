@@ -1,0 +1,101 @@
+<script setup lang="ts">
+import { ElInput } from "element-plus";
+import I18n from "src/utils/i18n";
+import {ref} from "vue";
+import safeGet from "@fengqiaogang/safe-get";
+import { uuid } from "src/utils";
+import { config } from "src/router/config";
+import _ from "lodash";
+import {getParam} from "src/utils/router";
+import {createHref} from "src/plugins/router/pack";
+import window from "src/plugins/browser/window";
+import {useRouter} from "vue-router";
+
+import DAppDiscoversContentChain from "src/pages/dapp/discovers/content/chain.vue";
+import DAppInvestItem from "src/pages/dapp/investment/projects/item.vue"
+
+
+const i18n = I18n();
+const search = ref<string>("");
+const $router = useRouter();
+const onSearch = _.debounce(async () => {
+  const query = { ...getParam<object>(), query: search.value || "" };
+  const url = createHref(window.location.pathname, query);
+  await $router.push(url);
+}, 300);
+</script>
+
+<template>
+  <div>
+    <!-- 项目 -->
+    <div>
+      <!-- 头部-->
+      <div>
+        <div class="flex justify-between">
+          <!-- 标题  -->
+          <h3 class="text-kd40px40px text-global-highTitle font-kdSemiBold">
+            <span>PROJECTS 💼</span>
+          </h3>
+          <div class="flex justify-between">
+          <!-- select -->
+           <div>
+             <DAppDiscoversContentChain
+               :chain-data="safeGet()"
+               :href="config.invest"
+               title="投资轮次"
+               name="category"
+             />
+           </div>
+           <!-- search -->
+           <div>
+             <client-only class="w-50 ml-3 input-style">
+               <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
+                 <template #prefix>
+                   <IconFont size="16" type="icon-sousuo" @click="onSearch" />
+                 </template>
+               </ElInput>
+             </client-only>
+           </div>
+          </div>
+        </div>
+        <p class="mt-2 text-kd14px20px text-global-highTitle text-opacity-65 font-medium">KingData is a crypto platform for tracking private and public fundraising. We include latest information on seed, private, strategic, and IDO/IEO rounds.</p>
+      </div>
+      <!-- 列表  -->
+      <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <DAppInvestItem v-for="(item, index) in 8" :key="index"/>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.input-style {
+  ::v-deep(.el-input__inner) {
+    @apply border-1 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
+  }
+
+  ::v-deep(input::-webkit-input-placeholder) {
+    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+  }
+
+  ::v-deep(input::-ms-input-placeholder) {
+    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+  }
+}
+
+@screen md {
+  .input-style {
+    ::v-deep(.el-input__inner) {
+      @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
+    }
+
+    ::v-deep(input::-webkit-input-placeholder) {
+      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+    }
+
+    ::v-deep(input::-ms-input-placeholder) {
+      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+    }
+  }
+}
+</style>

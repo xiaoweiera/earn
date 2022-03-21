@@ -12,7 +12,8 @@ export const name = {
 	dapp: "new_dapp",
 	nft: "new_nft",
 	gamefi: "new_gamefi",
-	airdrop: "airdrop"
+	airdrop: "airdrop",
+	invest: "invest"
 }
 
 export const DApp = function (lang?: Lang): MenuItem {
@@ -53,6 +54,14 @@ export const DApp = function (lang?: Lang): MenuItem {
 				more: true,
 				header: true,
 				href: config.airdrop,
+			},
+			{
+				id: name.invest,
+				name: i18n.menu.dapp.invest, // 投融资
+				icon: 'icon-a-NFTxinxiangmu',
+				more: true,
+				header: true,
+				href: config.invest,
 			},
 		]
 	};

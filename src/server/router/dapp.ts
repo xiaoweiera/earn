@@ -21,6 +21,7 @@ const Router = function() {
     }
   });
   router.get(config.nftList, dApp.nftList);
+  router.get(config.invest, dApp.investList);
   return router;
 };
 export default Router;

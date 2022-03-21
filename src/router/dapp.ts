@@ -10,8 +10,8 @@ const routes = [
     component: () => import("src/pages/dapp/nft.vue"),
   },
   {
-    path: router.airdrop,
-    component: () => import("src/pages/dapp/discover.vue"),
+    path: router.invest,
+    component: () => import("src/pages/dapp/investment/index.vue"),
   },
 ];
 
