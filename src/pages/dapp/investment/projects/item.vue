@@ -41,11 +41,11 @@ list.value = new Array(20).fill("");
         </p>
       </div>
       <!-- 参与logo -->
-      <div :class="{'overlap': list.length > 9}" class="w-full mt-2 px-1.5 group-list">
+      <div :class="{ overlap: list.length > 9 }" class="w-full mt-2 px-1.5 group-list">
         <div class="w-full py-2 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex items-center">
           <template v-for="(item, index) in list" :key="index">
             <v-router class="block p-0.5 group-item bg-white rounded-1/2" href="https://www.google.com" target="_blank">
-              <ui-image class="w-6 h-6" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/NFT/a808e7d0c37f22b86ceef3abaa0f5161"/>
+              <ui-image class="w-6 h-6" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/NFT/a808e7d0c37f22b86ceef3abaa0f5161" />
             </v-router>
           </template>
           <a class="group-more link">
@@ -96,7 +96,7 @@ list.value = new Array(20).fill("");
       & ~ .group-item {
         @apply hidden;
       }
-      & ~ .group-more{
+      & ~ .group-more {
         @apply block;
       }
     }

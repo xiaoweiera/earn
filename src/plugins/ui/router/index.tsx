@@ -35,6 +35,19 @@ const VRouter = defineComponent({
       }
       return true;
     },
+    // 判断是否嵌套
+    isOverlap(e: Event): boolean {
+      // @ts-ignore
+      const path: HTMLElement[] = (e && e.path ? e.path : []) as HTMLElement[];
+      let flag = false;
+      for(const dom of path) {
+        if (dom && dom.tagName && Equals(_.toLower(dom.tagName), "a")) {
+          flag = true;
+          break;
+        }
+      }
+      return flag;
+    },
     async open(href: string, target: Target) {
       if (Equals(target, Target.blank)) {
         window.open(href);
@@ -53,7 +66,12 @@ const VRouter = defineComponent({
       return (<a class={ this.getClassValue() } href={href} target={target} onClickCapture={capture}>{content}</a>);
     },
     createSpan(href: string, target: Target, content: any) {
-      const onClick = () => {
+      const onClick = (e: Event) => {
+        const status = this.isOverlap(e);
+        if (status) {
+          e.stopPropagation();
+          return false;
+        }
         return this.open(href, target);
       };
       const capture = this.onClickCapture.bind(this);
@@ -61,7 +79,12 @@ const VRouter = defineComponent({
       return (<span class={ this.getClassValue() } onClick={onClick} onClickCapture={capture}>{content}</span>);
     },
     createDiv(href: string, target: Target, content: any) {
-      const onClick = () => {
+      const onClick = (e: Event) => {
+        const status = this.isOverlap(e);
+        if (status) {
+          e.stopPropagation();
+          return false;
+        }
         return this.open(href, target);
       };
       const capture = this.onClickCapture.bind(this);
