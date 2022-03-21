@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 const num = 17;
 const getLeft = function () {
-  if(num > 12){
-    return "-ml-1.25"
-  }else {
-    return "ml-1"
+  if (num > 12) {
+    return "-ml-1.25";
+  } else {
+    return "ml-1";
   }
-}
+};
 </script>
 
 <template>
@@ -38,7 +38,7 @@ const getLeft = function () {
       <div class="w-full mt-2 px-1.5">
         <div class="w-full py-2 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex">
           <div class="flex-1 flex justify-center">
-            <p :class="getLeft()" class="w-6 h-6 border-2 border-global-white box-content rounded-full" v-for="item in num-3" :key="item">
+            <p v-for="item in num - 3" :key="item" :class="getLeft()" class="w-6 h-6 border-2 border-global-white box-content rounded-full">
               <ui-image class="w-full h-full" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/NFT/a808e7d0c37f22b86ceef3abaa0f5161"></ui-image>
             </p>
           </div>
@@ -57,6 +57,4 @@ const getLeft = function () {
   </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

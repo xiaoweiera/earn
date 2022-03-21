@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n";
-import DAppInvestProjectsItem from "src/pages/dapp/investment/projects/item.vue"
-import DAppInvestFundItem from "src/pages/dapp/investment/fund/item.vue"
-
+import DAppInvestProjectsItem from "src/pages/dapp/investment/projects/item.vue";
+import DAppInvestFundItem from "src/pages/dapp/investment/fund/item.vue";
 
 const i18n = I18n();
 </script>
@@ -33,7 +32,7 @@ const i18n = I18n();
           <h4 class="text-kd24px28px text-global-highTitle font-kdBarlow">PROJECTS</h4>
         </div>
         <div class="mt-3 grid grid-cols-4 gap-6">
-          <DAppInvestProjectsItem v-for="(item, index) in 4" :key="index"/>
+          <DAppInvestProjectsItem v-for="(item, index) in 4" :key="index" />
         </div>
       </div>
       <!-- funds -->
@@ -42,13 +41,11 @@ const i18n = I18n();
           <h4 class="text-kd24px28px text-global-highTitle font-kdBarlow">FUNDS</h4>
         </div>
         <div class="mt-3 grid grid-cols-4 gap-6">
-          <DAppInvestFundItem v-for="(item, index) in 4" :key="index"/>
+          <DAppInvestFundItem v-for="(item, index) in 4" :key="index" />
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

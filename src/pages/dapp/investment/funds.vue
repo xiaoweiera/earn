@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { ElInput } from "element-plus";
 import I18n from "src/utils/i18n";
-import {ref} from "vue";
+import { ref } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import { uuid } from "src/utils";
 import { config } from "src/router/config";
 import _ from "lodash";
-import {getParam} from "src/utils/router";
-import {createHref} from "src/plugins/router/pack";
+import { getParam } from "src/utils/router";
+import { createHref } from "src/plugins/router/pack";
 import window from "src/plugins/browser/window";
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 
-import DAppInvestFundItem from "src/pages/dapp/investment/fund/item.vue"
+import DAppInvestFundItem from "src/pages/dapp/investment/fund/item.vue";
 
 const i18n = I18n();
 const search = ref<string>("");
@@ -21,7 +21,6 @@ const onSearch = _.debounce(async () => {
   const url = createHref(window.location.pathname, query);
   await $router.push(url);
 }, 300);
-
 </script>
 
 <template>
@@ -50,7 +49,7 @@ const onSearch = _.debounce(async () => {
       </div>
       <!--  -->
       <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <DAppInvestFundItem v-for="(item, index) in 8" :key="index"/>
+        <DAppInvestFundItem v-for="(item, index) in 8" :key="index" />
       </div>
     </div>
   </div>
