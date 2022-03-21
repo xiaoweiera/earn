@@ -78,11 +78,25 @@ const getIcon = (item: string) => {
             </td>
             <td>
               <div class="numberDefault text-number">
-                {{ toNumberCashFormat(item.floor_price, '$', '', '--') }}
+                <div v-if="item.floor_price">
+                  <IconFont v-if="item.chain" :type="getLog(item.chain)" size="16" />
+                  {{ toNumberCashFormat(item.floor_price, '', '', '') }}
+                </div>
+                <div v-else>
+                  --
+                </div>
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ toNumberCashFormat(item.mint_price, '$', '', '--') }}</div>
+              <div class="numberDefault text-number">
+                <div v-if="item.mint_price">
+                  <IconFont v-if="item.chain" :type="getLog(item.chain)" size="16" />
+                  {{ toNumberCashFormat(item.mint_price, '', '', '') }}
+                </div>
+                <div v-else>
+                  --
+                </div>
+              </div>
             </td>
             <td>
               <div class="flex-center justify-center">
