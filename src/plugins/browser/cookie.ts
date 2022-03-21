@@ -81,13 +81,20 @@ export default class Cookie {
     }
     return this.get(tokenName);
   }
-
+  // 修改用户登录时间
+  setUserLoginTime() {
+    const at = 1000 * 60 * 60 * 4; // 4小时过期时间
+    const now = Date.now();
+    this.set(userLogin, `${now}`, at);
+  }
+  // 获取用户登录时间
+  getUserLoginTime() {
+    return this.get(userLogin);
+  }
   // 修改用户信息
   setUserToken(value?: string) {
     if (value) {
-      const at = 1000 * 60 * 60 * 4; // 4小时过期时间
-      const now = Date.now();
-      this.set(userLogin, `${now}`, at);
+      this.setUserLoginTime();
       return this.set(tokenName, value, tokenExpires);
     } else {
       return this.removeUserToken();

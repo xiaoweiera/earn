@@ -53,9 +53,9 @@ const prepend = async function () {
   if (process && process.device) {
     // 设置设备类型
     cookie.setDeviceValue(process.device);
-
     // 判断浏览器中是否有 token 信息
     if (cookie.get(tokenName)) {
+      cookie.setUserLoginTime();
       return getCache();
     }
     // 如果有 token 信息
