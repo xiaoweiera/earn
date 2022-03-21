@@ -8,6 +8,7 @@ import I18n from "src/utils/i18n";
 import type { User } from "src/types/common/user";
 import { isConnect } from "src/logic/common/wallet";
 import { config as routerConfig } from "src/router/config";
+import Email from "./email.vue";
 
 defineProps({
   user: {
@@ -32,11 +33,14 @@ const getUserName = function (data: User): string | number {
     </div>
     <div class="border-t border-solid border-gray-300">
       <client-only v-if="!user.email" class="px-4 py-2 cursor-pointer">
-        <div class="flex items-center">
-          <IconFont class="text-global-primary" type="icon-email1" size="20" />
-          <span class="ml-2 text-14-18 whitespace-nowrap text-global-grey">邮箱绑定</span>
-          <IconFont class="ml-2" size="8" type="redTip" />
-        </div>
+        <!--绑定邮箱-->
+        <Email>
+          <div class="flex items-center">
+            <IconFont class="text-global-primary" type="icon-email1" size="20" />
+            <span class="ml-2 text-14-18 whitespace-nowrap text-global-grey">绑定邮箱</span>
+            <IconFont class="ml-2" size="8" type="redTip" />
+          </div>
+        </Email>
       </client-only>
       <div v-if="isConnect()" class="py-1 text-global-grey">
         <client-only>
