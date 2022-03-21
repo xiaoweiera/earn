@@ -3,10 +3,10 @@
  * @author svon.me@gmail.com
  */
 
-import * as zStd from "./zstd";
 import CryptoJS from "crypto-js";
 import * as base64 from "./base64";
 import { key, a as secret } from "./value";
+import * as console from "src/plugins/log/index";
 
 export const Crypto = async function <T>(value: T): Promise<string> {
   try {
@@ -14,14 +14,14 @@ export const Crypto = async function <T>(value: T): Promise<string> {
     const jsonText = JSON.stringify({ [key]: value });
     // base64 加密
     const base64Text = base64.compress(jsonText);
-    // 字符串压缩
-    const text = await zStd.compress(base64Text);
     // AES 加密
-    const data = CryptoJS.AES.encrypt(text, secret());
+    const data = CryptoJS.AES.encrypt(base64Text, secret());
     // 返回处理后的数据
     return data.toString();
   } catch (e) {
-    // todo
+    console.error("Crypto ");
+    console.error(value);
+    console.info(e);
   }
   return "";
 };
