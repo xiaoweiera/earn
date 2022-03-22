@@ -71,7 +71,7 @@ const onSearch = _.debounce(async () => {
 <style lang="scss" scoped>
 .input-style {
   ::v-deep(.el-input__inner) {
-    @apply border-1 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
+    @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
   }
 
   ::v-deep(input::-webkit-input-placeholder) {
@@ -86,7 +86,7 @@ const onSearch = _.debounce(async () => {
 @screen md {
   .input-style {
     ::v-deep(.el-input__inner) {
-      @apply border-1 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
+      @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
     }
 
     ::v-deep(input::-webkit-input-placeholder) {
