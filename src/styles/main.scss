@@ -35,23 +35,24 @@ body {
     @include clamp($i);
   }
 }
-
-a {
-  &.link {
-    @apply cursor-pointer;
-    @apply text-global-darkblue;
-  }
-  @at-root .ui-pagination & {
-    &.disable {
+%disable {
+  &.disable {
+    @apply cursor-default;
+    @at-root .ui-pagination & {
       cursor: not-allowed;
       color: #a8abb2;
     }
   }
 }
-.v-router {
-  &.disable {
-    @apply cursor-default;
+a {
+  &.link {
+    @apply cursor-pointer;
+    @apply text-global-darkblue;
   }
+  @extend %disable;
+}
+.v-router {
+  @extend %disable;
 }
 
 
