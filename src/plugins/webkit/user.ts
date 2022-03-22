@@ -37,7 +37,7 @@ export const Login = function () {
 export const IosUpdateEmail = function (): boolean {
   try {
     // @ts-ignore
-    window.webkit.messageHandlers.userUpdateEmail.postMessage();
+    window.webkit.messageHandlers.userUpdateEmail.postMessage(true);
     return true;
   } catch (e) {
     return false;
@@ -47,7 +47,7 @@ export const IosUpdateEmail = function (): boolean {
 export const AndroidUpdateEmail = function (): boolean {
   try {
     // @ts-ignore
-    window.kingdata.userUpdateEmail();
+    window.kingdata.userUpdateEmail(true);
     return true;
   } catch (e) {
     return false;
