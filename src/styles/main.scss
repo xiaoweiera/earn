@@ -42,6 +42,11 @@ a {
     @apply text-global-darkblue;
   }
 }
+.v-router {
+  &.disable {
+    @apply cursor-default;
+  }
+}
 
 
 .device {
