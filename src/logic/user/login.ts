@@ -2,10 +2,9 @@
  * @file 登录框
  */
 
+import { ref } from "vue";
 import API from "src/api/index";
 import Cookie from "src/plugins/browser/cookie";
-import { userLogin } from "src/config/";
-import { ref } from "vue";
 import { getValue } from "src/utils/root/data";
 import * as alias from "src/utils/root/alias";
 import type { User } from "src/types/common/user";
@@ -64,7 +63,7 @@ export const refresh = async function () {
   if (!token) {
     return false;
   }
-  const userAt = cookie.get(userLogin);
+  const userAt = cookie.getUserLoginTime();
   // 记录的登录时间还存在
   if (userAt) {
     return true;

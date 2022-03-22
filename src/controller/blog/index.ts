@@ -17,18 +17,12 @@ export const list = async function (req: Request, res: Response) {
   res.locals.menuActive = names.blog.blog;
   const id = safeGet<string>(req.query, "group");
 
-  const [list, tabs, ads, tops, hots] = await Promise.all([
-    api.getList(id),
-    api.getTabs(),
-    api.blog.ads(),
-    api.getTopList(),
-    api.getHotList(),
-  ]);
+  const [list, tabs, ads, tops, hots] = await Promise.all([api.getList(id), api.getTabs(), api.blog.ads(), api.getTopList(), api.getHotList()]);
 
   const result = {
-    title: i18n.blog.meta.title,
-    keywords: i18n.blog.meta.keywords,
-    description: i18n.blog.meta.description,
+    "title": i18n.blog.meta.title,
+    "keywords": i18n.blog.meta.keywords,
+    "description": i18n.blog.meta.description,
 
     "API.blog.ads": ads, // 广告
     [alias.blog.tabs]: tabs, // 分组
