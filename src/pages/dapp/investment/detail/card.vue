@@ -6,9 +6,7 @@ import I18n from "src/utils/i18n";
 const i18n = I18n();
 const twitterShare = ref<string>("https://twitter.com/share");
 const telegramShare = ref<string>("https://t.me/share/url");
-const copyUrl = function () {
-  copyTxtMessage(window.location.href, i18n.common.message.copyAlert);
-};
+const copyUrl = ()=>copyTxtMessage(window.location.href, i18n.common.message.copyAlert)
 
 onMounted(() => {
   twitterShare.value = `https://twitter.com/share?url=${window.location.href}`;
@@ -27,7 +25,7 @@ onMounted(() => {
         <a :href="telegramShare" class="icon-url" target="_blank">
           <IconFont type="icon-telegram" size="24" />
         </a>
-        <div class="icon-url" @click="copyUrl()">
+        <div class="icon-url hand" @click="copyUrl()">
           <IconFont type="icon-link" size="24" />
         </div>
       </div>
@@ -55,13 +53,13 @@ onMounted(() => {
         <p class="share">分享此页面</p>
         <div class="mt-3 flex items-center justify-center">
           <a :href="twitterShare" class="share-url" target="_blank">
-            <IconFont class="share-item" type="icon-twitter" size="24" />
+            <IconFont type="icon-twitter" size="16" />
           </a>
           <a :href="telegramShare" class="share-url" target="_blank">
-            <IconFont class="share-item" type="icon-telegram" size="24" />
+            <IconFont type="icon-telegram" size="16" />
           </a>
-          <div class="share-url" @click="copyUrl()">
-            <IconFont class="share-item" type="icon-link" size="24" />
+          <div class="share-url hand" @click="copyUrl()">
+            <IconFont type="icon-link" size="16" />
           </div>
         </div>
       </div>
@@ -72,7 +70,7 @@ onMounted(() => {
 .card{
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
   background: white;
-  @apply p-6 w-101 h-154.5 rounded-kd12px;
+  @apply p-6 rounded-kd12px;
 }
 .name{
   @apply mt-3 text-kd32px32px font-semibold text-global-highTitle;
@@ -104,7 +102,7 @@ onMounted(() => {
 }
 .share-url{
   border: 1px solid rgba(0, 111, 247, 0.12);
-  @apply text-global-primary w-12 h-12 flex items-center justify-center rounded-full;
+  @apply text-global-primary w-10 h-10 flex items-center justify-center rounded-full;
 }
 .share-url:not(:first-child){
   @apply ml-8;

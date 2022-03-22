@@ -131,10 +131,7 @@ const isFilter = () => {
   if (safeGet(props.info, "filters.chain.show") && safeGet(props.info, "filters.chain.options.length") > 0) {
     return true;
     // @ts-ignore
-  } else if (
-    safeGet(props.info, "filters.category.show") &&
-    safeGet(props.info, "filters.category.options.length") > 0
-  ) {
+  } else if (safeGet(props.info, "filters.category.show") && safeGet(props.info, "filters.category.options.length") > 0) {
     return true;
     // @ts-ignore
   } else if (safeGet(props.info, "filters.search.show") && safeGet(props.info, "filters.search.options.length") > 0) {
