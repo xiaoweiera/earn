@@ -1,4 +1,3 @@
-
 import apy from "./apy";
 import blog from "./blog";
 import common from "./common";
@@ -22,7 +21,7 @@ import airdrop from "./airdrop";
 import wallet from "./wallet";
 import file from "./file";
 import home from "./home";
-import invest from "./invest"
+import invest from "./invest";
 export default {
   home,
   airdrop,
@@ -47,5 +46,5 @@ export default {
   comment,
   wallet,
   file,
-  invest
+  invest,
 };

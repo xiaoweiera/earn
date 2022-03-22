@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import safeGet from "@fengqiaogang/safe-get";
-import {computed} from 'vue'
+import { computed } from "vue";
 
 const props = defineProps({
   sortData: {
@@ -16,12 +16,12 @@ const props = defineProps({
   name: {
     type: String,
     required: true,
-  }
+  },
 });
-const emit = defineEmits(['change'])
+const emit = defineEmits(["change"]);
 const sortIcon: any = {
-  desc: "icon-shuangxiangjiantou-down",
-  asc: "icon-shuangxiangjiantou-up",
+  "desc": "icon-shuangxiangjiantou-down",
+  "asc": "icon-shuangxiangjiantou-up",
   "": "icon-shuangxiangjiantou",
 };
 //icon切换
@@ -44,17 +44,17 @@ const change = () => {
     props.sortData.sort_type = "";
   }
   props.sortData.sort_field = props.keyName;
-  getIcon()
-  emit('change')
+  getIcon();
+  emit("change");
 };
-const borderCss = computed(() => props.keyName === props.sortData.sort_field ? 'sort-border' : '')
+const borderCss = computed(() => (props.keyName === props.sortData.sort_field ? "sort-border" : ""));
 </script>
 <template>
-  <div @click="change" class="item hand">
+  <div class="item hand" @click="change">
     <div class="item-content">
-      <IconFont class="relative mr-0.5" size="14" :type="getIcon()"/>
+      <IconFont class="relative mr-0.5" size="14" :type="getIcon()" />
       <p>{{ name }}</p>
-      <div :class="borderCss"/>
+      <div :class="borderCss" />
     </div>
   </div>
 </template>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
-import {copyTxtMessage} from "src/lib/tool";
+import { onMounted, ref } from "vue";
+import { copyTxtMessage } from "src/lib/tool";
 import window from "src/plugins/browser/window";
 import I18n from "src/utils/i18n";
 const i18n = I18n();
 const twitterShare = ref<string>("https://twitter.com/share");
 const telegramShare = ref<string>("https://t.me/share/url");
-const copyUrl = ()=>copyTxtMessage(window.location.href, i18n.common.message.copyAlert)
+const copyUrl = () => copyTxtMessage(window.location.href, i18n.common.message.copyAlert);
 
 onMounted(() => {
   twitterShare.value = `https://twitter.com/share?url=${window.location.href}`;
@@ -16,7 +16,7 @@ onMounted(() => {
 <template>
   <div class="card">
     <div class="text-center">
-      <ui-image class="md:w-30 md:h-30 w-20 h-20 w-full rounded-full mx-auto" src=""/>
+      <ui-image class="md:w-30 md:h-30 w-20 h-20 w-full rounded-full mx-auto" src="" />
       <p class="name font-kdSemiBold">Drunk Robots</p>
       <div class="flex items-center justify-center w-full mt-3">
         <a :href="twitterShare" class="icon-url" target="_blank">
@@ -71,47 +71,47 @@ onMounted(() => {
   </div>
 </template>
 <style scoped lang="scss">
-.card{
+.card {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
   background: white;
   @apply p-4 md:p-6 rounded-kd12px;
 }
-.name{
+.name {
   @apply mt-3 text-kd32px32px font-semibold text-global-highTitle;
 }
-.icon-url{
+.icon-url {
   @apply text-global-primary;
 }
-.icon-url:not(:first-child){
+.icon-url:not(:first-child) {
   @apply ml-4;
 }
-.des{
+.des {
   @apply text-kd14px20px text-global-highTitle text-opacity-85 font-medium text-left;
 }
-.card-des{
+.card-des {
   border: 1px solid rgba(3, 54, 102, 0.06);
   @apply bg-global-white w-1/2 md:w-43 h-17 rounded-kd12px overflow-hidden;
 }
-.card-des:nth-child(even){
+.card-des:nth-child(even) {
   @apply border-1 ml-3;
 }
-.title{
+.title {
   @apply flex items-center justify-center h-8.5 text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang;
 }
-.mount{
+.mount {
   @apply flex items-center justify-center h-8.5 text-kd18px18px text-global-white bg-global-primary font-medium;
 }
-.gang{
+.gang {
   border: 1px solid rgba(3, 54, 102, 0.06);
 }
-.share{
+.share {
   @apply text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang;
 }
-.share-url{
+.share-url {
   border: 1px solid rgba(0, 111, 247, 0.12);
   @apply text-global-primary w-10 h-10 flex items-center justify-center rounded-full;
 }
-.share-url:not(:first-child){
+.share-url:not(:first-child) {
   @apply ml-8;
 }
 </style>
