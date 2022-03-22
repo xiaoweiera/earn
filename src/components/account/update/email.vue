@@ -11,7 +11,6 @@ import { computed, ref, toRaw } from "vue";
 import * as Common from "src/logic/account/register";
 import { ValidateType } from "src/components/ui/validate/config";
 import { ElButton, ElCheckbox, ElForm, ElFormItem, ElInput } from "element-plus";
-import { refresh } from "src/logic/user/login";
 
 const i18n = I18n();
 const domForm = ref<any>(null);
@@ -29,9 +28,9 @@ const onSeadCode = async function (value: string | undefined) {
   // 保存人机校验得到的值
   formData.token = value;
 };
-const selfGoBack = function (token: string) {
-  // 返回
-  Common.onUpdateEmailCallback(domForm, token);
+// 返回
+const selfGoBack = function () {
+  Common.onUpdateEmailCallback(domForm);
 };
 
 // 确定，表单提交
@@ -47,12 +46,11 @@ const submit = async function () {
     const api = new API();
     // 获取表单数据
     const data: Common.FormData = toRaw(formData);
+    // 提交数据
     const status = await api.user.updateEmail(data);
     if (status) {
-      const token = await refresh(true); // 更新 token
-      if (token) {
-        selfGoBack(token);
-      }
+      // 执行返回逻辑
+      selfGoBack();
     }
   } catch (e: any) {
     // 提升异常信息

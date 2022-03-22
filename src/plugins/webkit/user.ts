@@ -34,29 +34,29 @@ export const Login = function () {
 };
 
 // 调用 ios 邮箱修改方法
-export const IosUpdateEmail = function (token: string): boolean {
+export const IosUpdateEmail = function (): boolean {
   try {
     // @ts-ignore
-    window.webkit.messageHandlers.userUpdateEmail.postMessage(token);
+    window.webkit.messageHandlers.userUpdateEmail.postMessage();
     return true;
   } catch (e) {
     return false;
   }
 };
 // 调用 android 邮箱修改方法
-export const AndroidUpdateEmail = function (token: string): boolean {
+export const AndroidUpdateEmail = function (): boolean {
   try {
     // @ts-ignore
-    window.kingdata.userUpdateEmail(token);
+    window.kingdata.userUpdateEmail();
     return true;
   } catch (e) {
     return false;
   }
 };
-
-export const UpdateEmail = function (token = "") {
-  if (IosUpdateEmail(token)) {
+// 修改用户邮箱
+export const UpdateEmail = function () {
+  if (IosUpdateEmail()) {
     return true;
   }
-  return AndroidUpdateEmail(token);
+  return AndroidUpdateEmail();
 };

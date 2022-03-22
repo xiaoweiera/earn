@@ -3,7 +3,6 @@
  * @author svon.me@gmail.com
  */
 
-import { UpdateEmail } from "src/plugins/webkit/user";
 // 平台标识
 import I18n from "src/utils/i18n";
 import { toBoolean } from "src/utils";
@@ -17,6 +16,7 @@ import { dashboard, languageKey } from "src/config/";
 import { createHref } from "src/plugins/router/pack";
 import { config as routerConfig } from "src/router/config";
 import * as console from "src/plugins/log/";
+import { refresh } from "src/logic/user/login";
 
 export const PlatformWeb = "web";
 
@@ -244,13 +244,16 @@ export const resetFields = function (form?: any) {
 };
 
 // 邮箱修改成功
-export const onUpdateEmailCallback = function (form?: any, token?: string) {
+export const onUpdateEmailCallback = async function (form?: any) {
   resetFields(form);
   // 唤起移动端对应功能
-  if (webkit.UpdateEmail(token)) {
+  if (webkit.UpdateEmail()) {
     return true;
   } else {
-    window.location.reload(); // 刷新当前页面
+    // 更新用户 token
+    await refresh(true);
+    // 刷新当前页面
+    window.location.reload();
   }
 };
 
