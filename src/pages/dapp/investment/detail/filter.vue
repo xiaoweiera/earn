@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
 import { ElOption, ElSelect,ElInput } from "element-plus";
-import I18n from "src/utils/i18n";
-const i18n = I18n();
 const projectType=ref('all')
 const investNumber=ref('all')
 const isSend=ref('all')

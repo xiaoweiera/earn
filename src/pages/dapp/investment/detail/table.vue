@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import {onMounted, ref,reactive,watch} from "vue";
+import {onMounted, ref,reactive} from "vue";
 import Filter from './filter.vue'
 import { dataToTimestamp} from "src/lib/tool";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getDateMDY } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
-import _ from "lodash";
 import {getParam} from "src/utils/router";
-import {Model} from "src/logic/home";
 const id = getParam<string>("id");
 const query = ref(getParam<string>("query"));
-const api = new Model();
 const i18n = I18n();
 const params = reactive({
   id,
@@ -24,7 +21,6 @@ const params = reactive({
 const data=ref([])
 const resultNumber = ref(0);
 const loading = ref(false);
-const aa=ref('aa')
 // 防抖
 const getData = _.debounce(async (clear?: boolean) => {
   await debounceData(clear);

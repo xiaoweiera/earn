@@ -10,7 +10,6 @@ import safeGet from "@fengqiaogang/safe-get";
 import type { BlogDetail } from "src/types/blog/";
 import * as alias from "src/utils/root/alias";
 import { go404 } from "src/controller/common/redirect";
-import { config as routerConfig } from "src/router/config";
 
 export const list = async function (req: Request, res: Response) {
   const i18n = I18n(req);
