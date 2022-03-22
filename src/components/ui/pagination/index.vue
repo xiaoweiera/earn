@@ -92,14 +92,14 @@ const onPrev = function () {
   }
 };
 
+
+let initFlat = true;
 const onNext = function () {
-  if (next) {
+  if (next.value) {
     const value = page.value + 1;
     return getData(getQuery(value));
   }
 };
-
-let initFlat = true;
 
 if (props.initValue) {
   if (props.initValue && isArray(props.initValue) && size(props.initValue) > 0) {
@@ -111,7 +111,7 @@ if (props.initValue) {
 
 onMounted(() => {
   if (initFlat && size(list.value) < 1) {
-    onNext();
+    return getData(getQuery(1));
   }
 });
 </script>

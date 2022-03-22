@@ -26,19 +26,19 @@ let initValue = true;
 const getInitValue = function() {
   if (initValue) {
     initValue = false;
-    return getValue<BlogData[]>(alias.blog.list, []);
+    return getValue<BlogData[]>(alias.invest.list.projects, []);
   }
 };
 const chain = ref(getParam<boolean>("chain"));
-const query = reactive({
-  page: 1,
-  page_size: 8,
-});
+
 // 获取 nft 列表
 const requestList = function(data: object) {
   const model = new Model();
-  const params = toRaw(query);
-  return model.getProjectsList({ ...params, ...data,  });
+  const query = {
+    ...data,
+    status: "ongoing"
+  }
+  return model.getProjectsList(query);
 };
 
 const onSearch = _.debounce(async () => {
