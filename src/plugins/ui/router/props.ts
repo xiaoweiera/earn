@@ -20,9 +20,11 @@ export enum Target {
 export const props = {
   name: {
     type: String as PropType<Name>,
+    default: () => Name.a,
   },
   href: {
     type: [String, Object],
+    default: "",
   },
   target: {
     type: String as PropType<Target>,
