@@ -30,6 +30,9 @@
     }
   },
   "dependencies": {
+    "@sentry/browser": "^6.19.1",
+    "@sentry/node": "^6.19.1",
+    "@sentry/tracing": "^6.19.1",
     "@fengqiaogang/argv": "^1.0.0",
     "@fengqiaogang/dblist": "^0.3.98",
     "@fengqiaogang/safe-get": "^0.1.1",
@@ -56,8 +59,6 @@
     "zstd-codec": "^0.1.4"
   },
   "devDependencies": {
-    "@sentry/browser": "^6.19.1",
-    "@sentry/tracing": "^6.19.1",
     "@types/compression": "^1.7.2",
     "@types/crypto-js": "^4.1.0",
     "@types/express": "^4.17.13",
