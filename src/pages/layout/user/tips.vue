@@ -3,6 +3,7 @@
  * @file 邮箱提示
  * @auth svon.me@gmail.com
  */
+import I18n from "src/utils/i18n/";
 import type { PropType } from "vue";
 import type { User } from "src/types/common/user";
 import Email from "./email.vue";
@@ -15,6 +16,8 @@ const props = defineProps({
     type: Object as PropType<User>,
   },
 });
+
+const i18n = I18n();
 
 const cookie = new Cookie();
 
@@ -43,10 +46,10 @@ onMounted(function () {
 <template>
   <div v-if="visible" class="tips-box transform -translate-x-6 translate-y-3">
     <div class="bg-white p-4 rounded-md flex items-center">
-      <span class="text-14-18 text-global-highTitle">您暂未绑定邮箱，请尽快绑定</span>
+      <span class="text-14-18 text-global-highTitle">{{ i18n.common.account.email.tips }}</span>
       <div class="ml-1.5">
         <Email>
-          <span class="cursor-pointer inline-block text-12-16 py-1 px-2 rounded-kd32px bg-global-darkblue text-white">去绑定</span>
+          <span class="cursor-pointer inline-block text-12-16 py-1 px-2 rounded-kd32px bg-global-darkblue text-white">{{ i18n.common.account.email.bind }}</span>
         </Email>
       </div>
       <div class="ml-4 flex cursor-pointer" @click="onHiddenTips">
@@ -58,6 +61,6 @@ onMounted(function () {
 
 <style scoped lang="scss">
 .tips-box {
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 </style>

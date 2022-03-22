@@ -16,6 +16,12 @@ export default {
   emailUpdate: "邮箱修改",
   lang: "EN",
   loginOut: "退出",
+  account: {
+    email: {
+      tips: "您暂未绑定邮箱，请尽快绑定",
+      bind: "去绑定",
+    },
+  },
   nav: {
     apply: "项目申请",
     about: { name: "产品介绍", href: "https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c" },
