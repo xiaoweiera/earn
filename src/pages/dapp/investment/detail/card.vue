@@ -16,9 +16,9 @@ onMounted(() => {
 <template>
   <div class="card">
     <div class="text-center">
-      <ui-image class="w-30 h-30 rounded-full mx-auto" src=""/>
+      <ui-image class="md:w-30 md:h-30 w-20 h-20 w-full rounded-full mx-auto" src=""/>
       <p class="name font-kdSemiBold">Drunk Robots</p>
-      <div class="flex items-center justify-center w-full mt-3.5">
+      <div class="flex items-center justify-center w-full mt-3">
         <a :href="twitterShare" class="icon-url" target="_blank">
           <IconFont type="icon-twitter" size="24" />
         </a>
@@ -30,25 +30,29 @@ onMounted(() => {
         </div>
       </div>
       <p class="des text-number">Drunk Robots has received investments from 4 investors. Their most recent funding round was on March 10, 2022, when they have raised 50.0K.</p>
-      <div class="flex items-center justify-between flex-wrap mt-6">
-        <div class="card-des">
-          <p class="title">成立年份</p>
-          <p class="mount font-kdSemiBold">2014</p>
+      <div class="mt-4 md:mt-6">
+        <div class="flex items-center">
+          <div class="card-des">
+            <p class="title">成立年份</p>
+            <p class="mount font-kdSemiBold">2014</p>
+          </div>
+          <div class="card-des">
+            <p class="title">最后投资</p>
+            <p class="mount font-kdSemiBold">12</p>
+          </div>
         </div>
-        <div class="card-des">
-          <p class="title">成立年份</p>
-          <p class="mount font-kdSemiBold">2014</p>
-        </div>
-        <div class="card-des mt-4">
-          <p class="title">成立年份</p>
-          <p class="mount font-kdSemiBold">2014</p>
-        </div>
-        <div class="card-des mt-4">
-          <p class="title">成立年份</p>
-          <p class="mount font-kdSemiBold">2014</p>
+        <div class="flex items-center mt-3">
+          <div class="card-des">
+            <p class="title">组合投资公司数</p>
+            <p class="mount font-kdSemiBold">12</p>
+          </div>
+          <div class="card-des">
+            <p class="title">投资数量</p>
+            <p class="mount font-kdSemiBold">24</p>
+          </div>
         </div>
       </div>
-      <div class="gang my-6"></div>
+      <div class="gang my-4 md:my-6"></div>
       <div>
         <p class="share">分享此页面</p>
         <div class="mt-3 flex items-center justify-center">
@@ -70,7 +74,7 @@ onMounted(() => {
 .card{
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
   background: white;
-  @apply p-6 rounded-kd12px;
+  @apply p-4 md:p-6 rounded-kd12px;
 }
 .name{
   @apply mt-3 text-kd32px32px font-semibold text-global-highTitle;
@@ -86,7 +90,10 @@ onMounted(() => {
 }
 .card-des{
   border: 1px solid rgba(3, 54, 102, 0.06);
-  @apply bg-global-white w-43 h-17 rounded-kd12px overflow-hidden;
+  @apply bg-global-white w-1/2 md:w-43 h-17 rounded-kd12px overflow-hidden;
+}
+.card-des:nth-child(even){
+  @apply border-1 ml-3;
 }
 .title{
   @apply flex items-center justify-center h-8.5 text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang;

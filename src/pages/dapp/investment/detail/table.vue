@@ -60,16 +60,16 @@ onMounted(()=>{
     <Filter />
 <!--    列表-->
     <div v-if="data.length || loading" class="showX">
-      <table class="table-my mt-4">
+      <table class="table-my my-4">
       <thead>
       <tr class="border-tb">
         <td><div class="sort pl-3 text-number">#</div></td>
-        <td><Sort @change="sort" class="sort" :sortData="params" keyName="name" name="Project Name"/></td>
-        <td><Sort @change="sort" class="sort justify-center" :sortData="params" keyName="type" name="Type"/></td>
-        <td><Sort @change="sort" class="sort justify-center" :sortData="params" keyName="round" name="Round"/></td>
-        <td><Sort @change="sort" class="sort justify-end" :sortData="params" keyName="money" name="投资金额"/></td>
-        <td><Sort @change="sort" class="sort justify-end" :sortData="params" keyName="date" name="日期"/></td>
-        <td><Sort @change="sort" class="sort justify-end pr-3" :sortData="params" keyName="state" name="项目状态"/></td>
+        <td><uiSort @change="sort" class="sort" :sortData="params" keyName="name" name="Project Name"/></td>
+        <td><uiSort @change="sort" class="sort justify-center" :sortData="params" keyName="type" name="Type"/></td>
+        <td><uiSort @change="sort" class="sort justify-center" :sortData="params" keyName="round" name="Round"/></td>
+        <td><uiSort @change="sort" class="sort justify-end" :sortData="params" keyName="money" name="投资金额"/></td>
+        <td><uiSort @change="sort" class="sort justify-end" :sortData="params" keyName="date" name="日期"/></td>
+        <td><uiSort @change="sort" class="sort justify-end pr-3" :sortData="params" keyName="state" name="项目状态"/></td>
       </tr>
       </thead>
       <tbody>
@@ -113,7 +113,7 @@ onMounted(()=>{
   @apply border-t-1 border-b-1 border-global-highTitle border-opacity-6;
 }
 .table-my{
-  @apply w-full;
+  @apply md:w-full w-180;
 }
 .numberDefault {
   @apply text-kd12px16px md:text-kd14px16px text-global-highTitle;
