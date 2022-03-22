@@ -22,6 +22,8 @@ export const userInfo = async function (req: Request, res: Response) {
     const api = new API(req);
     const data = await api.user.getInfo<User>();
     if (data) {
+      // @ts-ignore
+      req.user = data;
       safeSet(result, alias.common.user, data);
     }
   }

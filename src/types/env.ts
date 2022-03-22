@@ -1,4 +1,5 @@
 export interface ImportMetaEnv {
+  readonly VITE_name?: string; // 环境名称
   readonly VITE_mode: string; // 运行模式
   readonly VITE_command: string;
   readonly VITE_api: string; // 接口域名
