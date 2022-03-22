@@ -28,7 +28,6 @@ const getInitValue = function () {
     return getValue<BlogData[]>(alias.invest.list.projects, []);
   }
 };
-const chain = ref(getParam<boolean>("chain"));
 
 // 获取 nft 列表
 const requestList = function (data: object) {

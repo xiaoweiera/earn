@@ -7,12 +7,36 @@ import { getParam } from "src/utils/router";
 import { createHref } from "src/plugins/router/pack";
 import window from "src/plugins/browser/window";
 import { useRouter } from "vue-router";
+import { getValue } from "src/utils/root/data";
+import { BlogData } from "src/types/blog";
+import { Model } from "src/logic/dapp/invest";
+import { alias } from "src/utils/ssr/ref";
 
 import DAppInvestFundItem from "src/pages/dapp/investment/fund/item.vue";
 
 const i18n = I18n();
 const search = ref<string>("");
 const $router = useRouter();
+
+let initValue = true;
+
+const getInitValue = function () {
+  if (initValue) {
+    initValue = false;
+    return getValue<BlogData[]>(alias.invest.list.projects, []);
+  }
+};
+
+// 获取 nft 列表
+const requestList = function (data: object) {
+  const model = new Model();
+  const query = {
+    ...data,
+    status: "potential",
+  };
+  return model.getProjectsList(query);
+};
+
 const onSearch = _.debounce(async () => {
   const query = { ...getParam<object>(), query: search.value || "" };
   const url = createHref(window.location.pathname, query);
@@ -61,9 +85,13 @@ const onSearch = _.debounce(async () => {
         </div>
       </div>
       <!--  -->
-      <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <DAppInvestFundItem v-for="(item, index) in 8" :key="index" />
-      </div>
+      <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList">
+        <template #default="scope">
+          <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <DAppInvestFundItem v-for="(item, index) in scope.list" :key="index" />
+          </div>
+        </template>
+      </ui-pagination>
     </div>
   </div>
 </template>
