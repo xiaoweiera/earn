@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { ElInput } from "element-plus";
 import I18n from "src/utils/i18n";
-import {reactive, ref, toRaw} from "vue";
+import { ref } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
-import { uuid } from "src/utils";
 import { config } from "src/router/config";
 import _ from "lodash";
 import { getParam } from "src/utils/router";
 import { createHref } from "src/plugins/router/pack";
 import window from "src/plugins/browser/window";
 import { useRouter } from "vue-router";
-import { Model } from "src/logic/dapp/invest"
-import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
-import {getValue} from "src/utils/root/data";
-import {BlogData} from "src/types/blog";
+import { Model } from "src/logic/dapp/invest";
+import { alias } from "src/utils/ssr/ref";
+import { getValue } from "src/utils/root/data";
+import { BlogData } from "src/types/blog";
 
 import DAppDiscoversContentChain from "src/pages/dapp/discovers/content/chain.vue";
 import DAppInvestProjectsItem from "src/pages/dapp/investment/projects/item.vue";
@@ -23,7 +22,7 @@ const search = ref<string>("");
 const $router = useRouter();
 let initValue = true;
 
-const getInitValue = function() {
+const getInitValue = function () {
   if (initValue) {
     initValue = false;
     return getValue<BlogData[]>(alias.invest.list.projects, []);
@@ -32,12 +31,12 @@ const getInitValue = function() {
 const chain = ref(getParam<boolean>("chain"));
 
 // 获取 nft 列表
-const requestList = function(data: object) {
+const requestList = function (data: object) {
   const model = new Model();
   const query = {
     ...data,
-    status: "ongoing"
-  }
+    status: "ended",
+  };
   return model.getProjectsList(query);
 };
 
@@ -107,7 +106,7 @@ const onSearch = _.debounce(async () => {
         <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList">
           <template #default="scope">
             <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <DAppInvestProjectsItem v-for="(item, index) in 8" :key="index" />
+              <DAppInvestProjectsItem v-for="(item, index) in scope.list" :key="index" />
             </div>
           </template>
         </ui-pagination>

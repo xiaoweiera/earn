@@ -2,9 +2,6 @@
 import { ElInput } from "element-plus";
 import I18n from "src/utils/i18n";
 import { ref } from "vue";
-import safeGet from "@fengqiaogang/safe-get";
-import { uuid } from "src/utils";
-import { config } from "src/router/config";
 import _ from "lodash";
 import { getParam } from "src/utils/router";
 import { createHref } from "src/plugins/router/pack";

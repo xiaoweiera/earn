@@ -20,7 +20,6 @@ import Quota from "./quota/index.vue";
 import HomeRecommend from "./recommend.vue";
 import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
-import HomeInvest from "./invest.vue";
 
 useReactiveProvide(stateAlias.ui.tab);
 
@@ -63,16 +62,16 @@ onMounted(() => {
       <DAppHomeAirdrop class="mt-11 md:mt-17.5" />
       <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!-- 投融资项目 -->
-<!--      <HomeInvest class="mt-11 md:mt-17.5"/>-->
+      <!--      <HomeInvest class="mt-11 md:mt-17.5"/>-->
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
-@import 'src/styles/function';
+@import "src/styles/function";
 
 .top {
   background-color: #e5e5e51a;
-  background-image: cdn('/dapp/homebeijing.jpeg');
+  background-image: cdn("/dapp/homebeijing.jpeg");
   background-size: 100% 652px;
   background-repeat: no-repeat;
 }
