@@ -28,7 +28,14 @@ export const before = function (app: Express) {
       ],
       tracesSampleRate: 5.0,
     });
-    app.use(Sentry.Handlers.requestHandler());
+    app.use(
+      Sentry.Handlers.requestHandler({
+        request: ["method", "url", "query_string"],
+        transaction: "methodPath",
+        ip: true,
+        user: ["id", "nickname", "email", "mobile"],
+      }),
+    );
     app.use(Sentry.Handlers.tracingHandler());
   }
 };

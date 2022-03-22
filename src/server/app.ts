@@ -35,9 +35,6 @@ const main = async function () {
   });
   console.log(config);
 
-  // 开始监听日志
-  logs.before(app);
-
   app.use(Site(root, config));
   app.use(cors);
 
@@ -45,9 +42,11 @@ const main = async function () {
   app.use(assets);
 
   app.use(CookieParser());
-  // app.use(userAgent.express());
   // 处理公共数据
   app.use(common);
+
+  // 开始监听日志
+  logs.before(app);
 
   const router = await Router(root, config);
   app.use(router);
