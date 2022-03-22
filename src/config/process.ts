@@ -14,7 +14,7 @@ const _getOsProcess = function (): ImportMetaEnv {
   } as ImportMetaEnv;
   try {
     const data = process.env || {};
-    const keys = ["VITE_mode", "VITE_command", "VITE_api", "VITE_productionApi", "VITE_LanApi", "VITE_domain", "VITE_cookie", "VITE_baiduTag", "VITE_googleTag", "VITE_googleCaptcha", "VITE_staticPath", "VITE_staticDomain", "VITE_secret", "VITE_gio"];
+    const keys = ["VITE_name", "VITE_mode", "VITE_command", "VITE_api", "VITE_productionApi", "VITE_LanApi", "VITE_domain", "VITE_cookie", "VITE_baiduTag", "VITE_googleTag", "VITE_googleCaptcha", "VITE_staticPath", "VITE_staticDomain", "VITE_secret", "VITE_gio"];
     for (const name of keys) {
       const value = safeGet<string>(data, name);
       safeSet(env, name, value);

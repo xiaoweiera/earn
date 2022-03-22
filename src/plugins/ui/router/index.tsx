@@ -36,6 +36,19 @@ const VRouter = defineComponent({
       }
       return true;
     },
+    // 判断是否嵌套
+    isOverlap(e: Event): boolean {
+      // @ts-ignore
+      const path: HTMLElement[] = (e && e.path ? e.path : []) as HTMLElement[];
+      let flag = false;
+      for(const dom of path) {
+        if (dom && dom.tagName && AnyEquals(dom.tagName, "a")) {
+          flag = true;
+          break;
+        }
+      }
+      return flag;
+    },
     async open(href: string, target: Target) {
       if (AnyEquals(target, Target.blank)) {
         window.open(href);
@@ -54,16 +67,29 @@ const VRouter = defineComponent({
       return (<RouterLink class={ this.getClassValue() } to={href} onClickCapture={capture}>{content}</RouterLink>);
     },
     otherLink (href: string, target: Target, content: any, name: string) {
-      const onClick = () => {
+      // 是否为 a 标签
+      const isAElement = AnyEquals(this.name, Name.a);
+      // 捕获阶段事件
+      const onClickCapture = this.onClickCapture.bind(this);
+      // 冒泡阶段事件
+      const onClick = (e: Event) => {
+        if (isAElement) {
+          return true;
+        }
+        const status = this.isOverlap(e);
+        if (status) {
+          e.stopPropagation();
+          return false;
+        }
         return this.open(href, target);
       };
       if (href) {
         const props = {
           onClick,
-          onClickCapture: this.onClickCapture.bind(this),
+          onClickCapture,
           "class": this.getClassValue(),
         };
-        if (AnyEquals(this.name, Name.a)) {
+        if (isAElement) {
           safeSet(props, "href", href);
           safeSet(props, "target", target);
         }
