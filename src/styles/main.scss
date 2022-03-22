@@ -48,6 +48,11 @@ a {
     }
   }
 }
+.v-router {
+  &.disable {
+    @apply cursor-default;
+  }
+}
 
 
 .device {

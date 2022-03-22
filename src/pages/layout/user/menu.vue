@@ -21,7 +21,7 @@ const i18n = I18n();
 
 // 获取昵称
 const getUserName = function (data: User): string | number {
-  return data.nickname || data.username || data.email || data.mobile;
+  return data.nickname || data.mobile || data.email;
 };
 </script>
 <template>
