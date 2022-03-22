@@ -1,12 +1,7 @@
 <script lang="ts" setup>
-const num = 17;
-const getLeft = function () {
-  if (num > 12) {
-    return "-ml-1.25";
-  } else {
-    return "ml-1";
-  }
-};
+import { ref } from "vue";
+const list = ref<any[]>([]);
+list.value = new Array(19).fill("");
 </script>
 
 <template>
@@ -34,17 +29,16 @@ const getLeft = function () {
           <span class="text-kd14px18px text-global-highTitle text-opacity-65 font-medium font-kdFang">investors</span>
         </p>
       </div>
-      <!-- 参与logo -->
-      <div class="w-full mt-2 px-1.5">
-        <div class="w-full py-2 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex">
-          <div class="flex-1 flex justify-center">
-            <p v-for="item in num - 3" :key="item" :class="getLeft()" class="w-6 h-6 border-2 border-global-white box-content rounded-full">
-              <ui-image class="w-full h-full" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/NFT/a808e7d0c37f22b86ceef3abaa0f5161"></ui-image>
-            </p>
-          </div>
-          <p class="flex items-center">
-            <span class="text-kd16px20px text-global-darkblue font-kdBarlow font-medium">+24</span>
-          </p>
+      <div :class="{ overlap: list.length > 9 }" class="w-full mt-2 px-1.5 group-list">
+        <div class="w-full py-2 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex justify-center items-center">
+          <template v-for="(item, index) in list" :key="index">
+            <v-router class="block p-0.5 group-item bg-white rounded-1/2" href="https://www.google.com" target="_blank">
+              <ui-image class="w-6 h-6" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/NFT/a808e7d0c37f22b86ceef3abaa0f5161" />
+            </v-router>
+          </template>
+          <a class="group-more link">
+            <span class="text-kd16px20px font-kdBarlow font-medium">+24</span>
+          </a>
         </div>
       </div>
       <!-- 更多 -->
@@ -57,4 +51,32 @@ const getLeft = function () {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@mixin overlap($num) {
+  .group-item {
+    @apply -ml-1.75;
+    &:nth-child(#{$num}) {
+      & ~ .group-item {
+        @apply hidden;
+      }
+      & ~ .group-more {
+        @apply block;
+      }
+    }
+  }
+}
+.group-list {
+  .group-more {
+    @apply hidden ml-auto;
+  }
+  &.overlap {
+    @include overlap(14);
+    @screen lg {
+      @include overlap(11);
+    }
+  }
+  &:not(.overlap) {
+    @apply justify-center;
+  }
+}
+</style>

@@ -86,4 +86,20 @@ export default class extends ApiTemplate {
   getAirdropList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+  // 投融资的project数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList, expire.min30)
+  @userToken()
+  @validate
+  getProjectsList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // 投融资的funds数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList, expire.min30)
+  @userToken()
+  @validate
+  getFundsList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
 }

@@ -27,8 +27,8 @@ const onSearch = _.debounce(async () => {
   <div>
     <!-- 机构 -->
     <div>
-      <!-- 头部-->
-      <div>
+      <!-- pc端头部-->
+      <div class="hidden md:block">
         <div class="flex justify-between items-center">
           <!-- 标题  -->
           <h3 class="text-kd40px40px text-global-highTitle font-kdSemiBold">
@@ -46,6 +46,22 @@ const onSearch = _.debounce(async () => {
           </div>
         </div>
         <p class="mt-2 text-kd14px20px text-global-highTitle text-opacity-65 font-medium">KingData is a crypto platform for tracking private and public fundraising. We include latest information on seed, private, strategic, and IDO/IEO rounds.</p>
+      </div>
+      <!-- 手机端头部 -->
+      <div class="block md:hidden">
+        <h3 class="text-kd40px40px text-global-highTitle font-kdSemiBold">
+          <span>FUNDS 🏦</span>
+        </h3>
+        <p class="mt-3 text-kd14px20px text-global-highTitle text-opacity-65 font-medium">KingData is a crypto platform for tracking private and public fundraising. We include latest information on seed, private, strategic, and IDO/IEO rounds.</p>
+        <div class="mt-4 w-full">
+          <client-only class="w-full input-style">
+            <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
+              <template #prefix>
+                <IconFont size="16" type="icon-sousuo" @click="onSearch" />
+              </template>
+            </ElInput>
+          </client-only>
+        </div>
       </div>
       <!--  -->
       <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
