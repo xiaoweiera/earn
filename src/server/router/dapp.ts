@@ -5,9 +5,8 @@ import * as dApp from "src/controller/dapp";
 import redirect from "src/controller/common/redirect";
 import type { Request, Response } from "express";
 import { Router as ExpressRouter } from "express";
-import * as home from "src/controller/home";
 
-const Router = function() {
+const Router = function () {
   const router = ExpressRouter();
 
   // 列表
