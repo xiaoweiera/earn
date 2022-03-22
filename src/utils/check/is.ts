@@ -126,29 +126,7 @@ export const isElement = function (value: any) {
   if (isEmpty(value) || isString(value) || isNumber(value) || isArray(value)) {
     return false;
   }
-  if (value && value.activeElement) {
-    return true;
-  }
-  return false;
-  //
-  // // @ts-ignore
-  // if (value instanceof HTMLElement) {
-  //   return true;
-  // }
-  // let flag = true;
-  // if (isObject(value)) {
-  //   flag = true;
-  // }
-  //
-  // if (flag) {
-  //   if (typeof value.nodeName === "string") {
-  //     return true;
-  //   }
-  //   if (value?.navigator) {
-  //     return true;
-  //   }
-  // }
-  return false;
+  return !!(value && value.activeElement);
 };
 
 export const Equals = function (...args: Array<string | number>): boolean {
@@ -165,4 +143,12 @@ export const Equals = function (...args: Array<string | number>): boolean {
     }
   }
   return status;
+};
+// 不区分大小写比较
+export const AnyEquals = function (...args: Array<string | number>): boolean {
+  const arr: string[] = _.map(args, function (value: string | number) {
+    const text = _.trim(`${value}`);
+    return _.toLower(text);
+  });
+  return Equals(...arr);
 };

@@ -6,9 +6,3 @@ export default defineComponent({
   extends: router,
 });
 </script>
-
-<style scoped lang="scss">
-.disable {
-  @apply cursor-default;
-}
-</style>
