@@ -1,11 +1,12 @@
 import safeGet from "@fengqiaogang/safe-get";
 import { Model } from "src/logic/dapp";
+import { Model as InvestModel } from "src/logic/dapp/invest";
 import type { Request, Response } from "express";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
 
-export const list = async function(req: Request, res: Response) {
+export const list = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   // 判断当前是否为 igo
@@ -37,10 +38,7 @@ export const list = async function(req: Request, res: Response) {
     is_igo: !!is_igo,
     query: search || "",
   };
-  const [list, summary] = await Promise.all([
-    api.getList(projectParams),
-    api.home.getSummary(),
-  ]);
+  const [list, summary] = await Promise.all([api.getList(projectParams), api.home.getSummary()]);
   const result = {
     "title": is_igo ? i18n.home.webIgo.title : i18n.home.webIdo.title,
     "keywords": i18n.home.webIdo.key,
@@ -53,7 +51,7 @@ export const list = async function(req: Request, res: Response) {
 };
 
 // nft列表
-export const nftList = async function(req: Request, res: Response) {
+export const nftList = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   res.locals.menuActive = names.dapp.nft;
@@ -61,8 +59,8 @@ export const nftList = async function(req: Request, res: Response) {
   if (!query.status) {
     query.status = "upcoming";
   }
-  const [list, summary] = await Promise.all([
-    api.getNftList(query),
+  const [summary] = await Promise.all([
+    // api.getNftList(query),
     api.home.getSummary(),
   ]);
   const result = {
@@ -70,8 +68,32 @@ export const nftList = async function(req: Request, res: Response) {
     keywords: i18n.home.webNft.key,
     description: i18n.home.webNft.des,
 
-    [alias.nft.list]: list, // nft数据
+    // [alias.nft.list]: list, // nft数据
     [alias.dApp.summary.list]: summary,
+  };
+  res.send(result);
+};
+
+//投融资列表
+export const investList = async function (req: Request, res: Response) {
+  const api = new InvestModel(req);
+  res.locals.menuActive = names.dapp.invest;
+  const query: any = { ...req.query, paginate: true };
+  const params: any = { ...req.query, paginate: true };
+  const [project, funds] = await Promise.all([api.getProjectsList(query), api.getFundsList(params)]);
+  const result = {
+    [alias.invest.list.projects]: project, // 投融资项目
+    [alias.invest.list.funds]: funds, //投资动向
+  };
+  res.send(result);
+};
+//投融资详情
+export const investDetail = async function (req: Request, res: Response) {
+  const i18n = I18n(req);
+  const result = {
+    title: i18n.home.webNft.title,
+    keywords: i18n.home.webNft.key,
+    description: i18n.home.webNft.des,
   };
   res.send(result);
 };

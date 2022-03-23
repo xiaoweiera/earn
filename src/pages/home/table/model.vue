@@ -47,11 +47,9 @@ const toProject = (url: string) => {
         </thead>
         <tbody>
           <template v-for="(item, index) in safeGet(data, 'table.items')" :key="index">
-            <tr class="h-10 md:h-10.7 hand" @click="toProject(item.url)">
+            <tr class="model-tbody-tr hand" @click="toProject(item.url)">
               <td class="number text-left">
-                <v-router :href="item.url" target="_blank" class="text-left w-3.5" @click.prevent>{{
-                  index + 1
-                }}</v-router>
+                <v-router :href="item.url" target="_blank" class="text-left w-3.5" @click.prevent>{{ index + 1 }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in safeGet(data, 'table.header')" :key="index">
                 <td v-if="itemTwo.key !== 'id'">
@@ -66,6 +64,9 @@ const toProject = (url: string) => {
   </div>
 </template>
 <style scoped lang="scss">
+.model-tbody-tr {
+  @apply h-10 md:h-10.7;
+}
 .title {
   @apply text-kd16px22px md:text-kd18px24px font-medium font-kdFang text-global-highTitle;
 }

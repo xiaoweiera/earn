@@ -20,6 +20,7 @@ export const dapp = {
   tabs: "/api/v1/site/config", // 项目类型搜索条件
   ixo: "/api/v1/dapps/ixo",
   airdropList: "/api/dapps/v1/airdrop", //空投首页列表
+  investList: "/api/dapps/v1/airdrop", //投融资列表
 };
 
 export const blog = {
