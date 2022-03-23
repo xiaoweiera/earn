@@ -17,7 +17,7 @@ import DAppDiscoversList from "./discovers/list.vue";
 import DAppDiscoversEndlist from "./discovers/endlist.vue";
 import DAppDiscoversSearch from "./discovers/search.vue";
 import DAppDiscoversHeader from "./discovers/header.vue";
-import DAppDiscoversAd from "./discovers/ad.vue";
+import HomeAd from "src/pages/home/ad.vue";
 
 const i18n = I18n();
 const api = new Model();
@@ -148,12 +148,12 @@ const getFilter = function (data: any) {
   <div class="discover-warp px-3 md:px-22.5">
     <div class="content pt-8">
       <!-- 头部 -->
-      <div class="header mb-8">
+      <div class="header mb-6">
         <DAppDiscoversHeader :title="getName()" :tips="i18n.home.IdoIgo.desc" />
       </div>
       <!-- 广告 -->
-      <div class="my-6">
-        <DAppDiscoversAd />
+      <div class="w-full">
+        <HomeAd class="mb-6" :position="24" />
       </div>
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
