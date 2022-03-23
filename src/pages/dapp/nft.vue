@@ -30,7 +30,7 @@ const sort = reactive({
 const [query] = useReactiveProvide<object>(stateAlias.ui.tab, {});
 
 // 获取 nft 列表
-const requestList = function(data: object) {
+const requestList = function (data: object) {
   const model = new Model();
   const params = toRaw(query);
   return model.getNftList({ ...params, ...data, ...sort });
@@ -39,7 +39,7 @@ const requestList = function(data: object) {
 // 获取类型
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 
-const initValue = function() {
+const initValue = function () {
   if (initStatus) {
     initStatus = false;
     return getValue(alias.nft.list, []);
@@ -54,12 +54,12 @@ onMounted(() => {
   });
   // 监听路由变化
   useWatch(query, () => {
-    sort.sort_type = "",
-    sort.sort_field = "",// 置空排序参数，此处逻辑不需要设置排序参数
-    key.value = uuid();
+    (sort.sort_type = ""),
+    (sort.sort_field = ""), // 置空排序参数，此处逻辑不需要设置排序参数
+    (key.value = uuid());
   });
 });
-const changeSort = function(val: any) {
+const changeSort = function (val: any) {
   if (!sort.sort_type || sort.sort_field !== val) {
     sort.sort_type = "desc";
   } else if (sort.sort_type === "desc") {
@@ -71,10 +71,8 @@ const changeSort = function(val: any) {
   sort.sort_field = val;
   // 重新渲染列表
   sortKey.value = uuid();
-
-
 };
-const getFilter = function(data: any) {
+const getFilter = function (data: any) {
   const status = getParam<string>("status");
   if (data && (data.nft_upcoming || data.nft_ended)) {
     if (status === NftTabTypes.history) {
@@ -110,11 +108,11 @@ const getFilter = function(data: any) {
             </div>
             <!--进行中-->
             <div v-else class="pb-1">
-              <div v-for="data in transformNftList(scope.list)" :key="data.title">
+              <div v-for="data in transformNftList(scope.list)" :key="data.date">
                 <h3 class="py-4">{{ data.title }}</h3>
                 <div class="coming-item showX">
-                  <div v-for="(item, index ) in data.list" :key="index">
-                    <DAppNftList :data="item" class="md:ml-0 xl:ml-0 lg:ml-0" :class="{'ml-6' : index > 0}" />
+                  <div v-for="(item, index) in data.list" :key="item.id">
+                    <DAppNftList :data="item" class="md:ml-0 xl:ml-0 lg:ml-0" :class="{ 'ml-6': index > 0 }" />
                   </div>
                 </div>
               </div>
@@ -147,5 +145,4 @@ const getFilter = function(data: any) {
     @apply grid grid-cols-5 gap-6;
   }
 }
-
 </style>

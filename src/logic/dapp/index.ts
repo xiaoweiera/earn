@@ -244,14 +244,14 @@ export const transformNftList = function (list: ProjectNftItem[]) {
   });
   return _.map(_.sortBy(_.uniq(days)), (date: number) => {
     return {
+      date,
       title: getTodayTime(date),
       list: db.select({ date }),
     };
   });
 };
 // 高亮显示
-export const getClassColor = (v: any) =>
-  v > 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle";
+export const getClassColor = (v: any) => (v > 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle");
 
 // 根据语言获取宽度
 export const getClassWidth = function () {
