@@ -26,7 +26,7 @@ const getUrl = (data: any) => {
 onMounted(() => {
   const api = new Model();
   // 得到数据汇总
-  onLoadRef(adsList, () => api.getAdList(21));
+  onLoadRef(adsList, () => api.getAdList(2));
 });
 </script>
 <template>
