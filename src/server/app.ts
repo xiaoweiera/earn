@@ -36,7 +36,7 @@ const main = async function () {
   console.log(config);
 
   app.use(Site(root, config));
-  app.use(cors);
+  app.use(cors());
 
   const assets = await Assets(root, config);
   app.use(assets);
