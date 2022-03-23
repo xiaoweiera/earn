@@ -30,10 +30,11 @@ const main = async function () {
   setTimeout(init);
   const app = Express();
   const config = Object.assign({}, getEnv(), {
+    root,
     port: process.env.port || 3333,
     host: process.env.host || "0.0.0.0",
   });
-  console.log(config);
+  console.info(config);
 
   app.use(Site(root, config));
   app.use(cors());

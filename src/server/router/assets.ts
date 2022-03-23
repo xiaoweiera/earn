@@ -12,6 +12,7 @@ import { Command } from "src/config";
 import { goHome } from "src/controller/common/redirect";
 import type { Request, Response } from "express";
 import Express, { Router } from "express";
+import * as console from "src/plugins/log/";
 
 // 代理静态服务
 const staticServer = function (src: string) {
@@ -61,6 +62,7 @@ const Assets = async function (root: string, env: Env) {
   // 获取静态文件夹下文件列表
   const files = staticFiles(`${root}/public`);
   for (const item of files) {
+    console.log("assets : ", item.dir);
     const data = fs.statSync(item.dir);
     if (data.isDirectory()) {
       // 如果是文件夹
