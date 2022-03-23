@@ -141,8 +141,8 @@ export const footers = function (lang?: Lang): MenuItem[] {
         {
           name: i18n.menu.service.businessCooperation,
           href: "https://t.me/sue8639313",
-          icon: "icon-telegram",
-          value: "@sue8639313",
+          // icon: "icon-telegram",
+          // value: "@sue8639313",
           blank: true,
         },
       ],
