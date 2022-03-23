@@ -137,7 +137,7 @@ onMounted(() => {
         </div>
         <!--无限模式-->
         <template v-else>
-          <div v-show="next" class="mtt-3 text-center">
+          <div v-show="next" class="mt-3 text-center">
             <ui-button-more :value="nextMore" :request="onNext" />
           </div>
         </template>
