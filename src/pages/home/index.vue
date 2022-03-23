@@ -37,8 +37,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="top min-h-164 pt-3 md:pt-5 md:pb-16 pb-7">
-    <div class="md:max-w-360 md:px-22.5 px-3 mx-auto">
+  <div class="top home-container">
+    <div class="home-content">
       <!--      顶部信息-->
       <HomeHeader v-if="summary" :data="summary" />
       <!--            话题切换-->
@@ -68,7 +68,12 @@ onMounted(() => {
 </template>
 <style lang="scss" scoped>
 @import "src/styles/function";
-
+.home-container {
+  @apply min-h-164 pt-3 md:pt-5 md:pb-16 pb-7;
+}
+.home-content {
+  @apply md:max-w-360 md:px-22.5 px-3 mx-auto;
+}
 .top {
   background-color: #e5e5e51a;
   background-image: cdn("/dapp/homebeijing.jpeg");

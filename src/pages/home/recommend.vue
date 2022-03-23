@@ -59,7 +59,7 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div class="text-kd20px20px md:text-kd24px24px relative font-kdSemiBold text-global-highTitle font-semibold">{{ i18n.home.hotTopic }}</div>
+    <div class="com-container font-kdSemiBold font-semibold">{{ i18n.home.hotTopic }}</div>
     <div class="mt-3 relative">
       <div class="w-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
@@ -89,6 +89,9 @@ onMounted(() => {
   </div>
 </template>
 <style lang="scss" scoped>
+.com-container {
+  @apply text-kd20px20px md:text-kd24px24px relative text-global-highTitle;
+}
 .left {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute left-3 z-10 top-20;
@@ -110,7 +113,7 @@ onMounted(() => {
 .info {
   @apply flex items-center justify-between px-2.5 md:px-3 w-full  absolute bottom-2 md:bottom-2 z-999;
   .name {
-    text-shadow:  0px 2px 4px rgba(0, 0, 0, 0.48);
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.48);
     @apply relative z-5 text-kd22px26px md:text-kd26px31px font-medium text-global-white;
   }
 }
