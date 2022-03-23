@@ -14,7 +14,12 @@ import { Model } from "src/logic/home";
 import VRouter from "src/components/v/router.vue";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
-
+const props = defineProps({
+  position: {
+    type: Number,
+    required: true,
+  },
+});
 const adsList = createRef("API.home.ads", []);
 const getUrl = (data: any) => {
   if (document.body.clientWidth > 768) {
@@ -26,7 +31,7 @@ const getUrl = (data: any) => {
 onMounted(() => {
   const api = new Model();
   // 得到数据汇总
-  onLoadRef(adsList, () => api.getAdList(2));
+  onLoadRef(adsList, () => api.getAdList(props.position));
 });
 </script>
 <template>

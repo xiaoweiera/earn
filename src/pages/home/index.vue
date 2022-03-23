@@ -48,7 +48,7 @@ onMounted(() => {
       <!--            topic推荐-->
       <HomeRecommend class="mt-6" />
       <!--      广告位-->
-      <HomeAd class="mt-4 md:mt-6" :position="20" />
+      <HomeAd class="mt-4 md:mt-6" :position="21" />
       <!--指标-->
       <Quota v-if="isShowQuota()" class="mt-15" />
       <!--  nft模块  -->
