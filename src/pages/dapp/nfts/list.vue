@@ -13,9 +13,7 @@ defineProps({
 });
 </script>
 <template>
-  <div
-    class="nft-items h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer"
-  >
+  <div class="nft-items h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer">
     <div v-if="data.data_type === ProjectType.ad" class="nft-row h-full">
       <DappNftsAd :data="data" />
     </div>

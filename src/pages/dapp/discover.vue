@@ -177,11 +177,7 @@ const getFilter = function (data: any) {
         </p>
       </div>
     </div>
-    <div
-      v-if="list?.length > 0 && resultNumber >= params.page_size && resultNumber <= list?.length"
-      class="more"
-      @click="getMore"
-    >
+    <div v-if="list?.length > 0 && resultNumber >= params.page_size && resultNumber <= list?.length" class="more" @click="getMore">
       {{ i18n.home.loadingMore }}
     </div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0" />

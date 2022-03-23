@@ -26,13 +26,12 @@ const getUrl = (data: any) => {
 onMounted(() => {
   const api = new Model();
   // 得到数据汇总
-  onLoadRef(adsList, () => api.getAdList(2));
+  onLoadRef(adsList, () => api.getAdList(21));
 });
 </script>
 <template>
   <div v-if="adsList.length > 0" class="w-full h-full relative">
-    <div class="ad text-number">AD</div>
-    <Swiper class="h-15 rounded-kd6px" :initial-slide="0" :loop="true" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true }">
+    <Swiper class="h-15 rounded-kd6px" :initial-slide="0" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true }">
       <template v-for="(item, index) in adsList" :key="index">
         <SwiperSlide>
           <v-router :href="item['url']" target="_blank" class="w-full h-15 hand">
@@ -41,17 +40,14 @@ onMounted(() => {
         </SwiperSlide>
       </template>
     </Swiper>
+    <div class="absolute left-3 top-3 z-1">
+      <p class="w-full h-full flex items-center bg-global-hei bg-opacity-45 px-1.5 py-0.5 border-1 border-global-white border-opacity-45 rounded-md">
+        <span class="text-kd10px12px text-global-white font-kdInter font-medium">AD</span>
+      </p>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
-.ad {
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 4px;
-  @apply text-kd12px12px text-global-white w-7 h-4.5;
-  @apply absolute top-3 left-3 z-999;
-  @apply flex items-center justify-center;
-}
 ::v-deep(.swiper-pagination-bullet) {
   background: rgba(255, 255, 255, 0.45) !important;
 }
