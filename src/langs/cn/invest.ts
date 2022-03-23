@@ -24,5 +24,6 @@ export default {
     lastFund: "最后的投资",
     learnMore: "查看详情",
     funds: "机构",
+    trend: "机构投资动向",
   },
 };

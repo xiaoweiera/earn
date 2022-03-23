@@ -8,7 +8,7 @@ import { config } from "src/router/config";
 import type { Lang } from "src/types/language";
 import type { MenuItem } from "src/types/menu";
 
-export const footers = function(lang?: Lang): MenuItem[] {
+export const footers = function (lang?: Lang): MenuItem[] {
   const i18n = I18n(lang);
   return [
     {
@@ -17,18 +17,26 @@ export const footers = function(lang?: Lang): MenuItem[] {
         {
           name: i18n.menu.dapp.ranking,
           href: `${config.dapp}/rank`,
-        }, {
+        },
+        {
           name: i18n.menu.nft.ranking,
           href: `${config.nft}/rank`,
-        }, {
+        },
+        {
           name: i18n.menu.dapp.discover,
           href: `${config.dapp}/discover`,
-        }, {
+        },
+        {
           name: i18n.menu.nft.discover,
           href: `${config.nft}/discover`,
-        }, {
+        },
+        {
           name: i18n.menu.airdrop.title,
           href: config.airdrop,
+        },
+        {
+          name: i18n.menu.dapp.invest,
+          href: config.invest,
         },
       ],
     },

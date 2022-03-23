@@ -20,6 +20,7 @@ import Quota from "./quota/index.vue";
 import HomeRecommend from "./recommend.vue";
 import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
+// import HomeInvest from "./invest.vue";
 
 useReactiveProvide(stateAlias.ui.tab);
 
