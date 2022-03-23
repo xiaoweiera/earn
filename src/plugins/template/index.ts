@@ -10,7 +10,6 @@ import type { Language } from "src/types/language";
 import Crypto from "src/plugins/encryption/crypto";
 import { languageKey, rootData } from "src/config";
 import { getEnv } from "src/config/";
-import { Command } from "src/config";
 import tpl from "./template";
 
 interface Result {
