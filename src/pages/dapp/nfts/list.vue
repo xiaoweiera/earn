@@ -13,14 +13,12 @@ defineProps({
 });
 </script>
 <template>
-  <div
-    class="nft-items h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer"
-  >
+  <div class="nft-items h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer">
     <div v-if="data.data_type === ProjectType.ad" class="nft-row h-full">
       <DappNftsAd :data="data" />
     </div>
     <div v-else class="nft-row w-full h-full">
-      <v-router :href="data.url" target="_blank">
+      <v-router class="block" :href="data.url" target="_blank">
         <!-- 背景图 -->
         <DappNftsHeader :data="data" class="w-full h-full rounded-md overflow-hidden" />
       </v-router>
