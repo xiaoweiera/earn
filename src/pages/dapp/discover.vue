@@ -13,10 +13,11 @@ import type { summaryModel } from "src/types/home";
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
 import { getParam } from "src/utils/router";
 import { useRoute } from "vue-router";
-import DappDiscoversList from "./discovers/list.vue";
-import DappDiscoversEndlist from "./discovers/endlist.vue";
-import DappDiscoversSearch from "./discovers/search.vue";
-import DappDiscoversHeader from "./discovers/header.vue";
+import DAppDiscoversList from "./discovers/list.vue";
+import DAppDiscoversEndlist from "./discovers/endlist.vue";
+import DAppDiscoversSearch from "./discovers/search.vue";
+import DAppDiscoversHeader from "./discovers/header.vue";
+import DAppDiscoversAd from "./discovers/ad.vue";
 
 const i18n = I18n();
 const api = new Model();
@@ -148,7 +149,11 @@ const getFilter = function (data: any) {
     <div class="content pt-8">
       <!-- 头部 -->
       <div class="header mb-8">
-        <DappDiscoversHeader :title="getName()" :tips="i18n.home.IdoIgo.desc" />
+        <DAppDiscoversHeader :title="getName()" :tips="i18n.home.IdoIgo.desc" />
+      </div>
+      <!-- 广告 -->
+      <div class="my-6">
+        <DAppDiscoversAd />
       </div>
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
@@ -157,17 +162,17 @@ const getFilter = function (data: any) {
       <!-- 搜索条件 -->
 
       <div v-if="summary">
-        <DappDiscoversSearch :data="getFilter(summary)" :keys="key" />
+        <DAppDiscoversSearch :data="getFilter(summary)" :keys="key" />
       </div>
       <!-- 列表内容 -->
       <div v-if="list.length > 0" class="py-8">
         <div v-if="query.type === TabTypes.ended" class="overflow-x-scroll showX">
           <div class="w-315">
-            <DappDiscoversEndlist :params="params" class="px-4" :list="list" @change-sort="changeSort" />
+            <DAppDiscoversEndlist :params="params" class="px-4" :list="list" @change-sort="changeSort" />
           </div>
         </div>
         <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DappDiscoversList v-for="(item, index) in list" :key="index" :status="params.status" :data="item" />
+          <DAppDiscoversList v-for="(item, index) in list" :key="index" :status="params.status" :data="item" />
         </div>
       </div>
       <div v-else-if="!loading">
@@ -177,11 +182,7 @@ const getFilter = function (data: any) {
         </p>
       </div>
     </div>
-    <div
-      v-if="list?.length > 0 && resultNumber >= params.page_size && resultNumber <= list?.length"
-      class="more"
-      @click="getMore"
-    >
+    <div v-if="list?.length > 0 && resultNumber >= params.page_size && resultNumber <= list?.length" class="more" @click="getMore">
       {{ i18n.home.loadingMore }}
     </div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0" />
