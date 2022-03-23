@@ -111,7 +111,7 @@ const getFilter = function (data: any) {
               <div v-for="data in transformNftList(scope.list)" :key="data.date">
                 <h3 class="py-4">{{ data.title }}</h3>
                 <div class="coming-item showX">
-                  <div v-for="(item, index) in data.list" :key="item.id" :data-id="item.id">
+                  <div v-for="(item, index) in data.list" :key="`${index}-${item.id}`" :data-id="item.id">
                     <DAppNftList :data="item" class="md:ml-0 xl:ml-0 lg:ml-0" :class="{ 'ml-6': index > 0 }" />
                   </div>
                 </div>

@@ -249,6 +249,7 @@ export const transformNftList = function (list: ProjectNftItem[]) {
       list: db.select({ date }),
     };
   });
+  console.info(list);
   console.info(value);
   return value;
 };

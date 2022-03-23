@@ -18,7 +18,7 @@ defineProps({
       <DappNftsAd :data="data" />
     </div>
     <div v-else class="nft-row w-full h-full">
-      <v-router class="block" :href="data.url" target="_blank">
+      <v-router :href="data.url" target="_blank">
         <!-- 背景图 -->
         <DappNftsHeader :data="data" class="w-full h-full rounded-md overflow-hidden" />
       </v-router>
