@@ -62,7 +62,7 @@ const Assets = async function (root: string, env: Env) {
   // 获取静态文件夹下文件列表
   const files = staticFiles(`${root}/public`);
   for (const item of files) {
-    console.log("assets : ", item.dir);
+    console.info("assets : ", item.dir);
     const data = fs.statSync(item.dir);
     if (data.isDirectory()) {
       // 如果是文件夹
