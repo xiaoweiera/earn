@@ -18,8 +18,12 @@ const routes = [
   {
     // 邮箱登录
     path: router.user.login,
-    // @ts-ignore
     component: () => import("src/pages/account/login.vue"),
+  },
+  {
+    // 修改邮箱
+    path: router.user.updateEmail,
+    component: () => import("src/pages/account/update/email.vue"),
   },
 ];
 

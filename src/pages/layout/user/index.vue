@@ -17,6 +17,7 @@ import { showLogin, showRegister } from "src/logic/user/login";
 import { set as setValue } from "src/utils/root/data";
 import UserMenu from "./menu.vue";
 import Dialog from "./dialog.vue";
+import EmailTips from "./tips.vue";
 
 const env = getEnv();
 const i18n = I18n();
@@ -72,14 +73,24 @@ onMounted(function () {
     <span class="mx-4 text-white text-opacity-65">|</span>
 
     <!-- 已登录 -->
-    <ui-hover v-if="user && user.id" class="flex" placement="bottom-end" trigger="hover">
-      <template #label>
-        <IconFont class="flex cursor-pointer" size="22" type="icon-yonghu1" />
-      </template>
-      <template #content>
-        <user-menu :user="user" />
-      </template>
-    </ui-hover>
+    <div v-if="user && user.id">
+      <ui-hover class="flex" placement="bottom-end" trigger="hover">
+        <template #label>
+          <div class="relative">
+            <span class="flex">
+              <IconFont class="cursor-pointer" size="22" type="icon-yonghu1" />
+            </span>
+            <span class="absolute bottom-0 right-0 leading-2 transform translate-x-1/5 translate-y-1/5">
+              <IconFont size="8" type="redTip" />
+            </span>
+          </div>
+        </template>
+        <template #content>
+          <user-menu :user="user" />
+        </template>
+      </ui-hover>
+      <EmailTips class="absolute right-0 top-full" :user="user" />
+    </div>
 
     <!--未登录-->
     <div v-else>
