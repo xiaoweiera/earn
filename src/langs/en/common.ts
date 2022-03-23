@@ -27,9 +27,9 @@ export default {
     mm: "Minutes",
     ss: "Seconds",
     value: {
-      week: "no week | 1 week ago | {count} weeks ago",	// 几周前
-      day: "no day | 1 day ago | {count} days ago",	// 几天前
-      hour: "no hour | 1 hour ago | {count} hours ago", 	// 几小时前
+      week: "no week | 1 week ago | {count} weeks ago", // 几周前
+      day: "no day | 1 day ago | {count} days ago", // 几天前
+      hour: "no hour | 1 hour ago | {count} hours ago", // 几小时前
       minute: "no minute | 1 minute ago | {count} minutes ago", // 几分钟前
     },
     ago: "{date} ago",
@@ -70,6 +70,8 @@ export default {
     all: "All",
     viewAll: "View All",
     goto: "Go to",
+    prev: "Prev",
+    next: "Next",
   },
   message: {
     verification: "Send",

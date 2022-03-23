@@ -6,6 +6,7 @@ export default {
     gamefi: "IGO",
     game: "GameFi Rankings",
     defi: "DeFi Rankings",
+    invest: "FUNDS",
   },
   nft: {
     title: "Trends Rankings",
