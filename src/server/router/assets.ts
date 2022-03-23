@@ -12,7 +12,6 @@ import { Command } from "src/config";
 import { goHome } from "src/controller/common/redirect";
 import type { Request, Response } from "express";
 import Express, { Router } from "express";
-import * as console from "src/plugins/log/";
 
 // 代理静态服务
 const staticServer = function (src: string) {
