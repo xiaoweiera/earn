@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import _ from "lodash";
 import API from "src/api/";
 import I18n from "src/utils/i18n/";
 import safeGet from "@fengqiaogang/safe-get";
@@ -44,11 +45,26 @@ export const detail = async function (req: Request, res: Response) {
       api.quota.getRecommend<Data[]>(id), // 相关推荐
     ]);
     res.locals.menuActive = names.quota.signals;
-    const name = safeGet<string>(data, "chart.name");
+    let title: string = i18n.news.meta.title.alert;
+    let description = i18n.news.meta.description;
+    const content = _.trim(safeGet<string>(data, "content") || "");
+    if (content) {
+      if (content.length > 50) {
+        title = `${content.slice(0, 47)}... - KingData`;
+      } else {
+        title = `${content.slice(0, 50)} - KingData`;
+      }
+      if (content.length > 220) {
+        description = `${content.slice(0, 217)}...`;
+      } else {
+        description = content.slice(0, 220);
+      }
+    }
+
     res.send({
-      title: name ? `${name} | KingData` : i18n.news.meta.title.alert,
+      title,
+      description,
       keywords: i18n.news.meta.keywords,
-      description: i18n.news.meta.description,
       [alias.quota.detail]: data,
       [alias.quota.recommend]: recommend,
     });
