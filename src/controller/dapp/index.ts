@@ -61,11 +61,11 @@ export const nftList = async function (req: Request, res: Response) {
   }
   const [list, summary] = await Promise.all([api.getNftList(query), api.home.getSummary()]);
   const result = {
-    title: i18n.home.webNft.title,
-    keywords: i18n.home.webNft.key,
-    description: i18n.home.webNft.des,
+    "title": i18n.home.webNft.title,
+    "keywords": i18n.home.webNft.key,
+    "description": i18n.home.webNft.des,
 
-    [alias.nft.list]: list, // nft数据
+    "API.nft.list": list, // nft数据
     [alias.dApp.summary.list]: summary,
   };
   res.send(result);

@@ -6,7 +6,7 @@ import { NftTabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import type { summaryModel } from "src/types/home";
 import { getValue } from "src/utils/root/data";
-import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
+import { alias, createReactive, createRef, onLoadReactive, onLoadRef } from "src/utils/ssr/ref";
 
 // 引入 use state
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
@@ -82,8 +82,72 @@ const getFilter = function (data: any) {
     }
   }
 };
+
+const api = new Model();
+const chain = ref(getParam<string>("chain"));
+const category = ref(getParam<string>("group"));
+const platform = ref(getParam<string>("platform"));
+const type = ref(getParam<string>("type"));
+const search = ref(getParam<string>("search"));
+
+const list: any = createRef("API.nft.list", {} as any);
+
+const params = reactive({
+  page: 1,
+  page_size: 20,
+  chain: chain.value || "All",
+  category: category.value || "All",
+  status: type.value ? type.value : "upcoming",
+  query: search.value ? search.value : "",
+  sort_field: "",
+  sort_type: "", // desc asc
+});
+
+onMounted(() => {
+  // 得到数据汇总
+  onLoadRef(list, () => api.getList(params));
+});
 </script>
 <template>
+  <!--  <div class="pb-15 bg-global-topBg px-3 md:px-22.5">-->
+  <!--    <div :key="key" class="max-w-315 mx-auto pt-8">-->
+  <!--      &lt;!&ndash; 项目名称 &ndash;&gt;-->
+  <!--      <div class="mb-8">-->
+  <!--        <DAppDiscoversHeader :tips="i18n.home.nfts.desc" :title="i18n.home.nfts.title" />-->
+  <!--      </div>-->
+  <!--      &lt;!&ndash; 分类 &ndash;&gt;-->
+  <!--      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">-->
+  <!--        <ui-tab :list="nftTabs" active-name="status" />-->
+  <!--      </ui-sticky>-->
+  <!--      &lt;!&ndash; 搜索条件 &ndash;&gt;-->
+  <!--      <div v-if="summary">-->
+  <!--        <DAppNftSearch :data="getFilter(summary)" />-->
+  <!--      </div>-->
+
+  <!--      <div :key="sortKey" class="mt-4">-->
+  <!--        <ui-pagination :limit="20" :init-value="initValue()" :request="requestList">-->
+  <!--          <template #default="scope">-->
+  <!--            &lt;!&ndash;历史项目&ndash;&gt;-->
+  <!--            <div v-if="query.status === NftTabTypes.history" class="showX">-->
+  <!--              <DAppNftEndList class="min-w-307" :params="sort" :list="scope.list" @change-sort="changeSort" />-->
+  <!--            </div>-->
+  <!--            &lt;!&ndash;进行中&ndash;&gt;-->
+  <!--            <div v-else class="pb-1">-->
+  <!--              <div v-for="data in transformNftList(scope.list)" :key="data.date">-->
+  <!--                <h3 class="py-4 text-kd18px24px text-global-bgBlack font-kdFang">{{ data.title }}</h3>-->
+  <!--                <div class="coming-item showX">-->
+  <!--                  <div v-for="(item, index) in data.list" :key="item.id">-->
+  <!--                    <DAppNftList :key="item.id" :data="item" class="md:ml-0" :class="{ 'ml-6': index > 0 }" />-->
+  <!--                  </div>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--            </div>-->
+  <!--          </template>-->
+  <!--        </ui-pagination>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
     <div :key="key" class="max-w-315 mx-auto pt-8">
       <!-- 项目名称 -->
@@ -100,25 +164,14 @@ const getFilter = function (data: any) {
       </div>
 
       <div :key="sortKey" class="mt-4">
-        <ui-pagination :limit="20" :init-value="initValue()" :request="requestList">
-          <template #default="scope">
-            <!--历史项目-->
-            <div v-if="query.status === NftTabTypes.history" class="showX">
-              <DAppNftEndList class="min-w-307" :params="sort" :list="scope.list" @change-sort="changeSort" />
+        <div v-for="data in transformNftList(list)" :key="data.date">
+          <h3 class="py-4 text-kd18px24px text-global-bgBlack font-kdFang">{{ data.title }}</h3>
+          <div class="coming-item showX">
+            <div v-for="(item, index) in data.list" :key="item.id">
+              <DAppNftList :key="item.id" :data="item" class="md:ml-0" :class="{ 'ml-6': index > 0 }" />
             </div>
-            <!--进行中-->
-            <div v-else class="pb-1">
-              <div v-for="data in transformNftList(scope.list)" :key="data.date">
-                <h3 class="py-4 text-kd18px24px text-global-bgBlack font-kdFang">{{ data.title }}</h3>
-                <div class="coming-item showX">
-                  <div v-for="(item, index) in data.list" :key="item.id">
-                    <DAppNftList :key="item.id" :data="item" class="md:ml-0" :class="{ 'ml-6': index > 0 }" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </template>
-        </ui-pagination>
+          </div>
+        </div>
       </div>
     </div>
   </div>
