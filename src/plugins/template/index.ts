@@ -41,10 +41,10 @@ const makeScript = async function (data: Result): Promise<string> {
     scriptLibs.push(`https://www.googletagmanager.com/gtag/js?id=${id}`);
     scriptCodes.push(`window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${id}');`);
   }
-  // 人机教验
-  if (env.google && env.google.captcha) {
-    scriptLibs.push(`https://www.recaptcha.net/recaptcha/api.js?render=${env.google.captcha}`);
-  }
+  // // 人机教验
+  // if (env.google && env.google.captcha) {
+  //   scriptLibs.push(`https://www.recaptcha.net/recaptcha/api.js?render=${env.google.captcha}`);
+  // }
   // 缓存数据
   const text = await Crypto(value);
   const html: string[] = [];

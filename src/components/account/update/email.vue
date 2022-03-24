@@ -76,7 +76,7 @@ const submit = async function () {
       <el-form-item prop="code">
         <el-input v-model="formData.code" name="code" :placeholder="i18n.common.placeholder.verification" autocomplete="off">
           <template #append>
-            <ui-validate :type="ValidateType.create" :before="emailValidate" :query="{ email: formData.email }" @click="onSeadCode" />
+            <ui-validate :type="ValidateType.update" :before="emailValidate" :query="{ email: formData.email }" @click="onSeadCode" />
           </template>
         </el-input>
       </el-form-item>
