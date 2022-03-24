@@ -19,7 +19,7 @@ defineProps({
 });
 </script>
 <template>
-  <v-router class="block" :href="data.url" target="_blank">
+  <v-router v-if="data" class="block" :href="data.url" target="_blank">
     <ui-image :src="data.image" :fit="fit" />
   </v-router>
 </template>
