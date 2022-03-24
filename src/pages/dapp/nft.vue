@@ -112,7 +112,7 @@ const getFilter = function (data: any) {
                 <h3 class="py-4 text-kd18px24px text-global-bgBlack font-kdFang">{{ data.title }}</h3>
                 <div class="coming-item showX">
                   <div v-for="(item, index) in data.list" :key="item.id">
-                    <DAppNftList :data="item" class="md:ml-0" :class="{ 'ml-6': index > 0 }" />
+                    <DAppNftList :key="item.id" :data="item" class="md:ml-0" :class="{ 'ml-6': index > 0 }" />
                   </div>
                 </div>
               </div>
