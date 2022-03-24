@@ -143,7 +143,7 @@ onMounted(() => {
               </div>
             </div>
             {{ transformNftList(scope.list)?.length }}
-            --
+            ---
             {{ transformNftList(scope.list) }}
           </template>
         </ui-pagination>
