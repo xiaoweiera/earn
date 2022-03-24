@@ -4,17 +4,17 @@
  */
 import path from "path";
 import _ from "lodash";
+import fs from "fs";
 import { createServer } from "vite";
 import Compression from "compression";
 import type { Env } from "src/config";
 import { Command } from "src/config";
-import redirect from "src/controller/common/redirect";
-import { config as routerConfig } from "src/router/config";
+import { goHome } from "src/controller/common/redirect";
 import type { Request, Response } from "express";
 import Express, { Router } from "express";
 
 // 代理静态服务
-const staticServer = function(src: string) {
+const staticServer = function (src: string) {
   return Express.static(src, {
     // 设置强缓
     immutable: true,
@@ -22,11 +22,17 @@ const staticServer = function(src: string) {
   });
 };
 
-const Assets = async function(root: string, env: Env) {
+const staticFiles = function (src: string) {
+  return _.map(fs.readdirSync(src), (name: string) => {
+    return {
+      name,
+      dir: `${src}/${name}`,
+    };
+  });
+};
+
+const Assets = async function (root: string, env: Env) {
   const router = Router();
-  const goHome = function(req: Request, res: Response) {
-    redirect(req, res, routerConfig.home);
-  };
   if (env.VITE_command === Command.build) {
     router.use(Compression());
     if (env.VITE_staticPath && !/^http/.test(env.VITE_staticPath)) {
@@ -52,9 +58,20 @@ const Assets = async function(root: string, env: Env) {
     });
     router.use(vite.middlewares);
   }
-  _.each(["assets", "images", "libs", "util"], (value: string) => {
-    router.use(`/${value}`, staticServer(path.join(root, `public/${value}`)));
-  });
+  // 获取静态文件夹下文件列表
+  const files = staticFiles(`${root}/public`);
+  for (const item of files) {
+    const data = fs.statSync(item.dir);
+    if (data.isDirectory()) {
+      // 如果是文件夹
+      router.use(`/${item.name}`, staticServer(item.dir));
+    } else {
+      // 单文件处理方式
+      router.get(`/${item.name}`, function (req: Request, res: Response) {
+        res.sendFile(item.dir);
+      });
+    }
+  }
   return router;
 };
 

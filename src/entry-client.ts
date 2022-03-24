@@ -67,6 +67,11 @@ const prepend = async function () {
     }
     return getCache();
   } else {
+    const gio = safeGet(window, "__gio_init");
+    if (gio) {
+      // @ts-ignore
+      setTimeout(gio);
+    }
     // 设置默认类型
     cookie.setDeviceValue(Device.web);
   }

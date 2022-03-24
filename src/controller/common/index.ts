@@ -20,46 +20,49 @@ import redirect from "./redirect";
 
 const common = Router();
 
-const getQueryLang = function(query: object) {
+const getQueryLang = function (query: object) {
   const value = safeGet<Language>(query, languageKey);
   if (value && _.isArray(value)) {
     const data = _.last<Language>(value);
     if (data) {
-      return data;
+      return _.toLower(data);
     }
   }
   if (value) {
-    return value;
+    return _.toLower(value);
   }
   return Language.auto;
 };
 
 // 处理中英文参数问题
-common.use(async(req: Request, res: Response, next: NextFunction) => {
+common.use(async (req: Request, res: Response, next: NextFunction) => {
   const query = req.query || {};
   const value = getQueryLang(query);
   const lang = safeGet<string | string[]>(query, languageKey);
   if (lang && _.isArray(lang)) {
     redirect(req, res, req.url, { ...query, [languageKey]: value });
-  } else {
+    return;
+  }
+  // 文案语种目前只支持中文与英文
+  if (value === Language.en || value === Language.cn) {
     safeSet(req.query, languageKey, value);
     try {
       await next();
     } catch (e) {
       redirect(req, res, routerConfig.E404, { [languageKey]: value });
     }
+    return;
   }
+  // 修改文案语种为默认语种
+  redirect(req, res, req.url, { ...query, [languageKey]: Language.auto });
 });
 
 // 处理用户退出逻辑
 common.all(routerConfig.user.logout, userLogout);
 
 // 处理公共数据
-common.use(async(req: Request, res: Response, next: NextFunction) => {
-  const promises: Array<any> = [
-    userInfo(req, res),
-    getTidings(req, res),
-  ];
+common.use(async (req: Request, res: Response, next: NextFunction) => {
+  const promises: Array<any> = [userInfo(req, res), getTidings(req, res)];
   if (!Equals(req.url, routerConfig.E404)) {
     promises.push(chainSiteConfig(req));
   }

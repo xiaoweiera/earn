@@ -67,6 +67,7 @@ if (IsSSR()) {
       },
     },
     Web3,
+    Zepto: "",
     ethereum: new Ethereum(),
   };
 } else {
