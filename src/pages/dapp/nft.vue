@@ -82,9 +82,6 @@ const getFilter = function (data: any) {
     }
   }
 };
-const getNftList = function (value: any) {
-  return transformNftList(value);
-};
 </script>
 <template>
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
@@ -111,7 +108,7 @@ const getNftList = function (value: any) {
             </div>
             <!--进行中-->
             <div v-else class="pb-1">
-              <DAppNftUpcoming :list="getNftList(scope.list)" />
+              <DAppNftUpcoming :list="scope.list" />
             </div>
           </template>
         </ui-pagination>

@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { computed } from "vue";
 import { transformNftList } from "src/logic/dapp";
 import DAppNftList from "./list.vue";
-defineProps({
+const props = defineProps({
   list: {
     type: Object,
     required: true,
   },
 });
+
+const newList = computed(() => {
+  // @ts-ignore
+  return transformNftList(props.list);
+});
 </script>
 <template>
   <div>
-    <div v-for="data in list" :key="data.date">
+    <div v-for="data in newList" :key="data.date">
       <h3 class="py-4 text-kd18px24px text-global-bgBlack font-kdFang">{{ data.title }}</h3>
       <div class="coming-item showX">
         <div v-for="(item, index) in data.list" :key="item.id">
