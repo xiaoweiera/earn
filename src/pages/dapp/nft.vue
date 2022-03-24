@@ -121,3 +121,8 @@ const getFilter = function (data: any) {
     </div>
   </div>
 </template>
+<style lang="scss" scoped>
+.is-tab {
+  box-shadow: 0px 1px 0px rgba(3, 54, 102, 0.06);
+}
+</style>
