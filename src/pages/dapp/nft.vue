@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref, toRaw, reactive } from "vue";
 import I18n from "src/utils/i18n";
-import { Model, transformNftList, nftTabs } from "src/logic/dapp";
+import { Model, nftTabs } from "src/logic/dapp";
 import { NftTabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import type { summaryModel } from "src/types/home";
@@ -14,6 +14,7 @@ import { getParam } from "src/utils/router";
 import DAppNftSearch from "./nfts/search.vue";
 import DAppDiscoversHeader from "./discovers/header.vue";
 import DAppNftEndList from "./nfts/endlist.vue";
+import HomeAd from "src/pages/home/ad.vue";
 import DAppNftUpcoming from "./nfts/upcoming.vue";
 
 const key = ref<string>(uuid());
@@ -120,26 +121,3 @@ const getFilter = function (data: any) {
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-.ui-tab {
-  box-shadow: 0 1px 0 rgba(3, 54, 102, 0.06);
-}
-.coming-item {
-  @apply flex items-center flex-nowrap;
-}
-@screen md {
-  .coming-item {
-    @apply grid grid-cols-3 gap-6;
-  }
-}
-@screen lg {
-  .coming-item {
-    @apply grid grid-cols-4 gap-6;
-  }
-}
-@screen xl {
-  .coming-item {
-    @apply grid grid-cols-5 gap-6;
-  }
-}
-</style>
