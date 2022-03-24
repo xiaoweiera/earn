@@ -3,14 +3,13 @@
  * @author svon.me@gmail.com
  */
 
-import _ from "lodash";
 import htmlEncode from "js-htmlencode";
-import Icons from "src/config/iconfont";
-import type { Language } from "src/types/language";
-import Crypto from "src/plugins/encryption/crypto";
+import _ from "lodash";
 import { languageKey, rootData } from "src/config";
 import { getEnv } from "src/config/";
-import { Command } from "src/config";
+import Icons from "src/config/iconfont";
+import Crypto from "src/plugins/encryption/crypto";
+import type { Language } from "src/types/language";
 import tpl from "./template";
 
 interface Result {
@@ -21,6 +20,7 @@ interface Result {
   description: string;
   data?: string;
   libs?: string;
+
   [key: string]: any;
 }
 
@@ -60,7 +60,10 @@ const makeScript = async function (data: Result): Promise<string> {
       "!function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement(\"script\"),tag=t.getElementsByTagName(\"script\")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,\"script\",\"assets.giocdn.com/2.1/gio.js\",\"gio\");";
     code += `gio("init","${env.google.io}", {});`;
     code += "gio(\"send\");";
-    html.push(`<script>${code}</script>`);
+
+    const gio = `window.__gio_init = function() { ${code} };`;
+
+    html.push(`<script>${gio}</script>`);
   }
 
   html.push(`<script type="text/html" id="${rootData}">${text}</script>`);

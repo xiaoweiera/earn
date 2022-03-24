@@ -6,6 +6,7 @@ export default {
     gamefi: "IGO",
     game: "GameFi 排行榜",
     defi: "DeFi 排行榜",
+    invest: "投资动向",
   },
   airdrop: {
     title: "Airdrops",
@@ -74,6 +75,7 @@ export default {
     reports: "数据研报服务",
     topic: "数据导航收录",
     businessCooperation: "商务合作",
+    mediaCooperation: "媒体合作",
     newApply: "新项目收录",
     deFiApply: "DeFi项目收录",
   },

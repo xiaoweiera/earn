@@ -76,6 +76,8 @@ export default {
     all: "全部",
     viewAll: "查看全部",
     goto: "去完成",
+    prev: "上一页",
+    next: "下一页",
   },
   message: {
     verification: "获取验证码",

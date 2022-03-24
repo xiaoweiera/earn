@@ -6,7 +6,7 @@ import redirect from "src/controller/common/redirect";
 import type { Request, Response } from "express";
 import { Router as ExpressRouter } from "express";
 
-const Router = function() {
+const Router = function () {
   const router = ExpressRouter();
 
   // 列表
@@ -21,6 +21,8 @@ const Router = function() {
     }
   });
   router.get(config.nftList, dApp.nftList);
+  router.get(config.invest, dApp.investList);
+  router.get(config.investDetail, dApp.investDetail);
   return router;
 };
 export default Router;

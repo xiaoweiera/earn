@@ -77,6 +77,8 @@ export default {
     all: "All",
     viewAll: "View All",
     goto: "Go to",
+    prev: "Prev",
+    next: "Next",
   },
   message: {
     verification: "Send",

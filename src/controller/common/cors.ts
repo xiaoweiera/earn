@@ -3,10 +3,45 @@
  * @author svon.me@gmail.com
  */
 
-import { Equals } from "src/utils";
+import _ from "lodash";
+import safeGet from "@fengqiaogang/safe-get";
+import { AnyEquals } from "src/utils";
+import { Router } from "express";
+import useragent from "express-useragent";
 import type { NextFunction, Request, Response } from "express";
 
-const cors = function(req: Request, res: Response, next: NextFunction) {
+// 客户端判断
+const client = function (req: Request, res: Response, next: NextFunction) {
+  const source = req.headers["user-agent"];
+  if (source) {
+    // 桌面客户端（爬虫类工具）
+    const keys = ["isElectron"]; // "isPhantomJS", "isCurl"
+    const ua = useragent.parse(source);
+    let status = false;
+    for (const name of keys) {
+      const value = safeGet<boolean>(ua, name);
+      if (value) {
+        status = true;
+        break;
+      }
+    }
+    if (!status) {
+      // 判断是否是网页监控宝软件
+      const text = _.toLower(ua.source);
+      const name = _.toLower("OpenWebMonitor");
+      if (text.includes(name)) {
+        status = true;
+      }
+    }
+    if (status) {
+      res.status(403);
+      return res.send("");
+    }
+  }
+  next();
+};
+
+const corsOrigin = function (req: Request, res: Response, next: NextFunction) {
   const origin = req.headers.origin;
   if (origin) {
     res.set({
@@ -18,10 +53,17 @@ const cors = function(req: Request, res: Response, next: NextFunction) {
       "Access-Control-Allow-Headers": "Content-Type, Content-Length, Token, Accept,X-Requested-With",
     });
   }
-  if (Equals(req.method, "OPTIONS")) {
+  if (AnyEquals(req.method, "OPTIONS")) {
     return res.send(200);
   }
   next();
+};
+
+const cors = function () {
+  const router = Router();
+
+  router.use(client, corsOrigin);
+  return router;
 };
 
 export default cors;

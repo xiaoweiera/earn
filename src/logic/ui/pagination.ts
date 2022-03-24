@@ -3,8 +3,9 @@
  * @author svon.me@gmail.com
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import { ref } from "vue";
-import { toArray } from "src/utils";
+import { toArray, toInteger } from "src/utils";
 
 type Request = <T>() => T[];
 
@@ -37,12 +38,17 @@ export const Pagination = function (props: Props) {
   const next = ref<boolean>(false); // 是否有下一页数据
   const empty = ref<boolean>(false); // 是否为空数据
 
-  const handleData = function <T>(result: T[]) {
+  const handleData = function <T>(result: T[], query: object) {
     const array = toArray(result || []);
     // 判断是否有下一页
     next.value = array.length >= props.limit;
-
     if (array.length > 0) {
+      const value = toInteger(safeGet<number>(query, "page"));
+      if (value > 0) {
+        page.value = value;
+      } else {
+        page.value = 1;
+      }
       // 如果是分页模式
       if (props.skin === PageSkin.pagination) {
         list.value = array;

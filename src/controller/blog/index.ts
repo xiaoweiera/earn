@@ -10,7 +10,6 @@ import safeGet from "@fengqiaogang/safe-get";
 import type { BlogDetail } from "src/types/blog/";
 import * as alias from "src/utils/root/alias";
 import { go404 } from "src/controller/common/redirect";
-import { config as routerConfig } from "src/router/config";
 
 export const list = async function (req: Request, res: Response) {
   const i18n = I18n(req);
@@ -18,18 +17,12 @@ export const list = async function (req: Request, res: Response) {
   res.locals.menuActive = names.blog.blog;
   const id = safeGet<string>(req.query, "group");
 
-  const [list, tabs, ads, tops, hots] = await Promise.all([
-    api.getList(id),
-    api.getTabs(),
-    api.blog.ads(),
-    api.getTopList(),
-    api.getHotList(),
-  ]);
+  const [list, tabs, ads, tops, hots] = await Promise.all([api.getList(id), api.getTabs(), api.blog.ads(), api.getTopList(), api.getHotList()]);
 
   const result = {
-    title: i18n.blog.meta.title,
-    keywords: i18n.blog.meta.keywords,
-    description: i18n.blog.meta.description,
+    "title": i18n.blog.meta.title,
+    "keywords": i18n.blog.meta.keywords,
+    "description": i18n.blog.meta.description,
 
     "API.blog.ads": ads, // 广告
     [alias.blog.tabs]: tabs, // 分组

@@ -37,8 +37,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="top min-h-164 pt-3 md:pt-5 md:pb-16 pb-7">
-    <div class="md:max-w-360 md:px-22.5 px-3 mx-auto">
+  <div class="top home-container">
+    <div class="home-content">
       <!--      顶部信息-->
       <HomeHeader v-if="summary" :data="summary" />
       <!--            话题切换-->
@@ -48,7 +48,7 @@ onMounted(() => {
       <!--            topic推荐-->
       <HomeRecommend class="mt-6" />
       <!--      广告位-->
-      <HomeAd />
+      <HomeAd class="mt-4 md:mt-6" :position="21" />
       <!--指标-->
       <Quota v-if="isShowQuota()" class="mt-15" />
       <!--  nft模块  -->
@@ -61,15 +61,22 @@ onMounted(() => {
       <!-- Airdrops-->
       <DAppHomeAirdrop class="mt-11 md:mt-17.5" />
       <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      <!-- 投融资项目 -->
+      <!--      <HomeInvest class="mt-11 md:mt-17.5"/>-->
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
-@import 'src/styles/function';
-
+@import "src/styles/function";
+.home-container {
+  @apply min-h-164 pt-3 md:pt-5 md:pb-16 pb-7;
+}
+.home-content {
+  @apply md:max-w-360 md:px-22.5 px-3 mx-auto;
+}
 .top {
   background-color: #e5e5e51a;
-  background-image: cdn('/dapp/homebeijing.jpeg');
+  background-image: cdn("/dapp/homebeijing.jpeg");
   background-size: 100% 652px;
   background-repeat: no-repeat;
 }

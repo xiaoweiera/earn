@@ -14,7 +14,12 @@ import { Model } from "src/logic/home";
 import VRouter from "src/components/v/router.vue";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
-
+const props = defineProps({
+  position: {
+    type: Number,
+    required: true,
+  },
+});
 const adsList = createRef("API.home.ads", []);
 const getUrl = (data: any) => {
   if (document.body.clientWidth > 768) {
@@ -26,20 +31,13 @@ const getUrl = (data: any) => {
 onMounted(() => {
   const api = new Model();
   // 得到数据汇总
-  onLoadRef(adsList, () => api.getAdList(21));
+  onLoadRef(adsList, () => api.getAdList(props.position));
 });
 </script>
 <template>
-  <div v-if="adsList.length > 0" class="w-full h-full mt-6">
-    <Swiper
-      class="h-15 rounded-kd6px"
-      :initial-slide="0"
-      :loop="true"
-      :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
-      slides-per-view="auto"
-      :resize-observer="true"
-      :pagination="{ clickable: true }"
-    >
+  <div v-if="adsList.length > 0" class="w-full h-full relative">
+    <div class="ad text-number">AD</div>
+    <Swiper class="h-15 rounded-kd6px" :initial-slide="0" :loop="true" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true }">
       <template v-for="(item, index) in adsList" :key="index">
         <SwiperSlide>
           <v-router :href="item['url']" target="_blank" class="w-full h-15 hand">
@@ -51,6 +49,14 @@ onMounted(() => {
   </div>
 </template>
 <style lang="scss" scoped>
+.ad {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 4px;
+  @apply text-kd12px12px text-global-white w-7 h-4.5;
+  @apply absolute top-3 left-3 z-999;
+  @apply flex items-center justify-center;
+}
 ::v-deep(.swiper-pagination-bullet) {
   background: rgba(255, 255, 255, 0.45) !important;
 }
