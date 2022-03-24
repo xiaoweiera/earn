@@ -174,6 +174,9 @@ onMounted(() => {
         </div>
       </div>
     </div>
+    {{ transformNftList(scope.list)?.length }}
+    --
+    {{ transformNftList(scope.list) }}
   </div>
 </template>
 <style lang="scss" scoped>
