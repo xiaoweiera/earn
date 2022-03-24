@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref, toRaw, reactive } from "vue";
 import I18n from "src/utils/i18n";
-import { Model, transformNftList, nftTabs } from "src/logic/dapp";
+import { Model, nftTabs } from "src/logic/dapp";
 import { NftTabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import type { summaryModel } from "src/types/home";
@@ -14,8 +14,8 @@ import { getParam } from "src/utils/router";
 import DAppNftSearch from "./nfts/search.vue";
 import DAppDiscoversHeader from "./discovers/header.vue";
 import DAppNftEndList from "./nfts/endlist.vue";
-import DAppNftList from "./nfts/list.vue";
 import HomeAd from "src/pages/home/ad.vue";
+import DAppNftUpcoming from "./nfts/upcoming.vue";
 
 const key = ref<string>(uuid());
 const sortKey = ref<string>(uuid());
@@ -113,14 +113,7 @@ const getFilter = function (data: any) {
             </div>
             <!--进行中-->
             <div v-else class="pb-1">
-              <div v-for="data in transformNftList(scope.list)" :key="data.date">
-                <h3 class="py-4">{{ data.title }}</h3>
-                <div class="coming-item showX">
-                  <div v-for="(item, index) in data.list" :key="`${index}-${item.id}`" :data-id="item.id">
-                    <DAppNftList :data="item" class="md:ml-0 xl:ml-0 lg:ml-0" :class="{ 'ml-6': index > 0 }" />
-                  </div>
-                </div>
-              </div>
+              <DAppNftUpcoming :key="scope.list" :list="scope.list" />
             </div>
           </template>
         </ui-pagination>
