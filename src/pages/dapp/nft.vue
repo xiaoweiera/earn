@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref, toRaw, reactive } from "vue";
 import I18n from "src/utils/i18n";
-import { Model, nftTabs } from "src/logic/dapp";
+import { Model, nftTabs, transformNftList } from "src/logic/dapp";
 import { NftTabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import type { summaryModel } from "src/types/home";
@@ -112,35 +112,10 @@ const getFilter = function (data: any) {
               <DAppNftEndList class="min-w-307" :params="sort" :list="scope.list" @change-sort="changeSort" />
             </div>
             <!--进行中-->
-            <div v-else class="pb-1">
-              <DAppNftUpcoming :key="scope.list" :list="scope.list" />
-            </div>
+            <DAppNftUpcoming v-else class="pb-1" :list="transformNftList(scope.list)" />
           </template>
         </ui-pagination>
       </div>
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-.ui-tab {
-  box-shadow: 0 1px 0 rgba(3, 54, 102, 0.06);
-}
-.coming-item {
-  @apply flex items-center flex-nowrap;
-}
-@screen md {
-  .coming-item {
-    @apply grid grid-cols-3 gap-6;
-  }
-}
-@screen lg {
-  .coming-item {
-    @apply grid grid-cols-4 gap-6;
-  }
-}
-@screen xl {
-  .coming-item {
-    @apply grid grid-cols-5 gap-6;
-  }
-}
-</style>
