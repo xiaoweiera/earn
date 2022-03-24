@@ -6,7 +6,7 @@ import { NftTabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import type { summaryModel } from "src/types/home";
 import { getValue } from "src/utils/root/data";
-import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
+import { alias, createReactive, createRef, onLoadReactive, onLoadRef } from "src/utils/ssr/ref";
 
 // 引入 use state
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
@@ -82,6 +82,31 @@ const getFilter = function (data: any) {
     }
   }
 };
+
+const api = new Model();
+const chain = ref(getParam<string>("chain"));
+const category = ref(getParam<string>("group"));
+const platform = ref(getParam<string>("platform"));
+const type = ref(getParam<string>("type"));
+const search = ref(getParam<string>("search"));
+
+const list: any = createRef("API.nft.list", {} as any);
+
+const params = reactive({
+  page: 1,
+  page_size: 20,
+  chain: chain.value || "All",
+  category: category.value || "All",
+  status: type.value ? type.value : "upcoming",
+  query: search.value ? search.value : "",
+  sort_field: "",
+  sort_type: "", // desc asc
+});
+
+onMounted(() => {
+  // 得到数据汇总
+  onLoadRef(list, () => api.getList(params));
+});
 </script>
 <template>
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
