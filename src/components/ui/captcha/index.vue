@@ -5,13 +5,13 @@
  */
 import * as console from "src/plugins/log/";
 import type { PropType } from "vue";
-// import { onBeforeMount } from "vue";
+import { onBeforeMount } from "vue";
 import { getEnv } from "src/config/";
 import { isFunction } from "src/utils";
 import I18n from "src/utils/i18n/index";
 import safeGet from "@fengqiaogang/safe-get";
 import window from "src/plugins/browser/window";
-// import document from "src/plugins/browser/document";
+import document from "src/plugins/browser/document";
 
 type Callback = () => void;
 
@@ -56,7 +56,7 @@ const onSendCode = async function (e: Event) {
   if (e && e.preventDefault) {
     e.preventDefault();
   }
-  console.info("captcha");
+  console.log("captcha");
   try {
     if (props.before && isFunction(props.before)) {
       await props.before();
@@ -64,7 +64,6 @@ const onSendCode = async function (e: Event) {
     console.info("captcha ready");
     const recaptcha = safeGet<GRecaptcha>(window, "grecaptcha");
     if (recaptcha) {
-      console.info("execute");
       // @ts-ignore
       recaptcha.ready(execute);
     } else {
@@ -85,7 +84,6 @@ const text = function () {
   return i18n.common.message.verification;
 };
 
-/*
 onBeforeMount(() => {
   const env = getEnv();
   // 人机教验
@@ -97,7 +95,6 @@ onBeforeMount(() => {
     head.appendChild(script);
   }
 });
- */
 </script>
 
 <template>

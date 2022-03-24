@@ -80,7 +80,7 @@ onMounted(function () {
             <span class="flex">
               <IconFont class="cursor-pointer" size="22" type="icon-yonghu1" />
             </span>
-            <span class="absolute bottom-0 right-0 leading-2 transform translate-x-1/5 translate-y-1/5">
+            <span v-if="!user.email" class="absolute bottom-0 right-0 leading-2 transform translate-x-1/5 translate-y-1/5">
               <IconFont size="8" type="redTip" />
             </span>
           </div>

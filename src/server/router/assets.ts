@@ -64,7 +64,7 @@ const Assets = async function (root: string, env: Env) {
     const data = fs.statSync(item.dir);
     if (data.isDirectory()) {
       // 如果是文件夹
-      router.use(`/${item.name}`, staticServer(path.join(root, item.dir)));
+      router.use(`/${item.name}`, staticServer(item.dir));
     } else {
       // 单文件处理方式
       router.get(`/${item.name}`, function (req: Request, res: Response) {

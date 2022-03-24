@@ -142,8 +142,15 @@ export default class extends ApiTemplate {
     return [value, callback] as any;
   }
   // 修改邮箱
+  @post(api.user.updateEmail) // 接口地址
+  @userToken(true) // 必须为登录状态
   @validate
   async updateEmail(@required data: object) {
-    return !!data;
+    const value = _.pick(data, ["email", "code"]);
+    const callback = function (result?: object) {
+      // 成功时接口返回的值为空
+      return !result;
+    };
+    return [value, callback] as any;
   }
 }
