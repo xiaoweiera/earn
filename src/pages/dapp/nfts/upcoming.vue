@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, onMounted } from "vue";
 import { transformNftList } from "src/logic/dapp";
 import DAppNftList from "./list.vue";
 const props = defineProps({
@@ -9,9 +9,10 @@ const props = defineProps({
   },
 });
 
-const newList = computed(() => {
+const newList = ref([]);
+onMounted(() => {
   // @ts-ignore
-  return transformNftList(props.list);
+  newList.value = transformNftList(props.list);
 });
 </script>
 <template>
