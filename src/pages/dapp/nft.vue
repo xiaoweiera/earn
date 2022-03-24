@@ -117,13 +117,13 @@ const getFilter = function (data: any) {
                 </div>
               </div>
             </div>
+            {{ transformNftList(scope.list)?.length }}
+            --
+            {{ transformNftList(scope.list) }}
           </template>
         </ui-pagination>
       </div>
     </div>
-    {{ transformNftList(scope.list)?.length }}
-    --
-    {{ transformNftList(scope.list) }}
   </div>
 </template>
 <style lang="scss" scoped>
