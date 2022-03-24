@@ -12,7 +12,6 @@ defineProps({
     },
   },
 });
-
 const getNumber = (value: any) => {
   if (value > 0) {
     return `+${toNumberCashFormat(value)}`;
