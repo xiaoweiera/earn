@@ -9,7 +9,7 @@ defineProps({
 });
 </script>
 <template>
-  <div>
+  <client-only>
     <div v-for="data in list" :key="data.date">
       <h3 class="py-4 text-kd18px24px text-global-bgBlack font-kdFang">{{ data.title }}</h3>
       <div class="coming-item showX">
@@ -18,7 +18,7 @@ defineProps({
         </div>
       </div>
     </div>
-  </div>
+  </client-only>
 </template>
 <style lang="scss" scoped>
 .coming-item {
