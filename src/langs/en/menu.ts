@@ -75,6 +75,7 @@ export default {
     reports: "Data Report Service",
     topic: "Submit Data",
     businessCooperation: "Business Cooperation",
+    mediaCooperation: "Media Cooperation",
     newApply: "New Projects Apply",
     deFiApply: "DeFi Projects Apply",
   },

@@ -143,20 +143,10 @@ const isFilter = () => {
 <template>
   <div class="table-box md:mb-0 mb-4">
     <div class="flex xshidden justify-between items-baseline">
-      <HomeFilter
-        v-if="safeGet(info, 'id') && isFilter()"
-        :key="key"
-        :filters="safeGet(info, 'filters')"
-        :info="info"
-        class="mb-4 -mt-2"
-      />
+      <HomeFilter v-if="safeGet(info, 'id') && isFilter()" :key="key" :filters="safeGet(info, 'filters')" :info="info" class="mb-4 -mt-2" />
       <client-only>
         <div v-if="isSearch" class="relative flex items-center search">
-          <IconFont
-            class="absolute text-global-highTitle text-opacity-45 z-22 left-3"
-            size="16"
-            type="icon-sousuo-da1"
-          />
+          <IconFont class="absolute text-global-highTitle text-opacity-45 z-22 left-3" size="16" type="icon-sousuo-da1" />
           <el-input v-model="search" placeholder="Search" />
         </div>
       </client-only>
@@ -177,15 +167,9 @@ const isFilter = () => {
         </thead>
         <tbody>
           <template v-for="(item, index) in data.items" :key="index">
-            <tr
-              :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'"
-              class="min-h-12.5 h-12.5 md:min-h19.5 hand"
-              @click="toProject(item.url)"
-            >
+            <tr :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'" class="min-h-12.5 h-12.5 md:min-h19.5 hand" @click="toProject(item.url)">
               <td class="number text-left">
-                <v-router :href="item.url" target="_blank" class="text-left w-5" @click.prevent>{{
-                  index + 1
-                }}</v-router>
+                <v-router :href="item.url" target="_blank" class="text-left w-5" @click.prevent>{{ index + 1 }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in data.header" :key="index">
                 <td v-if="itemTwo.key !== 'id'" class="text-center">

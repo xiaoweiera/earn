@@ -7,7 +7,6 @@ import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
 
 export const list = async function (req: Request, res: Response) {
-  const i18n = I18n(req);
   const api = new Model(req);
   // 判断当前是否为 igo
   const is_igo = safeGet<string>(req, "query.igo") || safeGet<string>(req, "query.isIgo");
@@ -38,6 +37,7 @@ export const list = async function (req: Request, res: Response) {
     is_igo: !!is_igo,
     query: search || "",
   };
+  const i18n = I18n(req);
   const [list, summary] = await Promise.all([api.getList(projectParams), api.home.getSummary()]);
   const result = {
     "title": is_igo ? i18n.home.webIgo.title : i18n.home.webIdo.title,
@@ -61,11 +61,11 @@ export const nftList = async function (req: Request, res: Response) {
   }
   const [list, summary] = await Promise.all([api.getNftList(query), api.home.getSummary()]);
   const result = {
-    title: i18n.home.webNft.title,
-    keywords: i18n.home.webNft.key,
-    description: i18n.home.webNft.des,
+    "title": i18n.home.webNft.title,
+    "keywords": i18n.home.webNft.key,
+    "description": i18n.home.webNft.des,
 
-    [alias.nft.list]: list, // nft数据
+    "API.nft.list": list, // nft数据
     [alias.dApp.summary.list]: summary,
   };
   res.send(result);
@@ -85,7 +85,7 @@ export const investList = async function (req: Request, res: Response) {
   res.send(result);
 };
 //投融资详情
-export const investDetail = async function(req: Request, res: Response) {
+export const investDetail = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const result = {
     title: i18n.home.webNft.title,

@@ -1,4 +1,3 @@
-
 import { dashboard } from "src/config/";
 
 const user = {
@@ -7,6 +6,7 @@ const user = {
   logout: "/account/logout", // 退出
   register: "/account/register", // 注册
   forget: "/account/forget", // 找回密码
+  updateEmail: "/account/update/email", // 修改邮箱
 };
 
 export const config = {
@@ -36,8 +36,8 @@ export const config = {
   airdrop: "/airdrops", // 最新空投
   address: "/whaleaddress",
   portfolio: "/portfolio",
-  invest: "/invest",//投融资
-  investDetail: "/invest/detail",//投融资详情
+  invest: "/invest", //投融资
+  investDetail: "/invest/detail", //投融资详情
   E404: "/404",
 
   user,

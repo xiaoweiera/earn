@@ -36,7 +36,7 @@ export const dApp = {
   },
   airdrop: {
     ongoing: "Api.dApp.airdrop",
-  }
+  },
 };
 
 export const nft = {
@@ -50,5 +50,4 @@ export const invest = {
     projects: "API.invest.list",
     funds: "API.invest.list.",
   },
-
 };

@@ -31,14 +31,7 @@ onMounted(() => {
 </script>
 <template>
   <div v-if="adsList.length > 0" class="w-full h-full relative">
-    <Swiper
-      class="h-15 rounded-kd6px"
-      :initial-slide="0"
-      :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
-      slides-per-view="auto"
-      :resize-observer="true"
-      :pagination="{ clickable: true }"
-    >
+    <Swiper class="h-15 rounded-kd6px" :initial-slide="0" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true }">
       <template v-for="(item, index) in adsList" :key="index">
         <SwiperSlide>
           <v-router :href="item['url']" target="_blank" class="w-full h-15 hand">

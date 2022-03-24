@@ -99,6 +99,12 @@ i {
   img {
     max-width: initial;
   }
+
+  .icon-redtip {
+    @apply inline-block bg-global-numRed;
+    border-radius: 50%;
+    overflow: hidden;
+  }
 }
 
 @for $index from 6 through 80 {

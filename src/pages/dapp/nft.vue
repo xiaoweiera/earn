@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref, toRaw, reactive } from "vue";
 import I18n from "src/utils/i18n";
-import { Model, transformNftList, nftTabs } from "src/logic/dapp";
+import { Model, nftTabs } from "src/logic/dapp";
 import { NftTabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import type { summaryModel } from "src/types/home";
@@ -14,7 +14,8 @@ import { getParam } from "src/utils/router";
 import DAppNftSearch from "./nfts/search.vue";
 import DAppDiscoversHeader from "./discovers/header.vue";
 import DAppNftEndList from "./nfts/endlist.vue";
-import DAppNftList from "./nfts/list.vue";
+import HomeAd from "src/pages/home/ad.vue";
+import DAppNftUpcoming from "./nfts/upcoming.vue";
 
 const key = ref<string>(uuid());
 const sortKey = ref<string>(uuid());
@@ -30,7 +31,7 @@ const sort = reactive({
 const [query] = useReactiveProvide<object>(stateAlias.ui.tab, {});
 
 // 获取 nft 列表
-const requestList = function(data: object) {
+const requestList = function (data: object) {
   const model = new Model();
   const params = toRaw(query);
   return model.getNftList({ ...params, ...data, ...sort });
@@ -39,7 +40,7 @@ const requestList = function(data: object) {
 // 获取类型
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 
-const initValue = function() {
+const initValue = function () {
   if (initStatus) {
     initStatus = false;
     return getValue(alias.nft.list, []);
@@ -54,12 +55,12 @@ onMounted(() => {
   });
   // 监听路由变化
   useWatch(query, () => {
-    sort.sort_type = "",
-    sort.sort_field = "",// 置空排序参数，此处逻辑不需要设置排序参数
-    key.value = uuid();
+    (sort.sort_type = ""),
+    (sort.sort_field = ""), // 置空排序参数，此处逻辑不需要设置排序参数
+    (key.value = uuid());
   });
 });
-const changeSort = function(val: any) {
+const changeSort = function (val: any) {
   if (!sort.sort_type || sort.sort_field !== val) {
     sort.sort_type = "desc";
   } else if (sort.sort_type === "desc") {
@@ -71,10 +72,8 @@ const changeSort = function(val: any) {
   sort.sort_field = val;
   // 重新渲染列表
   sortKey.value = uuid();
-
-
 };
-const getFilter = function(data: any) {
+const getFilter = function (data: any) {
   const status = getParam<string>("status");
   if (data && (data.nft_upcoming || data.nft_ended)) {
     if (status === NftTabTypes.history) {
@@ -89,8 +88,12 @@ const getFilter = function(data: any) {
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
     <div :key="key" class="max-w-315 mx-auto pt-8">
       <!-- 项目名称 -->
-      <div class="mb-8">
+      <div class="w-full mb-6">
         <DAppDiscoversHeader :tips="i18n.home.nfts.desc" :title="i18n.home.nfts.title" />
+      </div>
+      <!-- 广告 -->
+      <div class="w-full">
+        <HomeAd class="mb-6" :position="24" />
       </div>
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
@@ -110,14 +113,7 @@ const getFilter = function(data: any) {
             </div>
             <!--进行中-->
             <div v-else class="pb-1">
-              <div v-for="data in transformNftList(scope.list)" :key="data.title">
-                <h3 class="py-4">{{ data.title }}</h3>
-                <div class="coming-item showX">
-                  <div v-for="(item, index ) in data.list" :key="index">
-                    <DAppNftList :data="item" class="md:ml-0 xl:ml-0 lg:ml-0" :class="{'ml-6' : index > 0}" />
-                  </div>
-                </div>
-              </div>
+              <DAppNftUpcoming :key="scope.list" :list="scope.list" />
             </div>
           </template>
         </ui-pagination>
@@ -147,5 +143,4 @@ const getFilter = function(data: any) {
     @apply grid grid-cols-5 gap-6;
   }
 }
-
 </style>

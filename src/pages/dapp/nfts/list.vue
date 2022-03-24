@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ProjectType } from "src/types/dapp/ixo";
-import DappNftsAd from "./ad.vue";
-import DappNftsHeader from "./header.vue";
+import DAppNftsAd from "./ad.vue";
+import DAppNftsItem from "./item.vue";
 
 defineProps({
   data: {
@@ -13,17 +13,12 @@ defineProps({
 });
 </script>
 <template>
-  <div
-    class="nft-items h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer"
-  >
+  <div class="nft-items h-79 border border-global-highTitle border-opacity-6 box-content rounded-md overflow-hidden cursor-pointer">
     <div v-if="data.data_type === ProjectType.ad" class="nft-row h-full">
-      <DappNftsAd :data="data" />
+      <DAppNftsAd :data="data" />
     </div>
-    <div v-else class="nft-row w-full h-full">
-      <v-router :href="data.url" target="_blank">
-        <!-- 背景图 -->
-        <DappNftsHeader :data="data" class="w-full h-full rounded-md overflow-hidden" />
-      </v-router>
+    <div v-else class="w-full h-full">
+      <DAppNftsItem :data="data" />
     </div>
   </div>
 </template>

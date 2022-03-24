@@ -6,7 +6,6 @@ import API from "src/api";
  */
 
 export class Model extends API {
-
   // 投融资projects数据
   getProjectsList(query: any) {
     return this.dApp.getProjectsList(query);

@@ -19,7 +19,7 @@ import { createHref } from "src/plugins/router/pack";
 import { Language } from "src/types/language";
 import { NftTabItem, NftTabTypes, TabItem, TabTypes } from "src/types/dapp";
 import { DataItem } from "src/types/dapp/airdrop";
-
+import * as console from "src/plugins/log/index";
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = "All";
 
@@ -242,16 +242,19 @@ export const transformNftList = function (list: ProjectNftItem[]) {
     days.push(date);
     db.insert({ ...item, date });
   });
-  return _.map(_.sortBy(_.uniq(days)), (date: number) => {
+  const value = _.map(_.sortBy(_.uniq(days)), (date: number) => {
     return {
+      date,
       title: getTodayTime(date),
       list: db.select({ date }),
     };
   });
+  console.info(list);
+  console.info(value);
+  return value;
 };
 // 高亮显示
-export const getClassColor = (v: any) =>
-  v > 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle";
+export const getClassColor = (v: any) => (v > 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle");
 
 // 根据语言获取宽度
 export const getClassWidth = function () {

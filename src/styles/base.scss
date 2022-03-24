@@ -4,7 +4,7 @@
 }
 /* 滑轮样式 */
 .showX::-webkit-scrollbar {
-  height: 0px;
+  height: 0;
 }
 
 .showX::-webkit-scrollbar-thumb:vertical {
@@ -22,13 +22,6 @@
 }
 .hint{
   --el-message-min-width: auto !important;
-}
-div{
-  user-select:none;
-  -ms-user-select:none; // IE
-  -moz-user-select:none; // 火狐
-  -khtml-user-select:none; // 早期浏览器
-  -webkit-user-select:none;
 }
 @media screen and (max-width: 768px) {
   .xshidden {

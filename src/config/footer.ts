@@ -138,10 +138,15 @@ export const footers = function (lang?: Lang): MenuItem[] {
         //   blank: true,
         // },
         {
+          name: i18n.menu.service.mediaCooperation,
+          href: "https://t.me/dydy1019",
+          blank: true,
+        },
+        {
           name: i18n.menu.service.businessCooperation,
           href: "https://t.me/sue8639313",
-          icon: "icon-telegram",
-          value: "@sue8639313",
+          // icon: "icon-telegram",
+          // value: "@sue8639313",
           blank: true,
         },
       ],
