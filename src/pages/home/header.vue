@@ -61,7 +61,7 @@ const getColor = (value: any) => {
       <div class="info-item">
         <div class="item-name name-scale w-full text-left">{{ i18n.home.platData.nft }}</div>
         <div class="info-des">
-          <span class="number-value text-number text-global-white">{{ toNumberCashFormat(safeGet(data, "nft.total")) }}</span>
+          <span class="number-value text-number text-global-white whitespace-nowrap">{{ toNumberCashFormat(safeGet(data, "nft.total")) }}</span>
           <span class="time time-scale font-kdFang text-global-white">24H</span>
           <span class="number-rate text-number" :class="getColor(safeGet(data, 'nft.increase_24h'))">{{ getNumber(safeGet(data, "nft.increase_24h")) }}</span>
         </div>
@@ -69,7 +69,7 @@ const getColor = (value: any) => {
       <div class="info-item">
         <div class="item-name name-scale">{{ i18n.home.platData.ido }}</div>
         <div class="info-des">
-          <span class="number-value text-number text-global-white">{{ toNumberCashFormat(safeGet(data, "ixo.total")) }}</span>
+          <span class="number-value text-number text-global-white whitespace-nowrap">{{ toNumberCashFormat(safeGet(data, "ixo.total")) }}</span>
           <span class="time time-scale font-kdFang text-global-white">24H</span>
           <span class="number-rate text-number" :class="getColor(safeGet(data, 'ixo.increase_24h'))">{{ getNumber(safeGet(data, "ixo.increase_24h")) }}</span>
         </div>
@@ -77,7 +77,7 @@ const getColor = (value: any) => {
       <div class="info-item">
         <div class="item-name name-scale">{{ i18n.home.platData.air }}</div>
         <div class="info-des">
-          <span class="number-value text-number text-global-white">{{ toNumberCashFormat(safeGet(data, "airdrop.total")) }}</span>
+          <span class="number-value text-number text-global-white whitespace-nowrap">{{ toNumberCashFormat(safeGet(data, "airdrop.total")) }}</span>
           <span class="time time-scale font-kdFang text-global-white">24H</span>
           <span class="number-rate text-number" :class="getColor(safeGet(data, 'airdrop.increase_24h'))">{{ getNumber(safeGet(data, "airdrop.increase_24h")) }}</span>
         </div>
@@ -127,7 +127,8 @@ const getColor = (value: any) => {
 }
 
 .info-item {
-  @apply md:w-40.75 md:min-h-11 min-h-10.5 w-max;
+  //@apply md:w-40.75 md:min-h-11 min-h-10.5 w-max;
+  @apply md:pl-9 md:min-h-11 min-h-10.5 w-max;
   .info-des {
     @apply mt-1 md:mt-2 flex justify-begin ml-2 md:ml-0 md:justify-end items-center;
   }
@@ -143,7 +144,7 @@ const getColor = (value: any) => {
   }
 }
 .item-name {
-  @apply text-right text-kd10px16px md:text-kd12px16px font-medium font-kdFang text-global-white text-opacity-65;
+  @apply whitespace-nowrap text-right text-kd10px16px md:text-kd12px16px font-medium font-kdFang text-global-white text-opacity-65;
 }
 @media screen and (max-width: 768px) {
   .name-scale {
