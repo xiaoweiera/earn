@@ -15,6 +15,7 @@ import DAppNftSearch from "./nfts/search.vue";
 import DAppDiscoversHeader from "./discovers/header.vue";
 import DAppNftEndList from "./nfts/endlist.vue";
 import DAppNftList from "./nfts/list.vue";
+import HomeAd from "src/pages/home/ad.vue";
 
 const key = ref<string>(uuid());
 const sortKey = ref<string>(uuid());
@@ -87,8 +88,12 @@ const getFilter = function (data: any) {
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
     <div :key="key" class="max-w-315 mx-auto pt-8">
       <!-- 项目名称 -->
-      <div class="mb-8">
+      <div class="w-full mb-6">
         <DAppDiscoversHeader :tips="i18n.home.nfts.desc" :title="i18n.home.nfts.title" />
+      </div>
+      <!-- 广告 -->
+      <div class="w-full">
+        <HomeAd class="mb-6" :position="24" />
       </div>
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
