@@ -8,7 +8,6 @@ const props = defineProps({
     required: true,
   },
 });
-
 const newList = ref([]);
 onMounted(() => {
   // @ts-ignore
