@@ -27,9 +27,6 @@ onMounted(() => {
   </div>
 </template>
 <style lang="scss" scoped>
-.ui-tab {
-  box-shadow: 0 1px 0 rgba(3, 54, 102, 0.06);
-}
 .coming-item {
   @apply flex items-center flex-nowrap;
 }
