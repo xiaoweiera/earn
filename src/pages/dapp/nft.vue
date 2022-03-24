@@ -108,7 +108,7 @@ const getFilter = function (data: any) {
             </div>
             <!--进行中-->
             <div v-else class="pb-1">
-              <DAppNftUpcoming :list="scope.list" />
+              <DAppNftUpcoming :key="scope.list" :list="scope.list" />
             </div>
           </template>
         </ui-pagination>
