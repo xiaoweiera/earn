@@ -14,8 +14,8 @@ import { getParam } from "src/utils/router";
 import DAppNftSearch from "./nfts/search.vue";
 import DAppDiscoversHeader from "./discovers/header.vue";
 import DAppNftEndList from "./nfts/endlist.vue";
-import DAppNftList from "./nfts/list.vue";
-import Test from "./nfts/test.vue";
+import DAppNftUpcoming from "./nfts/upcoming.vue";
+
 const key = ref<string>(uuid());
 const sortKey = ref<string>(uuid());
 
@@ -82,31 +82,9 @@ const getFilter = function (data: any) {
     }
   }
 };
-
-const api = new Model();
-const chain = ref(getParam<string>("chain"));
-const category = ref(getParam<string>("group"));
-const platform = ref(getParam<string>("platform"));
-const type = ref(getParam<string>("type"));
-const search = ref(getParam<string>("search"));
-
-const list: any = createRef("API.nft.list", {} as any);
-
-const params = reactive({
-  page: 1,
-  page_size: 20,
-  chain: chain.value || "All",
-  category: category.value || "All",
-  status: type.value ? type.value : "upcoming",
-  query: search.value ? search.value : "",
-  sort_field: "",
-  sort_type: "", // desc asc
-});
-
-onMounted(() => {
-  // 得到数据汇总
-  onLoadRef(list, () => api.getList(params));
-});
+const getNftList = function (value: any) {
+  return transformNftList(value);
+};
 </script>
 <template>
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
@@ -133,15 +111,7 @@ onMounted(() => {
             </div>
             <!--进行中-->
             <div v-else class="pb-1">
-              <!--              <div v-for="data in transformNftList(scope.list)" :key="data.date">-->
-              <!--                <h3 class="py-4 text-kd18px24px text-global-bgBlack font-kdFang">{{ data.title }}</h3>-->
-              <!--                <div class="coming-item showX">-->
-              <!--                  <div v-for="(item, index) in data.list" :key="item.id">-->
-              <!--                    <DAppNftList :key="item.id" :data="item" class="md:ml-0" :class="{ 'ml-6': index > 0 }" />-->
-              <!--                  </div>-->
-              <!--                </div>-->
-              <!--              </div>-->
-              <Test :list="scope.list" />
+              <DAppNftUpcoming :list="getNftList(scope.list)" />
             </div>
           </template>
         </ui-pagination>
