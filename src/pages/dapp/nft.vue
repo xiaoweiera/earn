@@ -121,6 +121,9 @@ const getFilter = function (data: any) {
         </ui-pagination>
       </div>
     </div>
+    {{ transformNftList(scope.list)?.length }}
+    --
+    {{ transformNftList(scope.list) }}
   </div>
 </template>
 <style lang="scss" scoped>
