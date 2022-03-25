@@ -30,7 +30,7 @@ const routes = [
       ...quota,
       {
         path: config.E404,
-        component: () => import("src/pages/error.vue"),
+        component: () => import("src/pages/e404/index.vue"),
       },
     ],
   },
