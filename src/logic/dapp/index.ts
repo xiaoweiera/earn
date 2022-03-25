@@ -242,16 +242,13 @@ export const transformNftList = function (list: ProjectNftItem[]) {
     days.push(date);
     db.insert({ ...item, date });
   });
-  const value = _.map(_.sortBy(_.uniq(days)), (date: number) => {
+  return _.map(_.sortBy(_.uniq(days)), (date: number) => {
     return {
       date,
       title: getTodayTime(date),
       list: db.select({ date }),
     };
   });
-  console.info(list);
-  console.info(value);
-  return value;
 };
 // 高亮显示
 export const getClassColor = (v: any) => (v > 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle");

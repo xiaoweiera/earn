@@ -55,8 +55,8 @@ onMounted(function () {
         <div class="h-full overflow-y-auto">
           <Calendar :data="quotaRes" :small="true">
             <template #default="{ data }">
-              <ui-ad v-if="data.type" :data="data" />
-              <Item v-else :data="data"></Item>
+              <ui-ad v-if="data && data.type" :data="data" />
+              <Item v-else-if="data" :data="data" />
             </template>
           </Calendar>
         </div>
@@ -72,7 +72,7 @@ onMounted(function () {
 .quota-shadow {
   @apply relative;
   &:after {
-    content: '';
+    content: "";
     @apply absolute left-0 right-0 bottom-0 h-10;
     background: linear-gradient(180deg, rgba(250, 251, 252, 0) 0%, #fafbfc 100%);
   }
