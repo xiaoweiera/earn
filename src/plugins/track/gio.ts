@@ -3,11 +3,12 @@
  * @author svon.me@gmail.com
  */
 
-import { isString, isObject } from "src/utils/";
 import window from "src/plugins/browser/window";
+import * as console from "src/plugins/log/";
+import { isObject, isString } from "src/utils/";
 
 export class Gio {
-  private getIo() {
+  private static getIo() {
     if (window.gio) {
       return window.gio;
     }
@@ -15,15 +16,19 @@ export class Gio {
       // todo
     };
   }
+
   track(eventName: string, value?: object) {
-    const io = this.getIo();
+    console.info(eventName, value);
+    const io = Gio.getIo();
     if (value && isObject(value)) {
       return io("track", eventName, value);
     }
     return io("track", eventName);
   }
-  private set(eventName: string, key: string | object, value: string) {
-    const io = this.getIo();
+
+  set(eventName: string, key: string | object, value: string) {
+    console.info(eventName, value);
+    const io = Gio.getIo();
     if (key && isString(key)) {
       return io(eventName, key, value);
     }
@@ -31,31 +36,38 @@ export class Gio {
       return io(eventName, key);
     }
   }
+
   pageSet(key: string | object, value: string) {
     return this.set("page.set", key, value);
   }
+
   evarSet(key: string | object, value: string) {
     return this.set("evar.set", key, value);
   }
+
   peopleSet(key: string | object, value: string) {
     return this.set("people.set", key, value);
   }
+
   visitorSet(key: string | object, value: string) {
     return this.set("visitor.set", key, value);
   }
+
   setUserId(id: string | number) {
     if (id) {
-      const io = this.getIo();
+      const io = Gio.getIo();
       io("setUserId", id);
     }
   }
+
   clearUserId() {
-    const io = this.getIo();
+    const io = Gio.getIo();
     io("clearUserId");
   }
+
   config(value: object) {
     if (value) {
-      const io = this.getIo();
+      const io = Gio.getIo();
       io("config", value);
     }
   }
