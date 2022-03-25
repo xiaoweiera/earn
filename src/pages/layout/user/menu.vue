@@ -37,7 +37,7 @@ const getUserName = function (data: User): string | number {
         <Email>
           <div class="flex items-center">
             <IconFont class="text-global-primary" type="icon-email1" size="20" />
-            <span class="ml-2 text-14-18 whitespace-nowrap text-global-grey">绑定邮箱</span>
+            <span class="ml-2 text-14-18 whitespace-nowrap text-global-grey">{{ i18n.common.account.email.bind2 }}</span>
             <IconFont class="ml-2" size="8" type="redTip" />
           </div>
         </Email>
