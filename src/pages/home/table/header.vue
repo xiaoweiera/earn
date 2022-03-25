@@ -37,8 +37,8 @@ onMounted(() => {
   cssData.value = getHeader(safeGet(props.item, "key"));
 });
 const sortIcon: any = {
-  desc: "icon-shuangxiangjiantou-down",
-  asc: "icon-shuangxiangjiantou-up",
+  "desc": "icon-shuangxiangjiantou-down",
+  "asc": "icon-shuangxiangjiantou-up",
   "": "icon-shuangxiangjiantou",
 };
 const getIcon = () => {
