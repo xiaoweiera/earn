@@ -1,35 +1,28 @@
 <script lang="ts" setup>
-import * as track from "src/logic/track";
 import safeGet from "@fengqiaogang/safe-get";
 import { languageKey } from "src/config/";
 import { Model } from "src/logic/home";
-import { lazyLoad } from "src/plugins/lazyload/";
-// import DAppHomeAirdrop from "src/pages/dapp/homeairdrop.vue";
-const DAppHomeAirdrop = lazyLoad(() => import("src/pages/dapp/homeairdrop.vue"));
-// import DAppHomeDiscover from "src/pages/dapp/homediscover.vue";
-const DAppHomeDiscover = lazyLoad(() => import("src/pages/dapp/homediscover.vue"));
-// import DAppHomeDiscoverEnd from "src/pages/dapp/homediscoverend.vue";
-const DAppHomeDiscoverEnd = lazyLoad(() => import("src/pages/dapp/homediscoverend.vue"));
-// import DAppHomeNft from "src/pages/dapp/homenft.vue";
-const DAppHomeNft = lazyLoad(() => import("src/pages/dapp/homenft.vue"));
-// import DAppHomeResearch from "src/pages/home/research.vue";
-const DAppHomeResearch = lazyLoad(() => import("src/pages/home/research.vue"));
+import * as track from "src/logic/track";
+import { asyncLoad } from "src/plugins/lazyload/";
 import type { summaryModel } from "src/types/home";
 import { Language } from "src/types/language/";
 import { getValue } from "src/utils/root/data";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import { stateAlias, useReactiveProvide } from "src/utils/use/state";
 import { onMounted } from "vue";
-// import HomeAd from "./ad.vue";
-const HomeAd = lazyLoad(() => import("./ad.vue"));
-// import HomeCompany from "./company.vue";
-const HomeCompany = lazyLoad(() => import("./company.vue"));
 import HomeHeader from "./header.vue";
-// import Quota from "./quota/index.vue";
-const Quota = lazyLoad(() => import("./quota/index.vue"));
 import HomeRecommend from "./recommend.vue";
 import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
+
+const DAppHomeAirdrop = asyncLoad(() => import("src/pages/dapp/homeairdrop.vue"));
+const DAppHomeDiscover = asyncLoad(() => import("src/pages/dapp/homediscover.vue"));
+const DAppHomeDiscoverEnd = asyncLoad(() => import("src/pages/dapp/homediscoverend.vue"));
+const DAppHomeNft = asyncLoad(() => import("src/pages/dapp/homenft.vue"));
+const DAppHomeResearch = asyncLoad(() => import("src/pages/home/research.vue"));
+const HomeAd = asyncLoad(() => import("./ad.vue"));
+const HomeCompany = asyncLoad(() => import("./company.vue"));
+const Quota = asyncLoad(() => import("./quota/index.vue"));
 
 useReactiveProvide(stateAlias.ui.tab);
 
@@ -64,7 +57,7 @@ onMounted(() => {
       <HomeRecommend class="mt-6" />
       <!--      广告位-->
       <lazy-load>
-        <HomeAd class="mt-4 md:mt-6" :position="21" />
+        <HomeAd :position="21" class="mt-4 md:mt-6" />
       </lazy-load>
       <!--指标-->
       <lazy-load>
@@ -99,12 +92,15 @@ onMounted(() => {
 </template>
 <style lang="scss" scoped>
 @import "src/styles/function";
+
 .home-container {
   @apply min-h-164 pt-3 md:pt-5 md:pb-16 pb-7;
 }
+
 .home-content {
   @apply md:max-w-360 md:px-22.5 px-3 mx-auto;
 }
+
 .top {
   background-color: #e5e5e51a;
   background-image: cdn("/dapp/homebeijing.jpeg");
