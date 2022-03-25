@@ -56,3 +56,7 @@ export const common = {
   tidingTime: "/api/generic/alert/web/new_add", // 新数据消息
   adList: "/api/v2/commercial", // 广告
 };
+
+export const rank = {
+  chainsList: "/api/dapps/v1/chains",
+};

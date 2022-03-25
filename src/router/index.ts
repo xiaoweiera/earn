@@ -12,6 +12,7 @@ import DAppList from "./dapp";
 import BlogList from "./blog";
 import User from "./user";
 import quota from "./quota";
+import rank from "./rank";
 
 const routes = [
   {
@@ -28,6 +29,7 @@ const routes = [
       ...DAppList,
       ...BlogList,
       ...quota,
+      ...rank,
       {
         path: config.E404,
         component: () => import("src/pages/error.vue"),
