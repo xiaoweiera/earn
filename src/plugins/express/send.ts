@@ -14,19 +14,18 @@ import { Language } from "src/types/language";
 import * as alias from "src/utils/root/alias";
 import type { TidingList } from "src/types/common/tiding";
 import { getMenuList } from "src/logic/common/header";
-import redirect from "src/controller/common/redirect";
+import { go404 } from "src/controller/common/redirect";
 import type { NextFunction, Request, Response } from "express";
-import { config as routerConfig } from "src/router/config";
 import * as console from "src/plugins/log/";
 
-const send = async function(root: string, env: Env) {
+const send = async function (root: string, env: Env) {
   // Vue 渲染
   const ssr: SSR = await new SSR(root, env);
 
-  return function(req: Request, res: Response, next: NextFunction) {
+  return function (req: Request, res: Response, next: NextFunction) {
     const url = req.originalUrl;
     const start = Date.now();
-    const log = function() {
+    const log = function () {
       const method = req.method;
       const query = req.query;
       const end = Date.now();
@@ -34,7 +33,7 @@ const send = async function(root: string, env: Env) {
     };
     const send = res.send.bind(res);
     // @ts-ignore
-    res.send = async function(value?: any) {
+    res.send = async function (value?: any) {
       if (value && _.isNumber(value)) {
         res.status(value);
         log();
@@ -45,9 +44,13 @@ const send = async function(root: string, env: Env) {
         return send(value);
       }
       const data = {
-        query: Object.assign({
-          [languageKey]: safeGet<string>(req.query, languageKey) || Language.auto,
-        }, req.params || {}, req.query || {}),
+        query: Object.assign(
+          {
+            [languageKey]: safeGet<string>(req.query, languageKey) || Language.auto,
+          },
+          req.params || {},
+          req.query || {},
+        ),
         ...res.locals,
         ...value,
       };
@@ -65,7 +68,7 @@ const send = async function(root: string, env: Env) {
       } catch (e: any) {
         console.log(e);
         log();
-        return redirect(req, res, routerConfig.E404);
+        return go404(req, res);
       }
     };
     return next();
