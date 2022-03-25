@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import * as track from "src/logic/track";
 import safeGet from "@fengqiaogang/safe-get";
 import { languageKey } from "src/config/";
 import { Model } from "src/logic/home";
@@ -32,9 +33,14 @@ const isShowQuota = function () {
 
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(() => {
-  const api = new Model();
+  // 上报数据
+  track.push(track.Origin.gio, track.event.home);
+
   // 得到数据汇总
-  onLoadReactive(summary, () => api.getSummary());
+  onLoadReactive(summary, function () {
+    const api = new Model();
+    return api.getSummary();
+  });
 });
 </script>
 <template>

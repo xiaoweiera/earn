@@ -16,19 +16,18 @@ export const redirect = function (req: Request, res: Response, url: string, quer
   if (url) {
     const lang = safeGet<string>(req.query, languageKey) || Language.auto;
     const value: Query = { [languageKey]: lang, ...query };
-    res.redirect(status, createHref(url, value));
-  } else {
-    // 默认到首页
-    goHome(req, res);
+    return res.redirect(status, createHref(url, value));
   }
+  // 默认到首页
+  goHome(req, res);
 };
 
 export const goHome = function (req: Request, res: Response) {
-  redirect(req, res, routerConfig.home);
+  return redirect(req, res, routerConfig.home);
 };
 
 export const go404 = function (req: Request, res: Response) {
-  redirect(req, res, routerConfig.E404);
+  return redirect(req, res, routerConfig.E404);
 };
 
 export default redirect;

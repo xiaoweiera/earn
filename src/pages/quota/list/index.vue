@@ -140,8 +140,8 @@ onMounted(function () {
             <div>
               <Calendar v-for="data in quotaList" :key="data.date" :data="data">
                 <template #default="{ data }">
-                  <ui-ad v-if="data.type" :data="data" />
-                  <Item v-else :data="data"></Item>
+                  <ui-ad v-if="data && data.type" :data="data" />
+                  <Item v-else-if="data" :data="data" />
                 </template>
               </Calendar>
             </div>

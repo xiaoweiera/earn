@@ -47,6 +47,7 @@ export const detail = async function (req: Request, res: Response) {
     res.locals.menuActive = names.quota.signals;
     let title: string = i18n.news.meta.title.alert;
     let description = i18n.news.meta.description;
+    let keywords: string = i18n.news.meta.keywords;
     const content = _.trim(safeGet<string>(data, "content") || "");
     if (content) {
       if (content.length > 50) {
@@ -59,12 +60,15 @@ export const detail = async function (req: Request, res: Response) {
       } else {
         description = content.slice(0, 220);
       }
+      if (data.chart && data.chart.name) {
+        keywords = `${data.chart.name},${keywords}`;
+      }
     }
 
     res.send({
       title,
       description,
-      keywords: i18n.news.meta.keywords,
+      keywords,
       [alias.quota.detail]: data,
       [alias.quota.recommend]: recommend,
     });

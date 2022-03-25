@@ -20,6 +20,7 @@ export default {
     email: {
       tips: "您暂未绑定邮箱，请尽快绑定",
       bind: "去绑定",
+      bind2: "绑定邮箱",
     },
   },
   nav: {

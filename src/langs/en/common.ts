@@ -21,6 +21,7 @@ export default {
     email: {
       tips: "Please connect your email",
       bind: "Go",
+      bind2: "Connect Email",
     },
   },
   nav: {
