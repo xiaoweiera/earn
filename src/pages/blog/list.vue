@@ -3,7 +3,7 @@
  * @file 博客列表
  * @author svon.me@gmail.com
  */
-
+import * as track from "src/logic/track";
 import { onMounted } from "vue";
 import I18n from "src/utils/i18n";
 import { toArray } from "src/utils";
@@ -23,7 +23,7 @@ let initValue = true;
 const tabs = createRef<BlogTab[]>(alias.blog.tabs, toArray(getAll()));
 const groupId = createRef<string | number | undefined>(`query.${activeName}`, tabAll);
 
-const getInitValue = function() {
+const getInitValue = function () {
   if (initValue) {
     initValue = false;
     return getValue<BlogData[]>(alias.blog.list, []);
@@ -31,14 +31,14 @@ const getInitValue = function() {
 };
 
 // 获取列表数据
-const requestList = function(data: object) {
+const requestList = function (data: object) {
   const api = new Model();
   const page = safeGet<number>(data, "page");
   const size = safeGet<number>(data, "page_size");
   return api.getList(groupId.value, page, size);
 };
 // 切换分组
-const onChangeTab = function(data: object) {
+const onChangeTab = function (data: object) {
   const value = safeGet<string>(data, activeName);
   if (value) {
     groupId.value = value;
@@ -48,9 +48,11 @@ const onChangeTab = function(data: object) {
 };
 
 onMounted(() => {
-  const api = new Model();
+  // 上报数据
+  track.push(track.Origin.gio, track.event.blog);
   // 如果 tabs 数据为空，则执行 blog.getTabs 将放回结果赋值给 tabs
   onLoadRef(tabs, () => {
+    const api = new Model();
     return api.getTabs();
   });
 });
@@ -100,7 +102,7 @@ onMounted(() => {
 </template>
 <style scoped lang="scss">
 .blog-content {
-  background-color: #FAFBFC;
+  background-color: #fafbfc;
 
   .blog-item {
     @apply mt-8;

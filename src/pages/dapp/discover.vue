@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n";
-
+import * as track from "src/logic/track";
 import * as alias from "src/utils/root/alias";
 import { onMounted, reactive, ref } from "vue";
 import * as logic from "src/logic/dapp/";
@@ -92,6 +92,13 @@ const key = ref<string>(uuid());
 // 获取类型
 const summary = createRef<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(() => {
+  // 上报数据
+  if (getParam<boolean>("igo")) {
+    track.push(track.Origin.gio, track.event.dApp.igo);
+  } else {
+    track.push(track.Origin.gio, track.event.dApp.ido);
+  }
+
   // 得到数据汇总
   onLoadRef(list, () => api.getList(params));
 

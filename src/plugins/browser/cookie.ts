@@ -3,14 +3,14 @@
  * @author svon.me@gmail.com
  */
 
-import jsCookie from "js-cookie";
-import type { Request, Response } from "express";
 import safeGet from "@fengqiaogang/safe-get";
+import type { Request, Response } from "express";
+import jsCookie from "js-cookie";
+import { deviceName, getEnv, IsBrowser, IsNode, tidingName, tokenExpires, tokenName, userLogin } from "src/config/";
 import * as webkit from "src/plugins/webkit/";
+import { Device } from "src/types/common/device";
 import { Equals } from "src/utils/check/is";
 import { toInteger } from "src/utils/convert/to";
-import { Device } from "src/types/common/device";
-import { IsSSR, deviceName, getEnv, tidingName, tokenExpires, tokenName, userLogin } from "src/config/";
 
 export default class Cookie {
   private readonly req?: Request;
@@ -68,29 +68,34 @@ export default class Cookie {
 
   // 获取用户 token
   async getUserToken() {
-    if (IsSSR()) {
+    if (IsNode()) {
       if (this.req) {
         return this.get(tokenName);
       }
       return void 0;
     }
-    // 从移动端获取用户信息
-    const process = await webkit.env.process();
-    if (process && process.token) {
-      return process.token;
+    if (IsBrowser()) {
+      // 从移动端获取用户信息
+      const process = await webkit.env.process();
+      if (process && process.token) {
+        return process.token;
+      }
     }
     return this.get(tokenName);
   }
+
   // 修改用户登录时间
   setUserLoginTime() {
     const at = 1000 * 60 * 60 * 4; // 4小时过期时间
     const now = Date.now();
     this.set(userLogin, `${now}`, at);
   }
+
   // 获取用户登录时间
   getUserLoginTime() {
     return this.get(userLogin);
   }
+
   // 修改用户信息
   setUserToken(value?: string) {
     if (value) {
@@ -108,11 +113,13 @@ export default class Cookie {
 
   // 获取当前设备类型
   async getDeviceValue() {
-    // 从移动端获取用户信息
-    const process = await webkit.env.process();
-    if (process && process.device) {
-      if (Equals(process.device, Device.app) || Equals(process.device, Device.ios) || Equals(process.device, Device.android)) {
-        return Device.app;
+    if (IsBrowser()) {
+      // 从移动端获取用户信息
+      const process = await webkit.env.process();
+      if (process && process.device) {
+        if (Equals(process.device, Device.app) || Equals(process.device, Device.ios) || Equals(process.device, Device.android)) {
+          return Device.app;
+        }
       }
     }
     return this.get(deviceName) || Device.web;
