@@ -1,16 +1,16 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 邮箱修改
  * @author svon.me@gmail.com
  */
 
-import API from "src/api/index";
-import I18n from "src/utils/i18n";
-import { messageError } from "src/lib/tool";
-import { computed, ref, toRaw } from "vue";
-import * as Common from "src/logic/account/register";
-import { ValidateType } from "src/components/ui/validate/config";
 import { ElButton, ElCheckbox, ElForm, ElFormItem, ElInput } from "element-plus";
+import API from "src/api/index";
+import { ValidateType } from "src/components/ui/validate/config";
+import { messageError } from "src/lib/tool";
+import * as Common from "src/logic/account/register";
+import I18n from "src/utils/i18n";
+import { computed, ref, toRaw } from "vue";
 
 const i18n = I18n();
 const domForm = ref<any>(null);
@@ -66,24 +66,24 @@ const submit = async function () {
 
 <template>
   <client-only>
-    <el-form ref="domForm" size="large" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
+    <el-form ref="domForm" :model="formData" :rules="rules" autocomplete="off" size="large" @submit.stop.prevent="submit">
       <!-- 邮箱地址 -->
       <el-form-item prop="email">
-        <el-input v-model="formData.email" name="email" type="email" :placeholder="i18n.common.placeholder.email" autocomplete="off" />
+        <el-input v-model="formData.email" :placeholder="i18n.common.placeholder.email" autocomplete="off" name="email" type="email" />
       </el-form-item>
 
       <!-- 验证码 -->
       <el-form-item prop="code">
-        <el-input v-model="formData.code" name="code" :placeholder="i18n.common.placeholder.verification" autocomplete="off">
+        <el-input v-model="formData.code" :placeholder="i18n.common.placeholder.verification" autocomplete="off" name="code">
           <template #append>
-            <ui-validate :type="ValidateType.update" :before="emailValidate" :query="{ email: formData.email }" @click="onSeadCode" />
+            <ui-validate :before="emailValidate" :query="{ email: formData.email }" :type="ValidateType.update" @click="onSeadCode" />
           </template>
         </el-input>
       </el-form-item>
 
       <!--推送-->
       <el-form-item style="margin-bottom: 10px">
-        <el-checkbox v-model="formData.push" :true-label="true" :false-label="false">
+        <el-checkbox v-model="formData.push" :false-label="false" :true-label="true">
           <span class="flex">
             <span class="block whitespace-pre-wrap">
               <span class="inline">{{ i18n.common.user.push }}</span>
@@ -95,7 +95,7 @@ const submit = async function () {
       <!-- 确定按钮 -->
       <el-form-item style="margin-bottom: 0">
         <div class="w-full">
-          <el-button class="w-full" type="primary" native-type="submit">
+          <el-button class="w-full" native-type="submit" type="primary">
             <span class="text-16">{{ i18n.common.button.confirm }}</span>
           </el-button>
         </div>
