@@ -44,6 +44,7 @@ const send = async function (root: string, env: Env) {
         return send(value);
       }
       const data = {
+        url,
         query: Object.assign(
           {
             [languageKey]: safeGet<string>(req.query, languageKey) || Language.auto,
