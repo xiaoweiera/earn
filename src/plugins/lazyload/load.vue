@@ -5,7 +5,8 @@
  */
 import { uuid } from "src/utils/";
 import * as scroll from "src/plugins/browser/scroll";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, getCurrentInstance } from "vue";
+import document from "src/plugins/browser/document";
 
 defineProps({
   height: {
@@ -20,23 +21,42 @@ defineProps({
 
 const id = uuid();
 const load = ref<boolean>(false);
+const instance = getCurrentInstance();
+
+const getCurlRect = function () {
+  const vNode = instance?.vnode;
+  if (vNode) {
+    const node = vNode.el as HTMLDivElement;
+    return node.getBoundingClientRect();
+  }
+};
 
 onMounted(function () {
+  // 绑定事件
   scroll.bind(id, function () {
-    // todo
+    const rect = getCurlRect();
+    if (rect) {
+      const height = document.documentElement.clientHeight;
+      const top = rect.y - 100;
+      if (top < height) {
+        load.value = true;
+        // 删除事件
+        scroll.unbind(id);
+      }
+    } else {
+      scroll.unbind(id);
+    }
   });
 });
 </script>
 
 <template>
   <client-only>
-    <template #load>
-      <div :style="{ height: height, width: width }"></div>
-    </template>
-    <template #default>
-      <div v-if="load">
-        <slot></slot>
-      </div>
-    </template>
+    <div v-if="load">
+      <slot></slot>
+    </div>
+    <div v-else :style="{ height: height, width: width }">
+      <div class="invisible">&nbsp;</div>
+    </div>
   </client-only>
 </template>
