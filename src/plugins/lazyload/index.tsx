@@ -5,7 +5,7 @@
  */
 import { IsNode } from "src/config/";
 import type {AsyncComponentLoader, Component} from "vue";
-import {defineAsyncComponent} from "vue";
+import {defineAsyncComponent, defineComponent } from "vue";
 
 const AsyncComp = function(value: AsyncComponentLoader) {
   return defineAsyncComponent({
@@ -16,7 +16,9 @@ const AsyncComp = function(value: AsyncComponentLoader) {
 
 export const lazyLoad = function(value: AsyncComponentLoader): Component {
   if (IsNode()) {
-    return (<div/>);
+    return defineComponent({
+      template: "<div></div>"
+    });
   }
   return AsyncComp(value);
 };

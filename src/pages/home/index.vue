@@ -63,19 +63,35 @@ onMounted(() => {
       <!--            topic推荐-->
       <HomeRecommend class="mt-6" />
       <!--      广告位-->
-      <HomeAd class="mt-4 md:mt-6" :position="21" />
+      <lazy-load>
+        <HomeAd class="mt-4 md:mt-6" :position="21" />
+      </lazy-load>
       <!--指标-->
-      <Quota v-if="isShowQuota()" class="mt-15" />
+      <lazy-load>
+        <Quota v-if="isShowQuota()" class="mt-15" />
+      </lazy-load>
       <!--  nft模块  -->
-      <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      <lazy-load>
+        <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      </lazy-load>
       <!-- 研究文章-->
-      <DAppHomeResearch class="mt-11 md:mt-17.5" />
-      <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      <lazy-load>
+        <DAppHomeResearch class="mt-11 md:mt-17.5" />
+      </lazy-load>
+      <lazy-load>
+        <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      </lazy-load>
       <!--      项目方-->
-      <HomeCompany class="mt-6" />
+      <lazy-load>
+        <HomeCompany class="mt-6" />
+      </lazy-load>
       <!-- Airdrops-->
-      <DAppHomeAirdrop class="mt-11 md:mt-17.5" />
-      <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      <lazy-load>
+        <DAppHomeAirdrop class="mt-11 md:mt-17.5" />
+      </lazy-load>
+      <lazy-load>
+        <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      </lazy-load>
       <!-- 投融资项目 -->
       <!--      <HomeInvest class="mt-11 md:mt-17.5"/>-->
     </div>
