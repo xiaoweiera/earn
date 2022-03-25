@@ -3,9 +3,8 @@
  * @file 埋点
  * @auth svon.me@gmail.com
  */
-import { Gio } from "src/plugins/track/gio";
+import * as track from "src/logic/track";
 import { Origin } from "src/types/track/";
-import { getLang } from "src/utils/root/data";
 import type { PropType } from "vue";
 
 const props = defineProps({
@@ -23,16 +22,12 @@ const props = defineProps({
   },
   origin: {
     required: true,
-    type: String as PropType<Origin>,
+    type: [String, Array] as PropType<Origin | Origin[]>,
   },
 });
 
 const onClick = function () {
-  if (props.origin === Origin.gio) {
-    const gio = new Gio();
-    const data = Object.assign({ language: getLang() }, props.data ? props.data : {});
-    gio.track(props.name, data);
-  }
+  return track.push(props.origin, props.name, props.data);
 };
 </script>
 
