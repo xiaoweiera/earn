@@ -4,7 +4,7 @@
 
 import * as api from "src/config/api";
 import { DefaultValue, expire, get, tryError, userToken } from "src/plugins/dao/http";
-import type { projectParams, recommendModel } from "src/types/home";
+import type { projectParams, recommendModel, tutorialParams } from "src/types/home";
 import ApiTemplate from "../template";
 
 export default class extends ApiTemplate {
@@ -86,6 +86,14 @@ export default class extends ApiTemplate {
   @userToken() // 不需要用户信息
   getAdList<T>(position: number): Promise<T> {
     const query = { position };
+    // 返回参数
+    return [query] as any;
+  }
+  // Tutorial列表
+  @tryError(DefaultValue([])) // 处理默认值
+  @get(api.home.tutorial) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getTutorialList<T>(query: tutorialParams): Promise<T> {
     // 返回参数
     return [query] as any;
   }

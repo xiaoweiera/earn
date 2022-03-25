@@ -3,17 +3,8 @@ import { PropType } from "vue";
 import { DataItem } from "src/types/dapp/airdrop";
 import { config } from "src/router/config";
 import I18n from "src/utils/i18n";
-import {
-  size,
-  toNumberCash,
-  toInteger,
-  dateNow,
-  dateYMDFormat,
-  isBefore,
-  isAfter,
-  dateDiffData,
-  toFixed,
-} from "src/utils";
+import { size, toNumberCash, toInteger, dateNow, dateYMDFormat, isBefore, isAfter, dateDiffData, toFixed } from "src/utils";
+import HomeAirdropCorner from "src/pages/home/airdrop/corner/index.vue";
 
 defineProps({
   data: {
@@ -66,23 +57,19 @@ const detailLink = function (data: DataItem) {
           <div class="flex items-center justify-between h-13.5 flex-nowrap">
             <!--头像 标题-->
             <div class="flex flex-auto w-1">
-              <div class="flex w-13.5 h-13.5">
+              <div class="flex w-13.5 h-13.5 relative">
                 <ui-image class="rounded-md w-full h-full" :src="data.logo" fit="cover" :lazy="true"></ui-image>
+                <HomeAirdropCorner class="absolute left-0 top-0" type="https://res.kingdata.xyz/static/images/new.png" size="40" />
               </div>
               <div class="ml-2.5 h-13.5 flex-auto w-1">
-                <div
-                  class="text-kd18px18px h-5 text-global-highTitle text-opacity-85 truncate font-semibold font-kdSemiBold"
-                >
+                <div class="text-kd18px18px h-5 text-global-highTitle text-opacity-85 truncate font-semibold font-kdSemiBold">
                   {{ data.name }}
                 </div>
                 <div class="mt-3 flex items-center flex-nowrap">
                   <!-- 项目分类 -->
                   <span v-if="size(data.categories)" class="flex flex-nowrap items-center categories-list">
                     <template v-for="(item, index) in data.categories" :key="index">
-                      <span
-                        v-if="item"
-                        class="categories-item flex bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1"
-                      >
+                      <span v-if="item" class="categories-item flex bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">
                         <span class="text-12-14 text-global-primary">{{ item }}</span>
                       </span>
                     </template>
@@ -103,9 +90,7 @@ const detailLink = function (data: DataItem) {
             <div class="whitespace-nowrap ml-2 h-13.5">
               <div class="flex items-center justify-end">
                 <IconFont class="text-global-gemstone mr-1" type="icon-star" size="14" />
-                <span class="text-18px18px text-global-highTitle text-opacity-85 font-kdInter font-bold">{{
-                  toFixed(data.overall_score, 1)
-                }}</span>
+                <span class="text-18px18px text-global-highTitle text-opacity-85 font-kdInter font-bold">{{ toFixed(data.overall_score, 1) }}</span>
               </div>
               <!-- 评分数量 -->
               <p class="mt-2.5 text-kd12px16px text-right text-global-highTitle text-opacity-45">
@@ -125,12 +110,10 @@ const detailLink = function (data: DataItem) {
               <!--空投名额-->
               <p class="text-12-16 flex items-center flex-wrap justify-center">
                 <span>{{ i18n.airdrop.content.quota }}</span>
-<!--                <IconFont class="ml-1" type="icon-users" size="12" />-->
+                <!--                <IconFont class="ml-1" type="icon-users" size="12" />-->
               </p>
               <p class="mt-1 text-global-highTitle text-opacity-85">
-                <b class="text-kd18px18px font-semibold font-kdSemiBold">{{
-                  toNumberCash(data.airdrop_winner_count)
-                }}</b>
+                <b class="text-kd18px18px font-semibold font-kdSemiBold">{{ toNumberCash(data.airdrop_winner_count) }}</b>
               </p>
             </div>
             <div class="flex-1 px-2 border-l border-solid border-global-highTitle border-opacity-6">

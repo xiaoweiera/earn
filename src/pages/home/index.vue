@@ -2,7 +2,7 @@
 import safeGet from "@fengqiaogang/safe-get";
 import { languageKey } from "src/config/";
 import { Model } from "src/logic/home";
-import DAppHomeAirdrop from "src/pages/dapp/homeairdrop.vue";
+import DAppHomeAirdrop from "src/pages/home/airdrop/index.vue";
 import DAppHomeDiscover from "src/pages/dapp/homediscover.vue";
 import DAppHomeDiscoverEnd from "src/pages/dapp/homediscoverend.vue";
 import DAppHomeNft from "src/pages/dapp/homenft.vue";
@@ -51,6 +51,8 @@ onMounted(() => {
       <HomeAd class="mt-4 md:mt-6" :position="21" />
       <!--指标-->
       <Quota v-if="isShowQuota()" class="mt-15" />
+      <!-- Airdrops-->
+      <DAppHomeAirdrop class="mt-11 md:mt-17.5" />
       <!--  nft模块  -->
       <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!-- 研究文章-->
@@ -58,8 +60,6 @@ onMounted(() => {
       <DAppHomeDiscover v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!--      项目方-->
       <HomeCompany class="mt-6" />
-      <!-- Airdrops-->
-      <DAppHomeAirdrop class="mt-11 md:mt-17.5" />
       <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       <!-- 投融资项目 -->
       <!--      <HomeInvest class="mt-11 md:mt-17.5"/>-->

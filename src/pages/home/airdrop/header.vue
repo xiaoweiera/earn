@@ -34,11 +34,7 @@ defineProps({
       <div class="">
         <div class="flex items-center justify-between">
           <p class="text-kd24px24px text-global-highTitle font-semibold font-kdSemiBold">{{ title }}</p>
-          <v-router
-            :href="config.airdrop"
-            target="_blank"
-            class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2 flex items-center"
-          >
+          <v-router :href="config.airdrop" target="_blank" class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2 flex items-center">
             <span class="text-kd14px18px text-global-darkblue font-kdFang">{{ i18n.home.more }}</span>
           </v-router>
         </div>

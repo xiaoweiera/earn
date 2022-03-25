@@ -41,7 +41,7 @@ const debounceData = async (clear?: boolean) => {
 };
 //排序
 const sort = () => {
-  let a = 1;
+  params.page++;
 };
 const more = () => {
   params.page++;
