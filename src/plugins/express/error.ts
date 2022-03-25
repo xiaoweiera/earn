@@ -17,7 +17,7 @@ const isWatch = function (): boolean {
 export const before = function (app: Express) {
   if (isWatch()) {
     Sentry.init({
-      dsn: "https://fab97bac3bc54600962a9f6a8957c72e@o1174490.ingest.sentry.io/6270506",
+      dsn: "https://9fd24cb2d42f469fa90b82aa2f61469e@o1174490.ingest.sentry.io/6270560",
       integrations: [
         // 启用 http 跟踪
         new Sentry.Integrations.Http({

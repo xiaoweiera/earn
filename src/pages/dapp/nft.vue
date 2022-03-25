@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import * as track from "src/logic/track";
 import { onMounted, ref, toRaw, reactive } from "vue";
 import I18n from "src/utils/i18n";
-import { Model, transformNftList, nftTabs } from "src/logic/dapp";
+import { Model, nftTabs, transformNftList } from "src/logic/dapp";
 import { NftTabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import type { summaryModel } from "src/types/home";
@@ -14,8 +15,8 @@ import { getParam } from "src/utils/router";
 import DAppNftSearch from "./nfts/search.vue";
 import DAppDiscoversHeader from "./discovers/header.vue";
 import DAppNftEndList from "./nfts/endlist.vue";
-import DAppNftList from "./nfts/list.vue";
 import HomeAd from "src/pages/home/ad.vue";
+import DAppNftUpcoming from "./nfts/upcoming.vue";
 
 const key = ref<string>(uuid());
 const sortKey = ref<string>(uuid());
@@ -49,6 +50,8 @@ const initValue = function () {
 };
 
 onMounted(() => {
+  // 上报数据
+  track.push(track.Origin.gio, track.event.dApp.nft);
   onLoadReactive(summary, () => {
     const model = new Model();
     return model.getSummary();
@@ -112,16 +115,7 @@ const getFilter = function (data: any) {
               <DAppNftEndList class="min-w-307" :params="sort" :list="scope.list" @change-sort="changeSort" />
             </div>
             <!--进行中-->
-            <div v-else class="pb-1">
-              <div v-for="data in transformNftList(scope.list)" :key="data.date">
-                <h3 class="py-4">{{ data.title }}</h3>
-                <div class="coming-item showX">
-                  <div v-for="(item, index) in data.list" :key="`${index}-${item.id}`" :data-id="item.id">
-                    <DAppNftList :data="item" class="md:ml-0 xl:ml-0 lg:ml-0" :class="{ 'ml-6': index > 0 }" />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <DAppNftUpcoming v-else class="pb-1" :list="transformNftList(scope.list)" />
           </template>
         </ui-pagination>
       </div>
@@ -129,25 +123,7 @@ const getFilter = function (data: any) {
   </div>
 </template>
 <style lang="scss" scoped>
-.ui-tab {
-  box-shadow: 0 1px 0 rgba(3, 54, 102, 0.06);
-}
-.coming-item {
-  @apply flex items-center flex-nowrap;
-}
-@screen md {
-  .coming-item {
-    @apply grid grid-cols-3 gap-6;
-  }
-}
-@screen lg {
-  .coming-item {
-    @apply grid grid-cols-4 gap-6;
-  }
-}
-@screen xl {
-  .coming-item {
-    @apply grid grid-cols-5 gap-6;
-  }
+.is-tab {
+  box-shadow: 0px 1px 0px rgba(3, 54, 102, 0.06);
 }
 </style>
