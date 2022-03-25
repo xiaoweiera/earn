@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import * as track from "src/logic/track";
 import { onMounted, ref, toRaw, reactive } from "vue";
 import I18n from "src/utils/i18n";
 import { Model, nftTabs, transformNftList } from "src/logic/dapp";
@@ -49,6 +50,8 @@ const initValue = function () {
 };
 
 onMounted(() => {
+  // 上报数据
+  track.push(track.Origin.gio, track.event.dApp.nft);
   onLoadReactive(summary, () => {
     const model = new Model();
     return model.getSummary();
