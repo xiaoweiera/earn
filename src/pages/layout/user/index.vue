@@ -5,22 +5,23 @@
  */
 
 import API from "src/api/index";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import I18n from "src/utils/i18n";
 import { Language } from "src/types/language";
 import type { User } from "src/types/common/user";
 import window from "src/plugins/browser/window";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
-import { createHref } from "src/plugins/router/pack";
 import { getEnv, languageKey } from "src/config";
 import { showLogin, showRegister } from "src/logic/user/login";
-import { set as setValue } from "src/utils/root/data";
+import { set as setValue, getLang } from "src/utils/root/data";
+import { createRef } from "src/utils/ssr/ref";
 import UserMenu from "./menu.vue";
 import Dialog from "./dialog.vue";
 import EmailTips from "./tips.vue";
 
 const env = getEnv();
 const i18n = I18n();
+const url = createRef<string>("url", window.location.href);
 const user = createReactive<User>(alias.common.user, {} as User);
 
 const getUserData = async function () {
@@ -34,22 +35,15 @@ const getUserData = async function () {
   return data;
 };
 
-const reload = function (value: string) {
-  window.location.href = value;
-};
-
-const onSwitch = function () {
-  if (i18n.getLang() === Language.en) {
-    const href = createHref(window.location.href, {
+const getLangValue = function () {
+  if (getLang() === Language.en) {
+    return {
       [languageKey]: Language.cn,
-    });
-    reload(href);
-  } else {
-    const href = createHref(window.location.href, {
-      [languageKey]: Language.en,
-    });
-    reload(href);
+    };
   }
+  return {
+    [languageKey]: Language.en,
+  };
 };
 
 onMounted(function () {
@@ -60,15 +54,24 @@ onMounted(function () {
 <template>
   <client-only class="flex items-center text-white">
     <!--中英文切换-->
-    <span class="flex items-center cursor-pointer" @click.stop.prevent="onSwitch">
+    <v-router class="flex items-center cursor-pointer" :href="url" :query="getLangValue()">
       <span class="inline-block whitespace-nowrap text-14-18">{{ i18n.common.lang }}</span>
-    </span>
+    </v-router>
 
     <span class="mx-4 text-white text-opacity-65 hidden lg:inline-block">|</span>
 
-    <v-router :href="env.appDownload" class="hidden lg:flex" target="_blank">
-      <span class="inline-block whitespace-nowrap text-14-18">APP</span>
-    </v-router>
+    <ui-hover class="flex" trigger="hover">
+      <template #label>
+        <v-router :href="env.appDownload" class="hidden lg:flex" target="_blank">
+          <span class="inline-block whitespace-nowrap text-14-18">APP</span>
+        </v-router>
+      </template>
+      <template #content>
+        <div class="p-3">
+          <ui-qrcode width="136" height="136" :value="env.appDownload" />
+        </div>
+      </template>
+    </ui-hover>
 
     <span class="mx-4 text-white text-opacity-65">|</span>
 

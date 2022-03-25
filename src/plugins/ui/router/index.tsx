@@ -102,7 +102,7 @@ const VRouter = defineComponent({
   render: function() {
     const content = this.$slots.default ? this.$slots.default() : "";
     if (this.href) {
-      const href = createHref(this.href);
+      const href = createHref(this.href, this.query);
       const target = AnyEquals(this.target, Target.blank) ? Target.blank : Target.self;
       if (this.name && AnyEquals(this.name, Name.link)) {
         return this.createLink(href, target, content);
