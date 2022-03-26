@@ -8,7 +8,7 @@ import I18n from "src/utils/i18n";
 import { Encryption } from "src/utils/";
 import { ElButton } from "element-plus";
 import Wallet from "src/plugins/web3/wallet";
-import { EventType } from "src/plugins/web3/interface";
+import { EventType } from "src/types/web3";
 import { address, isConnect } from "src/logic/common/wallet";
 import safeGet from "@fengqiaogang/safe-get";
 import { messageError } from "src/lib/tool";

@@ -3,9 +3,9 @@
  * @auth svon.me@gmail.com
  * @description 懒加载
  */
-import { IsNode } from "src/config/";
+import {IsNode} from "src/config/";
 import type {AsyncComponentLoader, Component} from "vue";
-import {defineAsyncComponent } from "vue";
+import {defineAsyncComponent} from "vue";
 import Load from "./load.vue";
 
 const asyncComp = function(value: AsyncComponentLoader) {
