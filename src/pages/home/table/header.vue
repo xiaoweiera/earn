@@ -8,7 +8,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  isHigh: {
+  shortIcon: {
     type: Boolean,
     default: false,
   },
@@ -41,7 +41,10 @@ const sortIcon: any = {
   "asc": "icon-shuangxiangjiantou-up",
   "": "icon-shuangxiangjiantou",
 };
-const getIcon = () => {
+const getIcon = (item: any) => {
+  if (!props.params.sort_field && item.active) {
+    return "icon-shuangxiangjiantou-down";
+  }
   const params = props.params || {};
   const type = safeGet<string>(params, "sort_type");
   const sort_field = safeGet<string>(params, "sort_field");
@@ -54,10 +57,14 @@ const getIcon = () => {
 <template>
   <div class="flex items-center" :class="`${cssData[1]} ${height}`">
     <div class="relative h-full flex items-center" :class="item.sort && sort ? 'hand' : ''">
-      <IconFont v-if="item.sort && params && sort" class="relative mr-1" size="14" :type="getIcon()" />
-      <img v-if="item.active && isHigh" class="w-2 h-1 mr-1 relative -top-0.6" :src="`${oss}/common/sortDown.png`" />
-      <span :class="item.active && isHigh ? 'text-global-primary' : ''">{{ cssData[0] }}</span>
-      <div :class="item.key === params?.sort_field ? 'sort-border' : ''" />
+      <div v-if="shortIcon">
+        <img v-if="item.active" class="w-2 h-1 mr-1 relative -top-0.6" :src="`${oss}/common/sortDown.png`" />
+      </div>
+      <div v-else class="h-full flex items-center">
+        <IconFont v-if="(item.sort && params && sort) || (!params.sort_field && item.active)" class="relative mr-1" size="14" :type="getIcon(item)" />
+        <div :class="item.key === params?.sort_field || (!params.sort_field && item.active) ? 'sort-border' : ''" />
+      </div>
+      <span :class="item.key === params?.sort_field || (item.active && shortIcon) ? 'text-global-primary' : ''">{{ cssData[0] }}</span>
     </div>
   </div>
 </template>
