@@ -43,9 +43,9 @@ const main = async function () {
   app.use(assets);
 
   app.use(CookieParser());
+
   // 处理公共数据
   app.use(common);
-
   // 开始监听日志
   logs.before(app);
 

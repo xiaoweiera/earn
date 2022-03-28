@@ -26,6 +26,12 @@ export const props = {
     type: [String, Object],
     default: "",
   },
+  query: {
+    type: Object,
+    default() {
+      return {};
+    },
+  },
   target: {
     type: String as PropType<Target>,
     default: () => Target.self,

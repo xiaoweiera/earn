@@ -6,11 +6,23 @@
 
 import I18n from "src/utils/i18n";
 import { getEnv } from "src/config/";
+import { asyncLoad } from "src/plugins/lazyload/";
 import { ElDialog, ElTabPane, ElTabs } from "element-plus";
 import { FlagStatus, emailForget, mobileForget, showLogin, showRegister, switchStatus, visible } from "src/logic/user/login";
 
 const i18n = I18n();
 const env = getEnv();
+
+// 邮箱登录
+const AccountLoginEmail = asyncLoad(() => import("src/components/account/login/email.vue"));
+// 手机登录
+const AccountLoginMobile = asyncLoad(() => import("src/components/account/login/mobile.vue"));
+// 邮箱找回
+const AccountForgetEmail = asyncLoad(() => import("src/components/account/forget/email.vue"));
+// 手机找回
+const AccountForgetMobile = asyncLoad(() => import("src/components/account/forget/mobile.vue"));
+// 邮箱注册
+const AccountRegister = asyncLoad(() => import("src/components/account/register.vue"));
 
 const handleClose = function (next: () => void) {
   return next();

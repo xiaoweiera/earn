@@ -1,3 +1,5 @@
+import type { Callback } from "./web3";
+
 interface Request {
   method: string;
   params: Array<object>;
@@ -10,7 +12,7 @@ class Ethereum {
     return [];
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  on(name: string, callBack: () => void) {
+  on(name: string, callBack: Callback) {
     // todo
   }
 

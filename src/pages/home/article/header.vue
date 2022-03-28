@@ -11,7 +11,7 @@ const i18n = I18n();
       <div class="flex justify-between items-center">
         <div class="flex items-end text-global-highTitle">
           <p class="text-kd32px32px font-semibold font-kdSemiBold">{{ i18n.home.blog.title }}</p>
-          <p class="blog-font hidden md:block text-kd14px18px text-opacity-45 font-kdFang ml-4">
+          <p class="blog-font hidden md:block text-kd14px18px text-global-highTitle text-opacity-45 font-kdFang ml-4">
             {{ i18n.home.blog.tips }}
           </p>
         </div>
@@ -28,6 +28,6 @@ const i18n = I18n();
 
 <style lang="scss" scoped>
 .blog-font {
-  font-family: 'PingFang SC' !important;
+  font-family: "PingFang SC" !important;
 }
 </style>

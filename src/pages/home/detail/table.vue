@@ -11,11 +11,12 @@ import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router";
 import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { PropType } from "vue";
-import { onMounted, reactive, ref, watch } from "vue";
+import { onMounted, reactive, ref, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import HomeFilter from "../filter.vue";
 import HomeTableHeader from "../table/header.vue";
 import HomeTableTd from "../table/td.vue";
+import * as R from "ramda";
 const props = defineProps({
   info: {
     type: Object as PropType<detail>,
@@ -91,23 +92,33 @@ const more = () => {
   getData();
 };
 const isSearch = ref(false);
-onMounted(() => {
-  // 得到数据汇总
-  onLoadReactive(data, () => api.getProjects(params));
-  resultNumber.value = safeGet(data, "items.length") ? safeGet(data, "items.length") : 0;
-});
+let sortNumber = 0;
+let highList: string[] = [];
 // 排序
 const sort = (item: any) => {
+  highList = [];
+  R.forEach((item: any) => {
+    if (item.active) {
+      highList.push(item.key);
+    }
+  }, data.header);
   const key = item.key;
   if (!item.sort) return;
-  if (!params.sort_type || params.sort_field !== key) {
+  if (highList.includes(key) && sortNumber === 0) {
+    params.sort_field = key;
+    params.sort_type = "asc";
+    sortNumber++;
+  } else if (!params.sort_type || params.sort_field !== key) {
     params.sort_type = "desc";
+    params.sort_field = key;
   } else if (params.sort_type === "desc") {
     params.sort_type = "asc";
+    params.sort_field = key;
   } else {
+    params.sort_field = "";
     params.sort_type = "";
+    sortNumber = 0;
   }
-  params.sort_field = key;
   getData(true);
 };
 const toProject = (url: string) => {
@@ -139,6 +150,11 @@ const isFilter = () => {
   }
   return false;
 };
+onMounted(() => {
+  // 得到数据汇总
+  onLoadReactive(data, () => api.getProjects(params));
+  resultNumber.value = safeGet(data, "items.length") ? safeGet(data, "items.length") : 0;
+});
 </script>
 <template>
   <div class="table-box md:mb-0 mb-4">

@@ -7,10 +7,12 @@ import { computed } from "vue";
 import * as env from "src/config";
 import type { MenuItem } from "src/types/menu/";
 import { alias, createRef } from "src/utils/ssr/ref";
-import User from "../user/index.vue";
+import { asyncLoad } from "src/plugins/lazyload/";
 import Mobile from "./mobile.vue";
 import isShowChildren from "./isshow";
 import MenuContentList from "./menu.vue";
+
+const User = asyncLoad(() => import("../user/index.vue"));
 
 const headers = createRef<MenuItem[]>(alias.common.layout.header, []);
 const Logo = computed<string>(() => {
@@ -30,11 +32,10 @@ const isShowSub = computed<boolean>(() => {
   }
   return flag;
 });
-
 </script>
 
 <template>
-  <div class="header-wrap is-web" :class="{'sub-header': isShowSub}">
+  <div class="header-wrap is-web" :class="{ 'sub-header': isShowSub }">
     <div class="bg-global-darkblue px-6 flex justify-between fixed top-0 left-0 right-0 z-1000">
       <div class="flex w-full items-center ui-header-menu">
         <div class="h-full flex items-center">
@@ -45,7 +46,7 @@ const isShowSub = computed<boolean>(() => {
 
           <!--Logo-->
           <v-router :href="env.dashboard" class="inline-block select-none">
-            <img :alt="env.title" :src="Logo" class="min-w-28">
+            <img :alt="env.title" :src="Logo" class="min-w-28" />
           </v-router>
         </div>
 
