@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import * as alias from "src/utils/root/alias";
+import { ElOption, ElSelect } from "element-plus";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch, computed } from "vue";
 import I18n from "src/utils/i18n";
 import { Model } from "src/logic/home";
 import { getValue } from "src/utils/root/data";
@@ -25,6 +26,9 @@ const chainData: any = createRef<object[]>(alias.rank.chains, []);
 watch(route, () => {
   chain.value = getParam<string>("chain") || "all";
 });
+const chainItem = computed(() => {
+  return chainData.value?.find((item: any) => item.slug === chain.value);
+});
 onMounted(() => {
   // 得到数据汇总
   onLoadRef<object[]>(chainData, () => {
@@ -42,17 +46,19 @@ onMounted(() => {
       </router-link>
     </template>
   </div>
-  <!--  <div class='mdhidden  flex items-center relative w-full'>-->
-  <!--    <IconFont v-if='chainItem' :class='chainItem.slug==="all"?"text-global-primary":""' size='20' class='absolute z-1 left-3 ' :type='chainItem?.logo' />-->
-  <!--    <el-select class=' w-full' v-model='chain' placeholder='全部'>-->
-  <!--      <el-option v-for='item in chainData' :label='item.name' :value='item.slug'>-->
-  <!--        <router-link :to='getHref(item.slug)' class='flex items-center  h-full'>-->
-  <!--          <IconFont size='20' :type='item.logo' />-->
-  <!--          <div class='ml-1 text-kd14px18px text-global-highTitle txt85' >{{ item.name }}</div>-->
-  <!--        </router-link>-->
-  <!--      </el-option>-->
-  <!--    </el-select>-->
-  <!--  </div>-->
+  <div class="mdhidden flex items-center relative w-full">
+    <IconFont v-if="chainItem" :class="chainItem.slug === 'all' ? 'text-global-primary' : ''" size="20" class="absolute z-1 left-3" :type="chainItem?.logo" />
+    <client-only class="w-full">
+      <el-select v-model="chain" class="w-full" placeholder="全部">
+        <el-option v-for="item in chainData" :key="item.id" :label="item.name" :value="item.slug">
+          <router-link :to="item.href" class="flex items-center h-full">
+            <IconFont size="20" :type="item.logo" />
+            <div class="ml-1 text-kd14px18px text-global-highTitle txt85">{{ item.name }}</div>
+          </router-link>
+        </el-option>
+      </el-select>
+    </client-only>
+  </div>
 </template>
 <style scoped lang="scss">
 ::v-deep(.el-input__inner) {
