@@ -19,7 +19,6 @@ import { createHref } from "src/plugins/router/pack";
 import { Language } from "src/types/language";
 import { NftTabItem, NftTabTypes, TabItem, TabTypes } from "src/types/dapp";
 import { DataItem } from "src/types/dapp/airdrop";
-import * as console from "src/plugins/log/index";
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = "All";
 
