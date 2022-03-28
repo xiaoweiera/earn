@@ -76,7 +76,7 @@ onMounted(() => {
             </div>
             <!-- 博客列表 -->
             <div :key="groupId" class="px-4 lg:px-0 mt-6">
-              <ui-pagination :init-value="getInitValue()" :request="requestList">
+              <ui-pagination skin="pagination" :init-value="getInitValue()" :request="requestList">
                 <template #default="scope">
                   <div>
                     <BlogRow v-for="item in scope.list" :key="item.id" class="blog-item" :data="item" />

@@ -126,7 +126,7 @@ onMounted(() => {
       <div v-if="request" class="page-more clearfix">
         <!-- 分页模式 -->
         <template v-if="skin === PageSkin.pagination">
-          <div v-show="next" class="mt-3 h-9 flex items-center justify-center">
+          <div v-show="next || page > 1" class="mt-3 h-9 flex items-center justify-center">
             <a :class="{ disable: page <= 1 }" class="px-3 py-2 flex items-center link" @click="onPrev">
               <IconFont type="icon-leftNo" size="16" />
               <span class="ml-1 text-14-18">{{ i18n.common.button.prev }}</span>
