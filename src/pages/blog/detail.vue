@@ -13,6 +13,7 @@ import { getValue } from "src/utils/root/data";
 import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import { dateFormat } from "src/utils";
 import Item from "./item.vue";
+import DApp from "./dapp.vue";
 
 const i18n = I18n();
 
@@ -27,20 +28,20 @@ onMounted(() => {
     onLoadReactive(detail, alias.blog.detail, id);
   }
 });
-
 </script>
 
 <template>
   <div class="pt-5 pb-15 px-4 md:px-0 max-w-180 mx-auto">
     <div class="blog-detail">
       <div v-if="detail && detail.id">
+        <DApp />
         <!-- 标题 -->
-        <div class="text-center">
+        <div class="text-center mt-8">
           <div class="py-3 border-0 border-b border-dotted border-global-highTitle border-opacity-10">
             <h3 class="text-24 font-m text-global-highTitle">{{ detail.name }}</h3>
             <p class="mt-3 text-14-18 text-global-highTitle text-opacity-65">
               KingData ·
-              {{ dateFormat(detail.release_date,'YYYY-MM-DD') }}
+              {{ dateFormat(detail.release_date, "YYYY-MM-DD") }}
             </p>
           </div>
         </div>
