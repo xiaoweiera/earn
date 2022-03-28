@@ -21,6 +21,7 @@ const Router = function () {
     }
   });
   router.get(config.nftList, dApp.nftList);
+  router.get(`${config.airdrop}/list/:name`, dApp.airdropList);
   router.get(config.invest, dApp.investList);
   router.get(config.investDetail, dApp.investDetail);
   return router;

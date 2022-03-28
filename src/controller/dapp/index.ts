@@ -71,6 +71,26 @@ export const nftList = async function (req: Request, res: Response) {
   res.send(result);
 };
 
+// 空投列表
+export const airdropList = async function (req: Request, res: Response) {
+  const i18n = I18n(req);
+  const api = new Model(req);
+  res.locals.menuActive = names.dapp.airdrop;
+  const query: any = { ...req.query, paginate: true };
+  if (!query.type) {
+    query.type = "all";
+  }
+  const [list] = await Promise.all([api.getAirdropList(query)]);
+  const result = {
+    title: i18n.home.webNft.title,
+    keywords: i18n.home.webNft.key,
+    description: i18n.home.webNft.des,
+
+    [alias.airdrop.list]: list, // airdrop数据
+  };
+  res.send(result);
+};
+
 //投融资列表
 export const investList = async function (req: Request, res: Response) {
   const api = new InvestModel(req);

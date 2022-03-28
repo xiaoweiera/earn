@@ -149,6 +149,10 @@ export class Model extends API {
   getAirdropProjects(query: object) {
     return this.dApp.getAirdropList<DataItem>(query);
   }
+  //空投项目数据
+  getAirdropList(query: object) {
+    return this.dApp.getAirdropList<DataItem>(query);
+  }
 }
 
 // 跳转IDO链接

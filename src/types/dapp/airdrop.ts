@@ -5,6 +5,7 @@
 
 export enum TabTypes {
   all = "all", // 全部
+  hot = "hot", //运营精选
   upcoming = "upcoming", // 即将开始
   ongoing = "ongoing", // 进行中
   ended = "ended", // 已结束
@@ -34,4 +35,12 @@ export interface DataItem extends Chain {
   airdrop_start_at: number; // 开始时间
   airdrop_end_at: number; // 结束时间
   airdrop_winner_count: number; // 空投名额
+}
+
+export interface TabItem {
+  id: TabTypes;
+  name: string;
+  logo?: string;
+  href: string;
+  className?: string;
 }

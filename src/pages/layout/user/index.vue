@@ -5,7 +5,7 @@
  */
 
 import API from "src/api/index";
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import I18n from "src/utils/i18n";
 import { Language } from "src/types/language";
 import type { User } from "src/types/common/user";
