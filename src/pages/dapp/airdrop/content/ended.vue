@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import DAppAirdropItem from "./item.vue";
 import { Model } from "src/logic/dapp";
-import { getValue } from "src/utils/root/data";
-import { alias } from "src/utils/ssr/ref";
 
 const status = "ended";
 
