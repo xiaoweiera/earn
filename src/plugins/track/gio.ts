@@ -4,7 +4,6 @@
  */
 
 import window from "src/plugins/browser/window";
-import * as console from "src/plugins/log/";
 import { isObject, isString } from "src/utils/";
 
 export class Gio {
@@ -18,7 +17,6 @@ export class Gio {
   }
 
   track(eventName: string, value?: object) {
-    console.info(eventName, value);
     const io = Gio.getIo();
     if (value && isObject(value)) {
       return io("track", eventName, value);
@@ -27,7 +25,6 @@ export class Gio {
   }
 
   set(eventName: string, key: string | object, value: string) {
-    console.info(eventName, value);
     const io = Gio.getIo();
     if (key && isString(key)) {
       return io(eventName, key, value);
