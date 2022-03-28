@@ -60,6 +60,14 @@ onMounted(() => {
           </div>
         </div>
 
+        <div>
+          <ui-lock>
+            <div>
+              <p>hello world</p>
+            </div>
+          </ui-lock>
+        </div>
+
         <!-- 相关推荐 -->
         <div v-if="detail.relevant && detail.relevant.length > 0">
           <h4 class="text-18">{{ i18n.blog.share }}</h4>
