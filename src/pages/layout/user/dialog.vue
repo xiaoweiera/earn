@@ -14,23 +14,19 @@ const i18n = I18n();
 const env = getEnv();
 
 // 邮箱登录
-const AccountLoginEmail = asyncLoad(() => import("src/components/account/login/email.vue"));
+const LoginEmail = asyncLoad(() => import("src/components/account/login/email.vue"));
 // 手机登录
-const AccountLoginMobile = asyncLoad(() => import("src/components/account/login/mobile.vue"));
+const LoginMobile = asyncLoad(() => import("src/components/account/login/mobile.vue"));
 // 邮箱找回
-const AccountForgetEmail = asyncLoad(() => import("src/components/account/forget/email.vue"));
+const ForgetEmail = asyncLoad(() => import("src/components/account/forget/email.vue"));
 // 手机找回
-const AccountForgetMobile = asyncLoad(() => import("src/components/account/forget/mobile.vue"));
+const ForgetMobile = asyncLoad(() => import("src/components/account/forget/mobile.vue"));
 // 邮箱注册
-const AccountRegister = asyncLoad(() => import("src/components/account/register.vue"));
-
-const handleClose = function (next: () => void) {
-  return next();
-};
+const Register = asyncLoad(() => import("src/components/account/register.vue"));
 </script>
 
 <template>
-  <el-dialog v-model="visible" :append-to-body="true" :before-close="handleClose" custom-class="dialog-user-wrap">
+  <el-dialog v-model="visible" :append-to-body="true" custom-class="dialog-user-wrap">
     <div>
       <div class="text-center mb-6">
         <div class="inline-block w-37.5">
@@ -45,7 +41,7 @@ const handleClose = function (next: () => void) {
             <template #label>
               <span class="text-16-20">{{ i18n.common.email }}</span>
             </template>
-            <account-login-email>
+            <login-email>
               <div class="flex items-center justify-between pt-4.5 pb-2.5 font-14-18">
                 <a class="link" @click="showRegister">
                   <span>{{ i18n.common.switchRegister }}</span>
@@ -54,14 +50,14 @@ const handleClose = function (next: () => void) {
                   <span>{{ i18n.common.switchRorget }}</span>
                 </a>
               </div>
-            </account-login-email>
+            </login-email>
           </el-tab-pane>
           <!--手机号登录-->
           <el-tab-pane :name="FlagStatus.mobileLogin">
             <template #label>
               <span class="text-16-20">{{ i18n.common.phone }}</span>
             </template>
-            <account-login-mobile>
+            <login-mobile>
               <div class="flex items-center justify-between pt-4.5 pb-2.5 font-14-18">
                 <a class="link" @click="showRegister">
                   <span>{{ i18n.common.switchRegister }}</span>
@@ -70,38 +66,38 @@ const handleClose = function (next: () => void) {
                   <span>{{ i18n.common.switchRorget }}</span>
                 </a>
               </div>
-            </account-login-mobile>
+            </login-mobile>
           </el-tab-pane>
         </el-tabs>
       </div>
       <!--找回密码-->
       <div v-else-if="switchStatus === FlagStatus.emailForget">
-        <account-forget-email>
+        <forget-email>
           <div class="text-center pt-4.5 pb-2.5 font-14-18">
             <a class="link" @click="showLogin">
               <span>{{ i18n.common.switchLogin }}</span>
             </a>
           </div>
-        </account-forget-email>
+        </forget-email>
       </div>
       <div v-else-if="switchStatus === FlagStatus.mobileForget">
-        <account-forget-mobile>
+        <forget-mobile>
           <div class="text-center pt-4.5 pb-2.5 font-14-18">
             <a class="link" @click="showLogin">
               <span>{{ i18n.common.switchLogin }}</span>
             </a>
           </div>
-        </account-forget-mobile>
+        </forget-mobile>
       </div>
       <!--注册-->
       <div v-else>
-        <account-register>
+        <register>
           <div class="text-center pt-4.5 pb-2.5 font-14-18">
             <a class="link" @click="showLogin">
               <span>{{ i18n.common.switchLogin }}</span>
             </a>
           </div>
-        </account-register>
+        </register>
       </div>
     </div>
   </el-dialog>
