@@ -59,7 +59,7 @@ const detailLink = function (data: DataItem) {
             <div class="flex flex-auto w-1">
               <div class="flex w-13.5 h-13.5 relative">
                 <ui-image class="rounded-md w-full h-full" :src="data.logo" fit="cover" :lazy="true"></ui-image>
-                <HomeAirdropCorner class="absolute left-0 top-0" type="https://res.kingdata.xyz/static/images/new.png" size="40" />
+                <HomeAirdropCorner class="w-10 h-10 absolute left-0 top-0" />
               </div>
               <div class="ml-2.5 h-13.5 flex-auto w-1">
                 <div class="text-kd18px18px h-5 text-global-highTitle text-opacity-85 truncate font-semibold font-kdSemiBold">
