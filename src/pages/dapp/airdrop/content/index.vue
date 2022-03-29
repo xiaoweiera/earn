@@ -54,7 +54,7 @@ const getAllHref = function (key: string): string {
           <span class="ml-1.5">{{ i18n.airdrop.tabs.ongoing }}</span>
         </h3>
         <!-- 查看全部 -->
-        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.ongoing)" name="router-link">
+        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.ongoing)">
           <span>{{ i18n.common.button.viewAll }}</span>
           <IconFont class="ml-1" type="icon-right" size="12" />
         </v-router>
@@ -71,7 +71,7 @@ const getAllHref = function (key: string): string {
           <span class="ml-1.5">{{ i18n.airdrop.tabs.potential }}</span>
         </h3>
         <!-- 查看全部 -->
-        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.potential)" name="router-link">
+        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.potential)">
           <span>{{ i18n.common.button.viewAll }}</span>
           <IconFont class="ml-1" type="icon-right" size="12" />
         </v-router>
@@ -88,7 +88,7 @@ const getAllHref = function (key: string): string {
           <span class="ml-1.5">{{ i18n.airdrop.tabs.upcoming }}</span>
         </h3>
         <!-- 查看全部 -->
-        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.upcoming)" name="router-link">
+        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.upcoming)">
           <span>{{ i18n.common.button.viewAll }}</span>
           <IconFont class="ml-1" type="icon-right" size="12" />
         </v-router>
@@ -105,7 +105,7 @@ const getAllHref = function (key: string): string {
           <span class="ml-1.5">{{ i18n.growthpad.status.closure }}</span>
         </h3>
         <!-- 查看全部 -->
-        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.ended)" name="router-link">
+        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.ended)">
           <span>{{ i18n.common.button.viewAll }}</span>
           <IconFont class="ml-1" type="icon-right" size="12" />
         </v-router>

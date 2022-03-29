@@ -77,9 +77,6 @@ export const airdropList = async function (req: Request, res: Response) {
   const api = new Model(req);
   res.locals.menuActive = names.dapp.airdrop;
   const query: any = { ...req.query, paginate: true };
-  if (!query.type) {
-    query.type = "all";
-  }
   const [list] = await Promise.all([api.getAirdropList(query)]);
   const result = {
     title: i18n.home.webNft.title,

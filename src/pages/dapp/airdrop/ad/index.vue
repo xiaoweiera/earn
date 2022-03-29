@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import * as logic from "src/types/dapp/airdrop";
-import { PropType, ref } from "vue";
+import { PropType } from "vue";
 import HomeAd from "src/pages/home/ad.vue";
 import { toLower } from "ramda";
 
@@ -18,12 +18,12 @@ const type = {
   [logic.TabTypes.ongoing]: 10, // 进行中
   [logic.TabTypes.ended]: 11, // 已结束
   [logic.TabTypes.potential]: 12, // 已结束
-  [logic.TabTypes.hot]: 8, // 已结束
+  [logic.TabTypes.hot]: 8, // 运营精选
 };
-const id = ref(8);
+let id = 8;
 const getAirdropAd = function (): any {
   if (props.active) {
-    id.value = type[toLower(props.active)];
+    id = type[toLower(props.active)];
   }
   return id;
 };

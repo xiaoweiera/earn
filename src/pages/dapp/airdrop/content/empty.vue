@@ -15,7 +15,7 @@ const ongoingHref = computed<string>(function () {
     <div class="text-center py-35">
       <p class="text-16-24 text-global-highTitle text-opacity-85">{{ i18n.dapp.empty.title }}</p>
       <p class="text-12-16 text-global-highTitle text-opacity-65 mt-2">
-        <v-router class="text-global-darkblue" :href="ongoingHref" name="router-link">{{ i18n.airdrop.empty.text }}</v-router>
+        <v-router class="text-global-darkblue" :href="ongoingHref">{{ i18n.airdrop.empty.text }}</v-router>
         <span>{{ i18n.dapp.empty.text2 }}</span>
         <v-router class="text-global-darkblue" :href="config.dappApply" target="_blank">{{ i18n.dapp.empty.text3 }}</v-router>
       </p>

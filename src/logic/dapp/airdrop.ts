@@ -57,3 +57,8 @@ export const upperFirst = function (value: string): string {
   const last = str.slice(1);
   return `${first}${last}`;
 };
+
+export const setScrollTop = function (top = 0) {
+  // @ts-ignore
+  document.scrollingElement.scrollTop = top;
+};

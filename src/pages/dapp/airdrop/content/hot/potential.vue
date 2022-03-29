@@ -8,7 +8,7 @@ defineProps({
     default: () => 0,
   },
 });
-const status = "potential";
+const status = "ongoing";
 const request = function (query: object) {
   const model = new Model();
   return model.getAirdropList({ status, ...query });
@@ -18,7 +18,7 @@ const request = function (query: object) {
 <template>
   <ui-pagination class="mt-6" skin="pagination" :limit="limit > 0 ? limit : 6" :show-loading="limit < 1" :request="request">
     <template #default="scope">
-      <div class="airdrop-list">
+      <div class="airdrop-list airdrop-scroll">
         <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data">
           <template #body>
             <div class="project-desc text-global-highTitle text-opacity-65">
