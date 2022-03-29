@@ -16,7 +16,7 @@ const i18n = I18n();
       </h3>
     </div>
     <div class="mt-3">
-      <Operation :show="true" />
+      <Operation />
     </div>
     <!-- 优质空投 -->
     <div class="mt-10">

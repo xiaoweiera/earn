@@ -77,7 +77,7 @@ const getAllHref = function (key: string): string {
         </v-router>
       </div>
       <div class="mt-3">
-        <Potential :limit="limit" :skin="false" />
+        <Potential :limit="limit" />
       </div>
     </div>
     <!-- 即将开始 -->

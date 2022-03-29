@@ -9,10 +9,6 @@ defineProps({
     type: Number,
     default: () => 0,
   },
-  show: {
-    type: Boolean,
-    default: () => false,
-  },
 });
 
 const request = function (query: object) {
@@ -22,7 +18,7 @@ const request = function (query: object) {
 </script>
 
 <template>
-  <ui-pagination :skin="show ? 'pagination' : ''" :limit="limit > 0 ? limit : 6" :show-loading="limit < 1" :request="request">
+  <ui-pagination skin="pagination" :limit="limit > 0 ? limit : 6" :show-loading="limit < 1" :request="request">
     <template #default="scope">
       <div class="airdrop-list">
         <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data" />
