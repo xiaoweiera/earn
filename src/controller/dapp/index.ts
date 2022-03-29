@@ -1,10 +1,12 @@
 import safeGet from "@fengqiaogang/safe-get";
+import safeSet from "@fengqiaogang/safe-set";
 import { Model } from "src/logic/dapp";
 import { Model as InvestModel } from "src/logic/dapp/invest";
 import type { Request, Response } from "express";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
+import { TabTypes } from "src/types/dapp/airdrop";
 
 export const list = async function (req: Request, res: Response) {
   const api = new Model(req);

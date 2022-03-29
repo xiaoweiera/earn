@@ -3,47 +3,47 @@
  * @author zhangkun@163.com
  */
 
-import { TabItem, TabTypes } from "src/types/dapp/airdrop";
+import { TabTypes } from "src/types/dapp/airdrop";
 import I18n from "src/utils/i18n";
 import { config } from "src/router/config";
 import { toLower, toUpper } from "ramda";
 
-export const tabs = function (): TabItem[] {
+export const tabs = function () {
   const i18n = I18n();
   return [
     {
-      id: TabTypes.all,
-      name: i18n.common.button.all,
+      name: TabTypes.all,
+      label: i18n.common.button.all,
       href: `${config.airdrop}/list/${TabTypes.all}`,
     },
     {
-      id: TabTypes.hot,
+      name: TabTypes.hot,
       logo: "",
-      name: i18n.airdrop.tabs.hot,
+      label: i18n.airdrop.tabs.hot,
       href: `${config.airdrop}/list/${TabTypes.hot}`,
     },
     {
-      id: TabTypes.ongoing,
+      name: TabTypes.ongoing,
       logo: "",
-      name: i18n.airdrop.tabs.ongoing,
+      label: i18n.airdrop.tabs.ongoing,
       href: `${config.airdrop}/list/${TabTypes.ongoing}`,
     },
     {
-      id: TabTypes.potential,
+      name: TabTypes.potential,
       logo: "icon-hot",
-      name: i18n.airdrop.tabs.potential,
+      label: i18n.airdrop.tabs.potential,
       href: `${config.airdrop}/list/${TabTypes.potential}`,
     },
     {
-      id: TabTypes.upcoming,
+      name: TabTypes.upcoming,
       logo: "",
-      name: i18n.airdrop.tabs.upcoming,
+      label: i18n.airdrop.tabs.upcoming,
       href: `${config.airdrop}/list/${TabTypes.upcoming}`,
     },
     {
-      id: TabTypes.ended,
+      name: TabTypes.ended,
       logo: "",
-      name: i18n.growthpad.status.closure,
+      label: i18n.growthpad.status.closure,
       href: `${config.airdrop}/list/${TabTypes.ended}`,
     },
   ];
