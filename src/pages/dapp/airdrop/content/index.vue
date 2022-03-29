@@ -1,18 +1,19 @@
 <script lang="ts" setup>
-import DAppAirdropOngoing from "./ongoing.vue";
-import DAppAirdropPotential from "./potential.vue";
-import DAppAirdropUpcoming from "./upcoming.vue";
-import DAppAirdropEnded from "./ended.vue";
-import DAppAirdropHotOperation from "./hot/hot.vue";
-import DAppAirdropHot from "./hot/index.vue";
+import Ongoing from "src/pages/dapp/airdrop/content/ongoing.vue";
+import Potential from "src/pages/dapp/airdrop/content/potential.vue";
+import Upcoming from "src/pages/dapp/airdrop/content/upcoming.vue";
+import Ended from "src/pages/dapp/airdrop/content/ended.vue";
+import Operation from "src/pages/dapp/airdrop/content/hot/operation.vue";
+import Hot from "src/pages/dapp/airdrop/content/hot/index.vue";
 import { computed, PropType, ref } from "vue";
 import I18n from "src/utils/i18n";
 import { TabTypes } from "src/types/dapp/airdrop";
 import { AnyEquals } from "src/utils";
 import { config } from "src/router/config";
+import uuid from "src/utils/uuid";
 
 const i18n = I18n();
-
+const key = ref(uuid());
 const props = defineProps({
   active: {
     required: true,
@@ -33,7 +34,7 @@ const getAllHref = function (key: string): string {
 <template>
   <div v-if="isAll" class="content-wrap mt-8">
     <!-- 运营精选 -->
-    <div class="flex items-center justify-between">
+    <div :key="key" class="flex items-center justify-between">
       <h3 class="text-16-24">
         <IconFont class="text-global-gemstone" type="icon-jiangbei" size="20" />
         <span class="ml-1.5">{{ i18n.airdrop.tabs.hot }}</span>
@@ -45,9 +46,9 @@ const getAllHref = function (key: string): string {
       </v-router>
     </div>
     <div class="mt-3">
-      <DAppAirdropHotOperation :limit="limit" />
+      <Operation :limit="limit" :show="false" />
     </div>
-    <!-- 进行中 -->
+    <!--     进行中-->
     <div class="mt-16">
       <div class="flex items-center justify-between">
         <h3 class="text-16-24">
@@ -55,13 +56,13 @@ const getAllHref = function (key: string): string {
           <span class="ml-1.5">{{ i18n.airdrop.tabs.ongoing }}</span>
         </h3>
         <!-- 查看全部 -->
-        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.ongoing)">
+        <v-router class="text-14-18 see-all link" :href="getAllHref(TabTypes.ongoing)" name="router-link">
           <span>{{ i18n.common.button.viewAll }}</span>
           <IconFont class="ml-1" type="icon-right" size="12" />
         </v-router>
       </div>
       <div class="mt-3">
-        <DAppAirdropOngoing :limit="limit * 2" />
+        <Ongoing :limit="limit" />
       </div>
     </div>
     <!--潜在优质空投-->
@@ -78,7 +79,7 @@ const getAllHref = function (key: string): string {
         </v-router>
       </div>
       <div class="mt-3">
-        <DAppAirdropPotential :limit="limit" />
+        <Potential :limit="limit" skin="false" />
       </div>
     </div>
     <!-- 即将开始 -->
@@ -95,7 +96,7 @@ const getAllHref = function (key: string): string {
         </v-router>
       </div>
       <div class="mt-3">
-        <DAppAirdropUpcoming :limit="limit" />
+        <Upcoming :limit="limit" />
       </div>
     </div>
     <!--已结束-->
@@ -112,16 +113,16 @@ const getAllHref = function (key: string): string {
         </v-router>
       </div>
       <div class="mt-3">
-        <DAppAirdropEnded :limit="limit" />
+        <Ended :limit="limit" />
       </div>
     </div>
   </div>
   <div v-else class="airdrop-wrap">
-    <DAppAirdropOngoing v-if="active === TabTypes.ongoing" />
-    <DAppAirdropHot v-else-if="active === TabTypes.hot" />
-    <DAppAirdropPotential v-else-if="active === TabTypes.potential" />
-    <DAppAirdropUpcoming v-else-if="active === TabTypes.upcoming" />
-    <DAppAirdropEnded v-else-if="active === TabTypes.ended" />
+    <Ongoing v-if="active === TabTypes.ongoing" />
+    <Hot v-else-if="active === TabTypes.hot" />
+    <Potential v-else-if="active === TabTypes.potential" />
+    <Upcoming v-else-if="active === TabTypes.upcoming" />
+    <Ended v-else-if="active === TabTypes.ended" />
   </div>
 </template>
 

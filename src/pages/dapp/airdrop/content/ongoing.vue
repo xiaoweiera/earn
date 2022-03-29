@@ -20,7 +20,7 @@ const request = function (query: object) {
 <template>
   <ui-pagination :limit="limit > 0 ? limit : 20" :show-loading="limit < 1" :request="request">
     <template #default="scope">
-      <div v-if="scope.list.length > 0" class="airdrop-list">
+      <div class="airdrop-list">
         <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data" />
       </div>
     </template>

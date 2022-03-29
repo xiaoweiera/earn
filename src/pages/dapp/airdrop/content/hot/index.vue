@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import DAppAirdropHotOperation from "./hot.vue";
-import DAppAirdropHotPotential from "./potential.vue";
+import Operation from "src/pages/dapp/airdrop/content/hot/operation.vue";
+import Potential from "src/pages/dapp/airdrop/content/hot/potential.vue";
 import I18n from "src/utils/i18n";
 
 const i18n = I18n();
@@ -16,7 +16,7 @@ const i18n = I18n();
       </h3>
     </div>
     <div class="mt-3">
-      <DAppAirdropHotOperation skin="true" />
+      <Operation :skin="true" />
     </div>
     <!-- 优质空投 -->
     <div class="mt-10">
@@ -26,7 +26,7 @@ const i18n = I18n();
       </h3>
     </div>
     <div class="mt-3">
-      <DAppAirdropHotPotential />
+      <Potential />
     </div>
   </div>
 </template>
