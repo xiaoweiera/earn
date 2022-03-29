@@ -10,10 +10,8 @@ import I18n from "src/utils/i18n";
 import { TabTypes } from "src/types/dapp/airdrop";
 import { AnyEquals } from "src/utils";
 import { config } from "src/router/config";
-import uuid from "src/utils/uuid";
 
 const i18n = I18n();
-const key = ref(uuid());
 const props = defineProps({
   active: {
     required: true,
@@ -34,7 +32,7 @@ const getAllHref = function (key: string): string {
 <template>
   <div v-if="isAll" class="content-wrap mt-8">
     <!-- 运营精选 -->
-    <div :key="key" class="flex items-center justify-between">
+    <div class="flex items-center justify-between">
       <h3 class="text-16-24">
         <IconFont class="text-global-gemstone" type="icon-jiangbei" size="20" />
         <span class="ml-1.5">{{ i18n.airdrop.tabs.hot }}</span>
