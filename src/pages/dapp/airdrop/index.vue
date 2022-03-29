@@ -56,14 +56,9 @@ const className = function (data: TabItem): string {
         <!--        <ui-tab :key="key" :list="tabs" @change="onChangeView"/>-->
       </ui-sticky>
       <!-- 广告 -->
-      <DAppAirdropAd class="mt-8" />
+      <DAppAirdropAd class="w-full mt-8" :active="active" />
       <!-- 内容 -->
       <DAppAirdropContent class="mt-8" :active="active" />
-      <!--      <div>-->
-      <!--      <div>-->
-      <!--        &lt;!&ndash;      <UiFixTipApyFixed :apply="config.dappApply" :isApply="false" :isIdea="true"/>&ndash;&gt;-->
-      <!--        &lt;!&ndash;      <UiHeaderTitle :value="I18n.menu.airdrop.title"/>&ndash;&gt;-->
-      <!--      </div>-->
     </div>
   </div>
 </template>
