@@ -54,16 +54,13 @@ onMounted(() => {
           <div class="mt-14 text-center text-12-16">
             <p class="inline-block text-global-highTitle text-opacity-45">{{ i18n.blog.copyright }}</p>
           </div>
-          <div v-if="detail.label && detail.label.length > 0" class="text-center text-12-16 text-global-highTitle text-opacity-85">
-            <span class="inline-block mt-4">{{ i18n.blog.label }}</span>
-            <span v-for="(value, index) in detail.label" :key="index" class="ml-4 mt-4 inline-block py-1 px-2 rounded-kd30px bg-global-highTitle bg-opacity-4">{{ value }}</span>
-          </div>
-        </div>
 
-        <div>
           <ui-lock>
             <div>
-              <p>hello world</p>
+              <div v-if="detail.label && detail.label.length > 0" class="text-center text-12-16 text-global-highTitle text-opacity-85">
+                <span class="inline-block mt-4">{{ i18n.blog.label }}</span>
+                <span v-for="(value, index) in detail.label" :key="index" class="ml-4 mt-4 inline-block py-1 px-2 rounded-kd30px bg-global-highTitle bg-opacity-4">{{ value }}</span>
+              </div>
             </div>
           </ui-lock>
         </div>
