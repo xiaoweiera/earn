@@ -6,23 +6,11 @@
 
 import I18n from "src/utils/i18n";
 import { getEnv } from "src/config/";
-import { asyncLoad } from "src/plugins/lazyload/";
 import { ElDialog, ElTabPane, ElTabs } from "element-plus";
 import { FlagStatus, emailForget, mobileForget, showLogin, showRegister, switchStatus, visible } from "src/logic/user/login";
 
 const i18n = I18n();
 const env = getEnv();
-
-// 邮箱登录
-const LoginEmail = asyncLoad(() => import("src/components/account/login/email.vue"));
-// 手机登录
-const LoginMobile = asyncLoad(() => import("src/components/account/login/mobile.vue"));
-// 邮箱找回
-const ForgetEmail = asyncLoad(() => import("src/components/account/forget/email.vue"));
-// 手机找回
-const ForgetMobile = asyncLoad(() => import("src/components/account/forget/mobile.vue"));
-// 邮箱注册
-const Register = asyncLoad(() => import("src/components/account/register.vue"));
 </script>
 
 <template>
@@ -41,7 +29,7 @@ const Register = asyncLoad(() => import("src/components/account/register.vue"));
             <template #label>
               <span class="text-16-20">{{ i18n.common.email }}</span>
             </template>
-            <login-email>
+            <account-login-email>
               <div class="flex items-center justify-between pt-4.5 pb-2.5 font-14-18">
                 <a class="link" @click="showRegister">
                   <span>{{ i18n.common.switchRegister }}</span>
@@ -50,14 +38,14 @@ const Register = asyncLoad(() => import("src/components/account/register.vue"));
                   <span>{{ i18n.common.switchRorget }}</span>
                 </a>
               </div>
-            </login-email>
+            </account-login-email>
           </el-tab-pane>
           <!--手机号登录-->
           <el-tab-pane :name="FlagStatus.mobileLogin">
             <template #label>
               <span class="text-16-20">{{ i18n.common.phone }}</span>
             </template>
-            <login-mobile>
+            <account-login-mobile>
               <div class="flex items-center justify-between pt-4.5 pb-2.5 font-14-18">
                 <a class="link" @click="showRegister">
                   <span>{{ i18n.common.switchRegister }}</span>
@@ -66,38 +54,38 @@ const Register = asyncLoad(() => import("src/components/account/register.vue"));
                   <span>{{ i18n.common.switchRorget }}</span>
                 </a>
               </div>
-            </login-mobile>
+            </account-login-mobile>
           </el-tab-pane>
         </el-tabs>
       </div>
       <!--找回密码-->
       <div v-else-if="switchStatus === FlagStatus.emailForget">
-        <forget-email>
+        <account-forget-email>
           <div class="text-center pt-4.5 pb-2.5 font-14-18">
             <a class="link" @click="showLogin">
               <span>{{ i18n.common.switchLogin }}</span>
             </a>
           </div>
-        </forget-email>
+        </account-forget-email>
       </div>
       <div v-else-if="switchStatus === FlagStatus.mobileForget">
-        <forget-mobile>
+        <account-forget-mobile>
           <div class="text-center pt-4.5 pb-2.5 font-14-18">
             <a class="link" @click="showLogin">
               <span>{{ i18n.common.switchLogin }}</span>
             </a>
           </div>
-        </forget-mobile>
+        </account-forget-mobile>
       </div>
       <!--注册-->
       <div v-else>
-        <register>
+        <account-register>
           <div class="text-center pt-4.5 pb-2.5 font-14-18">
             <a class="link" @click="showLogin">
               <span>{{ i18n.common.switchLogin }}</span>
             </a>
           </div>
-        </register>
+        </account-register>
       </div>
     </div>
   </el-dialog>
