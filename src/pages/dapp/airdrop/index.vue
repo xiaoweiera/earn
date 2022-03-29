@@ -42,7 +42,7 @@ const className = function (data: TabItem): string {
       <HomeAd class="w-full h-full mb-6" :position="24" />
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
-        <div class="flex items-end h-8.5 cursor-pointer">
+        <div class="max-w-full showX flex items-end h-8.5 cursor-pointer">
           <div v-for="(item, index) in tabs()" :key="index" class="mr-14">
             <v-router :href="item.href" class="block whitespace-nowrap tab-item p-2" :class="className(item)">
               <div v-if="item.logo" class="flex items-center">
