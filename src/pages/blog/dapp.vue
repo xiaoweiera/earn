@@ -20,17 +20,17 @@
           <div class="pt-4 md:pt-0 flex md:justify-between items-center flex-wrap md:flex-nowrap">
             <div class="flex-1">
               <p class="text-12-18 text-global-highTitle text-opacity-65">空投总量</p>
-              <p class="font-kdSemiBold">30,000,000,000,000</p>
+              <p class="semiBold">30,000,000,000,000</p>
             </div>
             <div class="line hidden md:flex"></div>
             <div class="flex-1">
               <p class="text-12-18 text-global-highTitle text-opacity-65">空投名额</p>
-              <p class="font-kdSemiBold">30,000,000,000,000</p>
+              <p class="semiBold">30,000,000,000,000</p>
             </div>
             <div class="line hidden md:flex"></div>
             <div class="w-full md:flex-1 mt-4 md:mt-0">
               <p class="text-12-18 text-global-highTitle text-opacity-65">Airdrop Time</p>
-              <p class="font-kdSemiBold">Jan 20th - Jan 20th</p>
+              <p class="semiBold">Jan 20th - Jan 20th</p>
             </div>
           </div>
         </div>
@@ -46,5 +46,8 @@
 .line {
   @apply w-px h-9;
   @apply bg-global-highTitle bg-opacity-6;
+}
+.semiBold {
+  font-family: i8n-font-SemiBold;
 }
 </style>
