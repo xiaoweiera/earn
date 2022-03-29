@@ -17,8 +17,8 @@ import { set as setValue, getLang } from "src/utils/root/data";
 import { createRef } from "src/utils/ssr/ref";
 import { asyncLoad } from "src/plugins/lazyload/";
 import UserMenu from "./menu.vue";
+import UserDialog from "./dialog.vue";
 
-const Dialog = asyncLoad(() => import("./dialog.vue"));
 const EmailTips = asyncLoad(() => import("./tips.vue"));
 const WalletConnect = asyncLoad(() => import("src/components/ui/wallet/connect.vue"));
 
@@ -93,7 +93,7 @@ onMounted(function () {
             </div>
           </template>
           <template #content>
-            <user-menu :user="user" />
+            <UserMenu :user="user" />
           </template>
         </ui-hover>
         <EmailTips class="absolute right-0 top-full" :user="user" />
@@ -107,7 +107,7 @@ onMounted(function () {
           <span class="whitespace-nowrap cursor-pointer hidden md:inline-block" @click.stop.prevent="showRegister">{{ i18n.common.register }}</span>
         </div>
         <!--登录、注册、找回密码-->
-        <Dialog />
+        <UserDialog />
       </div>
       <!--钱包-->
       <div class="ml-4 hidden lg:block">

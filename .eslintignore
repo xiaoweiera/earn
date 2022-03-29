@@ -10,5 +10,6 @@ components.d.ts
 src/config/iconname.ts
 src/config/header
 src/config/footer
+vite.config.ts
 auto-imports.d.ts
 .env.*.local
