@@ -43,7 +43,7 @@ const getAllHref = function (key: string): string {
         <IconFont class="ml-1" type="icon-right" size="12" />
       </v-router>
     </div>
-    <div class="mt-3">
+    <div class="mt-3 showX">
       <Operation :limit="limit" :show="false" />
     </div>
     <!--     进行中-->
@@ -59,7 +59,7 @@ const getAllHref = function (key: string): string {
           <IconFont class="ml-1" type="icon-right" size="12" />
         </v-router>
       </div>
-      <div class="mt-3">
+      <div class="mt-3 showX">
         <Ongoing :limit="limit" />
       </div>
     </div>
@@ -77,7 +77,7 @@ const getAllHref = function (key: string): string {
         </v-router>
       </div>
       <div class="mt-3">
-        <Potential :limit="limit" skin="false" />
+        <Potential :limit="limit" :skin="false" />
       </div>
     </div>
     <!-- 即将开始 -->
@@ -93,7 +93,7 @@ const getAllHref = function (key: string): string {
           <IconFont class="ml-1" type="icon-right" size="12" />
         </v-router>
       </div>
-      <div class="mt-3">
+      <div class="mt-3 showX">
         <Upcoming :limit="limit" />
       </div>
     </div>
@@ -110,7 +110,7 @@ const getAllHref = function (key: string): string {
           <IconFont class="ml-1" type="icon-right" size="12" />
         </v-router>
       </div>
-      <div class="mt-3">
+      <div class="mt-3 showX">
         <Ended :limit="limit" />
       </div>
     </div>
@@ -145,11 +145,21 @@ const getAllHref = function (key: string): string {
     @apply hidden;
   }
   ::v-deep(.airdrop-list) {
+    @apply inline-flex flex-nowrap;
+    .airdrop-item {
+      @apply w-78 mr-6 mb-0;
+    }
     @screen md {
       @apply grid grid-cols-2 gap-6;
+      .airdrop-item {
+        @apply w-auto mr-0;
+      }
     }
     @screen lg {
       @apply grid-cols-4;
+      .airdrop-item {
+        @apply w-auto mr-0;
+      }
     }
   }
   ::v-deep(.categories-list) {

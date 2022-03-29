@@ -52,92 +52,86 @@ const detailLink = function (data: DataItem) {
 
 <template>
   <v-router class="airdrop-item rounded-2xl overflow-hidden" :href="detailLink(data)" target="_blank">
-    <div>
-      <slot name="head">
-        <div class="p-4">
-          <div class="flex items-center justify-between h-13.5 flex-nowrap">
-            <!--头像 标题-->
-            <div class="flex flex-auto w-1">
-              <div class="select-none flex w-13.5 h-13.5">
-                <ui-image class="rounded w-full h-full flex" fit="cover" :lazy="true" :src="data.logo" />
-              </div>
-              <div class="ml-2.5 flex-auto w-1">
-                <h3 class="text-18-24 text-global-highTitle text-opacity-85 truncate">
-                  <b>{{ data.name }}</b>
-                </h3>
-                <div class="mt-2 flex items-center flex-nowrap">
-                  <!-- 项目分类 -->
-                  <span v-if="size(data.categories)" class="flex flex-nowrap items-center categories-list">
-                    <template v-for="(item, index) in data.categories" :key="index">
-                      <span v-if="item" class="categories-item flex bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">
-                        <span class="text-12-14 text-global-primary">{{ item }}</span>
-                      </span>
-                    </template>
-                  </span>
-                  <!-- 所属公链 -->
-                  <span v-if="size(data.categories) && size(data.chains)" class="split ml-2"></span>
-                  <span class="flex flex-nowrap items-center chain-list">
-                    <template v-for="(item, index) in data.chains" :key="index">
-                      <span v-if="item" class="ml-2 flex w-4 h-4 chain-item">
-                        <IconFont :type="item.logo" size="16" />
-                      </span>
-                    </template>
-                  </span>
-                </div>
-              </div>
+    <slot name="head">
+      <div class="p-4">
+        <div class="flex items-center justify-between h-13.5 flex-nowrap">
+          <!--头像 标题-->
+          <div class="flex flex-auto w-1">
+            <div class="select-none flex w-13.5 h-13.5">
+              <ui-image class="rounded w-full h-full flex" fit="cover" :lazy="true" :src="data.logo" />
             </div>
-            <!--右侧 评分-->
-            <div class="whitespace-nowrap ml-2 select-none">
-              <div class="flex items-center justify-end">
-                <IconFont class="text-global-gemstone mr-1" type="icon-star1" size="16" />
-                <b class="text-18-24 text-global-highTitle text-opacity-85">{{ toFixed(data.overall_score, 1) }}</b>
+            <div class="ml-2.5 flex-auto w-1">
+              <h3 class="text-18-24 text-global-highTitle text-opacity-85 truncate">
+                <b>{{ data.name }}</b>
+              </h3>
+              <div class="mt-2 flex items-center flex-nowrap">
+                <!-- 项目分类 -->
+                <span v-if="size(data.categories)" class="flex flex-nowrap items-center categories-list">
+                  <template v-for="(item, index) in data.categories" :key="index">
+                    <span v-if="item" class="categories-item flex bg-global-primary bg-opacity-10 rounded-kd20px px-2 py-1">
+                      <span class="text-12-14 text-global-primary">{{ item }}</span>
+                    </span>
+                  </template>
+                </span>
+                <!-- 所属公链 -->
+                <span v-if="size(data.categories) && size(data.chains)" class="split ml-2"></span>
+                <span class="flex flex-nowrap items-center chain-list">
+                  <template v-for="(item, index) in data.chains" :key="index">
+                    <span v-if="item" class="ml-2 flex w-4 h-4 chain-item">
+                      <IconFont :type="item.logo" size="16" />
+                    </span>
+                  </template>
+                </span>
               </div>
-              <!-- 评分数量 -->
-              <p class="mt-2 text-12-16 text-right text-global-highTitle text-opacity-45">
-                {{ i18n.part(i18n.airdrop.content.score, toInteger(data.clout), { count: toInteger(data.clout) }) }}
-              </p>
             </div>
           </div>
-        </div>
-      </slot>
-    </div>
-
-    <div>
-      <slot name="body">
-        <div class="mx-4 py-4 border-t border-solid border-global-highTitle border-opacity-6">
-          <div class="select-none flex text-center text-global-highTitle text-opacity-45">
-            <div class="flex-1 px-2">
-              <!--空投名额-->
-              <p class="text-12-16 flex items-center justify-center">
-                <span>{{ i18n.airdrop.content.quota }}</span>
-                <!-- <IconFont class="ml-1" type="icon-users" size="12"/> -->
-              </p>
-              <p class="mt-1 text-global-highTitle text-opacity-85">
-                <b class="text-18-18">{{ toNumberCash(data.airdrop_winner_count) }}</b>
-              </p>
+          <!--右侧 评分-->
+          <div class="whitespace-nowrap ml-2 select-none">
+            <div class="flex items-center justify-end">
+              <IconFont class="text-global-gemstone mr-1" type="icon-star1" size="16" />
+              <b class="text-18-24 text-global-highTitle text-opacity-85">{{ toFixed(data.overall_score, 1) }}</b>
             </div>
-            <div class="flex-1 px-2 border-l border-solid border-global-highTitle border-opacity-6">
-              <!--空投总量-->
-              <p class="text-12-16 flex items-center justify-center">
-                <span>{{ i18n.airdrop.content.amount }}</span>
-                <span v-show="data.airdrop_symbol" class="text-12-16 ml-1">({{ data.airdrop_symbol }})</span>
-              </p>
-              <p class="mt-1 text-global-highTitle text-opacity-85">
-                <b class="text-18-18">{{ toNumberCash(data.airdrop_amount) }}</b>
-              </p>
-            </div>
+            <!-- 评分数量 -->
+            <p class="mt-2 text-12-16 text-right text-global-highTitle text-opacity-45">
+              {{ i18n.part(i18n.airdrop.content.score, toInteger(data.clout), { count: toInteger(data.clout) }) }}
+            </p>
           </div>
         </div>
-      </slot>
-    </div>
+      </div>
+    </slot>
 
-    <div>
-      <slot name="footer">
-        <div class="item-time text-14-18" :class="{ ended: isBefore(data.airdrop_end_at) }">
-          <span class="select-none">{{ timeValue(data) }}</span>
+    <slot name="body">
+      <div class="mx-4 py-4 border-t border-solid border-global-highTitle border-opacity-6">
+        <div class="select-none flex text-center text-global-highTitle text-opacity-45">
+          <div class="flex-1 px-2">
+            <!--空投名额-->
+            <p class="text-12-16 flex items-center justify-center">
+              <span>{{ i18n.airdrop.content.quota }}</span>
+              <!-- <IconFont class="ml-1" type="icon-users" size="12"/> -->
+            </p>
+            <p class="mt-1 text-global-highTitle text-opacity-85">
+              <b class="text-18-18">{{ toNumberCash(data.airdrop_winner_count) }}</b>
+            </p>
+          </div>
+          <div class="flex-1 px-2 border-l border-solid border-global-highTitle border-opacity-6">
+            <!--空投总量-->
+            <p class="text-12-16 flex items-center justify-center">
+              <span>{{ i18n.airdrop.content.amount }}</span>
+              <span v-show="data.airdrop_symbol" class="text-12-16 ml-1">({{ data.airdrop_symbol }})</span>
+            </p>
+            <p class="mt-1 text-global-highTitle text-opacity-85">
+              <b class="text-18-18">{{ toNumberCash(data.airdrop_amount) }}</b>
+            </p>
+          </div>
         </div>
-      </slot>
-    </div>
+      </div>
+    </slot>
+
+    <slot name="footer">
+      <div class="item-time text-14-18" :class="{ ended: isBefore(data.airdrop_end_at) }">
+        <span class="select-none">{{ timeValue(data) }}</span>
+      </div>
+    </slot>
   </v-router>
 </template>
 

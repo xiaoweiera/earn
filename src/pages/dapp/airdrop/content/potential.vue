@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import DAppAirdropItem from "./item.vue";
+import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
+import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
 import I18n from "src/utils/i18n";
 import { Model } from "src/logic/dapp";
 
@@ -23,7 +24,7 @@ const request = function (query: object) {
     <div class="text-global-highTitle text-opacity-65">
       <p class="text-14-18" v-html="i18n.airdrop.potential.desc"></p>
     </div>
-    <ui-pagination class="mt-6" :limit="limit > 0 ? limit : 20" :show-loading="limit < 1" :request="request">
+    <ui-pagination class="mt-6 showX" :limit="limit > 0 ? limit : 20" :show-loading="limit < 1" :request="request">
       <template #default="scope">
         <div class="airdrop-list">
           <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data">
@@ -37,6 +38,9 @@ const request = function (query: object) {
             </template>
           </DAppAirdropItem>
         </div>
+      </template>
+      <template #empty>
+        <DAppAirdropEmpty />
       </template>
     </ui-pagination>
   </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import DAppAirdropItem from "./item.vue";
+import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
+import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
 import { Model } from "src/logic/dapp";
 
 const status = "upcoming";
@@ -23,6 +24,9 @@ const request = function (query: object) {
       <div class="airdrop-list">
         <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data" />
       </div>
+    </template>
+    <template #empty>
+      <DAppAirdropEmpty />
     </template>
   </ui-pagination>
 </template>

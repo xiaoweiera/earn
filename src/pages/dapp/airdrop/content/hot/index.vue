@@ -10,7 +10,7 @@ const i18n = I18n();
   <div>
     <!-- 运营精选 -->
     <div>
-      <h3 class="text-16-24">
+      <h3 class="text-16-24 flex items-center">
         <IconFont class="text-global-gemstone" type="icon-jiangbei" size="20" />
         <span class="ml-1.5 text-global-highTitle text-opacity-85">{{ i18n.airdrop.tabs.hot }}</span>
       </h3>
