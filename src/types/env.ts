@@ -37,6 +37,7 @@ export const title = "KingData";
 export const AppId = "app";
 export const languageKey = "lang";
 export const userLogin = "u_l_at"; // 用户登录时间
+export const uuIdName = "u_pux5rd6hm8"; // 用户 uuid
 export const tokenName = "auth_token";
 export const tokenKey = "token";
 export const tidingName = "last_timestamp";

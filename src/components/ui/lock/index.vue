@@ -1,0 +1,157 @@
+<script lang="ts" setup>
+/**
+ * @file 锁
+ * @auth svon.me@gmail.com
+ */
+import I18n from "src/utils/i18n/";
+import type { PropType } from "vue";
+import { onMounted, ref } from "vue";
+import { getShareLink } from "src/logic/ui/lock";
+import type { Type, LockData } from "src/types/common/lock";
+
+const i18n = I18n();
+const emitEvent = defineEmits(["sync"]);
+
+const props = defineProps({
+  id: {
+    type: [String, Number],
+    required: true,
+  },
+  text: {
+    type: String,
+    default: "",
+  },
+  type: {
+    type: String as PropType<Type>,
+    required: true,
+  },
+  data: {
+    type: Object as PropType<LockData>,
+    required: true,
+  },
+});
+
+const status = ref<boolean>(true);
+const link = ref<string>();
+
+const onClick = function () {
+  return emitEvent("sync");
+};
+
+const getPortrait = function (index: number): string {
+  if (index < 10) {
+    return `static/images/portrait/0${index}.jpg`;
+  }
+  return `static/images/portrait/${index}.jpg`;
+};
+
+onMounted(function () {
+  link.value = getShareLink(props.type, props.id);
+});
+</script>
+
+<template>
+  <client-only class="ui-lock">
+    <div v-if="status" class="relative">
+      <div class="virtual-shadow h-20 absolute left-0 right-0 bottom-full"></div>
+      <div class="text-center">
+        <div>
+          <IconFont size="24" type="icon-lock" />
+        </div>
+        <p class="lock-tips mt-2">
+          <span class="text-12-16 text-white tips-wrap">
+            <span class="bg-global-gemstone inline-block px-3 py-1.5 rounded-global-kd30px">{{ i18n.common.lock.text1 }}</span>
+          </span>
+        </p>
+        <p class="mt-6 text-global-highTitle text-opacity-45">
+          <span class="text-12-18">{{ i18n.common.lock.text2 }}</span>
+        </p>
+        <v-login class="mt-3 text-global-darkblue flex justify-center items-center">
+          <ui-share-twitter :href="link" :text="text" class="circular">
+            <IconFont size="16" type="icon-twitter" />
+          </ui-share-twitter>
+          <ui-share-telegram :href="link" class="circular">
+            <IconFont size="16" type="icon-telegram" />
+          </ui-share-telegram>
+          <v-copy :value="link" class="circular cursor-pointer">
+            <IconFont size="16" type="icon-link" />
+          </v-copy>
+          <span class="ml-4 px-3 h-10 button-sync rounded-global-kd30px cursor-pointer" @click="onClick">{{ i18n.common.lock.shared }}</span>
+        </v-login>
+        <div class="text-12-16 mt-6 text-global-highTitle text-opacity-85">
+          <template v-if="data.share_progress < 1">
+            <span>{{ i18n.common.lock.gain }}</span>
+            <b class="mx-1.5 font-b text-16-18 text-global-gemstone">{{ data.share_target }}</b>
+          </template>
+          <template v-else>
+            <span>{{ i18n.common.lock.gainAgain }}</span>
+            <b class="mx-1.5 font-b text-16-18 text-global-gemstone">
+              <template v-if="data.share_target > data.share_progress">{{ data.share_target - data.share_progress }}</template>
+              <template v-else>0</template>
+            </b>
+          </template>
+          <span>{{ i18n.common.lock.unlock }}</span>
+        </div>
+        <div class="mt-3 text-global-gemstone user flex justify-center items-center">
+          <template v-for="index in data.share_target" :key="index">
+            <i v-if="index <= data.share_progress" class="circular" :data-portrait="index"></i>
+            <i v-else class="circular">
+              <IconFont size="16" type="icon-user-plus" />
+            </i>
+          </template>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <slot></slot>
+    </div>
+  </client-only>
+</template>
+
+<style lang="scss" scoped>
+@import "src/styles/function";
+.virtual-shadow {
+  @apply z-100;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.0716618) 0%, rgba(255, 255, 255, 0) 12.78%, #ffffff 100%);
+}
+
+.button-sync {
+  @apply flex items-center justify-center;
+  @apply border border-solid border-global-highTitle border-opacity-12;
+}
+
+.circular {
+  @extend .button-sync;
+  @apply w-10 h-10 rounded-1/2 overflow-hidden;
+  & + .circular {
+    @apply ml-4;
+  }
+
+  @at-root .user & {
+    @apply bg-global-gemstone bg-opacity-6;
+    @apply border-dashed border-global-gemstone;
+
+    &[data-portrait] {
+      @apply bg-center bg-no-repeat bg-cover border-0;
+    }
+    @for $index from 1 through 6 {
+      &[data-portrait="#{$index}"] {
+        background-image: cdn("/static/images/portrait/0#{$index}.jpg");
+      }
+    }
+  }
+}
+
+.lock-tips {
+  @apply relative;
+  &:before {
+    content: "";
+    @apply block absolute left-0 right-0 top-1/2 transform -translate-y-1/2;
+    @apply border-t border-dashed border-global-highTitle border-opacity-10;
+  }
+
+  .tips-wrap {
+    @apply relative z-1 px-3 bg-white inline-block;
+  }
+}
+</style>
