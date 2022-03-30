@@ -46,7 +46,7 @@ const detailUrl = function (data: object) {
 };
 </script>
 <template>
-  <v-router v-if="headerData" :href="detailUrl(item)" target="_blank" class="item relative hand relative px-3 py-1.5 bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}; z-index:${zIndex + 100}`">
+  <v-router v-if="headerData" :href="detailUrl(item)" target="_blank" class="item relative hand relative px-3 py-1.5 bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}; z-index:${zIndex + 10}`">
     <div class="relative z-2 flex items-center w-full">
       <!--      排名-->
       <div :class="headerData[0].width" class="text-kd14px20px text-global-highTitle text-opacity-85 lg:order-0 whitespace-nowrap pl-3">{{ i + 1 }}</div>
@@ -96,7 +96,7 @@ const detailUrl = function (data: object) {
       </div>
       <!--      用户-->
       <div :class="headerData[4].width" class="flex flex-col lg:text-right whitespace-nowrap text-center order-2 lg:order-4 justify-center">
-        <div class="num">{{ formatRulesNumber(item.users) }}</div>
+        <div class="num text-center">{{ formatRulesNumber(item.users) }}</div>
       </div>
       <!--      变化率-->
       <div :class="headerData[5].width" class="flex flex-col lg:text-right whitespace-nowrap text-center order-2 lg:order-4 justify-center">

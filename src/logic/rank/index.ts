@@ -14,4 +14,8 @@ export class Model extends API {
   getDappList(query: dappListModel) {
     return this.rank.getDappList(query);
   }
+  //dapp chart
+  dappChart() {
+    return this.rank.dappChart();
+  }
 }
