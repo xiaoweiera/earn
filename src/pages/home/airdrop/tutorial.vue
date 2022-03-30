@@ -19,6 +19,7 @@ const TutorialList = createRef<BlogData[]>(alias.blog.list, [] as any);
 const params = {
   page: 1,
   page_size: 2,
+  group_id: 69,
 };
 // 即将上线列表
 const getTutorialList = async function () {

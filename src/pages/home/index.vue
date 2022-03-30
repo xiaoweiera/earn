@@ -15,7 +15,7 @@ import HomeRecommend from "./recommend.vue";
 import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
 
-const DAppHomeAirdrop = asyncLoad(() => import("src/pages/dapp/homeairdrop.vue"));
+const DAppHomeAirdrop = asyncLoad(() => import("src/pages/home/airdrop/index.vue"));
 const DAppHomeDiscover = asyncLoad(() => import("src/pages/dapp/homediscover.vue"));
 const DAppHomeDiscoverEnd = asyncLoad(() => import("src/pages/dapp/homediscoverend.vue"));
 const DAppHomeNft = asyncLoad(() => import("src/pages/dapp/homenft.vue"));
@@ -63,6 +63,10 @@ onMounted(() => {
       <lazy-load>
         <Quota v-if="isShowQuota()" class="mt-15" />
       </lazy-load>
+      <!-- Airdrops-->
+      <lazy-load>
+        <DAppHomeAirdrop class="mt-11 md:mt-17.5" />
+      </lazy-load>
       <!--  nft模块  -->
       <lazy-load>
         <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
@@ -77,10 +81,6 @@ onMounted(() => {
       <!--      项目方-->
       <lazy-load>
         <HomeCompany class="mt-6" />
-      </lazy-load>
-      <!-- Airdrops-->
-      <lazy-load>
-        <DAppHomeAirdrop class="mt-11 md:mt-17.5" />
       </lazy-load>
       <lazy-load>
         <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />

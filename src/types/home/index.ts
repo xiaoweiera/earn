@@ -61,6 +61,7 @@ export interface projectParams {
 export interface tutorialParams {
   page: number; //页码
   page_size: number; //页标
+  group_id: number; //博客类型id
 }
 export interface tutorialData {
   id: string | number; // 博客 id
