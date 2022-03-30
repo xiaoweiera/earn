@@ -78,13 +78,9 @@ export const airdropList = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   res.locals.menuActive = names.dapp.airdrop;
-  const query: any = { ...req.query, paginate: true };
+  const query: any = { ...req.query };
   const [list] = await Promise.all([api.getAirdropList(query)]);
   const result = {
-    title: i18n.home.webNft.title,
-    keywords: i18n.home.webNft.key,
-    description: i18n.home.webNft.des,
-
     [alias.airdrop.list]: list, // airdrop数据
   };
   res.send(result);

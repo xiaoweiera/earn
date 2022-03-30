@@ -3,7 +3,7 @@ import DAppAirdropItem from "./item.vue";
 import { Model } from "src/logic/dapp";
 import { getValue } from "src/utils/root/data";
 import { alias } from "src/utils/ssr/ref";
-import { TabTypes } from "src/types/dapp/airdrop";
+import { DataItem, TabTypes } from "src/types/dapp/airdrop";
 
 const status = TabTypes.ended;
 
@@ -15,16 +15,17 @@ defineProps({
 });
 
 let initStatus = true;
-const initValue = function () {
-  if (initStatus) {
-    initStatus = false;
-    return getValue(alias.airdrop.list, []);
-  }
-  return [];
-};
 const request = function (query: object) {
   const model = new Model();
   return model.getAirdropList({ status, ...query });
+};
+
+const initValue = function () {
+  if (initStatus) {
+    initStatus = false;
+    return getValue<DataItem[]>(alias.airdrop.list, []);
+  }
+  return [];
 };
 </script>
 
