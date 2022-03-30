@@ -58,5 +58,7 @@ export const common = {
 };
 
 export const rank = {
-  chainsList: "/api/dapps/v1/chains",
+  chainsList: "/api/dapps/v1/chains", //链
+  groups: "/api/dapps/{version}/groups", //分组
+  dappTable: "/api/dapps/v1/rank/dapps", //dapp列表
 };

@@ -10,6 +10,7 @@ import { SiteConfig } from "src/types/common/chain";
 import safeGet from "@fengqiaogang/safe-get";
 import { getParam } from "src/utils/router";
 import { useRoute } from "vue-router";
+
 const route = useRoute();
 // 公链配置
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
@@ -21,11 +22,9 @@ const props = defineProps({
   },
 });
 const chain = ref(getParam<string>("chain") || "all");
+watch(route, () => (chain.value = getParam<string>("chain") || "all"));
 const chainData: any = createRef<object[]>(alias.rank.chains, []);
 
-watch(route, () => {
-  chain.value = getParam<string>("chain") || "all";
-});
 const chainItem = computed(() => {
   return chainData.value?.find((item: any) => item.slug === chain.value);
 });

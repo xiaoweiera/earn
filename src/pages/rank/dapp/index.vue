@@ -1,15 +1,9 @@
 <script lang="ts" setup>
 import { chainPage } from "src/logic/rank/config";
 import Chains from "src/pages/rank/chains.vue";
+import Table from "src/pages/rank/dapp/table.vue";
 // import I18n from "src/utils/i18n";
-import { watch, ref } from "vue";
-import { useRoute } from "vue-router";
 // const i18n = I18n();
-const route = useRoute();
-const key = ref(0);
-watch(route, () => {
-  key.value++;
-});
 </script>
 <template>
   <div class="md:pb-13.5 pb-8 min-h-100 bg-global-topBg">
@@ -29,12 +23,13 @@ watch(route, () => {
           </div>
         </div>
       </div>
-      <div class="md:max-w-360 mx-auto px-4 md:px-20 border-1">
+      <div class="md:max-w-360 mx-auto px-4 md:px-20">
         <div class="max-w-315">
           <!--          <CommonTopics />-->
           <div class="my-4 md:my-6">
             <!--            <Ad :position="24"/>-->
           </div>
+          <Table :key="key" />
           <!--          <DappRankTable/>-->
         </div>
       </div>
