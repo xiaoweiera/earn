@@ -5,6 +5,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import _ from "lodash";
 import * as api from "src/config/api";
 import Cookie from "src/plugins/browser/cookie";
+import { uuIdName } from "src/config/";
 
 import { NullValue, expire, get, post, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import type { User } from "src/types/common/user";
@@ -29,7 +30,13 @@ export default class extends ApiTemplate {
   @get(api.user.info, expire.min5)
   @userToken(true)
   getInfo<T>(): Promise<T> {
-    return [] as any;
+    const req = this.getRequest();
+    const cookie = new Cookie(req);
+    const callback = function (data: object) {
+      const value = cookie.getUuid();
+      return { [uuIdName]: value, ...data };
+    };
+    return [{}, callback] as any;
   }
 
   // 手机号重置密码

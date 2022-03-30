@@ -126,6 +126,7 @@ export default {
   symbol: {
     plus: "+",
     divide: "Divide ",
+    colon: ":",
   },
   api: {
     wrong: "System exception",

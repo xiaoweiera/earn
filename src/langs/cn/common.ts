@@ -125,6 +125,7 @@ export default {
   symbol: {
     plus: "+",
     divide: "瓜分",
+    colon: "：",
   },
   api: {
     wrong: "系统异常，请稍后再试",

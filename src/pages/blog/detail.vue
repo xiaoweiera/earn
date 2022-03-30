@@ -20,6 +20,16 @@ const i18n = I18n();
 // 详情数据
 const detail = createReactive<BlogDetail>(alias.blog.detail, {} as BlogDetail);
 
+// 分享文案
+const getShareText = function (data: BlogDetail) {
+  const colon = i18n.common.symbol.colon;
+  return `${data.name}
+空投总量${colon}100
+空投名额${colon}100
+空投时间${colon}100
+教程链接${colon}`;
+};
+
 onMounted(() => {
   // 如果博客详情数据为空，同时 url 中有博客 id
   const params = getValue<object>("query", {});
@@ -55,7 +65,7 @@ onMounted(() => {
             <p class="inline-block text-global-highTitle text-opacity-45">{{ i18n.blog.copyright }}</p>
           </div>
 
-          <ui-lock>
+          <ui-lock :id="detail.id" type="blog" :text="getShareText(detail)">
             <div>
               <div v-if="detail.label && detail.label.length > 0" class="text-center text-12-16 text-global-highTitle text-opacity-85">
                 <span class="inline-block mt-4">{{ i18n.blog.label }}</span>
@@ -74,6 +84,9 @@ onMounted(() => {
             </div>
           </div>
         </div>
+      </div>
+      <div v-else>
+        <ui-empty />
       </div>
     </div>
   </div>

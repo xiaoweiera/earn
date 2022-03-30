@@ -5,9 +5,8 @@
  */
 
 import window from "src/plugins/browser/window";
-import { computed, onMounted, ref } from "vue";
 
-const props = defineProps({
+defineProps({
   // 跳转链接
   href: {
     type: [String, Object],
@@ -20,19 +19,14 @@ const props = defineProps({
   },
 });
 
-const link = ref<string>("");
-
-const shareLink = computed(function () {
-  return `https://t.me/share/url?url=${link.value}`;
-});
-
-onMounted(function () {
-  link.value = props.href || window.location.href;
-});
+const shareLink = function (href?: string) {
+  const link = encodeURIComponent(href || window.location.href);
+  return `https://t.me/share/url?url=${link}`;
+};
 </script>
 
 <template>
-  <v-router :href="shareLink" target="_blank">
+  <v-router :href="shareLink(href)" target="_blank">
     <slot>
       <IconFont bright :size="size" type="telegram" />
     </slot>

@@ -48,7 +48,7 @@ export default class extends ApiTemplate {
     });
   }
 
-  @tryError(DefaultValue())
+  @tryError(DefaultValue({}))
   @get(api.blog.detail, expire.min5)
   @userToken()
   @validate

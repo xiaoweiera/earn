@@ -5,9 +5,8 @@
  */
 
 import window from "src/plugins/browser/window";
-import { computed, onMounted, ref } from "vue";
 
-const props = defineProps({
+defineProps({
   // 跳转链接
   href: {
     type: [String, Object],
@@ -24,24 +23,19 @@ const props = defineProps({
   },
 });
 
-const link = ref<string>("");
-
-const shareLink = computed(function () {
+const shareLink = function (href?: string, text?: string) {
+  const link = encodeURIComponent(href || window.location.href);
   const query = [];
-  if (props.text) {
-    query.push(`text=${props.text}`);
+  if (href && text) {
+    query.push(`text=${encodeURIComponent(text)}`);
   }
-  query.push(`url=${link.value}`);
+  query.push(`url=${link}`);
   return `https://twitter.com/share?${query.join("&")}`;
-});
-
-onMounted(function () {
-  link.value = props.href || window.location.href;
-});
+};
 </script>
 
 <template>
-  <v-router :href="shareLink" target="_blank">
+  <v-router :href="shareLink(href, text)" :href-compile="false" target="_blank">
     <slot>
       <IconFont bright :size="size" type="twitter" />
     </slot>

@@ -17,6 +17,11 @@ import * as alias from "src/utils/root/alias";
 export const userInfo = async function (req: Request, res: Response) {
   const result = {};
   const cookie = new Cookie(req, res);
+  // 判断用户 uuid 是否存在，不存在则创建
+  const uuid = cookie.getUuid();
+  if (!uuid) {
+    cookie.setUuid();
+  }
   const token = await cookie.getUserToken();
   if (token) {
     const api = new API(req);
