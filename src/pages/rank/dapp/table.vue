@@ -99,7 +99,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-
     <!--    table-->
     <div class="table-container">
       <div class="pt-3 title-wrap">
