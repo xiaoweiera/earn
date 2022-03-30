@@ -16,6 +16,7 @@ import { dashboard, languageKey } from "src/config/";
 import { createHref } from "src/plugins/router/pack";
 import { config as routerConfig } from "src/router/config";
 import * as console from "src/plugins/log/";
+import { refresh } from "src/logic/user/login";
 
 export const PlatformWeb = "web";
 
@@ -239,6 +240,20 @@ export const resetFields = function (form?: any) {
       console.log(e);
       // todo
     }
+  }
+};
+
+// 邮箱修改成功
+export const onUpdateEmailCallback = async function (form?: any) {
+  resetFields(form);
+  // 唤起移动端对应功能
+  if (webkit.UpdateEmail()) {
+    return true;
+  } else {
+    // 更新用户 token
+    await refresh(true);
+    // 刷新当前页面
+    window.location.reload();
   }
 };
 

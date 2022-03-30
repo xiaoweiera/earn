@@ -14,6 +14,7 @@ import HomeHeader from "./header.vue";
 import HomeRecommend from "./recommend.vue";
 import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
+// import HomeInvest from "./invest.vue";
 
 const DAppHomeAirdrop = asyncLoad(() => import("src/pages/dapp/homeairdrop.vue"));
 const DAppHomeDiscover = asyncLoad(() => import("src/pages/dapp/homediscover.vue"));
