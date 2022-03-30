@@ -3,15 +3,26 @@
  * @file 项目库信息
  * @auth svon.me@gmail.com
  */
+import type { ProjectItem } from "src/types/dapp/";
+import type { PropType } from "vue";
+import { config as routerConfig } from "src/router/config";
+import { dateYMDFormat } from "src/utils/";
+
+defineProps({
+  data: {
+    type: Object as PropType<ProjectItem>,
+    required: true,
+  },
+});
 </script>
 
 <template>
-  <div class="border rounded-2xl p-4">
-    <v-router>
+  <v-router class="block" :href="`${routerConfig.dapp}/${data.id}`" target="_blank">
+    <div class="border rounded-2xl p-4">
       <div class="flex items-center flex-wrap md:flex-nowrap">
         <div class="order-1 flex items-center pr-4">
-          <IconFont type="icon-github1" size="32" />
-          <span class="ml-1.5 text-18-24 text-global-highTitle">CryptoPunkCrypto</span>
+          <IconFont :type="data.logo" size="32" />
+          <span class="ml-1.5 text-18-24 text-global-highTitle">{{ data.name }}</span>
         </div>
         <div class="order-2 md:order-3 ml-auto md:ml-4">
           <IconFont class="text-global-highTitle text-opacity-25" type="icon-rightNo" size="16" />
@@ -30,13 +41,13 @@
             <div class="line hidden md:flex"></div>
             <div class="w-full md:flex-1 mt-4 md:mt-0">
               <p class="text-12-18 text-global-highTitle text-opacity-65">Airdrop Time</p>
-              <p class="semiBold">Jan 20th - Jan 20th</p>
+              <p class="semiBold">{{ dateYMDFormat(data["online_time"]) }}</p>
             </div>
           </div>
         </div>
       </div>
-    </v-router>
-  </div>
+    </div>
+  </v-router>
 </template>
 
 <style scoped lang="scss">

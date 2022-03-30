@@ -28,6 +28,7 @@ import { AppId, getEnv, languageKey, rootData, tokenName } from "src/config";
 import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded } from "vue-router";
 import { createApp } from "./bootstrap/main";
 import { refresh } from "src/logic/user/login";
+import { onload as lockInit } from "src/logic/ui/lock";
 
 const getCache = async function (): Promise<object> {
   // 从 script 标签中获取数据
@@ -111,6 +112,7 @@ const main = async function () {
   app.mount(`#${AppId}`, true);
   // 延迟处理用户数据
   setTimeout(refresh);
+  setTimeout(lockInit);
 };
 
 setTimeout(main);

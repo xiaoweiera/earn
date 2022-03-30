@@ -3,12 +3,12 @@
  * @file 锁
  * @auth svon.me@gmail.com
  */
+import type { PropType } from "vue";
 import { onMounted, ref } from "vue";
-import safeSet from "@fengqiaogang/safe-set";
-import window from "src/plugins/browser/window";
-import { createHref } from "src/plugins/router/pack";
-import { User } from "src/types/common/user";
-import { alias, createReactive } from "src/utils/ssr/ref";
+import { getShareLink } from "src/logic/ui/lock";
+import type { Type, LockData } from "src/types/common/lock";
+
+const emitEvent = defineEmits(["sync"]);
 
 const props = defineProps({
   id: {
@@ -20,27 +20,31 @@ const props = defineProps({
     default: "",
   },
   type: {
-    type: String,
+    type: String as PropType<Type>,
+    required: true,
+  },
+  data: {
+    type: Object as PropType<LockData>,
     required: true,
   },
 });
 
-const user = createReactive<User>(alias.common.user, {} as User);
 const status = ref<boolean>(true);
 const link = ref<string>();
 
-onMounted(function () {
-  if (user && user.id) {
-    const url = window.location.href;
-    const data = {
-      suser: `${user.id}`,
-    };
-    if (props.type && props.id) {
-      safeSet(data, "stype", props.type);
-      safeSet(data, "sid", props.id);
-    }
-    link.value = createHref(url, data);
+const onClick = function () {
+  return emitEvent("sync");
+};
+
+const getPortrait = function (index: number): string {
+  if (index < 10) {
+    return `static/images/portrait/0${index}.jpg`;
   }
+  return `static/images/portrait/${index}.jpg`;
+};
+
+onMounted(function () {
+  link.value = getShareLink(props.type, props.id);
 });
 </script>
 
@@ -61,32 +65,38 @@ onMounted(function () {
           <span class="text-12-18">通过以下方式分享有效</span>
         </p>
         <v-login class="mt-3 text-global-darkblue flex justify-center items-center">
-          <ui-share-twitter :key="link" :href="link" :text="text" class="circular">
+          <ui-share-twitter :href="link" :text="text" class="circular">
             <IconFont size="16" type="icon-twitter" />
           </ui-share-twitter>
-          <ui-share-telegram :key="link" :href="link" class="circular">
+          <ui-share-telegram :href="link" class="circular">
             <IconFont size="16" type="icon-telegram" />
           </ui-share-telegram>
-          <v-copy class="circular cursor-pointer" :value="link">
+          <v-copy :value="link" class="circular cursor-pointer">
             <IconFont size="16" type="icon-link" />
           </v-copy>
-          <span class="ml-4 px-3 h-10 button-sync rounded-global-kd30px cursor-pointer">我已分享</span>
+          <span class="ml-4 px-3 h-10 button-sync rounded-global-kd30px cursor-pointer" @click="onClick">我已分享</span>
         </v-login>
         <div class="text-12-16 mt-6 text-global-highTitle text-opacity-85">
-          <span>获得</span>
-          <b class="mx-1.5 font-b text-16-18 text-global-gemstone">3</b>
+          <template v-if="data.share_progress < 1">
+            <span>获得</span>
+            <b class="mx-1.5 font-b text-16-18 text-global-gemstone">{{ data.share_target }}</b>
+          </template>
+          <template v-else>
+            <span>再获得</span>
+            <b class="mx-1.5 font-b text-16-18 text-global-gemstone">
+              <template v-if="data.share_target > data.share_progress">{{ data.share_target - data.share_progress }}</template>
+              <template v-else>0</template>
+            </b>
+          </template>
           <span>名好友助力，即可解锁完整内容</span>
         </div>
         <div class="mt-3 text-global-gemstone user flex justify-center items-center">
-          <i class="circular">
-            <IconFont size="16" type="icon-user-plus" />
-          </i>
-          <i class="circular">
-            <IconFont size="16" type="icon-user-plus" />
-          </i>
-          <i class="circular">
-            <IconFont size="16" type="icon-user-plus" />
-          </i>
+          <template v-for="index in data.share_target" :key="index">
+            <i v-if="index <= data.share_progress" class="circular" :data-portrait="index"></i>
+            <i v-else class="circular">
+              <IconFont size="16" type="icon-user-plus" />
+            </i>
+          </template>
         </div>
       </div>
     </div>
@@ -97,6 +107,7 @@ onMounted(function () {
 </template>
 
 <style lang="scss" scoped>
+@import "src/styles/function";
 .virtual-shadow {
   @apply z-100;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.0716618) 0%, rgba(255, 255, 255, 0) 12.78%, #ffffff 100%);
@@ -117,6 +128,16 @@ onMounted(function () {
   @at-root .user & {
     @apply bg-global-gemstone bg-opacity-6;
     @apply border-dashed border-global-gemstone;
+
+    &[data-portrait] {
+      @apply bg-center bg-no-repeat bg-cover border-0;
+    }
+
+    @for $index from 1 through 6 {
+      &[data-portrait="#{$index}"] {
+        background-image: cdn("/static/images/portrait/0#{$index}.jpg");
+      }
+    }
   }
 }
 

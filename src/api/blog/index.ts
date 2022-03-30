@@ -5,6 +5,7 @@
 import * as api from "src/config/api";
 import { DefaultValue, expire, get, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
+import type { LockData } from "src/types/common/lock";
 
 export default class extends ApiTemplate {
   // 广告 banner 数据
@@ -48,11 +49,21 @@ export default class extends ApiTemplate {
     });
   }
 
+  // 博客详情
   @tryError(DefaultValue({}))
-  @get(api.blog.detail, expire.min5)
-  @userToken()
+  @get(api.blog.detail)
   @validate
   getDetail<T>(@required id: string | number): Promise<T> {
+    const params = { blog_id: id };
+    return [params] as any;
+  }
+
+  // 博客解锁状态
+  @tryError(DefaultValue(null))
+  @get(api.blog.lockStatus)
+  @userToken(true)
+  @validate
+  getLockStatus(@required id: string | number): Promise<LockData> {
     const params = { blog_id: id };
     return [params] as any;
   }
