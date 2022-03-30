@@ -3,6 +3,7 @@ import { ElOption, ElSelect, ElSwitch, ElInput, ElAffix } from "element-plus";
 import { GroupPosition, dappHeader, dappHeaderMobile } from "src/logic/rank/config";
 import Tabs from "src/pages/rank/tabs.vue";
 import Item from "src/pages/rank/dapp/item.vue";
+import Header from "src/pages/rank/dapp/header.vue";
 import I18n from "src/utils/i18n";
 import { ref, reactive, onMounted, watch } from "vue";
 import document from "src/plugins/browser/document";
@@ -98,26 +99,20 @@ onMounted(() => {
         </div>
       </div>
     </div>
+
     <!--    table-->
     <div class="table-container">
       <div class="pt-3 title-wrap">
         <div :key="listKey">
           <ui-pagination :limit="50" :init-value="initValue()" :request="requestList">
             <template #default="scope">
-              <div class="showX">
+              <div :class="isPc ? '' : 'showX'">
                 <!--        header-->
                 <div class="lg:w-full w-255">
-                  <el-affix :offset="60" class="header-affix">
-                    <div class="w-full px-3 flex items-center header h-10.5 bg-global-white rounded-kd6px">
-                      <template v-for="(item, i) in isPc ? dappHeader : dappHeaderMobile" :key="i">
-                        <div :class="i === 0 ? item.width + item.class : item.width + item.class" class="flex whitespace-nowrap sort h-full text-kd14px18px text-opacity-65 text-global-highTitle">
-                          <div :class="item.key === param.sort_field ? 'tagBottom' : 'tagBottomNo'" class="h-full flex items-center">
-                            <UiSort :sort="item.sort" class="font-kdBarlow" :sort-data="param" :key-name="item.key" :name="item.name" @change="onSort" />
-                          </div>
-                        </div>
-                      </template>
-                    </div>
-                  </el-affix>
+                  <UiSticky v-if="isPc">
+                    <Header :header-data="isPc ? dappHeader : dappHeaderMobile" :param="param" @onSort="onSort" />
+                  </UiSticky>
+                  <Header v-else :header-data="isPc ? dappHeader : dappHeaderMobile" :param="param" @onSort="onSort" />
                   <!--        list-->
                   <div v-for="(item, i) in scope.list" :key="i">
                     <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
@@ -137,9 +132,11 @@ onMounted(() => {
   .tagBottom {
     @apply border-b-2 border-global-primary;
   }
+
   .tagBottomNo {
     @apply border-b-2 border-global-white;
   }
+
   .interval {
     .el-input__inner {
       background: none;
@@ -149,6 +146,7 @@ onMounted(() => {
       @apply border-global-highTitle border-opacity-10;
     }
   }
+
   .query {
     .el-input__inner {
       background: none;
@@ -158,19 +156,18 @@ onMounted(() => {
     }
   }
 }
+
 .table-container {
-  .header-affix {
-    position: relative;
-    z-index: 999;
-  }
   .bodyTr {
     transition: all 0.3s;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);
     margin-top: 20px !important;
   }
+
   .header {
     @apply flex items-center;
   }
+
   .title-wrap {
     background-color: #fafbfc;
   }
