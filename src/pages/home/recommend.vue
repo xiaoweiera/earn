@@ -58,7 +58,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div>
+  <div v-if="recommend.length > 0">
     <div class="com-container font-kdSemiBold font-semibold">{{ i18n.home.hotTopic }}</div>
     <div class="mt-3 relative">
       <div class="w-full">

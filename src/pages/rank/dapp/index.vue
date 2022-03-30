@@ -35,9 +35,7 @@ onMounted(() => {
       <div class="md:max-w-360 mx-auto px-4 md:px-20">
         <div class="max-w-315 mx-auto">
           <CommonTopics />
-          <div class="my-4 md:my-6">
-            <Ad :position="24" />
-          </div>
+          <Ad :position="24" class="my-4 md:my-6" />
           <Table :key="key" />
         </div>
       </div>
