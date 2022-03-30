@@ -35,7 +35,7 @@ const link = computed<string>(function () {
 <template>
   <div class="quota-detail">
     <!-- 发布时间 -->
-    <AtTime :is-list="isList" :data="data" />
+    <AtTime :data="data" :is-list="isList" />
 
     <div v-if="isList && data.chart" class="mb-2 flex justify-between items-center">
       <!-- 标题 -->

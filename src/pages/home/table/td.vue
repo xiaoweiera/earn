@@ -10,6 +10,8 @@ import { getValue } from "src/utils/root/data";
 import type { SiteConfig } from "src/types/common/chain";
 import { getDateMDY } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
+import { ElPopover } from "element-plus";
+const showChainCount = 3;
 // 公链配置
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const props = defineProps({
@@ -123,8 +125,20 @@ onMounted(() => {
     </div>
     <!--chainIcon-->
     <div v-else-if="typeDom === 'chainIcon'">
-      <div v-if="data['chains']?.length > 0 && safeGet(config, `chain.${data.chain}`)">
-        <IconFont size="16" :type="safeGet(config, `chain.${data.chain}.logo`)" />
+      <div v-if="safeGet(data, 'chains') && safeGet(data, 'chains').length > 0" class="flex items-center justify-center">
+        <template v-for="(chain, i) in safeGet(data, 'chains').slice(0, showChainCount)" :key="i">
+          <IconFont :class="i === 0 ? '' : 'ml-1.5'" size="16" :type="safeGet(config, `chain.${chain}.logo`)" />
+        </template>
+        <el-popover v-if="safeGet(data, 'chains').length > showChainCount" popper-class="chain-popper" placement="bottom" trigger="hover" :append-to-body="false">
+          <div class="flex items-center px-2 py-1.5">
+            <template v-for="(chain, i) in safeGet(data, 'chains').slice(showChainCount)" :key="i">
+              <IconFont :class="i === 0 ? '' : 'ml-1.5'" size="16" :type="safeGet(config, `chain.${chain}.logo`)" />
+            </template>
+          </div>
+          <template #reference>
+            <div class="ml-1.5 relative bottom-1 text-global-highTitle text-opacity-45">...</div>
+          </template>
+        </el-popover>
       </div>
       <div v-else class="numberDefault text-number text-center">N/A</div>
     </div>
@@ -194,6 +208,14 @@ onMounted(() => {
   </div>
 </template>
 <style scoped lang="scss">
+::v-deep(.el-popover.el-popper) {
+  min-width: fit-content !important;
+  width: fit-content !important;
+  padding: 0px 0px 0px 0px !important;
+  border-radius: 100px;
+  transform: translate(100%, 100%);
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+}
 .line-height-no {
   line-height: 0px;
 }

@@ -11,14 +11,10 @@ import { FlagStatus, emailForget, mobileForget, showLogin, showRegister, switchS
 
 const i18n = I18n();
 const env = getEnv();
-
-const handleClose = function (next: () => void) {
-  return next();
-};
 </script>
 
 <template>
-  <el-dialog v-model="visible" :append-to-body="true" :before-close="handleClose" custom-class="dialog-user-wrap">
+  <el-dialog v-model="visible" :append-to-body="true" custom-class="dialog-user-wrap">
     <div>
       <div class="text-center mb-6">
         <div class="inline-block w-37.5">

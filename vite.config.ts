@@ -3,40 +3,39 @@
  * @author svon.me@gmail.com
  */
 
-import _ from "lodash";
-import path from "path";
 // @ts-ignore
 import argv from "@fengqiaogang/argv";
-import WindCSS from "vite-plugin-windicss";
 import vuePlugin from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import {ConfigEnv, defineConfig} from "vite";
-import { getConfig } from "./src/config/env";
+import _ from "lodash";
+import path from "path";
 import AutoImport from "unplugin-auto-import/vite";
+import {ElementPlusResolver} from "unplugin-vue-components/resolvers";
 import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import { ImportMetaEnv, production, development, Command, oss } from "./src/types/env";
+import {ConfigEnv, defineConfig} from "vite";
+import WindCSS from "vite-plugin-windicss";
+import {getConfig} from "./src/config/env";
+import {Command, development, ImportMetaEnv, oss, production} from "./src/types/env";
 
-
-const getSassData = function (env: ImportMetaEnv & ConfigEnv) {
+const getSassData = function(env: ImportMetaEnv & ConfigEnv) {
   const root = "./";
   const staticUrl: string = env.mode === Command.serve ? root : env.VITE_staticDomain;
   const data = {
     "g-url": oss,
     "static": staticUrl === root ? "" : staticUrl,
-  }
+  };
   const array: string[] = [];
-  _.each(data, function (value: string, key: string) {
+  _.each(data, function(value: string, key: string) {
     const code = `${key}: "${value}";`;
-    array.push('$' + code);
+    array.push("$" + code);
   });
   return {
     staticUrl,
     sass: array.join("\n"),
   };
-}
+};
 
-const getBuildConfig = function (config: ImportMetaEnv) {
+const getBuildConfig = function(config: ImportMetaEnv) {
   if (config.VITE_mode === production) {
     return {
       minify: "esbuild", // 编译速度最快
@@ -57,13 +56,12 @@ const getBuildConfig = function (config: ImportMetaEnv) {
       sourcemap: true,
     };
   }
-}
-
+};
 
 // @ts-ignore
-export default defineConfig(async function () {
+export default defineConfig(async function() {
   const config = await getConfig(argv);
-  const data = getSassData({ ...argv, ...config });
+  const data = getSassData({...argv, ...config});
   console.info("vite config : ", config);
   const buildConfig = getBuildConfig(config);
   return {
@@ -90,7 +88,7 @@ export default defineConfig(async function () {
     resolve: {
       extensions: [".ts", ".vue", ".js", ".tsx"],
       alias: {
-        'src/': `${path.resolve(__dirname, "src")}/`,
+        "src/": `${path.resolve(__dirname, "src")}/`,
       },
     },
     plugins: [
@@ -105,12 +103,12 @@ export default defineConfig(async function () {
       Components({
         dts: true,
         include: [/\.vue$/],
-        extensions: ['vue'],
+        extensions: ["vue"],
         directoryAsNamespace: true,
         exclude: [/node_modules/, /\.git/, /\.nuxt/],
         resolvers: [
           ElementPlusResolver({
-            importStyle: 'sass'
+            importStyle: "sass"
           })
         ],
       }),

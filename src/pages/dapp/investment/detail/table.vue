@@ -39,10 +39,6 @@ const debounceData = async (clear?: boolean) => {
   data.value = data.value.concat(res);
   loading.value = false;
 };
-//排序
-const sort = () => {
-  params.page++;
-};
 const more = () => {
   params.page++;
   getData();
