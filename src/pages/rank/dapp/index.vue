@@ -27,9 +27,9 @@ onMounted(() => {
               <Chains :page="chainPage.dapp_rank" />
             </div>
           </div>
-          <div class="md:ml-6 mt-4 md:mt-1.5 md:w-129.75 w-full">
+          <client-only class="md:ml-6 mt-4 md:mt-1.5 md:w-129.75 w-full">
             <Chart />
-          </div>
+          </client-only>
         </div>
       </div>
       <div class="md:max-w-360 mx-auto px-4 md:px-20">

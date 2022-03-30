@@ -10,11 +10,13 @@ import { getUrl } from "src/lib/url";
 import { config as routerConfig } from "src/router/config";
 import { groupModel, dappListModel } from "src/types/rank";
 import safeGet from "@fengqiaogang/safe-get";
-
+const timeConfig = {
+  timeout: 10000,
+};
 export default class extends ApiTemplate {
   //得到链
   @tryError(DefaultValue([])) // 处理默认值
-  @get(api.rank.chainsList, expire.day1) // 定义一个 get 请求
+  @get(api.rank.chainsList, expire.day1, timeConfig) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getChains<T>(position: string): Promise<T> {
     const query = { position };
@@ -32,7 +34,7 @@ export default class extends ApiTemplate {
 
   //得到分组
   @tryError(DefaultValue([])) // 处理默认值
-  @get(api.rank.groups, expire.min10) // 定义一个 get 请求
+  @get(api.rank.groups, expire.min10, timeConfig) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getGroups<T>(query: groupModel): Promise<T> {
     const callback = function (data: object[]) {
@@ -47,7 +49,7 @@ export default class extends ApiTemplate {
   }
   //dapp 列表
   @tryError(DefaultValue({})) // 处理默认值
-  @get(api.rank.dappTable, expire.min10) // 定义一个 get 请求
+  @get(api.rank.dappTable, expire.min10, timeConfig) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getDappList<T>(query: dappListModel): Promise<T> {
     const callback = function (data: object) {
@@ -57,7 +59,7 @@ export default class extends ApiTemplate {
   }
   //dapp chart
   @tryError(DefaultValue({})) // 处理默认值
-  @get(api.rank.dappChart, expire.min10) // 定义一个 get 请求
+  @get(api.rank.dappChart, expire.min10, timeConfig) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   dappChart<T>(): Promise<T> {
     return [] as any;
