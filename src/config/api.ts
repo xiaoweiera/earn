@@ -57,3 +57,11 @@ export const common = {
   tidingTime: "/api/generic/alert/web/new_add", // 新数据消息
   adList: "/api/v2/commercial", // 广告
 };
+
+export const rank = {
+  chainsList: "/api/dapps/v1/chains", //链
+  groups: "/api/dapps/{version}/groups", //分组
+  dappTable: "/api/dapps/v1/rank/dapps", //dapp列表
+  dappChart: "/api/dapps/v1/rank/chart/tvl", //dapp chart
+  nftChart: "/api/dapps/v1/rank/chart/volume", //nft Chart
+};

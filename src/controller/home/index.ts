@@ -1,6 +1,6 @@
 /**
- * @file 博客
- * @author svon.me@gmail.com
+ * @file 首页
+ * weier
  */
 
 import { Model } from "src/logic/home";
@@ -14,17 +14,11 @@ export const begin = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   const params = { page: 1, page_size: 100, show_commercial: true };
-  const [summary, topicRank, recommend, trend, platforms] = await Promise.all([
-    api.getSummary(),
-    api.getTopicRank(),
-    api.getRecommend(params),
-    api.getTrend(),
-    api.getPlatform(),
-  ]);
+  const [summary, topicRank, recommend, trend, platforms] = await Promise.all([api.getSummary(), api.getTopicRank(), api.getRecommend(params), api.getTrend(), api.getPlatform()]);
   const result = {
-    title: i18n.home.webInfo.home.title,
-    keywords: i18n.home.webInfo.home.key,
-    description: i18n.home.webInfo.home.des,
+    "title": i18n.home.webInfo.home.title,
+    "keywords": i18n.home.webInfo.home.key,
+    "description": i18n.home.webInfo.home.des,
 
     [alias.dApp.summary.list]: summary, // 数据汇总
     "API.home.getTopicRank": topicRank, // 首页顶部话题榜单接口
@@ -59,18 +53,13 @@ export const detail = async function (req: Request, res: Response) {
   };
 
   try {
-    const [detail, projects, recommend, top3] = await Promise.all([
-      api.getDetail(id),
-      api.getProjects(projectParams),
-      api.getRecommend(params),
-      api.getTop3(id),
-    ]);
+    const [detail, projects, recommend, top3] = await Promise.all([api.getDetail(id), api.getProjects(projectParams), api.getRecommend(params), api.getTop3(id)]);
     const result = {
       // @ts-ignore
-      title: detail && detail.id ? detail.name : i18n.home.webInfo.homeDetail.title,
-      keywords: i18n.home.webInfo.homeDetail.key,
+      "title": detail && detail.id ? detail.name : i18n.home.webInfo.homeDetail.title,
+      "keywords": i18n.home.webInfo.homeDetail.key,
       // @ts-ignore
-      description: detail && detail.id ? detail.desc : i18n.home.webInfo.homeDetail.des,
+      "description": detail && detail.id ? detail.desc : i18n.home.webInfo.homeDetail.des,
 
       "API.home.getDetail": detail, // 话题详情
       "API.home.getProjects": projects, // 话题项目
