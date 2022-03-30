@@ -4,6 +4,7 @@ import { DataItem } from "src/types/dapp/airdrop";
 import { config } from "src/router/config";
 import I18n from "src/utils/i18n";
 import { size, toNumberCash, toInteger, dateNow, dateYMDFormat, isBefore, isAfter, dateDiffData, toFixed } from "src/utils";
+import { decorate } from "src/logic/dapp/airdrop";
 
 defineProps({
   data: {
@@ -58,7 +59,7 @@ const detailLink = function (data: DataItem) {
           <!--头像 标题-->
           <div class="flex flex-auto w-1">
             <div class="select-none flex w-13.5 h-13.5">
-              <ui-image class="rounded w-full h-full flex" fit="cover" :lazy="true" :src="data.logo" />
+              <ui-image class="rounded w-full h-full flex" :class="decorate(data)" fit="cover" :lazy="true" :src="data.logo" />
             </div>
             <div class="ml-2.5 flex-auto w-1">
               <h3 class="text-18-24 text-global-highTitle text-opacity-85 truncate">

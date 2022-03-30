@@ -4,7 +4,7 @@
  */
 
 main {
-  $decorate: ("new", "ad", "sticky");
+  $decorate: ("new", "ad", "sticky", "hot");
   @each $name in $decorate {
     $size: 14, 16, 24, 26, 30, 40;
     @each $number in $size {
@@ -49,6 +49,15 @@ main {
       background-image: cdn("/static/images/ad.png");
       @at-root .cn & {
         background-image: cdn("/static/images/ad2.png");
+      }
+    }
+  }
+
+  [class~=hot-], [class*=hot-] {
+    &:after {
+      background-image: cdn("/dapp/hot_en.png");
+      @at-root .cn & {
+        background-image: cdn("/dapp/hot_cn.png");
       }
     }
   }
