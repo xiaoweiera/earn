@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import * as track from "src/logic/track";
 import I18n from "src/utils/i18n/";
 import safeGet from "@fengqiaogang/safe-get";
 import { tabs } from "src/logic/dapp/airdrop";
@@ -6,7 +7,7 @@ import HomeAd from "src/pages/home/ad.vue";
 import { TabTypes } from "src/types/dapp/airdrop";
 import { getValue } from "src/utils/root/data";
 
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import DAppAirdropAd from "./ad/index.vue";
 import DAppAirdropContent from "./content/index.vue";
 
@@ -20,6 +21,10 @@ const onChange = function (data: object) {
     active.value = value;
   }
 };
+onMounted(() => {
+  // 上报数据
+  track.push(track.Origin.gio, track.event.dApp.airdrop);
+});
 </script>
 
 <template>
