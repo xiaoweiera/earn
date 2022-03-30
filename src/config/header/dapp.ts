@@ -3,7 +3,6 @@
  */
 
 import I18n from "src/utils/i18n";
-import { dashboard } from "src/config";
 import { MenuItem } from "src/types/menu";
 import { config } from "src/router/config";
 import { Lang } from "src/types/language";
@@ -21,7 +20,7 @@ export const DApp = function (lang?: Lang): MenuItem {
   return {
     name: i18n.menu.dapp.title, // dApp
     href: `${config.dapp}/discover`,
-    expand: "HeaderSubDapp", // 二级导航末尾自定义组件名称
+    expand: "HeaderSubDApp", // 二级导航末尾自定义组件名称
     newTip: true,
     children: [
       {
