@@ -14,6 +14,7 @@ import { createReactive, onLoadReactive, onUpdateReactive } from "src/utils/ssr/
 import { dateFormat, isObject } from "src/utils";
 import { getStatus } from "src/logic/ui/lock";
 import { Type } from "src/types/common/lock";
+import { getDAppData } from "src/logic/blog/dapp";
 import Item from "./item.vue";
 import DApp from "./dapp.vue";
 
@@ -55,7 +56,7 @@ onMounted(() => {
     <div class="blog-detail">
       <div v-if="detail && detail.id">
         <template v-for="(item, index) in detail.tutorial_dapps" :key="index">
-          <DApp v-if="index < 1 && item" :data="item" />
+          <DApp :data="getDAppData(item)" />
         </template>
         <!-- 标题 -->
         <div class="text-center mt-8">

@@ -4,6 +4,10 @@ export default {
     title: "KingData NFT 新项目榜单",
     content: "快速发现每个人都在谈论的最新 DApps、DeFi、NFT、游戏和网站。",
   },
+  project: {
+    price: "价格",
+    supply: "总量",
+  },
   rank: {
     title: "快速发现优质 NFT",
     chartTitle: "所有公链总 NFT 交易量",

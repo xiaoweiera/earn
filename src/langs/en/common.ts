@@ -153,4 +153,12 @@ export default {
     close: "Close",
     ok: "Ok",
   },
+  lock: {
+    text1: "Enjoy the great airdrop and share them with your friends",
+    text2: "Valid ways to share",
+    gain: "Gain",
+    gainAgain: "Gain again",
+    unlock: "unlock the full content with the help from your friends",
+    shared: "Shared",
+  },
 };

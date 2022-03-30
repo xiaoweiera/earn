@@ -1,23 +1,20 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 项目库信息
  * @auth svon.me@gmail.com
  */
-import type { ProjectItem } from "src/types/dapp/";
-import type { PropType } from "vue";
 import { config as routerConfig } from "src/router/config";
-import { dateYMDFormat } from "src/utils/";
 
 defineProps({
   data: {
-    type: Object as PropType<ProjectItem>,
+    type: Object,
     required: true,
   },
 });
 </script>
 
 <template>
-  <v-router class="block" :href="`${routerConfig.dapp}/${data.id}`" target="_blank">
+  <v-router v-if="data" :href="`${routerConfig.dapp}/${data.id}`" class="block" target="_blank">
     <div class="border rounded-2xl p-4">
       <div class="flex items-center flex-wrap md:flex-nowrap">
         <div class="order-1 flex items-center pr-4">
@@ -25,23 +22,23 @@ defineProps({
           <span class="ml-1.5 text-18-24 text-global-highTitle">{{ data.name }}</span>
         </div>
         <div class="order-2 md:order-3 ml-auto md:ml-4">
-          <IconFont class="text-global-highTitle text-opacity-25" type="icon-rightNo" size="16" />
+          <IconFont class="text-global-highTitle text-opacity-25" size="16" type="icon-rightNo" />
         </div>
         <div class="order-3 md:order-2 w-full md:flex-1 text-global-highTitle text-16-20 md:text-center">
           <div class="pt-4 md:pt-0 flex md:justify-between items-center flex-wrap md:flex-nowrap">
             <div class="flex-1">
-              <p class="text-12-18 text-global-highTitle text-opacity-65">空投总量</p>
-              <p class="semiBold">30,000,000,000,000</p>
+              <p class="text-12-18 text-global-highTitle text-opacity-65">{{ data.totalText }}</p>
+              <p class="semiBold">{{ data.total }}</p>
             </div>
             <div class="line hidden md:flex"></div>
             <div class="flex-1">
-              <p class="text-12-18 text-global-highTitle text-opacity-65">空投名额</p>
-              <p class="semiBold">30,000,000,000,000</p>
+              <p class="text-12-18 text-global-highTitle text-opacity-65">{{ data.peopleText }}</p>
+              <p class="semiBold">{{ data.people }}</p>
             </div>
             <div class="line hidden md:flex"></div>
             <div class="w-full md:flex-1 mt-4 md:mt-0">
-              <p class="text-12-18 text-global-highTitle text-opacity-65">Airdrop Time</p>
-              <p class="semiBold">{{ dateYMDFormat(data["online_time"]) }}</p>
+              <p class="text-12-18 text-global-highTitle text-opacity-65">{{ data.timeText }}</p>
+              <p class="semiBold">{{ data.time }}</p>
             </div>
           </div>
         </div>
@@ -50,14 +47,16 @@ defineProps({
   </v-router>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .border {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);
 }
+
 .line {
   @apply w-px h-9;
   @apply bg-global-highTitle bg-opacity-6;
 }
+
 .semiBold {
   font-family: i8n-font-SemiBold;
 }

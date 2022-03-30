@@ -152,4 +152,12 @@ export default {
     close: "取消",
     ok: "确认",
   },
+  lock: {
+    text1: "好空投一起撸，分享好友查看完整教程",
+    text2: "通过以下方式分享有效",
+    gain: "获得",
+    gainAgain: "再获得",
+    unlock: "名好友助力，即可解锁完整内容",
+    shared: "我已分享",
+  },
 };

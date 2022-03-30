@@ -3,11 +3,13 @@
  * @file 锁
  * @auth svon.me@gmail.com
  */
+import I18n from "src/utils/i18n/";
 import type { PropType } from "vue";
 import { onMounted, ref } from "vue";
 import { getShareLink } from "src/logic/ui/lock";
 import type { Type, LockData } from "src/types/common/lock";
 
+const i18n = I18n();
 const emitEvent = defineEmits(["sync"]);
 
 const props = defineProps({
@@ -58,11 +60,11 @@ onMounted(function () {
         </div>
         <p class="lock-tips mt-2">
           <span class="text-12-16 text-white tips-wrap">
-            <span class="bg-global-gemstone inline-block px-3 py-1.5 rounded-global-kd30px">好空投一起撸，分享好友查看完整教程</span>
+            <span class="bg-global-gemstone inline-block px-3 py-1.5 rounded-global-kd30px">{{ i18n.common.lock.text1 }}</span>
           </span>
         </p>
         <p class="mt-6 text-global-highTitle text-opacity-45">
-          <span class="text-12-18">通过以下方式分享有效</span>
+          <span class="text-12-18">{{ i18n.common.lock.text2 }}</span>
         </p>
         <v-login class="mt-3 text-global-darkblue flex justify-center items-center">
           <ui-share-twitter :href="link" :text="text" class="circular">
@@ -74,21 +76,21 @@ onMounted(function () {
           <v-copy :value="link" class="circular cursor-pointer">
             <IconFont size="16" type="icon-link" />
           </v-copy>
-          <span class="ml-4 px-3 h-10 button-sync rounded-global-kd30px cursor-pointer" @click="onClick">我已分享</span>
+          <span class="ml-4 px-3 h-10 button-sync rounded-global-kd30px cursor-pointer" @click="onClick">{{ i18n.common.lock.shared }}</span>
         </v-login>
         <div class="text-12-16 mt-6 text-global-highTitle text-opacity-85">
           <template v-if="data.share_progress < 1">
-            <span>获得</span>
+            <span>{{ i18n.common.lock.gain }}</span>
             <b class="mx-1.5 font-b text-16-18 text-global-gemstone">{{ data.share_target }}</b>
           </template>
           <template v-else>
-            <span>再获得</span>
+            <span>{{ i18n.common.lock.gainAgain }}</span>
             <b class="mx-1.5 font-b text-16-18 text-global-gemstone">
               <template v-if="data.share_target > data.share_progress">{{ data.share_target - data.share_progress }}</template>
               <template v-else>0</template>
             </b>
           </template>
-          <span>名好友助力，即可解锁完整内容</span>
+          <span>{{ i18n.common.lock.unlock }}</span>
         </div>
         <div class="mt-3 text-global-gemstone user flex justify-center items-center">
           <template v-for="index in data.share_target" :key="index">
@@ -132,7 +134,6 @@ onMounted(function () {
     &[data-portrait] {
       @apply bg-center bg-no-repeat bg-cover border-0;
     }
-
     @for $index from 1 through 6 {
       &[data-portrait="#{$index}"] {
         background-image: cdn("/static/images/portrait/0#{$index}.jpg");
