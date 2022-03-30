@@ -108,10 +108,9 @@ onMounted(() => {
               <div :class="isPc ? '' : 'showX'">
                 <!--        header-->
                 <div class="lg:w-full w-255">
-                  <UiSticky v-if="isPc">
+                  <UiSticky v-if="isPc" active-class="table-box-title">
                     <Header :header-data="isPc ? dappHeader : dappHeaderMobile" :param="param" @onSort="onSort" />
                   </UiSticky>
-                  <Header v-else :header-data="isPc ? dappHeader : dappHeaderMobile" :param="param" @onSort="onSort" />
                   <!--        list-->
                   <div v-for="(item, i) in scope.list" :key="i">
                     <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
@@ -162,7 +161,10 @@ onMounted(() => {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);
     margin-top: 20px !important;
   }
-
+  .table-box-title {
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);
+  }
   .header {
     @apply flex items-center;
   }
