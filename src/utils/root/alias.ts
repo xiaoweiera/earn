@@ -46,6 +46,7 @@ export const nft = {
 
 export const airdrop = {
   list: "API.airdrop.list",
+  operation: "API.operation.list",
 };
 
 //投融资

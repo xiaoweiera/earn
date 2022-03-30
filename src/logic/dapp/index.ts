@@ -18,7 +18,8 @@ import dayjs from "dayjs";
 import { createHref } from "src/plugins/router/pack";
 import { Language } from "src/types/language";
 import { NftTabItem, NftTabTypes, TabItem, TabTypes } from "src/types/dapp";
-import { DataItem } from "src/types/dapp/airdrop";
+import { AirdropQuery, DataItem } from "src/types/dapp/airdrop";
+
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = "All";
 
@@ -146,12 +147,16 @@ export class Model extends API {
     return this.dApp.ixoEnd<ProjectItem | AdItem>(query);
   }
   //首页airdrop数据
-  getAirdropProjects(query: object) {
+  getAirdropProjects(query: AirdropQuery) {
     return this.dApp.getAirdropList<DataItem>(query);
   }
   //空投项目数据
-  getAirdropList(query: object) {
+  getAirdropList(query: AirdropQuery) {
     return this.dApp.getAirdropList<DataItem>(query);
+  }
+  //空投运营精选
+  getOperationList(query: AirdropQuery) {
+    return this.dApp.getOperationList<DataItem>(query);
   }
 }
 

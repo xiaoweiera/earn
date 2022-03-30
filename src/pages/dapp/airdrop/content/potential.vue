@@ -3,6 +3,7 @@ import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
 import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
 import I18n from "src/utils/i18n";
 import { Model } from "src/logic/dapp";
+import { TabTypes } from "src/types/dapp/airdrop";
 
 defineProps({
   limit: {
@@ -10,7 +11,7 @@ defineProps({
     default: () => 0,
   },
 });
-const status = "potential";
+const status = TabTypes.potential;
 
 const i18n = I18n();
 const request = function (query: object) {

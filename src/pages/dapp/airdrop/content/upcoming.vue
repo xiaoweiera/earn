@@ -4,8 +4,9 @@ import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
 import { Model } from "src/logic/dapp";
 import { getValue } from "src/utils/root/data";
 import { alias } from "src/utils/ssr/ref";
+import { TabTypes } from "src/types/dapp/airdrop";
 
-const status = "upcoming";
+const status = TabTypes.upcoming;
 
 defineProps({
   limit: {

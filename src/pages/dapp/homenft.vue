@@ -49,7 +49,7 @@ const UpcomingNftList = createRef<Array<ProjectNftItem | AdNftItem>>(alias.nft.u
 // nft drops
 const getUpcomingNftList = async function () {
   const model = new Model();
-  return model.getNftList(params);
+  return model.getUpcomingNftList(params);
 };
 
 // 创建更新列表钩子函数
@@ -73,35 +73,16 @@ onMounted(() => {
     <div>
       <!-- header -->
       <div>
-        <DAppHomeHeader
-          :status="nftStatus.upcoming"
-          :tips="i18n.home.idoIgoProject.never"
-          :type="urlType"
-          title="NFT Projects 🎯"
-        />
+        <DAppHomeHeader :status="nftStatus.upcoming" :tips="i18n.home.idoIgoProject.never" :type="urlType" title="NFT Projects 🎯" />
       </div>
       <!-- 搜索 -->
       <!-- pc端-->
       <div :key="keys" class="mt-4 hidden md:block">
-        <DAppDiscoverContentType
-          v-if="summary.nft_upcoming"
-          :list="tabChain(summary.nft_upcoming.chain, 'group', config.home)"
-          :split="6"
-          :title="i18n.home.idoIgoProject.chain"
-          active-name="group"
-          name="group"
-        />
+        <DAppDiscoverContentType v-if="summary.nft_upcoming" :list="tabChain(summary.nft_upcoming.chain, 'group', config.home)" :split="6" :title="i18n.home.idoIgoProject.chain" active-name="group" name="group" />
       </div>
       <!--手机端-->
       <div :key="keys" class="mt-4 block md:hidden">
-        <DAppDiscoverContentChain
-          v-if="summary.nft_upcoming"
-          :chain-data="summary.nft_upcoming.chain"
-          :href="config.home"
-          :title="i18n.home.idoIgoProject.chain"
-          class="w-full"
-          name="group"
-        />
+        <DAppDiscoverContentChain v-if="summary.nft_upcoming" :chain-data="summary.nft_upcoming.chain" :href="config.home" :title="i18n.home.idoIgoProject.chain" class="w-full" name="group" />
       </div>
       <!-- nft项目 -->
       <div v-if="UpcomingNftList.length > 0" class="mt-4 nft-item w-full showX">

@@ -15,6 +15,7 @@ export interface AirdropQuery {
   page?: number;
   page_size?: number;
   status?: TabTypes;
+  potential: boolean;
 }
 export interface Chain {
   name: string; // 名称

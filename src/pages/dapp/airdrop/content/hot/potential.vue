@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
+// import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
 import { Model } from "src/logic/dapp";
 
 defineProps({
@@ -8,10 +9,10 @@ defineProps({
     default: () => 0,
   },
 });
-const status = "ongoing";
+const potential = false;
 const request = function (query: object) {
   const model = new Model();
-  return model.getAirdropList({ status, ...query });
+  return model.getOperationList({ potential, ...query });
 };
 </script>
 
@@ -31,6 +32,9 @@ const request = function (query: object) {
         </DAppAirdropItem>
       </div>
     </template>
+    <!--    <template #empty>-->
+    <!--      <DAppAirdropEmpty />-->
+    <!--    </template>-->
   </ui-pagination>
 </template>
 

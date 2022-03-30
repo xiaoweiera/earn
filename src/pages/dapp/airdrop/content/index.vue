@@ -144,6 +144,10 @@ const getAllHref = function (key: string): string {
   ::v-deep(.airdrop-empty) {
     @apply hidden;
   }
+  /* 空数据提示 */
+  ::v-deep(.operation-empty) {
+    @apply hidden;
+  }
   ::v-deep(.airdrop-list) {
     @apply inline-flex flex-nowrap;
     .airdrop-item {

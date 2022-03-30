@@ -3,8 +3,9 @@ import DAppAirdropItem from "./item.vue";
 import { Model } from "src/logic/dapp";
 import { getValue } from "src/utils/root/data";
 import { alias } from "src/utils/ssr/ref";
+import { TabTypes } from "src/types/dapp/airdrop";
 
-const status = "ongoing";
+const status = TabTypes.ongoing;
 
 defineProps({
   limit: {
