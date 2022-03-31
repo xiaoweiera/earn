@@ -3,6 +3,12 @@
  * @author svon.me@gmail.com
  */
 
+export enum DataType {
+  ido = "ido",
+  nft = "nft",
+  airdrop = "airdrop",
+}
+
 // 社交媒体数据
 export interface ProjectMediaItem {
   is_qrcode?: boolean; // 是否为二维码
@@ -84,6 +90,7 @@ export interface Community {
 }
 
 export interface DAppData {
+  anchor: DataType; // 项目类型
   id: number | string; // 项目 ID
   name: string; // 项目名称
   logo: string; // logo
@@ -106,4 +113,14 @@ export interface DAppData {
   nft: NFT; // nft 数据
   airdrop: Airdrop; // airdrop 数据
   community: Community; // 社交媒体
+}
+
+export interface blogDAppData extends DAppData {
+  total: string;
+  totalText: string;
+  people: string;
+  peopleText: string;
+  time: string;
+  timeText: string;
+  url: string;
 }

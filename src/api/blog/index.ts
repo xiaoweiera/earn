@@ -61,9 +61,9 @@ export default class extends ApiTemplate {
 
   // 博客关联的 DApp 列表
   @tryError(DefaultValue({}))
-  @get(api.blog.dApp)
+  @get(api.blog.dApp, expire.min10)
   @validate
-  getDAppList(@required id: string | number): Promise<DAppData> {
+  getDAppList(@required id: string | number): Promise<DAppData[]> {
     const params = { blog_id: id };
     return [params] as any;
   }

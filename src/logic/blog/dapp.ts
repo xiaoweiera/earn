@@ -3,21 +3,24 @@
  * @author svon.me@gmail.com
  */
 
-import type { DAppData } from "src/types/dapp/data";
+import type { DAppData, blogDAppData } from "src/types/dapp/data";
+import { DataType } from "src/types/dapp/data";
 import I18n from "src/utils/i18n";
 import safeGet from "@fengqiaogang/safe-get";
 import { dateYMDFormat, toNumberCash } from "src/utils/";
+import { config as routerConfig } from "src/router/config";
 
-export const getDAppData = function (data: DAppData) {
+export const getDAppData = function (data: DAppData): blogDAppData | undefined {
   const i18n = I18n();
   // 空投
-  if (safeGet<boolean>(data, "is_airdrop")) {
-    const start = dateYMDFormat(safeGet<number>(data, "airdrop_start_at"));
-    const end = dateYMDFormat(safeGet<number>(data, "airdrop_end_at"));
-    const count = safeGet<number>(data, "airdrop_winner_count");
-    const amount = safeGet<number>(data, "airdrop_amount");
+  if (safeGet<DataType>(data, "anchor") === DataType.airdrop) {
+    const start = dateYMDFormat(safeGet<number>(data, "airdrop.airdrop_start_at"));
+    const end = dateYMDFormat(safeGet<number>(data, "airdrop.airdrop_end_at"));
+    const count = safeGet<number>(data, "airdrop.airdrop_winner_count");
+    const amount = safeGet<number>(data, "airdrop.airdrop_amount");
     return {
       ...data,
+      url: `${routerConfig.airdrop}/${data.id}`,
       total: toNumberCash(count), // 总量
       totalText: i18n.airdrop.content.amount,
       people: toNumberCash(amount), // 名额
@@ -27,14 +30,15 @@ export const getDAppData = function (data: DAppData) {
     };
   }
   // IDO
-  if (safeGet<boolean>(data, "is_ido")) {
-    const start = dateYMDFormat(safeGet<number>(data, "ido_start_at"));
-    const end = dateYMDFormat(safeGet<number>(data, "ido_end_at"));
-    const price = safeGet<number>(data, "ido_price"); // 价格
-    const goal = safeGet<number>(data, "ido_fundraising_goal"); // 目标
+  if (safeGet<DataType>(data, "anchor") === DataType.ido) {
+    const start = dateYMDFormat(safeGet<number>(data, "ido.ido_start_at"));
+    const end = dateYMDFormat(safeGet<number>(data, "ido.ido_end_at"));
+    const price = safeGet<number>(data, "ido.ido_price"); // 价格
+    const goal = safeGet<number>(data, "ido.ido_fundraising_goal"); // 目标
     return {
       ...data,
-      total: toNumberCash(price), // 价格
+      url: `${routerConfig.dapp}/${data.id}`,
+      total: "$" + toNumberCash(price), // 价格
       totalText: i18n.dapp.project.idoPrice,
       people: toNumberCash(goal), // 目标
       peopleText: i18n.dapp.project.fundraising, // 筹款目标
@@ -43,13 +47,15 @@ export const getDAppData = function (data: DAppData) {
     };
   }
   // NFT
-  if (safeGet<boolean>(data, "is_ido")) {
-    const time = dateYMDFormat(safeGet<number>(data, "mint_start_at"));
-    const price = safeGet<number>(data, "mint_price"); // 价格
-    const goal = safeGet<number>(data, "issue_volume"); // 总量
+  if (safeGet<DataType>(data, "anchor") === DataType.nft) {
+    const time = dateYMDFormat(safeGet<number>(data, "nft.mint_start_at"));
+    const price = safeGet<number>(data, "nft.mint_price"); // 价格
+    const goal = safeGet<number>(data, "nft.issue_volume"); // 总量
+    const unit = safeGet<string>(data, "nft.price_unit"); // 单位
     return {
       ...data,
-      total: toNumberCash(price), // 价格
+      url: `${routerConfig.nft}/${data.id}`,
+      total: unit ? `${toNumberCash(price)} ${unit}` : toNumberCash(price), // 价格
       totalText: i18n.nft.project.price,
       people: toNumberCash(goal), // 目标
       peopleText: i18n.nft.project.supply, // 总量
