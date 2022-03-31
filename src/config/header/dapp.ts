@@ -3,10 +3,10 @@
  */
 
 import I18n from "src/utils/i18n";
-import { dashboard } from "src/config";
 import { MenuItem } from "src/types/menu";
 import { config } from "src/router/config";
 import { Lang } from "src/types/language";
+import { TabTypes } from "src/types/dapp/airdrop";
 
 export const name = {
   dapp: "new_dapp",
@@ -54,7 +54,7 @@ export const DApp = function (lang?: Lang): MenuItem {
         icon: "icon-a-NFTxinxiangmu",
         more: true,
         header: true,
-        href: config.airdrop,
+        href: `${config.airdrop}/list/${TabTypes.all}`,
       },
       // {
       //   id: name.invest,
