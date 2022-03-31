@@ -46,7 +46,7 @@ const props = defineProps({
 });
 
 const i18n = I18n();
-const emitEvent = defineEmits(["change"]);
+const emitEvent = defineEmits(["change", "next", "prev"]);
 
 const { list, page, loading, next, empty, handleData } = Pagination(props as any);
 
@@ -81,6 +81,7 @@ const getData = async function (query: object) {
 const onPrev = function () {
   const value = page.value - 1;
   if (value >= 1) {
+    emitEvent("prev", { page: value });
     return getData(getQuery(value));
   }
 };
@@ -89,6 +90,7 @@ let initFlat = true;
 const onNext = function () {
   if (next.value) {
     const value = page.value + 1;
+    emitEvent("next", { page: value });
     return getData(getQuery(value));
   }
 };
