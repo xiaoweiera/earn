@@ -66,7 +66,7 @@ export const setScrollTop = function (top = 0) {
   });
 };
 
-// 异动滚动条到某一位置
+// 滑动滚动条到某一位置
 export const scrollGoToDom = function (value: any) {
   if (isNumber(value)) {
     return setScrollTop(value);
