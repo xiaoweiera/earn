@@ -9,9 +9,11 @@ import { GroupPosition } from "src/logic/rank/config";
 import { chainPage } from "src/logic/rank/config";
 import * as alias from "src/utils/root/alias";
 import { groupModel, dappListModel } from "src/types/rank";
+import I18n from "src/utils/i18n";
 // dapp页面
 export const dapp = async function (req: Request, res: Response) {
   const api = new Model(req);
+  const i18n = I18n(req);
   const query: groupModel = {
     position: GroupPosition.dappRank,
     chain: "all",
@@ -28,6 +30,10 @@ export const dapp = async function (req: Request, res: Response) {
   };
   const [chains, groups, dappList] = await Promise.all([api.getChains(chainPage.dapp_rank), api.getGroup(query), api.getDappList(tableQuery)]);
   const result = {
+    title: i18n.dapp.rank.page.title,
+    keywords: i18n.dapp.rank.page.meta,
+    description: i18n.dapp.rank.page.content,
+
     [alias.rank.chains]: chains, // 链
     [alias.rank.groups]: groups, // 分组
     [alias.rank.dappList]: dappList, // dapp list
@@ -38,6 +44,7 @@ export const dapp = async function (req: Request, res: Response) {
 // game 页面
 export const game = async function (req: Request, res: Response) {
   const api = new Model(req);
+  const i18n = I18n(req);
   const query: groupModel = {
     position: GroupPosition.dappRank,
     chain: "all",
@@ -55,6 +62,10 @@ export const game = async function (req: Request, res: Response) {
   };
   const [chains, groups, dappList] = await Promise.all([api.getChains(chainPage.dapp_rank), api.getGroup(query), api.getDappList(tableQuery)]);
   const result = {
+    title: i18n.dapp.rank.page.title,
+    keywords: i18n.dapp.rank.page.meta,
+    description: i18n.dapp.rank.page.content,
+
     [alias.rank.chains]: chains, // 链
     [alias.rank.groups]: groups, // 分组
     [alias.rank.dappList]: dappList, // dapp list
@@ -65,6 +76,7 @@ export const game = async function (req: Request, res: Response) {
 //defi 页面
 export const defi = async function (req: Request, res: Response) {
   const api = new Model(req);
+  const i18n = I18n(req);
   const query: groupModel = {
     position: GroupPosition.dappRank,
     chain: "all",
@@ -82,6 +94,10 @@ export const defi = async function (req: Request, res: Response) {
   };
   const [chains, groups, dappList] = await Promise.all([api.getChains(chainPage.dapp_rank), api.getGroup(query), api.getDappList(tableQuery)]);
   const result = {
+    title: i18n.dapp.rank.page.title,
+    keywords: i18n.dapp.rank.page.meta,
+    description: i18n.dapp.rank.page.content,
+
     [alias.rank.chains]: chains, // 链
     [alias.rank.groups]: groups, // 分组
     [alias.rank.dappList]: dappList, // dapp list
