@@ -7,7 +7,7 @@ import { Router as ExpressRouter } from "express";
 import * as user from "src/controller/common/user";
 import { config as routerConfig } from "src/router/config";
 
-const User = function() {
+const User = function () {
   const router = ExpressRouter();
 
   // 找回密码
@@ -18,6 +18,9 @@ const User = function() {
 
   // 邮箱登录
   router.all(routerConfig.user.login, user.prepend, user.login);
+
+  // 邮箱登录
+  router.all(routerConfig.user.updateEmail, user.prepend, user.updateEmail);
 
   return router;
 };

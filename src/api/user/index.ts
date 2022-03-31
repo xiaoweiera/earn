@@ -13,8 +13,10 @@ import getLang from "src/utils/url/lang";
 import ApiTemplate from "../template";
 
 export default class extends ApiTemplate {
+  // 刷新用户 token
   @tryError(NullValue)
   @post(api.user.refreshToken)
+  @userToken(true)
   async refreshToken(): Promise<string> {
     const req = this.getRequest();
     const cookie = new Cookie(req);
@@ -143,6 +145,18 @@ export default class extends ApiTemplate {
       } else {
         return Promise.reject(result);
       }
+    };
+    return [value, callback] as any;
+  }
+  // 修改邮箱
+  @post(api.user.updateEmail) // 接口地址
+  @userToken(true) // 必须为登录状态
+  @validate
+  async updateEmail(@required data: object) {
+    const value = _.pick(data, ["email", "code"]);
+    const callback = function (result?: object) {
+      // 成功时接口返回的值为空
+      return !result;
     };
     return [value, callback] as any;
   }

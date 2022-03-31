@@ -55,22 +55,30 @@ export const prepend = function (req: Request, res: Response, next: NextFunction
 
 // 用户找回密码
 export const userForget = function (req: Request, res: Response) {
-  const i18n = I18n();
+  const i18n = I18n(req);
   res.send({
     title: i18n.common.resetPassword,
   });
 };
 // 邮箱注册
 export const register = function (req: Request, res: Response) {
-  const i18n = I18n();
+  const i18n = I18n(req);
   res.send({
     title: i18n.common.register,
   });
 };
 // 用户登录
 export const login = function (req: Request, res: Response) {
-  const i18n = I18n();
+  const i18n = I18n(req);
   res.send({
     title: i18n.common.login,
+  });
+};
+
+// 修改用户邮箱
+export const updateEmail = function (req: Request, res: Response) {
+  const i18n = I18n(req);
+  res.send({
+    title: i18n.common.emailUpdate,
   });
 };
