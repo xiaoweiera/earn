@@ -12,7 +12,7 @@ const eventAttr = "__vueClickOutside";
 
 type El = HTMLElement | string;
 
-export const $ = function (value: El): any | undefined {
+export const $ = function (value: any): any | undefined {
   if (IsBrowser() && window.Zepto) {
     if (isString(value) || isElement(value)) {
       return window.Zepto(value);
