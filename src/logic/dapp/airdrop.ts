@@ -83,7 +83,7 @@ export const decorate = function (value: string | object, size: number | string 
   if (name && AnyEquals(name, "top")) {
     return `sticky-${size}`;
   }
-  if (name && AnyEquals(name, "hot")) {
+  if (name && AnyEquals(name, "recommend")) {
     return `hot-${size}`;
   }
   return "";

@@ -106,12 +106,7 @@ export const valueFormat = function (value: string | number, unit = "", prefix =
   return `${prefix}${value}${unit}`;
 };
 
-export const toNumberCashFormat = function (
-  value?: any,
-  unit = "",
-  prefix = "",
-  noValue: string = defaultNumberValue,
-): string {
+export const toNumberCashFormat = function (value?: any, unit = "", prefix = "", noValue: string = defaultNumberValue): string {
   if (isEmpty(value, true)) {
     return noValue;
   }
@@ -144,4 +139,16 @@ export const getPercent = (zi?: number, mu?: number) => {
   if (zi === 0 || !zi) return 0;
   // @ts-ignore
   return toNumberCashFormat((zi / mu) * 100);
+};
+
+// 格式化数据，无值返回-
+export const toNumberCashPre = function (value: string | number = 0): string {
+  if (value === defaultNumberValue) {
+    return value;
+  }
+  if (value) {
+    const data = `${value}`;
+    return data.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  return "--";
 };

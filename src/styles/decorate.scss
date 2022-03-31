@@ -3,7 +3,7 @@
  * @desc new, 广告, top (左上角修饰 icon)
  */
 
-main {
+.main {
   $decorate: ("new", "ad", "sticky", "hot");
   @each $name in $decorate {
     $size: 14, 16, 24, 26, 30, 40;

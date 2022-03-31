@@ -3,7 +3,7 @@ import { PropType } from "vue";
 import { DataItem } from "src/types/dapp/airdrop";
 import { config } from "src/router/config";
 import I18n from "src/utils/i18n";
-import { size, toNumberCash, toInteger, dateNow, dateYMDFormat, isBefore, isAfter, dateDiffData, toFixed } from "src/utils";
+import { size, toNumberCashPre, toInteger, dateNow, dateYMDFormat, isBefore, isAfter, dateDiffData, toFixed } from "src/utils";
 import { decorate } from "src/logic/dapp/airdrop";
 
 defineProps({
@@ -58,8 +58,8 @@ const detailLink = function (data: DataItem) {
         <div class="flex items-center justify-between h-13.5 flex-nowrap">
           <!--头像 标题-->
           <div class="flex flex-auto w-1">
-            <div class="select-none flex w-13.5 h-13.5">
-              <ui-image class="rounded w-full h-full flex" :class="decorate(data)" fit="cover" :lazy="true" :src="data.logo" />
+            <div class="select-none flex w-13.5 h-13.5 rounded overflow-hidden">
+              <ui-image class="w-full h-full flex" :class="decorate(data)" fit="cover" :lazy="true" :src="data.logo" />
             </div>
             <div class="ml-2.5 flex-auto w-1">
               <h3 class="text-18-24 text-global-highTitle text-opacity-85 truncate">
@@ -89,7 +89,7 @@ const detailLink = function (data: DataItem) {
           <!--右侧 评分-->
           <div class="whitespace-nowrap ml-2 select-none">
             <div class="flex items-center justify-end">
-              <IconFont class="text-global-gemstone mr-1" type="icon-star1" size="16" />
+              <IconFont class="text-global-gemstone mr-1" type="icon-star" size="16" />
               <b class="text-18-24 text-global-highTitle text-opacity-85">{{ toFixed(data.overall_score, 1) }}</b>
             </div>
             <!-- 评分数量 -->
@@ -111,7 +111,7 @@ const detailLink = function (data: DataItem) {
               <!-- <IconFont class="ml-1" type="icon-users" size="12"/> -->
             </p>
             <p class="mt-1 text-global-highTitle text-opacity-85">
-              <b class="text-18-18">{{ toNumberCash(data.airdrop_winner_count) }}</b>
+              <b class="text-18-18">{{ toNumberCashPre(data.airdrop_winner_count) }}</b>
             </p>
           </div>
           <div class="flex-1 px-2 border-l border-solid border-global-highTitle border-opacity-6">
@@ -121,7 +121,7 @@ const detailLink = function (data: DataItem) {
               <span v-show="data.airdrop_symbol" class="text-12-16 ml-1">({{ data.airdrop_symbol }})</span>
             </p>
             <p class="mt-1 text-global-highTitle text-opacity-85">
-              <b class="text-18-18">{{ toNumberCash(data.airdrop_amount) }}</b>
+              <b class="text-18-18">{{ toNumberCashPre(data.airdrop_amount) }}</b>
             </p>
           </div>
         </div>
