@@ -9,7 +9,7 @@ const i18n = I18n();
 <template>
   <div>
     <!-- 运营精选 -->
-    <div>
+    <div class="j-operation-title">
       <h3 class="text-16-24 flex items-center">
         <IconFont class="text-global-gemstone" type="icon-jiangbei" size="20" />
         <span class="ml-1.5 text-global-highTitle text-opacity-85">{{ i18n.airdrop.tabs.hot }}</span>
@@ -19,7 +19,7 @@ const i18n = I18n();
       <Operation />
     </div>
     <!-- 优质空投 -->
-    <div class="mt-10">
+    <div class="mt-10 j-potential-title">
       <h3 class="flex items-center text-16-24">
         <IconFont class="text-global-gemstone" type="icon-recommend" size="20" />
         <span class="ml-1.5 text-global-highTitle text-opacity-85">{{ i18n.airdrop.tabs.potential }}</span>

@@ -1,15 +1,21 @@
 <script lang="ts" setup>
+import HomeAd from "src/pages/home/ad.vue";
+import Ongoing from "src/pages/dapp/airdrop/content/ongoing.vue";
+import Potential from "src/pages/dapp/airdrop/content/potential.vue";
+import Upcoming from "src/pages/dapp/airdrop/content/upcoming.vue";
+import Ended from "src/pages/dapp/airdrop/content/ended.vue";
+import Hot from "src/pages/dapp/airdrop/content/hot/index.vue";
 import * as track from "src/logic/track";
 import I18n from "src/utils/i18n/";
 import safeGet from "@fengqiaogang/safe-get";
 import { tabs } from "src/logic/dapp/airdrop";
-import HomeAd from "src/pages/home/ad.vue";
 import { TabTypes } from "src/types/dapp/airdrop";
 import { getValue } from "src/utils/root/data";
 
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import DAppAirdropAd from "./ad/index.vue";
 import DAppAirdropContent from "./content/index.vue";
+import { AnyEquals } from "src/utils";
 
 const i18n = I18n();
 const activeName = ref<string>("name");
@@ -21,6 +27,10 @@ const onChange = function (data: object) {
     active.value = value;
   }
 };
+
+const isAll = computed(() => {
+  return AnyEquals(active.value, TabTypes.all);
+});
 onMounted(() => {
   // 上报数据
   track.push(track.Origin.gio, track.event.dApp.airdrop);
@@ -55,8 +65,29 @@ onMounted(() => {
         <!-- 广告 -->
         <DAppAirdropAd :active="active" class="w-full mt-8" />
         <!-- 内容 -->
-        <DAppAirdropContent :active="active" class="mt-8" />
+        <div v-if="isAll">
+          <DAppAirdropContent :active="active" class="mt-8" />
+        </div>
+        <div v-else class="airdrop-wrap mt-8">
+          <Ongoing v-if="active === TabTypes.ongoing" />
+          <Hot v-else-if="active === TabTypes.hot" />
+          <Potential v-else-if="active === TabTypes.potential" />
+          <Upcoming v-else-if="active === TabTypes.upcoming" />
+          <Ended v-else-if="active === TabTypes.ended" />
+        </div>
       </div>
     </div>
   </div>
 </template>
+<style lang="scss" scoped>
+.airdrop-wrap {
+  ::v-deep(.airdrop-list) {
+    @screen md {
+      @apply grid grid-cols-2 gap-6;
+    }
+    @screen lg {
+      @apply grid-cols-3;
+    }
+  }
+}
+</style>

@@ -60,22 +60,24 @@ export const scrollTop = function (): number {
 // 设置页面滚动条位置
 export const setScrollTop = function (top = 0) {
   // @ts-ignore
-  // document.scrollingElement.scrollTop = top;
-  $("html, body").animate({
-    scrollTop: top,
-  });
+  document.scrollingElement.scrollTop = top;
+  // $("html, body").css({
+  //   scrollTop: top,
+  // });
 };
 
-// 异动滚动条到某一位置
-export const scrollGoToDom = function (value: any) {
+// 滑动滚动条到某一位置
+export const scrollGoToDom = function (value: any, offset = 0) {
   if (isNumber(value)) {
     return setScrollTop(value);
   }
   if (isString(value) || isElement(value)) {
     const dom = $(value);
     if (dom) {
-      const rect = $(dom).offset();
-      return setScrollTop(rect.top);
+      const $header = $("#app .header-wrap");
+      const height = $header ? $header.height() : 0;
+      const rect = dom.offset();
+      return setScrollTop(rect.top - height - offset);
     }
   }
 };

@@ -4,24 +4,12 @@ import Potential from "src/pages/dapp/airdrop/content/potential.vue";
 import Upcoming from "src/pages/dapp/airdrop/content/upcoming.vue";
 import Ended from "src/pages/dapp/airdrop/content/ended.vue";
 import Operation from "src/pages/dapp/airdrop/content/hot/operation.vue";
-import Hot from "src/pages/dapp/airdrop/content/hot/index.vue";
-import { computed, PropType, ref } from "vue";
+import { ref } from "vue";
 import I18n from "src/utils/i18n";
 import { TabTypes } from "src/types/dapp/airdrop";
-import { AnyEquals } from "src/utils";
 import { config } from "src/router/config";
 
 const i18n = I18n();
-const props = defineProps({
-  active: {
-    required: true,
-    type: String as PropType<TabTypes>,
-    default: () => TabTypes.all,
-  },
-});
-const isAll = computed(() => {
-  return AnyEquals(props.active, TabTypes.all);
-});
 const limit = ref<number>(4);
 
 const getAllHref = function (key: string): string {
@@ -30,7 +18,7 @@ const getAllHref = function (key: string): string {
 </script>
 
 <template>
-  <div v-if="isAll" class="content-wrap mt-8">
+  <div class="content-wrap mt-8">
     <!-- 运营精选 -->
     <div class="flex items-center justify-between">
       <h3 class="text-16-24">
@@ -115,13 +103,6 @@ const getAllHref = function (key: string): string {
       </div>
     </div>
   </div>
-  <div v-else class="airdrop-wrap">
-    <Ongoing v-if="active === TabTypes.ongoing" />
-    <Hot v-else-if="active === TabTypes.hot" />
-    <Potential v-else-if="active === TabTypes.potential" />
-    <Upcoming v-else-if="active === TabTypes.upcoming" />
-    <Ended v-else-if="active === TabTypes.ended" />
-  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -187,16 +168,6 @@ const getAllHref = function (key: string): string {
       &:not(:first-child) {
         @apply hidden;
       }
-    }
-  }
-}
-.airdrop-wrap {
-  ::v-deep(.airdrop-list) {
-    @screen md {
-      @apply grid grid-cols-2 gap-6;
-    }
-    @screen lg {
-      @apply grid-cols-3;
     }
   }
 }
