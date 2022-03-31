@@ -4,7 +4,7 @@ import { ElOption, ElSelect } from "element-plus";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
 import { onMounted, ref, watch, computed } from "vue";
 import I18n from "src/utils/i18n";
-import { Model } from "src/logic/home";
+import { Model } from "src/logic/rank";
 import { getValue } from "src/utils/root/data";
 import { SiteConfig } from "src/types/common/chain";
 import safeGet from "@fengqiaogang/safe-get";
@@ -32,7 +32,7 @@ onMounted(() => {
   // 得到数据汇总
   onLoadRef<object[]>(chainData, () => {
     const api = new Model();
-    return api.rank.getChains(props.page);
+    return api.getChains(props.page);
   });
 });
 </script>

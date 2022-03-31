@@ -4,7 +4,9 @@ import { Router as ExpressRouter } from "express";
 
 const Router = function () {
   const router = ExpressRouter();
-  router.get(config.rankDapp, rank.dapp); // home.begin
+  router.get(config.rankDapp, rank.dapp); // dapp
+  router.get(config.rankGame, rank.game); // game
+  router.get(config.rankDefi, rank.defi); // defi
   return router;
 };
 
