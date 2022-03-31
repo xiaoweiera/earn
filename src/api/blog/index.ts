@@ -6,6 +6,7 @@ import * as api from "src/config/api";
 import { DefaultValue, expire, get, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
 import type { LockData } from "src/types/common/lock";
+import type { DAppData } from "src/types/dapp/data";
 
 export default class extends ApiTemplate {
   // 广告 banner 数据
@@ -54,6 +55,15 @@ export default class extends ApiTemplate {
   @get(api.blog.detail)
   @validate
   getDetail<T>(@required id: string | number): Promise<T> {
+    const params = { blog_id: id };
+    return [params] as any;
+  }
+
+  // 博客关联的 DApp 列表
+  @tryError(DefaultValue({}))
+  @get(api.blog.dApp)
+  @validate
+  getDAppList(@required id: string | number): Promise<DAppData> {
     const params = { blog_id: id };
     return [params] as any;
   }

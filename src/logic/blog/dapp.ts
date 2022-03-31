@@ -3,12 +3,12 @@
  * @author svon.me@gmail.com
  */
 
+import type { DAppData } from "src/types/dapp/data";
 import I18n from "src/utils/i18n";
 import safeGet from "@fengqiaogang/safe-get";
 import { dateYMDFormat, toNumberCash } from "src/utils/";
-import type { ProjectItem } from "src/types/dapp/";
 
-export const getDAppData = function (data: ProjectItem) {
+export const getDAppData = function (data: DAppData) {
   const i18n = I18n();
   // 空投
   if (safeGet<boolean>(data, "is_airdrop")) {

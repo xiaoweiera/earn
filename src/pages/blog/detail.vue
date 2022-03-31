@@ -10,7 +10,7 @@ import type { BlogDetail } from "src/types/blog/";
 import safeGet from "@fengqiaogang/safe-get";
 import * as alias from "src/utils/root/alias";
 import { getValue } from "src/utils/root/data";
-import { createReactive, onLoadReactive, onUpdateReactive } from "src/utils/ssr/ref";
+import { createRef, onLoadRef, createReactive, onLoadReactive, onUpdateReactive } from "src/utils/ssr/ref";
 import { dateFormat, isObject } from "src/utils";
 import { getStatus } from "src/logic/ui/lock";
 import { Type } from "src/types/common/lock";
@@ -22,6 +22,7 @@ const i18n = I18n();
 
 // 详情数据
 const detail = createReactive<BlogDetail>(alias.blog.detail, {} as BlogDetail);
+const dApps = createRef<object[]>(alias.blog.dApp, []);
 
 const onUpdate = onUpdateReactive(detail, async function () {
   const data = await getStatus(Type.blog, detail.id);
@@ -47,6 +48,7 @@ onMounted(() => {
   const id = safeGet<string>(params, "id");
   if (id) {
     onLoadReactive(detail, alias.blog.detail, id);
+    onLoadRef(dApps, alias.blog.dApp, id);
   }
 });
 </script>
@@ -55,7 +57,7 @@ onMounted(() => {
   <div class="pt-5 pb-15 px-4 md:px-0 max-w-180 mx-auto">
     <div class="blog-detail">
       <div v-if="detail && detail.id">
-        <template v-for="(item, index) in detail.tutorial_dapps" :key="index">
+        <template v-for="(item, index) in dApps" :key="index">
           <DApp :data="getDAppData(item)" />
         </template>
         <!-- 标题 -->
