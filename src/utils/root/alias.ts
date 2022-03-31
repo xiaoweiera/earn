@@ -17,6 +17,7 @@ export const blog = {
   tabs: "API.blog.tabs",
   list: "API.blog.getList",
   detail: "API.blog.getDetail",
+  dApp: "API.blog.getDAppList",
 };
 
 export const quota = {

@@ -3,18 +3,19 @@
  * @file 项目库信息
  * @auth svon.me@gmail.com
  */
-import { config as routerConfig } from "src/router/config";
+import type { blogDAppData } from "src/types/dapp/data";
+import type { PropType } from "vue";
 
 defineProps({
   data: {
-    type: Object,
+    type: Object as PropType<blogDAppData>,
     required: true,
   },
 });
 </script>
 
 <template>
-  <v-router v-if="data" :href="`${routerConfig.dapp}/${data.id}`" class="block" target="_blank">
+  <v-router v-if="data" :href="data.url" class="block" target="_blank">
     <div class="border rounded-2xl p-4">
       <div class="flex items-center flex-wrap md:flex-nowrap">
         <div class="order-1 flex items-center pr-4">
