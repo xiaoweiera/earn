@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import _ from "lodash";
 import htmlEncode from "js-htmlencode";
 import { languageKey, rootData } from "src/config";
@@ -29,6 +30,8 @@ const makeScript = async function (data: Result): Promise<string> {
   const value = _.omit(data, ["title", "keywords", "description", "content", "libs"]);
   const scriptCodes: string[] = [];
   const scriptLibs: string[] = [...Icons];
+
+  scriptLibs.push("/libs/hack.js");
 
   // 百度
   if (env.baidu && env.baidu.tag) {
