@@ -148,6 +148,12 @@ const getAllHref = function (key: string): string {
   ::v-deep(.operation-empty) {
     @apply hidden;
   }
+  @screen md {
+    .showX {
+      overflow: inherit;
+      overflow-x: inherit;
+    }
+  }
   ::v-deep(.airdrop-list) {
     @apply inline-flex flex-nowrap;
     .airdrop-item {
