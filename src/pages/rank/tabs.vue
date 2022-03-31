@@ -18,6 +18,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  baseUrl: {
+    type: String,
+    required: true,
+  },
 });
 const isSame = (id: number | string) => groupId.value === (id ? id.toString() : "");
 watch(route, () => (groupId.value = getParam<string>("group") || "all"));
@@ -35,7 +39,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="md:flex-1 md:pr-6 text-kdFang tab-wrap">
-    <template v-for="(item, index) in getUrl(list, routerConfig.rankDapp, 'group', 'id', routerQuery)" :key="index">
+    <template v-for="(item, index) in getUrl(list, baseUrl, 'group', 'id', routerQuery)" :key="index">
       <router-link v-if="index < 7" :to="item.href" class="tab-item" :class="{ active: isSame(item.id) }">
         <template v-if="safeGet(item, 'initial.image')">
           <div class="initial image">

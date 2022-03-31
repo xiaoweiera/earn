@@ -7,6 +7,7 @@ const Router = function () {
   router.get(config.rankDapp, rank.dapp); // dapp
   router.get(config.rankGame, rank.game); // game
   router.get(config.rankDefi, rank.defi); // defi
+  router.get(config.rankNft, rank.nft); // defi
   return router;
 };
 

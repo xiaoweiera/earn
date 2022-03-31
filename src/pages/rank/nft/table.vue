@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ElOption, ElSelect, ElSwitch, ElInput } from "element-plus";
-import { GroupPosition, dappHeader, dappHeaderMobile } from "src/logic/rank/config";
+import { GroupPosition, nftHeader, nftHeaderMobile } from "src/logic/rank/config";
 import Tabs from "src/pages/rank/tabs.vue";
-import Item from "src/pages/rank/dapp/item.vue";
+import Item from "src/pages/rank/nft/item.vue";
 import Header from "src/pages/rank/tableHeader.vue";
 import I18n from "src/utils/i18n";
 import { ref, reactive, onMounted, watch } from "vue";
@@ -15,22 +15,11 @@ import { useRoute } from "vue-router";
 import { getValue } from "src/utils/root/data";
 import { config as routerConfig } from "src/router/config";
 import _ from "lodash";
-const props = defineProps({
-  category: {
-    type: String,
-    default: () => "",
-  },
-  isGroup: {
-    type: Boolean,
-    default: () => true,
-  },
-});
 const i18n = I18n();
 const isPc = ref(true);
 const route = useRoute();
 const api = new Model();
 const param = reactive({
-  category: props.category || undefined,
   chain: getParam<string>("chain") || "all",
   group_id: getParam<string>("group") || "all",
   interval: "24h",
@@ -62,7 +51,7 @@ let initStatus = true;
 const initValue = function () {
   if (initStatus) {
     initStatus = false;
-    return getValue(alias.rank.dappList, []);
+    return getValue(alias.rank.nftList, []);
   }
   return [];
 };
@@ -71,13 +60,12 @@ const requestList = function (query: object) {
   const newParam = Object.assign(
     param,
     {
-      category: props.category || undefined,
       chain: getParam<string>("chain") || "all",
       group_id: getParam<string>("group") || "all",
     },
     query,
   );
-  return api.rank.getDappList(newParam);
+  return api.rank.getNftList(newParam);
 };
 onMounted(() => {
   isPc.value = document.body.clientWidth > 1024;
@@ -89,7 +77,7 @@ onMounted(() => {
 <template>
   <div>
     <div class="md:flex items-center">
-      <Tabs v-if="isGroup" :key="chainKey" :position="GroupPosition.dappRank" :base-url="routerConfig.rankDapp" />
+      <Tabs :key="chainKey" :position="GroupPosition.nftRank" :base-url="routerConfig.rankNft" />
       <div class="flex flex-1 justify-end rank-dapp">
         <div class="flex items-center xshidden md:mr-3">
           <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85 i8n-font-inter">{{ i18n.dapp.rank.comparison }}</span>
@@ -115,16 +103,16 @@ onMounted(() => {
         <div :key="listKey">
           <ui-pagination :limit="50" :init-value="initValue()" :request="requestList">
             <template #default="scope">
-              <div :class="isPc ? '' : 'showX'">
+              <div :class="isPc ? 'border-1' : 'showX border-1'">
                 <!--        header-->
                 <div class="lg:w-full w-255">
                   <UiSticky v-if="isPc" active-class="table-box-title">
-                    <Header :header-data="dappHeader" :param="param" @onSort="onSort" />
+                    <Header :header-data="nftHeader" :param="param" @onSort="onSort" />
                   </UiSticky>
-                  <Header v-else :header-data="dappHeaderMobile" :param="param" @onSort="onSort" />
+                  <Header v-else :header-data="nftHeaderMobile" :param="param" @onSort="onSort" />
                   <!--        list-->
                   <div v-for="(item, i) in scope.list" :key="i">
-                    <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
+                    <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? nftHeader : nftHeaderMobile" :i="i" :item="item" />
                   </div>
                 </div>
               </div>

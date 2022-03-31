@@ -17,6 +17,10 @@ const routes = [
     path: `${router.rankDefi}`,
     component: () => import("src/pages/rank/defi/index.vue"),
   },
+  {
+    path: `${router.rankNft}`,
+    component: () => import("src/pages/rank/nft/index.vue"),
+  },
 ];
 
 export default routes;
