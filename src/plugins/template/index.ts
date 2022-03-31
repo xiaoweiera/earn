@@ -3,8 +3,8 @@
  * @author svon.me@gmail.com
  */
 
-import htmlEncode from "js-htmlencode";
 import _ from "lodash";
+import htmlEncode from "js-htmlencode";
 import { languageKey, rootData } from "src/config";
 import { getEnv } from "src/config/";
 import Icons from "src/config/iconfont";
@@ -26,7 +26,6 @@ interface Result {
 
 const makeScript = async function (data: Result): Promise<string> {
   const env = getEnv();
-
   const value = _.omit(data, ["title", "keywords", "description", "content", "libs"]);
   const scriptCodes: string[] = [];
   const scriptLibs: string[] = [...Icons];
@@ -41,12 +40,10 @@ const makeScript = async function (data: Result): Promise<string> {
     scriptLibs.push(`https://www.googletagmanager.com/gtag/js?id=${id}`);
     scriptCodes.push(`window.dataLayer = window.dataLayer || []; function gtag(){ dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${id}');`);
   }
-  /*
-	// 人机教验
-	if (env.google && env.google.captcha) {
-		scriptLibs.push(`https://www.recaptcha.net/recaptcha/api.js?render=${env.google.captcha}`);
-	}
-	*/
+  // // 人机教验
+  // if (env.google && env.google.captcha) {
+  //   scriptLibs.push(`https://www.recaptcha.net/recaptcha/api.js?render=${env.google.captcha}`);
+  // }
   // 缓存数据
   const text = await Crypto(value);
   const html: string[] = [];
@@ -56,7 +53,6 @@ const makeScript = async function (data: Result): Promise<string> {
   _.each(scriptCodes, (value: string) => {
     html.push(`<script>${value}</script>`);
   });
-
   if (env.google && env.google.io) {
     let code =
       "!function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement(\"script\"),tag=t.getElementsByTagName(\"script\")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,\"script\",\"assets.giocdn.com/2.1/gio.js\",\"gio\");";
@@ -67,7 +63,6 @@ const makeScript = async function (data: Result): Promise<string> {
 
     html.push(`<script>${gio}</script>`);
   }
-
   html.push(`<script type="text/html" id="${rootData}">${text}</script>`);
   return html.join("");
 };

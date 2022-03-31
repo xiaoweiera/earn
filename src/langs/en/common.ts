@@ -13,9 +13,17 @@ export default {
   emailCreate: "Email",
   phoneForget: "Phone",
   emailForget: "Email",
+  emailUpdate: "Email",
   lang: "CN",
   loginOut: "Log Out",
   copyOk: "Copy ",
+  account: {
+    email: {
+      tips: "Please connect your email",
+      bind: "Go",
+      bind2: "Connect Email",
+    },
+  },
   nav: {
     apply: "Project Application",
     about: { name: "About", href: "https://kingdata.medium.com/about-kingdata-growthpad-36907c18440c" },
