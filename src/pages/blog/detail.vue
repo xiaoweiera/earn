@@ -1,27 +1,29 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 博客详情
  * @author svon.me@gmail.com
  */
 
-import { onMounted } from "vue";
-import I18n from "src/utils/i18n";
-import type { BlogDetail } from "src/types/blog/";
 import safeGet from "@fengqiaogang/safe-get";
+import { getDAppData } from "src/logic/blog/dapp";
+import { getStatus } from "src/logic/ui/lock";
+import type { BlogDetail } from "src/types/blog/";
+import { Type } from "src/types/common/lock";
+import type { DAppData } from "src/types/dapp/data";
+import { dateFormat, isObject } from "src/utils";
+import I18n from "src/utils/i18n";
 import * as alias from "src/utils/root/alias";
 import { getValue } from "src/utils/root/data";
-import { createReactive, onLoadReactive, onUpdateReactive } from "src/utils/ssr/ref";
-import { dateFormat, isObject } from "src/utils";
-import { getStatus } from "src/logic/ui/lock";
-import { Type } from "src/types/common/lock";
-import { getDAppData } from "src/logic/blog/dapp";
-import Item from "./item.vue";
+import { createReactive, createRef, onLoadReactive, onLoadRef, onUpdateReactive } from "src/utils/ssr/ref";
+import { onMounted } from "vue";
 import DApp from "./dapp.vue";
+import Item from "./item.vue";
 
 const i18n = I18n();
 
 // 详情数据
 const detail = createReactive<BlogDetail>(alias.blog.detail, {} as BlogDetail);
+const dApps = createRef<DAppData[]>(alias.blog.dApp, []);
 
 const onUpdate = onUpdateReactive(detail, async function () {
   const data = await getStatus(Type.blog, detail.id);
@@ -32,13 +34,24 @@ const onUpdate = onUpdateReactive(detail, async function () {
 });
 
 // 分享文案
-const getShareText = function (data: BlogDetail) {
+const getShareText = function (list: DAppData[]): string {
+  const text: string[] = [];
   const colon = i18n.common.symbol.colon;
-  return `${data.name}
-空投总量${colon}100
-空投名额${colon}100
-空投时间${colon}100
-教程链接${colon}`;
+  for (const item of list) {
+    if (item) {
+      const data = getDAppData(item);
+      if (data) {
+        text.push(data.name); // 项目名称
+        text.push(`${data.totalText}${colon}${data.total}`); // 总量
+        text.push(`${data.peopleText}${colon}${data.people}`); // 名额
+        text.push(`${data.timeText}${colon}${data.time}`); // 时间
+      }
+    }
+  }
+  if (text.length > 0) {
+    text.push(`${i18n.dapp.share.tutorial}${colon}`);
+  }
+  return text.join("\n");
 };
 
 onMounted(() => {
@@ -47,6 +60,7 @@ onMounted(() => {
   const id = safeGet<string>(params, "id");
   if (id) {
     onLoadReactive(detail, alias.blog.detail, id);
+    onLoadRef(dApps, alias.blog.dApp, id);
   }
 });
 </script>
@@ -55,8 +69,8 @@ onMounted(() => {
   <div class="pt-5 pb-15 px-4 md:px-0 max-w-180 mx-auto">
     <div class="blog-detail">
       <div v-if="detail && detail.id">
-        <template v-for="(item, index) in detail.tutorial_dapps" :key="index">
-          <DApp :data="getDAppData(item)" />
+        <template v-for="(item, index) in dApps" :key="index">
+          <DApp :class="{ 'mt-4': index > 0 }" :data="getDAppData(item)" />
         </template>
         <!-- 标题 -->
         <div class="text-center mt-8">
@@ -76,7 +90,7 @@ onMounted(() => {
 
             <template v-if="detail.hidden_body">
               <template v-if="detail.share_required && !detail.share_unlocked">
-                <ui-lock :id="detail.id" type="blog" :text="getShareText(detail)" :data="detail" @sync="onUpdate" />
+                <ui-lock :id="detail.id" :data="detail" :text="getShareText(dApps)" type="blog" @sync="onUpdate" />
               </template>
               <ui-markdown v-else :value="detail.hidden_body" />
             </template>
@@ -96,7 +110,7 @@ onMounted(() => {
           <h4 class="text-18">{{ i18n.blog.share }}</h4>
           <div class="mt-3">
             <div class="md:grid grid-cols-3 gap-6">
-              <Item v-for="(item, index) in detail.relevant" :key="index" class="relevant-item" :data="item" />
+              <Item v-for="(item, index) in detail.relevant" :key="index" :data="item" class="relevant-item" />
             </div>
           </div>
         </div>

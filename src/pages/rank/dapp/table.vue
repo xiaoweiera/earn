@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ElOption, ElSelect, ElSwitch, ElInput, ElAffix } from "element-plus";
+import { ElOption, ElSelect, ElSwitch, ElInput } from "element-plus";
 import { GroupPosition, dappHeader, dappHeaderMobile } from "src/logic/rank/config";
 import Tabs from "src/pages/rank/tabs.vue";
 import Item from "src/pages/rank/dapp/item.vue";
