@@ -94,7 +94,7 @@ onMounted(function () {
         </div>
         <div class="mt-3 text-global-gemstone user flex justify-center items-center">
           <template v-for="index in data.share_target" :key="index">
-            <i v-if="index <= data.share_progress" class="circular" :data-portrait="index"></i>
+            <i v-if="index <= data.share_progress" class="circular" :data-portrait="index % 6"></i>
             <i v-else class="circular">
               <IconFont size="16" type="icon-user-plus" />
             </i>
