@@ -5,7 +5,9 @@
   <title>{title}</title>
   <link href="/favicon.ico" rel="icon"/>
   <meta content="yes" name="apple-mobile-web-app-capable">
-  <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+  <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+        name="viewport"
+  />
   <meta content="a41a2ea87b23852e5ff4ba882ec1ae7d210002c1f090bc6a9f01bbc8942fed50" name="ahrefs-site-verification">
   <meta content="summary" name="twitter:card">
   <meta content="@KingData_com" name="twitter:site">
@@ -13,17 +15,18 @@
   <meta content="{description}" name="twitter:description">
   <meta content="{keywords}" name="keywords">
   <meta content="{description}" name="description">
-  <script src="/libs/express-useragent.min.js"></script>
-  <script src="/libs/zepto.min.js"></script>
+  <script defer src="/libs/express-useragent.min.js"></script>
+  <script async defer src="/libs/zepto.min.js"></script>
   <style>
-    [class~=grecaptcha], [class*=grecaptcha], .grecaptcha-badge {
-      display: none !important;
-      visibility: hidden;
-      opacity: 0;
-    }
-    .device {
-      display: none;
-    }
+      [class~=grecaptcha], [class*=grecaptcha], .grecaptcha-badge {
+          display: none !important;
+          visibility: hidden;
+          opacity: 0;
+      }
+
+      .device {
+          display: none;
+      }
   </style>
 </head>
 <body>
@@ -31,5 +34,6 @@
 <div class="hidden">{libs}</div>
 <script src="/src/plugins/browser/error.ts" type="module"></script>
 <script src="/src/entry-client.ts" type="module"></script>
+<script defer src="/libs/hack.js"></script>
 </body>
 </html>

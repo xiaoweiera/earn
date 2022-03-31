@@ -31,8 +31,6 @@ const makeScript = async function (data: Result): Promise<string> {
   const scriptCodes: string[] = [];
   const scriptLibs: string[] = [...Icons];
 
-  scriptLibs.push("/libs/hack.js");
-
   // 百度
   if (env.baidu && env.baidu.tag) {
     scriptLibs.push(`https://hm.baidu.com/hm.js?${env.baidu.tag}`);

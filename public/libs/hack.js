@@ -1,5 +1,5 @@
 (function() {
-  function main() {
+  function iosHack() {
     document.addEventListener("gesturestart", function(event) {
       event.preventDefault();
     });
@@ -29,7 +29,7 @@
     if (window.UserAgent) {
       var ua = new UserAgent().parse(navigator.userAgent);
       if (ua.isiPhone || ua.isiPod || ua.isiPad) {
-        main();
+        iosHack();
       }
     }
   } catch (e) {
