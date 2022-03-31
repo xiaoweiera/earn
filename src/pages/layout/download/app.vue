@@ -30,8 +30,8 @@ const onClick = function (e: Event) {
 </script>
 
 <template>
-  <client-only class="download-app is-web">
-    <div class="md:hidden">
+  <client-only>
+    <div class="app-main md:hidden">
       <div class="download-wrap">
         <v-router :href="env.appDownload" class="flex items-center py-1.5 px-4 text-white cursor-pointer whitespace-nowrap" target="_blank" @click="onClick">
           <IconFont class="mr-1" size="24" type="icon-shouji" />
@@ -43,14 +43,14 @@ const onClick = function (e: Event) {
 </template>
 
 <style lang="scss" scoped>
-.download-app {
+.app-main {
   .download-wrap {
     border-radius: 34px;
     @apply bg-global-darkblue;
     @apply fixed left-1/2 bottom-6 transform -translate-x-1/2 z-10010;
   }
 
-  @at-root .layout #ui-header-mobile:checked ~ & {
+  @at-root .layout #ui-header-mobile:checked ~ .download-app & {
     @apply hidden;
   }
   @at-root body[style~="overflow"] & {
