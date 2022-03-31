@@ -52,7 +52,7 @@ const detailUrl = function (data: object) {
       <div :class="headerData[0].width" class="text-kd14px20px text-global-highTitle text-opacity-85 lg:order-0 whitespace-nowrap pl-3">{{ i + 1 }}</div>
       <!--     名称-->
       <div :class="headerData[1].width" class="flex w-full items-center justify-left lg:order-1">
-        <ui-image :src="item.logo" class="w-6 h-6" />
+        <ui-image :src="item.logo" class="w-6 h-6 rounded-full" />
         <div class="text-kd14px18px text-global-highTitle ml-1.5 fang w-fit i8n-font-inter">{{ item.name }}</div>
       </div>
       <!--      类别-->
@@ -144,7 +144,7 @@ const detailUrl = function (data: object) {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
 }
 .num {
-  @apply text-kd16px16px text-global-highTitle font-kdExp;
+  @apply text-kd14px16px text-global-highTitle font-kdExp;
 }
 .item::before {
   content: "";

@@ -12,6 +12,7 @@ import { groupModel, dappListModel } from "src/types/rank";
 import safeGet from "@fengqiaogang/safe-get";
 const timeConfig = {
   timeout: 10000,
+  baseURL: "https://kingdata.xyz",
 };
 export default class extends ApiTemplate {
   //得到链
