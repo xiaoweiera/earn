@@ -30,7 +30,7 @@ const shareText = computed<string>(function () {
 </script>
 
 <template>
-  <client-only class="at-time mb-2 flex items-center justify-between">
+  <client-only class="at-time flex items-center justify-between">
     <p class="text-12-16 text-global-highTitle text-opacity-65">
       <span>{{ dateDiff(data.published_at) }}</span>
     </p>
@@ -40,18 +40,3 @@ const shareText = computed<string>(function () {
     </div>
   </client-only>
 </template>
-
-<style scoped lang="scss">
-.at-time {
-  @apply mb-5.5;
-  @at-root .calendar.small & {
-    @apply hidden;
-  }
-  @at-root .calendar a.flex & {
-    @apply hidden;
-  }
-  @at-root .calendar.small a.flex & {
-    @apply block mb-0;
-  }
-}
-</style>

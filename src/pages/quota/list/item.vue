@@ -5,12 +5,14 @@
  */
 
 import { computed } from "vue";
-import Image from "../list/image.vue";
 import { config as routerConfig } from "src/router/config";
 import type { Data } from "src/types/quota/";
 import type { PropType } from "vue";
 import AtTime from "./time.vue";
 import OnFollow from "../follow/on.vue";
+import { asyncLoad } from "src/plugins/lazyload/";
+
+const Image = asyncLoad(() => import("../list/image.vue"));
 
 const props = defineProps({
   data: {
@@ -35,12 +37,13 @@ const link = computed<string>(function () {
 <template>
   <div class="quota-detail">
     <!-- 发布时间 -->
-    <AtTime :data="data" :is-list="isList" />
+    <AtTime v-if="!isList" :data="data" :is-list="isList" class="mb-2" />
 
     <div v-if="isList && data.chart" class="mb-2 flex justify-between items-center">
       <!-- 标题 -->
       <v-router class="flex items-center" :disable="!isList" :href="link" target="_blank">
         <h3 class="text-16-24 text-global-highTitle">{{ data.chart.name }}</h3>
+        <!-- 发布时间 -->
         <AtTime class="ml-1.5" :is-list="isList" :data="data" />
       </v-router>
       <div>
@@ -63,10 +66,7 @@ const link = computed<string>(function () {
 
     <!-- 图片集合 -->
     <div v-if="data.image_urls && data.image_urls.length > 0" class="mt-4">
-      <v-router v-if="isList" :href="link" class="block w-full" target="_blank">
-        <Image :list="data.image_urls" :preview="!isList" />
-      </v-router>
-      <Image v-else :list="data.image_urls" />
+      <Image :list="data.image_urls" />
     </div>
   </div>
 </template>
