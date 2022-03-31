@@ -21,34 +21,39 @@ const request = function (query: object) {
 </script>
 
 <template>
-  <div class="">
-    <div class="text-global-highTitle text-opacity-65">
-      <p class="text-14-18" v-html="i18n.airdrop.potential.desc"></p>
-    </div>
-    <ui-pagination class="mt-6 showX" :limit="limit > 0 ? limit : 20" :show-loading="limit < 1" :request="request">
-      <template #default="scope">
-        <div class="airdrop-list">
-          <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data">
-            <template #body>
-              <div class="project-desc text-global-highTitle text-opacity-65">
-                <div class="text-14-18 h-full overflow-ellipsis overflow-hidden">{{ data.description }}</div>
-              </div>
-            </template>
-            <template #footer>
-              <div class="hidden"></div>
-            </template>
-          </DAppAirdropItem>
-        </div>
-      </template>
-      <template #empty>
-        <DAppAirdropEmpty />
-      </template>
-    </ui-pagination>
+  <div class="text-global-highTitle text-opacity-65">
+    <p class="text-14-18" v-html="i18n.airdrop.potential.desc"></p>
   </div>
+  <ui-pagination class="mt-6 showX" :limit="limit > 0 ? limit : 20" :show-loading="limit < 1" :request="request">
+    <template #default="scope">
+      <div class="airdrop-list">
+        <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data">
+          <template #body>
+            <div class="project-desc text-global-highTitle text-opacity-65">
+              <div class="text-14-18 h-full overflow-ellipsis overflow-hidden">{{ data.description }}</div>
+            </div>
+          </template>
+          <template #footer>
+            <div class="hidden"></div>
+          </template>
+        </DAppAirdropItem>
+      </div>
+    </template>
+    <template #empty>
+      <DAppAirdropEmpty />
+    </template>
+  </ui-pagination>
 </template>
 
 <style scoped lang="scss">
 .project-desc {
   @apply h-17.5 pb-4 mx-4;
+}
+
+@screen md {
+  .showX {
+    overflow: inherit;
+    overflow-x: inherit;
+  }
 }
 </style>
