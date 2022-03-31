@@ -9,6 +9,14 @@ const routes = [
     path: `${router.rankDapp}`,
     component: () => import("src/pages/rank/dapp/index.vue"),
   },
+  {
+    path: `${router.rankGame}`,
+    component: () => import("src/pages/rank/game/index.vue"),
+  },
+  {
+    path: `${router.rankDefi}`,
+    component: () => import("src/pages/rank/defi/index.vue"),
+  },
 ];
 
 export default routes;

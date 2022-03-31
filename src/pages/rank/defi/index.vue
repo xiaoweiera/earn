@@ -11,7 +11,7 @@ import { onMounted } from "vue";
 const i18n = I18n();
 import * as track from "src/logic/track";
 onMounted(() => {
-  track.push(track.Origin.gio, track.event.rank.dapp);
+  track.push(track.Origin.gio, track.event.rank.defi);
 });
 </script>
 <template>
@@ -36,7 +36,7 @@ onMounted(() => {
         <div class="max-w-315 mx-auto">
           <CommonTopics class="mb-4 md:mb-6" />
           <Ad :position="24" class="my-4 md:my-6" />
-          <Table />
+          <Table category="defi" :is-group="false" />
         </div>
       </div>
     </div>

@@ -31,6 +31,8 @@ export const config = {
   dappList: "/dapp/discover",
   dappApply: "/dapp/apply",
   rankDapp: "/rank/dapp",
+  rankGame: "/rank/game",
+  rankDefi: "/rank/defi",
   nft: "/nft",
   nftList: "/nft/discover",
   quota: "/indicators", // 指标监控

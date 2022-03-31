@@ -9,6 +9,6 @@ const props = defineProps({
 </script>
 <template>
   <div class="flex items-center">
-    <div class="text-kd22px22px i8n-font-Barlow font-semibold md:text-kd32px32px text-global-highTitle">{{ props.title }}</div>
+    <div class="text-kd22px22px i8n-font-Barlow font-kdSemiBold md:text-kd32px32px text-global-highTitle">{{ props.title }}</div>
   </div>
 </template>

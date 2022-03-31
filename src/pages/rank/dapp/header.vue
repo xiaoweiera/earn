@@ -25,3 +25,8 @@ const onSort = () => emit("onSort");
     </div>
   </div>
 </template>
+<style scoped lang="scss">
+.header {
+  @apply flex items-center;
+}
+</style>

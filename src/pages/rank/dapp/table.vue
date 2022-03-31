@@ -14,13 +14,22 @@ import { Model } from "src/logic/home";
 import { useRoute } from "vue-router";
 import { getValue } from "src/utils/root/data";
 import _ from "lodash";
-
+const props = defineProps({
+  category: {
+    type: String,
+    default: () => "",
+  },
+  isGroup: {
+    type: Boolean,
+    default: () => true,
+  },
+});
 const i18n = I18n();
 const isPc = ref(true);
 const route = useRoute();
 const api = new Model();
 const param = reactive({
-  category: getParam<string>("category") || undefined,
+  category: props.category || undefined,
   chain: getParam<string>("chain") || "all",
   group_id: getParam<string>("group") || "all",
   interval: "24h",
@@ -61,7 +70,7 @@ const requestList = function (query: object) {
   const newParam = Object.assign(
     param,
     {
-      category: getParam<string>("category") || undefined,
+      category: props.category || undefined,
       chain: getParam<string>("chain") || "all",
       group_id: getParam<string>("group") || "all",
     },
@@ -79,7 +88,7 @@ onMounted(() => {
 <template>
   <div>
     <div class="md:flex items-center">
-      <Tabs :key="chainKey" :position="GroupPosition.dappRank" />
+      <Tabs v-if="isGroup" :key="chainKey" :position="GroupPosition.dappRank" />
       <div class="flex flex-1 justify-end rank-dapp">
         <div class="flex items-center xshidden md:mr-3">
           <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85 i8n-font-inter">{{ i18n.dapp.rank.comparison }}</span>
