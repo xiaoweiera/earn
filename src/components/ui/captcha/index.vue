@@ -56,7 +56,7 @@ const onSendCode = async function (e: Event) {
   if (e && e.preventDefault) {
     e.preventDefault();
   }
-  console.info("captcha");
+  console.log("captcha");
   try {
     if (props.before && isFunction(props.before)) {
       await props.before();
@@ -64,7 +64,6 @@ const onSendCode = async function (e: Event) {
     console.info("captcha ready");
     const recaptcha = safeGet<GRecaptcha>(window, "grecaptcha");
     if (recaptcha) {
-      console.info("execute");
       // @ts-ignore
       recaptcha.ready(execute);
     } else {

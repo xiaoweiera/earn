@@ -20,5 +20,6 @@ export default {
     lastFund: "Last Funding",
     learnMore: "Learn More",
     funds: "FUNDS",
+    trend: "Investment Trends",
   },
 };

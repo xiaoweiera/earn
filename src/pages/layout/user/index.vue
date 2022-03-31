@@ -18,6 +18,7 @@ import { createRef } from "src/utils/ssr/ref";
 import { asyncLoad } from "src/plugins/lazyload/";
 import UserMenu from "./menu.vue";
 import UserDialog from "./dialog.vue";
+import EmailTips from "./tips.vue";
 
 const WalletConnect = asyncLoad(() => import("src/components/ui/wallet/connect.vue"));
 
@@ -79,14 +80,24 @@ onMounted(function () {
       <span class="mx-4 text-white text-opacity-65">|</span>
 
       <!-- 已登录 -->
-      <ui-hover v-if="user && user.id" class="flex" placement="bottom-end" trigger="hover">
-        <template #label>
-          <IconFont class="flex cursor-pointer" size="22" type="icon-yonghu1" />
-        </template>
-        <template #content>
-          <user-menu :user="user" />
-        </template>
-      </ui-hover>
+      <div v-if="user && user.id">
+        <ui-hover class="flex" placement="bottom-end" trigger="hover">
+          <template #label>
+            <div class="relative">
+              <span class="flex">
+                <IconFont class="cursor-pointer" size="22" type="icon-yonghu1" />
+              </span>
+              <span v-if="!user.email" class="absolute bottom-0 right-0 leading-2 transform translate-x-1/5 translate-y-1/5">
+                <IconFont size="8" type="redTip" />
+              </span>
+            </div>
+          </template>
+          <template #content>
+            <user-menu :user="user" />
+          </template>
+        </ui-hover>
+        <EmailTips class="absolute right-0 top-full" :user="user" />
+      </div>
 
       <!--未登录-->
       <div v-else>
@@ -96,7 +107,7 @@ onMounted(function () {
           <span class="whitespace-nowrap cursor-pointer hidden md:inline-block" @click.stop.prevent="showRegister">{{ i18n.common.register }}</span>
         </div>
         <!--登录、注册、找回密码-->
-        <user-dialog />
+        <UserDialog />
       </div>
       <!--钱包-->
       <div class="ml-4 hidden lg:block">
