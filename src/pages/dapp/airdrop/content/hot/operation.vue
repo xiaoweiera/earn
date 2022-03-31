@@ -32,7 +32,7 @@ const changeView = function () {
 </script>
 
 <template>
-  <ui-pagination skin="pagination" :limit="limit > 0 ? limit : 6" :init-value="initValue()" :show-loading="limit < 1" :request="request" @change="changeView()">
+  <ui-pagination skin="pagination" :limit="limit > 0 ? limit : 6" :init-value="initValue()" :show-loading="limit < 1" :request="request" @next="changeView" @prev="changeView">
     <template #default="scope">
       <div class="airdrop-list">
         <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data" />

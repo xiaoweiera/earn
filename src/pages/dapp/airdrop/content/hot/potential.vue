@@ -21,7 +21,7 @@ const changeView = function () {
 </script>
 
 <template>
-  <ui-pagination class="mt-6" skin="pagination" :limit="limit > 0 ? limit : 6" :show-loading="limit < 1" :request="request" @change="changeView">
+  <ui-pagination class="mt-6" skin="pagination" :limit="limit > 0 ? limit : 6" :show-loading="limit < 1" :request="request" @next="changeView" @prev="changeView">
     <template #default="scope">
       <div class="airdrop-list">
         <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data">
