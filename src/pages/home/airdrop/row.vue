@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import DAppAirdropItem from "src/pages/home/airdrop/item.vue";
+import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
 import { DataItem } from "src/types/dapp/airdrop";
 import * as alias from "src/utils/root/alias";
