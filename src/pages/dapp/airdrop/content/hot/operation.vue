@@ -2,7 +2,7 @@
 import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
 // import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
 import { Model } from "src/logic/dapp";
-import { setScrollTop } from "src/logic/dapp/airdrop";
+import { scrollGoToDom } from "src/plugins/browser/scroll";
 import { getValue } from "src/utils/root/data";
 import { alias } from "src/utils/ssr/ref";
 
@@ -27,7 +27,7 @@ const request = function (query: object) {
   return model.getOperationList({ potential, ...query });
 };
 const changeView = function () {
-  setScrollTop();
+  scrollGoToDom(".j-operation-title", 40);
 };
 </script>
 
