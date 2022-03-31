@@ -1,21 +1,21 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file tab 组件
  * @author svon.me@gmail.com
  */
 
-import * as console from "src/plugins/log/";
 import DBList from "@fengqiaogang/dblist";
 import safeGet from "@fengqiaogang/safe-get";
-import { useRoute, useRouter } from "vue-router";
+import { ElOption, ElScrollbar, ElSelect } from "element-plus";
+import type { CallbackList, Item } from "src/logic/ui/tab";
+import { makeLink, Trigger, TriggerValue } from "src/logic/ui/tab";
+import * as console from "src/plugins/log/";
 import { createHref } from "src/plugins/router/pack";
 import { isFunction, toInteger, uuid } from "src/utils";
-import { ElOption, ElScrollbar, ElSelect } from "element-plus";
 import { setInject, stateAlias } from "src/utils/use/state";
 import type { PropType } from "vue";
 import { computed, onMounted, ref, toRaw, watch } from "vue";
-import type { CallbackList, Item } from "src/logic/ui/tab";
-import { Trigger, TriggerValue, makeLink } from "src/logic/ui/tab";
+import { useRoute, useRouter } from "vue-router";
 
 const $route = useRoute();
 const $router = useRouter();
@@ -80,9 +80,13 @@ const selectData = function (value: string | number, list = getList()): Item {
   return db.selectOne<Item>({ [props.activeName]: where });
 };
 
+const getUrlData = function () {
+  return { ...$route.params, ...$route.query };
+};
+
 const getActiveValue = function () {
   let item: Item | undefined = void 0;
-  const value = safeGet<string>(toRaw($route.query), props.activeName);
+  const value = safeGet<string>(getUrlData(), props.activeName);
   if (value) {
     item = selectData(value);
   }
@@ -107,8 +111,7 @@ const onChange = function (value = getActiveValue(), important = false) {
     const data = selectData(value);
     emitEvent("change", data);
     if (triggerTabChange) {
-      const query = $route.query;
-      triggerTabChange(query);
+      triggerTabChange(getUrlData());
     }
   }
 };
@@ -155,24 +158,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    v-show="tabList.length > 0"
-    class="ui-tab max-w-full"
-    :class="{ 'overflow-hidden': split < 1, 'w-full': split > 0 }"
-  >
+  <div v-show="tabList.length > 0" :class="{ 'overflow-hidden': split < 1, 'w-full': split > 0 }" class="ui-tab">
     <div v-if="split > 0" :key="key" class="tab-wrap">
       <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
-        <v-router
-          v-show="index < props.split"
-          :href="makeLink(activeName, item, trigger)"
-          class="inline-block whitespace-nowrap tab-item p-2"
-          :class="className(item)"
-          :name="TriggerValue[trigger]"
-          @click="onClick(item)"
-        >
-          <slot name="default" :data="item">
+        <v-router v-show="index < props.split" :class="className(item)" :href="makeLink(activeName, item, trigger)" :name="TriggerValue[trigger]" class="inline-block whitespace-nowrap tab-item p-2" @click="onClick(item)">
+          <slot :data="item" name="default">
             <div v-if="item.logo" class="flex items-center">
-              <IconFont class="mr-1.5" :type="item.logo" size="16" />
+              <IconFont :type="item.logo" class="mr-1.5" size="16" />
               <span class="text-18-24 font-m">{{ item.name }}</span>
             </div>
             <span v-else class="text-18-24 font-m">{{ item.name }}</span>
@@ -180,18 +172,12 @@ onMounted(() => {
         </v-router>
       </template>
       <client-only v-if="split < tabList.length" class="tab-item inline-block text-18-24 font-m" style="padding: 0">
-        <el-select
-          v-if="isSelectActive()"
-          v-model="active"
-          placeholder="other"
-          class="rounded-kd6px w-30 md:w-40 active"
-          @change="onChangeSelect"
-        >
+        <el-select v-if="isSelectActive()" v-model="active" class="rounded-kd6px w-30 md:w-40 active" placeholder="other" @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
             <el-option v-if="index >= split" :label="item.name" :value="item[activeName]" />
           </template>
         </el-select>
-        <el-select v-else placeholder="other" class="rounded-kd6px w-30 md:w-40" @change="onChangeSelect">
+        <el-select v-else class="rounded-kd6px w-30 md:w-40" placeholder="other" @change="onChangeSelect">
           <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
             <el-option v-if="index >= split" :label="item.name" :value="item[activeName]" />
           </template>
@@ -201,16 +187,10 @@ onMounted(() => {
     <el-scrollbar v-else>
       <div class="flex tab-wrap">
         <template v-for="(item, index) in tabList" :key="`${index}-${key}`">
-          <v-router
-            :href="makeLink(activeName, item, trigger)"
-            class="block whitespace-nowrap tab-item p-2"
-            :class="className(item)"
-            :name="TriggerValue[trigger]"
-            @click="onClick(item)"
-          >
-            <slot name="default" :data="item">
+          <v-router :class="className(item)" :href="makeLink(activeName, item, trigger)" :name="TriggerValue[trigger]" class="block whitespace-nowrap tab-item p-2" @click="onClick(item)">
+            <slot :data="item" name="default">
               <div v-if="item.logo" class="flex items-center">
-                <IconFont class="mr-1.5" :type="item.logo" size="16" />
+                <IconFont :type="item.logo" class="mr-1.5" size="16" />
                 <span class="text-18-24 font-m">{{ item.name }}</span>
               </div>
               <span v-else class="text-18-24 font-m">{{ item.name }}</span>
@@ -222,7 +202,11 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
+.ui-tab {
+  @apply max-w-full;
+}
+
 /**
   .el-scrollbar {
     @apply border-b border-solid border-global-highTitle border-opacity-6;
@@ -233,21 +217,25 @@ onMounted(() => {
     @apply ml-0;
   }
 }
+
 %active {
   @apply text-global-primary;
 }
+
 .tab-wrap {
   .el-select {
     ::v-deep(input) {
       color: #033666 !important;
       @apply font-m font-kd18px24px;
     }
+
     &.active {
       ::v-deep(input) {
         @extend %active;
       }
     }
   }
+
   .tab-item {
     @apply ml-4 md:ml-8 text-global-highTitle text-opacity-45;
     @extend %first-ml0;
@@ -256,16 +244,19 @@ onMounted(() => {
       @apply absolute left-0 right-0 bottom-0;
       @apply h-0.5 rounded-sm bg-global-darkblue;
     }
+
     &.active {
       @extend %active;
       @apply relative;
       &:after {
-        content: '';
+        content: "";
       }
     }
+
     ::v-deep(.el-input__inner) {
       @apply rounded-md;
     }
+
     /**
     &:not(a) {
       &:not([href]) {
