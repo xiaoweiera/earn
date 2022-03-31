@@ -56,3 +56,8 @@ export const invest = {
     funds: "API.invest.list.",
   },
 };
+export const rank = {
+  chains: "API.Rank.chains",
+  groups: "API.Rank.groups",
+  dappList: "API.Rank.dappList",
+};

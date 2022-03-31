@@ -18,8 +18,8 @@ import { createRef } from "src/utils/ssr/ref";
 import { asyncLoad } from "src/plugins/lazyload/";
 import UserMenu from "./menu.vue";
 import UserDialog from "./dialog.vue";
-import EmailTips from "./tips.vue";
 
+const EmailTips = asyncLoad(() => import("./tips.vue"));
 const WalletConnect = asyncLoad(() => import("src/components/ui/wallet/connect.vue"));
 
 const env = getEnv();
@@ -93,7 +93,7 @@ onMounted(function () {
             </div>
           </template>
           <template #content>
-            <user-menu :user="user" />
+            <UserMenu :user="user" />
           </template>
         </ui-hover>
         <EmailTips class="absolute right-0 top-full" :user="user" />

@@ -6,9 +6,11 @@
 import I18n from "src/utils/i18n/";
 import type { PropType } from "vue";
 import type { User } from "src/types/common/user";
-import Email from "./email.vue";
 import { ref, onMounted } from "vue";
 import Cookie from "src/plugins/browser/cookie";
+import { asyncLoad } from "src/plugins/lazyload/";
+
+const Email = asyncLoad(() => import("./email.vue"));
 
 const props = defineProps({
   user: {

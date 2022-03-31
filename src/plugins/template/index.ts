@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import _ from "lodash";
 import htmlEncode from "js-htmlencode";
 import { languageKey, rootData } from "src/config";

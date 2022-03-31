@@ -6,7 +6,8 @@
 import safeGet from "@fengqiaogang/safe-get";
 import type { Request, Response } from "express";
 import jsCookie from "js-cookie";
-import { deviceName, getEnv, IsBrowser, IsNode, tidingName, tokenExpires, tokenName, userLogin } from "src/config/";
+import { MD5 } from "src/plugins/encryption/md5";
+import { deviceName, getEnv, IsBrowser, IsNode, tidingName, tokenExpires, tokenName, userLogin, uuIdName } from "src/config/";
 import * as webkit from "src/plugins/webkit/";
 import { Device } from "src/types/common/device";
 import { Equals } from "src/utils/check/is";
@@ -64,6 +65,14 @@ export default class Cookie {
     } else {
       return jsCookie.remove(name, Cookie.cookieOption());
     }
+  }
+  getUuid() {
+    return this.get(uuIdName);
+  }
+  setUuid() {
+    const value = MD5();
+    const time = 1000 * 60 * 60 * 24 * 365 * 2; // 2 年有效期
+    return this.set(uuIdName, value, time);
   }
 
   // 获取用户 token

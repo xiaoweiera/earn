@@ -30,6 +30,8 @@ export const blog = {
   tabs: "/api/blog/v1/groups", // 分组
   list: "/api/blog/v1/blogs", // 列表
   detail: "/api/blog/v1/blog", // 详情
+  unLock: "/api/blog/v1/open", // 博客解锁
+  lockStatus: "/api/blog/v1/share_status", // 查询博客解锁状态
 };
 
 export const quota = {
@@ -58,4 +60,12 @@ export const common = {
   chainSiteConfig: "/api/v1/site/config", // 公链信息
   tidingTime: "/api/generic/alert/web/new_add", // 新数据消息
   adList: "/api/v2/commercial", // 广告
+};
+
+export const rank = {
+  chainsList: "/api/dapps/v1/chains", //链
+  groups: "/api/dapps/{version}/groups", //分组
+  dappTable: "/api/dapps/v1/rank/dapps", //dapp列表
+  dappChart: "/api/dapps/v1/rank/chart/tvl", //dapp chart
+  nftChart: "/api/dapps/v1/rank/chart/volume", //nft Chart
 };
