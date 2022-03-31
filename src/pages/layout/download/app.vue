@@ -53,5 +53,11 @@ const onClick = function (e: Event) {
   @at-root .layout #ui-header-mobile:checked ~ & {
     @apply hidden;
   }
+  @at-root body[style~="overflow"] & {
+    @apply hidden;
+  }
+  @at-root body[style*="overflow"] & {
+    @apply hidden;
+  }
 }
 </style>
