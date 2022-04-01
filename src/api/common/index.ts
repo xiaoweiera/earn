@@ -2,6 +2,7 @@
  * @file 公共接口
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import { tidingName } from "src/config/";
 import * as api from "src/config/api";
 import Cookie from "src/plugins/browser/cookie";
@@ -12,11 +13,13 @@ import type { TidingList } from "src/types/common/tiding";
 import ApiTemplate from "../template";
 
 // 国际区号默认数据
-const areaCodeDefault = DefaultValue([{
-  cn: "中国",
-  en: "China",
-  phone_code: "+86",
-}]);
+const areaCodeDefault = DefaultValue([
+  {
+    cn: "中国",
+    en: "China",
+    phone_code: "+86",
+  },
+]);
 
 // 公链站点默认数据
 const chainSiteDefault = DefaultValue({
@@ -52,5 +55,30 @@ export default class extends ApiTemplate {
       [tidingName]: cookie.getTidingTime(),
     };
     return [params] as any;
+  }
+
+  @tryError(DefaultValue({}))
+  @get(api.common.ipValidate, 0, {
+    baseURL: "https://kingdata.xyz",
+  })
+  @userToken()
+  ipValidate(): Promise<object> {
+    return [] as any;
+  }
+  async ipIsChina(): Promise<boolean> {
+    const name = "ip-validate";
+    const cookie = new Cookie(this.getRequest());
+    const status = cookie.get(name);
+    if (status) {
+      return false;
+    }
+    const data = await this.ipValidate();
+    // 判断是否是 chinese 地区 ip
+    const value = safeGet<boolean>(data, "chinese");
+    if (value) {
+      const time = 1000 * 60 * 60 * 24;
+      cookie.set(name, "1", time); // 缓存1天，1天之后在做检查
+    }
+    return value;
   }
 }
