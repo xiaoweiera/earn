@@ -1,56 +1,52 @@
 <script setup lang="ts">
-import { env } from "~/lib/process";
-import { onMounted, reactive } from "vue";
-import { getDownUrl } from "~/api/common";
-import { BlogDetail } from "~/logic/blog/interface";
-import { forEach } from "src/utils";
-import I18n from "~/utils/i18n/index";
-import { isWechat, isAndroid, isIphone } from "src/utils/check/is";
+import DownloadHover from "src/pages/download/hover.vue";
+import { getEnv } from "src/config/";
+import { PropType } from "vue";
+import { Model } from "src/logic/common/down";
+import { DownUrl } from "src/types/common/down";
+import I18n from "src/utils/i18n";
+import { getUA } from "src/plugins/browser/ua";
 import { ElMessage } from "element-plus";
 
-const detail = reactive<BlogDetail>({} as BlogDetail);
+const env = getEnv();
+const i18n = I18n();
 
-// 获取手机端下载地址
-const onGetUrl = async function () {
-  const result = await getDownUrl();
-  if (result) {
-    forEach((value: any, key: string) => {
-      // @ts-ignore
-      detail[key] = value;
-    }, result);
-  }
-};
-onMounted(() => onGetUrl());
-
+defineProps({
+  data: {
+    required: true,
+    type: Object as PropType<DownUrl>,
+  },
+});
 // 判断终端
 const onClick = function (type: string, url: string) {
-  if (isAndroid()) {
+  const ua = getUA();
+  if (ua.isAndroid) {
     if (type === "ios") {
       ElMessage.warning("当前设备仅支持Android下载");
       return;
     }
     window.location.href = url;
-  } else if (isIphone()) {
+  } else if (ua.isiPhone) {
     if (type === "android") {
       ElMessage.warning("当前设备仅支持ios下载");
       return;
     }
     window.location.href = url;
-  } else if (isWechat()) {
+  } else if (ua.isWechat) {
     return false;
   }
 };
 </script>
 <template>
   <div class="btn-content text-base">
-    <DownloadHover :href="env.appDownload" :desc="I18n.menu.hover.app">
-      <div class="download-btn ios-btn" @click="onClick('ios', detail.ios_url)">
+    <DownloadHover :href="env.appDownload" :desc="i18n.menu.hover.app">
+      <div class="download-btn ios-btn" @click="onClick('ios', data.ios_url)">
         <IconFont type="icon-apple" class="text-white" size="24" />
         App Store
       </div>
     </DownloadHover>
-    <DownloadHover :href="env.appDownload" :desc="I18n.menu.hover.app">
-      <div class="download-btn android-btn" @click="onClick('android', detail.android_url)">
+    <DownloadHover :href="env.appDownload" :desc="i18n.menu.hover.app">
+      <div class="download-btn android-btn" @click="onClick('android', data.android_url)">
         <IconFont type="icon-android" class="text-white" size="24" />
         Android
       </div>

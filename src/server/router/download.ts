@@ -7,9 +7,9 @@ import { config } from "src/router/config";
 import * as down from "src/controller/download";
 import { Router as ExpressRouter } from "express";
 
-const Router = function() {
+const Router = function () {
   const router = ExpressRouter();
-  router.get(`${config.download}`, down.begin); // 下载首页
+  router.get(`${config.download}`, down.download); // 下载首页
   return router;
 };
 

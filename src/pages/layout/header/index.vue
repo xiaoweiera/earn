@@ -73,10 +73,16 @@ const isShowSub = computed<boolean>(() => {
     .top-header {
       top: $height;
     }
+    .view-full {
+      height: calc(100vh - $height);
+    }
 
     & ~ .main {
       .top-header {
         top: $height;
+      }
+      .view-full {
+        height: calc(100vh - $height);
       }
     }
   }

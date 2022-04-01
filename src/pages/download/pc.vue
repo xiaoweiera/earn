@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { defineProps, PropType } from "vue";
-import { AdData } from "src/logic/blog/interface";
+import DownloadBanner from "src/pages/download/banner.vue";
+import DownloadIcon from "src/pages/download/icon.vue";
+import { PropType } from "vue";
+import { DownData, DownUrl } from "src/types/common/down";
 defineProps({
   list: {
     required: true,
-    default: () => [],
-    type: Array as PropType<AdData[]>,
+    type: Array as PropType<DownData[]>,
+  },
+  data: {
+    required: true,
+    type: Object as PropType<DownUrl>,
   },
 });
 </script>
@@ -24,7 +29,7 @@ defineProps({
               </div>
             </div>
             <div class="pc-icon">
-              <DownloadIcon />
+              <DownloadIcon :data="data" />
             </div>
           </div>
           <img :url="scope.data.img" class="right-img" :src="scope.data.img" />

@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { defineProps, computed } from "vue";
-import { isHttp } from "~/utils";
-
 const props = defineProps({
   desc: {
     type: String,
@@ -10,17 +7,10 @@ const props = defineProps({
     type: String,
   },
 });
-
-const url = computed<string>(function () {
-  if (props.href && isHttp(props.href)) {
-    return props.href;
-  }
-  return "";
-});
 </script>
 
 <template>
-  <UiHover width="fit-content">
+  <ui-hover width="fit-content">
     <template #label>
       <span class="flex cursor-pointer">
         <span>
@@ -30,15 +20,17 @@ const url = computed<string>(function () {
     </template>
     <template #content>
       <client-only>
-        <div class="text-center">
-          <div class="inline-block">
-            <UiQrcode width="90" height="90" href :value="href"></UiQrcode>
+        <div class="p-2">
+          <div class="text-center">
+            <div class="flex">
+              <ui-qrcode :value="href" height="90" href width="90" />
+            </div>
           </div>
-        </div>
-        <div class="pt-1 text-center whitespace-nowrap">
-          <span class="text-xs text-global-highTitle text-opacity-85">{{ desc }}</span>
+          <div class="pt-1 text-center whitespace-nowrap">
+            <span class="text-xs text-global-highTitle text-opacity-85">{{ desc }}</span>
+          </div>
         </div>
       </client-only>
     </template>
-  </UiHover>
+  </ui-hover>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, computed } from "vue";
+import { computed } from "vue";
 import SwiperCore, { Mousewheel, Autoplay, Navigation as swiperNavigation } from "swiper";
 // 引入 swiper vue 组件
 // @ts-ignore
@@ -59,7 +59,7 @@ const props = defineProps({
   slideHeight: {
     type: String,
     default() {
-      return "100%";
+      return "100vh";
     },
   },
   /**
@@ -160,7 +160,10 @@ const swiperSlideAutoPlay = computed<any>(function () {
       content: "";
       @apply block w-16 h-16;
       animation: carousel 0.5s ease-in-out 1s infinite alternate;
-      background: url(/assets/download/chevrons-down.svg) center / 32px no-repeat;
+      $bg: "/assets/download/chevrons-down.svg";
+      background-image: url($bg);
+      background-repeat: no-repeat;
+      background-position: 100% 100%;
     }
   }
 }

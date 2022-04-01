@@ -1,23 +1,35 @@
 <script lang="ts" setup>
 import DownLoadPc from "src/pages/download/pc.vue";
 import DownLoadMobile from "src/pages/download/mobile.vue";
-const list = [
-  { mTitle: "升级数据监控", subTitle: "一、二级市场数据全覆盖", img: "/assets/download/upgrade.png" },
-  { mTitle: "Dapp新项目", subTitle: "快人一步,发现潜力新项目", img: "/assets/download/dapp.png" },
-  { mTitle: "APY大全", subTitle: "快速发现高收益矿池", img: "/assets/download/apy.png" },
-  { mTitle: "多线图表", subTitle: "数据对比一图搞定", img: "/assets/download/more.png" },
-];
+import { DownList } from "src/logic/common/down";
+import { createRef } from "src/utils/ssr/ref";
+import { onMounted, reactive } from "vue";
+import { DownUrl } from "src/types/common/down";
+import { forEach } from "src/utils";
+
+const urlList = createRef("API.down.getUrl", []);
+
+const detail = reactive<DownUrl>({} as DownUrl);
+const onGetUrl = async function () {
+  if (urlList.value) {
+    forEach((value, key) => {
+      // @ts-ignore
+      detail[key] = value;
+    }, urlList.value);
+  }
+};
+onMounted(() => onGetUrl());
 </script>
 
 <template>
   <div class="download-banner view-full">
     <!-- pc下载页 -->
-    <div class="hidden sm:block">
-      <DownLoadPc :list="list" />
+    <div class="hidden md:block">
+      <DownLoadPc :list="DownList()" :data="detail" />
     </div>
     <!-- 手机下载页 -->
-    <div class="block sm:hidden">
-      <DownLoadMobile :list="list" />
+    <div class="block md:hidden">
+      <DownLoadMobile :list="DownList()" :data="detail" />
     </div>
   </div>
 </template>
@@ -26,9 +38,9 @@ const list = [
 @import "src/styles/function";
 
 .download-banner {
+  background-image: cdn("/download/bg.png");
   background-position: center bottom;
   background-repeat: no-repeat;
-  background-image: cdn("/download/bg.png");
   background-size: cover;
 }
 </style>

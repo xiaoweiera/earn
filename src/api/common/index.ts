@@ -5,18 +5,20 @@
 import { tidingName } from "src/config/";
 import * as api from "src/config/api";
 import Cookie from "src/plugins/browser/cookie";
-import { DefaultValue, expire, get, tryError, userToken } from "src/plugins/dao/http";
+import { DefaultValue, expire, get, tryError, userToken, validate } from "src/plugins/dao/http";
 import type { AreaCode } from "src/types/common/area";
 import type { SiteConfig } from "src/types/common/chain";
 import type { TidingList } from "src/types/common/tiding";
 import ApiTemplate from "../template";
 
 // 国际区号默认数据
-const areaCodeDefault = DefaultValue([{
-  cn: "中国",
-  en: "China",
-  phone_code: "+86",
-}]);
+const areaCodeDefault = DefaultValue([
+  {
+    cn: "中国",
+    en: "China",
+    phone_code: "+86",
+  },
+]);
 
 // 公链站点默认数据
 const chainSiteDefault = DefaultValue({
@@ -52,5 +54,14 @@ export default class extends ApiTemplate {
       [tidingName]: cookie.getTidingTime(),
     };
     return [params] as any;
+  }
+
+  // 获取下载地址
+  @tryError(DefaultValue([]))
+  @get(api.common.downList, expire.min30)
+  @userToken()
+  @validate
+  getDownUrl<T>(): Promise<T> {
+    return [] as any;
   }
 }

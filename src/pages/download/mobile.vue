@@ -1,17 +1,23 @@
 <script setup lang="ts">
-import { defineProps, PropType } from "vue";
-import { AdData } from "src/logic/blog/interface";
+import DownloadBanner from "src/pages/download/banner.vue";
+import DownloadIcon from "src/pages/download/icon.vue";
+import { PropType } from "vue";
+import { DownData, DownUrl } from "src/types/common/down";
+
 defineProps({
   list: {
     required: true,
-    default: () => [],
-    type: Array as PropType<AdData[]>,
+    type: Array as PropType<DownData[]>,
+  },
+  data: {
+    required: true,
+    type: Object as PropType<DownUrl>,
   },
 });
 </script>
 <template>
   <div class="mobile-warp">
-    <DownloadBanner :list="list" :direction="'horizontal'" :navigation="false" :autoplay="true">
+    <DownloadBanner :list="list" :direction="'horizontal'" :navigation="false" :loop="true" :autoplay="true">
       <template #item="scope">
         <div class="content-mobile">
           <div class="content">
@@ -27,7 +33,7 @@ defineProps({
       </template>
     </DownloadBanner>
     <div class="app-icon">
-      <DownloadIcon />
+      <DownloadIcon :data="data" />
     </div>
   </div>
 </template>
