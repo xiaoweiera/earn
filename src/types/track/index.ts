@@ -25,6 +25,8 @@ export const event = {
     igo: "show_igo", // DApp igo
     nft: "show_nfts", // DApp nft
     airdrop: "show_airdrops", // DApp airdrop
+    nftDetail: "nft_detail_show", // nft 详情
+    dappDetail: "dapp_detail_show", // dapp 详情
   },
   // 排行榜
   rank: {
@@ -35,5 +37,8 @@ export const event = {
   },
   subject: {
     detail: "subject_detail_show", // 榜单详情
+  },
+  topic: {
+    list: "show_data", // 数据图表展示
   },
 };
