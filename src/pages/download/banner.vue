@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { defineProps, computed } from 'vue'
-import SwiperCore, { Mousewheel, Autoplay, Navigation as swiperNavigation} from 'swiper'
+import { defineProps, computed } from "vue";
+import SwiperCore, { Mousewheel, Autoplay, Navigation as swiperNavigation } from "swiper";
 // 引入 swiper vue 组件
 // @ts-ignore
-import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Swiper, SwiperSlide } from "swiper/vue";
 // 引入 swiper 样式
-import 'swiper/swiper-bundle.css'
+import "swiper/swiper-bundle.css";
 
 const props = defineProps({
   list: {
     type: Array,
     default() {
-      return []
-    }
+      return [];
+    },
   },
   /**
    * 为 false slide 滑动时只滑动一格
@@ -20,9 +20,9 @@ const props = defineProps({
    **/
   freeMode: {
     type: Boolean,
-    default () {
-      return false
-    }
+    default() {
+      return false;
+    },
   },
   /**
    * 为 false slide 左右切换按钮
@@ -30,102 +30,103 @@ const props = defineProps({
    **/
   navigation: {
     type: Boolean,
-    default () {
-      return false
-    }
+    default() {
+      return false;
+    },
   },
   /**
    * Swiper的滑动方向，可设置为水平方向切换(horizontal)或垂直方向切换(vertical)
-   * 
+   *
    **/
   direction: {
     type: String,
-    default () {
-      return "vertical"
-    }
+    default() {
+      return "vertical";
+    },
   },
   /**
    * swiper-slide 之间的间隔
    **/
   spaceBetween: {
     type: Number,
-    default () {
-      return 0
-    }
+    default() {
+      return 0;
+    },
   },
   /**
    * swiper-slide 单个高度
    **/
   slideHeight: {
     type: String,
-    default () {
-      return '100%'
-    }
+    default() {
+      return "100%";
+    },
   },
   /**
    * 自动播放
    */
   autoplay: {
     type: Boolean,
-    default () {
-      return false
-    }
+    default() {
+      return false;
+    },
   },
   delay: {
     type: Number,
-    default () {
-      return 3000
-    }
+    default() {
+      return 3000;
+    },
   },
   loop: {
     type: Boolean,
-    default () {
-      return false
-    }
+    default() {
+      return false;
+    },
   },
   bottomType: {
     type: String,
-    default () {
-      return 'round'
-    }
-  }
-})
+    default() {
+      return "round";
+    },
+  },
+});
 
 // 装载 swiper 组件
-SwiperCore.use([Mousewheel, Autoplay, swiperNavigation])
+SwiperCore.use([Mousewheel, Autoplay, swiperNavigation]);
 
-
-const swiperSlideStyle = computed<string>(function(): string {
+const swiperSlideStyle = computed<string>(function (): string {
   const style: any = {};
-  style['height'] = props.slideHeight
-  return style
-})
+  style["height"] = props.slideHeight;
+  return style;
+});
 
-const swiperSlideAutoPlay = computed<any>(function() {
+const swiperSlideAutoPlay = computed<any>(function () {
   if (props.autoplay) {
     return {
       delay: props.delay,
       disableOnInteraction: false,
-    }
+    };
   }
-  return false
-})
-
+  return false;
+});
 </script>
 
 <template>
-  <Swiper class="download-swiper view-full" :class="bottomType" v-if="list.length"
-      :initialSlide='0'
-      :slidesPerView="1"
-      :pagination="{ clickable: true }"
-      :loop="loop"
-      :autoplay="swiperSlideAutoPlay"
-      :direction="direction"
-      :mousewheel="true"
-      :spaceBetween="30"
-      :navigation="navigation"
-      :free-mode="freeMode"
-      :resize-observer="true"
+  <Swiper
+    v-if="list.length"
+    class="download-swiper view-full"
+    :class="bottomType"
+    :initial-slide="0"
+    :slides-per-view="1"
+    :pagination="{ clickable: true }"
+    :loop="loop"
+    :autoplay="swiperSlideAutoPlay"
+    :direction="direction"
+    :mousewheel="true"
+    :space-between="30"
+    :navigation="navigation"
+    :free-mode="freeMode"
+    :resize-observer="true"
   >
     <template v-for="(item, index) in list" :key="index">
       <SwiperSlide :style="swiperSlideStyle">
@@ -135,7 +136,7 @@ const swiperSlideAutoPlay = computed<any>(function() {
   </Swiper>
 </template>
 <style lang="scss" scoped>
-.download-swiper{
+.download-swiper {
   ::v-deep(.swiper-button-prev) {
     @apply hidden;
   }
@@ -147,14 +148,14 @@ const swiperSlideAutoPlay = computed<any>(function() {
       transform: translate(0, 10px);
     }
   }
-  ::v-deep(.swiper-button-next){
+  ::v-deep(.swiper-button-next) {
     right: initial;
     top: initial;
     width: initial;
     height: initial;
-    
+
     @apply left-1/2 bottom-12 m-0 transform -translate-x-1/2;
-    
+
     &::after {
       content: "";
       @apply block w-16 h-16;

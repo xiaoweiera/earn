@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { defineProps, computed } from "vue"
-import { isHttp } from '~/utils'
+import { defineProps, computed } from "vue";
+import { isHttp } from "~/utils";
 
 const props = defineProps({
   desc: {
-    type: String
+    type: String,
   },
   href: {
-    type: String
+    type: String,
   },
-})
+});
 
-const url = computed<string>(function() {
+const url = computed<string>(function () {
   if (props.href && isHttp(props.href)) {
-    return props.href
+    return props.href;
   }
-  return ''
-})
-
+  return "";
+});
 </script>
 
 <template>
@@ -43,5 +42,3 @@ const url = computed<string>(function() {
     </template>
   </UiHover>
 </template>
-
-
