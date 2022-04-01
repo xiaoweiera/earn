@@ -3,6 +3,7 @@ import { ElPopover } from "element-plus";
 import { defineProps, computed } from "vue";
 import { formatRulesNumber, getNumberColor } from "src/lib/tool";
 import safeGet from "@fengqiaogang/safe-get";
+
 const props = defineProps({
   category: {
     type: String,
@@ -49,7 +50,9 @@ const detailUrl = function (data: object) {
   <v-router v-if="headerData" :href="detailUrl(item)" target="_blank" class="item relative hand relative px-3 py-1.5 bg-global-white mt-1.5 flex items-center rounded-kd6px" :style="`--wv:${bgWidth}; z-index:${zIndex + 10}`">
     <div class="relative z-2 flex items-center w-full">
       <!--      排名-->
-      <div :class="headerData[0].width" class="text-kd14px20px text-global-highTitle text-opacity-85 lg:order-0 whitespace-nowrap pl-3">{{ i + 1 }}</div>
+      <div :class="headerData[0].width" class="text-kd14px20px text-global-highTitle text-opacity-85 lg:order-0 whitespace-nowrap pl-3">
+        {{ i + 1 }}
+      </div>
       <!--     名称-->
       <div :class="headerData[1].width" class="flex w-full items-center justify-left lg:order-1">
         <ui-image :src="item.logo" class="w-6 h-6 rounded-full" />
@@ -59,16 +62,18 @@ const detailUrl = function (data: object) {
       <div :class="headerData[2].width" class="flex items-center whitespace-nowrap order-8 lg:order-2 justify-center">
         <div v-if="item.categories && item.categories.length > 0" class="flex items-center whitespace-nowrap justify-center">
           <span class="text-kd14px18px text-global-highTitle fang i8n-font-inter">{{ item.categories[0] }}</span>
-          <el-popover v-if="item.categories.length > 1" popper-class="chain-popper" placement="bottom" trigger="hover" :append-to-body="false">
-            <div class="flex items-center px-2 py-1.5">
-              <template v-for="(typeName, i) in item.categories.slice(1)" :key="i">
-                <span :class="i === 0 ? '' : 'ml-1.5'" class="text-kd14px18px text-global-highTitle fang i8n-font-inter">{{ typeName }}</span>
+          <client-only>
+            <el-popover v-if="item.categories.length > 1" popper-class="chain-popper" placement="bottom" trigger="hover" :append-to-body="false">
+              <div class="flex items-center px-2 py-1.5">
+                <template v-for="(typeName, i) in item.categories.slice(1)" :key="i">
+                  <span :class="i === 0 ? '' : 'ml-1.5'" class="text-kd14px18px text-global-highTitle fang i8n-font-inter">{{ typeName }}</span>
+                </template>
+              </div>
+              <template #reference>
+                <div class="ml-1.5 relative bottom-1 text-global-highTitle text-opacity-45">...</div>
               </template>
-            </div>
-            <template #reference>
-              <div class="ml-1.5 relative bottom-1 text-global-highTitle text-opacity-45">...</div>
-            </template>
-          </el-popover>
+            </el-popover>
+          </client-only>
         </div>
         <div v-else class="text-global-highTitle">-</div>
       </div>
@@ -91,7 +96,6 @@ const detailUrl = function (data: object) {
             </el-popover>
           </client-only>
         </div>
-
         <div v-else class="text-global-highTitle">-</div>
       </div>
       <!--      用户-->
@@ -140,12 +144,15 @@ const detailUrl = function (data: object) {
   transform: translate(100%, 100%);
   box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
 }
+
 .item:hover {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
 }
+
 .num {
   @apply text-kd14px16px text-global-highTitle font-kdExp;
 }
+
 .item::before {
   content: "";
   background: rgba(9, 217, 142, 0.32);
