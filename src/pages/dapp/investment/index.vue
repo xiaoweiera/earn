@@ -14,7 +14,7 @@ import DAppInvestFunds from "src/pages/dapp/investment/funds.vue";
     </div>
     <!-- 机构 -->
     <div class="mt-8 md:mt-12">
-      <DAppInvestFunds />
+      <DAppInvestFunds class="j-project-title" />
     </div>
   </div>
 </template>

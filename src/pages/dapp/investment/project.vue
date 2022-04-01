@@ -73,92 +73,87 @@ const changeView = function () {
 </script>
 
 <template>
-  <div>
-    <!-- 项目 -->
-    <div>
-      <!-- pc端头部-->
-      <div class="hidden md:block">
-        <div class="flex justify-between items-center">
-          <!-- 标题  -->
-          <h3 class="text-kd40px40px text-global-highTitle font-kdSemiBold">
-            <span>{{ i18n.invest.project.title }} 💼</span>
-          </h3>
-          <div class="flex justify-between">
-            <!-- select -->
-            <div>
-              <div class="flex items-center">
-                <div class="text-kd12px16px md:text-14-18 text-global-highTitle text-opacity-65">{{ i18n.invest.project.round }}</div>
-                <div class="flex items-center flex-1 w-full w-25 h-8 ml-2 md:ml-4">
-                  <div class="w-full">
-                    <client-only class="flex items-center justify-between">
-                      <el-select v-model="round" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="onChange">
-                        <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.key" />
-                      </el-select>
-                    </client-only>
-                  </div>
-                </div>
+  <!-- pc端头部-->
+  <div class="hidden md:block">
+    <div class="flex justify-between items-center">
+      <!-- 标题  -->
+      <h3 class="text-kd40px40px text-global-highTitle font-kdSemiBold">
+        <span>{{ i18n.invest.project.title }} 💼</span>
+      </h3>
+      <div class="flex justify-between">
+        <!-- select -->
+        <div>
+          <div class="flex items-center">
+            <div class="text-kd12px16px md:text-14-18 text-global-highTitle text-opacity-65">{{ i18n.invest.project.round }}</div>
+            <div class="flex items-center flex-1 w-full w-25 h-8 ml-2 md:ml-4">
+              <div class="w-full">
+                <client-only class="flex items-center justify-between">
+                  <el-select v-model="round" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="onChange">
+                    <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.key" />
+                  </el-select>
+                </client-only>
               </div>
             </div>
-            <!-- search -->
-            <div>
-              <client-only class="w-50 ml-3 input-style">
-                <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
-                  <template #prefix>
-                    <IconFont size="16" type="icon-sousuo" @click="onSearch" />
-                  </template>
-                </ElInput>
+          </div>
+        </div>
+        <!-- search -->
+        <div>
+          <client-only class="w-50 ml-3 input-style">
+            <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
+              <template #prefix>
+                <IconFont size="16" type="icon-sousuo" @click="onSearch" />
+              </template>
+            </ElInput>
+          </client-only>
+        </div>
+      </div>
+    </div>
+    <p class="mt-2 text-kd14px20px text-global-highTitle text-opacity-65 font-medium">{{ i18n.invest.project.subTitle }} {{ i18n.invest.project.tipTitle }}</p>
+  </div>
+  <!-- 手机端头部 -->
+  <div class="block md:hidden">
+    <!-- 标题  -->
+    <h3 class="text-kd32px32px text-global-highTitle font-kdSemiBold">
+      <span>{{ i18n.invest.project.title }} 💼</span>
+    </h3>
+    <p class="mt-3 text-kd14px20px text-global-highTitle text-opacity-65 font-medium">{{ i18n.invest.project.subTitle }} {{ i18n.invest.project.tipTitle }}</p>
+    <div class="mt-4 flex justify-between">
+      <!-- select -->
+      <div>
+        <div class="flex items-center">
+          <div class="text-kd12px16px md:text-14-18 text-global-highTitle text-opacity-65">{{ i18n.invest.project.round }}</div>
+          <div class="flex items-center flex-1 w-full md:w-25 h-8 ml-2 md:ml-4">
+            <div class="w-full">
+              <client-only class="flex items-center justify-between">
+                <el-select v-model="round" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="onChange">
+                  <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.key" />
+                </el-select>
               </client-only>
             </div>
           </div>
         </div>
-        <p class="mt-2 text-kd14px20px text-global-highTitle text-opacity-65 font-medium">{{ i18n.invest.project.subTitle }} {{ i18n.invest.project.tipTitle }}</p>
       </div>
-      <!-- 手机端头部 -->
-      <div class="block md:hidden">
-        <!-- 标题  -->
-        <h3 class="text-kd32px32px text-global-highTitle font-kdSemiBold">
-          <span>{{ i18n.invest.project.title }} 💼</span>
-        </h3>
-        <p class="mt-3 text-kd14px20px text-global-highTitle text-opacity-65 font-medium">{{ i18n.invest.project.subTitle }} {{ i18n.invest.project.tipTitle }}</p>
-        <div class="mt-4 flex justify-between">
-          <!-- select -->
-          <div>
-            <div class="flex items-center">
-              <div class="text-kd12px16px md:text-14-18 text-global-highTitle text-opacity-65">{{ i18n.invest.project.round }}</div>
-              <div class="flex items-center flex-1 w-full md:w-25 h-8 ml-2 md:ml-4">
-                <div class="w-full">
-                  <client-only class="flex items-center justify-between">
-                    <el-select v-model="round" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="onChange">
-                      <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.key" />
-                    </el-select>
-                  </client-only>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- search -->
-          <div>
-            <client-only class="w-42.5 ml-3 input-style">
-              <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
-                <template #prefix>
-                  <IconFont size="16" type="icon-sousuo" @click="onSearch" />
-                </template>
-              </ElInput>
-            </client-only>
-          </div>
-        </div>
-      </div>
-      <!-- 列表  -->
-      <div :key="searchKey">
-        <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList" @next="changeView" @prev="changeView">
-          <template #default="scope">
-            <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <DAppInvestProjectsItem v-for="(item, index) in scope.list" :key="index" />
-            </div>
-          </template>
-        </ui-pagination>
+      <!-- search -->
+      <div>
+        <client-only class="w-42.5 ml-3 input-style">
+          <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
+            <template #prefix>
+              <IconFont size="16" type="icon-sousuo" @click="onSearch" />
+            </template>
+          </ElInput>
+        </client-only>
       </div>
     </div>
+  </div>
+  <!-- 列表  -->
+  <div :key="searchKey">
+    <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList" @next="changeView" @prev="changeView">
+      <template #default="scope">
+        <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <DAppInvestProjectsItem v-for="(item, index) in scope.list" :key="index" />
+        </div>
+      </template>
+    </ui-pagination>
   </div>
 </template>
 

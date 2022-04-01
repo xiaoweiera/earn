@@ -14,7 +14,7 @@ import HomeHeader from "./header.vue";
 import HomeRecommend from "./recommend.vue";
 import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
-// import HomeInvest from "./invest.vue";
+import HomeInvest from "src/pages/home/invest.vue";
 
 const DAppHomeAirdrop = asyncLoad(() => import("src/pages/home/airdrop/index.vue"));
 const DAppHomeDiscover = asyncLoad(() => import("src/pages/dapp/homediscover.vue"));
@@ -87,7 +87,7 @@ onMounted(() => {
         <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       </lazy-load>
       <!-- 投融资项目 -->
-      <!--      <HomeInvest class="mt-11 md:mt-17.5"/>-->
+      <HomeInvest class="mt-11 md:mt-17.5" />
     </div>
   </div>
 </template>
