@@ -4,6 +4,10 @@ import { onMounted, ref } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import { oss } from "src/config";
 const props = defineProps({
+  page: {
+    type: String,
+    default: "",
+  },
   sort: {
     type: Boolean,
     default: true,
@@ -64,7 +68,9 @@ const getIcon = (item: any) => {
         <IconFont v-if="(item.sort && params && sort) || (!params.sort_field && item.active)" class="relative mr-1" size="14" :type="getIcon(item)" />
         <div :class="item.key === params?.sort_field || (!params.sort_field && item.active) ? 'sort-border' : ''" />
       </div>
-      <span :class="item.key === params?.sort_field || (item.active && shortIcon) ? 'text-global-primary' : ''">{{ cssData[0] }}</span>
+      <span :class="item.key === params?.sort_field || (item.active && shortIcon) ? 'text-global-primary' : ''">
+        <span :class="page === 'home' ? 'font-kdBarlow' : ''">{{ cssData[0] }}</span>
+      </span>
     </div>
   </div>
 </template>
