@@ -56,7 +56,7 @@ const detailUrl = function (data: object) {
       <!--      类别-->
       <div :class="headerData[2].width" class="flex items-center order-10 lg:order-2 whitespace-nowrap justify-center">
         <div v-if="item.categories && item.categories.length > 0" class="flex items-center whitespace-nowrap justify-center">
-          <span class="text-kd14px18px text-global-highTitle fang i8n-font-inter">{{ item.categories[0] }}</span>
+          <span class="text-kd14px18px text-global-highTitle fang i8n-font-inter ml-1">{{ item.categories[0] }}</span>
           <client-only>
             <el-popover v-if="item.categories.length > 1" popper-class="chain-popper" placement="bottom" trigger="hover" :append-to-body="false">
               <div class="flex items-center px-2 py-1.5 border-1">
@@ -105,7 +105,7 @@ const detailUrl = function (data: object) {
         <IconFont type="icon-ETH" size="12" />
         <div class="num">{{ formatRulesNumber(item.floor_price) }}</div>
       </div>
-      <div :class="headerData[9].width" class="content order-9 lg:order-10">
+      <div :class="headerData[9].width" class="content order-8 lg:order-10">
         <IconFont type="icon-ETH" size="12" />
         <div class="num">{{ formatRulesNumber(item.mcap) }}</div>
       </div>
@@ -131,7 +131,7 @@ const detailUrl = function (data: object) {
 }
 
 .content {
-  @apply flex items-center pr-0.5  text-right justify-end  lg:text-right whitespace-nowrap text-right  justify-right;
+  @apply flex items-center pr-0.5   lg:text-right whitespace-nowrap  justify-end;
 }
 
 .item::before {

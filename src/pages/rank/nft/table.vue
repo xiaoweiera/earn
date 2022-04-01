@@ -103,7 +103,7 @@ onMounted(() => {
         <div :key="listKey">
           <ui-pagination :limit="50" :init-value="initValue()" :request="requestList">
             <template #default="scope">
-              <div :class="isPc ? 'border-1' : 'showX border-1'">
+              <div :class="isPc ? '' : 'showX'">
                 <!--        header-->
                 <div class="lg:w-full w-255">
                   <UiSticky v-if="isPc" active-class="table-box-title">

@@ -42,7 +42,7 @@ export const dappHeaderMobile = [
 export const nftHeader = [
   { key: "order", name: i18n.nft.rank.table.order, width: "w-10 ", class: "", sort: false },
   { key: "name", name: i18n.nft.rank.table.name, width: "w-80", class: "", sort: false },
-  { key: "categories", name: i18n.nft.rank.table.type, width: "w-25", class: " justify-center ", sort: false },
+  { key: "categories", name: i18n.nft.rank.table.type, width: "w-25", class: " ml-1 justify-center ", sort: false },
   { key: "volume", name: "Volume", width: "flex-1", class: " justify-end ", sort: true },
   { key: "h24_volume_change_percent", name: "24H", width: "flex-1", class: " justify-end ", sort: true },
   { key: "d7_volume_change_percent", name: "7D", width: "flex-1", class: " justify-end ", sort: true },
@@ -61,5 +61,5 @@ export const nftHeaderMobile = [
   { key: "assets", name: "Assets", width: "flex-1", class: " justify-end ", sort: true },
   { key: "floor_price", name: "Floor Price", width: "flex-1", class: " justify-end ", sort: true },
   { key: "mcap", name: "MCap", width: "flex-1", class: " justify-end ", sort: true },
-  { key: "categories", name: i18n.nft.rank.table.type, width: "w-25", class: " justify-center ", sort: false },
+  { key: "categories", name: i18n.nft.rank.table.type, width: "flex-1", class: " ml-1 justify-center ", sort: false },
 ];
