@@ -3,70 +3,114 @@
  * @author svon.me@gmail.com
  */
 
+
 import _ from "lodash";
-import { Equals } from "src/utils";
-import {defineComponent} from "vue";
-import { props, Name, Target } from "./props";
+import {AnyEquals} from "src/utils";
 import window from "src/plugins/browser/window";
-import { createHref, UtmSource } from "src/plugins/router/pack";
+import safeSet from "@fengqiaogang/safe-set";
+import {createHref} from "src/plugins/router/pack";
+import {defineComponent, h as createElement} from "vue";
+import {RouterLink} from "vue-router";
+import {Name, props, Target} from "./props";
 
 const VRouter = defineComponent({
-	props,
-	methods: {
-		async open(href: string, target: Target) {
-			if (Equals(target, Target.blank)) {
-				window.open(href);
-			} else {
-				// 先默认为 history 模式
-				try {
-					await this.$router.push(href);
-				} catch (e) {
-					window.location.href = href;
-				}
-			}
-		},
-		createA (href: string, target: Target, content: any) {
-			return (<a href={href} target={target}>{content}</a>);
-		},
-		createSpan (href: string, target: Target, content: any) {
-			const onClick = () => {
-				return this.open(href, target);
-			}
-			return (<span onClick={ onClick }>{content}</span>);
-		},
-		createDiv (href: string, target: Target, content: any) {
-			const onClick = () => {
-				return this.open(href, target);
-			}
-			return (<div onClick={ onClick }>{content}</div>);
-		},
-		createLink (href: string, target: Target, content: any) {
-			return (<router-link to={href}>{content}</router-link>);
-		}
-	},
-	render: function() {
-		const content = this.$slots.default ? this.$slots.default() : "";
-		if (this.href) {
-			const href = createHref(this.href);
-			const target = Equals(this.target, Target.blank) ? Target.blank : Target.self;
-			if (this.name && Equals(this.name, Name.a)) {
-				return this.createA(href, target, content);
-			} else if (this.name && Equals(this.name, Name.link)) {
-				return this.createLink(href, target, content);
-			} else if (this.name && Equals(this.name, Name.span)) {
-				return this.createSpan(href, target, content);
-			} else if (this.name && Equals(this.name, Name.div)) {
-				return this.createDiv(href, target, content);
-			} else if (_.includes(href, `${UtmSource}=`)){
-				// 判断链接中是否有 UtmSource
-				return this.createA(href, target, content)
-			} else {
-				// 默认为 a 模式
-				return this.createA(href, target, content);
-			}
-		}
-		return (<div>{content}</div>);
-	}
+  props,
+  methods: {
+    getClassValue(): string[] {
+      const value = ["v-router"];
+      if (this.disable) {
+        value.push("disable");
+      } else if (this.name){
+        if (!AnyEquals(this.name, Name.a) || !AnyEquals(this.name, Name.link)){
+          value.push("cursor-pointer");
+        }
+      }
+      return value;
+    },
+    // 判断是否禁用当前链接
+    onClickCapture(e: Event) {
+      if (this.disable) {
+        e.stopPropagation();
+        e.preventDefault();
+        return false;
+      }
+      return true;
+    },
+    // 判断是否嵌套
+    isOverlap(e: Event): boolean {
+      // @ts-ignore
+      const path: HTMLElement[] = (e && e.path ? e.path : []) as HTMLElement[];
+      let flag = false;
+      for(const dom of path) {
+        if (dom && dom.tagName && AnyEquals(dom.tagName, "a")) {
+          flag = true;
+          break;
+        }
+      }
+      return flag;
+    },
+    async open(href: string, target: Target) {
+      if (AnyEquals(target, Target.blank)) {
+        window.open(href);
+      } else {
+        // 先默认为 history 模式
+        try {
+          await this.$router.push(href);
+        } catch (e) {
+          window.location.href = href;
+        }
+      }
+    },
+    createLink(href: string, target: Target, content: any) {
+      const capture = this.onClickCapture.bind(this);
+      // @ts-ignore
+      return (<RouterLink class={ this.getClassValue() } to={href} onClickCapture={capture}>{content}</RouterLink>);
+    },
+    otherLink (href: string, target: Target, content: any, name: string) {
+      // 是否为 a 标签
+      const isAElement = AnyEquals(this.name, Name.a);
+      // 捕获阶段事件
+      const onClickCapture = this.onClickCapture.bind(this);
+      // 冒泡阶段事件
+      const onClick = (e: Event) => {
+        if (isAElement) {
+          return true;
+        }
+        const status = this.isOverlap(e);
+        if (status) {
+          e.stopPropagation();
+          return false;
+        }
+        return this.open(href, target);
+      };
+      if (href) {
+        const props = {
+          onClick,
+          onClickCapture,
+          "class": this.getClassValue(),
+        };
+        if (isAElement) {
+          safeSet(props, "href", href);
+          safeSet(props, "target", target);
+        }
+        return createElement(_.toLower(name), props, content);
+      } else {
+        return createElement(_.toLower(name), {}, content);
+      }
+    }
+  },
+  render: function() {
+    const content = this.$slots.default ? this.$slots.default() : "";
+    if (this.href) {
+      const href = createHref(this.href, this.query);
+      const target = AnyEquals(this.target, Target.blank) ? Target.blank : Target.self;
+      if (this.name && AnyEquals(this.name, Name.link)) {
+        return this.createLink(href, target, content);
+      }
+      return this.otherLink(href, target, content, this.name);
+    }
+    return this.otherLink("", Target.self, content, Name.div);
+  }
 });
 
 export default VRouter;

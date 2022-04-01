@@ -16,7 +16,7 @@ import { useRoute, useRouter } from "vue-router";
 import HomeFilter from "../filter.vue";
 import HomeTableHeader from "../table/header.vue";
 import HomeTableTd from "../table/td.vue";
-
+import * as R from "ramda";
 const props = defineProps({
   info: {
     type: Object as PropType<detail>,
@@ -82,7 +82,7 @@ const debounceData = async (clear?: boolean) => {
     data.items = [];
   }
   const res: any = await api.getProjects(params);
-  resultNumber.value = res?.items?.length;
+  resultNumber.value = safeGet(res, "items.length");
   data.items = data.items.concat(res.items);
   loading.value = false;
 };
@@ -92,23 +92,33 @@ const more = () => {
   getData();
 };
 const isSearch = ref(false);
-onMounted(() => {
-  // 得到数据汇总
-  onLoadReactive(data, () => api.getProjects(params));
-  resultNumber.value = safeGet(data, "items.length") ? safeGet(data, "items.length") : 0;
-});
+let sortNumber = 0;
+let highList: string[] = [];
 // 排序
 const sort = (item: any) => {
+  highList = [];
+  R.forEach((item: any) => {
+    if (item.active) {
+      highList.push(item.key);
+    }
+  }, data.header);
   const key = item.key;
   if (!item.sort) return;
-  if (!params.sort_type || params.sort_field !== key) {
+  if (highList.includes(key) && sortNumber === 0) {
+    params.sort_field = key;
+    params.sort_type = "asc";
+    sortNumber++;
+  } else if (!params.sort_type || params.sort_field !== key) {
     params.sort_type = "desc";
+    params.sort_field = key;
   } else if (params.sort_type === "desc") {
     params.sort_type = "asc";
+    params.sort_field = key;
   } else {
+    params.sort_field = "";
     params.sort_type = "";
+    sortNumber = 0;
   }
-  params.sort_field = key;
   getData(true);
 };
 const toProject = (url: string) => {
@@ -118,10 +128,10 @@ const toProject = (url: string) => {
 };
 const getNameWidth = (item: any) => {
   // @ts-ignore
-  if (item.key === "name" && props.info.show_type === "data") {
+  if (item.key === "name" && safeGet(props.info, "show_type") === "data") {
     return "min-w-30 max-w-30";
     // @ts-ignore
-  } else if (item.key === "name" && props.info.show_type === "desc") {
+  } else if (item.key === "name" && safeGet(props.info, "show_type") === "desc") {
     return "w-150";
   }
   return "";
@@ -129,29 +139,30 @@ const getNameWidth = (item: any) => {
 // 是否有筛选
 const isFilter = () => {
   // @ts-ignore
-  if (props.info.filters.chain.show && props.info.filters.chain.options.length > 0) {
+  if (safeGet(props.info, "filters.chain.show") && safeGet(props.info, "filters.chain.options.length") > 0) {
     return true;
     // @ts-ignore
-  } else if (props.info.filters.category.show && props.info.filters.category.options.length > 0) {
+  } else if (safeGet(props.info, "filters.category.show") && safeGet(props.info, "filters.category.options.length") > 0) {
     return true;
     // @ts-ignore
-  } else if (props.info.filters?.search?.show && props.info.filters?.search?.options.length > 0) {
+  } else if (safeGet(props.info, "filters.search.show") && safeGet(props.info, "filters.search.options.length") > 0) {
     return true;
   }
   return false;
 };
+onMounted(() => {
+  // 得到数据汇总
+  onLoadReactive(data, () => api.getProjects(params));
+  resultNumber.value = safeGet(data, "items.length") ? safeGet(data, "items.length") : 0;
+});
 </script>
 <template>
   <div class="table-box md:mb-0 mb-4">
     <div class="flex xshidden justify-between items-baseline">
-      <HomeFilter v-if="info.id && isFilter()" :key="key" :filters="info.filters" :info="info" class="mb-4 -mt-2" />
+      <HomeFilter v-if="safeGet(info, 'id') && isFilter()" :key="key" :filters="safeGet(info, 'filters')" :info="info" class="mb-4 -mt-2" />
       <client-only>
         <div v-if="isSearch" class="relative flex items-center search">
-          <IconFont
-            class="absolute text-global-highTitle text-opacity-45 z-22 left-3"
-            size="16"
-            type="icon-sousuo-da1"
-          />
+          <IconFont class="absolute text-global-highTitle text-opacity-45 z-22 left-3" size="16" type="icon-sousuo-da1" />
           <el-input v-model="search" placeholder="Search" />
         </div>
       </client-only>
@@ -163,7 +174,7 @@ const isFilter = () => {
             <td class="h-full border-tb">
               <div class="text-left w-5">#</div>
             </td>
-            <template v-for="(item, index) in data.header" :key="index">
+            <template v-for="(item, index) in safeGet(data, 'header')" :key="index">
               <td v-if="item.key !== 'id'" :class="getNameWidth(item)" class="text-left border-tb">
                 <HomeTableHeader :item="item" :params="params" name="Project Name" @click="sort(item)" />
               </td>
@@ -172,16 +183,12 @@ const isFilter = () => {
         </thead>
         <tbody>
           <template v-for="(item, index) in data.items" :key="index">
-            <tr
-              :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'"
-              class="min-h-12.5 h-12.5 md:min-h19.5 hand"
-              @click="toProject(item.url)"
-            >
-              <td class="number">
-                <div class="text-left w-5">{{ index + 1 }}</div>
+            <tr :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'" class="min-h-12.5 h-12.5 md:min-h19.5 hand" @click="toProject(item.url)">
+              <td class="number text-left">
+                <v-router :href="item.url" target="_blank" class="text-left w-5" @click.prevent>{{ index + 1 }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in data.header" :key="index">
-                <td v-if="itemTwo.key !== 'id'">
+                <td v-if="itemTwo.key !== 'id'" class="text-center">
                   <HomeTableTd :data="item" :info="info" :type-name="itemTwo.key" />
                 </td>
               </template>
@@ -208,7 +215,6 @@ const isFilter = () => {
     @apply text-kd14px18px md:w-50 text-left  text-global-highTitle  flex items-center  text-kd14px18px;
   }
 }
-
 .border-tb {
   @apply border-t-1 border-b-1 border-global-highTitle border-opacity-6;
 }
@@ -232,7 +238,7 @@ thead td,
 }
 
 tbody td {
-  @apply text-center text-kd14px18px text-global-highTitle;
+  @apply text-kd14px18px text-global-highTitle;
 }
 
 .table-box {

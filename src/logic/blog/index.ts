@@ -12,7 +12,7 @@ import type { BlogData, BlogTab } from "src/types/blog/";
 
 export const tabAll = "all";
 
-export const getAll = function() {
+export const getAll = function () {
   const i18n = I18n();
   return {
     id: tabAll,
@@ -22,7 +22,7 @@ export const getAll = function() {
 
 export const activeName = "group";
 
-export const transformTabs = function(list: BlogTab[]) {
+export const transformTabs = function (list: BlogTab[]) {
   const value = toArray(getAll(), list);
   return _.map(value, (item: BlogTab) => {
     // return { ...item, href: `${config.blog}?group=${item.id}`}
@@ -30,7 +30,7 @@ export const transformTabs = function(list: BlogTab[]) {
   });
 };
 
-export const makeDetailLink = function(id: string | number) {
+export const makeDetailLink = function (id: string | number) {
   if (id) {
     return `${config.blog}/${id}`;
   }
@@ -57,5 +57,14 @@ export class Model extends API {
   // 热门数据
   getHotList() {
     return this.blog.getHostList<BlogData[]>();
+  }
+
+  // 首页研究院列表
+  getBlogProjects() {
+    const query = {
+      page: 1,
+      page_size: 3,
+    };
+    return this.blog.getList<BlogData[]>(query);
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from "vue";
 import HomeTableModel from "./model.vue";
 
 defineProps({
@@ -18,25 +18,35 @@ const id = ref(0);
 const changeTopic = (index: number) => (id.value = index);
 </script>
 <template>
-  <div class="md:w-150 w-full md:min-h-86 md:py-3 relative">
-    <div class="bg xshidden"/>
-    <div class="relative md:min-h-86 md:bg-global-white rounded-kd16px md:min-w-150">
+  <div class="table-con">
+    <div class="bg xshidden" />
+    <div class="table-content">
       <template v-for="(item, index) in data" :key="item.id">
-        <HomeTableModel class="xshidden h-full md:absolute top-0" :class="topicIndex === index ? 'active' : 'active-no'" :data="item"/>
-        <HomeTableModel v-if="index === id" class="h-full mdhidden" :class="id === index ? 'block' : 'hidden'" :data="item"/>
+        <HomeTableModel class="table-model xshidden" :class="topicIndex === index ? 'active' : 'active-no'" :data="item" />
+        <HomeTableModel v-if="index === id" class="h-full mdhidden" :class="id === index ? 'block' : 'hidden'" :data="item" />
       </template>
     </div>
     <!--手机端翻页-->
     <div class="mdhidden flex items-center justify-center mt-4">
       <template v-for="(item, index) in data" :key="index">
-        <div class="dian hand" :class="id === index ? 'yuan' : 'yuan-no'" @click="changeTopic(index)"/>
+        <div class="dian hand" :class="id === index ? 'yuan' : 'yuan-no'" @click="changeTopic(index)" />
       </template>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
+.table-con {
+  @apply md:w-150 w-full md:min-h-75  md:py-3.5 relative;
+}
+.table-content {
+  @apply relative md:min-h-78  md:bg-global-white rounded-kd16px md:min-w-150;
+}
+.table-model {
+  @apply h-full md:absolute top-0;
+}
 .bg {
-  @apply w-138 mx-auto h-full absolute left-0 right-0   top-0 bg-global-white bg-opacity-45 rounded-kd16px;
+  height: 97%;
+  @apply w-138 mx-auto absolute left-0 right-0   top-0 bg-global-white bg-opacity-45 rounded-kd16px;
 }
 
 .table-box {

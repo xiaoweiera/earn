@@ -37,6 +37,8 @@ module.exports = {
     "no-undef": "warn",
     "no-throw-literal": "off",
     "n/no-deprecated-api": "off",
+    "vue/no-mutating-props": "off",
+    "vue/no-v-html": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/ban-ts-comment": "off",
@@ -66,8 +68,8 @@ module.exports = {
     // 缩紧风格 if else 不换行
     "brace-style": ["error", "1tbs"],
     "@typescript-eslint/brace-style": ["error", "1tbs"],
-    // 关闭 console 验证
-    "no-console": "off",
+    // console 验证
+    "no-console": ["error", { allow: ["warn", "error"] }],
     "no-void": "off",
     "array-callback-return": "off",
     // 使用单引号

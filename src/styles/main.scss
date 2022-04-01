@@ -35,12 +35,24 @@ body {
     @include clamp($i);
   }
 }
-
+%disable {
+  &.disable {
+    @apply cursor-default;
+    @at-root .ui-pagination & {
+      cursor: not-allowed;
+      color: #a8abb2;
+    }
+  }
+}
 a {
   &.link {
     @apply cursor-pointer;
     @apply text-global-darkblue;
   }
+  @extend %disable;
+}
+.v-router {
+  @extend %disable;
 }
 
 
@@ -71,5 +83,19 @@ a {
     content: "";
     @apply block;
     @apply clear-both;
+  }
+}
+
+/* 富文本内容 */
+.whitespace-pre-line,
+.whitespace-pre-wrap,
+.whitespace-pre{
+  @apply break-words max-w-full;
+  a {
+    @apply text-global-darkblue;
+  }
+  img {
+    border: 0 !important;
+    max-width: 100% !important;
   }
 }

@@ -18,7 +18,7 @@ SwiperCore.use([Pagination, Autoplay]);
 const i18n = I18n();
 const params = {
   page: 1,
-  page_size: 10,
+  page_size: 100,
   show_commercial: true,
 };
 const isBegin = ref(true);
@@ -59,34 +59,22 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div class="text-kd20px20px md:text-kd24px24px relative font-kdSemiBold text-global-highTitle font-semibold">
-      {{ i18n.home.hotTopic }}
-    </div>
-    <div class="mt-4 relative">
+    <div class="com-container font-kdSemiBold font-semibold">{{ i18n.home.hotTopic }}</div>
+    <div class="mt-3 relative">
       <div class="w-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
           <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" fit="cover" @click="last" />
         </div>
-        <Swiper
-          v-if="recommend.length > 0"
-          class="h-full swiper-recom"
-          :initial-slide="0"
-          slides-per-view="auto"
-          :space-between="24"
-          :resize-observer="true"
-          @init="init"
-          @set-translate="change"
-        >
+        <Swiper v-if="recommend.length > 0" class="h-full swiper-recom" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="getHref(item['data_type'], item)" target="_blank" class="item-card">
+              <v-router :href="getHref(item['data_type'], item)" target="_blank" class="item-card rounded-kd6px overflow-hidden">
                 <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute z-5" />
-                <div class="info relative z-10">
-                  <div class="name text-number">{{ item.name }}</div>
-                  <div class="go">Go</div>
+                <div class="info relative z-10 pt-8">
+                  <div class="name font-kdSemiBold">{{ item.name }}</div>
+                  <div class="bottom-bg"></div>
                 </div>
                 <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'], item)" fit="cover" />
-                <div class="bottom-bg" />
               </v-router>
             </SwiperSlide>
           </template>
@@ -101,6 +89,9 @@ onMounted(() => {
   </div>
 </template>
 <style lang="scss" scoped>
+.com-container {
+  @apply text-kd20px20px md:text-kd24px24px relative text-global-highTitle;
+}
 .left {
   @apply w-9 h-9 cursor-pointer rounded-full;
   @apply absolute left-3 z-10 top-20;
@@ -114,21 +105,16 @@ onMounted(() => {
 }
 .bottom-bg {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
-  @apply w-full h-19.5 bottom-0 left-0 absolute z-2 rounded-kd6px;
+  @apply w-full h-full left-0 absolute z-2 rounded-kd6px;
 }
 .swiper-slide {
   width: auto !important;
 }
 .info {
-  @apply flex items-center justify-between px-2.5 md:px-4 w-full  absolute bottom-1.5 md:bottom-2 z-999;
+  @apply flex items-center justify-between px-2.5 md:px-3 w-full  absolute bottom-2 md:bottom-2 z-999;
   .name {
-    @apply text-kd14px18px font-medium text-global-white;
-  }
-
-  .go {
-    @apply h-6 flex items-center justify-center cursor-pointer;
-    @apply bg-global-primary w-fit px-2 rounded-kd34px;
-    @apply text-kd12px16px font-medium text-global-white font-kdFang;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.48);
+    @apply relative z-5 text-kd22px26px md:text-kd26px31px font-medium text-global-white;
   }
 }
 .shadow {

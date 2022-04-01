@@ -30,16 +30,16 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <div class="w-full flex justify-between md:flex-wrap">
+  <div class="kd-con">
     <!--   topic tag-->
     <div class="xshidden">
       <div class="flex items-center mt-2.5">
-        <img class="w-4 h-4 mr-1.5 " :src="`${oss}/dapp/timeIcon.png`" alt="">
+        <img class="w-4 h-4 mr-1.5" :src="`${oss}/dapp/timeIcon.png`" alt="" />
         <span class="des font-kdFang font-semibold">{{ i18n.home.topTip }}</span>
       </div>
       <div class="py-2.5">
-        <template v-for="(item,index) in rank" :key="item.key">
-          <div class="topic topic-wh" :class="topicIndex===index?'topic-active':'topic-default'" @click="selectTopic(index)">
+        <template v-for="(item, index) in rank" :key="item.key">
+          <div class="topic topic-wh" :class="topicIndex === index ? 'topic-active' : 'topic-default'" @click="selectTopic(index)">
             <span class="ml-2.5">{{ item.name }}</span>
           </div>
         </template>
@@ -50,6 +50,9 @@ onUnmounted(() => {
   </div>
 </template>
 <style scoped lang="scss">
+.kd-con {
+  @apply w-full flex justify-between md:flex-wrap;
+}
 .des {
   @apply text-kd14px18px text-global-white font-medium;
 }
@@ -60,23 +63,23 @@ onUnmounted(() => {
   @apply flex items-center rounded-kd40px  px-4;
 }
 @screen md {
-  .topic-wh{
+  .topic-wh {
     @apply w-115 h-12;
   }
 }
 @screen lg {
-  .topic-wh{
-    @apply  max-w-95 h-12;
+  .topic-wh {
+    @apply max-w-95 h-12;
   }
 }
 @screen xl {
-  .topic-wh{
+  .topic-wh {
     @apply max-w-115 h-12;
   }
 }
 
 .topic:not(:first-child) {
-  @apply mt-5;
+  @apply mt-4;
 }
 
 .topic:nth-child(even) {

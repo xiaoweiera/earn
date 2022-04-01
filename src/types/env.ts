@@ -1,4 +1,5 @@
 export interface ImportMetaEnv {
+  readonly VITE_name?: string; // 环境名称
   readonly VITE_mode: string; // 运行模式
   readonly VITE_command: string;
   readonly VITE_api: string; // 接口域名
@@ -7,10 +8,12 @@ export interface ImportMetaEnv {
   readonly VITE_domain: string; // 网站域名
   readonly VITE_cookie: string; // 设置 cookie 的安全域
   readonly VITE_baiduTag?: string; // baidu 收录
+  readonly VITE_gio?: string; // google io
   readonly VITE_googleTag?: string; // google 收录
   readonly VITE_googleCaptcha: string; // google Captcha key
   readonly VITE_oss: string; // oss 资源域名
   readonly VITE_REDIS_URL?: string; // redis 配置
+  readonly VITE_secret: string; // 加密签名
   VITE_staticPath: string; // 静态资源虚拟路径
   VITE_staticDomain: string; // 静态资源域名或者是域名+路径
 }
@@ -33,6 +36,7 @@ export enum Command {
 export const title = "KingData";
 export const AppId = "app";
 export const languageKey = "lang";
+export const userLogin = "u_l_at"; // 用户登录时间
 export const tokenName = "auth_token";
 export const tokenKey = "token";
 export const tidingName = "last_timestamp";

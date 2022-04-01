@@ -13,8 +13,16 @@ export default {
   emailCreate: "邮箱注册",
   phoneForget: "手机号找回",
   emailForget: "邮箱找回",
+  emailUpdate: "邮箱修改",
   lang: "EN",
   loginOut: "退出",
+  account: {
+    email: {
+      tips: "您暂未绑定邮箱，请尽快绑定",
+      bind: "去绑定",
+      bind2: "绑定邮箱",
+    },
+  },
   nav: {
     apply: "项目申请",
     about: { name: "产品介绍", href: "https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c" },
@@ -26,10 +34,10 @@ export default {
     mm: "分钟",
     ss: "秒",
     value: {
-      week: "{count}周前",	// 周
-      day: "{count}天前",	// 星期
-      hour: "{count}小时前", 	// 小时
-      minute: "{count}分钟前", 	// 分钟
+      week: "{count}周前", // 周
+      day: "{count}天前", // 星期
+      hour: "{count}小时前", // 小时
+      minute: "{count}分钟前", // 分钟
     },
     // 星期几
     week: "星期一 | 星期二 | 星期三 | 星期四 | 星期五 | 星期六 | 星期日",
@@ -69,6 +77,8 @@ export default {
     all: "全部",
     viewAll: "查看全部",
     goto: "去完成",
+    prev: "上一页",
+    next: "下一页",
   },
   message: {
     verification: "获取验证码",

@@ -9,7 +9,6 @@ import { ref } from "vue";
 import I18n from "src/utils/i18n";
 import { messageError } from "src/lib/tool";
 import type { Query } from "src/types/browser/location";
-import * as console from "src/plugins/log/";
 import { ValidateType, maxTimeValue } from "./config";
 
 const props = defineProps({
@@ -64,7 +63,6 @@ const onSeadCode = async function (value: string | undefined) {
         await api.user.getEmailCaptcha(data, props.type);
       }
     } catch (e: any) {
-      console.log(e);
       const { message } = e || {};
       if (message) {
         messageError(message);

@@ -1,2 +1,38 @@
+/**
+ * @file 字符串压缩，解压
+ * @author svon.me@gmail.com
+ */
+import { getEnv } from "src/config/";
+
+export const StringToUint8Array = function (str: string): Uint8Array {
+  const len = str.length;
+  const arr: number[] = new Array(len);
+  for (let i = 0; i < len; i++) {
+    arr[i] = str.charCodeAt(i);
+  }
+  return new Uint8Array(arr);
+};
+
+export const Uint8ArrayToString = function (array: Uint8Array): string {
+  let string = "";
+  for (let i = 0, len = array.length; i < len; i++) {
+    string += String.fromCharCode(array[i]);
+  }
+  return string;
+};
+
 export const key = "value";
-export const a = "KingData";
+export const a = function (): string {
+  const env = getEnv();
+  const value = env.VITE_secret;
+  if (value) {
+    const size: number = value.length;
+    if (size % 8 === 0) {
+      return value;
+    }
+    if (size >= 8) {
+      return value.slice(0, 8);
+    }
+  }
+  return "kd+admin";
+};

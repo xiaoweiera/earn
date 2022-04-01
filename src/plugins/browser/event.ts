@@ -3,45 +3,43 @@
  * @author svon.me@gmail.com
  */
 
+import window from "./window";
+import { IsBrowser } from "src/config/";
 import { isElement, isString } from "src/utils/check/is";
-import document from "./document";
 
 type Callback = (...args: any[]) => void;
 const eventAttr = "__vueClickOutside";
 
 type El = HTMLElement | string;
 
-export const $ = function(value: El): HTMLElement | undefined {
-  if (isString(value)) {
-    const dom = document.querySelector(value as string);
-    return dom as HTMLElement;
-  }
-  if (isElement(value)) {
-    return value as HTMLElement;
+export const $ = function (value: any): any | undefined {
+  if (IsBrowser() && window.Zepto) {
+    if (isString(value) || isElement(value)) {
+      return window.Zepto(value);
+    }
   }
 };
 
-export const addEvent = function(el: El, eventName: string, callback: Callback, useCapture?: boolean) {
-  const dom: HTMLElement | undefined = $(el);
+// 添加事件
+export const addEvent = function (el: El, eventName: string, callback: Callback, useCapture?: boolean) {
+  const dom = $(el);
   if (dom) {
-    // 添加事件
-    dom.addEventListener(eventName, callback, useCapture);
+    dom.on(eventName, callback, useCapture);
   }
 };
-
-export const removeEvent = function(el: El, eventName: string, callback: Callback, useCapture?: boolean) {
-  const dom: HTMLElement | undefined = $(el);
+// 删除事件
+export const removeEvent = function (el: El, eventName: string, callback: Callback, useCapture?: boolean) {
+  const dom = $(el);
   if (dom) {
-    // 添加事件
-    dom.removeEventListener(eventName, callback, useCapture);
+    dom.off(eventName, callback, useCapture);
   }
 };
 
-const makeEventName = function(el: El, event: string): string {
+const makeEventName = function (el: El, event: string): string {
   return `${eventAttr}_${event}`;
 };
 
-const get = function(el: El, eventName: string): Callback | undefined {
+const get = function (el: El, eventName: string): Callback | undefined {
   const dom = $(el);
   if (dom) {
     const attr = makeEventName(el, eventName);
@@ -54,7 +52,7 @@ const get = function(el: El, eventName: string): Callback | undefined {
   return void 0;
 };
 
-const set = function(el: El, eventName: string, callback?: Callback): boolean {
+const set = function (el: El, eventName: string, callback?: Callback): boolean {
   const dom = $(el);
   if (dom) {
     const attr = makeEventName(el, eventName);
@@ -72,12 +70,12 @@ const set = function(el: El, eventName: string, callback?: Callback): boolean {
   return false;
 };
 
-const remove = function(el: El, eventName: string): boolean {
+const remove = function (el: El, eventName: string): boolean {
   return set(el, eventName, void 0);
 };
 
 // 删除事件
-export const unbind = function(el: El, eventName: string, useCapture?: boolean) {
+export const unbind = function (el: El, eventName: string, useCapture?: boolean) {
   const callback = get(el, eventName);
   if (callback) {
     removeEvent(el, eventName, callback, useCapture);
@@ -85,7 +83,7 @@ export const unbind = function(el: El, eventName: string, useCapture?: boolean) 
   }
 };
 
-export const bind = function(el: El, eventName: string, callback: Callback, useCapture?: boolean) {
+export const bind = function (el: El, eventName: string, callback: Callback, useCapture?: boolean) {
   // 判断事件是否已经绑定，绑定则删除
   unbind(el, eventName, useCapture);
   // 添加事件
@@ -94,13 +92,13 @@ export const bind = function(el: El, eventName: string, callback: Callback, useC
   set(el, eventName, callback); // 添加
 };
 
-export const stop = function(el: Event) {
+export const stop = function (el: Event) {
   if (el) {
     el.stopPropagation();
   }
 };
 
-export const prevent = function(el: Event) {
+export const prevent = function (el: Event) {
   if (el) {
     el.preventDefault();
   }

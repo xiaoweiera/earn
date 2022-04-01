@@ -1,4 +1,3 @@
-
 export const common = {
   user: "common.user",
   ua: "common.ua",
@@ -20,6 +19,12 @@ export const blog = {
   detail: "API.blog.getDetail",
 };
 
+export const quota = {
+  signals: "quota.signals.list",
+  detail: "quota.signals.detail",
+  recommend: "quota.signals.recommend",
+};
+
 export const dApp = {
   ixo: {
     upcoming: "Api.dApp.ixo?status=upcoming",
@@ -29,9 +34,20 @@ export const dApp = {
   summary: {
     list: "API.home.getSummary",
   },
+  airdrop: {
+    ongoing: "Api.dApp.airdrop",
+  },
 };
 
 export const nft = {
   list: "API.nft.list",
   upcoming: "API.dApp.nft?status=upcoming",
+};
+
+//投融资
+export const invest = {
+  list: {
+    projects: "API.invest.list",
+    funds: "API.invest.list.",
+  },
 };

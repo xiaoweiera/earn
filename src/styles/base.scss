@@ -4,7 +4,7 @@
 }
 /* 滑轮样式 */
 .showX::-webkit-scrollbar {
-  height: 0px;
+  height: 0;
 }
 
 .showX::-webkit-scrollbar-thumb:vertical {
@@ -23,7 +23,6 @@
 .hint{
   --el-message-min-width: auto !important;
 }
-
 @media screen and (max-width: 768px) {
   .xshidden {
     display: none !important;

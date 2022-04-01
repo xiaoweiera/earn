@@ -9,7 +9,7 @@ import ApiTemplate from "../template";
 export default class extends ApiTemplate {
   // 广告 banner 数据
   @tryError(DefaultValue([])) // 处理默认值
-  @get(api.blog.adv, expire.min30) // 定义一个 get 请求
+  @get(api.blog.adv, expire.min10) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   ads<T>(): Promise<T> {
     return [] as any;
@@ -25,7 +25,7 @@ export default class extends ApiTemplate {
 
   // 博客列表
   @tryError(DefaultValue([])) // 处理默认值
-  @get(api.blog.list, expire.min30) // 定义一个 get 请求
+  @get(api.blog.list, expire.min5) // 定义一个 get 请求
   @userToken()
   getList<T>(query: object = {}): Promise<T> {
     // 返回参数
@@ -49,7 +49,7 @@ export default class extends ApiTemplate {
   }
 
   @tryError(DefaultValue())
-  @get(api.blog.detail, expire.min30)
+  @get(api.blog.detail, expire.min5)
   @userToken()
   @validate
   getDetail<T>(@required id: string | number): Promise<T> {

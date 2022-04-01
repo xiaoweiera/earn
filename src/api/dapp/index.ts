@@ -6,6 +6,7 @@ import * as api from "src/config/api";
 import { DefaultValue, expire, get, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import type { Query } from "src/types/dapp/ixo";
 import type { nftQuery } from "src/types/dapp/nft";
+import type { AirdropQuery } from "src/types/dapp/airdrop";
 import { nftStatus } from "src/types/dapp/nft";
 import ApiTemplate from "../template";
 
@@ -66,7 +67,7 @@ export default class extends ApiTemplate {
     const params = Object.assign(
       {
         page: 1,
-        page_size: 10,
+        page_size: 20,
         paginate: true,
         status: "ended",
         query: "",
@@ -76,5 +77,29 @@ export default class extends ApiTemplate {
       query,
     );
     return [params] as any;
+  }
+  // airdrop 数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList, expire.min30)
+  @userToken()
+  @validate
+  getAirdropList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // 投融资的project数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.investList, expire.min30)
+  @userToken()
+  @validate
+  getProjectsList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // 投融资的funds数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.investList, expire.min30)
+  @userToken()
+  @validate
+  getFundsList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
   }
 }

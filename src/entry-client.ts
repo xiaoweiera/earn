@@ -27,21 +27,36 @@ import Decrypt from "src/plugins/encryption/decrypt";
 import { AppId, getEnv, languageKey, rootData, tokenName } from "src/config";
 import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded } from "vue-router";
 import { createApp } from "./bootstrap/main";
+import { refresh } from "src/logic/user/login";
+
+const getCache = async function (): Promise<object> {
+  // 从 script 标签中获取数据
+  const dom = document.getElementById(rootData);
+  if (dom) {
+    const value = dom.innerText;
+    if (value) {
+      // 解密
+      const data = await Decrypt<object>(value);
+      if (data) {
+        return data;
+      }
+    }
+  }
+  return {};
+};
 
 // 前置处理
-const prepend = async function() {
+const prepend = async function () {
   const cookie = new Cookie();
-  const text = safeGet<string>(window, rootData);
-  const data = text ? Decrypt<object>(text) : {};
   const process = await webkit.env.process(); // 尝试与移动端设备进行交互
   // 如果移动端有返回数据
   if (process && process.device) {
     // 设置设备类型
     cookie.setDeviceValue(process.device);
-
     // 判断浏览器中是否有 token 信息
     if (cookie.get(tokenName)) {
-      return data;
+      cookie.setUserLoginTime();
+      return getCache();
     }
     // 如果有 token 信息
     if (process.token) {
@@ -50,15 +65,20 @@ const prepend = async function() {
       // 刷新页面
       window.location.reload();
     }
-    return data;
+    return getCache();
   } else {
+    const gio = safeGet(window, "__gio_init");
+    if (gio) {
+      // @ts-ignore
+      setTimeout(gio);
+    }
     // 设置默认类型
     cookie.setDeviceValue(Device.web);
   }
-  return data;
+  return getCache();
 };
 
-const main = async function() {
+const main = async function () {
   const data = await prepend();
 
   console.log("env : ", getEnv());
@@ -89,6 +109,8 @@ const main = async function() {
   }
   await router.isReady();
   app.mount(`#${AppId}`, true);
+  // 延迟处理用户数据
+  setTimeout(refresh);
 };
 
 setTimeout(main);

@@ -12,25 +12,26 @@ export * from "src/types/env";
 export const title = "KingData";
 
 export interface Baidu {
-	tag?: string;
+  tag?: string;
 }
 
-export interface Google extends Baidu{
-	captcha: string;
+export interface Google extends Baidu {
+  captcha: string;
+  io: string;
 }
 
-export interface Env extends Process{
-	template: string;
-	api: string; // 接口地址
-	ApiVersion: string;
-	home: string;
-	appDownload: string;
-	domain: string;
-	google: Google;
-	baidu: Baidu;
+export interface Env extends Process {
+  template: string;
+  api: string; // 接口地址
+  ApiVersion: string;
+  home: string;
+  appDownload: string;
+  domain: string;
+  google: Google;
+  baidu: Baidu;
 }
 
-export const getEnv = function(): Env {
+export const getEnv = function (): Env {
   const opt = getProcess();
   const env = {
     ...opt,
@@ -41,12 +42,13 @@ export const getEnv = function(): Env {
       tag: opt.VITE_baiduTag,
     },
     google: {
+      io: opt.VITE_gio,
       tag: opt.VITE_googleTag,
       captcha: opt.VITE_googleCaptcha, // 谷歌人机校验 key
     },
     domain: opt.VITE_domain,
     home: `${opt.VITE_domain ? opt.VITE_domain : ""}/`, // 默认首页
-    appDownload: `${opt.VITE_domain ? opt.VITE_domain : ""}/download/`, // 下载页
+    appDownload: "https://kingdata.com/download/", // 下载页
   };
   return env as Env;
 };

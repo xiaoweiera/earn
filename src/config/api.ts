@@ -19,6 +19,8 @@ export const dapp = {
   nftList: "/api/v1/dapps/nft", // nft项目列表
   tabs: "/api/v1/site/config", // 项目类型搜索条件
   ixo: "/api/v1/dapps/ixo",
+  airdropList: "/api/dapps/v1/airdrop", //空投首页列表
+  investList: "/api/dapps/v1/airdrop", //投融资列表
 };
 
 export const blog = {
@@ -28,7 +30,16 @@ export const blog = {
   detail: "/api/blog/v1/blog", // 详情
 };
 
+export const quota = {
+  list: "/api/v2/posts", // 指标列表
+  details: "/api/v2/posts/{id}/details", // 指标详情
+  recommend: "/api/v1/relevant", // 推荐
+  follow: "/api/v3/charts/{id}/follow", // 关注
+  unfollow: "/api/v3/charts/{id}/unfollow", // 取消关注
+};
+
 export const user = {
+  refreshToken: "/api/v1/users/refresh_token", // 刷新 token
   info: "/api/v1/users/my", // 用户详情
   resetMobilePassword: "/api/v1/users/change_password", // 手机号重置密码
   resetEmailPassword: "/api/v1/users/email_change_password", // 重置邮箱密码
@@ -37,10 +48,12 @@ export const user = {
   registerEmail: "/api/v1/users/email_signup", // 邮箱注册
   emailLogin: "/api/v1/users/email_login", // 邮箱登录
   mobileLogin: "/api/v1/users/login", // 手机号登录
+  updateEmail: "/api/v1/users/bind_email", // 修改邮箱
 };
 
 export const common = {
   areaCodeList: "/api/v1/area_codes/", // 电话区号
   chainSiteConfig: "/api/v1/site/config", // 公链信息
   tidingTime: "/api/generic/alert/web/new_add", // 新数据消息
+  adList: "/api/v2/commercial", // 广告
 };

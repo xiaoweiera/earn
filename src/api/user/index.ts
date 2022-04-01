@@ -12,9 +12,23 @@ import getLang from "src/utils/url/lang";
 import ApiTemplate from "../template";
 
 export default class extends ApiTemplate {
+  // 刷新用户 token
+  @tryError(NullValue)
+  @post(api.user.refreshToken)
+  @userToken(true)
+  async refreshToken(): Promise<string> {
+    const req = this.getRequest();
+    const cookie = new Cookie(req);
+    const token = await cookie.getUserToken();
+    const callback = function (data: object): string {
+      return safeGet<string>(data, "token");
+    };
+    return [{ token }, callback] as any;
+  }
+
   // 获取用户详情
   @tryError(NullValue)
-  @get(api.user.info, expire.min2)
+  @get(api.user.info, expire.min5)
   @userToken(true)
   getInfo<T>(): Promise<T> {
     return [] as any;
@@ -94,7 +108,7 @@ export default class extends ApiTemplate {
     const lang = getLang(this.lang);
     const value = Object.assign({ lang }, _.pick(data, ["email", "password"]));
 
-    const callback = function(result: User) {
+    const callback = function (result: User) {
       const token = safeGet<string>(result, "token");
       if (token) {
         const cookie = new Cookie();
@@ -115,7 +129,7 @@ export default class extends ApiTemplate {
     const lang = getLang(this.lang);
     const value = Object.assign({ lang }, _.pick(data, ["mobile", "password", "area_code"]));
 
-    const callback = function(result: User) {
+    const callback = function (result: User) {
       const token = safeGet<string>(result, "token");
       if (token) {
         const cookie = new Cookie();
@@ -124,6 +138,18 @@ export default class extends ApiTemplate {
       } else {
         return Promise.reject(result);
       }
+    };
+    return [value, callback] as any;
+  }
+  // 修改邮箱
+  @post(api.user.updateEmail) // 接口地址
+  @userToken(true) // 必须为登录状态
+  @validate
+  async updateEmail(@required data: object) {
+    const value = _.pick(data, ["email", "code"]);
+    const callback = function (result?: object) {
+      // 成功时接口返回的值为空
+      return !result;
     };
     return [value, callback] as any;
   }

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n";
-
+import * as track from "src/logic/track";
 import * as alias from "src/utils/root/alias";
 import { onMounted, reactive, ref } from "vue";
 import * as logic from "src/logic/dapp/";
-import { TabTypes } from "src/types/dapp"
+import { TabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import { Model } from "src/logic/dapp";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
@@ -13,10 +13,11 @@ import type { summaryModel } from "src/types/home";
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
 import { getParam } from "src/utils/router";
 import { useRoute } from "vue-router";
-import DappDiscoversList from "./discovers/list.vue";
-import DappDiscoversEndlist from "./discovers/endlist.vue";
-import DappDiscoversSearch from "./discovers/search.vue";
-import DappDiscoversHeader from "./discovers/header.vue";
+import DAppDiscoversList from "./discovers/list.vue";
+import DAppDiscoversEndlist from "./discovers/endlist.vue";
+import DAppDiscoversSearch from "./discovers/search.vue";
+import DAppDiscoversHeader from "./discovers/header.vue";
+import HomeAd from "src/pages/home/ad.vue";
 
 const i18n = I18n();
 const api = new Model();
@@ -91,6 +92,13 @@ const key = ref<string>(uuid());
 // 获取类型
 const summary = createRef<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(() => {
+  // 上报数据
+  if (getParam<boolean>("igo")) {
+    track.push(track.Origin.gio, track.event.dApp.igo);
+  } else {
+    track.push(track.Origin.gio, track.event.dApp.ido);
+  }
+
   // 得到数据汇总
   onLoadRef(list, () => api.getList(params));
 
@@ -101,8 +109,15 @@ onMounted(() => {
 });
 
 // 排序方法
-const changeSort = (sort: string) => {
-  params.sort_field = sort;
+const changeSort = (val: string) => {
+  if (!params.sort_type || params.sort_field !== val) {
+    params.sort_type = "desc";
+  } else if (params.sort_type === "desc") {
+    params.sort_type = "asc";
+  } else {
+    params.sort_type = "";
+  }
+  params.sort_field = val;
   getData(true);
 };
 const getName = function () {
@@ -140,8 +155,12 @@ const getFilter = function (data: any) {
   <div class="discover-warp px-3 md:px-22.5">
     <div class="content pt-8">
       <!-- 头部 -->
-      <div class="header mb-8">
-        <DappDiscoversHeader :title="getName()" :tips="i18n.home.IdoIgo.desc" />
+      <div class="header mb-6">
+        <DAppDiscoversHeader :title="getName()" :tips="i18n.home.IdoIgo.desc" />
+      </div>
+      <!-- 广告 -->
+      <div class="w-full">
+        <HomeAd class="mb-6" :position="24" />
       </div>
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
@@ -150,17 +169,17 @@ const getFilter = function (data: any) {
       <!-- 搜索条件 -->
 
       <div v-if="summary">
-        <DappDiscoversSearch :data="getFilter(summary)" :keys="key" />
+        <DAppDiscoversSearch :data="getFilter(summary)" :keys="key" />
       </div>
       <!-- 列表内容 -->
       <div v-if="list.length > 0" class="py-8">
         <div v-if="query.type === TabTypes.ended" class="overflow-x-scroll showX">
           <div class="w-315">
-            <DappDiscoversEndlist :params="params" class="px-4" :list="list" @change-sort="changeSort" />
+            <DAppDiscoversEndlist :params="params" class="px-4" :list="list" @change-sort="changeSort" />
           </div>
         </div>
         <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DappDiscoversList v-for="(item, index) in list" :key="index" :status="params.status" :data="item" />
+          <DAppDiscoversList v-for="(item, index) in list" :key="index" :status="params.status" :data="item" />
         </div>
       </div>
       <div v-else-if="!loading">
@@ -170,11 +189,7 @@ const getFilter = function (data: any) {
         </p>
       </div>
     </div>
-    <div
-      v-if="list?.length > 0 && resultNumber >= params.page_size && resultNumber <= list?.length"
-      class="more"
-      @click="getMore"
-    >
+    <div v-if="list?.length > 0 && resultNumber >= params.page_size && resultNumber <= list?.length" class="more" @click="getMore">
       {{ i18n.home.loadingMore }}
     </div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0" />

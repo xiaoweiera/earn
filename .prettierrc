@@ -1,10 +1,10 @@
 {
-  "printWidth": 150,
+  "printWidth": 300,
   "useTabs": false,
   "tabWidth": 2,
   "tabs": false,
   "semi": true,
-  "singleQuote": true,
+  "singleQuote": false,
   "quoteProps": "consistent",
   "trailingComma": "all",
   "arrowParens": "always",
