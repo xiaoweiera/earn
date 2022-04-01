@@ -13,7 +13,7 @@ import cors from "src/controller/common/cors";
 import * as console from "src/plugins/log/";
 import Site from "src/controller/site/";
 import { getRedisClient } from "./redis";
-import * as logs from "src/plugins/express/error";
+// import * as logs from "src/plugins/express/error";
 import Assets from "./router/assets";
 import Router from "./router/index";
 
@@ -46,14 +46,14 @@ const main = async function () {
 
   // 处理公共数据
   app.use(common);
-  // 开始监听日志
-  logs.before(app);
+  // // 开始监听日志
+  // logs.before(app);
 
   const router = await Router(root, config);
   app.use(router);
 
-  // 结束日志监听
-  logs.after(app);
+  // // 结束日志监听
+  // logs.after(app);
   // @ts-ignore
   const http = await app.listen(config.port, config.host);
   return { app, http, config };
