@@ -49,7 +49,7 @@ const onChangeTab = function (data: object) {
 
 onMounted(() => {
   // 上报数据
-  track.push(track.Origin.gio, track.event.blog);
+  track.push(track.Origin.gio, track.event.blog.list);
   // 如果 tabs 数据为空，则执行 blog.getTabs 将放回结果赋值给 tabs
   onLoadRef(tabs, () => {
     const api = new Model();

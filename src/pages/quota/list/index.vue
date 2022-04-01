@@ -7,6 +7,7 @@
 import DBList from "@fengqiaogang/dblist";
 import { last } from "lodash";
 import API from "src/api/";
+import * as track from "src/logic/track";
 import { notifyMe } from "src/plugins/webkit/notice";
 import type { Data, DataMap } from "src/types/quota/";
 import { forEach, sort, uuid } from "src/utils/";
@@ -120,6 +121,8 @@ const onSync = function () {
 };
 
 onMounted(function () {
+  // 上报数据
+  track.push(track.Origin.gio, track.event.quota.signals);
   setTimeout(diff, diffTime);
 });
 </script>
