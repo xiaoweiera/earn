@@ -7,9 +7,7 @@ import DAppInvestFunds from "src/pages/dapp/investment/funds.vue";
 <template>
   <div class="pt-8 pb-16 max-w-315 mx-auto px-3 md:px-0">
     <!-- 项目 -->
-    <div>
-      <DAppInvestProject />
-    </div>
+    <DAppInvestProject class="j-project-title" />
     <!-- 广告位 -->
     <div class="mt-10 md:mt-12">
       <DAppInvestAd />

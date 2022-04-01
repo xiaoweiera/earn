@@ -10,6 +10,7 @@ import { useRouter } from "vue-router";
 import { Model } from "src/logic/dapp/invest";
 import { alias } from "src/utils/ssr/ref";
 import { getValue } from "src/utils/root/data";
+import { scrollGoToDom } from "src/plugins/browser/scroll";
 
 import DAppInvestProjectsItem from "src/pages/dapp/investment/projects/item.vue";
 import { uuid } from "src/utils";
@@ -66,6 +67,9 @@ const list = [
   { value: "C轮", key: "C" },
   { value: "D轮", key: "D" },
 ];
+const changeView = function () {
+  scrollGoToDom(".j-project-title");
+};
 </script>
 
 <template>
@@ -146,7 +150,7 @@ const list = [
       </div>
       <!-- 列表  -->
       <div :key="searchKey">
-        <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList">
+        <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList" @next="changeView" @prev="changeView">
           <template #default="scope">
             <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               <DAppInvestProjectsItem v-for="(item, index) in scope.list" :key="index" />

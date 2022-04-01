@@ -56,14 +56,14 @@ export const DApp = function (lang?: Lang): MenuItem {
         header: true,
         href: config.airdrop,
       },
-      // {
-      //   id: name.invest,
-      //   name: i18n.menu.dapp.invest, // 投融资
-      //   icon: "icon-a-NFTxinxiangmu",
-      //   more: true,
-      //   header: true,
-      //   href: config.invest,
-      // },
+      {
+        id: name.invest,
+        name: i18n.menu.dapp.invest, // 投融资
+        icon: "icon-a-NFTxinxiangmu",
+        more: true,
+        header: true,
+        href: config.invest,
+      },
     ],
   };
 };
