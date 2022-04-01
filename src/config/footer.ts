@@ -34,10 +34,10 @@ export const footers = function (lang?: Lang): MenuItem[] {
           name: i18n.menu.airdrop.title,
           href: config.airdrop,
         },
-        {
-          name: i18n.menu.dapp.invest,
-          href: config.invest,
-        },
+        // {
+        //   name: i18n.menu.dapp.invest,
+        //   href: config.invest,
+        // },
       ],
     },
     {
