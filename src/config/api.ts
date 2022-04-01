@@ -11,6 +11,7 @@ export const home = {
   detail: "/api/v1/dapps/topic/detail", // 话题详情
   projects: "/api/v1/dapps/topic/projects", // 话题项目列表
   platforms: "/api/v1/dapps/platforms", // TGE平台列表
+  tutorial: "/api/blog/v1/blogs", //空投教程列表
 };
 
 export const dapp = {
@@ -19,7 +20,8 @@ export const dapp = {
   nftList: "/api/v1/dapps/nft", // nft项目列表
   tabs: "/api/v1/site/config", // 项目类型搜索条件
   ixo: "/api/v1/dapps/ixo",
-  airdropList: "/api/dapps/v1/airdrop", //空投首页列表
+  airdropList: "/api/dapps/v1/airdrop", //空投列表
+  operation: "/api/v1/dapps/airdrop_recommended", //空投运营精选
   investList: "/api/dapps/v1/airdrop", //投融资列表
 };
 

@@ -136,10 +136,12 @@ export default {
   },
   blog: {
     title: "研究文章",
-    tips: "KingData 研报，带你捕获 Web3 最新趋势。"
+    tips: "KingData 研报，带你捕获 Web3 最新趋势。",
   },
   airdrop: {
     title: "最新空投",
-    tips: "行业最新最全空投都在这"
-  }
+    tips: "行业最新最全空投都在这",
+    airdrop: "项目",
+    tutorial: "教程",
+  },
 };

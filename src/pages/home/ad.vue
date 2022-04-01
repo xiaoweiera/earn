@@ -54,7 +54,7 @@ onMounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 4px;
   @apply text-kd12px12px text-global-white w-7 h-4.5;
-  @apply absolute top-3 left-3 z-999;
+  @apply absolute top-3 left-3 z-3;
   @apply flex items-center justify-center;
 }
 ::v-deep(.swiper-pagination-bullet) {

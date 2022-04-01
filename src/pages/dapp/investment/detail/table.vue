@@ -39,7 +39,6 @@ const debounceData = async (clear?: boolean) => {
   data.value = data.value.concat(res);
   loading.value = false;
 };
-
 const more = () => {
   params.page++;
   getData();
