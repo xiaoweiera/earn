@@ -59,7 +59,7 @@ const props = defineProps({
   slideHeight: {
     type: String,
     default() {
-      return "100vh";
+      return "100%";
     },
   },
   /**
