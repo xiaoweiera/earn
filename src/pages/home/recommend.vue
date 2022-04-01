@@ -15,6 +15,12 @@ import I18n from "src/utils/i18n";
 import { config } from "src/router/config";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
+const props = defineProps({
+  isShowTitle: {
+    type: Boolean,
+    default: () => true,
+  },
+});
 const i18n = I18n();
 const params = {
   page: 1,
@@ -59,8 +65,8 @@ onMounted(() => {
 </script>
 <template>
   <div v-if="recommend.length > 0">
-    <div class="com-container font-kdSemiBold font-semibold">{{ i18n.home.hotTopic }}</div>
-    <div class="mt-3 relative">
+    <div v-if="isShowTitle" class="mb-3 com-container font-kdSemiBold font-semibold">{{ i18n.home.hotTopic }}</div>
+    <div class="relative">
       <div class="w-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
           <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" fit="cover" @click="last" />

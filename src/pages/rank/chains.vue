@@ -20,6 +20,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  baseUrl: {
+    type: String,
+    required: true,
+  },
 });
 const chain = ref(getParam<string>("chain") || "all");
 watch(route, () => (chain.value = getParam<string>("chain") || "all"));
@@ -32,7 +36,7 @@ onMounted(() => {
   // 得到数据汇总
   onLoadRef<object[]>(chainData, () => {
     const api = new Model();
-    return api.getChains(props.page);
+    return api.getChains(props.page, props.baseUrl);
   });
 });
 </script>

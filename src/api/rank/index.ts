@@ -19,7 +19,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue([])) // 处理默认值
   @get(api.rank.chainsList, expire.day1, timeConfig) // 定义一个 get 请求
   @userToken() // 不需要用户信息
-  getChains<T>(position: string): Promise<T> {
+  getChains<T>(position: string, baseUrl: string): Promise<T> {
     const query = { position };
     const i18n = I18n(this.getRequest());
     const callback = function (data: object[]) {
@@ -27,7 +27,7 @@ export default class extends ApiTemplate {
       const other = { id: 10001, name: i18n.topRank.chainOther, slug: "other", logo: "" };
       //@ts-ignore
       const list = data ? [].concat(all, data, other) : [].concat(all, other);
-      return getUrl(list, routerConfig.rankDapp, "chain", "slug");
+      return getUrl(list, baseUrl, "chain", "slug");
     };
     // 返回参数
     return [query, callback] as any;
@@ -64,5 +64,15 @@ export default class extends ApiTemplate {
   @userToken() // 不需要用户信息
   dappChart<T>(): Promise<T> {
     return [] as any;
+  }
+  //nft 列表
+  @tryError(DefaultValue({})) // 处理默认值
+  @get(api.rank.nftTable, expire.min10, timeConfig) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getNftList<T>(query: dappListModel): Promise<T> {
+    const callback = function (data: object) {
+      return safeGet(data, "results") || [];
+    };
+    return [query, callback] as any;
   }
 }
