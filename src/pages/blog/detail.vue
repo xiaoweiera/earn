@@ -4,18 +4,18 @@
  * @author svon.me@gmail.com
  */
 
-import safeGet from "@fengqiaogang/safe-get";
 import { getDAppData } from "src/logic/blog/dapp";
 import { getStatus } from "src/logic/ui/lock";
 import type { BlogDetail } from "src/types/blog/";
 import { Type } from "src/types/common/lock";
 import type { DAppData } from "src/types/dapp/data";
 import { dateFormat, isObject } from "src/utils";
+import { onMounted } from "vue";
 import I18n from "src/utils/i18n";
+import * as track from "src/logic/track";
 import * as alias from "src/utils/root/alias";
 import { getValue } from "src/utils/root/data";
 import { createReactive, createRef, onLoadReactive, onLoadRef, onUpdateReactive } from "src/utils/ssr/ref";
-import { onMounted } from "vue";
 import DApp from "./dapp.vue";
 import Item from "./item.vue";
 
@@ -55,9 +55,12 @@ const getShareText = function (list: DAppData[]): string {
 };
 
 onMounted(() => {
+  const id = getValue<string>("query.id", "");
+  // 上报数据
+  track.push(track.Origin.gio, track.event.blog.detail, {
+    blog_id: id,
+  });
   // 如果博客详情数据为空，同时 url 中有博客 id
-  const params = getValue<object>("query", {});
-  const id = safeGet<string>(params, "id");
   if (id) {
     onLoadReactive(detail, alias.blog.detail, id);
     onLoadRef(dApps, alias.blog.dApp, id);
