@@ -6,7 +6,6 @@ import { Model } from "src/logic/rank";
 import safeGet from "@fengqiaogang/safe-get";
 import { getParam } from "src/utils/router";
 import { getUrl } from "src/lib/url";
-import { config as routerConfig } from "src/router/config";
 import { useRoute } from "vue-router";
 const route = useRoute();
 const routerQuery = getParam<object>();

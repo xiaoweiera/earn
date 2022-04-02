@@ -7,7 +7,6 @@ import { DefaultValue, expire, get, tryError, userToken } from "src/plugins/dao/
 import ApiTemplate from "../template";
 import I18n from "src/utils/i18n";
 import { getUrl } from "src/lib/url";
-import { config as routerConfig } from "src/router/config";
 import { groupModel, dappListModel } from "src/types/rank";
 import safeGet from "@fengqiaogang/safe-get";
 const timeConfig = {

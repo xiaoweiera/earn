@@ -1,11 +1,3 @@
-<script setup lang="ts">
-const props = defineProps({
-  desc: {
-    type: String,
-  },
-});
-</script>
-
 <template>
   <ui-hover width="fit-content" placement="top">
     <template #label>

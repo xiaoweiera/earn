@@ -5,6 +5,7 @@ import { PropType } from "vue";
 import { SystemInfo } from "src/types/common/down";
 import { getUA } from "src/plugins/browser/ua";
 import { ElMessage } from "element-plus";
+import window from "src/plugins/browser/window";
 
 const env = getEnv();
 
@@ -15,14 +16,23 @@ defineProps({
   },
 });
 // 判断终端
-const onClick = function (type: string, url: string) {
+const onClick = function (e: Event, type: string, url: string) {
   const ua = getUA();
   if (ua.isAndroid) {
     if (type === "ios") {
       ElMessage.warning("当前设备仅支持Android下载");
       return;
     }
-    window.location.href = url;
+    // 屏蔽浏览器默认行为
+    e.stopPropagation();
+    e.preventDefault();
+
+    window.location.href = "kingdata://higgses.king/main?pid=1";
+
+    setTimeout(() => {
+      window.location.href = url;
+    }, 2000);
+    return false;
   } else if (ua.isiPhone) {
     if (type === "android") {
       ElMessage.warning("当前设备仅支持ios下载");
@@ -37,14 +47,14 @@ const onClick = function (type: string, url: string) {
 <template>
   <div class="btn-content text-base">
     <DownloadHover :href="env.appDownload">
-      <div class="download-btn ios-btn" @click="onClick('ios', data.ios_url)">
+      <div class="download-btn ios-btn" @click="onClick($event, 'ios', data.ios_url)">
         <IconFont type="icon-apple" class="text-white" size="24" />
         App Store
       </div>
     </DownloadHover>
     <div class="w-6"></div>
     <DownloadHover :href="env.appDownload">
-      <div class="download-btn android-btn" @click="onClick('android', data.android_url)">
+      <div class="download-btn android-btn" @click="onClick($event, 'android', data.android_url)">
         <IconFont type="icon-android" class="text-white" size="24" />
         Android
       </div>

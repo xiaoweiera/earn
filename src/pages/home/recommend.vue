@@ -15,7 +15,7 @@ import I18n from "src/utils/i18n";
 import { config } from "src/router/config";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
-const props = defineProps({
+defineProps({
   isShowTitle: {
     type: Boolean,
     default: () => true,

@@ -3,7 +3,6 @@ import { ElPopover } from "element-plus";
 import { defineProps, computed } from "vue";
 import { formatRulesNumber, getNumberColor } from "src/lib/tool";
 import safeGet from "@fengqiaogang/safe-get";
-import { pageInfo } from "src/logic/rank/config";
 const props = defineProps({
   category: {
     type: String,
