@@ -42,13 +42,11 @@ defineProps({
 <style lang="scss" scoped>
 .content-wrap {
   @apply h-full w-full p-4 flex items-center justify-between;
-  .left-content {
-    .top-content {
-      color: #272c33;
-    }
-    .bottom-content {
-      color: #808080;
-    }
+  .top-content {
+    color: #272c33;
+  }
+  .bottom-content {
+    color: #808080;
   }
   @screen lg {
     & {

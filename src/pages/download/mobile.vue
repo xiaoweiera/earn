@@ -54,7 +54,6 @@ defineProps({
     }
   }
 }
-
 .app-icon {
   @apply w-full z-10 fixed inset-x-0 bottom-15 flex justify-center;
 }
