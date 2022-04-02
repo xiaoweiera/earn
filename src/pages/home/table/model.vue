@@ -40,7 +40,7 @@ const toProject = (url: string) => {
             </td>
             <template v-for="(item, index) in safeGet(data, 'table.header')" :key="index">
               <td v-if="item.key !== 'id'" class="text-left">
-                <HomeTableHeader :short-icon="true" :sort="false" height="h-5" name="Dapp Name" :item="item" />
+                <HomeTableHeader page="home" :short-icon="true" :sort="false" height="h-5" name="Dapp Name" :item="item" />
               </td>
             </template>
           </tr>
