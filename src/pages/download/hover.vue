@@ -3,14 +3,11 @@ const props = defineProps({
   desc: {
     type: String,
   },
-  href: {
-    type: String,
-  },
 });
 </script>
 
 <template>
-  <ui-hover width="fit-content">
+  <ui-hover width="fit-content" placement="top">
     <template #label>
       <span class="flex cursor-pointer">
         <span>
@@ -26,11 +23,9 @@ const props = defineProps({
               <ui-qrcode :value="href" height="90" href width="90" />
             </div>
           </div>
-          <div class="pt-1 text-center whitespace-nowrap">
-            <span class="text-xs text-global-highTitle text-opacity-85">{{ desc }}</span>
-          </div>
         </div>
       </client-only>
     </template>
   </ui-hover>
+  <div></div>
 </template>

@@ -2,8 +2,7 @@
 import DownloadHover from "src/pages/download/hover.vue";
 import { getEnv } from "src/config/";
 import { PropType } from "vue";
-import { Model } from "src/logic/common/down";
-import { DownUrl } from "src/types/common/down";
+import { SystemInfo } from "src/types/common/down";
 import I18n from "src/utils/i18n";
 import { getUA } from "src/plugins/browser/ua";
 import { ElMessage } from "element-plus";
@@ -14,7 +13,7 @@ const i18n = I18n();
 defineProps({
   data: {
     required: true,
-    type: Object as PropType<DownUrl>,
+    type: Object as PropType<SystemInfo>,
   },
 });
 // 判断终端
@@ -39,13 +38,13 @@ const onClick = function (type: string, url: string) {
 </script>
 <template>
   <div class="btn-content text-base">
-    <DownloadHover :href="env.appDownload" :desc="i18n.menu.hover.app">
+    <DownloadHover :href="env.appDownload">
       <div class="download-btn ios-btn" @click="onClick('ios', data.ios_url)">
         <IconFont type="icon-apple" class="text-white" size="24" />
         App Store
       </div>
     </DownloadHover>
-    <DownloadHover :href="env.appDownload" :desc="i18n.menu.hover.app">
+    <DownloadHover :href="env.appDownload">
       <div class="download-btn android-btn" @click="onClick('android', data.android_url)">
         <IconFont type="icon-android" class="text-white" size="24" />
         Android
