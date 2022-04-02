@@ -176,14 +176,10 @@ export default {
     bannerTip: "For cooperation and other concerns, please contact @Sue86393113 on Telegram.",
     title: "The BlueWhale Award",
     background: "Background Story:",
-    backgrounTitle:
-      "This award is named after KingData's mascot, the BlueWhale. The blue whale is the largest animal in the world and is known as the 'underwater giant.' However, it is very gentle in nature. In the vast ocean, the blue whale is free, rich in pursuit and courageous. At the same time, it is a symbol of uniqueness, signifying the future and the endless life force. The spirit pursued by the blockchain industry and practitioners is also freedom, pursuit, uniqueness, and courage.",
-    backgroundHighTitle:
-      "At the same time, the blue whale is an amazing disseminator of information. The wisdom of information dissemination is the quality conveyed to us by the blue whale, and KingData also takes this quality as its corporate spirit to efficiently disseminate effective industry information and data for the majority of users.",
-    backgroundTip:
-      "This time, the KingData BlueWhale Award will start with 6 major categories. They are the NFT Emerging List, GameFi Emerging List, DAO Emerging List, Infrastructure Emerging List, Public Chain Emerging List, and DEX Emerging List. The most popular projects of each category will be selected.",
-    backgroundTips:
-      "One of the objectives of this is to summarize the market for investors to help them find better investment targets and industry trends. On the other hand, it will also help projects to move forward in the blockchain industry and eventually become industry giants like the blue whale.",
+    backgrounTitle: "This award is named after KingData's mascot, the BlueWhale. The blue whale is the largest animal in the world and is known as the 'underwater giant.' However, it is very gentle in nature. In the vast ocean, the blue whale is free, rich in pursuit and courageous. At the same time, it is a symbol of uniqueness, signifying the future and the endless life force. The spirit pursued by the blockchain industry and practitioners is also freedom, pursuit, uniqueness, and courage.",
+    backgroundHighTitle: "At the same time, the blue whale is an amazing disseminator of information. The wisdom of information dissemination is the quality conveyed to us by the blue whale, and KingData also takes this quality as its corporate spirit to efficiently disseminate effective industry information and data for the majority of users.",
+    backgroundTip: "This time, the KingData BlueWhale Award will start with 6 major categories. They are the NFT Emerging List, GameFi Emerging List, DAO Emerging List, Infrastructure Emerging List, Public Chain Emerging List, and DEX Emerging List. The most popular projects of each category will be selected.",
+    backgroundTips: "One of the objectives of this is to summarize the market for investors to help them find better investment targets and industry trends. On the other hand, it will also help projects to move forward in the blockchain industry and eventually become industry giants like the blue whale.",
     participation: "Participation methods:",
     participationOne: "(1) Fill up the application form.",
     participationTwo: "(2)  KingData will be the primary judge, and projects that pass the audit will be selected as finalists.",

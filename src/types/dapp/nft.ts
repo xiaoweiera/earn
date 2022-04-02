@@ -1,4 +1,3 @@
-
 export enum nftStatus {
   upcoming = "upcoming", // 即将开始
   history = "ended", // 历史项目

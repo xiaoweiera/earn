@@ -5,8 +5,8 @@
 </template>
 
 <style scoped lang="scss">
-@import 'src/styles/function.scss';
+@import "src/styles/function.scss";
 .tips {
-  background: static('/images/news/news_tips.png'), linear-gradient(90.79deg, #489aff 0%, #1f84ff 100%);
+  background: static("/images/news/news_tips.png"), linear-gradient(90.79deg, #489aff 0%, #1f84ff 100%);
 }
 </style>

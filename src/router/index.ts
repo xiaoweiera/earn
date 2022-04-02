@@ -11,6 +11,7 @@ import Home from "./home";
 import DAppList from "./dapp";
 import BlogList from "./blog";
 import User from "./user";
+import DownLoad from "./download";
 import quota from "./quota";
 import rank from "./rank";
 
@@ -28,6 +29,7 @@ const routes = [
       ...Home,
       ...DAppList,
       ...BlogList,
+      ...DownLoad,
       ...quota,
       ...rank,
       {

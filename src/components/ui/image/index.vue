@@ -48,12 +48,12 @@ onMounted(() => {
 
 <template>
   <div class="ui-image overflow-hidden" :class="{ error: error, rounded }">
-    <img v-if="src && fit === 'none'" class="" :src="src" />
+    <img v-if="src && fit === 'none'" class="max-h-full max-w-full" :src="src" />
     <i :class="fit" :style="value" />
   </div>
 </template>
 <style scoped lang="scss">
-@import 'src/styles/function';
+@import "src/styles/function";
 
 %contain {
   background-size: contain;
@@ -94,7 +94,7 @@ onMounted(() => {
       @apply block;
       @extend %contain;
       @apply absolute left-0 top-0 right-0 bottom-0;
-      background-image: static('/assets/kingdata.png') !important;
+      background-image: static("/assets/kingdata.png") !important;
     }
   }
   &.rounded {

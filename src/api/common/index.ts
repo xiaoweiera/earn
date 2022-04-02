@@ -57,6 +57,14 @@ export default class extends ApiTemplate {
     return [params] as any;
   }
 
+  // 获取下载地址
+  @tryError(DefaultValue({}))
+  @get(api.common.system, expire.min5)
+  @userToken()
+  getSystemInfo<T>(): Promise<T> {
+    return [] as any;
+  }
+
   // 博客解锁
   @tryError(DefaultValue(false))
   @post(api.blog.unLock)
