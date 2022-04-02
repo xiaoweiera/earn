@@ -50,7 +50,6 @@ defineProps({
       color: #808080;
     }
   }
-
   @screen lg {
     & {
       @apply w-250 mx-auto;
