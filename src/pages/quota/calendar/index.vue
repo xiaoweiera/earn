@@ -100,18 +100,18 @@ const getWeek = function (value: number) {
     }
     &:before,
     &:after {
-      content: '';
+      content: "";
       @apply absolute left-1/2;
       @apply transform -translate-x-1/2;
     }
 
     &:before {
-      @apply top-4 bottom-0 w-px;
+      @apply top-5.5 -bottom-0.5 w-px;
       @apply bg-global-highTitle bg-opacity-10;
     }
 
     &:after {
-      @apply w-3 h-3 rounded-1/2 top-0;
+      @apply w-3 h-3 rounded-1/2 top-1.5;
       @apply border-global-money border-2 border-solid;
       background: rgba(248, 137, 35, 0.12);
     }

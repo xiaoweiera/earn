@@ -39,7 +39,7 @@ defineProps({
             <div class="line hidden md:flex"></div>
             <div class="w-full md:flex-1 mt-4 md:mt-0">
               <p class="text-12-18 text-global-highTitle text-opacity-65">{{ data.timeText }}</p>
-              <p class="semiBold">{{ data.time }}</p>
+              <p class="semiBold">{{ data.time || "-" }}</p>
             </div>
           </div>
         </div>

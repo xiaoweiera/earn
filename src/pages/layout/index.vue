@@ -7,11 +7,14 @@
 import Header from "./header/index.vue";
 import Footer from "./footer/index.vue";
 import Notice from "./notice/index.vue";
-import DownloadApp from "./download/app.vue";
+import { asyncLoad } from "src/plugins/lazyload/";
+
+const IpValidate = asyncLoad(() => import("./notice/validate.vue"));
+const DownloadApp = asyncLoad(() => import("./download/app.vue"));
 </script>
 <template>
   <div class="layout">
-    <input id="ui-header-mobile" class="hidden" type="checkbox" name="ui-header-mobile">
+    <input id="ui-header-mobile" class="hidden" type="checkbox" name="ui-header-mobile" />
     <!--导航-->
     <Header />
     <!--content-->
@@ -23,6 +26,12 @@ import DownloadApp from "./download/app.vue";
     <!--底部-->
     <Footer />
     <!--download app-->
-    <DownloadApp />
+    <div class="download-app is-web">
+      <DownloadApp />
+    </div>
+    <client-only>
+      <!-- 判断用户来源 -->
+      <IpValidate />
+    </client-only>
   </div>
 </template>

@@ -4,18 +4,19 @@
  * @author svon.me@gmail.com
  */
 
-import safeGet from "@fengqiaogang/safe-get";
+import { messageSuccess } from "src/lib/tool";
 import { getDAppData } from "src/logic/blog/dapp";
 import { getStatus } from "src/logic/ui/lock";
 import type { BlogDetail } from "src/types/blog/";
 import { Type } from "src/types/common/lock";
 import type { DAppData } from "src/types/dapp/data";
-import { dateFormat, isObject } from "src/utils";
+import { dateFormat, isArray, isObject } from "src/utils";
 import I18n from "src/utils/i18n";
+import { onMounted, ref } from "vue";
+import * as track from "src/logic/track";
 import * as alias from "src/utils/root/alias";
 import { getValue } from "src/utils/root/data";
 import { createReactive, createRef, onLoadReactive, onLoadRef, onUpdateReactive } from "src/utils/ssr/ref";
-import { onMounted } from "vue";
 import DApp from "./dapp.vue";
 import Item from "./item.vue";
 
@@ -28,36 +29,48 @@ const dApps = createRef<DAppData[]>(alias.blog.dApp, []);
 const onUpdate = onUpdateReactive(detail, async function () {
   const data = await getStatus(Type.blog, detail.id);
   if (data && isObject(data)) {
+    if (data.share_progress >= data.share_target) {
+      messageSuccess(i18n.common.lock.success);
+    }
     return data;
   }
   return {};
 });
 
 // 分享文案
-const getShareText = function (list: DAppData[]): string {
-  const text: string[] = [];
+const getShareText = function (list: DAppData[], title: string): string {
+  const text: string[] = [title];
   const colon = i18n.common.symbol.colon;
-  for (const item of list) {
-    if (item) {
+  if (list && isArray(list)) {
+    for (const item of list) {
       const data = getDAppData(item);
       if (data) {
-        text.push(data.name); // 项目名称
-        text.push(`${data.totalText}${colon}${data.total}`); // 总量
-        text.push(`${data.peopleText}${colon}${data.people}`); // 名额
-        text.push(`${data.timeText}${colon}${data.time}`); // 时间
+        // 总量
+        if (data.total && data.total !== "0") {
+          text.push(`${data.totalText}${colon}${data.total}`);
+        }
+        // 名额
+        if (data.people && data.total !== "0") {
+          text.push(`${data.peopleText}${colon}${data.people}`);
+        }
+        // 时间
+        if (data.time) {
+          text.push(`${data.timeText}${colon}${data.time}`);
+        }
       }
     }
   }
-  if (text.length > 0) {
-    text.push(`${i18n.dapp.share.tutorial}${colon}`);
-  }
+  text.push(`${i18n.dapp.share.tutorial}${colon}`);
   return text.join("\n");
 };
 
 onMounted(() => {
+  const id = getValue<string>("query.id", "");
+  // 上报数据
+  track.push(track.Origin.gio, track.event.blog.detail, {
+    blog_id: id,
+  });
   // 如果博客详情数据为空，同时 url 中有博客 id
-  const params = getValue<object>("query", {});
-  const id = safeGet<string>(params, "id");
   if (id) {
     onLoadReactive(detail, alias.blog.detail, id);
     onLoadRef(dApps, alias.blog.dApp, id);
@@ -86,23 +99,30 @@ onMounted(() => {
         <!-- 博客内容 -->
         <div class="py-8">
           <div class="blog-content text-global-highTitle">
-            <ui-markdown :value="detail.body" />
-
-            <template v-if="detail.hidden_body">
+            <div>
+              <ui-markdown :value="detail.body" />
+            </div>
+            <div v-if="detail.hidden_body">
               <template v-if="detail.share_required && !detail.share_unlocked">
-                <ui-lock :id="detail.id" :data="detail" :text="getShareText(dApps)" type="blog" @sync="onUpdate" />
+                <ui-lock :id="detail.id" :data="detail" :text="getShareText(dApps, detail.name)" type="blog" @sync="onUpdate" />
               </template>
-              <ui-markdown v-else :value="detail.hidden_body" />
-            </template>
+              <template v-else>
+                <ui-markdown :value="detail.hidden_body" />
+              </template>
+            </div>
           </div>
 
           <div class="mt-14 text-center text-12-16">
             <p class="inline-block text-global-highTitle text-opacity-45">{{ i18n.blog.copyright }}</p>
           </div>
-          <div v-if="detail.label && detail.label.length > 0" class="text-center text-12-16 text-global-highTitle text-opacity-85">
-            <span class="inline-block mt-4">{{ i18n.blog.label }}</span>
-            <span v-for="(value, index) in detail.label" :key="index" class="ml-4 mt-4 inline-block py-1 px-2 rounded-kd30px bg-global-highTitle bg-opacity-4">{{ value }}</span>
-          </div>
+          <template v-if="detail.label && detail.label.length > 0">
+            <div class="text-center text-12-16 text-global-highTitle text-opacity-85">
+              <span class="inline-block mt-4">{{ i18n.blog.label }}</span>
+              <template v-for="(value, index) in detail.label" :key="index">
+                <span class="ml-4 mt-4 inline-block py-1 px-2 rounded-kd30px bg-global-highTitle bg-opacity-4">{{ value }}</span>
+              </template>
+            </div>
+          </template>
         </div>
 
         <!-- 相关推荐 -->
