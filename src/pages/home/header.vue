@@ -2,6 +2,7 @@
 import { toNumberCashFormat } from "src/utils/convert/to";
 import I18n from "src/utils/i18n";
 import safeGet from "@fengqiaogang/safe-get";
+import { oss } from "src/config";
 const i18n = I18n();
 
 defineProps({
@@ -55,30 +56,30 @@ const getColor = (value: any) => {
             </template>
           </ui-popover>
         </div>
-        <div class="info-des number-value text-number kd-info-number" :class="getColor(data.avg_ath)">{{ toNumberCashFormat(data.avg_ath, "x") }}</div>
+        <div class="info-des number-value font-kdSemiBold kd-info-number" :class="getColor(data.avg_ath)">{{ toNumberCashFormat(data.avg_ath, "x") }}</div>
       </div>
       <div class="info-item">
-        <div class="item-name name-scale w-full text-left">{{ i18n.home.platData.nft }}</div>
+        <div class="item-name name-scale w-full">{{ i18n.home.platData.nft }}</div>
         <div class="info-des">
-          <span class="number-value text-number text-global-white whitespace-nowrap">{{ toNumberCashFormat(safeGet(data, "nft.total")) }}</span>
-          <span class="time time-scale font-kdFang text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(safeGet(data, 'nft.increase_24h'))">{{ getNumber(safeGet(data, "nft.increase_24h")) }}</span>
+          <span class="number-value font-kdSemiBold text-global-white whitespace-nowrap">{{ toNumberCashFormat(safeGet(data, "nft.total")) }}</span>
+          <ui-image :src="`${oss}/common/timeTip.png`" class="time" />
+          <span class="number-rate font-kdSemiBold" :class="getColor(safeGet(data, 'nft.increase_24h'))">{{ getNumber(safeGet(data, "nft.increase_24h")) }}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name name-scale">{{ i18n.home.platData.ido }}</div>
         <div class="info-des">
-          <span class="number-value text-number text-global-white whitespace-nowrap">{{ toNumberCashFormat(safeGet(data, "ixo.total")) }}</span>
-          <span class="time time-scale font-kdFang text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(safeGet(data, 'ixo.increase_24h'))">{{ getNumber(safeGet(data, "ixo.increase_24h")) }}</span>
+          <span class="number-value font-kdSemiBold text-global-white whitespace-nowrap">{{ toNumberCashFormat(safeGet(data, "ixo.total")) }}</span>
+          <ui-image :src="`${oss}/common/timeTip.png`" class="time" />
+          <span class="number-rate font-kdSemiBold" :class="getColor(safeGet(data, 'ixo.increase_24h'))">{{ getNumber(safeGet(data, "ixo.increase_24h")) }}</span>
         </div>
       </div>
       <div class="info-item">
         <div class="item-name name-scale">{{ i18n.home.platData.air }}</div>
         <div class="info-des">
-          <span class="number-value text-number text-global-white whitespace-nowrap">{{ toNumberCashFormat(safeGet(data, "airdrop.total")) }}</span>
-          <span class="time time-scale font-kdFang text-global-white">24H</span>
-          <span class="number-rate text-number" :class="getColor(safeGet(data, 'airdrop.increase_24h'))">{{ getNumber(safeGet(data, "airdrop.increase_24h")) }}</span>
+          <span class="number-value font-kdSemiBold text-global-white whitespace-nowrap">{{ toNumberCashFormat(safeGet(data, "airdrop.total")) }}</span>
+          <ui-image :src="`${oss}/common/timeTip.png`" class="time" />
+          <span class="number-rate font-kdSemiBold" :class="getColor(safeGet(data, 'airdrop.increase_24h'))">{{ getNumber(safeGet(data, "airdrop.increase_24h")) }}</span>
         </div>
       </div>
     </div>
@@ -119,31 +120,30 @@ const getColor = (value: any) => {
   @apply text-global-white;
 }
 .title {
-  @apply text-kd32px32px md:text-kd40px40px font-semibold text-global-white;
+  @apply text-kd32px32px md:text-kd40px40px text-global-white;
 }
 .des {
-  @apply mt-3 text-kd13px18px  md:text-kd14px18px text-global-white text-opacity-85;
+  @apply mt-1.5 text-kd13px18px  md:text-kd14px18px text-global-white text-opacity-85;
 }
 
 .info-item {
   //@apply md:w-40.75 md:min-h-11 min-h-10.5 w-max;
   @apply md:pl-9 md:min-h-11 min-h-10.5 w-max;
   .info-des {
-    @apply mt-1 md:mt-2 flex justify-begin ml-2 md:ml-0 md:justify-end items-center;
+    @apply mt-1 md:mt-2 flex justify-begin ml-2 md:ml-0 md:justify-start items-center;
   }
   .number-value {
     @apply text-kd12px16px md:text-kd20px20px font-bold;
   }
   .time {
-    @apply px-1 py-0.5 md:mx-1.5 text-kd12px16px font-medium;
-    @apply bg-global-white bg-opacity-25 rounded-kd4px;
+    @apply w-6.5 h-4.5 mx-1 md:mx-1.5;
   }
   .number-rate {
     @apply text-kd12px16px md:text-kd16px18px font-bold;
   }
 }
 .item-name {
-  @apply whitespace-nowrap text-right text-kd10px16px md:text-kd12px16px font-medium font-kdFang text-global-white text-opacity-65;
+  @apply whitespace-nowrap text-left text-kd10px16px md:text-kd12px16px font-medium font-kdFang text-global-white text-opacity-65;
 }
 @media screen and (max-width: 768px) {
   .name-scale {
