@@ -31,18 +31,10 @@ const props = defineProps({
   },
 });
 
-const status = ref<boolean>(true);
 const link = ref<string>();
 
 const onClick = function () {
   return emitEvent("sync");
-};
-
-const getPortrait = function (index: number): string {
-  if (index < 10) {
-    return `static/images/portrait/0${index}.jpg`;
-  }
-  return `static/images/portrait/${index}.jpg`;
 };
 
 onMounted(function () {
@@ -51,59 +43,54 @@ onMounted(function () {
 </script>
 
 <template>
-  <client-only class="ui-lock">
-    <div v-if="status" class="relative">
-      <div class="virtual-shadow h-20 absolute left-0 right-0 bottom-full"></div>
-      <div class="text-center">
-        <div>
-          <IconFont size="24" type="icon-lock" />
-        </div>
-        <p class="lock-tips mt-2">
-          <span class="text-12-16 text-white tips-wrap">
-            <span class="bg-global-gemstone inline-block px-3 py-1.5 rounded-global-kd30px">{{ i18n.common.lock.text1 }}</span>
-          </span>
-        </p>
-        <p class="mt-6 text-global-highTitle text-opacity-45">
-          <span class="text-12-18">{{ i18n.common.lock.text2 }}</span>
-        </p>
-        <v-login class="mt-3 text-global-darkblue flex justify-center items-center">
-          <ui-share-twitter :href="link" :text="text" class="circular">
-            <IconFont size="16" type="icon-twitter" />
-          </ui-share-twitter>
-          <ui-share-telegram :href="link" class="circular">
-            <IconFont size="16" type="icon-telegram" />
-          </ui-share-telegram>
-          <v-copy :value="link" class="circular cursor-pointer">
-            <IconFont size="16" type="icon-link" />
-          </v-copy>
-          <span class="ml-4 px-3 h-10 button-sync rounded-global-kd30px cursor-pointer" @click="onClick">{{ i18n.common.lock.shared }}</span>
-        </v-login>
-        <div class="text-12-16 mt-6 text-global-highTitle text-opacity-85">
-          <template v-if="data.share_progress < 1">
-            <span>{{ i18n.common.lock.gain }}</span>
-            <b class="mx-1.5 font-b text-16-18 text-global-gemstone">{{ data.share_target }}</b>
-          </template>
-          <template v-else>
-            <span>{{ i18n.common.lock.gainAgain }}</span>
-            <b class="mx-1.5 font-b text-16-18 text-global-gemstone">
-              <template v-if="data.share_target > data.share_progress">{{ data.share_target - data.share_progress }}</template>
-              <template v-else>0</template>
-            </b>
-          </template>
-          <span>{{ i18n.common.lock.unlock }}</span>
-        </div>
-        <div class="mt-3 text-global-gemstone user flex justify-center items-center">
-          <template v-for="index in data.share_target" :key="index">
-            <i v-if="index <= data.share_progress" class="circular" :data-portrait="index % 6"></i>
-            <i v-else class="circular">
-              <IconFont size="16" type="icon-user-plus" />
-            </i>
-          </template>
-        </div>
+  <client-only class="ui-lock relative">
+    <div class="virtual-shadow h-20 absolute left-0 right-0 bottom-full"></div>
+    <div class="text-center">
+      <div>
+        <IconFont size="24" type="icon-lock" />
       </div>
-    </div>
-    <div v-else>
-      <slot></slot>
+      <p class="lock-tips mt-2">
+        <span class="text-12-16 text-white tips-wrap">
+          <span class="bg-global-gemstone inline-block px-3 py-1.5 rounded-global-kd30px">{{ i18n.common.lock.text1 }}</span>
+        </span>
+      </p>
+      <p class="mt-6 text-global-highTitle text-opacity-45">
+        <span class="text-12-18">{{ i18n.common.lock.text2 }}</span>
+      </p>
+      <v-login class="mt-3 text-global-darkblue flex justify-center items-center">
+        <ui-share-twitter :href="link" :text="text" class="circular">
+          <IconFont size="16" type="icon-twitter" />
+        </ui-share-twitter>
+        <ui-share-telegram :href="link" class="circular">
+          <IconFont size="16" type="icon-telegram" />
+        </ui-share-telegram>
+        <v-copy :value="link" class="circular cursor-pointer">
+          <IconFont size="16" type="icon-link" />
+        </v-copy>
+        <span class="ml-4 px-3 h-10 button-sync rounded-global-kd30px cursor-pointer" @click="onClick">{{ i18n.common.lock.shared }}</span>
+      </v-login>
+      <div class="text-12-16 mt-6 text-global-highTitle text-opacity-85">
+        <template v-if="data.share_progress < 1">
+          <span>{{ i18n.common.lock.gain }}</span>
+          <b class="mx-1.5 font-b text-16-18 text-global-gemstone">{{ data.share_target }}</b>
+        </template>
+        <template v-else>
+          <span>{{ i18n.common.lock.gainAgain }}</span>
+          <b class="mx-1.5 font-b text-16-18 text-global-gemstone">
+            <template v-if="data.share_target > data.share_progress">{{ data.share_target - data.share_progress }}</template>
+            <template v-else>0</template>
+          </b>
+        </template>
+        <span>{{ i18n.common.lock.unlock }}</span>
+      </div>
+      <div class="mt-3 text-global-gemstone user flex justify-center items-center">
+        <template v-for="index in data.share_target" :key="index">
+          <i v-if="index <= data.share_progress" class="circular" :data-portrait="index % 6"></i>
+          <i v-else class="circular">
+            <IconFont size="16" type="icon-user-plus" />
+          </i>
+        </template>
+      </div>
     </div>
   </client-only>
 </template>

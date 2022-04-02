@@ -14,7 +14,7 @@ import { User } from "src/types/common/user";
 import * as alias from "src/utils/root/alias";
 import { getValue } from "src/utils/root/data";
 
-// 获取分享两局
+// 获取分享链接
 export const getShareLink = function (type?: Type, id?: string | number, href?: string) {
   const user = getValue<User>(alias.common.user, {} as User);
 

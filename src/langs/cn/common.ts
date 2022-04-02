@@ -166,6 +166,7 @@ export default {
     gain: "获得",
     gainAgain: "再获得",
     unlock: "名好友助力，即可解锁完整内容",
-    shared: "我已分享",
+    shared: "查看进度",
+    success: "已解锁完整教程",
   },
 };

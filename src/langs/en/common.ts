@@ -167,6 +167,7 @@ export default {
     gain: "Gain",
     gainAgain: "Gain again",
     unlock: "unlock the full content with the help from your friends",
-    shared: "Shared",
+    shared: "View Progress",
+    success: "Unlock Full Content",
   },
 };
