@@ -42,6 +42,7 @@ const onClick = function (type: string, url: string) {
         App Store
       </div>
     </DownloadHover>
+    <div class="w-6"></div>
     <DownloadHover :href="env.appDownload">
       <div class="download-btn android-btn" @click="onClick('android', data.android_url)">
         <IconFont type="icon-android" class="text-white" size="24" />
@@ -60,7 +61,7 @@ const onClick = function (type: string, url: string) {
     @apply bg-gray-900 flex justify-between py-2 px-3 rounded;
   }
   .android-btn {
-    @apply flex justify-between ml-6 py-2 px-5 rounded;
+    @apply flex justify-between py-2 px-5 rounded;
     background-color: #21c863;
   }
 }
