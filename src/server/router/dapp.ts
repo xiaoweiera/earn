@@ -8,6 +8,12 @@ import { Router as ExpressRouter } from "express";
 
 const Router = function () {
   const router = ExpressRouter();
+  router.get(config.dapp, function (req: Request, res: Response) {
+    redirect(req, res, config.dappList);
+  });
+  router.get(config.nft, function (req: Request, res: Response) {
+    redirect(req, res, config.nftList);
+  });
 
   // 列表
   router.get(config.dappList, (req: Request, res: Response) => {
