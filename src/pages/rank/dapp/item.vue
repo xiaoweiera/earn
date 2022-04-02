@@ -3,7 +3,7 @@ import { ElPopover } from "element-plus";
 import { defineProps, computed } from "vue";
 import { formatRulesNumber, getNumberColor } from "src/lib/tool";
 import safeGet from "@fengqiaogang/safe-get";
-
+import { pageInfo } from "src/logic/rank/config";
 const props = defineProps({
   category: {
     type: String,
@@ -38,7 +38,7 @@ const props = defineProps({
 const bgWidth = computed(() => (props.isCompare ? (props.item[props.sortName] / props.item.max_stat[props.sortName]) * 100 + "%" : ""));
 
 const detailUrl = function (data: object) {
-  const category = props.category ? `category=${props.category}` : undefined;
+  const category = props.category ? `category=${props.category}` : "";
   const id = safeGet<number>(data, "dapp_id");
   if (id) {
     return `/dapp/rank/${id}?${category}`;

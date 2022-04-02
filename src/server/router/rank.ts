@@ -8,31 +8,31 @@ import safeGet from "@fengqiaogang/safe-get";
 
 const Router = function () {
   const router = ExpressRouter();
-  const toUrl = (type: string) => {
-    return function (req: Request, res: Response) {
-      const query = req.query;
-      const category = safeGet(query, "category");
-      const data: any = _.omit(query, ["category"]);
-      if (type === "dapp") {
-        if (!category) {
-          redirect(req, res, config.rankDapp, data);
-        } else if (category === "game") {
-          redirect(req, res, config.rankGame, data);
-        } else if (category === "defi") {
-          redirect(req, res, config.rankDefi, data);
-        }
-      } else {
-        redirect(req, res, config.rankNft, data);
-      }
-    };
-  };
-  router.get("/dapp/rank", toUrl("dapp"));
-  router.get("/nft/rank", toUrl("nft"));
-
-  router.get(config.rankDapp, rank.dapp); // dapp
-  router.get(config.rankGame, rank.game); // game
-  router.get(config.rankDefi, rank.defi); // defi
-  router.get(config.rankNft, rank.nft); // defi
+  // const toUrl = (type: string) => {
+  //   return function (req: Request, res: Response) {
+  //     const query = req.query;
+  //     const category = safeGet(query, "category");
+  //     const data: any = _.omit(query, ["category"]);
+  //     if (type === "dapp") {
+  //       if (!category) {
+  //         redirect(req, res, config.rankDapp, data);
+  //       } else if (category === "game") {
+  //         redirect(req, res, config.rankGame, data);
+  //       } else if (category === "defi") {
+  //         redirect(req, res, config.rankDefi, data);
+  //       }
+  //     } else {
+  //       redirect(req, res, config.rankNft, data);
+  //     }
+  //   };
+  // };
+  // router.get("/dapp/rank", toUrl("dapp"));
+  // router.get("/nft/rank", toUrl("nft"));
+  //
+  // router.get(config.rankDapp, rank.dapp); // dapp
+  // router.get(config.rankGame, rank.game); // game
+  // router.get(config.rankDefi, rank.defi); // defi
+  // router.get(config.rankNft, rank.nft); // defi
   return router;
 };
 

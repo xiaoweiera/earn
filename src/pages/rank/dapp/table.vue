@@ -10,7 +10,7 @@ import document from "src/plugins/browser/document";
 import window from "src/plugins/browser/window";
 import { getParam } from "src/utils/router";
 import * as alias from "src/utils/root/alias";
-import { Model } from "src/logic/home";
+import { Model } from "src/logic/rank";
 import { useRoute } from "vue-router";
 import { getValue } from "src/utils/root/data";
 import { config as routerConfig } from "src/router/config";
