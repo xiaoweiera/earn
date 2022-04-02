@@ -16,7 +16,7 @@ defineProps({
 });
 </script>
 <template>
-  <div class="mobile-warp">
+  <div>
     <DownloadBanner :autoplay="true" direction="horizontal" :list="list" :loop="true" :navigation="false">
       <template #item="{ data: item }">
         <div class="content-mobile">

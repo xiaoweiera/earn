@@ -21,11 +21,11 @@ onMounted(function () {
     <template v-if="detail && detail.android_url">
       <!-- pc下载页 -->
       <div class="hidden md:block">
-        <DownLoadPc :list="DownList()" :data="detail" />
+        <DownLoadPc :data="detail" :list="DownList()" class="h-full w-full" />
       </div>
       <!-- 手机下载页 -->
       <div class="block md:hidden">
-        <DownLoadMobile :list="DownList()" :data="detail" />
+        <DownLoadMobile :data="detail" :list="DownList()" class="h-full w-full" />
       </div>
     </template>
   </div>

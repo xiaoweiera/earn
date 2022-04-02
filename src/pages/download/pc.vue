@@ -16,7 +16,7 @@ defineProps({
 });
 </script>
 <template>
-  <div class="banner-warp">
+  <div>
     <DownloadBanner :list="list" :navigation="true">
       <template #item="{ data: item }">
         <div class="content-wrap">
@@ -25,13 +25,15 @@ defineProps({
               <div class="top-content text-48">
                 <b>{{ item.mTitle }}</b>
               </div>
-              <div class="bottom-content text-24">{{ item.subTitle }}</div>
+              <div class="bottom-content text-24 mt-8">{{ item.subTitle }}</div>
             </div>
-            <div class="pc-icon">
+            <div class="text-white mt-20">
               <DownloadIcon :data="data" />
             </div>
           </div>
-          <img :src="item.img" class="right-img" />
+          <div class="h-full max-h-128">
+            <ui-image :src="item.img" fit="none" class="h-full" />
+          </div>
         </div>
       </template>
     </DownloadBanner>
@@ -39,42 +41,20 @@ defineProps({
 </template>
 <style lang="scss" scoped>
 .content-wrap {
-  @apply h-full w-full px-4 mt-10 flex flex-col items-center mx-auto;
+  @apply h-full w-full p-4 flex items-center justify-between;
   .left-content {
-    @apply flex flex-col;
     .top-content {
       color: #272c33;
     }
-
     .bottom-content {
-      @apply mt-8;
       color: #808080;
     }
-
-    .pc-icon {
-      @apply text-white mt-20;
-    }
   }
 
-  .right-img {
-    @apply inline-block mt-10 max-h-77.5;
-  }
-
-  @screen sm {
-    @apply w-160 px-1;
-    @apply grid grid-cols-2 items-center;
-    transform: translateY(-5%);
-    .right-img {
-      @apply max-h-127.5;
-    }
-  }
-  @screen md {
-    @apply w-full px-2;
-    @apply flex flex-row justify-between items-center;
-    transform: translateY(-5%);
-  }
   @screen lg {
-    @apply w-250 px-2 flex flex-row justify-between items-center;
+    & {
+      @apply w-250 mx-auto;
+    }
   }
 }
 </style>
