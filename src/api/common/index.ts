@@ -6,7 +6,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import { tidingName } from "src/config/";
 import * as api from "src/config/api";
 import Cookie from "src/plugins/browser/cookie";
-import { DefaultValue, expire, get, tryError, userToken, validate } from "src/plugins/dao/http";
+import { DefaultValue, expire, get, post, tryError, userToken } from "src/plugins/dao/http";
 import type { AreaCode } from "src/types/common/area";
 import type { SiteConfig } from "src/types/common/chain";
 import type { TidingList } from "src/types/common/tiding";
@@ -65,6 +65,18 @@ export default class extends ApiTemplate {
     return [] as any;
   }
 
+  // 博客解锁
+  @tryError(DefaultValue(false))
+  @post(api.blog.unLock)
+  @userToken()
+  blogUnLock(data: object): Promise<boolean> {
+    const callback = function (value: object) {
+      return !!value;
+    };
+    return [data, callback] as any;
+  }
+
+  // 获取用户 ip 地址
   @tryError(DefaultValue({}))
   @get(api.common.ipValidate, 0, {
     baseURL: "https://kingdata.xyz",

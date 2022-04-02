@@ -6,7 +6,8 @@
 import { Express } from "express";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
-import { getEnv, Command } from "src/config";
+import { getEnv, Command, uuIdName } from "src/config";
+import * as console from "src/plugins/log/";
 
 const isWatch = function (): boolean {
   const env = getEnv();
@@ -33,15 +34,17 @@ export const before = function (app: Express) {
         request: ["method", "url", "query_string"],
         transaction: "methodPath",
         ip: true,
-        user: ["id", "nickname", "email", "mobile"],
+        user: [uuIdName, "id", "nickname", "email", "mobile"],
       }),
     );
     app.use(Sentry.Handlers.tracingHandler());
   }
+  console.info("Sentry before");
 };
 
 export const after = function (app: Express) {
   if (isWatch()) {
     app.use(Sentry.Handlers.errorHandler());
+    console.info("Sentry after");
   }
 };

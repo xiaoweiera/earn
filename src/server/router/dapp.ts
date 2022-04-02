@@ -2,7 +2,7 @@ import _ from "lodash";
 import safeGet from "@fengqiaogang/safe-get";
 import { config } from "src/router/config";
 import * as dApp from "src/controller/dapp";
-import redirect from "src/controller/common/redirect";
+import { redirect } from "src/controller/common/redirect";
 import type { Request, Response, NextFunction } from "express";
 import { Router as ExpressRouter } from "express";
 import { TabTypes } from "src/types/dapp/airdrop";

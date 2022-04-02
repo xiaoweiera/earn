@@ -97,6 +97,7 @@ export default {
       join: "Join the group",
       wechat: "Communicate with industry leaders",
     },
+    tutorial: "Tutorial link",
   },
   priceData: {
     high: "Highest yield",

@@ -30,6 +30,9 @@ export const blog = {
   tabs: "/api/blog/v1/groups", // 分组
   list: "/api/blog/v1/blogs", // 列表
   detail: "/api/blog/v1/blog", // 详情
+  unLock: "/api/blog/v1/open", // 博客解锁
+  lockStatus: "/api/blog/v1/share_status", // 查询博客解锁状态
+  dApp: "/api/blog/v1/tutorial_dapps", // 博客关联的 DApp 列表
 };
 
 export const quota = {

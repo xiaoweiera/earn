@@ -9,6 +9,7 @@ import { toArray } from "src/utils";
 import { getLang } from "src/utils/root/data";
 import Cookie from "src/plugins/browser/cookie";
 import { tokenName } from "src/config/";
+import * as console from "src/plugins/log/";
 
 export * from "src/types/track/";
 
@@ -26,6 +27,7 @@ export const push = function (origin: Origin | Origin[], event: string, data?: o
     for (const name of toArray(origin)) {
       if (name === Origin.gio) {
         const gio = new Gio();
+        console.log(event, value);
         gio.track(event, value);
       }
     }

@@ -134,6 +134,7 @@ export default {
   symbol: {
     plus: "+",
     divide: "Divide ",
+    colon: ": ",
   },
   api: {
     wrong: "System exception",
@@ -159,5 +160,14 @@ export default {
     deleteDes: "The content cannot be restored after deletion. Are you sure you want to delete this review/response?",
     close: "Close",
     ok: "Ok",
+  },
+  lock: {
+    text1: "Enjoy the great airdrop and share them with your friends",
+    text2: "Valid ways to share",
+    gain: "Gain",
+    gainAgain: "Gain again",
+    unlock: "unlock the full content with the help from your friends",
+    shared: "View Progress",
+    success: "Unlock Full Content",
   },
 };
