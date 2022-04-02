@@ -2,6 +2,7 @@
  * @file 公共接口
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import { tidingName } from "src/config/";
 import * as api from "src/config/api";
 import Cookie from "src/plugins/browser/cookie";
@@ -57,11 +58,36 @@ export default class extends ApiTemplate {
   }
 
   // 获取下载地址
-  @tryError(DefaultValue([]))
+  @tryError(DefaultValue({}))
   @get(api.common.downList, expire.min30)
   @userToken()
-  @validate
   getDownUrl<T>(): Promise<T> {
     return [] as any;
+  }
+
+  @tryError(DefaultValue({}))
+  @get(api.common.ipValidate, 0, {
+    baseURL: "https://kingdata.xyz",
+  })
+  @userToken()
+  ipValidate(): Promise<object> {
+    return [] as any;
+  }
+
+  async ipIsChina(): Promise<boolean> {
+    const name = "ip-validate";
+    const cookie = new Cookie(this.getRequest());
+    const status = cookie.get(name);
+    if (status) {
+      return false;
+    }
+    const data = await this.ipValidate();
+    // 判断是否是 chinese 地区 ip
+    const value = safeGet<boolean>(data, "chinese");
+    if (value) {
+      const time = 1000 * 60 * 60 * 24;
+      cookie.set(name, "1", time); // 缓存1天，1天之后在做检查
+    }
+    return value;
   }
 }

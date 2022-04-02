@@ -6,8 +6,8 @@
 
 import { onMounted } from "vue";
 import I18n from "src/utils/i18n";
+import * as track from "src/logic/track";
 import type { BlogDetail } from "src/types/blog/";
-import safeGet from "@fengqiaogang/safe-get";
 import * as alias from "src/utils/root/alias";
 import { getValue } from "src/utils/root/data";
 import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
@@ -20,14 +20,16 @@ const i18n = I18n();
 const detail = createReactive<BlogDetail>(alias.blog.detail, {} as BlogDetail);
 
 onMounted(() => {
+  const id = getValue<string>("query.id", "");
+  // 上报数据
+  track.push(track.Origin.gio, track.event.blog.detail, {
+    blog_id: id,
+  });
   // 如果博客详情数据为空，同时 url 中有博客 id
-  const params = getValue<object>("query", {});
-  const id = safeGet<string>(params, "id");
   if (id) {
     onLoadReactive(detail, alias.blog.detail, id);
   }
 });
-
 </script>
 
 <template>
@@ -40,7 +42,7 @@ onMounted(() => {
             <h3 class="text-24 font-m text-global-highTitle">{{ detail.name }}</h3>
             <p class="mt-3 text-14-18 text-global-highTitle text-opacity-65">
               KingData ·
-              {{ dateFormat(detail.release_date,'YYYY-MM-DD') }}
+              {{ dateFormat(detail.release_date, "YYYY-MM-DD") }}
             </p>
           </div>
         </div>
