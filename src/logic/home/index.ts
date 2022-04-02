@@ -1,5 +1,5 @@
 import API from "src/api";
-import type { projectParams, recommendModel, summaryModel } from "src/types/home";
+import type { projectParams, recommendModel, summaryModel, tutorialParams, tutorialData } from "src/types/home";
 import I18n from "src/utils/i18n";
 
 // 得到header数据 headerName,headerCss
@@ -124,5 +124,9 @@ export class Model extends API {
   //ad列表
   getAdList(position: number) {
     return this.home.getAdList(position);
+  }
+  //Tutorial列表
+  getTutorialList(query: tutorialParams) {
+    return this.home.getTutorialList<tutorialData[]>(query);
   }
 }

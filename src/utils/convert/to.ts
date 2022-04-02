@@ -140,3 +140,15 @@ export const getPercent = (zi?: number, mu?: number) => {
   // @ts-ignore
   return toNumberCashFormat((zi / mu) * 100);
 };
+
+// 格式化数据，无值返回-
+export const toNumberCashPre = function (value: string | number = 0): string {
+  if (value === defaultNumberValue) {
+    return value;
+  }
+  if (value) {
+    const data = `${value}`;
+    return data.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  return "--";
+};

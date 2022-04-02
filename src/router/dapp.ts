@@ -10,6 +10,10 @@ const routes = [
     component: () => import("src/pages/dapp/nft.vue"),
   },
   {
+    path: `${router.airdrop}/list/:name`,
+    component: () => import("src/pages/dapp/airdrop/index.vue"),
+  },
+  {
     path: router.invest,
     component: () => import("src/pages/dapp/investment/index.vue"),
   },

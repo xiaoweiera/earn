@@ -141,5 +141,7 @@ export default {
   airdrop: {
     title: "OnGoing Airdrops",
     tips: "Collect the latest airdrop projects",
+    airdrop: "Airdrops",
+    tutorial: "Tutorial",
   },
 };

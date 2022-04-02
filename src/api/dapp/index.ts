@@ -78,12 +78,20 @@ export default class extends ApiTemplate {
     );
     return [params] as any;
   }
-  // airdrop 数据
+  // airdrop首页 数据
   @tryError(DefaultValue([]))
   @get(api.dapp.airdropList, expire.min30)
   @userToken()
   @validate
   getAirdropList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // airdrop运营推荐 数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.operation, expire.min30)
+  @userToken()
+  @validate
+  getOperationList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
   // 投融资的project数据

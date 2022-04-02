@@ -1,5 +1,4 @@
 import I18n from "src/utils/i18n";
-import { reactive } from "vue";
 const i18n = I18n();
 export enum chainPage {
   dapp_new = "dapp_new",

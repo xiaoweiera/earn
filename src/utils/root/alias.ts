@@ -47,6 +47,11 @@ export const nft = {
   upcoming: "API.dApp.nft?status=upcoming",
 };
 
+export const airdrop = {
+  list: "API.airdrop.list",
+  operation: "API.operation.list",
+};
+
 //投融资
 export const invest = {
   list: {

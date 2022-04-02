@@ -1,10 +1,12 @@
 import safeGet from "@fengqiaogang/safe-get";
+import safeSet from "@fengqiaogang/safe-set";
 import { Model } from "src/logic/dapp";
 import { Model as InvestModel } from "src/logic/dapp/invest";
 import type { Request, Response } from "express";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
+import { TabTypes } from "src/types/dapp/airdrop";
 
 export const list = async function (req: Request, res: Response) {
   const api = new Model(req);
@@ -67,6 +69,19 @@ export const nftList = async function (req: Request, res: Response) {
 
     "API.nft.list": list, // nft数据
     [alias.dApp.summary.list]: summary,
+  };
+  res.send(result);
+};
+
+// 空投列表
+export const airdropList = async function (req: Request, res: Response) {
+  const i18n = I18n(req);
+  const api = new Model(req);
+  res.locals.menuActive = names.dapp.airdrop;
+  const query: any = { ...req.query };
+  const [list] = await Promise.all([api.getAirdropList(query)]);
+  const result = {
+    [alias.airdrop.list]: list, // airdrop数据
   };
   res.send(result);
 };
