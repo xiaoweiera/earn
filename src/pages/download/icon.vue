@@ -3,12 +3,10 @@ import DownloadHover from "src/pages/download/hover.vue";
 import { getEnv } from "src/config/";
 import { PropType } from "vue";
 import { SystemInfo } from "src/types/common/down";
-import I18n from "src/utils/i18n";
 import { getUA } from "src/plugins/browser/ua";
 import { ElMessage } from "element-plus";
 
 const env = getEnv();
-const i18n = I18n();
 
 defineProps({
   data: {

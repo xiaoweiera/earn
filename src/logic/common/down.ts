@@ -3,11 +3,13 @@
  * @author zhangkun@163.com
  */
 
-export const DownList = function () {
+import I18n from "src/utils/i18n";
+
+export const downList = function () {
+  const i18n = I18n();
   return [
-    { mTitle: "升级数据监控", subTitle: "一、二级市场数据全覆盖", img: "/assets/download/upgrade.png" },
-    { mTitle: "Dapp新项目", subTitle: "快人一步,发现潜力新项目", img: "/assets/download/dapp.png" },
-    { mTitle: "APY大全", subTitle: "快速发现高收益矿池", img: "/assets/download/apy.png" },
-    { mTitle: "多线图表", subTitle: "数据对比一图搞定", img: "/assets/download/more.png" },
+    { mTitle: i18n.downLoad.dataTitle, subTitle: i18n.downLoad.dataSubTitle, img: i18n.downLoad.dataImg },
+    { mTitle: i18n.downLoad.dappTitle, subTitle: i18n.downLoad.dappSubTitle, img: i18n.downLoad.dappImg },
+    { mTitle: i18n.downLoad.apyTitle, subTitle: i18n.downLoad.apySubTitle, img: i18n.downLoad.apyImg },
   ];
 };

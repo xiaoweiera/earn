@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
 import { asyncLoad } from "src/plugins/lazyload";
-import { DownList } from "src/logic/common/down";
+import { downList } from "src/logic/common/down";
 
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { SystemInfo } from "src/types/common/down";
@@ -21,11 +21,11 @@ onMounted(function () {
     <template v-if="detail && detail.android_url">
       <!-- pc下载页 -->
       <div class="hidden md:block">
-        <DownLoadPc :data="detail" :list="DownList()" class="h-full w-full" />
+        <DownLoadPc :data="detail" :list="downList()" class="h-full w-full" />
       </div>
       <!-- 手机下载页 -->
       <div class="block md:hidden">
-        <DownLoadMobile :data="detail" :list="DownList()" class="h-full w-full" />
+        <DownLoadMobile :data="detail" :list="downList()" class="h-full w-full" />
       </div>
     </template>
   </div>

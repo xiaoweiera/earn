@@ -22,6 +22,7 @@ import wallet from "./wallet";
 import file from "./file";
 import home from "./home";
 import invest from "./invest";
+import downLoad from "./download";
 export default {
   home,
   airdrop,
@@ -47,4 +48,5 @@ export default {
   wallet,
   file,
   invest,
+  downLoad,
 };

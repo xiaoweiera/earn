@@ -25,7 +25,7 @@ defineProps({
               <div class="top-content text-48">
                 <b>{{ item.mTitle }}</b>
               </div>
-              <div class="bottom-content text-24 mt-8">{{ item.subTitle }}</div>
+              <div class="bottom-content text-kd20px20px mt-8">{{ item.subTitle }}</div>
             </div>
             <div class="text-white mt-20">
               <DownloadIcon :data="data" />
