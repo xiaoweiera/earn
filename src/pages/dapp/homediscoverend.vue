@@ -127,7 +127,7 @@ const EndlistComing = function () {
     <!-- header -->
     <div class="border-0 md:border-b-1 border-global-highTitle border-opacity-6 pb-4">
       <div class="flex flex-col md:flex-row items-start md:items-end">
-        <p class="text-kd32px32px text-global-highTitle font-semibold font-kdSemiBold">
+        <p class="text-kd32px32px text-global-highTitle font-kdSemiBold">
           {{ i18n.home.endProject.title }}
         </p>
         <p class="text-kd14px18px text-global-highTitle text-opacity-45 font-kdFang mt-4 md:mt-0 ml-0 md:ml-4">

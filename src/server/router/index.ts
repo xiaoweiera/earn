@@ -14,6 +14,7 @@ import dApp from "./dapp";
 import home from "./home";
 import blog from "./blog";
 import quota from "./quota";
+import rank from "./rank";
 import down from "./download";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
@@ -32,9 +33,10 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(blog());
   // 指标
   router.use(quota());
+  // 榜单
+  router.use(rank());
   //下载页面
   router.use(down());
-
   // 404
   router.get(routerConfig.E404, (req: Request, res: Response) => {
     res.send({});

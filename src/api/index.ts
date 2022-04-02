@@ -7,6 +7,7 @@ import Blog from "./blog";
 import User from "./user";
 import Common from "./common";
 import Quota from "./quota";
+import Rank from "./rank";
 
 export default class API extends ApiTemplate {
   public home: Home;
@@ -15,6 +16,7 @@ export default class API extends ApiTemplate {
   public user: User;
   public common: Common;
   public quota: Quota;
+  public rank: Rank;
   constructor(value?: Lang) {
     super(value);
     this.home = new Home(value);
@@ -23,5 +25,6 @@ export default class API extends ApiTemplate {
     this.user = new User(value);
     this.common = new Common(value);
     this.quota = new Quota(value);
+    this.rank = new Rank(value);
   }
 }

@@ -18,7 +18,7 @@ defineProps({
 <template>
   <div class="spin">
     <slot />
-    <span v-show="loading" class="loading-icon" :class="{'fit': fit}">
+    <span v-show="loading" class="loading-icon" :class="{ fit: fit }">
       <svg class="circular" viewBox="25 25 50 50">
         <circle class="path" cx="50" cy="50" r="20" fill="none" />
       </svg>
@@ -27,22 +27,22 @@ defineProps({
 </template>
 
 <style lang="scss" scoped>
-@keyframes loading-rotate{
-  to{
-    transform:rotate(1turn);
+@keyframes loading-rotate {
+  to {
+    transform: rotate(1turn);
   }
 }
 
-@keyframes loading-dash{
-  0%{
+@keyframes loading-dash {
+  0% {
     stroke-dasharray: 1, 200;
-    stroke-dashoffset:0;
+    stroke-dashoffset: 0;
   }
-  50%{
+  50% {
     stroke-dasharray: 90, 150;
-    stroke-dashoffset: -40px
+    stroke-dashoffset: -40px;
   }
-  to{
+  to {
     stroke-dasharray: 90, 150;
     stroke-dashoffset: -120px;
   }
@@ -56,7 +56,7 @@ defineProps({
     @apply absolute;
   }
   @apply left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2;
-  @apply z-100;
+  @apply z-99999;
   .circular {
     height: 42px;
     width: 42px;
@@ -64,7 +64,7 @@ defineProps({
     animation: loading-rotate 2s linear infinite;
   }
   .path {
-    stroke-dasharray: 90,150;
+    stroke-dasharray: 90, 150;
     stroke-dashoffset: 0;
     stroke-width: 2;
     stroke: #409eff;

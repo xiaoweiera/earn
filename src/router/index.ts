@@ -13,6 +13,7 @@ import BlogList from "./blog";
 import User from "./user";
 import DownLoad from "./download";
 import quota from "./quota";
+import rank from "./rank";
 
 const routes = [
   {
@@ -30,6 +31,7 @@ const routes = [
       ...BlogList,
       ...DownLoad,
       ...quota,
+      ...rank,
       {
         path: config.E404,
         component: () => import("src/pages/e404/index.vue"),

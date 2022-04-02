@@ -1,6 +1,6 @@
 /**
- * @file 博客
- * @author svon.me@gmail.com
+ * @file 首页
+ * weier
  */
 
 import { Model } from "src/logic/home";

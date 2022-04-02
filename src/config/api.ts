@@ -59,3 +59,12 @@ export const common = {
   system: "/api/v1/system", //下载链接
   ipValidate: "/api/v1/ip/validate", // 判断 Ip 来源
 };
+
+export const rank = {
+  chainsList: "/api/dapps/v1/chains", //链
+  groups: "/api/dapps/{version}/groups", //分组
+  dappTable: "/api/dapps/v1/rank/dapps", //dapp列表
+  nftTable: "/api/dapps/v1/rank/nfts", //nft列表
+  dappChart: "/api/dapps/v1/rank/chart/tvl", //dapp chart
+  nftChart: "/api/dapps/v1/rank/chart/volume", //nft Chart
+};
