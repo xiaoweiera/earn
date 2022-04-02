@@ -1,17 +1,7 @@
-import API from "src/api";
-import { DownUrl } from "src/types/common/down";
-
 /**
  * @file
  * @author zhangkun@163.com
  */
-
-export class Model extends API {
-  //获取下载地址
-  getDownUrl() {
-    return this.common.getDownUrl<DownUrl[]>();
-  }
-}
 
 export const DownList = function () {
   return [

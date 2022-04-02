@@ -1,36 +1,33 @@
 <script lang="ts" setup>
-import DownLoadPc from "src/pages/download/pc.vue";
-import DownLoadMobile from "src/pages/download/mobile.vue";
+import { onMounted } from "vue";
+import { asyncLoad } from "src/plugins/lazyload";
 import { DownList } from "src/logic/common/down";
-import { createRef } from "src/utils/ssr/ref";
-import { onMounted, reactive } from "vue";
-import { DownUrl } from "src/types/common/down";
-import { forEach } from "src/utils";
 
-const urlList = createRef("API.down.getUrl", []);
+import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
+import type { SystemInfo } from "src/types/common/down";
 
-const detail = reactive<DownUrl>({} as DownUrl);
-const onGetUrl = async function () {
-  if (urlList.value) {
-    forEach((value, key) => {
-      // @ts-ignore
-      detail[key] = value;
-    }, urlList.value);
-  }
-};
-onMounted(() => onGetUrl());
+const DownLoadPc = asyncLoad(() => import("./pc.vue"));
+const DownLoadMobile = asyncLoad(() => import("./mobile.vue"));
+
+const detail = createReactive<SystemInfo>(alias.common.system.info, {} as SystemInfo);
+
+onMounted(function () {
+  onLoadReactive(detail, alias.common.system.info);
+});
 </script>
 
 <template>
   <div class="download-banner view-full">
-    <!-- pc下载页 -->
-    <div class="hidden md:block">
-      <DownLoadPc :list="DownList()" :data="detail" />
-    </div>
-    <!-- 手机下载页 -->
-    <div class="block md:hidden">
-      <DownLoadMobile :list="DownList()" :data="detail" />
-    </div>
+    <template v-if="detail && detail.android_url">
+      <!-- pc下载页 -->
+      <div class="hidden md:block">
+        <DownLoadPc :list="DownList()" :data="detail" />
+      </div>
+      <!-- 手机下载页 -->
+      <div class="block md:hidden">
+        <DownLoadMobile :list="DownList()" :data="detail" />
+      </div>
+    </template>
   </div>
 </template>
 

@@ -7,7 +7,7 @@ export interface DownData {
   image: string;
   url: string;
 }
-export interface DownUrl {
+export interface SystemInfo {
   android_url: string;
   business_telegram: string;
   customer_qr_url: string;

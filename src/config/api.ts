@@ -56,6 +56,6 @@ export const common = {
   chainSiteConfig: "/api/v1/site/config", // 公链信息
   tidingTime: "/api/generic/alert/web/new_add", // 新数据消息
   adList: "/api/v2/commercial", // 广告
-  downList: "/api/v1/system", //下载链接
+  system: "/api/v1/system", //下载链接
   ipValidate: "/api/v1/ip/validate", // 判断 Ip 来源
 };

@@ -11,6 +11,9 @@ export const common = {
   tiding: {
     list: "common.tidings",
   },
+  system: {
+    info: "API.common.getSystemInfo",
+  },
 };
 
 export const blog = {

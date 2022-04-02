@@ -59,9 +59,9 @@ export default class extends ApiTemplate {
 
   // 获取下载地址
   @tryError(DefaultValue({}))
-  @get(api.common.downList, expire.min30)
+  @get(api.common.system, expire.min5)
   @userToken()
-  getDownUrl<T>(): Promise<T> {
+  getSystemInfo<T>(): Promise<T> {
     return [] as any;
   }
 

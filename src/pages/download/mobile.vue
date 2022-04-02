@@ -1,8 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import DownloadBanner from "src/pages/download/banner.vue";
 import DownloadIcon from "src/pages/download/icon.vue";
 import { PropType } from "vue";
-import { DownData, DownUrl } from "src/types/common/down";
+import { DownData, SystemInfo } from "src/types/common/down";
 
 defineProps({
   list: {
@@ -11,23 +11,21 @@ defineProps({
   },
   data: {
     required: true,
-    type: Object as PropType<DownUrl>,
+    type: Object as PropType<SystemInfo>,
   },
 });
 </script>
 <template>
   <div class="mobile-warp">
-    <DownloadBanner :list="list" :direction="'horizontal'" :navigation="false" :loop="true" :autoplay="true">
-      <template #item="scope">
+    <DownloadBanner :autoplay="true" direction="horizontal" :list="list" :loop="true" :navigation="false">
+      <template #item="{ data: item }">
         <div class="content-mobile">
           <div class="content">
             <div class="top-title text-24">
-              <b>{{ scope.data.mTitle }}</b>
+              <b>{{ item.mTitle }}</b>
             </div>
-            <div class="bottom-title text-14">
-              {{ scope.data.subTitle }}
-            </div>
-            <img :url="scope.data.img" class="bottom-img" :src="scope.data.img" />
+            <div class="bottom-title text-14">{{ item.subTitle }}</div>
+            <img :src="item.img" class="bottom-img" />
           </div>
         </div>
       </template>
@@ -45,15 +43,18 @@ defineProps({
     .top-title {
       color: #272c33;
     }
+
     .bottom-title {
       @apply mt-5;
       color: #808080;
     }
+
     .bottom-img {
       @apply max-h-77.5 mt-10;
     }
   }
 }
+
 .app-icon {
   @apply w-full z-10 fixed inset-x-0 bottom-15 flex justify-center;
 }
