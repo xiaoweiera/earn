@@ -11,10 +11,12 @@ import * as alias from "src/utils/root/alias";
 import { groupModel, dappListModel } from "src/types/rank";
 import I18n from "src/utils/i18n";
 import { config as routerConfig } from "src/router/config";
+import { names } from "src/config/header";
 // dapp页面
 export const dapp = async function (req: Request, res: Response) {
   const api = new Model(req);
   const i18n = I18n(req);
+  res.locals.menuActive = names.rank.dapp;
   const query: groupModel = {
     position: GroupPosition.dappRank,
     chain: "all",
@@ -46,6 +48,7 @@ export const dapp = async function (req: Request, res: Response) {
 export const game = async function (req: Request, res: Response) {
   const api = new Model(req);
   const i18n = I18n(req);
+  res.locals.menuActive = names.rank.gamefi;
   const query: groupModel = {
     position: GroupPosition.dappRank,
     chain: "all",
@@ -78,6 +81,7 @@ export const game = async function (req: Request, res: Response) {
 export const defi = async function (req: Request, res: Response) {
   const api = new Model(req);
   const i18n = I18n(req);
+  res.locals.menuActive = names.rank.defi;
   const query: groupModel = {
     position: GroupPosition.dappRank,
     chain: "all",
@@ -110,6 +114,7 @@ export const defi = async function (req: Request, res: Response) {
 export const nft = async function (req: Request, res: Response) {
   const api = new Model(req);
   const i18n = I18n(req);
+  res.locals.menuActive = names.rank.nft;
   const query: groupModel = {
     position: GroupPosition.nftRank,
     chain: "all",
