@@ -13,4 +13,8 @@ export default {
   apyTitle: "APY大全",
   apySubTitle: "快速发现高收益矿池",
   apyImg: `${oss}/download/apy.png`,
+  warn: {
+    ios: "当前设备仅支持Android下载",
+    android: "当前设备仅支持ios下载",
+  },
 };

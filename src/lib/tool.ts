@@ -84,10 +84,10 @@ export const tooptipsModel = (item: any, color: any, value: any, unit: string, t
   const info = unit === "$" ? `${item} ${unit}${value}` : `${item}  ${value}${unit}`;
   let dom = "";
   if (twoCol) {
-    dom = `<span class="flex flex-1 items-center " style="min-width:${maxWidth}px" ><p style="font-size:12px;color:#272C33;line-height:1;" class="flex items-center"><img style="margin-bottom:1.5px;width:16px;height:auto;margin-right:5px;" src='${svg}'/> ${info}</p></span>`;
+    dom = `<span class="flex flex-1 items-center " style="min-width:${maxWidth}px" ><p style="font-size:12px;color:#272C33;line-height:1;" class="flex items-center"><img style="margin-bottom:1.5px;width:16px;height:auto;margin-right:5px;" src="${svg}"/> ${info}</p></span>`;
   } else {
     dom = `<span class="flex mr-1" ><p style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;display:flex;
-    align-items: center;"><img style="margin-bottom:1.5px;width:16px;height:auto;margin-right:5px;" src='${svg}'/> ${info}</p></span>`;
+    align-items: center;"><img style="margin-bottom:1.5px;width:16px;height:auto;margin-right:5px;" src="${svg}"/> ${info}</p></span>`;
   }
   return dom;
 };
@@ -456,11 +456,10 @@ export const formatNumber = (v: number) => {
 const chartTipItem = (color: string, v: string) => {
   const svgType = `<svg t="1626927627838"  class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1456" width="16" height="16"><path d="M406.528 354.048L322.048 522.88A96 96 0 0 1 236.288 576H85.312a64 64 0 1 1 0-128h131.136L353.92 172.992c31.936-63.744 125.952-53.44 143.232 15.744l120.32 481.28 84.48-168.96A96 96 0 0 1 787.712 448h150.912a64 64 0 1 1 0 128h-131.136l-137.472 275.008c-31.936 63.744-125.952 53.44-143.232-15.744l-120.32-481.28z" fill="${color}" p-id="1457"></path></svg>`;
   const svg = `data:image/svg+xml;base64,${window.btoa(unescape(encodeURIComponent(svgType)))}`;
-  return `<div style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;line-height: 12px;" class='mt-2 md:mt-0 w-50 md:w-full flex items-center break-words whitespace-pre-wrap'><img style="margin-bottom:1.5px" src='${svg}' style="width:16px;height:auto;"/><div class="ml-1">${v}</div> </div>`;
+  return `<div style="font-size:12px;color:#272C33;line-height:1;margin:6px 0 0;line-height: 12px;" class="mt-2 md:mt-0 w-50 md:w-full flex items-center break-words whitespace-pre-wrap"><img style="margin-bottom:1.5px" src="${svg}" style="width:16px;height:auto;"/><div class="ml-1">${v}</div> </div>`;
 };
 
-export const tipResult = (title: string) =>
-  `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`;
+export const tipResult = (title: string) => `<p style="font-size:12px;color:#272C33;line-height:1;margin:0;">${title}</p>`;
 // 提示文字
 export const getTip = (params: any) => {
   // 水印 遮盖有问题   需要改改改
@@ -490,8 +489,7 @@ export const getUpDownColor = (v: number | string | null) => {
   }
   return "text-global-highTitle";
 };
-export const getRedGreen = (v: any) =>
-  v >= 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle text-opacity-65";
+export const getRedGreen = (v: any) => (v >= 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle text-opacity-65");
 
 export const timeConvert = (timestamp: number, num: number) => {
   // num:0 YYYY-MM-DD  num:1  YYYY-MM-DD hh:mm:ss // timestamp:时间戳

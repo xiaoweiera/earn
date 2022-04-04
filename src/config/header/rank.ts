@@ -18,7 +18,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
   const i18n = I18n(lang);
   return {
     name: i18n.menu.nft.title, // 排行榜
-    href: `${config.dapp}/rank`,
+    href: config.rankDapp,
     expand: "HeaderSubRank",
     children: [
       {
@@ -27,7 +27,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         header: true,
         more: true,
         icon: "icon-paihang",
-        href: `${config.dapp}/rank`,
+        href: config.rankDapp,
       },
       {
         id: name.gamefi,
@@ -35,7 +35,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         header: true,
         more: true,
         icon: "icon-paihang",
-        href: `${config.dapp}/rank?category=game`,
+        href: config.rankGame,
       },
       {
         id: name.defi,
@@ -43,7 +43,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         header: true,
         more: true,
         icon: "icon-paihang",
-        href: `${config.dapp}/rank?category=defi`,
+        href: config.rankDefi,
       },
       {
         id: name.nft,
@@ -51,7 +51,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         header: true,
         more: true,
         icon: "icon-a-NFTpaihang",
-        href: `${config.nft}/rank`,
+        href: config.rankNft,
       },
     ],
   };

@@ -14,7 +14,7 @@ import { createHref } from "src/plugins/router/pack";
 import { isFunction, toInteger, uuid } from "src/utils";
 import { setInject, stateAlias } from "src/utils/use/state";
 import type { PropType } from "vue";
-import { computed, onMounted, ref, toRaw, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const $route = useRoute();
