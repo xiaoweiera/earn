@@ -1,11 +1,15 @@
+<script lang="ts" setup>
+defineProps({
+  href: {
+    type: String,
+    required: true,
+  },
+});
+</script>
 <template>
-  <ui-hover width="fit-content" placement="top">
+  <ui-hover placement="top" width="fit-content">
     <template #label>
-      <span class="flex cursor-pointer">
-        <span>
-          <slot></slot>
-        </span>
-      </span>
+      <slot></slot>
     </template>
     <template #content>
       <client-only>

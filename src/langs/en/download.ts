@@ -13,4 +13,8 @@ export default {
   apyTitle: "APY Aggregator",
   apySubTitle: "Find and Invest High APY Pools",
   apyImg: `${oss}/download/Apy_en.png`,
+  warn: {
+    ios: "Device only supports Android downloads",
+    android: "Device only supports Ios downloads",
+  },
 };
