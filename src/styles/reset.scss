@@ -140,7 +140,8 @@
 }
 
 /* 解决 el-popover 底部有一点空白，如果 el-popover 父元素是 flex 属性则生效 */
-.flex {
+.flex-popover {
+  @apply flex;
   & > .el-tooltip__trigger {
     @apply flex;
   }

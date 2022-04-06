@@ -38,7 +38,7 @@ const shareLink = function (href?: string, text?: string) {
 
 <template>
   <v-router :href="shareLink(href, text)" :href-compile="false" class="block" target="_blank">
-    <ui-hover class="flex" rounded :offset="5">
+    <ui-hover class="flex-popover" rounded :offset="5">
       <template #label>
         <slot>
           <IconFont :size="size" bright type="twitter" />
