@@ -54,7 +54,7 @@ export const DApp = function (lang?: Lang): MenuItem {
         icon: "icon-a-NFTxinxiangmu",
         more: true,
         header: true,
-        href: config.airdrop,
+        href: `${config.airdrop}/list/${TabTypes.all}`,
       },
       // {
       //   id: name.invest,

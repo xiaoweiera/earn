@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import safeGet from "@fengqiaogang/safe-get";
 import { computed } from "vue";
+import * as console from "src/plugins/log/";
 
 const props = defineProps({
   sort: {
@@ -40,6 +41,7 @@ const getIcon = () => {
 };
 //更改排序
 const change = () => {
+  console.info("sort");
   if (!props.sort) return;
   if (!props.sortData.sort_type || props.sortData.sort_field !== props.keyName) {
     props.sortData.sort_type = "desc";
@@ -55,7 +57,7 @@ const change = () => {
 const borderCss = computed(() => (props.keyName === props.sortData.sort_field ? "sort-border" : ""));
 </script>
 <template>
-  <div class="item" :class="sort ? 'hand' : ''" @click="change">
+  <div class="item" :class="sort ? 'hand' : ''" @click="change()">
     <div class="item-content">
       <IconFont v-if="sort" class="relative mr-0.5" size="14" :type="getIcon()" />
       <p>{{ name }}</p>

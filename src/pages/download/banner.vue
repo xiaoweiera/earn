@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import SwiperCore, { Mousewheel, Autoplay, Navigation as swiperNavigation } from "swiper";
 // 引入 swiper vue 组件
 // @ts-ignore
@@ -109,25 +109,17 @@ const swiperSlideAutoPlay = computed<any>(function () {
   }
   return false;
 });
+
+const isEnd = ref(false);
+const slideChangeTransitionEnd = (swiper: any) => {
+  if (swiper) {
+    isEnd.value = swiper.isEnd;
+  }
+};
 </script>
 
 <template>
-  <Swiper
-    v-if="list.length"
-    class="download-swiper view-full"
-    :class="bottomType"
-    :initial-slide="0"
-    :slides-per-view="1"
-    :pagination="{ clickable: true }"
-    :loop="loop"
-    :autoplay="swiperSlideAutoPlay"
-    :direction="direction"
-    :mousewheel="true"
-    :space-between="30"
-    :navigation="navigation"
-    :free-mode="freeMode"
-    :resize-observer="true"
-  >
+  <Swiper v-if="list.length" class="download-swiper view-full" :class="{ bottomType, 'is-end-hide': isEnd }" :initial-slide="0" :slides-per-view="1" :pagination="{ clickable: true }" :loop="loop" :autoplay="swiperSlideAutoPlay" :direction="direction" :mousewheel="true" :space-between="30" :navigation="navigation" :free-mode="freeMode" :resize-observer="true" @slide-change-transition-end="slideChangeTransitionEnd">
     <template v-for="(item, index) in list" :key="index">
       <SwiperSlide :style="swiperSlideStyle">
         <slot name="item" :data="item"></slot>
@@ -164,6 +156,14 @@ const swiperSlideAutoPlay = computed<any>(function () {
       background-image: url($bg);
       background-repeat: no-repeat;
       background-position: 100% 100%;
+    }
+  }
+}
+
+.is-end-hide {
+  ::v-deep(.swiper-button-next) {
+    &::after {
+      @apply hidden;
     }
   }
 }

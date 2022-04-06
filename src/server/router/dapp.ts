@@ -31,39 +31,39 @@ const Router = function () {
   router.get(config.invest, dApp.investList);
   router.get(config.investDetail, dApp.investDetail);
 
-  // const airdropAllValue = Object.values(TabTypes);
-  // // 判断 value 是否存在
-  // const airdropHas = function (value?: string) {
-  //   return !!(value && _.includes(airdropAllValue, _.toLower(value)));
-  // };
-  // // 兼容旧空投路由
-  // const compatible = function (req: Request, res: Response) {
-  //   const type = safeGet<string>(req.query, "type");
-  //   const query = _.omit<object>(req.query, ["type"]);
-  //   let name: TabTypes = TabTypes.all;
-  //   // 判断 type 的值是否符合规则
-  //   if (airdropHas(type)) {
-  //     name = _.toLower(type) as TabTypes;
-  //   }
-  //   const url = `${config.airdrop}/list/${name}`;
-  //   return redirect(req, res, url, query);
-  // };
-  // router.get(config.airdrop, compatible);
-  // router.get(`${config.airdrop}/list`, compatible);
-  // router.get(
-  //   `${config.airdrop}/list/:name`,
-  //   function (req: Request, res: Response, next: NextFunction) {
-  //     const name = safeGet<string>(req.params, "name");
-  //     // 判断 type 的值是否符合规则
-  //     if (airdropHas(name)) {
-  //       next();
-  //     } else {
-  //       // 如果 name 是未知的值，则按默认逻辑处理
-  //       compatible(req, res);
-  //     }
-  //   },
-  //   dApp.airdropList,
-  // );
+  const airdropAllValue = Object.values(TabTypes);
+  // 判断 value 是否存在
+  const airdropHas = function (value?: string) {
+    return !!(value && _.includes(airdropAllValue, _.toLower(value)));
+  };
+  // 兼容旧空投路由
+  const compatible = function (req: Request, res: Response) {
+    const type = safeGet<string>(req.query, "type");
+    const query = _.omit<object>(req.query, ["type"]);
+    let name: TabTypes = TabTypes.all;
+    // 判断 type 的值是否符合规则
+    if (airdropHas(type)) {
+      name = _.toLower(type) as TabTypes;
+    }
+    const url = `${config.airdrop}/list/${name}`;
+    return redirect(req, res, url, query);
+  };
+  router.get(config.airdrop, compatible);
+  router.get(`${config.airdrop}/list`, compatible);
+  router.get(
+    `${config.airdrop}/list/:name`,
+    function (req: Request, res: Response, next: NextFunction) {
+      const name = safeGet<string>(req.params, "name");
+      // 判断 type 的值是否符合规则
+      if (airdropHas(name)) {
+        next();
+      } else {
+        // 如果 name 是未知的值，则按默认逻辑处理
+        compatible(req, res);
+      }
+    },
+    dApp.airdropList,
+  );
 
   return router;
 };
