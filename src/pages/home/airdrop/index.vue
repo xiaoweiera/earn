@@ -21,14 +21,14 @@ const i18n = I18n();
     <!-- 空投列表 -->
     <HomeAirdropsRow />
     <!-- 推文列表 -->
-    <!--    <div class="mt-3 md:mt-6 mb-3 flex justify-between items-center">-->
-    <!--      <p class="text-kd24px28px text-global-highTitle font-semibold font-kdBarlow">-->
-    <!--        {{ i18n.home.airdrop.tutorial }}-->
-    <!--      </p>-->
-    <!--      <v-router :href="config.blog" target="_blank" class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2 flex items-center">-->
-    <!--        <span class="text-kd14px18px text-global-darkblue font-kdFang">{{ i18n.home.more }}</span>-->
-    <!--      </v-router>-->
-    <!--    </div>-->
-    <!--    <HomeAridropsTutorial />-->
+    <div class="mt-3 md:mt-6 mb-3 flex justify-between items-center">
+      <p class="text-kd24px28px text-global-highTitle font-semibold font-kdBarlow">
+        {{ i18n.home.airdrop.tutorial }}
+      </p>
+      <v-router :href="config.blog" target="_blank" class="bg-global-darkblue bg-opacity-6 rounded-md px-3 py-2 flex items-center">
+        <span class="text-kd14px18px text-global-darkblue font-kdFang">{{ i18n.home.more }}</span>
+      </v-router>
+    </div>
+    <HomeAridropsTutorial />
   </div>
 </template>
