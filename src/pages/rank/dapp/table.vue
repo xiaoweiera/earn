@@ -4,6 +4,7 @@ import { GroupPosition, dappHeader, dappHeaderMobile } from "src/logic/rank/conf
 import Tabs from "src/pages/rank/tabs.vue";
 import Item from "src/pages/rank/dapp/item.vue";
 import Header from "src/pages/rank/tableHeader.vue";
+import * as console from "src/plugins/log/";
 import I18n from "src/utils/i18n";
 import { ref, reactive, onMounted, watch } from "vue";
 import document from "src/plugins/browser/document";
@@ -53,9 +54,12 @@ watch(
   () => [param.interval, param.query],
   async () => listChange(),
 );
-const onSort = () => listChange();
+const onSort = () => {
+  listChange();
+};
 //防抖
 const listChange = _.debounce(() => {
+  console.info("change");
   listKey.value++;
 }, 300);
 let initStatus = true;
