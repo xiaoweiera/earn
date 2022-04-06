@@ -3,6 +3,7 @@
  * @file 锁
  * @auth svon.me@gmail.com
  */
+import { ElButton } from "element-plus";
 import I18n from "src/utils/i18n/";
 import type { PropType } from "vue";
 import { onMounted, ref } from "vue";
@@ -58,16 +59,33 @@ onMounted(function () {
         <span class="text-12-18">{{ i18n.common.lock.text2 }}</span>
       </p>
       <v-login class="mt-3 text-global-darkblue flex justify-center items-center">
-        <ui-share-twitter :href="link" :text="text" class="circular">
-          <IconFont size="16" type="icon-twitter" />
+        <ui-share-twitter :href="link" :text="text">
+          <div class="circular">
+            <IconFont class="flex" size="16" type="icon-twitter" />
+          </div>
         </ui-share-twitter>
-        <ui-share-telegram :href="link" class="circular">
-          <IconFont size="16" type="icon-telegram" />
+        <ui-share-telegram class="ml-4" :href="link">
+          <div class="circular">
+            <IconFont size="16" type="icon-telegram" />
+          </div>
         </ui-share-telegram>
-        <v-copy :value="link" class="circular cursor-pointer">
-          <IconFont size="16" type="icon-link" />
+        <v-copy :value="link" class="ml-4 cursor-pointer">
+          <ui-hover class="flex" rounded :offset="5">
+            <template #label>
+              <div class="circular">
+                <IconFont size="16" type="icon-link" />
+              </div>
+            </template>
+            <template #content>
+              <div class="text-global-darkblue text-12-18">{{ i18n.common.share.link }}</div>
+            </template>
+          </ui-hover>
         </v-copy>
-        <span class="ml-4 px-3 h-10 button-sync rounded-global-kd30px cursor-pointer" @click="onClick">{{ i18n.common.lock.shared }}</span>
+        <div class="ml-4 cursor-pointer">
+          <el-button class="px-3 h-10 button-sync rounded-global-kd30px" @click="onClick">
+            <span class="text-global-darkblue">{{ i18n.common.lock.shared }}</span>
+          </el-button>
+        </div>
       </v-login>
       <div class="text-12-16 mt-6 text-global-highTitle text-opacity-85">
         <template v-if="data.share_progress < 1">
