@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import safeGet from "@fengqiaogang/safe-get";
 import { computed } from "vue";
+import * as console from "src/plugins/log/";
 
 const props = defineProps({
   sort: {
@@ -40,6 +41,10 @@ const getIcon = () => {
 };
 //更改排序
 const change = () => {
+  console.info("11111");
+  console.info(props.sort);
+  console.info(props.sortData);
+  console.info("222");
   if (!props.sort) return;
   if (!props.sortData.sort_type || props.sortData.sort_field !== props.keyName) {
     props.sortData.sort_type = "desc";
