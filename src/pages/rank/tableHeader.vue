@@ -12,7 +12,7 @@ defineProps({
 });
 const emit = defineEmits(["onSort"]);
 const onSort = () => {
-  console.log("--");
+  console.info("--");
   emit("onSort");
 };
 </script>
