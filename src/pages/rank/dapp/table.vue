@@ -55,7 +55,6 @@ watch(
   async () => listChange(),
 );
 const onSort = () => {
-  console.info("onSort");
   listChange();
 };
 //防抖
