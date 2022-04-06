@@ -65,6 +65,11 @@ const Router = function () {
     dApp.airdropList,
   );
 
+  // DApp 详情
+  router.get(`${config.dapp}/:id`, dApp.dAppDetail("dapp"));
+  router.get(`${config.nft}/:id`, dApp.dAppDetail("nft"));
+  router.get(`${config.airdrop}/:id`, dApp.dAppDetail("airdrop"));
+
   return router;
 };
 export default Router;

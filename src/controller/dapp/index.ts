@@ -1,7 +1,7 @@
 import safeGet from "@fengqiaogang/safe-get";
 import { Model } from "src/logic/dapp";
 import { Model as InvestModel } from "src/logic/dapp/invest";
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
@@ -23,7 +23,10 @@ export const list = async function (req: Request, res: Response) {
   const sort_type = req.query.sort_type as string;
   const paginate = true;
   const search = req.query.search as string;
-  const params = { page: 1, page_size: 16 };
+  const params = {
+    page: 1,
+    page_size: 16,
+  };
   const projectParams = {
     page: params.page,
     page_size: params.page_size,
@@ -55,7 +58,10 @@ export const nftList = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   res.locals.menuActive = names.dapp.nft;
-  const query: any = { ...req.query, paginate: true };
+  const query: any = {
+    ...req.query,
+    paginate: true,
+  };
   if (!query.status) {
     query.status = "upcoming";
   }
@@ -87,8 +93,14 @@ export const airdropList = async function (req: Request, res: Response) {
 export const investList = async function (req: Request, res: Response) {
   const api = new InvestModel(req);
   res.locals.menuActive = names.dapp.invest;
-  const query: any = { ...req.query, paginate: true };
-  const params: any = { ...req.query, paginate: true };
+  const query: any = {
+    ...req.query,
+    paginate: true,
+  };
+  const params: any = {
+    ...req.query,
+    paginate: true,
+  };
   const [project, funds] = await Promise.all([api.getProjectsList(query), api.getFundsList(params)]);
   const result = {
     [alias.invest.list.projects]: project, // 投融资项目
@@ -105,4 +117,51 @@ export const investDetail = async function (req: Request, res: Response) {
     description: i18n.home.webNft.des,
   };
   res.send(result);
+};
+
+/**
+ * 项目库详情
+ * @param type 项目类型
+ * @param rank 是否属于排行榜
+ */
+export const dAppDetail = function (type: string, rank = false) {
+  return async function (req: Request, res: Response) {
+    if (rank) {
+      switch (type) {
+      case "nft":
+        res.locals.menuActive = names.rank.nft;
+        break;
+      case "defi":
+        res.locals.menuActive = names.rank.defi;
+        break;
+      case "game":
+        res.locals.menuActive = names.rank.gamefi;
+        break;
+      case "dapp":
+        res.locals.menuActive = names.rank.dapp;
+        break;
+      }
+    } else {
+      switch (type) {
+      case "nft":
+        res.locals.menuActive = names.dapp.nft;
+        break;
+      case "airdrop":
+        res.locals.menuActive = names.dapp.airdrop;
+        break;
+      case "dapp":
+        res.locals.menuActive = names.dapp.dapp;
+        break;
+      }
+    }
+
+    req.params = Object.assign(
+      {
+        type,
+        rank,
+      },
+      req.params || {},
+    );
+    res.send({});
+  };
 };

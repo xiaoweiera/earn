@@ -2,7 +2,7 @@
 import { ElOption, ElSelect, ElSwitch, ElInput } from "element-plus";
 import { GroupPosition, dappHeader, dappHeaderMobile } from "src/logic/rank/config";
 import Tabs from "src/pages/rank/tabs.vue";
-import Item from "src/pages/rank/dapp/item.vue";
+import Item from "./item.vue";
 import Header from "src/pages/rank/tableHeader.vue";
 import * as console from "src/plugins/log/";
 import I18n from "src/utils/i18n";
@@ -133,7 +133,7 @@ onMounted(() => {
                   <Header v-else :header-data="dappHeaderMobile" :param="param" @onSort="onSort" />
                   <!--        list-->
                   <div v-for="(item, i) in scope.list" :key="i">
-                    <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
+                    <Item :z-index="scope.list.length - 1 - i" :category="category" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
                   </div>
                 </div>
               </div>

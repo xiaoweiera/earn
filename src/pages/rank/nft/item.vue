@@ -3,6 +3,7 @@ import { formatRulesNumber, getNumberColor } from "src/lib/tool";
 import { defineProps, computed } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import { ElPopover } from "element-plus";
+import { config as routerConfig } from "src/router/config";
 
 const props = defineProps({
   headerData: {
@@ -36,7 +37,7 @@ const bgWidth = computed(() => (props.isCompare ? (props.item[props.sortName] / 
 const detailUrl = function (data: object) {
   const id = safeGet<number>(data, "dapp_id");
   if (id) {
-    return `/nft/rank/${id}`;
+    return `${routerConfig.rankNft}/${id}`;
   }
   return safeGet<string>(data, "external_url");
 };

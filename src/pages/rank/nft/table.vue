@@ -2,7 +2,7 @@
 import { ElOption, ElSelect, ElSwitch, ElInput } from "element-plus";
 import { GroupPosition, nftHeader, nftHeaderMobile } from "src/logic/rank/config";
 import Tabs from "src/pages/rank/tabs.vue";
-import Item from "src/pages/rank/nft/item.vue";
+import Item from "./item.vue";
 import Header from "src/pages/rank/tableHeader.vue";
 import I18n from "src/utils/i18n";
 import { ref, reactive, onMounted, watch } from "vue";
@@ -14,7 +14,6 @@ import { Model } from "src/logic/rank";
 import { useRoute } from "vue-router";
 import { getValue } from "src/utils/root/data";
 import { config as routerConfig } from "src/router/config";
-import { pageInfo } from "src/logic/rank/config";
 import _ from "lodash";
 const i18n = I18n();
 const isPc = ref(true);

@@ -21,6 +21,19 @@ const routes = [
     path: router.investDetail,
     component: () => import("src/pages/dapp/investment/detail/index.vue"),
   },
+  // 详情
+  {
+    path: `${router.dapp}/:id`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: `${router.nft}/:id`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: `${router.airdrop}/:id`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
 ];
 
 export default routes;

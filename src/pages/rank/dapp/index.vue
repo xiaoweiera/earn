@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { chainPage } from "src/logic/rank/config";
 import Chains from "src/pages/rank/chains.vue";
-import Table from "src/pages/rank/dapp/table.vue";
-const Chart = asyncLoad(() => import("src/pages/rank/chart.vue"));
+import Table from "./table.vue";
+import { asyncLoad } from "src/plugins/lazyload";
 import Info from "src/pages/rank/info.vue";
 import Ad from "src/pages/home/ad.vue";
 import CommonTopics from "src/pages/home/recommend.vue";
@@ -11,7 +11,7 @@ import { onMounted } from "vue";
 import { config as routerConfig } from "src/router/config";
 const i18n = I18n();
 import * as track from "src/logic/track";
-import { asyncLoad } from "src/plugins/lazyload";
+const Chart = asyncLoad(() => import("src/pages/rank/chart.vue"));
 onMounted(() => {
   track.push(track.Origin.gio, track.event.rank.dapp);
 });

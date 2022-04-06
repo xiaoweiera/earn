@@ -1,4 +1,5 @@
 import _ from "lodash";
+import * as dApp from "src/controller/dapp";
 import { config } from "src/router/config";
 import * as rank from "src/controller/rank";
 import type { Request, Response } from "express";
@@ -33,6 +34,11 @@ const Router = function () {
   router.get(config.rankGame, rank.game); // game
   router.get(config.rankDefi, rank.defi); // defi
   router.get(config.rankNft, rank.nft); // defi
+
+  router.get(`${config.rankDapp}/:id`, dApp.dAppDetail("dapp", true));
+  router.get(`${config.rankGame}/:id`, dApp.dAppDetail("game", true));
+  router.get(`${config.rankDefi}/:id`, dApp.dAppDetail("defi", true));
+  router.get(`${config.rankNft}/:id`, dApp.dAppDetail("nft", true));
   return router;
 };
 
