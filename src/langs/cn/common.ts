@@ -169,4 +169,9 @@ export default {
     shared: "查看进度",
     success: "已解锁完整教程",
   },
+  share: {
+    telegram: "分享至Telegram",
+    twitter: "分享至Twitter",
+    link: "复制链接分享至群或好友",
+  },
 };
