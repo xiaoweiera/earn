@@ -57,7 +57,7 @@ const change = () => {
 const borderCss = computed(() => (props.keyName === props.sortData.sort_field ? "sort-border" : ""));
 </script>
 <template>
-  <div class="item" :class="sort ? 'hand' : ''" @click="change">
+  <div class="item" :class="sort ? 'hand' : ''" @click="change()">
     <div class="item-content">
       <IconFont v-if="sort" class="relative mr-0.5" size="14" :type="getIcon()" />
       <p>{{ name }}</p>
