@@ -170,4 +170,9 @@ export default {
     shared: "View Progress",
     success: "Unlock Full Content",
   },
+  share: {
+    telegram: "Share On Telegram",
+    twitter: "Share On Twitter",
+    link: "Copy links to share with groups or friends",
+  },
 };

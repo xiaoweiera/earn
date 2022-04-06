@@ -3,7 +3,7 @@
  * @file
  * @auth svon.me@gmail.com
  */
-
+import I18n from "src/utils/i18n/";
 import window from "src/plugins/browser/window";
 
 defineProps({
@@ -19,6 +19,8 @@ defineProps({
   },
 });
 
+const i18n = I18n();
+
 const shareLink = function (href?: string) {
   const link = encodeURIComponent(href || window.location.href);
   return `https://t.me/share/url?url=${link}`;
@@ -27,8 +29,15 @@ const shareLink = function (href?: string) {
 
 <template>
   <v-router :href="shareLink(href)" target="_blank">
-    <slot>
-      <IconFont bright :size="size" type="telegram" />
-    </slot>
+    <ui-hover class="flex" rounded :offset="5">
+      <template #label>
+        <slot>
+          <IconFont bright :size="size" type="telegram" />
+        </slot>
+      </template>
+      <template #content>
+        <div class="text-global-darkblue text-12-18">{{ i18n.common.share.telegram }}</div>
+      </template>
+    </ui-hover>
   </v-router>
 </template>

@@ -20,6 +20,10 @@
   &.ui-hover {
     @apply p-0;
     min-width: initial;
+    &.rounded {
+      @apply p-2;
+      @apply rounded-kd100px;
+    }
   }
 }
 
@@ -132,5 +136,12 @@
     background: #FFFFFF;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
+  }
+}
+
+/* 解决 el-popover 底部有一点空白，如果 el-popover 父元素是 flex 属性则生效 */
+.flex {
+  & > .el-tooltip__trigger {
+    @apply flex;
   }
 }
