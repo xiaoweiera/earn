@@ -50,7 +50,6 @@ onMounted(() => {
             <span class="text-14-18">{{ safeGet(item, "initial.text") }}</span>
           </div>
         </template>
-
         <template v-if="safeGet(item, 'active.image')">
           <div class="active image">
             <img :src="safeGet(item, 'active.image')" />

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import * as console from "src/plugins/log/";
 defineProps({
   headerData: {
     type: Object,
@@ -10,7 +11,10 @@ defineProps({
   },
 });
 const emit = defineEmits(["onSort"]);
-const onSort = () => emit("onSort");
+const onSort = () => {
+  console.info("--");
+  emit("onSort");
+};
 </script>
 <template>
   <div>
