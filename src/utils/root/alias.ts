@@ -41,6 +41,7 @@ export const dApp = {
   airdrop: {
     ongoing: "Api.dApp.airdrop",
   },
+  detail: "api.dApp.getDetail",
 };
 
 export const nft = {

@@ -15,6 +15,7 @@ export const home = {
 };
 
 export const dapp = {
+  detail: "/api/v1/dapps/detail", // 项目库详情
   list: "/api/v1/dapps/ido", // IDO项目列表
   igoList: "/api/v1/dapps/igo", // IGO项目列表
   nftList: "/api/v1/dapps/nft", // nft项目列表

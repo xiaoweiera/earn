@@ -9,6 +9,23 @@ export enum DataType {
   airdrop = "airdrop",
 }
 
+export enum ProjectType {
+  dapp = "dapp",
+  ido = "ido",
+  igo = "igo",
+  nft = "nft",
+  game = "game",
+  defi = "defi",
+  airdrop = "airdrop",
+}
+
+export interface DAppProject {
+  type: ProjectType; // 项目类型
+  rank: boolean; // 是否为排行榜
+  id: string | number; // 项目id
+  [key: string]: any;
+}
+
 // 社交媒体数据
 export interface ProjectMediaItem {
   is_qrcode?: boolean; // 是否为二维码

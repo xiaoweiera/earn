@@ -11,7 +11,7 @@ import { TabTypes } from "src/types/dapp/airdrop";
 export const name = {
   dapp: "new_dapp",
   nft: "new_nft",
-  gamefi: "new_gamefi",
+  igo: "new_gamefi",
   airdrop: "airdrop",
   invest: "invest",
 };
@@ -33,7 +33,7 @@ export const DApp = function (lang?: Lang): MenuItem {
         icon: "icon-defi",
       },
       {
-        id: name.gamefi,
+        id: name.igo,
         name: i18n.menu.dapp.gamefi,
         header: true,
         more: true,

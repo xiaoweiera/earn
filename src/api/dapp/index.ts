@@ -9,6 +9,7 @@ import type { nftQuery } from "src/types/dapp/nft";
 import type { AirdropQuery } from "src/types/dapp/airdrop";
 import { nftStatus } from "src/types/dapp/nft";
 import ApiTemplate from "../template";
+import type { DAppData } from "src/types/dapp/data";
 
 export default class extends ApiTemplate {
   // 项目库列表
@@ -78,6 +79,7 @@ export default class extends ApiTemplate {
     );
     return [params] as any;
   }
+
   // airdrop首页 数据
   @tryError(DefaultValue([]))
   @get(api.dapp.airdropList, expire.min30)
@@ -86,6 +88,7 @@ export default class extends ApiTemplate {
   getAirdropList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // airdrop运营推荐 数据
   @tryError(DefaultValue([]))
   @get(api.dapp.operation, expire.min30)
@@ -94,6 +97,7 @@ export default class extends ApiTemplate {
   getOperationList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // 投融资的project数据
   @tryError(DefaultValue([]))
   @get(api.dapp.investList, expire.min30)
@@ -102,12 +106,23 @@ export default class extends ApiTemplate {
   getProjectsList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // 投融资的funds数据
   @tryError(DefaultValue([]))
   @get(api.dapp.investList, expire.min30)
   @userToken()
   @validate
   getFundsList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+
+  // 项目库详情
+  @tryError(DefaultValue({}))
+  @get(api.dapp.detail, expire.hour2)
+  @userToken()
+  @validate
+  getDetail(@required id: string | number): Promise<DAppData> {
+    const query = { id };
     return [query] as any;
   }
 }
