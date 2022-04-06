@@ -3,54 +3,36 @@
  * @file Echarts
  * @auth svon.me@gmail.com
  */
-import * as echarts from "echarts";
-import { getCurrentInstance, onMounted } from "vue";
 
-const instance = getCurrentInstance();
+import { Callback } from "src/types/common/";
+import { useReactiveProvide, useRefProvide } from "src/utils/use/state";
+import { EchartsOptionName } from "src/types/echarts/type";
+import { asyncLoad } from "src/plugins/lazyload/";
+import { PropType } from "vue";
 
-const getChart = function () {
-  const vNode = instance?.vnode;
-  if (vNode) {
-    const dom: HTMLDivElement = vNode.el as any;
-    const container = dom.querySelector(".j-echarts");
-    if (container) {
-      return echarts.init(container as HTMLElement);
-    }
-  }
-  return null;
-};
+useReactiveProvide<object>(EchartsOptionName.series);
+useRefProvide<object>(EchartsOptionName.yAxis, []);
+useReactiveProvide<object>(EchartsOptionName.xAxis);
+useReactiveProvide<object>(EchartsOptionName.tooltip);
+useReactiveProvide<object>(EchartsOptionName.legend);
 
-const init = function () {
-  const opt = {
-    xAxis: {
-      type: "category",
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    },
-    yAxis: {
-      type: "value",
-    },
-    series: [
-      {
-        data: [150, 230, 224, 218, 135, 147, 260],
-        type: "line",
-      },
-    ],
-  };
-  const chart = getChart();
-  if (chart) {
-    chart.setOption(opt);
-  }
-};
-
-onMounted(function () {
-  setTimeout(init);
+defineProps({
+  custom: {
+    type: Function as PropType<Callback>,
+    default: null,
+  },
 });
+
+const Echarts = asyncLoad(() => import("./chart.vue"));
 </script>
 
 <template>
   <div>
-    <div class="h-full flex">
-      <div class="h-full w-full j-echarts"></div>
+    <div class="h-full">
+      <Echarts class="h-full" :custom="custom" />
+    </div>
+    <div class="hidden">
+      <slot></slot>
     </div>
   </div>
 </template>
