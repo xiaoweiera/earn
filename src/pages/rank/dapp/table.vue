@@ -83,6 +83,9 @@ const requestList = function (query: object) {
   );
   return api.rank.getDappList(newParam);
 };
+const test = () => {
+  console.info("f");
+};
 onMounted(() => {
   isPc.value = document.body.clientWidth > 1024;
   window.addEventListener("resize", () => {
@@ -115,13 +118,15 @@ onMounted(() => {
     </div>
     <!--    table-->
     <div class="table-container">
-      <div class="pt-3 title-wrap">
+      <div class="w-full h-3" @click="test()"></div>
+      <!--      <div class="pt-3 title-wrap">-->
+      <div class="title-wrap">
         <div :key="listKey">
           <ui-pagination :limit="50" :init-value="initValue()" :request="requestList">
             <template #default="scope">
               <div :class="isPc ? '' : 'showX'">
                 <!--        header-->
-                <div class="lg:w-full w-255">
+                <div class="lg:w-full w-255" @click="test()">
                   <UiSticky v-if="isPc" active-class="table-box-title">
                     <Header :header-data="dappHeader" :param="param" @onSort="onSort" />
                   </UiSticky>
