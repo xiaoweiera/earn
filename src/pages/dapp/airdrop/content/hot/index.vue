@@ -31,4 +31,8 @@ const i18n = I18n();
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.ui-pagination {
+  @apply min-h-50;
+}
+</style>
