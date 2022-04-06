@@ -70,7 +70,7 @@ onMounted(function () {
           </div>
         </ui-share-telegram>
         <v-copy :value="link" class="ml-4 cursor-pointer">
-          <ui-hover class="flex" rounded :offset="5">
+          <ui-hover class="flex-popover" rounded :offset="5">
             <template #label>
               <div class="circular">
                 <IconFont size="16" type="icon-link" />

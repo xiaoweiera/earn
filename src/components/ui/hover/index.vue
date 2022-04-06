@@ -26,7 +26,7 @@ const props = defineProps({
   },
   offset: {
     type: Number,
-    default: 0,
+    default: 8,
   },
 });
 
