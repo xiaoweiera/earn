@@ -27,6 +27,7 @@ export default {
     apply: "项目申请",
     about: { name: "产品介绍", href: "https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c" },
     download: "下载 KingData APP",
+    download2: "下载 APP",
   },
   time: {
     dd: "天",
@@ -79,6 +80,7 @@ export default {
     goto: "去完成",
     prev: "上一页",
     next: "下一页",
+    shut: "关闭",
   },
   message: {
     verification: "获取验证码",

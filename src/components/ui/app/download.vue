@@ -6,6 +6,7 @@
 import { getEnv } from "src/config/";
 import type { PropType } from "vue";
 import { computed } from "vue";
+import I18n from "src/utils/i18n/";
 
 const props = defineProps({
   direction: {
@@ -14,6 +15,7 @@ const props = defineProps({
   },
 });
 
+const i18n = I18n();
 const env = computed(getEnv);
 
 const qrCodeSize = computed<number>(function () {
@@ -26,7 +28,7 @@ const qrCodeSize = computed<number>(function () {
 
 <template>
   <div class="download-box rounded-md bg-white p-4">
-    <h3 class="text-16-24 text-global-highTitle">下载 KingData App</h3>
+    <h3 class="text-16-24 text-global-highTitle">{{ i18n.common.nav.download }}</h3>
     <div :class="direction">
       <div class="mt-3">
         <v-router :href="env.appDownload" target="_blank" class="apple-download">

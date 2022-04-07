@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { chainPage } from "src/logic/rank/config";
 import Chains from "src/pages/rank/chains.vue";
-import Table from "./table.vue";
-import { asyncLoad } from "src/plugins/lazyload";
+import Table from "src/pages/rank/dapp/table.vue";
+const Chart = asyncLoad(() => import("src/pages/rank/chart.vue"));
 import Info from "src/pages/rank/info.vue";
 import Ad from "src/pages/home/ad.vue";
 import CommonTopics from "src/pages/home/recommend.vue";
@@ -11,7 +11,7 @@ import { onMounted } from "vue";
 import { config as routerConfig } from "src/router/config";
 const i18n = I18n();
 import * as track from "src/logic/track";
-const Chart = asyncLoad(() => import("src/pages/rank/chart.vue"));
+import { asyncLoad } from "src/plugins/lazyload";
 onMounted(() => {
   track.push(track.Origin.gio, track.event.rank.dapp);
 });
@@ -20,7 +20,7 @@ onMounted(() => {
   <div class="md:pb-13.5 pb-8 min-h-100 bg-global-topBg">
     <div class="mx-auto">
       <div class="jian pb-6">
-        <!-- 占位符2 -->
+        <!-- 占位符 -->
         <div class="is-web h-4.5 md:h-8"></div>
         <div class="lg:flex lg:flex-row max-w-360 mx-auto md:px-20 items-end flex-col items-stretch px-4 items-center">
           <div class="flex-1 w-full">
