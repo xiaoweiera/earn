@@ -14,7 +14,6 @@ import { Model } from "src/logic/rank";
 import { useRoute } from "vue-router";
 import { getValue } from "src/utils/root/data";
 import { config as routerConfig } from "src/router/config";
-import { pageInfo } from "src/logic/rank/config";
 import _ from "lodash";
 const i18n = I18n();
 const isPc = ref(true);

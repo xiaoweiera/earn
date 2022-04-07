@@ -119,5 +119,6 @@ module.exports = {
     "@typescript-eslint/indent": "off",
     "vue/singleline-html-element-content-newline": "off",
     "prefer-promise-reject-errors": "off"
+
   }
 };

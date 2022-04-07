@@ -66,3 +66,6 @@ export const rank = {
   dappList: "API.Rank.dappList",
   nftList: "API.Rank.nftList",
 };
+export const comment = {
+  list: "API.Comment.list",
+};
