@@ -35,7 +35,6 @@ const props = defineProps({
 });
 //@ts-ignore wei
 const bgWidth = computed(() => (props.isCompare ? (props.item[props.sortName] / props.item.max_stat[props.sortName]) * 100 + "%" : ""));
-
 const detailUrl = function (data: object) {
   const category = props.category ? `category=${props.category}` : "";
   const id = safeGet<number>(data, "dapp_id");
