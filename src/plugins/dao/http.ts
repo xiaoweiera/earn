@@ -103,9 +103,9 @@ export const deleted = function (url: string, expire = 0, config: AxiosRequestCo
       const self: any = this;
       const [data = {}, callback]: [object, (value?: any) => void] = await Promise.resolve(app.apply(self, args));
       const _user = safeGet<string>(data, "_user");
-
-      const result = await self.delete(url, data, {
+      const result = await self.delete(url, {
         ...config,
+        data,
         params: { expire, _user },
       });
       if (callback && isFunction(callback)) {

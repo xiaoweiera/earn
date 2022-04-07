@@ -79,4 +79,5 @@ export const comment = {
   push: "/api/dapps/v1/comment", //评论
   reply: "/api/dapps/v1/comment/reply", //回复
   deleteReply: "/api/dapps/v1/comment/reply", //删除评论
+  star: "/api/v1/dapps/rating", // 评分
 };

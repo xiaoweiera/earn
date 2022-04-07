@@ -98,49 +98,48 @@ onMounted(() => {
     <div class="md:flex items-center">
       <Tabs v-if="isGroup" :key="chainKey" :position="GroupPosition.dappRank" :base-url="routerConfig.rankDapp" />
       <div class="flex flex-1 justify-end rank-dapp">
-        <div class="flex items-center xshidden md:mr-3">
+        <client-only class="flex items-center xshidden md:mr-3">
           <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85 i8n-font-inter">{{ i18n.dapp.rank.comparison }}</span>
           <el-switch v-model="isCompare"></el-switch>
-        </div>
+        </client-only>
         <client-only class="interval md:order-1 order-2 md:mr-3">
           <el-select v-model="param.interval" size="small">
             <el-option v-for="item in ['7d', '24h']" :key="item" :label="item" :value="item"></el-option>
           </el-select>
         </client-only>
-        <div class="query md:order-2 order-1 i8n-font-inter w-full md:w-auto mr-3 md:mr-0">
+        <client-only class="query md:order-2 order-1 i8n-font-inter w-full md:w-auto mr-3 md:mr-0">
           <el-input v-model="param.query" :placeholder="i18n.dapp.rank.searchProject" size="small">
             <template #prefix>
               <i class="el-input__icon el-icon-search"></i>
             </template>
           </el-input>
-        </div>
+        </client-only>
       </div>
     </div>
     <!--    table-->
     <div class="table-container">
-      <div class="w-full h-3" @click="test()"></div>
-      <!--      <div class="pt-3 title-wrap">-->
-      <div class="title-wrap">
-        <div :key="listKey">
-          <ui-pagination :limit="50" :init-value="initValue()" :request="requestList">
-            <template #default="scope">
-              <div :class="isPc ? '' : 'showX'">
-                <!--        header-->
-                <div class="lg:w-full w-255" @click="test()">
-                  <UiSticky v-if="isPc" active-class="table-box-title">
-                    <Header :header-data="dappHeader" :param="param" @on-sort="onSort" />
-                  </UiSticky>
-                  <Header v-else :header-data="dappHeaderMobile" :param="param" @on-sort="onSort" />
-                  <!--        list-->
-                  <div v-for="(item, i) in scope.list" :key="i">
-                    <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
+      <div class="pt-3 title-wrap">
+        <client-only>
+          <div :key="listKey">
+            <ui-pagination :limit="50" :init-value="initValue()" :request="requestList">
+              <template #default="scope">
+                <div :class="isPc ? '' : 'showX'">
+                  <!--        header-->
+                  <div class="lg:w-full w-255" @click="test()">
+                    <UiSticky v-if="isPc" active-class="table-box-title">
+                      <Header :header-data="dappHeader" :param="param" @on-sort="onSort" />
+                    </UiSticky>
+                    <Header v-else :header-data="dappHeaderMobile" :param="param" @on-sort="onSort" />
+                    <!--        list-->
+                    <div v-for="(item, i) in scope.list" :key="i">
+                      <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </template>
-          </ui-pagination>
-        </div>
-        <div></div>
+              </template>
+            </ui-pagination>
+          </div>
+        </client-only>
       </div>
     </div>
   </div>

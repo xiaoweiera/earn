@@ -46,7 +46,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div v-if="visible" class="tips-box transform -translate-x-6 translate-y-3">
+  <div v-if="visible" class="tips-box z-10011 transform -translate-x-6 translate-y-3">
     <div class="bg-white p-4 rounded-md flex items-center">
       <span class="text-14-18 text-global-highTitle">{{ i18n.common.account.email.tips }}</span>
       <div class="ml-1.5">

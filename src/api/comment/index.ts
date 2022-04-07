@@ -51,4 +51,11 @@ export default class extends ApiTemplate {
     const query = { target_id };
     return [query] as any;
   }
+  //评分
+  @post(api.comment.star)
+  @userToken(true) // 评分
+  star<T>(id: number, score: number): Promise<T> {
+    const query = { id, score };
+    return [query] as any;
+  }
 }
