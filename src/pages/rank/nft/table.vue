@@ -79,24 +79,24 @@ onMounted(() => {
   <div>
     <div class="md:flex items-center">
       <Tabs :key="chainKey" :position="GroupPosition.nftRank" :base-url="routerConfig.rankNft" />
-      <client-only class="flex flex-1 justify-end rank-dapp">
-        <div class="flex items-center xshidden md:mr-3">
+      <div class="flex flex-1 justify-end rank-dapp">
+        <client-only class="flex items-center xshidden md:mr-3">
           <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85 i8n-font-inter">{{ i18n.dapp.rank.comparison }}</span>
           <el-switch v-model="isCompare"></el-switch>
-        </div>
-        <div class="interval md:order-1 order-2 md:mr-3">
+        </client-only>
+        <client-only class="interval md:order-1 order-2 md:mr-3">
           <el-select v-model="param.interval" size="small">
             <el-option v-for="item in ['7d', '24h']" :key="item" :label="item" :value="item"></el-option>
           </el-select>
-        </div>
-        <div class="query md:order-2 order-1 i8n-font-inter w-full md:w-auto mr-3 md:mr-0">
+        </client-only>
+        <client-only class="query md:order-2 order-1 i8n-font-inter w-full md:w-auto mr-3 md:mr-0">
           <el-input v-model="param.query" :placeholder="i18n.dapp.rank.searchProject" size="small">
             <template #prefix>
               <i class="el-input__icon el-icon-search"></i>
             </template>
           </el-input>
-        </div>
-      </client-only>
+        </client-only>
+      </div>
     </div>
     <!--    table-->
     <div class="table-container">
