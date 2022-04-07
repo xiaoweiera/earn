@@ -5,11 +5,12 @@
 
 import _ from "lodash";
 import { toRaw } from "vue";
-import { isObject } from "src/utils";
+import { xAxis as makeXAxisOption } from "./option";
+import { isObject, toArray, compact, flatten } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
-import { EchartsOptionName, SeriesType, LegendData, Position } from "src/types/echarts/type";
 import { getReactiveInject, getRefInject } from "src/utils/use/state";
+import { EchartsOptionName, SeriesType, LegendData, Position, LegendDirection, GridModel, Direction } from "src/types/echarts/type";
 
 // 获取提示框配置
 const getTooltip = function (tooltip: object): object {
@@ -17,8 +18,16 @@ const getTooltip = function (tooltip: object): object {
 };
 
 // 获取 X 轴配置
-const getXAxis = function (xAxis: object) {
-  return [xAxis];
+const getXAxis = function (xAxis: object, direction: Direction) {
+  const [option] = makeXAxisOption();
+  return _.map(toArray(xAxis), function (data: object) {
+    const opt = { ...option, ...data };
+    // 判断是否是横向展示
+    if (direction === Direction.vertical) {
+      return _.pick(opt, ["type", "data", "axisTick", "axisLine"]);
+    }
+    return opt;
+  });
 };
 
 // 获取 Y 轴配置
@@ -27,7 +36,7 @@ const getYAxis = function (yAxis: object[]) {
 };
 
 // 获取图例配置
-const getLegend = function (legends: object[]) {
+const getLegend = function (legends: object[], direction: LegendDirection | boolean = LegendDirection.bottom) {
   const data: object[] = [];
   const selected: object = {};
   _.forEach(legends, function (item: object) {
@@ -41,10 +50,25 @@ const getLegend = function (legends: object[]) {
       });
     }
   });
-  return {
+
+  const option = {
     data,
     selected,
   };
+  if (direction === LegendDirection.top) {
+    safeSet(option, "top", 0);
+  } else if (direction === LegendDirection.left) {
+    safeSet(option, "left", 0);
+    safeSet(option, "top", "middle");
+    safeSet(option, "orient", "vertical");
+  } else if (direction === LegendDirection.right) {
+    safeSet(option, "right", 0);
+    safeSet(option, "top", "middle");
+    safeSet(option, "orient", "vertical");
+  } else {
+    safeSet(option, "bottom", 0);
+  }
+  return option;
 };
 
 // 处理单个数据
@@ -76,6 +100,78 @@ const getSeriesList = function (legends: object[], series: object[]): object[] {
   return option;
 };
 
+export const clacLegendBoxWidth = function (legends: object[]): number {
+  let width = 0;
+  const list = toArray(legends);
+  const array = flatten(list);
+  _.forEach(compact(array), (item: object, index: number) => {
+    let name = safeGet<string>(item, "name") || safeGet<string>(item, "value");
+    name = `${name || ""}`;
+    const len = name.length;
+    width += len * 9 + 14;
+    if (index > 0) {
+      width += 15;
+    }
+  });
+  return width;
+};
+
+export const clacLegendRows = function (legends: object[], dom: HTMLElement) {
+  const width = clacLegendBoxWidth(legends || []);
+  if (dom && dom.clientWidth) {
+    const boxWidth = dom.clientWidth - 20 * 2;
+    return Math.ceil(width / boxWidth);
+  }
+  return 0;
+};
+
+// chart Layout 容器配置
+export const getGrid = function (direction: LegendDirection | boolean, dom: HTMLElement, legends: object[], grid: GridModel): GridModel {
+  if (!direction) {
+    return grid;
+  }
+  const row = clacLegendRows(legends, dom);
+  let height = 35;
+  if (row > 1) {
+    height = row * 25 + 10;
+  }
+  if (direction === LegendDirection.top) {
+    return {
+      top: height,
+      left: 15,
+      right: 15,
+      bottom: 5,
+      containLabel: true,
+    };
+  }
+  if (direction === LegendDirection.bottom) {
+    return {
+      top: 15,
+      left: 15,
+      right: 15,
+      bottom: height,
+      containLabel: true,
+    };
+  }
+  if (direction === LegendDirection.left) {
+    return {
+      top: 10,
+      right: 20,
+      bottom: 10,
+      containLabel: true,
+    };
+  }
+  if (direction === LegendDirection.right) {
+    return {
+      top: 10,
+      left: 10,
+      bottom: 10,
+      containLabel: true,
+    };
+  }
+  return grid;
+};
+
 export const makeChart = function () {
   const legend = getRefInject<object[]>(EchartsOptionName.legend);
   const tooltip = getReactiveInject<object>(EchartsOptionName.tooltip);
@@ -89,9 +185,9 @@ export const makeChart = function () {
     yAxis,
     legend,
     seriesList,
-    getXAxis: function () {
+    getXAxis: function (direction: Direction) {
       if (xAxis) {
-        return getXAxis(toRaw<object>(xAxis));
+        return getXAxis(toRaw<object>(xAxis), direction);
       }
       return [];
     },
@@ -107,9 +203,9 @@ export const makeChart = function () {
       }
       return {};
     },
-    getLegend: function () {
+    getLegend: function (direction: LegendDirection | boolean) {
       if (legend && legend.value) {
-        return getLegend(legend.value);
+        return getLegend(legend.value, direction);
       }
       return {};
     },

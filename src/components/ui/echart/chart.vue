@@ -4,17 +4,14 @@
  * @auth svon.me@gmail.com
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import * as echarts from "echarts";
-import { Callback } from "src/types/common";
-import { getCurrentInstance, onMounted, PropType, toRaw } from "vue";
-import { makeChart } from "src/logic/ui/echart/index";
+import { graphic } from "src/logic/ui/echart/option";
+import { makeChart, getGrid } from "src/logic/ui/echart/";
+import { chartProps } from "src/logic/ui/echart/props";
+import { getCurrentInstance, onMounted } from "vue";
 
-const props = defineProps({
-  custom: {
-    type: Function as PropType<Callback>,
-    default: null,
-  },
-});
+const props = defineProps(chartProps());
 
 const instance = getCurrentInstance();
 
@@ -32,20 +29,27 @@ const getChart = function () {
   return null;
 };
 
-const getOption = function () {
+const getOption = function (dom: HTMLElement) {
+  const legend = chart.getLegend(props.legend);
+  const list = safeGet<object[]>(legend, "data") || [];
   return {
+    legend,
     tooltip: chart.getTooltip(),
-    legend: chart.getLegend(),
     series: chart.getSeriesList(),
-    xAxis: chart.getXAxis(),
+    xAxis: chart.getXAxis(props.direction),
     yAxis: chart.getYAxis(),
+    // 背景
+    graphic: graphic(30),
+    backgroundColor: props.bgColor,
+    // 布局
+    grid: getGrid(props.legend, dom, list, props.grid),
   };
 };
 
 const init = async function () {
   const chart = getChart();
   if (chart) {
-    const value = getOption();
+    const value = getOption(chart.getDom());
     if (props.custom) {
       const opt = await Promise.resolve(props.custom<object>(value));
       if (opt) {

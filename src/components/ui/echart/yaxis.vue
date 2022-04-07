@@ -6,12 +6,12 @@
 
 import type { PropType } from "vue";
 import { onBeforeMount } from "vue";
-import { isNumber } from "src/utils/";
+import { isNumber, isString, toNumberCashFormat } from "src/utils/";
 import type { Callback } from "src/types/common/";
 import safeSet from "@fengqiaogang/safe-set";
 import { layout } from "src/types/echarts/colors";
 import { setInject, getRefInject } from "src/utils/use/state";
-import { EchartsOptionName, Position } from "src/types/echarts/type";
+import { EchartsOptionName, Position, SeriesItem } from "src/types/echarts/type";
 
 const props = defineProps({
   type: {
@@ -58,25 +58,35 @@ const props = defineProps({
 const yAxis = getRefInject<object[]>(EchartsOptionName.yAxis);
 const set = setInject(EchartsOptionName.yAxis);
 
+const valueFormatter = function (data: SeriesItem): string {
+  if (isNumber(data) || isString(data)) {
+    data = { value: data } as any;
+  }
+  if (data.origin) {
+    return toNumberCashFormat(data.origin, data.unit);
+  }
+  return toNumberCashFormat(data.value, data.unit);
+};
+
 onBeforeMount(function () {
   const option = {
     type: props.type,
     position: props.position,
     axisLabel: {
-      // formatter: function(value: string | number, option: object = {}) {
-      //   const data: any = {
-      //     value: `${value}`,
-      //     unit: props.unit
-      //   };
-      //   const res = valueFormatter(data);
-      //   if (props.formatter) {
-      //     return props.formatter({
-      //       ...option,
-      //       value: res
-      //     });
-      //   }
-      //   return res;
-      // }
+      formatter: function (value: string | number, option: object = {}) {
+        const data: any = {
+          value: `${value}`,
+          unit: props.unit,
+        };
+        const res = valueFormatter(data);
+        if (props.formatter) {
+          return props.formatter({
+            ...option,
+            value: res,
+          });
+        }
+        return res;
+      },
     },
   };
   if (isNumber(props.min)) {
