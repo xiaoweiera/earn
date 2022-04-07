@@ -38,30 +38,32 @@ onMounted(() => {
 </script>
 <template>
   <div class="md:flex-1 md:pr-6 text-kdFang tab-wrap">
-    <template v-for="(item, index) in getUrl(list, baseUrl, 'group', 'id', routerQuery)" :key="index">
-      <router-link v-if="index < 7" :to="item.href" class="tab-item" :class="{ active: isSame(item.id) }">
-        <template v-if="safeGet(item, 'initial.image')">
-          <div class="initial image">
-            <img :src="safeGet(item, 'initial.image')" />
-          </div>
-        </template>
-        <template v-else>
-          <div class="initial text">
-            <span class="text-14-18">{{ safeGet(item, "initial.text") }}</span>
-          </div>
-        </template>
-        <template v-if="safeGet(item, 'active.image')">
-          <div class="active image">
-            <img :src="safeGet(item, 'active.image')" />
-          </div>
-        </template>
-        <template v-else>
-          <div class="active text">
-            <span class="text-14-18">{{ safeGet(item, "active.text") }}</span>
-          </div>
-        </template>
-      </router-link>
-    </template>
+    <div>
+      <template v-for="(item, index) in getUrl(list, baseUrl, 'group', 'id', routerQuery)" :key="index">
+        <router-link v-if="index < 7" :to="item.href" class="tab-item" :class="{ active: isSame(item.id) }">
+          <template v-if="safeGet(item, 'initial.image')">
+            <div class="initial image">
+              <img :src="safeGet(item, 'initial.image')" />
+            </div>
+          </template>
+          <template v-else>
+            <div class="initial text">
+              <span class="text-14-18">{{ safeGet(item, "initial.text") }}</span>
+            </div>
+          </template>
+          <template v-if="safeGet(item, 'active.image')">
+            <div class="active image">
+              <img :src="safeGet(item, 'active.image')" />
+            </div>
+          </template>
+          <template v-else>
+            <div class="active text">
+              <span class="text-14-18">{{ safeGet(item, "active.text") }}</span>
+            </div>
+          </template>
+        </router-link>
+      </template>
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
