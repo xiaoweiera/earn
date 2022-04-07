@@ -20,7 +20,7 @@ onMounted(() => {
   <div class="md:pb-13.5 pb-8 min-h-100 bg-global-topBg">
     <div class="mx-auto">
       <div class="jian pb-6">
-        <!-- 占位符 -->
+        <!-- 占位符2 -->
         <div class="is-web h-4.5 md:h-8"></div>
         <div class="lg:flex lg:flex-row max-w-360 mx-auto md:px-20 items-end flex-col items-stretch px-4 items-center">
           <div class="flex-1 w-full">
