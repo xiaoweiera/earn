@@ -1,4 +1,6 @@
 export default {
+  tips: "下载 App，管理你的关注，解锁其他 200+ 指标，助您快人一步，遇见财富！",
+  news: "有 {count} 条新播报，点击加载",
   comment: {
     reply: {
       count: "{count} 人查看过",
