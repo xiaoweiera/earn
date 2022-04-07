@@ -28,6 +28,7 @@ export default {
     apply: "Project Application",
     about: { name: "About", href: "https://kingdata.medium.com/about-kingdata-growthpad-36907c18440c" },
     download: "Download KingData APP",
+    download2: "Download APP",
   },
   time: {
     dd: "Days",
@@ -80,6 +81,7 @@ export default {
     goto: "Go to",
     prev: "Prev",
     next: "Next",
+    shut: "Close",
   },
   message: {
     verification: "Send",
