@@ -10,6 +10,41 @@ export const splitLine = function (type: "dotted" | "solid" | "dashed", show = f
   };
 };
 
+export const yAxisKline = (yFormat?: any, min?: number, max?: number, unit = "") => {
+  const axisLabel: any = {
+    fontSize: 12,
+    textStyle: {
+      color: "#989898",
+    },
+  };
+  if (yFormat) {
+    axisLabel.formatter = (value: any) => {
+      if (unit === "$") {
+        return unit + yFormat(value);
+      } else {
+        return yFormat(value) + unit;
+      }
+    };
+  }
+  const option: any = {
+    axisLabel,
+    type: "value",
+    splitLine: splitLine("dashed", true, "#f1f1f1"),
+  };
+
+  if (min) {
+    option.min = min;
+  }
+  if (max) {
+    option.max = max;
+  }
+  if (min && max && min === max) {
+    option.interval = min === max ? max / 4 : (max - min) / 4;
+  }
+
+  return [option];
+};
+
 export const xAxis = (xData: any[] = []) => {
   return [
     {

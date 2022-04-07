@@ -5,12 +5,14 @@
 
 import _ from "lodash";
 import { toRaw } from "vue";
-import { xAxis as makeXAxisOption } from "./option";
-import { isObject, toArray, compact, flatten } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
+import { calcYAxis } from "src/logic/ui/echart/series";
+import type { Callback } from "src/types/common/";
 import { getReactiveInject, getRefInject } from "src/utils/use/state";
-import { EchartsOptionName, SeriesType, LegendData, Position, LegendDirection, GridModel, Direction } from "src/types/echarts/type";
+import { xAxis as makeXAxisOption, yAxisKline as makeYAxisOption } from "./option";
+import { isObject, toArray, compact, flatten, forEach, toBoolean, numberUint } from "src/utils";
+import { EchartsOptionName, SeriesType, LegendData, Position, LegendDirection, GridModel, Direction, LegendItem } from "src/types/echarts/type";
 
 // 获取提示框配置
 const getTooltip = function (tooltip: object): object {
@@ -31,8 +33,94 @@ const getXAxis = function (xAxis: object, direction: Direction) {
 };
 
 // 获取 Y 轴配置
-const getYAxis = function (yAxis: object[]) {
-  return _.map(yAxis, (value: object) => toRaw(value));
+// const getYAxis = function (yAxis: object[]) {
+//   return _.map(yAxis, (value: object) => toRaw(value));
+// };
+
+// 获取 Y 轴配置数据
+const getYAxisData = function (yAxisData: any[]) {
+  return function (position: Position) {
+    for (let i = 0; i < yAxisData.length; i++) {
+      const item: object = yAxisData[i];
+      const value = safeGet<Position>(item, "position");
+      if (value && value === position) {
+        return item;
+      }
+    }
+  };
+};
+
+export const getYAxis = function (yAxisData: object[], legends: LegendItem[], seriesList: object[], props: any) {
+  const leftData: any[] = [];
+  const rightData: any[] = [];
+  const yaxis: any[] = [];
+
+  forEach(function (item: any, index: number) {
+    let value = safeGet<any[]>(seriesList, `[${index}].data`);
+    // 判断是否需要隐藏数据
+    if (!toBoolean(item.show) || toBoolean(item.disabled)) {
+      value = [];
+    }
+    if (item.position === Position.right) {
+      rightData.push(value);
+    } else {
+      leftData.push(value);
+    }
+  }, legends);
+
+  const getYAxisValue = getYAxisData(yAxisData);
+
+  const app = function (data: any[], position: Position) {
+    const yaxisData = getYAxisValue(position) || {};
+    const max = safeGet<number>(yaxisData, "max");
+    const min = safeGet<number>(yaxisData, "min");
+    const value = calcYAxis(data, props.stack && position === Position.left, props.log, max, min);
+    const textStyleKey = "axisLabel.textStyle";
+    const textStyle = safeGet<string>(yaxisData, textStyleKey);
+    const [option] = makeYAxisOption(function (value: number) {
+      const formatter = safeGet<Callback>(yaxisData, "axisLabel.formatter");
+      let res: string | number = 0;
+      if (props.log) {
+        if (value === 0) {
+          return 0;
+        }
+        res = numberUint(Math.pow(10, value));
+      } else {
+        res = numberUint(value);
+      }
+      if (formatter) {
+        return formatter(res, {
+          number: value,
+          log: props.log,
+        });
+      }
+      return res;
+    });
+    if (textStyle) {
+      const temp = safeGet(option, textStyleKey) || {};
+      const value = Object.assign(temp, textStyle);
+      safeSet(option, textStyleKey, value);
+    }
+    return Object.assign(
+      {},
+      option,
+      value,
+      {
+        position,
+      },
+      _.omit(yaxisData, ["position", "axisLabel"]),
+    );
+  };
+
+  if (leftData.length > 0) {
+    const opt = app(leftData, Position.left);
+    yaxis.push(opt);
+  }
+  if (rightData.length > 0) {
+    const opt = app(rightData, Position.right);
+    yaxis.push(opt);
+  }
+  return yaxis;
 };
 
 // 获取图例配置
@@ -173,7 +261,7 @@ export const getGrid = function (direction: LegendDirection | boolean, dom: HTML
 };
 
 export const makeChart = function () {
-  const legend = getRefInject<object[]>(EchartsOptionName.legend);
+  const legend = getRefInject<LegendItem[]>(EchartsOptionName.legend);
   const tooltip = getReactiveInject<object>(EchartsOptionName.tooltip);
   const xAxis = getReactiveInject<object>(EchartsOptionName.xAxis);
   const yAxis = getRefInject<object[]>(EchartsOptionName.yAxis);
@@ -191,9 +279,9 @@ export const makeChart = function () {
       }
       return [];
     },
-    getYAxis: function () {
-      if (yAxis && yAxis.value) {
-        return getYAxis(yAxis.value);
+    getYAxis: function (seriesList: object[], props: object) {
+      if (yAxis && yAxis.value && legend && legend.value) {
+        return getYAxis(yAxis.value, legend.value, seriesList, props);
       }
       return [{ type: "value" }];
     },

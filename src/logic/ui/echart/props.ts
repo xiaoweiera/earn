@@ -1,10 +1,26 @@
 import { PropType } from "vue";
-import { Callback } from "src/types/common";
+import type { Callback } from "src/types/common";
 import { layout } from "src/types/echarts/colors";
-import { LegendDirection, GridModel, Direction } from "src/types/echarts/type";
+import type { GridModel } from "src/types/echarts/type";
+import { LegendDirection, Direction } from "src/types/echarts/type";
 
 export const chartProps = function () {
   return {
+    // 是否开启log效果
+    log: {
+      type: Boolean,
+      default: () => false,
+    },
+    // 是否开启堆积
+    stack: {
+      type: Boolean,
+      default: () => false,
+    },
+    // 是否启用阴影 （type = line 时有效）
+    area: {
+      type: Boolean,
+      default: () => false,
+    },
     // 自定义 echarts Option 数据
     custom: {
       type: Function as PropType<Callback>,

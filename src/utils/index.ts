@@ -74,12 +74,10 @@ export const min = function (...args: any[]): number {
   return void 0;
 };
 
-type eachCallback = (value: any, index: number | string, list: any[] | any) => void;
-
 /**
  * 循环
  */
-export const forEach = function (callback: eachCallback, data: any[] | never) {
+export const forEach = function (callback: any, data: any[] | any) {
   if (callback && data) {
     if (isArray(data)) {
       data.forEach((value: any, index: number) => {
@@ -94,6 +92,26 @@ export const forEach = function (callback: eachCallback, data: any[] | never) {
       });
     }
   }
+};
+
+/**
+ * 循环
+ */
+export const map = function (callback: any, data: any): any {
+  const isArr = isArray(data);
+  const array: any[] = [];
+  const result: any = {};
+  // @ts-ignore
+  forEach(function (value: any, index: number | string, origin: T[]) {
+    const item = callback(value, index, origin);
+    if (isArr) {
+      // @ts-ignore
+      array[index] = item;
+    } else {
+      result[`${index}`] = item;
+    }
+  }, data);
+  return isArr ? array : result;
 };
 
 export class Encryption {
@@ -133,6 +151,7 @@ export class Encryption {
     return this.text.replace(reg, replace);
   }
 }
+
 export const encryption = function (value: string): Encryption {
   return new Encryption(value || "");
 };

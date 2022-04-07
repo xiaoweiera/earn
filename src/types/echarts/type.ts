@@ -59,27 +59,20 @@ export const iconFontName = {
 
 export interface LegendData {
   index: number;
-  name: string;
-  type: SeriesType;
-  show: boolean;
+  name: string; // 名称
+  type: SeriesType; // echarts 展示图形类型 line / bar ...
+  show?: boolean;
   disabled: boolean;
-  position: Position;
-
+  position?: Position;
   [key: string]: any;
 }
 
-export interface LegendItem {
-  name: string; // 名称
+export interface LegendItem extends LegendData {
   unit?: string; // 单位
   id: string | number; // id
   kline?: boolean; // 是否为价格线
-  type?: SeriesType; // echarts 展示图形类型 line / bar ...
-  position?: Position;
-  show?: boolean;
   value?: string;
-  index?: number;
   color?: string;
-  [key: string]: any;
 }
 
 export interface YAxis {
