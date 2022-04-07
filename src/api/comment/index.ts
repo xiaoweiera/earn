@@ -3,7 +3,7 @@
  */
 
 import * as api from "src/config/api";
-import { DefaultValue, expire, get, post, tryError, userToken } from "src/plugins/dao/http";
+import { DefaultValue, get, post, deleted, tryError, userToken } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
 
 import safeGet from "@fengqiaogang/safe-get";
@@ -13,9 +13,9 @@ const timeConfig = {
   baseURL: "https://kingdata.xyz",
 };
 export default class extends ApiTemplate {
-  //得到链
+  //得到列表
   @tryError(DefaultValue([])) // 处理默认值
-  @get(api.comment.list, expire.day1, timeConfig) // 定义一个 get 请求
+  @get(api.comment.list, 0, timeConfig) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getCommentAndReply<T>(query: CommentModel): Promise<T> {
     const callback = function (data: object) {
@@ -45,8 +45,7 @@ export default class extends ApiTemplate {
     return [query] as any;
   }
   //删除评论
-  @tryError(DefaultValue([])) // 处理默认值
-  @post(api.comment.deleteReply)
+  @deleted(api.comment.deleteReply)
   @userToken(true) // 删除评论
   deleteReply<T>(target_id: number | string): Promise<T> {
     const query = { target_id };

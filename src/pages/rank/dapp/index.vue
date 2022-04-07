@@ -18,7 +18,30 @@ onMounted(() => {
 </script>
 <template>
   <div class="md:pb-13.5 pb-8 min-h-100 bg-global-topBg">
-    <Comment :discuss="true" project-id="50676" />
+    <div class="mx-auto">
+      <div class="jian pb-6">
+        <!-- 占位符 -->
+        <div class="is-web h-4.5 md:h-8"></div>
+        <div class="lg:flex lg:flex-row max-w-360 mx-auto md:px-20 items-end flex-col items-stretch px-4 items-center">
+          <div class="flex-1 w-full">
+            <Info class="is-web" :title="i18n.dapp.rank.title" />
+            <div class="w-full flex justify-center flex-wrap mt-4 md:mt-8">
+              <Chains :page="chainPage.dapp_rank" :base-url="routerConfig.rankDapp" />
+            </div>
+          </div>
+          <client-only class="md:ml-6 mt-4 md:mt-1.5 md:w-129.75 w-full">
+            <Chart />
+          </client-only>
+        </div>
+      </div>
+      <div class="md:max-w-360 mx-auto px-4 md:px-20">
+        <div class="max-w-315 mx-auto">
+          <CommonTopics class="mb-4 md:mb-6" :is-show-title="false" />
+          <Ad :position="24" class="my-4 md:my-6" />
+          <Table />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>

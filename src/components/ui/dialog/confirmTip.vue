@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { ElDialog } from "element-plus";
-// import API from "src/api";
-// import I18n from "src/utils/i18n";
-// const api = new API();
-// const i18n = I18n();
+import I18n from "src/utils/i18n";
+const i18n = I18n();
 
 const emit = defineEmits(["submit", "close"]);
 const props = defineProps({
@@ -61,6 +59,7 @@ const status = computed<boolean>(function () {
   }
   return !!props.show;
 });
+const getTxt = (value: string, defaultValue: string) => (value ? value : defaultValue);
 </script>
 <template>
   <div class="confirmTipDialog relative">
@@ -71,16 +70,16 @@ const status = computed<boolean>(function () {
       <el-dialog v-model="status" custom-class="dialogClass" popper-append-to-body="false" :width="customClass">
         <div class="p-4 bg-global-white relative rounded-kd6px" :style="`width: ${customClass}`">
           <div class="w-full flex items-center">
-            <span class="text-16-24 font-medium text-global-highTitle">{{ tip }}</span>
+            <span class="text-16-24 font-medium text-global-highTitle">{{ getTxt(tip, i18n.common.dialogData.tip) }}</span>
             <IconFont size="20" class="text-global-highTitle absolute right-4 top-4.5 hand text-opacity-65" type="icon-xClose" @click="oepnDialog = false" />
           </div>
           <div class="mt-4">{{ content }}</div>
           <div v-if="type === 'confirm'" class="flex items-center mt-4">
-            <div class="cancel" @click="close()">{{ cancelText }}</div>
-            <div class="confirm" @click="submit()">{{ confirmText }}</div>
+            <div class="cancel" @click="close()">{{ getTxt(cancelText, i18n.common.dialogData.close) }}</div>
+            <div class="confirm" @click="submit()">{{ getTxt(confirmText, i18n.common.dialogData.ok) }}</div>
           </div>
           <div v-if="type === 'message'" class="flex items-center mt-4">
-            <div class="confirm" @click="close()">{{ buttonText }}</div>
+            <div class="confirm" @click="close()">{{ getTxt(buttonText, i18n.common.dialogData.ok) }}</div>
           </div>
         </div>
       </el-dialog>
@@ -109,14 +108,12 @@ const status = computed<boolean>(function () {
   .dialogClass {
     margin-top: 0 !important;
   }
-
   .el-dialog .el-dialog__body {
     padding: 0 0 0 0 !important;
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
-    bottom: 0;
+    top: 30vh;
     margin: auto auto;
     display: flex;
     align-items: center;
