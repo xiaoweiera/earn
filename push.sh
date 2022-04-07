@@ -1,4 +1,4 @@
-
+npm run precommit
 git add .
 printf  '输入备注:'
 while read mark

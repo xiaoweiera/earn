@@ -14,12 +14,10 @@ const props = defineProps({
     type: Boolean,
   },
 });
-
 interface User {
   nickname: string;
   is_official: string;
 }
-
 const userAvatar = computed(function () {
   if (props.data) {
     const url = safeGet<string>(props.data, "user.avatar_url");
