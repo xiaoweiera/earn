@@ -12,7 +12,7 @@ import { triggerType, EchartsOptionName } from "src/types/echarts/type";
 
 const props = defineProps({
   trigger: {
-    type: String,
+    type: String as PropType<triggerType>,
     default: () => triggerType.axis,
     validator(value: triggerType): boolean {
       const trigger = [triggerType.item, triggerType.axis, triggerType.none];

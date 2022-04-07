@@ -6,9 +6,8 @@
 
 import * as echarts from "echarts";
 import { Callback } from "src/types/common";
-import { EchartsOptionName } from "src/types/echarts/type";
 import { getCurrentInstance, onMounted, PropType, toRaw } from "vue";
-import { getReactiveInject, getRefInject } from "src/utils/use/state";
+import { makeChart } from "src/logic/ui/echart/index";
 
 const props = defineProps({
   custom: {
@@ -19,9 +18,7 @@ const props = defineProps({
 
 const instance = getCurrentInstance();
 
-const tooltip = getReactiveInject<object>(EchartsOptionName.tooltip);
-const xAxis = getReactiveInject<object>(EchartsOptionName.xAxis);
-const yAxis = getRefInject<object[]>(EchartsOptionName.yAxis);
+const chart = makeChart();
 
 const getChart = function () {
   const vNode = instance?.vnode;
@@ -36,23 +33,12 @@ const getChart = function () {
 };
 
 const getOption = function () {
-  const opt = {
-    series: [
-      {
-        data: [150, 230, 224, 218, 135, 147, 260],
-        type: "line",
-      },
-    ],
-  };
   return {
-    ...opt,
-    tooltip: tooltip ? toRaw<object>(tooltip) : {},
-    xAxis: xAxis ? toRaw<object>(xAxis) : {},
-    yAxis: yAxis
-      ? toRaw<object[]>(yAxis.value)
-      : {
-        type: "value",
-      },
+    tooltip: chart.getTooltip(),
+    legend: chart.getLegend(),
+    series: chart.getSeriesList(),
+    xAxis: chart.getXAxis(),
+    yAxis: chart.getYAxis(),
   };
 };
 

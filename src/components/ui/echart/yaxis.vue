@@ -22,11 +22,6 @@ const props = defineProps({
     type: Function as PropType<Callback>,
     default: null,
   },
-  // 数据下标
-  index: {
-    type: Number,
-    required: true,
-  },
   min: {
     type: Number,
     default: null,
@@ -45,9 +40,14 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  // 数据下标
+  index: {
+    type: Number,
+    required: true,
+  },
   // 展示位置
   position: {
-    type: String,
+    type: String as PropType<Position>,
     default: () => Position.left,
     validator(value: string): boolean {
       return value === Position.left || value === Position.right;

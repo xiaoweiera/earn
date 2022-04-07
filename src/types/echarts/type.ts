@@ -27,3 +27,24 @@ export enum EchartsOptionName {
   legend = "legend",
   tooltip = "tooltip",
 }
+
+export enum SeriesType {
+  bar = "bar",
+  line = "line",
+  log = "log",
+}
+
+export const iconFontName = {
+  [SeriesType.bar]: "icon-Column",
+  [SeriesType.line]: "icon-Broken_line",
+};
+
+export interface LegendData {
+  index: number;
+  name: string;
+  type: SeriesType;
+  show: boolean;
+  disabled: boolean;
+  position: Position;
+  [key: string]: any;
+}

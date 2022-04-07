@@ -10,11 +10,16 @@ import { EchartsOptionName } from "src/types/echarts/type";
 import { asyncLoad } from "src/plugins/lazyload/";
 import { PropType } from "vue";
 
-useReactiveProvide<object>(EchartsOptionName.series);
+// 图例
+useRefProvide<object[]>(EchartsOptionName.legend, []);
+// 数据
+useRefProvide<object>(EchartsOptionName.series, []);
+// Y 轴
 useRefProvide<object>(EchartsOptionName.yAxis, []);
-useReactiveProvide<object>(EchartsOptionName.xAxis);
-useReactiveProvide<object>(EchartsOptionName.tooltip);
-useReactiveProvide<object>(EchartsOptionName.legend);
+// X 轴
+useReactiveProvide<object>(EchartsOptionName.xAxis, {});
+// 提示框
+useReactiveProvide<object>(EchartsOptionName.tooltip, {});
 
 defineProps({
   custom: {
@@ -29,7 +34,7 @@ const Echarts = asyncLoad(() => import("./chart.vue"));
 <template>
   <div>
     <div class="h-full">
-      <Echarts class="h-full" :custom="custom" />
+      <Echarts :custom="custom" class="h-full" />
     </div>
     <div class="hidden">
       <slot></slot>
