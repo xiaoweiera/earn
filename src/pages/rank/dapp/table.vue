@@ -119,29 +119,27 @@ onMounted(() => {
     <!--    table-->
     <div class="table-container">
       <div class="pt-3 title-wrap">
-        <div class="title-wrap">
-          <client-only>
-            <div :key="listKey">
-              <ui-pagination :limit="50" :init-value="initValue()" :request="requestList">
-                <template #default="scope">
-                  <div :class="isPc ? '' : 'showX'">
-                    <!--        header-->
-                    <div class="lg:w-full w-255" @click="test()">
-                      <UiSticky v-if="isPc" active-class="table-box-title">
-                        <Header :header-data="dappHeader" :param="param" @onSort="onSort" />
-                      </UiSticky>
-                      <Header v-else :header-data="dappHeaderMobile" :param="param" @onSort="onSort" />
-                      <!--        list-->
-                      <div v-for="(item, i) in scope.list" :key="i">
-                        <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
-                      </div>
+        <client-only>
+          <div :key="listKey">
+            <ui-pagination :limit="50" :init-value="initValue()" :request="requestList">
+              <template #default="scope">
+                <div :class="isPc ? '' : 'showX'">
+                  <!--        header-->
+                  <div class="lg:w-full w-255" @click="test()">
+                    <UiSticky v-if="isPc" active-class="table-box-title">
+                      <Header :header-data="dappHeader" :param="param" @on-sort="onSort" />
+                    </UiSticky>
+                    <Header v-else :header-data="dappHeaderMobile" :param="param" @on-sort="onSort" />
+                    <!--        list-->
+                    <div v-for="(item, i) in scope.list" :key="i">
+                      <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
                     </div>
                   </div>
-                </template>
-              </ui-pagination>
-            </div>
-          </client-only>
-        </div>
+                </div>
+              </template>
+            </ui-pagination>
+          </div>
+        </client-only>
       </div>
     </div>
   </div>

@@ -10,7 +10,7 @@ const iconFont = [
   "//at.alicdn.com/t/font_2735019_oigfmp0hptd.js",
 
   // 行情&流动性呀
-  "//at.alicdn.com/t/font_2596648_2bdd71g6jo.js",
+  "//at.alicdn.com/t/font_2596648_z6gkytzcaf.js",
 
   // 通用
   "//at.alicdn.com/t/font_2596380_pnl6p8q9rq.js"
