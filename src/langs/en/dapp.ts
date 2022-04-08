@@ -198,4 +198,9 @@ export default {
     desc: "Success! To rate other items.",
     go: "Go",
   },
+  detail: {
+    upcoming: "Upcoming",
+    ongoing: "OnGoing",
+    ended: "Ended",
+  },
 };
