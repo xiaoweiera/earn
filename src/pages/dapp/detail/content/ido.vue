@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import DAppDetailDate from "src/pages/dapp/detail/date.vue";
-import DAppDetailState from "src/pages/dapp/detail/state.vue";
+import DAppDetailDate from "src/pages/dapp/detail/content/date.vue";
+import DAppDetailState from "src/pages/dapp/detail/content/state.vue";
 import I18n from "src/utils/i18n";
 import { timeValue, timeFormat, getClassColor } from "src/logic/dapp/index";
 import { toNumberCashFormat } from "src/utils";
