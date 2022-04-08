@@ -24,6 +24,10 @@ export const dapp = {
   airdropList: "/api/dapps/v1/airdrop", //空投列表
   operation: "/api/v1/dapps/airdrop_recommended", //空投运营精选
   investList: "/api/dapps/v1/airdrop", //投融资列表
+  userData: "/api/v1/dapps/chart/user", //用户资产图表
+  marketCapData: "/api/v1/dapps/chart/marketcap", //用户市值图表
+  TVLData: "/api/v1/dapps/chart/tvl", //用户TVL图表
+  floorData: "/api/v1/dapps/chart/floor_price", //地板价图表
 };
 
 export const blog = {

@@ -9,7 +9,9 @@ import type { nftQuery } from "src/types/dapp/nft";
 import type { AirdropQuery } from "src/types/dapp/airdrop";
 import { nftStatus } from "src/types/dapp/nft";
 import ApiTemplate from "../template";
-import type { DAppData } from "src/types/dapp/data";
+import type { DAppData, DataQuery } from "src/types/dapp/data";
+import { echart } from "src/logic/ui/echart/decorate";
+import type { EchartData } from "src/types/echarts/type";
 
 export default class extends ApiTemplate {
   // 项目库列表
@@ -123,6 +125,42 @@ export default class extends ApiTemplate {
   @validate
   getDetail(@required id: string | number): Promise<DAppData> {
     const query = { id };
+    return [query] as any;
+  }
+  // 用户资产图表
+  @tryError(DefaultValue({}))
+  @echart
+  @get(api.dapp.userData, expire.min30)
+  @userToken()
+  @validate
+  getUserData(@required query: DataQuery): Promise<EchartData> {
+    return [query] as any;
+  }
+  // 用户市值图表
+  @tryError(DefaultValue({}))
+  @echart
+  @get(api.dapp.marketCapData, expire.min30)
+  @userToken()
+  @validate
+  getMarketCapData(@required query: DataQuery): Promise<EchartData> {
+    return [query] as any;
+  }
+  // 用户TVL图表
+  @tryError(DefaultValue({}))
+  @echart
+  @get(api.dapp.TVLData, expire.min30)
+  @userToken()
+  @validate
+  getTVLData(@required query: DataQuery): Promise<EchartData> {
+    return [query] as any;
+  }
+  // 地板价图表
+  @tryError(DefaultValue({}))
+  @echart
+  @get(api.dapp.floorData, expire.min30)
+  @userToken()
+  @validate
+  getFloorData(@required query: DataQuery): Promise<EchartData> {
     return [query] as any;
   }
 }

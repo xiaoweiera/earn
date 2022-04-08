@@ -11,7 +11,7 @@ import type { DAppProject, DAppData } from "src/types/dapp/data";
 import { asyncLoad } from "src/plugins/lazyload/";
 
 const Twitter = asyncLoad(() => import("./content/twitter.vue"));
-const IDO = asyncLoad(() => import("./content/ido.vue"));
+const IDO = asyncLoad(() => import("./content/chain/index.vue"));
 
 // 项目信息
 const project = createReactive<DAppProject>("query", {} as DAppProject);
@@ -65,7 +65,7 @@ const getTwitterName = function (data: DAppData) {
 <template>
   <div class="pt-8 pb-16">
     <div class="max-w-300 mx-auto">
-      <IDO :data="detail" />
+      <IDO :value="project" />
       <h3>项目信息</h3>
       <pre>{{ JSON.stringify(project, null, 2) }}</pre>
       <div>

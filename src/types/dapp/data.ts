@@ -151,3 +151,8 @@ export interface blogDAppData extends DAppData {
   timeText: string;
   url: string;
 }
+
+export interface DataQuery {
+  id: number;
+  range: string;
+}
