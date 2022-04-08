@@ -124,7 +124,7 @@ export default {
     media: "Media",
     contracts: "Token Contracts",
     whitePaper: "Whitepaper",
-    dashboard: "Overview",
+    dashboard: "Dashboard",
     symbol: "Token",
     symbolPrice: "Token Price",
     symbolSale: "Tokens for Sale",

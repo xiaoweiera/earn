@@ -5,6 +5,7 @@ import * as rank from "src/controller/rank";
 import type { Request, Response } from "express";
 import { Router as ExpressRouter } from "express";
 import { redirect } from "src/controller/common/redirect";
+import { ProjectType } from "src/types/dapp/data";
 import safeGet from "@fengqiaogang/safe-get";
 
 const Router = function () {
@@ -36,10 +37,10 @@ const Router = function () {
   router.get(config.rankNft, rank.nft); // defi
 
   // 排行榜详情
-  dApp.dAppDetail(router, config.rankDapp, "dapp", true);
-  dApp.dAppDetail(router, config.rankGame, "game", true);
-  dApp.dAppDetail(router, config.rankDefi, "defi", true);
-  dApp.dAppDetail(router, config.rankNft, "nft", true);
+  dApp.dAppDetail(router, config.rankDapp, ProjectType.dapp, true);
+  dApp.dAppDetail(router, config.rankGame, ProjectType.game, true);
+  dApp.dAppDetail(router, config.rankDefi, ProjectType.defi, true);
+  dApp.dAppDetail(router, config.rankNft, ProjectType.nft, true);
   return router;
 };
 

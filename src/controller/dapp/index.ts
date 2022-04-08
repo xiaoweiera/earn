@@ -131,7 +131,7 @@ export const investDetail = async function (req: Request, res: Response) {
  * @param type 项目类型
  * @param rank 是否属于排行榜
  */
-export const dAppDetail = function (router: Router, path: string, type: string | ProjectType, rank = false) {
+export const dAppDetail = function (router: Router, path: string, type: ProjectType, rank = false) {
   const detail = async function (req: Request, res: Response) {
     const project = {
       type,
