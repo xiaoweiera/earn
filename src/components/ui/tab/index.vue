@@ -81,7 +81,7 @@ const selectData = function (value: string | number, list = getList()): Item {
 };
 
 const getUrlData = function () {
-  return { ...$route.params, ...$route.query };
+  return { ...$route.query, ...$route.params };
 };
 
 const getActiveValue = function () {
