@@ -73,8 +73,9 @@ const initValue = function () {
 </script>
 <template>
   <div>
-    <div v-if="discuss" class="mb-3">
-      <CommentChat :id="projectId" type="publish" @submit="submitBack" />
+    <div v-if="discuss" class="mb-3 flex">
+      <UiRate class="w-70.5 h-45 mr-6" />
+      <CommentChat :id="projectId" class="flex-1" type="publish" @submit="submitBack" />
     </div>
     <div>
       <ui-pagination :limit="10" :init-value="initValue()" :request="requestList" @change="onLoad">

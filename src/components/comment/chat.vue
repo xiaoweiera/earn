@@ -117,25 +117,27 @@ const submit = async () => {
 };
 </script>
 <template>
-  <div :class="bgColor()" class="w-full p-4 rounded-kd6px showY" @click.stop="selectEmoji('')">
-    <div v-if="type !== 'publish'" class="text-kd12px16px hand text-global-highTitle text-opacity-45 mb-1.5">{{ i18n.comment.reply }}@{{ userName }}</div>
-    <div ref="contentDom">
-      <el-input ref="inputText" v-model="v" type="textarea" :placeholder="models.placeholder" />
-    </div>
-    <div class="mt-2 flex items-center justify-between">
-      <div class="flex items-center">
-        <v-login :class="`${submitState}`" class="w-fit text-12-16 hand" @click.stop="submit()">{{ models.button }}</v-login>
-        <CommentEmoji @select="selectEmoji" />
+  <div class="w-full h-full">
+    <div :class="bgColor()" class="w-full h-full p-4 rounded-kd6px showY" @click.stop="selectEmoji('')">
+      <div v-if="type !== 'publish'" class="text-kd12px16px hand text-global-highTitle text-opacity-45 mb-1.5">{{ i18n.comment.reply }}@{{ userName }}</div>
+      <div ref="contentDom">
+        <el-input ref="inputText" v-model="v" type="textarea" :placeholder="models.placeholder" />
       </div>
-      <div class="text-14-16 text-global-highTitle text-opacity-45">
-        <template v-if="v.length < models.mix">
-          <span class="mr-1 text-global-numRed">{{ i18n.template(i18n.comment.warning.min, { count: models.mix }) }}</span>
-        </template>
-        <template v-else-if="v.length > models.max">
-          <span class="mr-1 text-global-numRed">{{ i18n.template(i18n.comment.warning.max, { count: models.max }) }}</span>
-        </template>
-        <span :class="lengthColor">{{ v.length }}</span>
-        /{{ models.max }}
+      <div class="mt-2 flex items-center justify-between">
+        <div class="flex items-center">
+          <v-login :class="`${submitState}`" class="w-fit text-12-16 hand" @click.stop="submit()">{{ models.button }}</v-login>
+          <CommentEmoji @select="selectEmoji" />
+        </div>
+        <div class="text-14-16 text-global-highTitle text-opacity-45">
+          <template v-if="v.length < models.mix">
+            <span class="mr-1 text-global-numRed">{{ i18n.template(i18n.comment.warning.min, { count: models.mix }) }}</span>
+          </template>
+          <template v-else-if="v.length > models.max">
+            <span class="mr-1 text-global-numRed">{{ i18n.template(i18n.comment.warning.max, { count: models.max }) }}</span>
+          </template>
+          <span :class="lengthColor">{{ v.length }}</span>
+          /{{ models.max }}
+        </div>
       </div>
     </div>
   </div>

@@ -143,6 +143,7 @@ export default defineConfig({
         "kd10px12px": ["10px", "12px"],
         "kd24px28px": ["24px", "28px"],
         "kd16px20px": ["16px", "20px"],
+        "kd48px48px": ["48px", "48px"],
       },
       fontWeight: {
         "b": "600",
