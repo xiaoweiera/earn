@@ -77,8 +77,7 @@ const getTwitterName = function (data: DAppData) {
       <div>
         <template v-if="project.tab === TabName.twitter">
           <div class="mt-6">
-            <Twitter v-if="getTwitterName()" :name="getTwitterName(detail)" class="bg-white" />
-            <ui-empty v-else></ui-empty>
+            <Twitter :name="getTwitterName(detail)" class="bg-white" />
           </div>
         </template>
         <template v-else>
