@@ -21,10 +21,6 @@ const props = defineProps({
     type: String,
     default: () => "",
   },
-  isGroup: {
-    type: Boolean,
-    default: () => true,
-  },
 });
 const i18n = I18n();
 const isPc = ref(true);
@@ -83,9 +79,6 @@ const requestList = function (query: object) {
   );
   return api.rank.getDappList(newParam);
 };
-const test = () => {
-  console.info("f");
-};
 onMounted(() => {
   isPc.value = document.body.clientWidth > 1024;
   window.addEventListener("resize", () => {
@@ -95,8 +88,8 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div class="md:flex items-center">
-      <Tabs v-if="isGroup" :key="chainKey" :position="GroupPosition.dappRank" :base-url="routerConfig.rankDapp" />
+    <client-only class="md:flex items-center">
+      <Tabs :key="chainKey" :position="GroupPosition.dappRank" :base-url="routerConfig.rankDapp" />
       <div class="flex flex-1 justify-end rank-dapp">
         <client-only class="flex items-center xshidden md:mr-3">
           <span class="mr-1.5 text-sm text-global-highTitle text-opacity-85 i8n-font-inter">{{ i18n.dapp.rank.comparison }}</span>
@@ -115,7 +108,7 @@ onMounted(() => {
           </el-input>
         </client-only>
       </div>
-    </div>
+    </client-only>
     <!--    table-->
     <div class="table-container">
       <div class="pt-3 title-wrap">
@@ -126,7 +119,7 @@ onMounted(() => {
                 <template #default="scope">
                   <div :class="isPc ? '' : 'showX'">
                     <!--        header-->
-                    <div class="lg:w-full w-255" @click="test()">
+                    <div class="lg:w-full w-255">
                       <UiSticky v-if="isPc" active-class="table-box-title">
                         <Header :header-data="dappHeader" :param="param" @onSort="onSort" />
                       </UiSticky>

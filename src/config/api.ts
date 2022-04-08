@@ -78,3 +78,11 @@ export const rank = {
   dappChart: "/api/dapps/v1/rank/chart/tvl", //dapp chart
   nftChart: "/api/dapps/v1/rank/chart/volume", //nft Chart
 };
+export const comment = {
+  list: "/api/dapps/v1/expand_comments", //评论列表
+  isLike: "/api/dapps/v1/comment/like", //点赞
+  push: "/api/dapps/v1/comment", //评论
+  reply: "/api/dapps/v1/comment/reply", //回复
+  deleteReply: "/api/dapps/v1/comment/reply", //删除评论
+  star: "/api/v1/dapps/rating", // 评分
+};

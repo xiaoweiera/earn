@@ -49,8 +49,8 @@ const send = async function (root: string, env: Env) {
           {
             [languageKey]: safeGet<string>(req.query, languageKey) || Language.auto,
           },
-          req.params || {},
           req.query || {},
+          req.params || {},
         ),
         ...res.locals,
         ...value,

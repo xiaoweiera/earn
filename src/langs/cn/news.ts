@@ -9,6 +9,11 @@ export default {
       info: "查看项目信息",
     },
   },
+  link: "原文链接",
+  share: {
+    success: "指标关注成功",
+    download: "请下载App接收异动",
+  },
   meta: {
     title: {
       quota: "KingData 指标监控",

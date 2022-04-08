@@ -44,8 +44,8 @@ const onClick = async function () {
     }
   }
   const html = `<p class="text-global-highTitle text-16-24 text-center">
-    <span class="block">指标关注成功</span>
-    <span class="block">请下载 App 接收异动</span>
+    <span class="block">${i18n.news.share.success}</span>
+    <span class="block">${i18n.news.share.download}</span>
   </p>`;
   const option = {
     center: true,
@@ -72,7 +72,7 @@ const onClick = async function () {
   <client-only>
     <v-login v-if="!toBoolean(status)" class="inline-block">
       <div class="cursor-pointer text-xs" @click="onClick">
-        <span class="inline-flex items-center py-1 px-3 bg-global-darkblue text-white follow-btn">
+        <span class="inline-flex items-center py-1 px-3 bg-global-darkblue text-white rounded-kd34px">
           <IconFont type="icon-plus" class="text-white align-middle" size="16"></IconFont>
           <span class="ml-1 inline-block">{{ i18n.common.follow }}</span>
         </span>
@@ -80,9 +80,3 @@ const onClick = async function () {
     </v-login>
   </client-only>
 </template>
-
-<style scoped lang="scss">
-.follow-btn {
-  border-radius: 34px;
-}
-</style>

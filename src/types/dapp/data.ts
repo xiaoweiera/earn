@@ -8,14 +8,14 @@ export enum TabName {
   project = "project",
   reviews = "reviews",
   twitter = "twitter",
-  ido = "ido",
-  mint = "mint",
+  nft = "nft",
+  airdrop = "airdrops",
 }
 
 export enum DataType {
   ido = "ido",
   nft = "nft",
-  airdrop = "airdrop",
+  airdrop = "airdrops",
 }
 
 export enum ProjectType {
@@ -25,7 +25,7 @@ export enum ProjectType {
   nft = "nft",
   game = "game",
   defi = "defi",
-  airdrop = "airdrop",
+  airdrop = "airdrops",
 }
 
 export interface DAppProject {

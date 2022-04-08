@@ -9,6 +9,7 @@ import Common from "./common";
 import Quota from "./quota";
 import Rank from "./rank";
 import APY from "./apy/";
+import Comment from "./comment";
 
 export default class API extends ApiTemplate {
   public home: Home;
@@ -19,6 +20,7 @@ export default class API extends ApiTemplate {
   public quota: Quota;
   public rank: Rank;
   public apy: APY;
+  public comment: Comment;
   constructor(value?: Lang) {
     super(value);
     this.home = new Home(value);
@@ -29,5 +31,6 @@ export default class API extends ApiTemplate {
     this.quota = new Quota(value);
     this.rank = new Rank(value);
     this.apy = new APY(value);
+    this.comment = new Comment(value);
   }
 }

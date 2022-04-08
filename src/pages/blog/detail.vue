@@ -11,7 +11,7 @@ import type { BlogDetail } from "src/types/blog/";
 import { Type } from "src/types/common/lock";
 import type { DAppData } from "src/types/dapp/data";
 import { onMounted } from "vue";
-import { dateFormat, isArray, isObject } from "src/utils";
+import { dateFormat, isArray, isObject, defaultNumberValue } from "src/utils";
 import I18n from "src/utils/i18n";
 import * as track from "src/logic/track";
 import * as alias from "src/utils/root/alias";
@@ -46,11 +46,11 @@ const getShareText = function (list: DAppData[], title: string): string {
       const data = getDAppData(item);
       if (data) {
         // 总量
-        if (data.total && data.total !== "0") {
+        if (data.total && data.total !== "0" && data.total !== defaultNumberValue) {
           text.push(`${data.totalText}${colon}${data.total}`);
         }
         // 名额
-        if (data.people && data.total !== "0") {
+        if (data.people && data.people !== "0" && data.people !== defaultNumberValue) {
           text.push(`${data.peopleText}${colon}${data.people}`);
         }
         // 时间
