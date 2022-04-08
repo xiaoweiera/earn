@@ -12,6 +12,7 @@ import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { DAppProject, DAppData } from "src/types/dapp/data";
 import { useReactiveProvide } from "src/utils/use/state";
 import { asyncLoad } from "src/plugins/lazyload/";
+import Header from "./header/index.vue";
 
 const Twitter = asyncLoad(() => import("./content/twitter.vue"));
 const IDO = asyncLoad(() => import("./content/ido.vue"));
@@ -49,9 +50,8 @@ const getTwitterName = function (data: DAppData) {
 <template>
   <div class="pt-8 pb-16">
     <div class="max-w-300 mx-auto">
-      <h3>项目信息</h3>
-      <pre>{{ JSON.stringify(project, null, 2) }}</pre>
-      <div>
+      <Header :project="project" :data="detail" />
+      <div class="mt-11">
         <ui-tab :def="TabName.dashboard" :list="getTabList(project)" active-name="tab" @change="onChangeTab">
           <template #default="{ data }">
             <span class="text-18-24 font-m">{{ data.label }}</span>
