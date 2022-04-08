@@ -23,7 +23,7 @@ onMounted(function () {
 
 <template>
   <div class="p-10">
-    <div v-if="echart.legends" class="w-200 h-100 mx-auto">
+    <div v-if="echart.legends" class="w-300 h-75 mx-auto">
       <ui-echart-content :custom="onCustom" :data="echart" class="h-full" />
     </div>
   </div>

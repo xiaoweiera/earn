@@ -8,15 +8,24 @@ import { toRaw } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
 import { calcYAxis } from "src/logic/ui/echart/series";
+import { layout } from "src/types/echarts/colors";
 import type { Callback } from "src/types/common/";
+import * as logicToolTip from "./tooltip";
 import { getReactiveInject, getRefInject } from "src/utils/use/state";
-import { xAxis as makeXAxisOption, yAxisKline as makeYAxisOption } from "./option";
-import { isObject, toArray, compact, flatten, forEach, toBoolean, numberUint } from "src/utils";
-import { EchartsOptionName, SeriesType, LegendData, Position, LegendDirection, GridModel, Direction, LegendItem } from "src/types/echarts/type";
+import { xAxis as makeXAxisOption, yAxisKline as makeYAxisOption, tooltips as makeTooltipOption } from "./option";
+import { toArray, compact, flatten, map, forEach, toBoolean, toNumber, numberUint } from "src/utils";
+import { EchartsOptionName, SeriesType, Position, LegendDirection, GridModel, Direction, LegendItem } from "src/types/echarts/type";
 
 // 获取提示框配置
 const getTooltip = function (tooltip: object): object {
-  return tooltip;
+  const option = makeTooltipOption();
+  const formatter = safeGet<Callback>(tooltip, "formatter");
+  const callback = function (data: any) {
+    return logicToolTip.formatter(data, formatter);
+  };
+  return Object.assign({}, option, tooltip, {
+    formatter: callback,
+  });
 };
 
 // 获取 X 轴配置
@@ -33,11 +42,6 @@ const getXAxis = function (xAxis: object, direction: Direction) {
 };
 
 // 获取 Y 轴配置
-// const getYAxis = function (yAxis: object[]) {
-//   return _.map(yAxis, (value: object) => toRaw(value));
-// };
-
-// 获取 Y 轴配置数据
 const getYAxisData = function (yAxisData: any[]) {
   return function (position: Position) {
     for (let i = 0; i < yAxisData.length; i++) {
@@ -159,33 +163,134 @@ const getLegend = function (legends: object[], direction: LegendDirection | bool
   return option;
 };
 
-// 处理单个数据
-const _getSeriesData = function (value: any) {
-  if (isObject(value)) {
-    return value;
-  }
-  return { value };
+// 设置 series Y轴参考位置
+const correctYaxisIndex = function (legends: LegendItem[]): any {
+  return function (index: number) {
+    const item = legends[index];
+    let value = 0;
+    if (item.position === Position.right) {
+      value = 1;
+    }
+    return Object.assign({}, item, { index: value });
+  };
 };
 
 // 获取 series 列表数据
-const getSeriesList = function (legends: object[], series: object[]): object[] {
-  const { data: legendList } = getLegend(legends);
-  const option: object[] = [];
-  _.forEach(legendList, function (item: object) {
-    const name = safeGet<string>(item, "name");
-    const legend = safeGet<LegendData>(item, "value") || {};
-    const index = legend.index;
-    const type: SeriesType = legend.type;
-    const position = legend.position;
-    const data = safeGet<any[]>(series, `${index}.data`) || [];
-    option.push({
-      name,
-      type,
-      yAxisIndex: position === Position.right ? 1 : 0,
-      data: _.map(data, (value: any) => _getSeriesData(value)),
-    });
-  });
-  return option;
+const getSeriesList = function (legends: LegendItem[], yAxisOption: object[], series: object[], props: any): object[] {
+  const getLegendItem = correctYaxisIndex(legends);
+  const seriesList = map((item: any, index: number) => {
+    const data = getLegendItem(index);
+    // 判断是否需要隐藏数据
+    if (!toBoolean(data.show)) {
+      return void 0;
+    }
+    const option: any = {
+      ...item,
+      name: data.value,
+      type: data.type,
+      connectNulls: true,
+      yAxisIndex: data.index,
+      label: {
+        show: false,
+      },
+      symbol: "none",
+    };
+    if (toBoolean(data.disabled)) {
+      option.data = [];
+    }
+
+    safeSet(option, "itemStyle.color", safeGet<string>(data, "itemStyle.color"));
+
+    if (data.type === SeriesType.line) {
+      // 线条平滑处理
+      option.smooth = true;
+      if (data.index === 1) {
+        // 右侧价格线删除渐变色
+        safeSet(option, "areaStyle", null);
+      }
+      safeSet(option, "itemStyle.borderWidth", 1);
+    } else {
+      // 取消阴影部分设置
+      safeSet(option, "areaStyle", null);
+    }
+    // 使用 Y 轴刻度为坐标参照时
+    if (data.index === 1) {
+      const autoColor = safeGet<string>(data, "itemStyle.color");
+      if (!autoColor) {
+        // 获取Y轴颜色
+        const color = safeGet(yAxisOption, "[1].axisLabel.textStyle.color");
+        safeSet(option, "itemStyle.color", color);
+      }
+    }
+    if (data.type === SeriesType.bar) {
+      // 柱状图最大宽度
+      option.barMaxWidth = 50;
+      const color = safeGet<string>(option, "itemStyle.color");
+      if (color) {
+        safeSet(option, "itemStyle.color", function (d: any) {
+          // 负数时强制设置为红色
+          if (d.value < 0) {
+            return layout.warn;
+          }
+          return color;
+        });
+      }
+    } else {
+      if (props.area && data.index !== 1) {
+        let areaColor = "rgba(43, 141, 255, 0.2)";
+        const color = safeGet<string>(option, "itemStyle.color");
+        if (color) {
+          areaColor = color;
+        }
+        safeSet(option, "areaStyle.normal.color", {
+          type: "linear",
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          global: false,
+          colorStops: [
+            {
+              offset: 0,
+              color: areaColor,
+            },
+            {
+              offset: 1,
+              color: "#fff",
+            },
+          ],
+        });
+      }
+    }
+    if (props.stack && data.position === Position.left) {
+      // 开启堆积图
+      option.stack = "stack";
+    }
+    if (props.log) {
+      option.data = map(function (item: any) {
+        const value: number = item.value;
+        if (value || value === 0) {
+          // @ts-ignore
+          let num: number;
+          const origin = value;
+          if (value > 0) {
+            num = Math.log10(value);
+          } else {
+            num = Math.abs(toNumber(value));
+            num = Math.log10(num) * -1;
+          }
+          return {
+            ...item,
+            value: num,
+            origin,
+          };
+        }
+        return item;
+      }, option.data);
+    }
+    return option;
+  }, series);
+  return compact(seriesList);
 };
 
 export const clacLegendBoxWidth = function (legends: object[]): number {
@@ -279,9 +384,9 @@ export const makeChart = function () {
       }
       return [];
     },
-    getYAxis: function (seriesList: object[], props: object) {
+    getYAxis: function (seriesList: object[], props?: object) {
       if (yAxis && yAxis.value && legend && legend.value) {
-        return getYAxis(yAxis.value, legend.value, seriesList, props);
+        return getYAxis(yAxis.value, legend.value, seriesList, props || {});
       }
       return [{ type: "value" }];
     },
@@ -297,9 +402,9 @@ export const makeChart = function () {
       }
       return {};
     },
-    getSeriesList: function () {
-      if (legend && legend.value && seriesList && seriesList.value) {
-        return getSeriesList(legend.value, seriesList.value);
+    getSeriesList: function (props?: object) {
+      if (legend && legend.value && seriesList && seriesList.value && yAxis && yAxis.value) {
+        return getSeriesList(legend.value, yAxis.value, seriesList.value, props || {});
       }
       return [];
     },
