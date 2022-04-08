@@ -1,3 +1,5 @@
+import { Callback } from "src/types/common/";
+
 // 设置网格线类型 dotted：虚线   solid:实线
 export const splitLine = function (type: "dotted" | "solid" | "dashed", show = false, color?: string) {
   const style: any = { type };
@@ -8,6 +10,26 @@ export const splitLine = function (type: "dotted" | "solid" | "dashed", show = f
     show, // 隐藏或显示
     lineStyle: style,
   };
+};
+
+export const tooltips = function (getModel?: Callback, unit?: string) {
+  const option: any = {
+    show: true,
+    padding: [8, 10, 8, 10],
+    trigger: "axis",
+    confine: true,
+    extraCssText: "z-index:21",
+    backgroundColor: "rgba(255, 255, 255, 0.8);",
+    textStyle: {
+      color: "black",
+    },
+    borderWidth: 1.5,
+    borderColor: "rgba(0, 0, 0, 0.06)",
+  };
+  if (getModel) {
+    option.formatter = (params: any) => getModel(params, unit);
+  }
+  return option;
 };
 
 export const yAxisKline = (yFormat?: any, min?: number, max?: number, unit = "") => {

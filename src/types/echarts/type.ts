@@ -64,6 +64,7 @@ export interface LegendData {
   show?: boolean;
   disabled: boolean;
   position?: Position;
+
   [key: string]: any;
 }
 
@@ -112,4 +113,29 @@ export class EchartData {
   series: SeriesMap = {};
   left?: string;
   right?: string;
+}
+
+export interface FormatterTemplate {
+  icon: string;
+  name: string;
+  value: string;
+}
+
+export interface FormatterParams {
+  // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）
+  value: number;
+  // 数据图形的颜色
+  color: string;
+  // 传入的原始数据项
+  data: SeriesItem;
+  // 数据展示类型
+  seriesType: SeriesType;
+  // x 轴几点名称
+  axisValue: string;
+  // 数据名称（图例名称）
+  seriesName: string;
+  // x 轴名称
+  name: string;
+  //链
+  chain: string;
 }
