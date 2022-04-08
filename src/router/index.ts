@@ -36,6 +36,10 @@ const routes = [
         path: config.E404,
         component: () => import("src/pages/e404/index.vue"),
       },
+      {
+        path: "/demo",
+        component: () => import("src/pages/demo/index.vue"),
+      },
     ],
   },
 ];
