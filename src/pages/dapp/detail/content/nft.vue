@@ -6,6 +6,7 @@ import { toNumberFormat, isAfter } from "src/utils";
 import { toUpper } from "ramda";
 import { timeValue, timeFormat } from "src/logic/dapp/index";
 import VRouter from "src/components/v/router.vue";
+import { ref } from "vue";
 
 const i18n = I18n();
 
@@ -17,31 +18,45 @@ defineProps({
     },
   },
 });
+
+const show_content = ref(false);
+const showClick = function () {
+  show_content.value = !show_content.value;
+};
 </script>
 
 <template>
   <div>
     <div class="mt-3 p-4 bg-global-topBg rounded-md">
       <!-- 标题 -->
-      <div class="flex items-center">
-        <DAppDetailState :start="data.nft.mint_start_at" :ended="data.nft.mint_end_at" />
-        <p class="text-kd16px22px text-global-highTitle font-medium font-kdFang ml-3">Mint</p>
-        <p class="h-4 mx-3 border-l border-sold border-global-highTitle border-opacity-6"></p>
-        <p class="flex items-center">
-          <IconFont type="icon-rili" class="text-global-highTitle text-opacity-45" size="16" />
-          <span class="ml-3 text-kd14px18px text-global-highTitle text-opacity-85 font-kdFang">{{ timeValue(data.nft.mint_start_at, data.nft.mint_end_at) }}</span>
-        </p>
+      <div class="flex items-center justify-between">
+        <div class="flex flex-col md:flex-row">
+          <div class="flex items-center">
+            <DAppDetailState :start="data.nft.mint_start_at" :ended="data.nft.mint_end_at" />
+            <p class="text-kd16px22px text-global-highTitle font-medium font-kdFang ml-3">Mint</p>
+          </div>
+          <div class="flex items-center mt-1.5 md:mt-0">
+            <p v-if="data.nft.mint_start_at || data.nft.mint_end_at" class="hidden md:block h-4 mx-3 border-l border-sold border-global-highTitle border-opacity-6"></p>
+            <p class="flex items-center">
+              <IconFont type="icon-rili" class="text-global-highTitle text-opacity-45" size="16" />
+              <span class="ml-3 text-kd14px18px text-global-highTitle text-opacity-85 font-kdFang">{{ timeValue(data.nft.mint_start_at, data.nft.mint_end_at) }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="w-6 h-6 bg-global-highTitle bg-opacity-6 rounded-md flex items-center justify-center cursor-pointer" @click="showClick()">
+          <IconFont :type="show_content ? 'icon-arrow-up' : 'icon-arrow-down'" class="text-global-highTitle text-opacity-85" size="16" />
+        </div>
       </div>
       <!-- 内容 -->
-      <div class="mt-5 flex justify-between">
+      <div class="flex flex-col md:flex-row justify-between overflow-hidden" :class="show_content ? 'h-0' : 'mt-5'">
         <!-- 描述 -->
         <div class="text-global-highTitle text-kd14px24px font-normal">
           <ui-markdown :value="data.participation" />
         </div>
         <!-- 倒计时/数据/按钮 -->
-        <div class="flex">
+        <div class="flex flex-col md:flex-row">
           <!-- 间隔线 -->
-          <div class="h-65 mx-8 border-l border-sold border-global-highTitle border-opacity-6"></div>
+          <div class="my-4 md:my-0 mx-0 md:mx-8 h-0 md:min-h-38 w-full md:w-0 border-t md:border-l border-sold border-global-highTitle border-opacity-6"></div>
           <!-- 倒计时 -->
           <div>
             <DAppDetailDate :start="data.nft.mint_start_at" :ended="data.nft.mint_end_at" />
@@ -73,8 +88,8 @@ defineProps({
               </li>
             </ul>
             <!-- 按钮 -->
-            <div class="flex mt-5">
-              <v-router class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="(data.participation_url || data.website) && data.logo ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
+            <div class="flex mt-5 justify-between">
+              <v-router class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.participation_url || data.website ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
                 <span class="text-kd16px22px text-global-darkblue font-medium font-kdFang">参与教程</span>
               </v-router>
               <v-router v-show="data.participation_url || data.website" class="block w-42.5 h-11 ml-2 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :href="data.participation_url || data.website" target="_blank">
