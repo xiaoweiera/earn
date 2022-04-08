@@ -72,9 +72,9 @@ const initValue = function () {
 };
 </script>
 <template>
-  <div>
-    <div v-if="discuss" class="mb-3 flex">
-      <UiRate class="w-70.5 h-45 mr-6" />
+  <div class="w-full">
+    <div v-if="discuss" class="mb-3 flex w-full h-45">
+      <UiRate class="w-70.5 h-full mr-6" />
       <CommentChat :id="projectId" class="flex-1" type="publish" @submit="submitBack" />
     </div>
     <div>

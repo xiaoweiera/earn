@@ -11,6 +11,7 @@ const activeValue = ref<number>(0);
 
 const detail: any = getInject("detailState");
 const setDetail: any = setInject("detailState");
+
 const tipState = reactive({ value: false });
 const props = defineProps({
   value: {
@@ -53,7 +54,7 @@ const onClick = async function (value: number) {
   } catch (e) {
     // todo
   } finally {
-    const result = detail.value;
+    const result = detail;
     const data = clone(result);
     if (!data.my_score) {
       safeSet(data, "clout", toInteger(data.clout) + 1);

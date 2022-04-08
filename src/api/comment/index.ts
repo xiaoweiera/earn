@@ -16,7 +16,6 @@ export default class extends ApiTemplate {
   //得到列表
   @tryError(DefaultValue([])) // 处理默认值
   @get(api.comment.list, 0, timeConfig) // 定义一个 get 请求
-  @userToken() // 不需要用户信息
   getCommentAndReply<T>(query: CommentModel): Promise<T> {
     const callback = function (data: object) {
       return safeGet(data, "results");
