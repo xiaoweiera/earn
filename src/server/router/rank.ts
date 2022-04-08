@@ -35,10 +35,11 @@ const Router = function () {
   router.get(config.rankDefi, rank.defi); // defi
   router.get(config.rankNft, rank.nft); // defi
 
-  router.get(`${config.rankDapp}/:id`, dApp.dAppDetail("dapp", true));
-  router.get(`${config.rankGame}/:id`, dApp.dAppDetail("game", true));
-  router.get(`${config.rankDefi}/:id`, dApp.dAppDetail("defi", true));
-  router.get(`${config.rankNft}/:id`, dApp.dAppDetail("nft", true));
+  // 排行榜详情
+  dApp.dAppDetail(router, config.rankDapp, "dapp", true);
+  dApp.dAppDetail(router, config.rankGame, "game", true);
+  dApp.dAppDetail(router, config.rankDefi, "defi", true);
+  dApp.dAppDetail(router, config.rankNft, "nft", true);
   return router;
 };
 

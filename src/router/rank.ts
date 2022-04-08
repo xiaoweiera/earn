@@ -27,20 +27,10 @@ const routes = [
     path: "/rank/:type/:id",
     component: () => import("src/pages/dapp/detail/index.vue"),
   },
-  /*
   {
-    path: `${router.rankGame}/:id`,
-    component: ()=> import("src/pages/dapp/detail/index.vue")
+    path: "/rank/:type/:id/:tab",
+    component: () => import("src/pages/dapp/detail/index.vue"),
   },
-  {
-    path: `${router.rankDefi}/:id`,
-    component: ()=> import("src/pages/dapp/detail/index.vue")
-  },
-  {
-    path: `${router.rankNft}/:id`,
-    component: ()=> import("src/pages/dapp/detail/index.vue")
-  },
-   */
 ];
 
 export default routes;
