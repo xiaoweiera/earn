@@ -6,6 +6,7 @@ import { redirect } from "src/controller/common/redirect";
 import type { Request, Response, NextFunction } from "express";
 import { Router as ExpressRouter } from "express";
 import { TabTypes } from "src/types/dapp/airdrop";
+import { ProjectType } from "src/types/dapp/data";
 
 const Router = function () {
   const router = ExpressRouter();
@@ -22,7 +23,10 @@ const Router = function () {
     if (igo) {
       // 兼容老项目，修正错误参数
       const query: object = _.omit(req.query, "isIgo");
-      redirect(req, res, req.path, { ...query, igo });
+      redirect(req, res, req.path, {
+        ...query,
+        igo,
+      });
     } else {
       return dApp.list(req, res);
     }
@@ -49,6 +53,7 @@ const Router = function () {
     return redirect(req, res, url, query);
   };
   router.get(config.airdrop, compatible);
+  router.get(`${config.airdrop}/discover`, compatible);
   router.get(`${config.airdrop}/list`, compatible);
   router.get(
     `${config.airdrop}/list/:name`,
@@ -65,6 +70,10 @@ const Router = function () {
     dApp.airdropList,
   );
 
+  // DApp 详情
+  dApp.dAppDetail(router, config.dapp, ProjectType.dapp);
+  dApp.dAppDetail(router, config.nft, ProjectType.nft);
+  dApp.dAppDetail(router, config.airdrop, ProjectType.airdrop);
   return router;
 };
 export default Router;

@@ -2,7 +2,7 @@
 import { ElOption, ElSelect, ElSwitch, ElInput } from "element-plus";
 import { GroupPosition, nftHeader, nftHeaderMobile } from "src/logic/rank/config";
 import Tabs from "src/pages/rank/tabs.vue";
-import Item from "src/pages/rank/nft/item.vue";
+import Item from "./item.vue";
 import Header from "src/pages/rank/tableHeader.vue";
 import I18n from "src/utils/i18n";
 import { ref, reactive, onMounted, watch } from "vue";
@@ -14,7 +14,6 @@ import { Model } from "src/logic/rank";
 import { useRoute } from "vue-router";
 import { getValue } from "src/utils/root/data";
 import { config as routerConfig } from "src/router/config";
-import { pageInfo } from "src/logic/rank/config";
 import _ from "lodash";
 const i18n = I18n();
 const isPc = ref(true);
@@ -77,7 +76,7 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div class="md:flex items-center">
+    <client-only class="md:flex items-center">
       <Tabs :key="chainKey" :position="GroupPosition.nftRank" :base-url="routerConfig.rankNft" />
       <div class="flex flex-1 justify-end rank-dapp">
         <client-only class="flex items-center xshidden md:mr-3">
@@ -97,7 +96,7 @@ onMounted(() => {
           </el-input>
         </client-only>
       </div>
-    </div>
+    </client-only>
     <!--    table-->
     <div class="table-container">
       <div class="pt-3 title-wrap">
@@ -109,9 +108,10 @@ onMounted(() => {
                   <!--        header-->
                   <div class="lg:w-full w-255">
                     <UiSticky v-if="isPc" active-class="table-box-title">
-                      <Header :header-data="nftHeader" :param="param" @onSort="onSort" />
+                      <Header :header-data="nftHeader" :param="param" @on-sort="onSort" />
                     </UiSticky>
-                    <Header v-else :header-data="nftHeaderMobile" :param="param" @onSort="onSort" />
+
+                    <Header v-else :header-data="nftHeaderMobile" :param="param" @on-sort="onSort" />
                     <!--        list-->
                     <div v-for="(item, i) in scope.list" :key="i">
                       <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? nftHeader : nftHeaderMobile" :i="i" :item="item" />

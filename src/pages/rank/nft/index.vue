@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { chainPage } from "src/logic/rank/config";
 import Chains from "src/pages/rank/chains.vue";
-import Table from "src/pages/rank/nft/table.vue";
+import Table from "./table.vue";
 import Info from "src/pages/rank/info.vue";
 import Ad from "src/pages/home/ad.vue";
 import CommonTopics from "src/pages/home/recommend.vue";

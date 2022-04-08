@@ -23,6 +23,10 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   const send = await Send(root, env);
   router.use(send);
 
+  router.get("/demo", function (req: Request, res: Response) {
+    res.send({});
+  });
+
   // 装载 DApp 相关路由
   router.use(dApp());
   // 封装 user 相关路由

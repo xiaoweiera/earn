@@ -10,7 +10,7 @@ import type { SiteConfig } from "src/types/common/chain";
 import * as alias from "src/utils/root/alias";
 import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router/";
-import { dateFormat, dateTime, dateYMDFormat, getDateMDY } from "src/utils/";
+import { dateFormat, dateTime, dateYMDFormat, getDateMDY, isAfter, dateDiffData, dateNow, getEnDateMDY } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
 import type * as logic from "src/types/dapp";
 import DBList from "@fengqiaogang/dblist";
@@ -345,4 +345,173 @@ export const nftTabs = function (): NftTabItem[] {
       },
     },
   ];
+};
+
+//计算时间
+export const timeValue = function (startAt?: string | number, startEnd?: string | number) {
+  const i18n = I18n();
+  if (startAt && startEnd) {
+    const start = getEnDateMDY(startAt);
+    const end = getEnDateMDY(startEnd);
+    // 如果项目未开始 (开始时间大于当前时间)
+    if (isAfter(startAt)) {
+      const diff = dateDiffData(dateNow(), startAt);
+      if (diff.day > 0) {
+        return `${start} - ${end}, ${i18n.template(i18n.common.time.countDown.started.day, {
+          count: diff.day,
+        })}`;
+      }
+      if (diff.hour > 0) {
+        return `${start} - ${end}, ${i18n.template(i18n.common.time.countDown.started.hour, {
+          count: diff.hour,
+        })}`;
+      }
+      if (diff.minute > 0) {
+        return `${start} - ${end}, ${i18n.template(i18n.common.time.countDown.started.minute, {
+          count: diff.minute,
+        })}`;
+      }
+    }
+    // 如果项目未结束 （结束时间大于当前时间）
+    if (isAfter(startEnd)) {
+      const diff = dateDiffData(dateNow(), startEnd);
+      if (diff.day > 0) {
+        return `${start} - ${end}, ${i18n.template(i18n.common.time.countDown.ended.day, {
+          count: diff.day,
+        })}`;
+      }
+      if (diff.hour > 0) {
+        return `${start} - ${end}, ${i18n.template(i18n.common.time.countDown.ended.hour, {
+          count: diff.hour,
+        })}`;
+      }
+      if (diff.minute > 0) {
+        return `${start} - ${end}, ${i18n.template(i18n.common.time.countDown.ended.minute, {
+          count: diff.minute,
+        })}`;
+      }
+    }
+    return `${start} - ${end}`;
+  }
+  // 有开始时间，无结束时间
+  if (startAt) {
+    // 开始时间大于当前时间
+    const start = getEnDateMDY(startAt);
+    // 如果项目未开始 (开始时间大于当前时间)
+    if (isAfter(startAt)) {
+      const diff = dateDiffData(dateNow(), startAt);
+      if (diff.day > 0) {
+        return `${start}, ${i18n.template(i18n.common.time.countDown.started.day, {
+          count: diff.day,
+        })}`;
+      }
+      if (diff.hour > 0) {
+        return `${start}, ${i18n.template(i18n.common.time.countDown.started.hour, {
+          count: diff.hour,
+        })}`;
+      }
+      if (diff.minute > 0) {
+        return `${start}, ${i18n.template(i18n.common.time.countDown.started.minute, {
+          count: diff.minute,
+        })}`;
+      }
+    }
+    return start;
+  }
+  // 有结束时间，无开始时间
+  if (startEnd) {
+    const end = getEnDateMDY(startEnd);
+    // 如果项目未结束 （结束时间大于当前时间）
+    if (isAfter(startEnd)) {
+      const diff = dateDiffData(dateNow(), startEnd);
+      if (diff.day > 0) {
+        return `${end}，${i18n.template(i18n.common.time.countDown.ended.minute, {
+          count: diff.day,
+        })}`;
+      }
+      if (diff.hour > 0) {
+        return `${end}，${i18n.template(i18n.common.time.countDown.ended.hour, {
+          count: diff.hour,
+        })}`;
+      }
+      if (diff.minute > 0) {
+        return `${end}，${i18n.template(i18n.common.time.countDown.ended.minute, {
+          count: diff.minute,
+        })}`;
+      }
+    }
+    return end;
+  }
+};
+
+// 开始与结束时间
+export const timeFormat = function (startTime?: string | number, endTime?: string | number) {
+  if (startTime && endTime) {
+    const start = getEnDateMDY(startTime);
+    const end = getEnDateMDY(endTime);
+    // 如果项目未开始 (开始时间大于当前时间)
+    if (isAfter(startTime)) {
+      const diff = dateDiffData(dateNow(), startTime);
+      if (diff.day > 0) {
+        return `${start} - ${end}`;
+      }
+      if (diff.hour > 0) {
+        return `${start} - ${end}`;
+      }
+      if (diff.minute > 0) {
+        return `${start} - ${end}`;
+      }
+    }
+    // 如果项目未结束 （结束时间大于当前时间）
+    if (isAfter(endTime)) {
+      const diff = dateDiffData(dateNow(), endTime);
+      if (diff.day > 0) {
+        return `${start} - ${end}`;
+      }
+      if (diff.hour > 0) {
+        return `${start} - ${end}`;
+      }
+      if (diff.minute > 0) {
+        return `${start} - ${end}`;
+      }
+    }
+    return `${start} - ${end}`;
+  }
+  // 有开始时间，无结束时间
+  if (startTime) {
+    // 开始时间大于当前时间
+    const start = getEnDateMDY(startTime);
+    // 如果项目未开始 (开始时间大于当前时间)
+    if (isAfter(startTime)) {
+      const diff = dateDiffData(dateNow(), startTime);
+      if (diff.day > 0) {
+        return `${start}`;
+      }
+      if (diff.hour > 0) {
+        return `${start}`;
+      }
+      if (diff.minute > 0) {
+        return `${start}`;
+      }
+    }
+    return start;
+  }
+  // 有结束时间，无开始时间
+  if (endTime) {
+    const end = getEnDateMDY(endTime);
+    // 如果项目未结束 （结束时间大于当前时间）
+    if (isAfter(endTime)) {
+      const diff = dateDiffData(dateNow(), endTime);
+      if (diff.day > 0) {
+        return `${end}`;
+      }
+      if (diff.hour > 0) {
+        return `${end}`;
+      }
+      if (diff.minute > 0) {
+        return `${end}`;
+      }
+    }
+    return end;
+  }
 };

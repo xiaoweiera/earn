@@ -126,7 +126,7 @@ export const isElement = function (value: any) {
   if (isEmpty(value) || isString(value) || isNumber(value) || isArray(value)) {
     return false;
   }
-  return !!(value && value.activeElement);
+  return !!(value && value.addEventListener);
 };
 
 export const Equals = function (...args: Array<string | number>): boolean {

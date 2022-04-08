@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
 import * as track from "src/logic/track";
 import * as alias from "src/utils/root/alias";
@@ -150,6 +151,27 @@ const getFilter = function (data: any) {
     }
   }
 };
+
+const itemTransform = function (list: object[]): object[] {
+  if (list && igo.value) {
+    return list.map(function (item): any {
+      const url = safeGet<string>(item, "url");
+      if (url) {
+        return {
+          ...item,
+          url: {
+            path: url,
+            query: {
+              igo: true,
+            },
+          },
+        };
+      }
+      return item;
+    });
+  }
+  return list;
+};
 </script>
 <template>
   <div class="discover-warp px-3 md:px-22.5">
@@ -175,11 +197,11 @@ const getFilter = function (data: any) {
       <div v-if="list.length > 0" class="py-8">
         <div v-if="query.type === TabTypes.ended" class="overflow-x-scroll showX">
           <div class="w-315">
-            <DAppDiscoversEndlist :params="params" class="px-4" :list="list" @change-sort="changeSort" />
+            <DAppDiscoversEndlist :params="params" class="px-4" :list="itemTransform(list)" @change-sort="changeSort" />
           </div>
         </div>
         <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <DAppDiscoversList v-for="(item, index) in list" :key="index" :status="params.status" :data="item" />
+          <DAppDiscoversList v-for="(item, index) in itemTransform(list)" :key="index" :status="params.status" :data="item" />
         </div>
       </div>
       <div v-else-if="!loading">

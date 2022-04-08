@@ -39,7 +39,7 @@ export const userInfo = async function (req: Request, res: Response) {
 export const userLogout = function (req: Request, res: Response) {
   const cookie = new Cookie(req, res);
   cookie.removeUserToken();
-  redirect(req, res, dashboard);
+  res.redirect("back");
 };
 
 // 前置，如果用户已登录，则跳转走

@@ -1,7 +1,12 @@
 import safeGet from "@fengqiaogang/safe-get";
+import safeSet from "@fengqiaogang/safe-set";
+import API from "src/api";
+import type { Router } from "express";
 import { Model } from "src/logic/dapp";
 import { Model as InvestModel } from "src/logic/dapp/invest";
 import type { Request, Response } from "express";
+import type { DAppProject } from "src/types/dapp/data";
+import { TabName, ProjectType } from "src/types/dapp/data";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
@@ -11,7 +16,7 @@ export const list = async function (req: Request, res: Response) {
   // 判断当前是否为 igo
   const is_igo = safeGet<string>(req, "query.igo") || safeGet<string>(req, "query.isIgo");
   if (is_igo) {
-    res.locals.menuActive = names.dapp.gamefi;
+    res.locals.menuActive = names.dapp.igo;
   } else {
     res.locals.menuActive = names.dapp.dapp;
   }
@@ -23,7 +28,10 @@ export const list = async function (req: Request, res: Response) {
   const sort_type = req.query.sort_type as string;
   const paginate = true;
   const search = req.query.search as string;
-  const params = { page: 1, page_size: 16 };
+  const params = {
+    page: 1,
+    page_size: 16,
+  };
   const projectParams = {
     page: params.page,
     page_size: params.page_size,
@@ -55,7 +63,10 @@ export const nftList = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   res.locals.menuActive = names.dapp.nft;
-  const query: any = { ...req.query, paginate: true };
+  const query: any = {
+    ...req.query,
+    paginate: true,
+  };
   if (!query.status) {
     query.status = "upcoming";
   }
@@ -87,8 +98,14 @@ export const airdropList = async function (req: Request, res: Response) {
 export const investList = async function (req: Request, res: Response) {
   const api = new InvestModel(req);
   res.locals.menuActive = names.dapp.invest;
-  const query: any = { ...req.query, paginate: true };
-  const params: any = { ...req.query, paginate: true };
+  const query: any = {
+    ...req.query,
+    paginate: true,
+  };
+  const params: any = {
+    ...req.query,
+    paginate: true,
+  };
   const [project, funds] = await Promise.all([api.getProjectsList(query), api.getFundsList(params)]);
   const result = {
     [alias.invest.list.projects]: project, // 投融资项目
@@ -105,4 +122,69 @@ export const investDetail = async function (req: Request, res: Response) {
     description: i18n.home.webNft.des,
   };
   res.send(result);
+};
+
+/**
+ * 项目库详情
+ * @param router 路由
+ * @param path 路径
+ * @param type 项目类型
+ * @param rank 是否属于排行榜
+ */
+export const dAppDetail = function (router: Router, path: string, type: ProjectType, rank = false) {
+  const detail = async function (req: Request, res: Response) {
+    const project = {
+      type,
+      rank,
+      tab: TabName.dashboard,
+    } as DAppProject;
+    if (rank) {
+      switch (type) {
+      case ProjectType.nft:
+        res.locals.menuActive = names.rank.nft;
+        break;
+      case ProjectType.defi:
+        res.locals.menuActive = names.rank.defi;
+        break;
+      case ProjectType.game:
+        res.locals.menuActive = names.rank.gamefi;
+        break;
+      case ProjectType.dapp:
+        res.locals.menuActive = names.rank.dapp;
+        break;
+      }
+    } else {
+      switch (type) {
+      case ProjectType.nft:
+        res.locals.menuActive = names.dapp.nft;
+        break;
+      case ProjectType.airdrop:
+        res.locals.menuActive = names.dapp.airdrop;
+        break;
+      case ProjectType.dapp:
+        if (safeGet(req.query, ProjectType.igo)) {
+          safeSet(project, "type", ProjectType.igo);
+          res.locals.menuActive = names.dapp.igo;
+        } else {
+          res.locals.menuActive = names.dapp.dapp;
+        }
+        break;
+      }
+    }
+
+    req.params = Object.assign(project, req.params || {});
+
+    const result: object = {};
+    const id = safeGet<string | number>(req.params, "id");
+    if (id) {
+      const api = new API(req);
+      const data = await api.dApp.getDetail(id);
+      Object.assign(result, {
+        [alias.dApp.detail]: data,
+      });
+    }
+    res.send(result);
+  };
+  router.get(`${path}/:id`, detail);
+  router.get(`${path}/:id/:tab`, detail);
 };

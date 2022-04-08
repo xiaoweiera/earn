@@ -41,6 +41,7 @@ export const dApp = {
   airdrop: {
     ongoing: "Api.dApp.airdrop",
   },
+  detail: "api.dApp.getDetail",
 };
 
 export const nft = {
@@ -65,4 +66,7 @@ export const rank = {
   groups: "API.Rank.groups",
   dappList: "API.Rank.dappList",
   nftList: "API.Rank.nftList",
+};
+export const comment = {
+  list: "API.Comment.list",
 };

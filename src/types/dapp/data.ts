@@ -3,10 +3,37 @@
  * @author svon.me@gmail.com
  */
 
+export enum TabName {
+  dashboard = "dashboard",
+  project = "project",
+  reviews = "reviews",
+  twitter = "twitter",
+  nft = "nft",
+  airdrop = "airdrops",
+}
+
 export enum DataType {
   ido = "ido",
   nft = "nft",
-  airdrop = "airdrop",
+  airdrop = "airdrops",
+}
+
+export enum ProjectType {
+  dapp = "dapp",
+  ido = "ido",
+  igo = "igo",
+  nft = "nft",
+  game = "game",
+  defi = "defi",
+  airdrop = "airdrops",
+}
+
+export interface DAppProject {
+  type: ProjectType; // 项目类型
+  rank: boolean; // 是否为排行榜
+  id: string | number; // 项目id
+  tab: TabName; // tab 名称
+  [key: string]: any;
 }
 
 // 社交媒体数据

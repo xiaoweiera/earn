@@ -182,3 +182,14 @@ export const dateAdd = function (time: any, interval?: string) {
   const { number, type } = convertInterval(interval);
   return dateTime(date.add(number, type as any).valueOf());
 };
+
+// 得到年月日 区分中英文
+export const getEnDateMDY = (t: string | number) => {
+  const i18n = I18n();
+  if (i18n.getLang() === Language.en) {
+    // @ts-ignore
+    return `${monthEnName[dateMonthFormat(t)]} ${dateDayFormat(t)},${dateYearFormat(t)}`;
+  } else {
+    return dateFormat(t, "YYYY.MM.DD");
+  }
+};

@@ -198,4 +198,9 @@ export default {
     desc: "评分成功！去给更多榜单项目打分吧~",
     go: "去看看",
   },
+  detail: {
+    upcoming: "即将开始",
+    ongoing: "进行中",
+    ended: "已结束",
+  },
 };
