@@ -7,6 +7,7 @@
 
 import type { Ref, UnwrapNestedRefs } from "vue";
 import { watch as VueWatch, inject, provide, reactive, ref } from "vue";
+
 export * as stateAlias from "./alias";
 
 type SetState = (value?: any) => void;
@@ -14,15 +15,15 @@ type Watch = (value?: any) => void;
 
 const cache = new Set<string>();
 
-const makeName = function(value: string): string {
+const makeName = function (value: string): string {
   return value;
 };
 
 // 创建 Ref 数据
-export const useRefProvide = function <T>(name: string, value?: T, watch?: Watch): [ Ref<T>, SetState ] {
+export const useRefProvide = function <T>(name: string, value?: T, watch?: Watch): [Ref<T>, SetState] {
   const key = makeName(name);
   const state = value ? ref<T | undefined>(value) : ref<T>();
-  const setState = function(data?: T) {
+  const setState = function (data?: T) {
     state.value = data;
     if (watch) {
       watch(state);
@@ -34,12 +35,12 @@ export const useRefProvide = function <T>(name: string, value?: T, watch?: Watch
   return [state as Ref<T>, setState];
 };
 // 创建 Reactive 数据
-export const useReactiveProvide = function <T>(name: string, value?: T, watch?: Watch): [ UnwrapNestedRefs<T>, SetState ] {
+export const useReactiveProvide = function <T>(name: string, value?: T, watch?: Watch): [UnwrapNestedRefs<T>, SetState] {
   const key = makeName(name);
   // @ts-ignore
-  const state = reactive<T>(value || {} as T);
+  const state = reactive<T>(value || ({} as T));
 
-  const setState = function(data?: T) {
+  const setState = function (data?: T) {
     if (data) {
       for (const key in data) {
         // @ts-ignore
@@ -63,7 +64,7 @@ export const useReactiveProvide = function <T>(name: string, value?: T, watch?: 
   return [state as UnwrapNestedRefs<T>, setState];
 };
 
-export const useWatch = function<T>(state: Ref<T> | UnwrapNestedRefs<T>, watch?: Watch) {
+export const useWatch = function <T>(state: Ref<T> | UnwrapNestedRefs<T>, watch?: Watch) {
   if (state && watch) {
     VueWatch(state as any, () => {
       watch(state);
@@ -71,7 +72,7 @@ export const useWatch = function<T>(state: Ref<T> | UnwrapNestedRefs<T>, watch?:
   }
 };
 
-export const hasState = function(name: string): boolean {
+export const hasState = function (name: string): boolean {
   const key = makeName(name);
   return cache.has(key);
 };
@@ -97,9 +98,15 @@ export const getReactiveInject = function <T>(name: string): UnwrapNestedRefs<T>
 };
 
 // 获取修改数据的钩子函数
-export const setInject = function(name: string): SetState | undefined {
+export const setInject = function (name: string): SetState {
   if (hasState(name)) {
     const key = makeName(name);
-    return inject<SetState>(key);
+    const value = inject<SetState>(key);
+    if (value) {
+      return value;
+    }
   }
+  return function () {
+    // todo;
+  };
 };
