@@ -109,5 +109,6 @@ a {
 .blog-content {
   img {
     @apply block w-full;
+    max-width: 100% !important;
   }
 }
