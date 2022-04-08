@@ -66,10 +66,9 @@ const Router = function () {
   );
 
   // DApp 详情
-  router.get(`${config.dapp}/:id`, dApp.dAppDetail("dapp"));
-  router.get(`${config.nft}/:id`, dApp.dAppDetail("nft"));
-  router.get(`${config.airdrop}/:id`, dApp.dAppDetail("airdrop"));
-
+  dApp.dAppDetail(router, config.dapp, "dapp");
+  dApp.dAppDetail(router, config.nft, "nft");
+  dApp.dAppDetail(router, config.airdrop, "airdrop");
   return router;
 };
 export default Router;

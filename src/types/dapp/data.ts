@@ -3,6 +3,15 @@
  * @author svon.me@gmail.com
  */
 
+export enum TabName {
+  dashboard = "dashboard",
+  project = "project",
+  reviews = "reviews",
+  twitter = "twitter",
+  ido = "ido",
+  mint = "mint",
+}
+
 export enum DataType {
   ido = "ido",
   nft = "nft",
@@ -23,6 +32,7 @@ export interface DAppProject {
   type: ProjectType; // 项目类型
   rank: boolean; // 是否为排行榜
   id: string | number; // 项目id
+  tab: TabName; // tab 名称
   [key: string]: any;
 }
 

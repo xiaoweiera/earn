@@ -1,10 +1,12 @@
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
 import API from "src/api";
+import type { Router } from "express";
 import { Model } from "src/logic/dapp";
 import { Model as InvestModel } from "src/logic/dapp/invest";
 import type { Request, Response } from "express";
-import type { DAppProject, ProjectType } from "src/types/dapp/data";
+import type { DAppProject } from "src/types/dapp/data";
+import { TabName, ProjectType } from "src/types/dapp/data";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
@@ -124,41 +126,44 @@ export const investDetail = async function (req: Request, res: Response) {
 
 /**
  * 项目库详情
+ * @param router 路由
+ * @param path 路径
  * @param type 项目类型
  * @param rank 是否属于排行榜
  */
-export const dAppDetail = function (type: string | ProjectType, rank = false) {
-  return async function (req: Request, res: Response) {
+export const dAppDetail = function (router: Router, path: string, type: string | ProjectType, rank = false) {
+  const detail = async function (req: Request, res: Response) {
     const project = {
       type,
       rank,
+      tab: TabName.dashboard,
     } as DAppProject;
     if (rank) {
       switch (type) {
-      case "nft":
+      case ProjectType.nft:
         res.locals.menuActive = names.rank.nft;
         break;
-      case "defi":
+      case ProjectType.defi:
         res.locals.menuActive = names.rank.defi;
         break;
-      case "game":
+      case ProjectType.game:
         res.locals.menuActive = names.rank.gamefi;
         break;
-      case "dapp":
+      case ProjectType.dapp:
         res.locals.menuActive = names.rank.dapp;
         break;
       }
     } else {
       switch (type) {
-      case "nft":
+      case ProjectType.nft:
         res.locals.menuActive = names.dapp.nft;
         break;
-      case "airdrop":
+      case ProjectType.airdrop:
         res.locals.menuActive = names.dapp.airdrop;
         break;
-      case "dapp":
-        if (safeGet(req.query, "igo")) {
-          safeSet(project, "type", "igo");
+      case ProjectType.dapp:
+        if (safeGet(req.query, ProjectType.igo)) {
+          safeSet(project, "type", ProjectType.igo);
           res.locals.menuActive = names.dapp.igo;
         } else {
           res.locals.menuActive = names.dapp.dapp;
@@ -180,4 +185,6 @@ export const dAppDetail = function (type: string | ProjectType, rank = false) {
     }
     res.send(result);
   };
+  router.get(`${path}/:id`, detail);
+  router.get(`${path}/:id/:tab`, detail);
 };

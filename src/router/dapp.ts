@@ -27,11 +27,23 @@ const routes = [
     component: () => import("src/pages/dapp/detail/index.vue"),
   },
   {
+    path: `${router.dapp}/:id/:tab`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
     path: `${router.nft}/:id`,
     component: () => import("src/pages/dapp/detail/index.vue"),
   },
   {
+    path: `${router.nft}/:id/:tab`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
     path: `${router.airdrop}/:id`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: `${router.airdrop}/:id/:tab`,
     component: () => import("src/pages/dapp/detail/index.vue"),
   },
 ];
