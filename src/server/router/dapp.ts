@@ -22,7 +22,10 @@ const Router = function () {
     if (igo) {
       // 兼容老项目，修正错误参数
       const query: object = _.omit(req.query, "isIgo");
-      redirect(req, res, req.path, { ...query, igo });
+      redirect(req, res, req.path, {
+        ...query,
+        igo,
+      });
     } else {
       return dApp.list(req, res);
     }
@@ -49,6 +52,7 @@ const Router = function () {
     return redirect(req, res, url, query);
   };
   router.get(config.airdrop, compatible);
+  router.get(`${config.airdrop}/discover`, compatible);
   router.get(`${config.airdrop}/list`, compatible);
   router.get(
     `${config.airdrop}/list/:name`,
