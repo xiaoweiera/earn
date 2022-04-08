@@ -76,7 +76,7 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div class="md:flex items-center">
+    <client-only class="md:flex items-center">
       <Tabs :key="chainKey" :position="GroupPosition.nftRank" :base-url="routerConfig.rankNft" />
       <div class="flex flex-1 justify-end rank-dapp">
         <client-only class="flex items-center xshidden md:mr-3">
@@ -96,7 +96,7 @@ onMounted(() => {
           </el-input>
         </client-only>
       </div>
-    </div>
+    </client-only>
     <!--    table-->
     <div class="table-container">
       <div class="pt-3 title-wrap">

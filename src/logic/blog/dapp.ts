@@ -40,9 +40,9 @@ export const getDAppData = function (data?: DAppData): blogDAppData | undefined 
     return {
       ...data,
       url: `${routerConfig.dapp}/${data.id}`,
-      total: "$" + toNumberCash(price), // 价格
+      total: toNumberCash(price, "", "$"), // 价格
       totalText: i18n.dapp.project.idoPrice,
-      people: toNumberCash(goal), // 目标
+      people: toNumberCash(goal, "", "$"), // 目标
       peopleText: i18n.dapp.project.fundraising, // 筹款目标
       time, //时间
       timeText: "IDO Time",
@@ -58,9 +58,9 @@ export const getDAppData = function (data?: DAppData): blogDAppData | undefined 
     return {
       ...data,
       url: `${routerConfig.nft}/${data.id}`,
-      total: unit ? `${toNumberCash(price)} ${unit}` : toNumberCash(price), // 价格
+      total: toNumberCash(price, unit), // 价格
       totalText: i18n.nft.project.price,
-      people: toNumberCash(goal), // 目标
+      people: toNumberCash(goal, unit), // 目标
       peopleText: i18n.nft.project.supply, // 总量
       time, //时间
       timeText: "Mint Time",

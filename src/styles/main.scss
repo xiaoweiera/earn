@@ -107,6 +107,10 @@ a {
 .w-fit {
   width: fit-content;
 }
-.dom-no{
-  display: none;
+
+.blog-content {
+  img {
+    @apply block w-full;
+    max-width: 100% !important;
+  }
 }
