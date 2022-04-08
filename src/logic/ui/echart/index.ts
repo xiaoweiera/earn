@@ -11,7 +11,8 @@ import { calcYAxis } from "src/logic/ui/echart/series";
 import { layout } from "src/types/echarts/colors";
 import type { Callback } from "src/types/common/";
 import * as logicToolTip from "./tooltip";
-import { getReactiveInject, getRefInject } from "src/utils/use/state";
+import * as svg from "./svg";
+import { getReactiveInject, getRefInject, setInject } from "src/utils/use/state";
 import { xAxis as makeXAxisOption, yAxisKline as makeYAxisOption, tooltips as makeTooltipOption } from "./option";
 import { toArray, compact, flatten, map, forEach, toBoolean, toNumber, numberUint } from "src/utils";
 import { EchartsOptionName, SeriesType, Position, LegendDirection, GridModel, Direction, LegendItem } from "src/types/echarts/type";
@@ -128,18 +129,35 @@ export const getYAxis = function (yAxisData: object[], legends: LegendItem[], se
 };
 
 // 获取图例配置
-const getLegend = function (legends: object[], direction: LegendDirection | boolean = LegendDirection.bottom) {
+const getLegend = function (yAxisData: object[], legends: LegendItem[], direction: LegendDirection | boolean = LegendDirection.bottom) {
+  const getYAxisValue = getYAxisData(yAxisData);
   const data: object[] = [];
   const selected: object = {};
-  _.forEach(legends, function (item: object) {
+  _.forEach(legends, function (item: LegendItem) {
     const name = safeGet<string>(item, "name");
     const disabled = safeGet<boolean>(item, "disabled");
-    if (name) {
+    if (name && item.show) {
       safeSet(selected, name, !disabled);
-      data.push({
+      // @ts-ignore
+      const code = svg.source[item.type];
+      const { itemStyle } = item;
+      const opt = {
         name,
         value: toRaw(item),
-      });
+        icon: `path://${code}`,
+      };
+      if (itemStyle) {
+        Object.assign(opt, { itemStyle });
+      }
+      if (item.position === Position.right) {
+        const autoColor = safeGet(item, "itemStyle.color");
+        if (!autoColor) {
+          const yAxis = getYAxisValue(Position.right) || {};
+          const color = safeGet(yAxis, "axisLabel.textStyle.color");
+          safeSet(opt, "itemStyle.color", color);
+        }
+      }
+      data.push(opt);
     }
   });
 
@@ -167,29 +185,30 @@ const getLegend = function (legends: object[], direction: LegendDirection | bool
 const correctYaxisIndex = function (legends: LegendItem[]): any {
   return function (index: number) {
     const item = legends[index];
-    let value = 0;
+    let yAxisIndex = 0;
     if (item.position === Position.right) {
-      value = 1;
+      yAxisIndex = 1;
     }
-    return Object.assign({}, item, { index: value });
+    return Object.assign({}, item, { yAxisIndex });
   };
 };
 
 // 获取 series 列表数据
 const getSeriesList = function (legends: LegendItem[], yAxisOption: object[], series: object[], props: any): object[] {
   const getLegendItem = correctYaxisIndex(legends);
-  const seriesList = map((item: any, index: number) => {
+  const seriesList = map((item: object, index: number) => {
     const data = getLegendItem(index);
     // 判断是否需要隐藏数据
     if (!toBoolean(data.show)) {
       return void 0;
     }
+    const name = safeGet<string>(data, "name") || safeGet<string>(data, "value");
     const option: any = {
       ...item,
-      name: data.value,
+      name,
       type: data.type,
       connectNulls: true,
-      yAxisIndex: data.index,
+      yAxisIndex: data.yAxisIndex,
       label: {
         show: false,
       },
@@ -367,10 +386,19 @@ export const getGrid = function (direction: LegendDirection | boolean, dom: HTML
 
 export const makeChart = function () {
   const legend = getRefInject<LegendItem[]>(EchartsOptionName.legend);
+  const setLegend = setInject(EchartsOptionName.legend);
+
   const tooltip = getReactiveInject<object>(EchartsOptionName.tooltip);
+  const setTooltip = setInject(EchartsOptionName.tooltip);
+
   const xAxis = getReactiveInject<object>(EchartsOptionName.xAxis);
+  const setXAxis = setInject(EchartsOptionName.xAxis);
+
   const yAxis = getRefInject<object[]>(EchartsOptionName.yAxis);
+  const setYAxis = setInject(EchartsOptionName.yAxis);
+
   const seriesList = getRefInject<object[]>(EchartsOptionName.series);
+  const setSeriesList = setInject(EchartsOptionName.series);
 
   return {
     tooltip,
@@ -378,6 +406,11 @@ export const makeChart = function () {
     yAxis,
     legend,
     seriesList,
+    setLegend,
+    setTooltip,
+    setXAxis,
+    setYAxis,
+    setSeriesList,
     getXAxis: function (direction: Direction) {
       if (xAxis) {
         return getXAxis(toRaw<object>(xAxis), direction);
@@ -397,8 +430,8 @@ export const makeChart = function () {
       return {};
     },
     getLegend: function (direction: LegendDirection | boolean) {
-      if (legend && legend.value) {
-        return getLegend(legend.value, direction);
+      if (yAxis && yAxis.value && legend && legend.value) {
+        return getLegend(yAxis.value, legend.value, direction);
       }
       return {};
     },
