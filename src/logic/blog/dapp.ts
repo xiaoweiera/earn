@@ -7,7 +7,7 @@ import type { DAppData, blogDAppData } from "src/types/dapp/data";
 import { DataType } from "src/types/dapp/data";
 import I18n from "src/utils/i18n";
 import safeGet from "@fengqiaogang/safe-get";
-import { dateYMDFormat, toNumberCash } from "src/utils/";
+import { dateYMDFormat, toNumberCash, toNumberCashFormat } from "src/utils/";
 import { config as routerConfig } from "src/router/config";
 
 export const getDAppData = function (data?: DAppData): blogDAppData | undefined {
@@ -22,9 +22,9 @@ export const getDAppData = function (data?: DAppData): blogDAppData | undefined 
     return {
       ...data,
       url: `${routerConfig.airdrop}/${data.id}`,
-      total: toNumberCash(count), // 总量
+      total: toNumberCashFormat(count), // 总量
       totalText: i18n.airdrop.content.amount,
-      people: toNumberCash(amount), // 名额
+      people: toNumberCashFormat(amount), // 名额
       peopleText: i18n.airdrop.content.quota, //
       time, //时间
       timeText: "Airdrop Time",
@@ -42,7 +42,7 @@ export const getDAppData = function (data?: DAppData): blogDAppData | undefined 
       url: `${routerConfig.dapp}/${data.id}`,
       total: "$" + toNumberCash(price), // 价格
       totalText: i18n.dapp.project.idoPrice,
-      people: toNumberCash(goal), // 目标
+      people: "$" + toNumberCash(goal), // 目标
       peopleText: i18n.dapp.project.fundraising, // 筹款目标
       time, //时间
       timeText: "IDO Time",
@@ -58,9 +58,9 @@ export const getDAppData = function (data?: DAppData): blogDAppData | undefined 
     return {
       ...data,
       url: `${routerConfig.nft}/${data.id}`,
-      total: unit ? `${toNumberCash(price)} ${unit}` : toNumberCash(price), // 价格
+      total: unit ? toNumberCashFormat(price, unit) : toNumberCashFormat(price), // 价格
       totalText: i18n.nft.project.price,
-      people: toNumberCash(goal), // 目标
+      people: toNumberCashFormat(goal), // 目标
       peopleText: i18n.nft.project.supply, // 总量
       time, //时间
       timeText: "Mint Time",
