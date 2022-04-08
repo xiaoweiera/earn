@@ -118,12 +118,12 @@ const submit = async () => {
 </script>
 <template>
   <div class="w-full h-full">
-    <div :class="bgColor()" class="w-full h-full relative p-4 rounded-kd6px showY" @click.stop="selectEmoji('')">
-      <div v-if="type !== 'publish'" class="text-kd12px16px hand text-global-highTitle text-opacity-45 mb-1.5">{{ i18n.comment.reply }}@{{ userName }}</div>
-      <div ref="contentDom">
+    <div :class="bgColor()" class="w-full h-full relative py-4 rounded-kd6px showY" @click.stop="selectEmoji('')">
+      <div v-if="type !== 'publish'" class="text-kd12px16px px-4 hand text-global-highTitle text-opacity-45 mb-1.5">{{ i18n.comment.reply }}@{{ userName }}</div>
+      <div ref="contentDom" class="px-4">
         <el-input ref="inputText" v-model="v" type="textarea" :placeholder="models.placeholder" />
       </div>
-      <div class="bottom-4 absolute w-full">
+      <div class="bottom-4 absolute w-full px-4">
         <div class="w-full flex items-center justify-between">
           <div class="flex items-center">
             <v-login :class="`${submitState}`" class="w-fit text-12-16 hand" @click.stop="submit()">{{ models.button }}</v-login>
@@ -177,6 +177,9 @@ const submit = async () => {
     padding-right: 10px !important;
     @apply h-13 px-4 p-0 text-global-hightTitle bg-global-white text-opacity-45;
   }
+}
+textarea {
+  outline: none !important;
 }
 
 ::v-deep(.el-textarea__inner) {
