@@ -4,6 +4,7 @@ import DAppDetailState from "src/pages/dapp/detail/content/state.vue";
 import I18n from "src/utils/i18n";
 import { timeValue, timeFormat, getClassColor } from "src/logic/dapp/index";
 import { toNumberCashFormat } from "src/utils";
+import IconFont from "src/components/icon/font.vue";
 
 const i18n = I18n();
 
@@ -22,14 +23,19 @@ const price_unit = "$";
   <div>
     <div v-if="data" class="mt-3 p-4 bg-global-topBg rounded-md">
       <!-- 标题 -->
-      <div v-if="data.ido" class="flex items-center">
-        <DAppDetailState :start="data.ido.ido_start_at" :ended="data.ido.ido_end_at" />
-        <p class="text-kd16px22px text-global-highTitle font-medium font-kdFang ml-3">IDO</p>
-        <p class="h-4 mx-3 border-l border-sold border-global-highTitle border-opacity-6"></p>
-        <p class="flex items-center">
-          <IconFont type="icon-rili" class="text-global-highTitle text-opacity-45" size="16" />
-          <span class="ml-3 text-kd14px18px text-global-highTitle text-opacity-85 font-kdFang">{{ timeValue(data.ido.ido_start_at, data.ido.ido_end_at) }}</span>
-        </p>
+      <div v-if="data.ido" class="flex items-center justify-between">
+        <div class="flex items-center">
+          <DAppDetailState :start="data.ido.ido_start_at" :ended="data.ido.ido_end_at" />
+          <p class="text-kd16px22px text-global-highTitle font-medium font-kdFang ml-3">IDO</p>
+          <p class="h-4 mx-3 border-l border-sold border-global-highTitle border-opacity-6"></p>
+          <p class="flex items-center">
+            <IconFont type="icon-rili" class="text-global-highTitle text-opacity-45" size="16" />
+            <span class="ml-3 text-kd14px18px text-global-highTitle text-opacity-85 font-kdFang">{{ timeValue(data.ido.ido_start_at, data.ido.ido_end_at) }}</span>
+          </p>
+        </div>
+        <div class="w-6 h-6 bg-global-highTitle bg-opacity-6 rounded-md flex items-center justify-center cursor-pointer">
+          <IconFont type="icon-arrow-up" class="text-global-highTitle text-opacity-85" size="16" />
+        </div>
       </div>
       <!-- 内容 -->
       <div class="mt-5 flex justify-between">
