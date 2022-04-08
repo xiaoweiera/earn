@@ -37,7 +37,7 @@ const getOption = function (dom: HTMLElement) {
   const legend = chart.getLegend(props.legend);
   const list = safeGet<object[]>(legend, "data") || [];
 
-  const series = chart.getSeriesList();
+  const series = chart.getSeriesList(props);
 
   const xAxis = chart.getXAxis(props.direction);
   const yAxis = chart.getYAxis(series, props);
