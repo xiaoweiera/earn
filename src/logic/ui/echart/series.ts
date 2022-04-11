@@ -107,7 +107,7 @@ export const getInterval = function (detail: { [key: string]: object }): string 
 export const calcDates = function (trends: { [key: string]: Trend }, interval?: string): XAxisItem[] {
   const db = new DBList([], "key");
   // 整合数据
-  forEach(function (list: number[][], id: string) {
+  forEach(function (list: number[][]) {
     forEach(function (item: number[]) {
       const time = dateTime(item[0]);
       const date = makeDateKey(time, interval);

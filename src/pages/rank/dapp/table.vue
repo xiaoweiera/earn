@@ -121,9 +121,9 @@ onMounted(() => {
                     <!--        header-->
                     <div class="lg:w-full w-255">
                       <UiSticky v-if="isPc" active-class="table-box-title">
-                        <Header :header-data="dappHeader" :param="param" @onSort="onSort" />
+                        <Header :header-data="dappHeader" :param="param" @on-sort="onSort" />
                       </UiSticky>
-                      <Header v-else :header-data="dappHeaderMobile" :param="param" @onSort="onSort" />
+                      <Header v-else :header-data="dappHeaderMobile" :param="param" @on-sort="onSort" />
                       <!--        list-->
                       <div v-for="(item, i) in scope.list" :key="i">
                         <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />

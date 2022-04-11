@@ -2,7 +2,6 @@
 import I18n from "src/utils/i18n";
 import { onMounted, reactive, ref } from "vue";
 import { Model } from "src/logic/dapp/detail";
-import type { DataQuery } from "src/types/dapp/data";
 import { toNumberCashFormat } from "src/utils";
 
 const props = defineProps({

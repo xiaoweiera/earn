@@ -164,3 +164,8 @@ export interface DataQuery {
   id: number;
   range: string;
 }
+export interface newsModel {
+  id: number | string;
+  page: number;
+  page_size: number;
+}
