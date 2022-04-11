@@ -9,7 +9,7 @@ import type { nftQuery } from "src/types/dapp/nft";
 import type { AirdropQuery } from "src/types/dapp/airdrop";
 import { nftStatus } from "src/types/dapp/nft";
 import ApiTemplate from "../template";
-import type { DAppData, DataQuery, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
+import type { DAppData, DataQuery, newsModel, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
 import { echart } from "src/logic/ui/echart/decorate";
 import type { EchartData } from "src/types/echarts/type";
 
@@ -177,6 +177,13 @@ export default class extends ApiTemplate {
   @userToken()
   @validate
   getTokenList<T>(@required query: TokenQuery): Promise<T> {
+    return [query] as any;
+  }
+  //News列表
+  @tryError(DefaultValue([]))
+  @get(api.dapp.news, expire.min5)
+  @validate
+  getNews<T>(@required query: newsModel): Promise<T> {
     return [query] as any;
   }
 }

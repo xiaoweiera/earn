@@ -3,6 +3,12 @@
  * @author svon.me@gmail.com
  */
 
+export enum Progress {
+  oncoming = "oncoming", // 即将开始
+  ongoing = "ongoing", // 进行中
+  finished = "finished", // 已结束
+}
+
 export enum TabName {
   dashboard = "dashboard",
   project = "project",
@@ -79,6 +85,7 @@ export interface Contract {
 }
 
 export interface IDO {
+  ido_status?: Progress; // 项目进度状态
   ido_price: number; //IDO价格
   ido_sale_amount: number; // IDO代币出售
   ido_symbol: string; // IDO币种名称
@@ -125,6 +132,7 @@ export interface DAppData {
   gallery: string[]; // nft 图集
   risk: Risk;
   website?: string; // 项目地址
+  ticker?: string; // 排行榜类型项目描述
   description?: string; // 描述
   score: number; // 综合得分
   clout: number; // 打分数
@@ -185,4 +193,9 @@ export interface Currency {
   price_unit: string; //价格单位
   sold_24h: number; //24小时售卖
   total_volume: number; //总交易量
+}
+export interface newsModel {
+  id: number | string;
+  page: number;
+  page_size: number;
 }

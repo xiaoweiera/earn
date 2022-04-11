@@ -20,7 +20,9 @@ const getUrl = function (name: string) {
 };
 
 const onLoad = function () {
-  loading.value = false;
+  setTimeout(() => {
+    loading.value = false;
+  }, 1000 * 2);
 };
 </script>
 
