@@ -16,15 +16,15 @@ export class Model extends API {
   getUserData(query: DataQuery) {
     return this.dApp.getUserData(query);
   }
-  // 用户资产图表
+  // 市值交易量
   getMarketCapData(query: DataQuery) {
     return this.dApp.getMarketCapData(query);
   }
-  // 用户资产图表
+  // TVL
   getTVLData(query: DataQuery) {
     return this.dApp.getTVLData(query);
   }
-  // 用户资产图表
+  // 地板价
   getFloorData(query: DataQuery) {
     return this.dApp.getFloorData(query);
   }
@@ -80,4 +80,12 @@ export const getTabList = function (project: DAppProject) {
     });
   }
   return list;
+};
+
+export const dateList = function () {
+  const i18n = I18n();
+  return [
+    { id: "30d", name: "30D" },
+    { id: "all", name: i18n.address.all },
+  ];
 };
