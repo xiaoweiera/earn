@@ -15,7 +15,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="p-10">
+  <div class="w-full">
     <FloorData v-if="value.type === 'nft' && value.rank" :value="value" />
     <DAppUserData :value="value" />
     <MarketCapData :value="value" />

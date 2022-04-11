@@ -20,8 +20,6 @@ const Reviews = asyncLoad(() => import("./reviews/index.vue"));
 const Dashboard = asyncLoad(() => import("./dashboard/index.vue"));
 const NFT = asyncLoad(() => import("./content/nft.vue"));
 const AirDrops = asyncLoad(() => import("./content/airdrop.vue"));
-const Token = asyncLoad(() => import("./token/index"));
-const Information = asyncLoad(() => import("./content/chain/index.vue"));
 
 // 项目信息
 const project = createReactive<DAppProject>("query", {} as DAppProject);
@@ -65,7 +63,7 @@ const getTwitterName = function (data: DAppData) {
       <!--内容-->
       <div class="mt-6">
         <template v-if="project.tab === TabName.dashboard">
-          <Dashboard />
+          <Dashboard :data="project" />
         </template>
         <template v-else-if="project.tab === TabName.twitter">
           <Twitter :name="getTwitterName(detail)" class="bg-white" />

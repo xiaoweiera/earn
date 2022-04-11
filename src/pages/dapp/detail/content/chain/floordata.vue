@@ -42,7 +42,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div v-if="chartData" class="p-10">
+  <div v-if="chartData">
     <div class="w-full flex flex-row justify-between">
       <p class="text-global-highTitle text-kd16px24px">
         <span>{{ i18n.dapp.project.floorPrice }}</span>

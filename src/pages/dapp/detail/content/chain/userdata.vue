@@ -42,7 +42,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div v-if="chartData" class="p-10">
+  <div v-if="chartData">
     <div class="w-full flex flex-row justify-between">
       <p class="text-global-highTitle text-kd16px24px">
         <span>{{ value.type === "nft" && value.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
