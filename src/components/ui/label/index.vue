@@ -80,8 +80,8 @@ const onChange = function (data: LabelItem) {
           <div class="cursor-pointer flex items-center">
             <!--icon-->
             <slot :data="data" name="prefix">
-              <span v-if="data.icon || data[iconName]" class="flex pr-1">
-                <IconFont :type="data.icon || data[iconName]" size="16" />
+              <span v-if="data[iconName] || data.icon" class="flex pr-1">
+                <IconFont :type="data[iconName] || data.icon" size="16" />
               </span>
             </slot>
             <!--内容-->

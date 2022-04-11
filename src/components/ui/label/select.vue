@@ -57,18 +57,27 @@ const handleCommand = function (data: LabelItem) {
 
 <template>
   <div>
-    <el-dropdown v-if="list.length > 1" placement="bottom-start" size="small" trigger="click" @command="handleCommand">
-      <slot :arrow="true" :data="curr"></slot>
-      <template #dropdown>
-        <el-dropdown-menu>
-          <template v-for="(item, index) in list" :key="index">
-            <el-dropdown-item :command="item">
-              <slot :arrow="false" :data="item"></slot>
-            </el-dropdown-item>
+    <div v-if="list.length > 1">
+      <client-only>
+        <template #note>
+          <div class="hidden">
+            <slot :arrow="false" :data="curr"></slot>
+          </div>
+        </template>
+        <el-dropdown placement="bottom-start" size="small" trigger="click" @command="handleCommand">
+          <slot :arrow="true" :data="curr"></slot>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <template v-for="(item, index) in list" :key="index">
+                <el-dropdown-item :command="item">
+                  <slot :arrow="false" :data="item"></slot>
+                </el-dropdown-item>
+              </template>
+            </el-dropdown-menu>
           </template>
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
+        </el-dropdown>
+      </client-only>
+    </div>
     <template v-else>
       <slot :arrow="false" :data="curr"></slot>
     </template>
