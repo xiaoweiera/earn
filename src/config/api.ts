@@ -28,6 +28,7 @@ export const dapp = {
   marketCapData: "/api/v1/dapps/chart/marketcap", //用户市值图表
   TVLData: "/api/v1/dapps/chart/tvl", //用户TVL图表
   floorData: "/api/v1/dapps/chart/floor_price", //地板价图表
+  news: "/api/v1/dapps/news", //news列表
 };
 
 export const blog = {

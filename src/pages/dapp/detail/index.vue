@@ -17,7 +17,7 @@ import Header from "./header/index.vue";
 const Twitter = asyncLoad(() => import("./content/twitter.vue"));
 const IDO = asyncLoad(() => import("./content/ido.vue"));
 const Reviews = asyncLoad(() => import("./reviews/index.vue"));
-const Dashboard = asyncLoad(() => import("./dashboard.vue"));
+const Dashboard = asyncLoad(() => import("./dashboard/index.vue"));
 
 // 项目信息
 const project = createReactive<DAppProject>("query", {} as DAppProject);

@@ -102,7 +102,7 @@ export const map = function (callback: any, data: any): any {
   const array: any[] = [];
   const result: any = {};
   // @ts-ignore
-  forEach(function (value: any, index: number | string, origin: T[]) {
+  forEach(function (value: any, index: number | string, origin: any) {
     const item = callback(value, index, origin);
     if (isArr) {
       // @ts-ignore

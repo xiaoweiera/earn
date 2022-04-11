@@ -6,8 +6,6 @@
 import safeSet from "@fengqiaogang/safe-set";
 import type { NextFunction, Request, Response } from "express";
 import API from "src/api/index";
-import { dashboard } from "src/config";
-import redirect from "src/controller/common/redirect";
 import Cookie from "src/plugins/browser/cookie";
 import type { User } from "src/types/common/user";
 import I18n from "src/utils/i18n";
@@ -44,12 +42,6 @@ export const userLogout = function (req: Request, res: Response) {
 
 // 前置，如果用户已登录，则跳转走
 export const prepend = function (req: Request, res: Response, next: NextFunction) {
-  // const cache = safeGet(res.locals, alias.common.user);
-  // if (cache) {
-  //   redirect(req, res, dashboard); // 已登录，跳转到首页
-  // } else {
-  //   next();
-  // }
   next();
 };
 
