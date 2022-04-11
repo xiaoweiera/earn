@@ -164,6 +164,35 @@ export interface DataQuery {
   id: number;
   range: string;
 }
+
+export interface TokenQuery {
+  id: number;
+}
+export interface TokenDataQuery {
+  symbol: string | number;
+  range: string;
+}
+
+export interface Currency {
+  symbol: string; //代币名称
+  price: number; // 当前价格
+  price_change_percent_24h: number; //24小时跌涨幅
+  highest_open_price: number; //开盘最高价
+  highest_yield: number; //最高收益
+  volume_24h: number; //24小时交易量
+  marketcap: number; //市值
+  fully_diluted_marketcap: number; //完全流通市值
+  total_supply: number; //总供应量
+  max_supply: number; //最大供应量
+  circulating_supply: number; //流通供应量
+  owners: number | string; //持有人
+  assets: number; //资产
+  avg_price: number; //平均成交价
+  floor_price: number; //当前地板价
+  price_unit: string; //价格单位
+  sold_24h: number; //24小时售卖
+  total_volume: number; //总交易量
+}
 export interface newsModel {
   id: number | string;
   page: number;
