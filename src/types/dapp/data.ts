@@ -16,7 +16,6 @@ export enum TabName {
   twitter = "twitter",
   nft = "nft",
   airdrop = "airdrops",
-  token = "token",
 }
 
 export enum DataType {

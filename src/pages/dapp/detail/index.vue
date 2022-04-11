@@ -18,6 +18,10 @@ const Twitter = asyncLoad(() => import("./content/twitter.vue"));
 const IDO = asyncLoad(() => import("./content/ido.vue"));
 const Reviews = asyncLoad(() => import("./reviews/index.vue"));
 const Dashboard = asyncLoad(() => import("./dashboard/index.vue"));
+const NFT = asyncLoad(() => import("./content/nft.vue"));
+const AirDrops = asyncLoad(() => import("./content/airdrop.vue"));
+const Token = asyncLoad(() => import("./token/index"));
+const Information = asyncLoad(() => import("./content/chain/index.vue"));
 
 // 项目信息
 const project = createReactive<DAppProject>("query", {} as DAppProject);
@@ -68,6 +72,12 @@ const getTwitterName = function (data: DAppData) {
         </template>
         <template v-else-if="project.tab === TabName.reviews">
           <Reviews :id="project.id" />
+        </template>
+        <template v-else-if="project.tab === TabName.nft">
+          <NFT :data="detail" />
+        </template>
+        <template v-else-if="project.tab === TabName.airdrop">
+          <AirDrops :data="detail" />
         </template>
         <template v-else>
           <IDO :data="detail" />
