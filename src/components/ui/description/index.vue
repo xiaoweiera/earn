@@ -33,7 +33,7 @@ const id = ref<string>(`desc-${uuid()}`);
 <template>
   <div :style="`--desc-line: ${line}; --desc-line-height: ${lineHeight};`" class="ui-description">
     <input v-if="!dialog" :id="id" :name="id" class="hidden" type="checkbox" />
-    <div :class="{ line, 'line-height': lineHeight }" class="content relative overflow-hidden">
+    <div class="content relative overflow-hidden">
       <!--描述内容-->
       <div>
         <slot></slot>
