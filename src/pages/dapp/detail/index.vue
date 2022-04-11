@@ -48,8 +48,8 @@ const getTwitterName = function (data: DAppData) {
 </script>
 
 <template>
-  <div class="pt-8 pb-16">
-    <div class="max-w-300 mx-auto">
+  <div class="pt-8 pb-16 px-4">
+    <div class="w-full max-w-300 mx-auto">
       <Header :project="project" :data="detail" />
       <div class="mt-11">
         <ui-tab :def="TabName.dashboard" :list="getTabList(project)" active-name="tab" @change="onChangeTab">
