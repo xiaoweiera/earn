@@ -50,10 +50,8 @@ defineProps({
     <!--项目描述-->
     <ui-description :line="2" class="mt-5" dialog>
       <div class="text-14-20 text-global-highTitle text-opacity-65">
-        <div v-for="i in 10" :key="i">
-          <span v-if="project.rank">{{ data.ticker }}</span>
-          <span v-else>{{ data.description }}</span>
-        </div>
+        <span v-if="project.rank">{{ data.ticker }}</span>
+        <span v-else>{{ data.description }}</span>
       </div>
     </ui-description>
   </div>
