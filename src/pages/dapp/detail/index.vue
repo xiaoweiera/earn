@@ -12,12 +12,12 @@ import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { DAppProject, DAppData } from "src/types/dapp/data";
 import { useReactiveProvide } from "src/utils/use/state";
 import { asyncLoad } from "src/plugins/lazyload/";
-import Header from "./header/index.vue";
 
+import Header from "./header/index.vue";
 const Twitter = asyncLoad(() => import("./content/twitter.vue"));
 const IDO = asyncLoad(() => import("./content/ido.vue"));
 const Reviews = asyncLoad(() => import("./reviews/index.vue"));
-const Dashboard = asyncLoad(() => import("./dashboard.vue"));
+const Dashboard = asyncLoad(() => import("./dashboard/index.vue"));
 
 // 项目信息
 const project = createReactive<DAppProject>("query", {} as DAppProject);

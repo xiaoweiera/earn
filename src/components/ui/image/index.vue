@@ -18,6 +18,14 @@ const props = defineProps({
     type: String as PropType<Fit>,
     default: () => "cover",
   },
+  alt: {
+    type: String,
+    default: "",
+  },
+  title: {
+    type: String,
+    default: "",
+  },
   rounded: {
     type: Boolean,
     default: () => false,
@@ -47,23 +55,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="ui-image overflow-hidden" :class="{ error: error, rounded }">
-    <img v-if="src && fit === 'none'" class="max-h-full max-w-full" :src="src" />
-    <i :class="fit" :style="value" />
+  <div class="ui-image" :class="{ error: error, rounded, help: !!title }" :data-help="title">
+    <span class="block overflow-hidden w-full h-full">
+      <img v-if="src && fit === 'none'" class="max-h-full max-w-full" :src="src" :alt="alt" />
+      <i :class="fit" :style="value" />
+    </span>
   </div>
 </template>
 <style scoped lang="scss">
 @import "src/styles/function";
 
-%contain {
-  background-size: contain;
-}
-
 .ui-image {
+  @apply relative;
   i {
-    @apply block w-full h-full;
-    background-position: center;
-    background-repeat: no-repeat;
+    @apply block w-full h-full bg-center bg-no-repeat;
   }
 
   img {
@@ -75,10 +80,10 @@ onMounted(() => {
 
   &:not(.error) i {
     &.cover {
-      background-size: cover;
+      @apply bg-cover;
     }
     &.contain {
-      @extend %contain;
+      @apply bg-contain;
     }
     &.fill {
       background-size: 100% 100%;
@@ -86,22 +91,40 @@ onMounted(() => {
   }
 
   &.error {
-    @apply relative;
     img {
       @apply opacity-0 invisible;
     }
     i {
       @apply block;
-      @extend %contain;
+      @apply bg-contain;
       @apply absolute left-0 top-0 right-0 bottom-0;
-      background-image: static("/assets/kingdata.png") !important;
+      background-image: static("/images/common/logo.jpg") !important;
     }
   }
   &.rounded {
-    border-radius: 50%;
+    & > span {
+      @apply rounded-1/2;
+    }
     i,
     img {
-      border-radius: 50%;
+      @apply rounded-1/2;
+    }
+  }
+  &.help {
+    @apply cursor-pointer;
+    &:after {
+      content: attr(data-help);
+      transition: all 0.5s;
+      @apply invisible opacity-0;
+      @apply block z-2 bg-white py-1 px-1.5;
+      @apply absolute top-full left-1/2 transform translate-y-1 -translate-x-1/2;
+      @apply text-global-darkblue text-opacity-60 whitespace-pre text-sm;
+      @apply border border-solid border-gray-300 rounded-md;
+    }
+    &:hover {
+      &:after {
+        @apply visible opacity-100;
+      }
     }
   }
 }

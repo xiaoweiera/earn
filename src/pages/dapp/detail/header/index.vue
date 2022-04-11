@@ -4,11 +4,10 @@
  * @auth svon.me@gmail.com
  */
 import type { PropType } from "vue";
-import * as console from "src/plugins/log/";
 import { ProjectType } from "src/types/dapp/data";
 import type { DAppProject, DAppData } from "src/types/dapp/data";
 
-const props = defineProps({
+defineProps({
   project: {
     required: true,
     type: Object as PropType<DAppProject>,
@@ -18,20 +17,18 @@ const props = defineProps({
     type: Object as PropType<DAppData>,
   },
 });
-
-console.log(props.data);
 </script>
 
 <template>
   <div>
     <div class="flex items-center">
-      <ui-image :src="data.logo" class="w-12 h-12 mr-3" rounded />
+      <ui-image :src="data.logo" :alt="data.name" class="w-12 h-12 mr-3" rounded />
       <div class="flex-1">
         <h3 class="text-24-28 text-global-highTitle font-medium">{{ data.name }}</h3>
       </div>
     </div>
     <div class="mt-4 flex">
-      <template v-if="project.type === ProjectType.airdrop">
+      <template v-if="project.type === ProjectType.airdrop && data.ido">
         <!--项目进度-->
         <div>{{ data.ido.ido_status }}</div>
       </template>
@@ -48,13 +45,14 @@ console.log(props.data);
       </div>
     </div>
 
-    <ui-description class="description mt-5 text-14-20 text-global-highTitle text-opacity-65">
-      <div>
-        <span v-if="project.rank">{{ data.ticker }}</span>
-        <span v-else>{{ data.description }}</span>
+    <!--项目描述-->
+    <ui-description class="mt-5" :line="2" dialog>
+      <div class="text-14-20 text-global-highTitle text-opacity-65">
+        <div v-for="i in 10" :key="i">
+          <span v-if="project.rank">{{ data.ticker }}</span>
+          <span v-else>{{ data.description }}</span>
+        </div>
       </div>
     </ui-description>
   </div>
 </template>
-
-<style scoped lang="scss"></style>
