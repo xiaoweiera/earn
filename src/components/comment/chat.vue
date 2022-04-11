@@ -118,12 +118,14 @@ const submit = async () => {
 </script>
 <template>
   <div class="w-full h-full">
-    <div :class="bgColor()" class="w-full h-full relative py-4 rounded-kd6px showY" @click.stop="selectEmoji('')">
-      <div v-if="type !== 'publish'" class="text-kd12px16px px-4 hand text-global-highTitle text-opacity-45 mb-1.5">{{ i18n.comment.reply }}@{{ userName }}</div>
-      <div ref="contentDom" class="px-4">
-        <el-input ref="inputText" v-model="v" type="textarea" :placeholder="models.placeholder" />
+    <div :class="bgColor()" class="flex flex-col w-full relative py-4 rounded-kd6px showY" @click.stop="selectEmoji('')">
+      <div class="flex-1 flex flex-col">
+        <div v-if="type !== 'publish'" class="text-kd12px16px px-4 hand text-global-highTitle text-opacity-45 mb-1.5">{{ i18n.comment.reply }}@{{ userName }}</div>
+        <div ref="contentDom" class="px-4 flex-1">
+          <el-input ref="inputText" v-model="v" type="textarea" :placeholder="models.placeholder" />
+        </div>
       </div>
-      <div class="bottom-4 absolute w-full px-4">
+      <div class="bottom-4 h-6 w-full px-4">
         <div class="w-full flex items-center justify-between">
           <div class="flex items-center">
             <v-login :class="`${submitState}`" class="w-fit text-12-16 hand" @click.stop="submit()">{{ models.button }}</v-login>
@@ -148,15 +150,18 @@ const submit = async () => {
 .publish {
   background: #fafbfc;
   border: 1px solid rgba(3, 54, 102, 0.06);
+  @apply h-full;
+  ::v-deep(.el-textarea) {
+    @apply h-full;
+  }
   ::v-deep(.el-textarea__inner) {
     background: #fafbfc;
     border: none;
     font-family: auto !important;
     padding-right: 10px !important;
-    @apply h-25 px-4 p-0 text-global-hightTitle text-opacity-45;
+    @apply px-4 p-0 h-full text-global-hightTitle text-opacity-45;
   }
 }
-
 .reply {
   background: #fafbfc;
   border: 1px solid rgba(3, 54, 102, 0.06);
