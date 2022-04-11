@@ -4,7 +4,7 @@
  */
 
 import API from "src/api";
-import type { DataQuery } from "src/types/dapp/data";
+import type { DataQuery, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
 import I18n from "src/utils/i18n";
 import { upperFirst } from "src/utils/";
 import { TabName, ProjectType } from "src/types/dapp/data";
@@ -16,17 +16,25 @@ export class Model extends API {
   getUserData(query: DataQuery) {
     return this.dApp.getUserData(query);
   }
-  // 用户资产图表
+  // 市值交易量
   getMarketCapData(query: DataQuery) {
     return this.dApp.getMarketCapData(query);
   }
-  // 用户资产图表
+  // TVL
   getTVLData(query: DataQuery) {
     return this.dApp.getTVLData(query);
   }
-  // 用户资产图表
+  // 地板价
   getFloorData(query: DataQuery) {
     return this.dApp.getFloorData(query);
+  }
+  // 代币图表
+  getTokenData(query: TokenDataQuery) {
+    return this.dApp.getTokenData(query);
+  }
+  // 代币列表
+  getTokenList(query: TokenQuery) {
+    return this.dApp.getTokenList(query);
   }
 }
 
@@ -84,3 +92,12 @@ export const getTabList = function (project: DAppProject) {
   }
   return list;
 };
+
+export const dateList = function () {
+  const i18n = I18n();
+  return [
+    { id: "30d", name: "30D" },
+    { id: "all", name: i18n.address.all },
+  ];
+};
+export const tokenUrl = "https://forms.gle/tC6umJmLDJ5ouTiW6";
