@@ -72,30 +72,65 @@ const getMediaUrl = function (data: DAppData, name: string) {
       <div class="text-global-darkblue flex items-center media-list">
         <v-router v-if="getMediaUrl(data, 'twitter')" :href="getMediaUrl(data, 'twitter')" target="_blank">
           <!--twitter-->
-          <IconFont size="20" type="icon-twitter" />
+          <ui-hover class="flex-popover" rounded>
+            <template #label>
+              <IconFont size="20" type="icon-twitter" />
+            </template>
+            <template #content>
+              <div class="text-global-darkblue text-12-18">{{ i18n.common.chat.twitter }}</div>
+            </template>
+          </ui-hover>
         </v-router>
         <v-router v-if="getMediaUrl(data, 'telegram')" :href="getMediaUrl(data, 'telegram')" target="_blank">
           <!--telegram-->
-          <IconFont size="20" type="icon-telegram" />
+          <ui-hover class="flex-popover" rounded>
+            <template #label>
+              <IconFont size="20" type="icon-telegram" />
+            </template>
+            <template #content>
+              <div class="text-global-darkblue text-12-18">{{ i18n.common.chat.telegram }}</div>
+            </template>
+          </ui-hover>
         </v-router>
         <v-router v-if="data.website" :href="data.website" target="_blank">
           <!--官网地址-->
-          <IconFont size="20" type="icon-yuyan" />
+          <ui-hover class="flex-popover" rounded>
+            <template #label>
+              <IconFont size="20" type="icon-yuyan" />
+            </template>
+            <template #content>
+              <div class="text-global-darkblue text-12-18">{{ i18n.growthpad.about.website }}</div>
+            </template>
+          </ui-hover>
         </v-router>
         <v-router v-if="data.white_paper" :href="data.white_paper" target="_blank">
           <!--白皮书-->
-          <IconFont size="20" type="icon-whitepaper" />
+          <ui-hover class="flex-popover" rounded>
+            <template #label>
+              <IconFont size="20" type="icon-whitepaper" />
+            </template>
+            <template #content>
+              <div class="text-global-darkblue text-12-18">{{ i18n.dapp.project.whitePaper }}</div>
+            </template>
+          </ui-hover>
         </v-router>
         <template v-for="(item, index) in data.audit_reports" :key="index">
           <v-router v-if="item && item.report" :href="item.report" target="_blank">
             <!--审计公司-->
-            <IconFont size="20" type="icon-comment" />
+            <ui-hover class="flex-popover" rounded>
+              <template #label>
+                <IconFont size="20" type="icon-comment" />
+              </template>
+              <template #content>
+                <div class="text-global-darkblue text-12-18">{{ i18n.dapp.project.audit }}</div>
+              </template>
+            </ui-hover>
           </v-router>
         </template>
       </div>
       <!--分享-->
       <div class="md:mt-6">
-        <ui-share>
+        <ui-share :value="data.name">
           <div class="flex items-center py-2 px-3 rounded bg-global-darkblue bg-opacity-6">
             <IconFont class="md:order-2 mr-1 md:mr-0" size="16" type="icon-fenxiang1" />
             <span class="font-m md:mr-1 md:order-1">{{ i18n.dapp.share.label }}</span>
