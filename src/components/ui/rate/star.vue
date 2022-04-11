@@ -7,8 +7,6 @@ import { setInject, getInject } from "src/utils/use/state";
 import API from "src/api";
 const api = new API();
 const name = uuid("kd-star");
-const activeValue = ref<number>(0);
-
 const detail: any = getInject("detailState");
 const setDetail: any = setInject("detailState");
 
@@ -23,14 +21,6 @@ const props = defineProps({
     type: [Number, String],
   },
 });
-
-const getData = function () {
-  const value = localStorage.getItem(name);
-  if (value) {
-    return JSON.parse(value);
-  }
-  return {};
-};
 
 const starValue = computed<number>(function () {
   if (props.value) {
