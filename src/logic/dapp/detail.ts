@@ -32,7 +32,10 @@ export class Model extends API {
 
 const makeUrl = function (project: DAppProject, tab: TabName): string {
   if (project.rank) {
-    return `/rank/${project.type}/${project.id}`;
+    if (project.type === ProjectType.igo) {
+      return `/rank/${project.type}/${project.id}/${tab}?${ProjectType.igo}=true`;
+    }
+    return `/rank/${project.type}/${project.id}/${tab}`;
   }
   if (project.type === ProjectType.igo) {
     return `${routerConfig.dapp}/${project.id}/${tab}?${ProjectType.igo}=true`;

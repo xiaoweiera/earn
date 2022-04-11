@@ -51,13 +51,13 @@ const getTwitterName = function (data: DAppData) {
   <div class="pt-8 pb-16 px-4">
     <div class="w-full max-w-300 mx-auto">
       <Header :project="project" :data="detail" />
-      <div class="mt-11">
+      <ui-sticky class="mt-11 bg-white">
         <ui-tab :def="TabName.dashboard" :list="getTabList(project)" active-name="tab" @change="onChangeTab">
           <template #default="{ data }">
             <span class="text-18-24 font-m">{{ data.label }}</span>
           </template>
         </ui-tab>
-      </div>
+      </ui-sticky>
       <!--内容-->
       <div class="mt-6">
         <template v-if="project.tab === TabName.dashboard">
