@@ -6,7 +6,7 @@ import News from "src/pages/dapp/detail/dashboard/news.vue";
   <div>
     <div>
       <h class="title">Introduction</h>
-      <Introduction />
+      <Introduction class="mt-2" />
     </div>
     <div class="mt-14">
       <p class="title">News</p>
