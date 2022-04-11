@@ -4,7 +4,7 @@
  */
 
 import API from "src/api";
-import type { DataQuery } from "src/types/dapp/data";
+import type { DataQuery, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
 import I18n from "src/utils/i18n";
 import { upperFirst } from "src/utils/";
 import { TabName, ProjectType } from "src/types/dapp/data";
@@ -27,6 +27,14 @@ export class Model extends API {
   // 地板价
   getFloorData(query: DataQuery) {
     return this.dApp.getFloorData(query);
+  }
+  // 代币图表
+  getTokenData(query: TokenDataQuery) {
+    return this.dApp.getTokenData(query);
+  }
+  // 代币列表
+  getTokenList(query: TokenQuery) {
+    return this.dApp.getTokenList(query);
   }
 }
 
@@ -89,3 +97,4 @@ export const dateList = function () {
     { id: "all", name: i18n.address.all },
   ];
 };
+export const tokenUrl = "https://forms.gle/tC6umJmLDJ5ouTiW6";

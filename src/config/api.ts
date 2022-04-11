@@ -28,6 +28,8 @@ export const dapp = {
   marketCapData: "/api/v1/dapps/chart/marketcap", //用户市值图表
   TVLData: "/api/v1/dapps/chart/tvl", //用户TVL图表
   floorData: "/api/v1/dapps/chart/floor_price", //地板价图表
+  tokenData: "/api/v1/dapps/cryptocurrency/price_chart", //代币图表
+  tokenList: "/api/v1/dapps/cryptocurrency", //代币列表
 };
 
 export const blog = {
