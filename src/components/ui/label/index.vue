@@ -17,13 +17,19 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  nameKey: {
+  // icon 名称，value 为对象时生效
+  iconName: {
     type: String,
-    default: "name",
+    default: "icon",
   },
   value: {
     type: [Array, String] as PropType<LabelItem[] | string[] | string>,
     default: () => [],
+  },
+  // value 名称
+  nameKey: {
+    type: String,
+    default: "name",
   },
   // 不使用下拉框，只想展示第一条数据
   noSelect: {
@@ -50,7 +56,9 @@ const list = computed<LabelItem[]>(function () {
       return value;
     }
     return {
+      icon: props.icon,
       [props.nameKey]: value,
+      [props.iconName]: props.icon,
     };
   }, compact(toArray(props.value)));
   if (props.noSelect) {
@@ -72,8 +80,8 @@ const onChange = function (data: LabelItem) {
           <div class="cursor-pointer flex items-center">
             <!--icon-->
             <slot :data="data" name="prefix">
-              <span v-if="data.icon || data.logo" class="flex pr-1">
-                <IconFont :type="data.icon || data.logo" size="16" />
+              <span v-if="data.icon || data[iconName]" class="flex pr-1">
+                <IconFont :type="data.icon || data[iconName]" size="16" />
               </span>
             </slot>
             <!--内容-->
@@ -91,7 +99,7 @@ const onChange = function (data: LabelItem) {
                 <IconFont v-if="arrow" size="16" type="icon-arrow-down" />
               </span>
               <div v-else-if="copy" class="flex pl-1">
-                <v-copy :value="data.name" class="flex">
+                <v-copy :value="data[nameKey]" class="flex">
                   <IconFont size="16" type="icon-copy" />
                 </v-copy>
               </div>

@@ -34,7 +34,7 @@ defineProps({
       <!--风险等级-->
       <ui-label :value="data.risk" />
       <!--公链-->
-      <ui-label :value="data.chains" />
+      <ui-label :value="data.chains" icon-name="logo" />
       <!--项目类型-->
       <ui-label :value="data.categories" />
       <!-- 合约 -->

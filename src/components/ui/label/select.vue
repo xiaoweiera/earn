@@ -7,6 +7,7 @@
 import { computed, ref } from "vue";
 import type { PropType } from "vue";
 import type { LabelItem } from "src/types/ui/label";
+import DBList from "@fengqiaogang/dblist";
 import { ElDropdown, ElDropdownMenu, ElDropdownItem } from "element-plus";
 
 const emitEvent = defineEmits(["change"]);
@@ -31,21 +32,21 @@ const name = ref<string>("");
 
 // 当前需要展示的数据
 const curr = computed<LabelItem>(function () {
-  let data: LabelItem = props.list[0];
-  if (props.selected || name.value) {
-    for (const item of props.list) {
-      if (item) {
-        const value = item[props.nameKey];
-        if (value && name.value === name.value) {
-          data = item;
-        }
-        if (value === props.selected) {
-          data = item;
-        }
-      }
+  const db = new DBList([], props.nameKey);
+  db.insert(props.list);
+  if (name.value) {
+    const value = db.selectOne<LabelItem>({ [props.nameKey]: name.value });
+    if (value) {
+      return value;
     }
   }
-  return data;
+  if (props.selected) {
+    const value = db.selectOne<LabelItem>({ [props.nameKey]: props.selected });
+    if (value) {
+      return value;
+    }
+  }
+  return props.list[0];
 });
 
 const handleCommand = function (data: LabelItem) {
