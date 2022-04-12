@@ -12,7 +12,7 @@ import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { DAppProject, DAppData } from "src/types/dapp/data";
 import { useReactiveProvide } from "src/utils/use/state";
 import { asyncLoad } from "src/plugins/lazyload/";
-
+import { AnyEquals } from "src/utils/";
 import Header from "./header/index.vue";
 
 const Twitter = asyncLoad(() => import("./content/twitter.vue"));
@@ -48,6 +48,22 @@ const getTwitterName = function (data: DAppData) {
     return name;
   }
 };
+
+const getTabData = function (info: DAppProject, data: DAppData) {
+  const array: object[] = [];
+  const twitterName = getTwitterName(data);
+  for (const item of getTabList(info)) {
+    const value = safeGet<TabName>(item, "tab");
+    if (value === TabName.twitter) {
+      if (twitterName) {
+        array.push(item);
+      }
+      continue;
+    }
+    array.push(item);
+  }
+  return array;
+};
 </script>
 
 <template>
@@ -55,31 +71,31 @@ const getTwitterName = function (data: DAppData) {
     <div v-if="detail && detail.id" class="w-full max-w-300 mx-auto">
       <Header :data="detail" :project="project" />
       <ui-sticky class="mt-11 bg-white">
-        <ui-tab :def="TabName.dashboard" :list="getTabList(project)" active-name="tab" @change="onChangeTab">
+        <ui-tab :def="TabName.dashboard" :list="getTabData(project, detail)" active-name="tab" @change="onChangeTab">
           <template #default="{ data }">
             <span class="text-18-24 font-m">{{ data.label }}</span>
           </template>
         </ui-tab>
       </ui-sticky>
       <!--内容-->
-      <div class="mt-6">
-        <template v-if="project.tab === TabName.dashboard">
-          <Dashboard :data="project" />
-        </template>
-        <template v-else-if="project.tab === TabName.twitter">
+      <div class="mt-6" :data-tab="project.tab">
+        <template v-if="AnyEquals(project.tab, TabName.twitter)">
           <Twitter :name="getTwitterName(detail)" class="bg-white" />
         </template>
-        <template v-else-if="project.tab === TabName.reviews">
+        <template v-else-if="AnyEquals(project.tab, TabName.reviews)">
           <Reviews :id="project.id" />
         </template>
-        <template v-else-if="project.tab === TabName.nft">
+        <template v-else-if="AnyEquals(project.tab, TabName.nft)">
           <NFT :data="detail" />
         </template>
-        <template v-else-if="project.tab === TabName.airdrop">
+        <template v-else-if="AnyEquals(project.tab, TabName.airdrop)">
           <AirDrops :data="detail" />
         </template>
-        <template v-else>
+        <template v-else-if="AnyEquals(project.tab, TabName.dapp)">
           <IDO :data="detail" />
+        </template>
+        <template v-else>
+          <Dashboard :data="project" />
         </template>
       </div>
     </div>

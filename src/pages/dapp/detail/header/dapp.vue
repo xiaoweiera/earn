@@ -35,6 +35,15 @@ const isFooterEmpty = function (data: DAppData): boolean {
   return getNotEmptySize(list) <= 0;
 };
 
+const showTable = function (data: DAppData) {
+  if (isHeaderEmpty(data) && isFooterEmpty(data)) {
+    if (getNotEmptySize(data.website) > 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
 const isAllEmpty = function (data: DAppData) {
   if (getNotEmptySize(data.website) > 0) {
     return false;
@@ -67,11 +76,11 @@ const isAllEmpty = function (data: DAppData) {
         </div>
       </div>
 
-      <Table class="mt-4">
+      <Table v-show="showTable(data)" class="mt-4">
         <template v-if="isFooterEmpty(data)">
-          <td>
+          <Td>
             <Not />
-          </td>
+          </Td>
         </template>
         <template v-else>
           <!--TVL/MCap-->
