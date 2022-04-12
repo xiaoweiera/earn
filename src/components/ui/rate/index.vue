@@ -13,8 +13,8 @@ const i18n = I18n();
 </script>
 
 <template>
-  <div class="flex w-full h-full bg-global-highTitle bg-opacity-4 rounded-kd6px">
-    <div v-if="safeGet(dataProvide, 'id')" class="w-full flex justify-center items-center">
+  <div class="rate">
+    <div v-if="safeGet(dataProvide, 'id')" class="w-full h-full flex justify-center items-center">
       <div class="flex flex-col items-center">
         <p class="text-kd14px18px text-global-highTitle text-opacity-65">{{ i18n.part(i18n.airdrop.content.score, toInteger(safeGet(dataProvide, "clout")), { count: toInteger(safeGet(dataProvide, "clout")) }) }}</p>
         <div class="flex items-end">
@@ -26,3 +26,10 @@ const i18n = I18n();
     </div>
   </div>
 </template>
+<style scoped>
+.rate {
+  border: 1px solid rgba(3, 54, 102, 0.06);
+  @apply w-full md:w-70.5 h-34.5 py-4 md:py-0 md:h-full md:mr-6;
+  @apply bg-global-highTitle bg-opacity-4 rounded-kd6px;
+}
+</style>
