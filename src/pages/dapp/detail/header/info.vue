@@ -37,7 +37,7 @@ const getMediaUrl = function (data: DAppData, name: string) {
 <template>
   <div>
     <div class="flex items-center">
-      <ui-image :alt="data.name" :src="data.logo" class="w-12 h-12 mr-3" rounded />
+      <ui-image :preview="[data.logo]" :src="data.logo" class="w-12 h-12 mr-3" rounded />
       <div class="flex-1">
         <h3 class="text-24-28 text-global-highTitle font-medium">{{ data.name }}</h3>
       </div>
