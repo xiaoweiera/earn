@@ -76,22 +76,28 @@ export const getTabList = function (project: DAppProject) {
     },
   ];
   // 空投
-  if (project.type === ProjectType.airdrop) {
+  if (project.type === ProjectType.airdrop && !project.rank) {
     list.push({
       tab: TabName.airdrop,
       label: i18n.dapp.project.airdrop,
       href: makeUrl(project, TabName.airdrop),
     });
-  } else if (project.type === ProjectType.nft) {
+  } else if (project.type === ProjectType.nft && !project.rank) {
     list.push({
       tab: TabName.nft,
       label: "Mint",
       href: makeUrl(project, TabName.nft),
     });
-  } else {
+  } else if (project.type === ProjectType.dapp && !project.rank) {
     list.push({
       tab: project.type,
-      label: upperFirst(project.type),
+      label: "IDO",
+      href: makeUrl(project, project.type as any),
+    });
+  } else if (project.type === ProjectType.igo && !project.rank) {
+    list.push({
+      tab: project.type,
+      label: "IGO",
       href: makeUrl(project, project.type as any),
     });
   }

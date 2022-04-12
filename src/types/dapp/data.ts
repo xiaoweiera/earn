@@ -92,6 +92,7 @@ export interface IDO {
   ido_fundraising_goal: number; // 筹款目标
   ido_start_at: number; // IDO开始时间
   ido_end_at: number; // IDO结束时间
+  platform: string; //来源平台
   [key: string]: any;
 }
 
