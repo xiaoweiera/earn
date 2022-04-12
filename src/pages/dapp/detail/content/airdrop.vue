@@ -50,12 +50,14 @@ const showClick = function () {
       <div class="flex flex-col md:flex-row justify-between overflow-hidden" :class="show_content ? 'h-0' : 'mt-5'">
         <!-- 描述 -->
         <div class="text-global-highTitle text-kd14px24px font-normal">
-          <ui-markdown :value="data.participation" />
+          <ui-description class="airdrop-des" :line="isAfter(data.airdrop.airdrop_start_at) || isAfter(data.airdrop.airdrop_end_at) ? 10 : 4">
+            <ui-markdown :value="data.participation" />
+          </ui-description>
         </div>
         <!-- 倒计时/数据/按钮 -->
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col md:flex-row" :class="isAfter(data.airdrop.airdrop_start_at) || isAfter(data.airdrop.airdrop_end_at) ? 'md:h-65' : 'md:h-36'">
           <!-- 间隔线 -->
-          <div class="my-4 md:my-0 mx-0 md:mx-8 h-0 md:min-h-38 w-full md:w-0 border-t md:border-l border-sold border-global-highTitle border-opacity-6"></div>
+          <div class="my-4 md:my-0 mx-0 md:mx-8 h-0 md:h-full w-full md:w-0 border-t md:border-l border-sold border-global-highTitle border-opacity-6"></div>
           <!-- 倒计时 -->
           <div>
             <DAppDetailDate :start="data.airdrop.airdrop_start_at" :ended="data.airdrop.airdrop_end_at" />
@@ -79,7 +81,7 @@ const showClick = function () {
               </li>
               <li class="flex justify-between items-center mt-3">
                 <!-- 空投时间 -->
-                <label class="airdrop-title">Mint时间</label>
+                <label class="airdrop-title">{{ i18n.dapp.detail.airdropTime }}</label>
                 <p class="airdrop-num">
                   <span>{{ timeFormat(data.airdrop.airdrop_start_at, data.airdrop.airdrop_end_at) }}</span>
                 </p>
@@ -87,10 +89,10 @@ const showClick = function () {
             </ul>
             <!-- 按钮 -->
             <div class="flex mt-5 justify-between">
-              <v-router class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="(data.participation_url || data.website) && data.logo ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
-                <span class="text-kd16px22px text-global-darkblue font-medium font-kdFang">参与教程</span>
+              <v-router v-if="data.tutorial_blog_url" class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.participation_url || data.website ? 'w-42.5' : 'w-87'" :href="data.tutorial_blog_url" target="_blank">
+                <span class="text-kd16px22px text-global-darkblue font-medium font-kdFang">{{ i18n.dapp.detail.tutorial }}</span>
               </v-router>
-              <v-router v-show="data.participation_url || data.website" class="block w-42.5 h-11 ml-2 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :href="data.participation_url || data.website" target="_blank">
+              <v-router v-if="data.participation_url || data.website" class="block h-11 ml-2 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
                 <span class="text-kd16px22px text-global-white font-medium font-kdFang">CLAIM AIRDROP</span>
               </v-router>
             </div>
@@ -107,5 +109,10 @@ const showClick = function () {
 }
 .airdrop-num {
   @apply text-kd14px18px text-global-highTitle font-kdInter;
+}
+.airdrop-des {
+  ::v-deep(.view-all) {
+    @apply bg-global-topBg;
+  }
 }
 </style>

@@ -202,5 +202,9 @@ export default {
     upcoming: "即将开始",
     ongoing: "进行中",
     ended: "已结束",
+    tutorial: "参与教程",
+    mintTime: "Mint 时间",
+    airdropTime: "空投时间",
+    activityTime: "活动时间",
   },
 };

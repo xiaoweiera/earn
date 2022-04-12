@@ -42,7 +42,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div v-if="chartData">
+  <div v-if="chartData && chartData.legends">
     <div class="w-full flex flex-row justify-between">
       <p class="text-global-highTitle text-kd16px24px">
         <span>{{ i18n.dapp.project.marketCap }}</span>

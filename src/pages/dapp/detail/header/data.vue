@@ -23,6 +23,6 @@ defineProps({
 
 <template>
   <div>
-    <NFT v-if="project.type === ProjectType.nft" :data="data" :project="project" />
+    <NFT v-if="project.type === ProjectType.nft && data.nft" :data="data" :project="project" />
   </div>
 </template>

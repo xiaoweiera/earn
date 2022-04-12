@@ -151,6 +151,7 @@ export interface DAppData {
   airdrop: Airdrop; // airdrop 数据
   community: Community; // 社交媒体
   tutorial_blog_url: string; //参与教程
+  platform: string; //参与平台
 }
 
 export interface blogDAppData extends DAppData {

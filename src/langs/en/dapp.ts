@@ -202,5 +202,9 @@ export default {
     upcoming: "Upcoming",
     ongoing: "OnGoing",
     ended: "Ended",
+    tutorial: "Tutorial",
+    mintTime: "Mint Time",
+    airdropTime: "Airdrop Time",
+    activityTime: "Activity Time",
   },
 };
