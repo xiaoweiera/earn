@@ -120,7 +120,7 @@ export default class extends ApiTemplate {
 
   // 项目库详情
   @tryError(DefaultValue({}))
-  @get(api.dapp.detail, expire.hour2)
+  @get(api.dapp.detail, expire.min2)
   @validate
   getDetail(@required id: string | number): Promise<DAppData> {
     const query = { id };
