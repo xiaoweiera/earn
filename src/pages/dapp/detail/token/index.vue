@@ -6,7 +6,8 @@ import safeGet from "@fengqiaogang/safe-get";
 import { Model, tokenUrl } from "src/logic/dapp/detail";
 import { Currency, TabName } from "src/types/dapp/data";
 import DAppTokensNfts from "src/pages/dapp/detail/token/nfts.vue";
-import DappTokensAirdrops from "src/pages/dapp/detail/token/airdrops.vue";
+import DAppTokensAirdrops from "src/pages/dapp/detail/token/airdrops.vue";
+import { uuid } from "src/utils";
 
 const props = defineProps({
   value: {
@@ -17,6 +18,7 @@ const props = defineProps({
   },
 });
 const i18n = I18n();
+const tokenKey = ref<string>(uuid());
 const empty = ref<boolean>(false); // 是否为空数据
 const chartData: any = ref({}); //代币图表
 // 当前币种
@@ -28,15 +30,13 @@ const params = reactive({
   id: props.value.id,
 });
 
-const tokenParams = reactive({
-  id: props.value.id,
-});
 const onCustom = function (data: object) {
   return data;
 };
 
 //处理id和name
-const integratedData = function (data: any) {
+
+const integratedData = async (data: any) => {
   if (data) {
     return data.map(function (item: any) {
       return {
@@ -52,8 +52,11 @@ const integratedData = function (data: any) {
 const getTokenList = async () => {
   const api = new Model();
   const res: any = await api.getTokenList(params);
-  const list = integratedData(res);
+  const list = await integratedData(res);
   tokenList.value = list;
+  if (tokenList.value.length <= 0) {
+    empty.value = true;
+  }
   if (props.value.tab === TabName.dashboard) {
     const [first] = list;
     if (first) {
@@ -73,6 +76,7 @@ const onChange = async function (data: object) {
       range: "ALL",
     };
     const data = await api.getTokenData(tokenParams);
+
     if (data) {
       chartData.value = data;
     }
@@ -85,83 +89,55 @@ onMounted(function () {
 
 <template>
   <!-- 代币页面显示 -->
-  <div v-if="value.tab === TabName.token" class="min-h-87.5">
-    <!-- 添加loading -->
-    <div v-if="tokenList && tokenList.length" class="md:flex md:flex-nowrap">
-      <div class="md:flex-1">
-        <p v-if="chartData.xAxis && chartData.xAxis.length > 0" class="text-global-highTitle text-kd16px24px pl-2">{{ i18n.address.money.jiage }}</p>
-        <!-- 代币图表 -->
-        <div class="token-echart md:mt-2">
-          <div class="equal-width-height" :class="{ 'equal-60': value.tab === TabName.token, 'equal-30': value.tab === TabName.dashboard }">
-            <div v-if="chartData.legends" class="w-full h-48 mx-auto md:mt-2">
-              <ui-echart-content :custom="onCustom" :data="chartData" class="h-full" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 代币排行 -->
-      <div v-if="value.tab === TabName.token" class="md:mt-0 mt-5">
-        <div class="md:w-min-75 w-full h-full md:ml-4 lg:ml-6 lg:w-75 rounded-xl bg-global-topBg px-4 pt-2 pb-2">
-          <ui-tab active-name="token" trigger="click" :list="tokenList" @change="onChange">
-            <template #default="scope">
-              <span class="text-14-18 font-m">{{ scope.data.name }}</span>
-            </template>
-          </ui-tab>
-          <div class="pt-1">
-            <template v-for="item in tokenList" :key="item.id">
-              <div v-if="value.type === TabName.nft">
-                <DAppTokensNfts :list="item" />
+  <div>
+    <div :key="tokenKey" class="min-h-87.5">
+      <!-- 添加loading -->
+      <div v-if="tokenList && tokenList.length > 0" class="md:flex md:flex-nowrap">
+        <div class="md:flex-1">
+          <p v-if="chartData.xAxis && chartData.xAxis.length > 0" class="text-global-highTitle text-kd16px24px pl-2">{{ i18n.address.money.jiage }}</p>
+          <!-- 代币图表 -->
+          <div class="token-echart md:mt-2">
+            <div class="h-110">
+              <div v-if="chartData.legends" class="w-full h-full mx-auto md:mt-2">
+                <ui-echart-content :custom="onCustom" :data="chartData" class="h-full" />
               </div>
-              <div v-else>
-                <DappTokensAirdrops :list="item" />
-              </div>
-            </template>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-else class="relative">
-      <div v-if="empty">
-        <div class="w-full h-full">
-          <img class="w-full h-full" :src="`${oss}/common/tokenImg.png`" />
-        </div>
-        <div class="tokenEmpty">
-          <p class="text-kd14px18px text-global-highTitle text-opacity-85">{{ i18n.dapp.project.captured }}</p>
-          <p class="mt-3 text-kd14px18px text-global-white text-center px-3 py-2 bg-global-darkblue text-white rounded">
-            <v-router :href="tokenUrl" target="_blank">
-              {{ I18n.dapp.project.submit }}
-            </v-router>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- 概览页显示 -->
-  <div v-else-if="value.tab === TabName.dashboard">
-    <div class="md:flex md:flex-nowrap">
-      <div class="md:flex-1">
-        <p class="text-global-highTitle text-kd16px24px pl-2">{{ i18n.address.money.jiage }}</p>
-        <!-- 代币图表 -->
-        <div v-if="tokenList && tokenList.length" class="token-echart md:mt-2">
-          <div class="equal-width-height" :class="{ 'equal-60': value.tab === TabName.token, 'equal-30': value.tab === TabName.dashboard }">
-            <div v-if="chartData.legends" class="w-full h-48 mx-auto md:mt-2">
-              <ui-echart-content :custom="onCustom" :data="chartData" class="h-full" />
             </div>
           </div>
         </div>
-        <div v-else class="relative h-58">
-          <div v-if="empty">
-            <div class="w-full h-full">
-              <img class="w-full h-full" :src="`${oss}/common/tokenImg.png`" />
-            </div>
-            <div class="tokenEmpty">
-              <p class="text-kd14px18px text-global-highTitle text-opacity-85">{{ i18n.dapp.project.captured }}</p>
-              <p class="mt-3 text-kd14px18px text-global-white text-center px-3 py-2 bg-global-darkblue text-white rounded">
-                <v-router :href="tokenUrl" target="_blank">
-                  {{ I18n.dapp.project.submit }}
-                </v-router>
+        <!-- 代币排行 -->
+        <div class="md:mt-0 mt-5">
+          <div class="md:w-min-75 w-full h-full md:ml-4 lg:ml-6 lg:w-75 rounded-xl bg-global-topBg px-4 pt-2 pb-2">
+            <div class="flex items-center h-10 min-w-67 showX cursor-pointer border-b border-global-darkblue border-opacity-4">
+              <p v-for="item in tokenList" :key="item.id" :class="active === item.id ? 'tab-active' : ''" class="inline-flex flex-col justify-center px-1 min-w-15 mr-4 h-full text-kd14px1px8 text-global-highTitle text-opacity-45 font-m" @click="onChange(item)">
+                <span>{{ item.name }}</span>
+                <span class="tab-active-border"></span>
               </p>
             </div>
+            <div class="pt-1">
+              <template v-for="item in tokenList" :key="item.id">
+                <div v-if="value.type === TabName.nft">
+                  <DAppTokensNfts :list="item" />
+                </div>
+                <div v-else>
+                  <DAppTokensAirdrops :list="item" />
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else class="relative">
+        <div v-if="empty">
+          <div class="w-full h-full">
+            <img class="w-full h-full" :src="`${oss}/common/tokenImg.png`" />
+          </div>
+          <div class="tokenEmpty">
+            <p class="text-kd14px18px text-global-highTitle text-opacity-85">{{ i18n.dapp.project.captured }}</p>
+            <p class="mt-3 text-kd14px18px text-global-white text-center px-3 py-2 bg-global-darkblue text-white rounded">
+              <v-router :href="tokenUrl" target="_blank">
+                {{ i18n.dapp.project.submit }}
+              </v-router>
+            </p>
           </div>
         </div>
       </div>
@@ -170,16 +146,10 @@ onMounted(function () {
 </template>
 
 <style lang="scss" scoped>
-.equal-width-height {
-  &.equal-30 {
-    &:before {
-      margin-top: 40%;
-    }
-  }
-  &.equal-60 {
-    &:before {
-      margin-top: 70%;
-    }
+.tab-active {
+  @apply text-global-darkblue;
+  .tab-active-border {
+    @apply w-full h-0.5 mt-2 bg-global-darkblue;
   }
 }
 .tokenEmpty {
