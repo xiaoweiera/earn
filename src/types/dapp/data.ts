@@ -15,6 +15,7 @@ export enum TabName {
   reviews = "reviews",
   twitter = "twitter",
   nft = "nft",
+  dapp = "dapp",
   airdrop = "airdrops",
 }
 
@@ -98,6 +99,7 @@ export interface IDO {
 export interface NFT {
   mint_price: number; // 当前价格
   owners: number; // 持有人
+  owners_change_percent: number; // NFT拥有者数量24小时变化率
   floor_price: number; // 当前地板价
   price_unit: string; // 价格单位
   issue_volume: number; //发行总量
