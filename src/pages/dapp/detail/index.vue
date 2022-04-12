@@ -51,7 +51,7 @@ const getTwitterName = function (data: DAppData) {
 </script>
 
 <template>
-  <ui-spin :loading="!(detail && detail.id)" class="pt-8 pb-16 px-4">
+  <ui-spin class="pt-8 pb-16 px-4">
     <div v-if="detail && detail.id" class="w-full max-w-300 mx-auto">
       <Header :data="detail" :project="project" />
       <ui-sticky class="mt-11 bg-white">
@@ -82,6 +82,9 @@ const getTwitterName = function (data: DAppData) {
           <IDO :data="detail" />
         </template>
       </div>
+    </div>
+    <div v-else>
+      <ui-empty />
     </div>
   </ui-spin>
 </template>

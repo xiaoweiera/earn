@@ -42,38 +42,40 @@ onMounted(function () {
 </script>
 
 <template>
-  <div v-if="chartData">
-    <div class="w-full flex flex-row justify-between">
-      <p class="text-global-highTitle text-kd16px24px">
-        <span>{{ value.type === "nft" && value.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
-        <span class="m-x-2">&</span>
-        <span>{{ i18n.dapp.project.balance }}</span>
-      </p>
-      <p class="inline-flex items-center p-1 rounded-md bg-global-highTitle bg-opacity-4 cursor-pointer">
-        <span v-for="item in dateList()" :key="item.id" :class="params.range === item.id ? 'active' : ''" class="change-tab" @click="tabClick(item)">{{ item.name }}</span>
-      </p>
-    </div>
-    <div v-if="chartData.current" class="h-9 flex">
-      <div class="flex flex-col justify-between">
-        <p class="flex items-center">
-          <span class="inline-block w-2 h-2 bg-global-darkblue rounded mr-1.5"></span>
-          <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ value.type === "nft" && value.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
+  <div>
+    <div v-if="chartData && chartData.legends">
+      <div class="w-full flex flex-row justify-between">
+        <p class="text-global-highTitle text-kd16px24px">
+          <span>{{ value.type === "nft" && value.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
+          <span class="m-x-2">&</span>
+          <span>{{ i18n.dapp.project.balance }}</span>
         </p>
-        <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(value.type === "nft" && value.rank ? chartData.current.owners : chartData.current.users) }}</p>
-      </div>
-      <div class="ml-7 mr-8 flex items-center">
-        <span class="inline-block h-2/3 w-0.25 bg-global-highTitle bg-opacity-10"></span>
-      </div>
-      <div class="flex flex-col justify-between">
-        <p class="flex items-center">
-          <span class="inline-block w-2 h-2 bg-global-money rounded mr-1.5"></span>
-          <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ i18n.dapp.project.balance }}</span>
+        <p class="inline-flex items-center p-1 rounded-md bg-global-highTitle bg-opacity-4 cursor-pointer">
+          <span v-for="item in dateList()" :key="item.id" :class="params.range === item.id ? 'active' : ''" class="change-tab" @click="tabClick(item)">{{ item.name }}</span>
         </p>
-        <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(value.type === "nft" && value.rank ? chartData.current.assets : chartData.current.balance, chartData.legends[1].unit) }}</p>
       </div>
-    </div>
-    <div v-if="chartData.legends" :key="dataKey" class="w-full h-48 mx-auto md:mt-2">
-      <ui-echart-content :custom="onCustom" :data="chartData" class="h-full" />
+      <div v-if="chartData.current" class="h-9 flex">
+        <div class="flex flex-col justify-between">
+          <p class="flex items-center">
+            <span class="inline-block w-2 h-2 bg-global-darkblue rounded mr-1.5"></span>
+            <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ value.type === "nft" && value.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
+          </p>
+          <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(value.type === "nft" && value.rank ? chartData.current.owners : chartData.current.users) }}</p>
+        </div>
+        <div class="ml-7 mr-8 flex items-center">
+          <span class="inline-block h-2/3 w-0.25 bg-global-highTitle bg-opacity-10"></span>
+        </div>
+        <div class="flex flex-col justify-between">
+          <p class="flex items-center">
+            <span class="inline-block w-2 h-2 bg-global-money rounded mr-1.5"></span>
+            <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ i18n.dapp.project.balance }}</span>
+          </p>
+          <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(value.type === "nft" && value.rank ? chartData.current.assets : chartData.current.balance, chartData.legends[1].unit) }}</p>
+        </div>
+      </div>
+      <div v-if="chartData.legends" :key="dataKey" class="w-full h-48 mx-auto md:mt-2">
+        <ui-echart-content :custom="onCustom" :data="chartData" class="h-full" />
+      </div>
     </div>
   </div>
 </template>

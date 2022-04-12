@@ -37,7 +37,7 @@ const onCustom = function (data: object) {
 //处理id和name
 
 const integratedData = async (data: any) => {
-  if (data) {
+  if (data && data.length) {
     return data.map(function (item: any) {
       return {
         ...item,
@@ -90,7 +90,7 @@ onMounted(function () {
 <template>
   <!-- 代币页面显示 -->
   <div>
-    <div :key="tokenKey" class="min-h-87.5">
+    <div :key="tokenKey" class="min-h-85">
       <!-- 添加loading -->
       <div v-if="tokenList && tokenList.length > 0" class="md:flex md:flex-nowrap">
         <div class="md:flex-1">
@@ -108,7 +108,7 @@ onMounted(function () {
         <div class="md:mt-0 mt-5">
           <div class="md:w-min-75 w-full h-full md:ml-4 lg:ml-6 lg:w-75 rounded-xl bg-global-topBg px-4 pt-2 pb-2">
             <div class="flex items-center h-10 min-w-67 showX cursor-pointer border-b border-global-darkblue border-opacity-4">
-              <p v-for="item in tokenList" :key="item.id" :class="active === item.id ? 'tab-active' : ''" class="inline-flex flex-col justify-center px-1 min-w-15 mr-4 h-full text-kd14px1px8 text-global-highTitle text-opacity-45 font-m" @click="onChange(item)">
+              <p v-for="item in tokenList" :key="item.id" :class="active === item.id ? 'tab-active' : ''" class="inline-flex flex-col items-center justify-center px-1 min-w-15 mr-4 h-full text-kd14px1px8 text-global-highTitle text-opacity-45 font-m" @click="onChange(item)">
                 <span>{{ item.name }}</span>
                 <span class="tab-active-border"></span>
               </p>
@@ -129,7 +129,7 @@ onMounted(function () {
       <div v-else class="relative">
         <div v-if="empty">
           <div class="w-full h-full">
-            <img class="w-full h-full" :src="`${oss}/common/tokenImg.png`" />
+            <img class="w-full h-87.5" :src="`${oss}/common/tokenImg.png`" />
           </div>
           <div class="tokenEmpty">
             <p class="text-kd14px18px text-global-highTitle text-opacity-85">{{ i18n.dapp.project.captured }}</p>

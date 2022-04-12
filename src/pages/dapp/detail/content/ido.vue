@@ -4,7 +4,7 @@ import DAppDetailDate from "src/pages/dapp/detail/content/date.vue";
 import DAppDetailState from "src/pages/dapp/detail/content/state.vue";
 import I18n from "src/utils/i18n";
 import { timeValue, timeFormat, getClassColor } from "src/logic/dapp/index";
-import { toNumberCashFormat } from "src/utils";
+import { toNumberCashFormat, isAfter } from "src/utils";
 import IconFont from "src/components/icon/font.vue";
 import { DAppData } from "src/types/dapp/data";
 
@@ -51,16 +51,18 @@ const showClick = function () {
       <div class="flex flex-col md:flex-row justify-between overflow-hidden" :class="show_content ? 'h-0' : 'mt-5'">
         <!-- 描述 -->
         <div class="text-global-highTitle text-kd14px24px font-normal">
-          <ui-markdown :value="data.participation" />
+          <ui-description class="airdrop-des" :line="isAfter(data.ido.ido_start_at) || isAfter(data.ido.ido_end_at) ? 16 : 8">
+            <ui-markdown :value="data.participation" />
+          </ui-description>
         </div>
         <!-- 倒计时/数据/按钮 -->
-        <div class="flex flex-col md:flex-row">
-          <div class="my-4 md:my-0 mx-0 md:mx-8 h-0 md:min-h-38 w-full md:w-0 border-t md:border-l border-sold border-global-highTitle border-opacity-6"></div>
+        <div class="flex flex-col md:flex-row" :class="isAfter(data.ido.ido_start_at) || isAfter(data.ido.ido_end_at) ? 'md:h-80' : 'md:h-52'">
+          <div class="my-4 md:my-0 mx-0 md:mx-8 h-0 md:h-full w-full md:w-0 border-t md:border-l border-sold border-global-highTitle border-opacity-6"></div>
           <div>
             <!-- 倒计时 -->
             <DAppDetailDate :start="data.ido.ido_start_at" :ended="data.ido.ido_end_at" />
             <!-- 间隔线 -->
-            <div class="w-87 my-5 border-b border-sold border-global-highTitle border-opacity-6"></div>
+            <div v-if="isAfter(data.ido.ido_start_at) || isAfter(data.ido.ido_end_at)" class="w-87 my-5 border-b border-sold border-global-highTitle border-opacity-6"></div>
             <!-- 数据 -->
             <ul>
               <!-- IDO价格 -->
@@ -89,20 +91,20 @@ const showClick = function () {
               <!-- 来源平台 -->
               <li class="flex justify-between mt-3">
                 <label class="airdrop-title">{{ i18n.home.topList.plat }}</label>
-                <p class="airdrop-num">DAO Maker</p>
+                <p class="airdrop-num">{{ data.ido.platform }}</p>
               </li>
               <!-- 活动时间 -->
               <li class="flex justify-between mt-3">
-                <label class="airdrop-title">活动时间</label>
+                <label class="airdrop-title">{{ i18n.dapp.detail.activityTime }}</label>
                 <p class="airdrop-num">{{ timeFormat(data.ido.ido_start_at, data.ido.ido_end_at) }}</p>
               </li>
             </ul>
             <!-- 按钮 -->
             <div class="flex mt-5 justify-between">
-              <v-router v-if="data.tutorial_blog_url" class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="!data.participation_url && !data.website && data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.tutorial_blog_url" target="_blank">
-                <span class="text-kd16px22px text-global-darkblue font-medium font-kdFang">参与教程</span>
+              <v-router v-if="data.tutorial_blog_url" class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.participation_url || data.website ? 'w-42.5' : 'w-87'" :href="data.tutorial_blog_url" target="_blank">
+                <span class="text-kd16px22px text-global-darkblue font-medium font-kdFang">{{ i18n.dapp.detail.tutorial }}</span>
               </v-router>
-              <v-router v-show="data.participation_url || data.website" class="block h-11 ml-2 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="(data.participation_url || data.website) && data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
+              <v-router v-if="data.participation_url || data.website" class="block h-11 ml-2 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
                 <span class="text-kd16px22px text-global-white font-medium font-kdFang">{{ i18n.home.idoIgoProject.join }}</span>
               </v-router>
             </div>
@@ -119,5 +121,10 @@ const showClick = function () {
 }
 .airdrop-num {
   @apply text-kd14px18px text-global-highTitle font-kdInter;
+}
+.airdrop-des {
+  ::v-deep(.view-all) {
+    @apply bg-global-topBg;
+  }
 }
 </style>
