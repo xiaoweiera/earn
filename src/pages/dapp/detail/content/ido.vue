@@ -1,17 +1,18 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, PropType } from "vue";
 import DAppDetailDate from "src/pages/dapp/detail/content/date.vue";
 import DAppDetailState from "src/pages/dapp/detail/content/state.vue";
 import I18n from "src/utils/i18n";
 import { timeValue, timeFormat, getClassColor } from "src/logic/dapp/index";
 import { toNumberCashFormat } from "src/utils";
 import IconFont from "src/components/icon/font.vue";
+import { DAppData } from "src/types/dapp/data";
 
 const i18n = I18n();
 
 defineProps({
   data: {
-    type: Object,
+    type: Object as PropType<DAppData>,
     default: () => {
       return {};
     },
@@ -98,10 +99,10 @@ const showClick = function () {
             </ul>
             <!-- 按钮 -->
             <div class="flex mt-5 justify-between">
-              <v-router class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="(data.participation_url || data.website) && data.logo ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
+              <v-router v-if="data.tutorial_blog_url" class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="!data.participation_url && !data.website && data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.tutorial_blog_url" target="_blank">
                 <span class="text-kd16px22px text-global-darkblue font-medium font-kdFang">参与教程</span>
               </v-router>
-              <v-router v-show="data.participation_url || data.website" class="block w-42.5 h-11 ml-2 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :href="data.participation_url || data.website" target="_blank">
+              <v-router v-show="data.participation_url || data.website" class="block h-11 ml-2 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="(data.participation_url || data.website) && data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
                 <span class="text-kd16px22px text-global-white font-medium font-kdFang">{{ i18n.home.idoIgoProject.join }}</span>
               </v-router>
             </div>

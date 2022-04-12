@@ -150,6 +150,7 @@ export interface DAppData {
   nft: NFT; // nft 数据
   airdrop: Airdrop; // airdrop 数据
   community: Community; // 社交媒体
+  tutorial_blog_url: string; //参与教程
 }
 
 export interface blogDAppData extends DAppData {
