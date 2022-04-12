@@ -95,6 +95,7 @@ export interface IDO {
 }
 
 export interface NFT {
+  mint_price: number; // 当前价格
   owners: number; // 持有人
   floor_price: number; // 当前地板价
   price_unit: string; // 价格单位
@@ -102,6 +103,7 @@ export interface NFT {
   highest_yield: number; // 最高收益
   mint_start_at: number; // Mint开始时间
   mint_end_at: number; // Mint结束时间
+  market: number; // 交易量
   [key: string]: any;
 }
 

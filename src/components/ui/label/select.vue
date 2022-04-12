@@ -57,7 +57,7 @@ const handleCommand = function (data: LabelItem) {
 
 <template>
   <div>
-    <div v-if="list.length > 1">
+    <div v-if="list.length > 1" class="cursor-pointer">
       <client-only>
         <template #note>
           <div class="hidden">

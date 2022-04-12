@@ -14,5 +14,6 @@ const detail = getInject("detailState");
 <style scoped>
 ::v-deep(p) {
   color: #033666;
+  display: contents;
 }
 </style>
