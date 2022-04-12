@@ -8,14 +8,11 @@ import ApiTemplate from "../template";
 
 import safeGet from "@fengqiaogang/safe-get";
 import { CommentModel, pushCommentModel, ReplyCommentModel } from "src/types/comment";
-const timeConfig = {
-  timeout: 10000,
-  baseURL: "https://kingdata.xyz",
-};
+
 export default class extends ApiTemplate {
   //得到列表
   @tryError(DefaultValue([])) // 处理默认值
-  @get(api.comment.list, 0, timeConfig) // 定义一个 get 请求
+  @get(api.comment.list, 0) // 定义一个 get 请求
   getCommentAndReply<T>(query: CommentModel): Promise<T> {
     const callback = function (data: object) {
       return safeGet(data, "results");
