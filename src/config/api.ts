@@ -89,3 +89,6 @@ export const comment = {
   deleteReply: "/api/dapps/v1/comment/reply", //删除评论
   star: "/api/v1/dapps/rating", // 评分
 };
+export const invest = {
+  list: "/api/dapps/v1/investments",
+};
