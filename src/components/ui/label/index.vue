@@ -77,12 +77,12 @@ const onChange = function (data: LabelItem) {
     <label-select :list="list" :name-key="nameKey" :selected="selected" class="flex" @change="onChange">
       <template #default="{ data, arrow }">
         <div v-if="data" class="text-global-highTitle text-opacity-65 py-1 px-2">
-          <div class="cursor-pointer flex items-center">
+          <div class="flex items-center">
             <!--icon-->
             <slot :data="data" name="prefix">
-              <span v-if="data[iconName] || data.icon" class="flex pr-1">
+              <div v-if="data[iconName] || data.icon" class="flex pr-1">
                 <IconFont :type="data[iconName] || data.icon" size="16" />
-              </span>
+              </div>
             </slot>
             <!--内容-->
             <div class="flex text-global-highTitle text-opacity-85">
@@ -99,7 +99,7 @@ const onChange = function (data: LabelItem) {
                 <IconFont v-if="arrow" size="16" type="icon-arrow-down" />
               </span>
               <div v-else-if="copy" class="flex pl-1">
-                <v-copy :value="data[nameKey]" class="flex">
+                <v-copy :value="data[nameKey]" class="flex cursor-pointer">
                   <IconFont size="16" type="icon-copy" />
                 </v-copy>
               </div>

@@ -68,7 +68,7 @@ const index = computed<number>(function () {
     <template v-if="src && !error">
       <el-image :fit="fit" :initial-index="index" :lazy="true" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
         <template #placeholder>
-          <IconFont size="22" type="loading" />
+          <slot name="loading"></slot>
         </template>
       </el-image>
     </template>

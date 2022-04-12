@@ -9,29 +9,33 @@ import I18n from "src/utils/i18n";
 import { upperFirst } from "src/utils/";
 import { TabName, ProjectType } from "src/types/dapp/data";
 import type { DAppProject } from "src/types/dapp/data";
-import { config as routerConfig } from "src/router/config";
 
 export class Model extends API {
   // 用户资产图表
   getUserData(query: DataQuery) {
     return this.dApp.getUserData(query);
   }
+
   // 市值交易量
   getMarketCapData(query: DataQuery) {
     return this.dApp.getMarketCapData(query);
   }
+
   // TVL
   getTVLData(query: DataQuery) {
     return this.dApp.getTVLData(query);
   }
+
   // 地板价
   getFloorData(query: DataQuery) {
     return this.dApp.getFloorData(query);
   }
+
   // 代币图表
   getTokenData(query: TokenDataQuery) {
     return this.dApp.getTokenData(query);
   }
+
   // 代币列表
   getTokenList(query: TokenQuery) {
     return this.dApp.getTokenList(query);
@@ -39,16 +43,17 @@ export class Model extends API {
 }
 
 const makeUrl = function (project: DAppProject, tab: TabName): string {
-  if (project.rank) {
+  const app = function (prefix = "") {
     if (project.type === ProjectType.igo) {
-      return `/rank/${project.type}/${project.id}/${tab}?${ProjectType.igo}=true`;
+      return `${prefix}/${ProjectType.dapp}/${project.id}/${tab}?${ProjectType.igo}=true`;
     }
-    return `/rank/${project.type}/${project.id}/${tab}`;
+    return `${prefix}/${project.type}/${project.id}/${tab}`;
+  };
+
+  if (project.rank) {
+    return app("/rank");
   }
-  if (project.type === ProjectType.igo) {
-    return `${routerConfig.dapp}/${project.id}/${tab}?${ProjectType.igo}=true`;
-  }
-  return `${routerConfig.dapp}/${project.id}/${tab}`;
+  return app();
 };
 
 export const getTabList = function (project: DAppProject) {
@@ -96,8 +101,14 @@ export const getTabList = function (project: DAppProject) {
 export const dateList = function () {
   const i18n = I18n();
   return [
-    { id: "30d", name: "30D" },
-    { id: "all", name: i18n.address.all },
+    {
+      id: "30d",
+      name: "30D",
+    },
+    {
+      id: "all",
+      name: i18n.address.all,
+    },
   ];
 };
 export const tokenUrl = "https://forms.gle/tC6umJmLDJ5ouTiW6";
