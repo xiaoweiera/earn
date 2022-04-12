@@ -28,9 +28,6 @@ const params = reactive({
   id: props.value.id,
 });
 
-const tokenParams = reactive({
-  id: props.value.id,
-});
 const onCustom = function (data: object) {
   return data;
 };

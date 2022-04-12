@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { clone } from "ramda";
-import { computed, ref, reactive } from "vue";
-import { toInteger, uuid } from "src/utils";
+import { computed, reactive } from "vue";
+import { toInteger } from "src/utils";
 import safeSet from "@fengqiaogang/safe-set";
 import { setInject, getInject } from "src/utils/use/state";
 import API from "src/api";
 const api = new API();
-const name = uuid("kd-star");
 const detail: any = getInject("detailState");
 const setDetail: any = setInject("detailState");
 

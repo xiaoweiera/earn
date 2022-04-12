@@ -2,9 +2,7 @@
 /**
  * @file DApp 评论
  */
-import { reactive } from "vue";
 import { toInteger, toNumber, toFixed } from "src/utils";
-import { createReactive } from "src/utils/ssr/ref";
 import I18n from "src/utils/i18n";
 import safeGet from "@fengqiaogang/safe-get";
 import { getInject } from "src/utils/use/state";

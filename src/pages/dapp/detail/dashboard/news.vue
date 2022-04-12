@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { createRef } from "src/utils/ssr/ref";
 import { getValue } from "src/utils/root/data";
 import { toArray } from "src/utils";
 import API from "src/api";
 import { getInject } from "src/utils/use/state";
-const api = new API();
+
 const detail: any = getInject("detailState");
+
 const initValue = function () {
   const data = getValue("API.dapp.news", []);
   if (data.length > 0) {
@@ -13,6 +13,7 @@ const initValue = function () {
   }
 };
 const requestList = async function (query: object) {
+  const api = new API();
   const params: any = { ...query, id: detail.id };
   const res: any = await api.dApp.getNews(params);
   return toArray(res);

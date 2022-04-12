@@ -103,7 +103,6 @@ export interface NFT {
   highest_yield: number; // 最高收益
   mint_start_at: number; // Mint开始时间
   mint_end_at: number; // Mint结束时间
-  market: number; // 交易量
   [key: string]: any;
 }
 
@@ -125,6 +124,18 @@ export interface Community {
   twitter: CommunityItem;
 }
 
+export interface Ticker {
+  tvl: number; // 锁仓
+  tvl_change_percent: number; // 锁仓24小时变化率
+  mcap: number; // 市值
+  mcap_change_percent: number; // 市值24小时变化率
+  mcap_tvl: number; // 锁仓市值比
+  h24volume: number; // 24小时成交量
+  h24volume_change_percent: number; // 24小时成交量变化率
+  users: number; //  用户数
+  user_change_percent: number; // 用户数24小时变化率
+}
+
 export interface DAppData {
   anchor: DataType; // 项目类型
   id: number | string; // 项目 ID
@@ -133,7 +144,7 @@ export interface DAppData {
   gallery: string[]; // nft 图集
   risk: Risk;
   website?: string; // 项目地址
-  ticker?: string; // 排行榜类型项目描述
+  ticker: Ticker; // 排行榜类型项目描述
   description?: string; // 描述
   score: number; // 综合得分
   clout: number; // 打分数
@@ -170,6 +181,7 @@ export interface DataQuery {
 export interface TokenQuery {
   id: number;
 }
+
 export interface TokenDataQuery {
   symbol: string | number;
   range: string;
@@ -195,6 +207,7 @@ export interface Currency {
   sold_24h: number; //24小时售卖
   total_volume: number; //总交易量
 }
+
 export interface newsModel {
   id: number | string;
   page: number;
