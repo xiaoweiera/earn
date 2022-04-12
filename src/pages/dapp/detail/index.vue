@@ -14,6 +14,7 @@ import { useReactiveProvide } from "src/utils/use/state";
 import { asyncLoad } from "src/plugins/lazyload/";
 
 import Header from "./header/index.vue";
+
 const Twitter = asyncLoad(() => import("./content/twitter.vue"));
 const IDO = asyncLoad(() => import("./content/ido.vue"));
 const Reviews = asyncLoad(() => import("./reviews/index.vue"));
@@ -50,9 +51,9 @@ const getTwitterName = function (data: DAppData) {
 </script>
 
 <template>
-  <div class="pt-8 pb-16 px-4">
+  <ui-spin :loading="!(detail && detail.id)" class="pt-8 pb-16 px-4">
     <div v-if="detail && detail.id" class="w-full max-w-300 mx-auto">
-      <Header :project="project" :data="detail" />
+      <Header :data="detail" :project="project" />
       <ui-sticky class="mt-11 bg-white">
         <ui-tab :def="TabName.dashboard" :list="getTabList(project)" active-name="tab" @change="onChangeTab">
           <template #default="{ data }">
@@ -82,8 +83,5 @@ const getTwitterName = function (data: DAppData) {
         </template>
       </div>
     </div>
-    <div v-else class="text-center">
-      <IconFont type="loading" size="40" rounded />
-    </div>
-  </div>
+  </ui-spin>
 </template>

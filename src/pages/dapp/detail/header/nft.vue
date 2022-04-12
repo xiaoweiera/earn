@@ -85,7 +85,9 @@ defineProps({
         </Td>
       </template>
       <template v-else>
-        <Not />
+        <Td>
+          <Not />
+        </Td>
       </template>
     </Table>
     <!--图集-->

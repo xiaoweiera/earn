@@ -21,12 +21,31 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex">
-    <div class="flex-1">
+  <div class="dapp-header-warp">
+    <div class="info-content">
       <info-view :data="data" :project="project" />
     </div>
-    <div class="flex-1 w-1 ml-15">
+    <div class="data-content">
       <data-view :data="data" :project="project" />
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.dapp-header-warp {
+  .data-content {
+    @apply mt-6 pt-3;
+    @apply border-t border-solid border-global-highTitle border-opacity-6;
+  }
+  @screen md {
+    @apply flex;
+    .info-content,
+    .data-content {
+      @apply flex-1;
+    }
+    .data-content {
+      @apply w-1 ml-15 mt-0 pt-0 border-0;
+    }
+  }
+}
+</style>
