@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getValue } from "src/utils/root/data";
 import { toArray } from "src/utils";
+import { dateDiff } from "src/utils/";
 import API from "src/api";
 import { getInject } from "src/utils/use/state";
 
@@ -31,7 +32,7 @@ const requestList = async function (query: object) {
                 <div class="tip flex items-center">
                   <p>KingData</p>
                   <p class="mx-1">·</p>
-                  <p>{{ item.release_ts }}</p>
+                  <p>{{ dateDiff(item.release_ts) }}</p>
                 </div>
               </div>
               <div class="flex items-center text-global-primary ml-5">

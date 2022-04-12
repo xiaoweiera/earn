@@ -152,11 +152,12 @@ const submit = async () => {
   border: 1px solid rgba(3, 54, 102, 0.06);
   @apply h-full;
   ::v-deep(.el-textarea) {
+    border: 1px solid #fafbfc !important;
     @apply h-full;
   }
   ::v-deep(.el-textarea__inner) {
     background: #fafbfc;
-    border: none;
+    border: 1px solid #fafbfc !important;
     font-family: auto !important;
     padding-right: 10px !important;
     @apply px-4 p-0 h-full text-global-hightTitle text-opacity-45;
@@ -167,7 +168,7 @@ const submit = async () => {
   border: 1px solid rgba(3, 54, 102, 0.06);
   ::v-deep(.el-textarea__inner) {
     background: #fafbfc;
-    border: none;
+    border: 1px solid #fafbfc !important;
     font-family: auto !important;
     padding-right: 10px !important;
     @apply h-13 px-4 p-0 text-global-hightTitle text-opacity-45;
@@ -177,7 +178,7 @@ const submit = async () => {
   @apply bg-global-white;
   border: 1px solid rgba(3, 54, 102, 0.06);
   ::v-deep(.el-textarea__inner) {
-    border: none;
+    border: 1px solid white !important;
     font-family: auto !important;
     padding-right: 10px !important;
     @apply h-13 px-4 p-0 text-global-hightTitle bg-global-white text-opacity-45;

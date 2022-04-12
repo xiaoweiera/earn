@@ -26,7 +26,7 @@ export default class extends ApiTemplate {
       const other = { id: 10001, name: i18n.topRank.chainOther, slug: "other", logo: "" };
       //@ts-ignore
       const list = data ? [].concat(all, data, other) : [].concat(all, other);
-      return getUrl(list, baseUrl, "chain", "slug");
+      return getUrl(list, baseUrl, "chain", "slug", { lang: i18n.getLang() });
     };
     // 返回参数
     return [query, callback] as any;

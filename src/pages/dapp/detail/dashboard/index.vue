@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Introduction from "src/pages/dapp/detail/dashboard/introduction.vue";
 import News from "src/pages/dapp/detail/dashboard/news.vue";
+import Token from "src/pages/dapp/detail/token/index.vue";
 import Information from "src/pages/dapp/detail/content/chain/index.vue";
 
 defineProps({
@@ -14,8 +15,11 @@ defineProps({
 </script>
 <template>
   <div>
-    <Information v-if="data.rank" :value="data" />
     <div>
+      <Token :value="data" />
+    </div>
+    <Information v-if="data.rank" :value="data" />
+    <div class="mt-14">
       <h class="title">Introduction</h>
       <Introduction class="mt-2" />
     </div>
