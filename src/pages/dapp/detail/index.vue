@@ -51,7 +51,7 @@ const getTwitterName = function (data: DAppData) {
 
 <template>
   <div class="pt-8 pb-16 px-4">
-    <div class="w-full max-w-300 mx-auto">
+    <div v-if="detail && detail.id" class="w-full max-w-300 mx-auto">
       <Header :project="project" :data="detail" />
       <ui-sticky class="mt-11 bg-white">
         <ui-tab :def="TabName.dashboard" :list="getTabList(project)" active-name="tab" @change="onChangeTab">
@@ -81,6 +81,9 @@ const getTwitterName = function (data: DAppData) {
           <IDO :data="detail" />
         </template>
       </div>
+    </div>
+    <div v-else class="text-center">
+      <IconFont type="loading" size="40" rounded />
     </div>
   </div>
 </template>

@@ -25,16 +25,10 @@ defineProps({
 
 <template>
   <div>
-    <template v-if="value || value === 0">
-      <label class="text-14-18 text-global-highTitle text-opacity-65">{{ label }}</label>
-      <p class="text-32 text-global-highTitle">
-        <b v-if="unit">{{ toNumberFormat(value, toUpper(unit)) }}</b>
-        <b v-else>{{ toNumberFormat(value) }}</b>
-      </p>
-    </template>
-    <template v-else>
-      <label class="text-18-24 text-global-highTitle">Market data is untracked</label>
-      <p class="text-14-20 text-global-highTitle text-opacity-85">As the project is relatively new, please review our disclaimer</p>
-    </template>
+    <label class="text-14-18 text-global-highTitle text-opacity-65">{{ label }}</label>
+    <p class="text-32 text-global-highTitle">
+      <b v-if="unit">{{ toNumberFormat(value, toUpper(unit)) }}</b>
+      <b v-else>{{ toNumberFormat(value) }}</b>
+    </p>
   </div>
 </template>
