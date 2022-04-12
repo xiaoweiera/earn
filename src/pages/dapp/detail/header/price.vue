@@ -26,7 +26,7 @@ defineProps({
 <template>
   <div>
     <label class="text-14-18 text-global-highTitle text-opacity-65">{{ label }}</label>
-    <p class="text-32 text-global-highTitle">
+    <p class="text-32 mt-2 text-global-highTitle">
       <b v-if="unit">{{ toNumberFormat(value, toUpper(unit)) }}</b>
       <b v-else>{{ toNumberFormat(value) }}</b>
     </p>

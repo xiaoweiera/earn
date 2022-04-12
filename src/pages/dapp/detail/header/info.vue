@@ -10,6 +10,7 @@ import { ProjectType } from "src/types/dapp/data";
 import type { DAppProject, DAppData, ProjectMedias, ProjectMediaItem } from "src/types/dapp/data";
 import { getChainLogo } from "src/utils/";
 import Risk from "src/pages/dapp/risk/index.vue";
+import Progress from "src/pages/dapp/progress/index.vue";
 
 const i18n = I18n();
 
@@ -38,21 +39,23 @@ const getMediaUrl = function (data: DAppData, name: string) {
   <div>
     <div class="flex items-center">
       <ui-image :preview="[data.logo]" :src="data.logo" class="w-12 h-12 mr-3" rounded />
-      <div class="flex-1">
-        <h3 class="text-24-28 text-global-highTitle font-medium">{{ data.name }}</h3>
+      <div class="flex-1 w-1">
+        <h3 class="text-24-28 text-global-highTitle font-medium truncate">{{ data.name }}</h3>
       </div>
     </div>
-    <div class="mt-4 flex">
+    <div class="flex flex-wrap empty:hidden">
       <!--项目进度-->
-      <ui-label v-if="project.type === ProjectType.airdrop && data.ido" :value="data.ido.ido_status" />
+      <template v-if="project.type === ProjectType.airdrop && data.ido && data.ido.ido_status">
+        <Progress :value="data.ido.ido_status" class="mt-4" />
+      </template>
       <!--风险等级-->
-      <Risk v-if="data.risk" :value="data.risk" />
+      <Risk v-if="data.risk" :value="data.risk" class="mt-4" />
       <!--公链-->
-      <ui-label :value="data.chains" icon-name="logo" />
+      <ui-label :value="data.chains" class="mt-4" icon-name="logo" />
       <!--项目类型-->
-      <ui-label :value="data.categories" />
+      <ui-label :value="data.categories" class="mt-4" />
       <!-- 合约 -->
-      <ui-label :value="data.contracts" copy name-key="address" no-select>
+      <ui-label :value="data.contracts" class="mt-4" copy name-key="address" no-select>
         <template #prefix="scope">
           <span v-if="getChainLogo(scope.data.chain)" class="flex pr-1">
             <IconFont :type="getChainLogo(scope.data.chain)" size="16" />
@@ -60,13 +63,12 @@ const getMediaUrl = function (data: DAppData, name: string) {
         </template>
       </ui-label>
     </div>
-
     <!--项目描述-->
-    <ui-description :line="2" class="mt-5" dialog>
+    <ui-description v-if="data.description" :line="2" class="mt-5" dialog>
       <p class="text-14-20 text-global-highTitle text-opacity-65" v-text="data.description"></p>
     </ui-description>
     <div class="flex items-center justify-between md:block mt-4">
-      <div class="text-global-darkblue flex items-center media-list">
+      <div class="text-global-darkblue flex items-center media-list empty:hidden">
         <v-router v-if="getMediaUrl(data, 'twitter')" :href="getMediaUrl(data, 'twitter')" target="_blank">
           <!--twitter-->
           <ui-hover class="flex-popover" rounded>

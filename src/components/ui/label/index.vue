@@ -76,7 +76,7 @@ const onChange = function (data: LabelItem) {
   <div v-if="size(list) >= 1" class="ui-label rounded bg-global-highTitle bg-opacity-6">
     <label-select :list="list" :name-key="nameKey" :selected="selected" class="flex" @change="onChange">
       <template #default="{ data, arrow }">
-        <div v-if="data" class="text-global-highTitle text-opacity-65 py-1 px-2">
+        <div v-if="data" class="text-global-highTitle text-opacity-65 py-1 px-2 whitespace-nowrap">
           <div class="flex items-center">
             <!--icon-->
             <slot :data="data" name="prefix">
