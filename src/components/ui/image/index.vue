@@ -1,11 +1,12 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 图片处理
  * @author svon.me@gmail.com
  */
 
+import { ElImage } from "element-plus";
 import type { PropType } from "vue";
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 
 type Fit = "cover" | "contain" | "fill" | "none";
 
@@ -30,86 +31,57 @@ const props = defineProps({
     type: Boolean,
     default: () => false,
   },
+  // 预览列表
+  preview: {
+    default: null,
+    type: Array as PropType<string[]>,
+  },
+});
+
+const className = computed<string[]>(function () {
+  const data: string[] = [];
+  if (props.rounded) {
+    data.push("rounded-1/2");
+  }
+  if (props.title) {
+    data.push("help");
+  }
+  return data;
 });
 
 const error = ref<boolean>(false);
+const auto = ref<string>("/images/common/logo.jpg");
 
-const value = computed<string>(() => {
-  if (props.src) {
-    return `background-image: url(${props.src})`;
+const index = computed<number>(function () {
+  if (props.src && props.preview) {
+    const value = props.preview.indexOf(props.src);
+    if (value > 0) {
+      return value;
+    }
   }
-  return "";
-});
-
-onMounted(() => {
-  if (props.src) {
-    const image = new Image();
-    image.src = props.src;
-    image.onerror = () => {
-      error.value = true;
-    };
-  } else {
-    error.value = true;
-  }
+  return 0;
 });
 </script>
 
 <template>
-  <div class="ui-image" :class="{ error: error, rounded, help: !!title }" :data-help="title">
-    <span class="block overflow-hidden w-full h-full">
-      <img v-if="src && fit === 'none'" class="max-h-full max-w-full" :src="src" :alt="alt" />
-      <i :class="fit" :style="value" />
-    </span>
-  </div>
+  <client-only :class="className" :data-help="title" class="ui-image overflow-hidden">
+    <template v-if="src && !error">
+      <el-image :fit="fit" :initial-index="index" :lazy="true" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
+        <template #placeholder>
+          <IconFont size="22" type="loading" />
+        </template>
+      </el-image>
+    </template>
+    <template v-else>
+      <el-image :fit="fit" :lazy="true" :src="auto" class="block w-full h-full" />
+    </template>
+  </client-only>
 </template>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "src/styles/function";
 
 .ui-image {
   @apply relative;
-  i {
-    @apply block w-full h-full bg-center bg-no-repeat;
-  }
-
-  img {
-    @apply w-full inline-block;
-    & ~ i {
-      @apply hidden;
-    }
-  }
-
-  &:not(.error) i {
-    &.cover {
-      @apply bg-cover;
-    }
-    &.contain {
-      @apply bg-contain;
-    }
-    &.fill {
-      background-size: 100% 100%;
-    }
-  }
-
-  &.error {
-    img {
-      @apply opacity-0 invisible;
-    }
-    i {
-      @apply block;
-      @apply bg-contain;
-      @apply absolute left-0 top-0 right-0 bottom-0;
-      background-image: static("/images/common/logo.jpg") !important;
-    }
-  }
-  &.rounded {
-    & > span {
-      @apply rounded-1/2;
-    }
-    i,
-    img {
-      @apply rounded-1/2;
-    }
-  }
   &.help {
     @apply cursor-pointer;
     &:after {
@@ -121,6 +93,7 @@ onMounted(() => {
       @apply text-global-darkblue text-opacity-60 whitespace-pre text-sm;
       @apply border border-solid border-gray-300 rounded-md;
     }
+
     &:hover {
       &:after {
         @apply visible opacity-100;
