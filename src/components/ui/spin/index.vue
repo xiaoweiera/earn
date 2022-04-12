@@ -1,11 +1,13 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 defineProps({
+  /* 控制 loading 显示与隐藏 */
   loading: {
     type: Boolean,
     default() {
       return false;
     },
   },
+  /* 是否全屏居中显示，默认为 true */
   fit: {
     type: Boolean,
     default() {
@@ -16,60 +18,27 @@ defineProps({
 </script>
 
 <template>
-  <div class="spin">
+  <div :class="{ fit: fit }" class="ui-spin">
     <slot />
-    <span v-show="loading" class="loading-icon" :class="{ fit: fit }">
-      <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" />
-      </svg>
-    </span>
+    <div v-show="loading" class="loading-icon left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2">
+      <IconFont size="40" type="loading" />
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@keyframes loading-rotate {
-  to {
-    transform: rotate(1turn);
-  }
-}
-
-@keyframes loading-dash {
-  0% {
-    stroke-dasharray: 1, 200;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -40px;
-  }
-  to {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -120px;
-  }
-}
-
-.loading-icon {
+.ui-spin {
   &.fit {
-    @apply fixed;
+    .loading-icon {
+      @apply fixed;
+    }
   }
+
   &:not(.fit) {
-    @apply absolute;
-  }
-  @apply left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2;
-  @apply z-99999;
-  .circular {
-    height: 42px;
-    width: 42px;
-    @apply text-global-primary;
-    animation: loading-rotate 2s linear infinite;
-  }
-  .path {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: 0;
-    stroke-width: 2;
-    stroke: #409eff;
-    stroke-linecap: round;
-    animation: loading-dash 1.5s ease-in-out infinite;
+    @apply relative;
+    .loading-icon {
+      @apply absolute;
+    }
   }
 }
 </style>

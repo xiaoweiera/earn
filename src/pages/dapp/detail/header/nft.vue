@@ -47,45 +47,47 @@ defineProps({
         </v-router>
       </div>
     </div>
-    <Table v-if="data.nft.mint_price || data.ticker.mcap || data.ticker.h24volume || data.nft.owners" class="mt-4">
-      <!-- Mint price -->
-      <Td v-if="data.nft.mint_price">
-        <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.priceData.mintPrice }}</label>
-        <p class="text-14-18 text-global-highTitle">
-          <b class="font-m">{{ toNumberFormat(data.nft.mint_price) }}</b>
-          <b v-if="data.nft.price_unit" class="ml-0.5 font-m">{{ toUpper(data.nft.price_unit) }}</b>
-        </p>
-        <!--占位-->
-        <ui-percent class="invisible" />
-      </Td>
-      <!--Market 市值-->
-      <Td v-if="data.ticker.mcap">
-        <label class="text-12-18 text-global-highTitle text-opacity-65">Market Cap(24H)</label>
-        <p class="text-14-18 text-global-highTitle">
-          <b class="font-m">{{ toNumberFormat(data.ticker.mcap) }}</b>
-        </p>
-        <ui-percent :value="data.ticker.mcap_change_percent" />
-      </Td>
-      <!--Volume 发行总量-->
-      <Td v-if="data.ticker.h24volume">
-        <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.priceData.count }}</label>
-        <p class="text-14-18 text-global-highTitle">
-          <b class="font-m">{{ toNumberFormat(data.ticker.h24volume) }}</b>
-        </p>
-        <ui-percent :value="data.ticker.h24volume_change_percent" />
-      </Td>
-      <!--Owners 拥有者数量-->
-      <Td v-if="data.nft.owners">
-        <label class="text-12-18 text-global-highTitle text-opacity-65">Owners(24H)</label>
-        <p class="text-14-18 text-global-highTitle">
-          <b class="font-m">{{ toNumberFormat(data.nft.owners) }}</b>
-        </p>
-        <ui-percent :value="data.nft.user_change_percent" />
-      </Td>
+    <Table class="mt-4">
+      <template v-if="data.nft.mint_price || data.ticker.mcap || data.ticker.h24volume || data.nft.owners">
+        <!-- Mint price -->
+        <Td v-if="data.nft.mint_price">
+          <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.priceData.mintPrice }}</label>
+          <p class="text-14-18 text-global-highTitle">
+            <b class="font-m">{{ toNumberFormat(data.nft.mint_price) }}</b>
+            <b v-if="data.nft.price_unit" class="ml-0.5 font-m">{{ toUpper(data.nft.price_unit) }}</b>
+          </p>
+          <!--占位-->
+          <ui-percent class="invisible" />
+        </Td>
+        <!--Market 市值-->
+        <Td v-if="data.ticker.mcap">
+          <label class="text-12-18 text-global-highTitle text-opacity-65">Market Cap(24H)</label>
+          <p class="text-14-18 text-global-highTitle">
+            <b class="font-m">{{ toNumberFormat(data.ticker.mcap) }}</b>
+          </p>
+          <ui-percent :value="data.ticker.mcap_change_percent" />
+        </Td>
+        <!--Volume 发行总量-->
+        <Td v-if="data.ticker.h24volume">
+          <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.priceData.count }}</label>
+          <p class="text-14-18 text-global-highTitle">
+            <b class="font-m">{{ toNumberFormat(data.ticker.h24volume) }}</b>
+          </p>
+          <ui-percent :value="data.ticker.h24volume_change_percent" />
+        </Td>
+        <!--Owners 拥有者数量-->
+        <Td v-if="data.nft.owners">
+          <label class="text-12-18 text-global-highTitle text-opacity-65">Owners(24H)</label>
+          <p class="text-14-18 text-global-highTitle">
+            <b class="font-m">{{ toNumberFormat(data.nft.owners) }}</b>
+          </p>
+          <ui-percent :value="data.nft.user_change_percent" />
+        </Td>
+      </template>
+      <template v-else>
+        <Not />
+      </template>
     </Table>
-    <template v-else>
-      <Not />
-    </template>
     <!--图集-->
     <div class="clearfix">
       <div class="flex flex-wrap justify-end">

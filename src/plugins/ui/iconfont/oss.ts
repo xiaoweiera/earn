@@ -27,7 +27,6 @@ const ossList: string[] = [
   "inter", // inter.svg
   "kingdata", // kingdata.png
   "lang", // lang.png
-  "loading", // loading.jpg
   "mdx", // mdx.png
   "mobile", // mobile.svg
   "more", // more.svg
@@ -69,6 +68,9 @@ const getLink = function (value: string, suffix = "svg"): string | undefined {
     }
     if (Equals(value, "vip1")) {
       return `${env.VITE_oss}/static/images/icon/vip1.svg`;
+    }
+    if (Equals(value, "loading")) {
+      return `${env.VITE_oss}/icon/loading.png`;
     }
     // 特殊 icon
     if (value === "down" && suffix === "png") {
