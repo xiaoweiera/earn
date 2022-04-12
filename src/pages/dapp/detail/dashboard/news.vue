@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { createRef } from "src/utils/ssr/ref";
 import { getValue } from "src/utils/root/data";
-import { toArray } from "src/utils";
-import { dateDiff } from "src/utils/";
+import { ref } from "vue";
+import { toArray, dateDiff } from "src/utils";
 import API from "src/api";
 import { getInject } from "src/utils/use/state";
 const api = new API();
+const isShow = ref<boolean>(false);
 const detail: any = getInject("detailState");
 const initValue = function () {
   const data = getValue("API.dapp.news", []);
@@ -18,10 +18,16 @@ const requestList = async function (query: object) {
   const res: any = await api.dApp.getNews(params);
   return toArray(res);
 };
+const changeData = (data: any) => {
+  if (data[0] > 0) {
+    isShow.value = true;
+  }
+};
 </script>
 <template>
-  <div>
-    <ui-pagination :limit="5" :init-value="initValue()" :request="requestList">
+  <div v-if="isShow">
+    <p class="title mt-14">News</p>
+    <ui-pagination :limit="5" :init-value="initValue()" :request="requestList" @change="changeData">
       <template #default="scope">
         <div>
           <template v-for="(item, index) in scope.list" :key="index">
@@ -46,6 +52,9 @@ const requestList = async function (query: object) {
   </div>
 </template>
 <style scoped lang="scss">
+.title {
+  @apply text-global-highTitle text-kd24px28px font-medium;
+}
 .content {
   @apply text-global-highTitle text-kd16px22px font-medium;
 }
