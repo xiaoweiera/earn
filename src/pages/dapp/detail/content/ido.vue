@@ -64,7 +64,7 @@ const showClick = function () {
             <!-- 间隔线 -->
             <div v-if="isAfter(data.ido.ido_start_at) || isAfter(data.ido.ido_end_at)" class="w-87 my-5 border-b border-sold border-global-highTitle border-opacity-6"></div>
             <!-- 数据 -->
-            <ul>
+            <ul class="w-full md:w-87">
               <!-- IDO价格 -->
               <li class="flex justify-between">
                 <label class="airdrop-title">{{ i18n.dapp.project.idoPrice }}</label>

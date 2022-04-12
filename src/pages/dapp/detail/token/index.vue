@@ -57,7 +57,7 @@ const getTokenList = async () => {
   if (tokenList.value.length <= 0) {
     empty.value = true;
   }
-  if (props.value.tab === TabName.dashboard) {
+  if (props.value.tab === TabName.dashboard && list.length) {
     const [first] = list;
     if (first) {
       const value = { token: first.id };
@@ -90,9 +90,9 @@ onMounted(function () {
 <template>
   <!-- 代币页面显示 -->
   <div>
-    <div :key="tokenKey" class="min-h-85">
+    <div v-if="tokenList && tokenList.length > 0" :key="tokenKey" class="min-h-85">
       <!-- 添加loading -->
-      <div v-if="tokenList && tokenList.length > 0" class="md:flex md:flex-nowrap">
+      <div class="md:flex md:flex-nowrap">
         <div class="md:flex-1">
           <p v-if="chartData.xAxis && chartData.xAxis.length > 0" class="text-global-highTitle text-kd16px24px pl-2">{{ i18n.address.money.jiage }}</p>
           <!-- 代币图表 -->
@@ -126,21 +126,21 @@ onMounted(function () {
           </div>
         </div>
       </div>
-      <div v-else class="relative">
-        <div v-if="empty">
-          <div class="w-full h-full">
-            <img class="w-full h-87.5" :src="`${oss}/common/tokenImg.png`" />
-          </div>
-          <div class="tokenEmpty">
-            <p class="text-kd14px18px text-global-highTitle text-opacity-85">{{ i18n.dapp.project.captured }}</p>
-            <p class="mt-3 text-kd14px18px text-global-white text-center px-3 py-2 bg-global-darkblue text-white rounded">
-              <v-router :href="tokenUrl" target="_blank">
-                {{ i18n.dapp.project.submit }}
-              </v-router>
-            </p>
-          </div>
-        </div>
-      </div>
+      <!--      <div v-else class="relative">-->
+      <!--        <div v-if="empty">-->
+      <!--          <div class="w-full h-full">-->
+      <!--            <img class="w-full h-87.5" :src="`${oss}/common/tokenImg.png`" />-->
+      <!--          </div>-->
+      <!--          <div class="tokenEmpty">-->
+      <!--            <p class="text-kd14px18px text-global-highTitle text-opacity-85">{{ i18n.dapp.project.captured }}</p>-->
+      <!--            <p class="mt-3 text-kd14px18px text-global-white text-center px-3 py-2 bg-global-darkblue text-white rounded">-->
+      <!--              <v-router :href="tokenUrl" target="_blank">-->
+      <!--                {{ i18n.dapp.project.submit }}-->
+      <!--              </v-router>-->
+      <!--            </p>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
   </div>
 </template>
