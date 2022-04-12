@@ -101,29 +101,29 @@ export default {
   IdoIgo: {
     title: "最新最全的 IDO 聚合平台",
     igotitle: "最新最全的 IGO 聚合平台",
-    desc: "一站式服务：Web3.0、DeFi、游戏、NFT、Airdorps",
+    desc: "一站式服务：Web3.0、DeFi、游戏、NFT、Airdrops",
   },
   nfts: {
     title: "最新最全的 NFT 聚合平台",
-    desc: "一站式服务：Web3.0、DeFi、游戏、NFT、Airdorps",
+    desc: "一站式服务：Web3.0、DeFi、游戏、NFT、Airdrops",
     today: "今天",
     tomorrow: "明天",
   },
   webInfo: {
     home: {
       title: "KingData | Web3 一站式投资平台",
-      key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资",
+      key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdrops、数据驱动投资",
       des: "在全球 DApp Store 上探索 NFT、NFT 市场、区块链游戏、De-Fi、区块链上的 Dapp 等",
     },
     homeDetail: {
       title: "热门话题 | KingData",
-      key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资",
+      key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdrops、数据驱动投资",
       des: "快速查看今天、本周和本月 KingData 上最流行的趋势项目。",
     },
   },
   webIdo: {
     title: "IDO 列表 | KingData",
-    key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资",
+    key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdrops、数据驱动投资",
     des: "即将举行的代币生成活动和代币销售列表",
   },
   webIgo: {
@@ -131,7 +131,7 @@ export default {
   },
   webNft: {
     title: "NFTs 列表 | KingData",
-    key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资",
+    key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdrops、数据驱动投资",
     des: "发掘热门NFT項目，通过 KingData 找出潜力NFT",
   },
   blog: {

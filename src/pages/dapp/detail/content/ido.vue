@@ -91,7 +91,8 @@ const showClick = function () {
               <!-- 来源平台 -->
               <li class="flex justify-between mt-3">
                 <label class="airdrop-title">{{ i18n.home.topList.plat }}</label>
-                <p class="airdrop-num">{{ data.ido.platform }}</p>
+                <p v-if="data.ido.platform" class="airdrop-num">{{ data.ido.platform }}</p>
+                <p v-else class="airdrop-num">Not Set</p>
               </li>
               <!-- 活动时间 -->
               <li class="flex justify-between mt-3">
