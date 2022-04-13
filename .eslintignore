@@ -7,6 +7,7 @@ dist
 yarn.lock
 pnpm-lock.yaml
 components.d.ts
+src/server/start.js
 src/config/iconname.ts
 src/config/header
 src/config/footer

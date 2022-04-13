@@ -18,6 +18,8 @@ export interface ImportMetaEnv {
   VITE_staticDomain: string; // 静态资源域名或者是域名+路径
 }
 
+export const EnvKeys = ["VITE_name", "VITE_mode", "VITE_command", "VITE_api", "VITE_productionApi", "VITE_LanApi", "VITE_domain", "VITE_cookie", "VITE_baiduTag", "VITE_googleTag", "VITE_googleCaptcha", "VITE_staticPath", "VITE_staticDomain", "VITE_secret", "VITE_gio"];
+
 export interface ImportMeta {
   readonly env: ImportMetaEnv;
 }

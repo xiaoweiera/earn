@@ -62,7 +62,6 @@ const getBuildConfig = function(config: ImportMetaEnv) {
 export default defineConfig(async function() {
   const config = await getConfig(argv);
   const data = getSassData({...argv, ...config});
-  console.info("vite config : ", config);
   const buildConfig = getBuildConfig(config);
   return {
     base: /^.+\/$/.test(data.staticUrl) ? data.staticUrl : `${data.staticUrl}/`,
