@@ -6,7 +6,7 @@ const detail = getInject("detailState");
 <template>
   <div v-if="safeGet(detail, 'long_description')">
     <h class="title mb-2">Introduction</h>
-    <ui-description :line="10" class="text-kd14px20px text-global-highTitle text-opacity-65">
+    <ui-description :line="10">
       <ui-markdown class="text-kd14px20px text-global-highTitle text-opacity-65" :value="safeGet(detail, 'long_description')" />
     </ui-description>
   </div>

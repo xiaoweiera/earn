@@ -125,13 +125,13 @@ const submit = async () => {
           <el-input ref="inputText" v-model="v" type="textarea" :placeholder="models.placeholder" />
         </div>
       </div>
-      <div class="bottom-4 h-6 w-full px-4">
+      <div class="bottom-4 h-8 w-full px-4">
         <div class="w-full flex items-center justify-between">
           <div class="flex items-center">
-            <v-login :class="`${submitState}`" class="w-fit text-12-16 hand" @click.stop="submit()">{{ models.button }}</v-login>
+            <v-login :class="`${submitState}`" class="w-fit text-kd12px16px hand" @click.stop="submit()">{{ models.button }}</v-login>
             <CommentEmoji @select="selectEmoji" />
           </div>
-          <div class="text-14-16 text-global-highTitle text-opacity-45">
+          <div class="text-kd14px16px text-global-highTitle text-opacity-45">
             <template v-if="v.length < models.mix">
               <span class="mr-1 text-global-numRed">{{ i18n.template(i18n.comment.warning.min, { count: models.mix }) }}</span>
             </template>
@@ -184,19 +184,34 @@ const submit = async () => {
     @apply h-13 px-4 p-0 text-global-hightTitle bg-global-white text-opacity-45;
   }
 }
-textarea {
+::v-deep(textarea) {
   outline: none !important;
+  border: none !important;
+  box-shadow: none;
 }
-
+::v-deep(.el-textarea, .el-input--default) {
+  --el-input-hover-border-color: none !important;
+  --el-input-focus-border-color: none !important;
+  --el-input-focus-border: none !important;
+}
+::v-deep(textarea::placeholder) {
+  @apply text-global-highTitle text-opacity-45;
+}
 ::v-deep(.el-textarea__inner) {
+  border: none !important;
+  box-shadow: none;
   resize: none;
 }
 
 .submitNo {
-  @apply w-13 h-6 flex items-center justify-center  text-global-highTitle font-medium text-opacity-45 bg-global-highTitle bg-opacity-6  rounded-kd4px;
+  @apply w-13 h-8 flex items-center justify-center  text-global-highTitle font-medium text-opacity-45 bg-global-highTitle bg-opacity-6  rounded-kd4px;
 }
 
 .submitOk {
   @apply w-13 h-6 flex items-center justify-center  text-global-white font-medium  bg-global-darkblue   rounded-kd4px;
+}
+::v-deep(.el-input__inner) {
+  border: none !important;
+  box-shadow: none;
 }
 </style>
