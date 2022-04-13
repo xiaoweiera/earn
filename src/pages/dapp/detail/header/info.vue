@@ -49,7 +49,7 @@ const getMediaUrl = function (data: DAppData, name: string) {
         <Progress :value="data.ido.ido_status" class="mt-4" />
       </template>
       <!--风险等级-->
-      <Risk v-if="data.risk" :value="data.risk" class="mt-4" />
+      <Risk :value="data.risk" />
       <!--公链-->
       <ui-label :value="data.chains" class="mt-4" icon-name="logo" />
       <!--项目类型-->

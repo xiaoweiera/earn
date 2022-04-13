@@ -76,7 +76,7 @@ const isAllEmpty = function (data: DAppData) {
         <div>
           <v-router v-if="data.website" :href="data.website" class="block" target="_blank">
             <client-only>
-              <el-button class="text-16-20" type="primary">Buy Now</el-button>
+              <el-button class="text-16-20" type="primary">{{ i18n.dapp.detail.buy }}</el-button>
             </client-only>
           </v-router>
         </div>
@@ -100,7 +100,7 @@ const isAllEmpty = function (data: DAppData) {
           </Td>
           <!--Market 市值-->
           <Td v-if="data.ticker.mcap">
-            <label class="text-12-18 text-global-highTitle text-opacity-65">Market Cap(24H)</label>
+            <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.mcap }}</label>
             <p class="text-14-18 text-global-highTitle">
               <b class="font-m">{{ toNumberFormat(data.ticker.mcap) }}</b>
             </p>
@@ -116,7 +116,7 @@ const isAllEmpty = function (data: DAppData) {
           </Td>
           <!--Owners 拥有者数量-->
           <Td v-if="data.nft.owners">
-            <label class="text-12-18 text-global-highTitle text-opacity-65">Owners(24H)</label>
+            <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.owners }}</label>
             <p class="text-14-18 text-global-highTitle">
               <b class="font-m">{{ toNumberFormat(data.nft.owners) }}</b>
             </p>
