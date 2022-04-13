@@ -64,7 +64,7 @@ const showClick = function () {
             <!-- 间隔线 -->
             <div v-if="isAfter(data.airdrop.airdrop_start_at) || isAfter(data.airdrop.airdrop_end_at)" class="w-87 my-5 border-b border-sold border-global-highTitle border-opacity-6"></div>
             <!-- 数据 -->
-            <ul>
+            <ul class="w-full md:w-87">
               <li class="flex justify-between items-center">
                 <!-- 空投总量 -->
                 <label class="airdrop-title">{{ i18n.airdrop.content.amount }}</label>
