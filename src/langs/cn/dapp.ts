@@ -218,4 +218,7 @@ export default {
     text1: "市场数据未经追踪",
     text2: "由于该项目相对较新，请查看我们的免责声明",
   },
+  introduction: {
+    title: "项目描述",
+  },
 };

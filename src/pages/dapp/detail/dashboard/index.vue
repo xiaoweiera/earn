@@ -24,7 +24,7 @@ defineProps({
     <Introduction />
     <News />
     <div class="mt-4 md:mt-14 flex items-center justify-between">
-      <div class="title font-kdSemiBold">{{ i18n.home.hotRecommend }}</div>
+      <div class="title font-kdFang">{{ i18n.home.hotRecommend }}</div>
       <div class="flex items-center">
         <span class="more">{{ i18n.home.lookMore }}</span>
         <iconFont class="text-global-highTitle text-opacity-65 ml-1" type="rightNo" size="12" />
@@ -36,7 +36,7 @@ defineProps({
 <style scoped lang="scss">
 .title {
   @apply mb-3;
-  @apply text-kd24px28px text-global-highTitle font-semibold;
+  @apply text-kd24px28px text-global-highTitle font-medium;
 }
 .more {
   @apply text-global-primary text-kd14px18px font-medium;

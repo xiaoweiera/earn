@@ -218,4 +218,7 @@ export default {
     text1: "Market data is untracked",
     text2: "As the project is relatively new, please review our disclaimer",
   },
+  introduction: {
+    title: "Introduction",
+  },
 };
