@@ -20,11 +20,11 @@ const i18n = I18n();
 
 <template>
   <!--高风险-->
-  <ui-label v-if="value && Risk.high" :value="i18n.common.risk.high" class="mt-4" icon="icon-gaofengxian" />
+  <ui-label v-if="value && value === Risk.high" :value="i18n.common.risk.high" class="mt-4" icon="icon-gaofengxian" />
   <!--中风险-->
-  <ui-label v-else-if="value && Risk.medium" :value="i18n.common.risk.medium" class="mt-4" icon="icon-zhongfengxian" />
+  <ui-label v-else-if="value && value === Risk.medium" :value="i18n.common.risk.medium" class="mt-4" icon="icon-zhongfengxian" />
   <!--低风险-->
-  <ui-label v-else-if="value && Risk.low" :value="i18n.common.risk.low" class="mt-4" icon="icon-difengxian" />
+  <ui-label v-else-if="value && value === Risk.low" :value="i18n.common.risk.low" class="mt-4" icon="icon-difengxian" />
   <!--未知-->
-  <ui-label v-else-if="value && Risk.unknown" :value="i18n.common.risk.unknown" class="mt-4" icon="icon-weizhi" />
+  <ui-label v-else-if="value && value === Risk.unknown" :value="i18n.common.risk.unknown" class="mt-4" icon="icon-weizhi" />
 </template>

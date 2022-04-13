@@ -1,11 +1,16 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+import I18n from "src/utils/i18n/";
 import { isFunction, isString, toBoolean } from "src/utils";
-import { copyTxt } from "src/lib/tool";
+import { copyTxt, messageSuccess } from "src/lib/tool";
 
 const props = defineProps({
-  message: {
+  alert: {
     type: Boolean,
     default: () => true,
+  },
+  message: {
+    type: Boolean,
+    default: () => false,
   },
   value: {
     type: [Function, String],
@@ -26,7 +31,14 @@ const copy = async function () {
     }
   }
   if (content) {
-    copyTxt(content, toBoolean(props.message));
+    if (toBoolean(props.message)) {
+      if (copyTxt(content)) {
+        const i18n = I18n();
+        messageSuccess(i18n.common.message.copyAlert);
+      }
+    } else {
+      copyTxt(content, toBoolean(props.alert));
+    }
   }
 };
 </script>

@@ -59,7 +59,10 @@ const isAllEmpty = function (data: DAppData) {
     </div>
     <template v-else>
       <div class="flex items-center justify-between">
-        <template v-if="isHeaderEmpty(data)">
+        <template v-if="isHeaderEmpty(data) && isFooterEmpty(data)">
+          <div></div>
+        </template>
+        <template v-else-if="isHeaderEmpty(data)">
           <Not />
         </template>
         <template v-else>
@@ -110,7 +113,7 @@ const isAllEmpty = function (data: DAppData) {
           </Td>
           <!--Users 发行总量-->
           <Td v-if="data.ticker.users">
-            <label class="text-12-18 text-global-highTitle text-opacity-65">User</label>
+            <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.rank.table.user }}</label>
             <p class="text-14-18 text-global-highTitle">
               <b class="font-m">{{ toNumberFormat(data.ticker.users) }}</b>
             </p>

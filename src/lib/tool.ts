@@ -199,6 +199,7 @@ export const copyTxt = (text: string, alert?: boolean, msg?: string) => {
         },
       );
     }
+    return true;
   }
 };
 // copy message 弱提示

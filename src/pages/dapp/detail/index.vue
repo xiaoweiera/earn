@@ -78,7 +78,7 @@ const getTabData = function (info: DAppProject, data: DAppData) {
         </ui-tab>
       </ui-sticky>
       <!--内容-->
-      <div class="mt-6" :data-tab="project.tab">
+      <div :key="project.tab" class="mt-6" :data-tab="project.tab">
         <template v-if="AnyEquals(project.tab, TabName.twitter)">
           <Twitter :name="getTwitterName(detail)" class="bg-white" />
         </template>

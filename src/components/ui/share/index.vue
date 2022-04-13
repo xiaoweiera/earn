@@ -45,7 +45,7 @@ onMounted(function () {
         <ui-share-telegram :href="link" />
       </div>
       <template #footer>
-        <v-copy :value="link" class="block w-full cursor-pointer bg-global-bgFb" @click="status = false">
+        <v-copy :value="link" message class="block w-full cursor-pointer bg-global-bgFb" @click="status = false">
           <div class="link-content p-2 rounded-md border border-solid border-global-highTitle border-opacity-6">
             <div class="flex items-center text-global-highTitle text-opacity-65">
               <span class="block w-1 flex-1 whitespace-nowrap truncate">{{ link }}</span>
