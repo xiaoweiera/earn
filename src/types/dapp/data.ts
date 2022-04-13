@@ -92,10 +92,12 @@ export interface IDO {
   ido_start_at: number; // IDO开始时间
   ido_end_at: number; // IDO结束时间
   platform: string; //来源平台
+  ath_since_ido: number; //自IDO以来收益
   [key: string]: any;
 }
 
 export interface NFT {
+  mint_status?: Progress; // 项目进度状态
   mint_price: number; // 当前价格
   owners: number; // 持有人
   floor_price: number; // 当前地板价
@@ -108,6 +110,7 @@ export interface NFT {
 }
 
 export interface Airdrop {
+  airdrop_status?: Progress; // 项目进度状态
   price: number; // 代币价格
   airdrop_winner_count: number; // 空投名额
   airdrop_amount: number; // 空投总量
@@ -163,7 +166,6 @@ export interface DAppData {
   airdrop: Airdrop; // airdrop 数据
   community: Community; // 社交媒体
   tutorial_blog_url: string; //参与教程
-  platform: string; //参与平台
 }
 
 export interface blogDAppData extends DAppData {
