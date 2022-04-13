@@ -8,6 +8,8 @@
   &:not([class*=text-]) {
     font-size: 16px;
     line-height: 1.5;
+  }
+  &:not([class*=text-global]) {
     color: #4C4E4D;
   }
   a {
