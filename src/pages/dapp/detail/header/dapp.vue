@@ -6,7 +6,7 @@
 import I18n from "src/utils/i18n";
 import type { DAppData, DAppProject } from "src/types/dapp/data";
 import type { PropType } from "vue";
-import { isNumber, toNumberFormat, getNotEmptySize } from "src/utils/";
+import { toNumberFormat, getNotEmptySize } from "src/utils/";
 import { ElButton } from "element-plus";
 import Price from "./price.vue";
 import Table from "./table.vue";
@@ -63,13 +63,13 @@ const isAllEmpty = function (data: DAppData) {
           <Not />
         </template>
         <template v-else>
-          <Price :value="data.ido.ido_price" label="Token Price (ASDF)" unit="$" />
+          <Price :value="data.ido.ido_price" :label="i18n.dapp.detail.price" :symbol="data.ido.ido_symbol" unit="$" />
         </template>
         <div>
           <v-router v-if="data.website" :href="data.website" class="block" target="_blank">
             <client-only>
               <el-button class="text-16-20 bg-transparent" plain type="primary">
-                <span>Go To DApp</span>
+                <span>{{ i18n.dapp.detail.go }}</span>
               </el-button>
             </client-only>
           </v-router>
@@ -85,7 +85,7 @@ const isAllEmpty = function (data: DAppData) {
         <template v-else>
           <!--TVL/MCap-->
           <Td v-if="data.ticker.mcap_tvl">
-            <label class="text-12-18 text-global-highTitle text-opacity-65">TVL/MCap</label>
+            <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.mcapTvl }}</label>
             <p class="text-14-18 text-global-highTitle">
               <b class="font-m">{{ toNumberFormat(data.ticker.mcap_tvl) }}</b>
             </p>
@@ -94,7 +94,7 @@ const isAllEmpty = function (data: DAppData) {
           </Td>
           <!--TVL-->
           <Td v-if="data.ticker.tvl">
-            <label class="text-12-18 text-global-highTitle text-opacity-65">TVL</label>
+            <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.tvl }}</label>
             <p class="text-14-18 text-global-highTitle">
               <b class="font-m">{{ toNumberFormat(data.ticker.tvl, "$") }}</b>
             </p>

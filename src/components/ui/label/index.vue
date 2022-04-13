@@ -93,7 +93,7 @@ const onChange = function (data: LabelItem) {
             <div class="flex text-global-highTitle text-opacity-85">
               <slot :data="data">
                 <label class="text-12-18">
-                  <template v-if="size(data[nameKey]) >= 11">{{ encryption(data[nameKey]).value() }}</template>
+                  <template v-if="copy && size(data[nameKey]) >= 11">{{ encryption(data[nameKey]).value() }}</template>
                   <template v-else>{{ data[nameKey] }}</template>
                 </label>
               </slot>
