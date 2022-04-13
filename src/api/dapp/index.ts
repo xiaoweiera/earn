@@ -90,13 +90,52 @@ export default class extends ApiTemplate {
   getAirdropList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
-
+  // airdrop 进行中数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList)
+  @userToken()
+  @validate
+  getOngoingList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // airdrop 潜在优质数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList)
+  @userToken()
+  @validate
+  getPotentialList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // airdrop 即将开始数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList)
+  @userToken()
+  @validate
+  getUpcomingList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // airdrop 结束数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList)
+  @userToken()
+  @validate
+  getEndedList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
   // airdrop运营推荐 数据
   @tryError(DefaultValue([]))
   @get(api.dapp.operation, expire.min30)
   @userToken()
   @validate
   getOperationList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // airdrop运营推荐 数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.operation, expire.min30)
+  @userToken()
+  @validate
+  getHotPotentialList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
 

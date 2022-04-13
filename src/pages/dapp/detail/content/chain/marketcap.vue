@@ -75,6 +75,7 @@ onMounted(function () {
     <div v-if="chartData.legends" :key="dataKey" class="w-full h-48 mx-auto md:mt-2">
       <ui-echart-content :custom="onCustom" :data="chartData" class="h-full" />
     </div>
+    <div class="w-full h-0.25 bg-global-highTitle bg-opacity-6 my-6"></div>
   </div>
 </template>
 

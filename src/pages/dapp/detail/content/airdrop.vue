@@ -36,9 +36,9 @@ const showClick = function () {
             <p class="text-kd16px22px text-global-highTitle font-medium font-kdFang ml-3">{{ i18n.dapp.project.airdrop }}</p>
           </div>
           <div class="flex items-center mt-1.5 md:mt-0">
-            <p v-if="data.airdrop.airdrop_start_at || data.airdrop.airdrop_end_at" class="hidden md:block h-4 mx-3 border-l border-sold border-global-highTitle border-opacity-6"></p>
+            <p v-if="data.airdrop.airdrop_status !== Progress.no" class="hidden md:block h-4 mx-3 border-l border-sold border-global-highTitle border-opacity-6"></p>
             <p class="flex items-center">
-              <IconFont v-if="data.airdrop.airdrop_start_at || data.airdrop.airdrop_end_at" type="icon-rili" class="text-global-highTitle text-opacity-45" size="16" />
+              <IconFont v-if="data.airdrop.airdrop_status !== Progress.no" type="icon-rili" class="text-global-highTitle text-opacity-45" size="16" />
               <span class="ml-3 text-kd14px18px text-global-highTitle text-opacity-85 font-kdFang">{{ timeValue(data.airdrop.airdrop_start_at, data.airdrop.airdrop_end_at) }}</span>
             </p>
           </div>
@@ -80,7 +80,7 @@ const showClick = function () {
                   <span>{{ toNumberFormat(data.airdrop.airdrop_winner_count) }}</span>
                 </p>
               </li>
-              <li class="flex justify-between items-center mt-3">
+              <li v-if="data.airdrop.airdrop_status !== Progress.no" class="flex justify-between items-center mt-3">
                 <!-- 空投时间 -->
                 <label class="airdrop-title">{{ i18n.dapp.detail.airdropTime }}</label>
                 <p class="airdrop-num">
@@ -90,10 +90,10 @@ const showClick = function () {
             </ul>
             <!-- 按钮 -->
             <div class="w-full flex mt-5 justify-between">
-              <v-router v-if="data.tutorial_blog_url" class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="(data.participation_url || data.website) && data.airdrop.airdrop_status !== Progress.finished ? 'w-42.5' : 'w-87'" :href="data.tutorial_blog_url" target="_blank">
+              <v-router v-if="data.tutorial_blog_url" class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="(data.participation_url || data.website) && data.airdrop.airdrop_status !== Progress.finished && data.airdrop.airdrop_status !== Progress.no ? 'w-42.5' : 'w-87'" :href="data.tutorial_blog_url" target="_blank">
                 <span class="text-kd16px22px text-global-darkblue font-medium font-kdFang">{{ i18n.dapp.detail.tutorial }}</span>
               </v-router>
-              <v-router v-if="(data.participation_url || data.website) && data.airdrop.airdrop_status !== Progress.finished" class="block h-11 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
+              <v-router v-if="(data.participation_url || data.website) && data.airdrop.airdrop_status !== Progress.finished && data.airdrop.airdrop_status !== Progress.no" class="block h-11 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
                 <span class="text-kd16px22px text-global-white font-medium font-kdFang">CLAIM AIRDROP</span>
               </v-router>
             </div>

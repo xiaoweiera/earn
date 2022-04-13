@@ -50,8 +50,12 @@ export const nft = {
 };
 
 export const airdrop = {
-  list: "API.airdrop.list",
+  ongoing: "API.airdrop.ongoing",
+  potential: "API.airdrop.potential",
+  upcoming: "API.airdrop.upcoming",
+  ended: "API.airdrop.ended",
   operation: "API.operation.list",
+  hotPotential: "API.hot.potential",
 };
 
 //投融资

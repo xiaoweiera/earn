@@ -27,7 +27,7 @@ const changeData = (data: any) => {
 </script>
 <template>
   <div v-if="isShow">
-    <p class="title mt-8 md:mt-14">News</p>
+    <p class="title mt-8 md:mt-14 font-kdFang">News</p>
     <ui-pagination :limit="5" :init-value="initValue()" :request="requestList" @change="changeData">
       <template #default="scope">
         <div>

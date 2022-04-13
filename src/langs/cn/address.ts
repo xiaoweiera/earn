@@ -77,7 +77,7 @@ export default {
     zichan: "资产",
     number: "数量",
     zhanbi: "占比",
-    jiage: "价格",
+    jiage: "代币",
     jiazhi: "价值",
     reward: "Reward/收益率",
     kingInfo: "推荐TOKEN或协议给我们",

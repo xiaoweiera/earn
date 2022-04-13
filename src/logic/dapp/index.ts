@@ -146,17 +146,32 @@ export class Model extends API {
   getEndedProjects(query: object) {
     return this.dApp.ixoEnd<ProjectItem | AdItem>(query);
   }
-  //首页airdrop数据
-  getAirdropProjects(query: AirdropQuery) {
-    return this.dApp.getAirdropList<DataItem>(query);
-  }
   //空投项目数据
   getAirdropList(query: AirdropQuery) {
     return this.dApp.getAirdropList<DataItem>(query);
   }
+  //空投进行中项目
+  getOngoingList(query: AirdropQuery) {
+    return this.dApp.getOngoingList<DataItem>(query);
+  }
+  //空投潜在优质项目
+  getPotentialList(query: object = {}) {
+    return this.dApp.getPotentialList<DataItem>(query);
+  }
+  //空投即将开始项目
+  getUpcomingList(query: AirdropQuery) {
+    return this.dApp.getUpcomingList<DataItem>(query);
+  }
+  //空投即将开始项目
+  getEndedList(query: AirdropQuery) {
+    return this.dApp.getEndedList<DataItem>(query);
+  }
   //空投运营精选
   getOperationList(query: AirdropQuery) {
     return this.dApp.getOperationList<DataItem>(query);
+  }
+  getHotPotentialList(query: AirdropQuery) {
+    return this.dApp.getHotPotentialList<DataItem>(query);
   }
 }
 

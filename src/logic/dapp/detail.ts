@@ -6,7 +6,6 @@
 import API from "src/api";
 import type { DataQuery, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
 import I18n from "src/utils/i18n";
-import { upperFirst } from "src/utils/";
 import { TabName, ProjectType } from "src/types/dapp/data";
 import type { DAppProject } from "src/types/dapp/data";
 
