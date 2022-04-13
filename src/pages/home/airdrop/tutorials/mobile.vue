@@ -23,7 +23,7 @@ defineProps({
         </p>
       </div>
       <div class="mt-3">
-        <p class="text-kd18px24px text-global-highTitle font-medium blog-font">{{ data.name }}</p>
+        <p class="text-kd18px24px text-global-highTitle font-medium blog-font line-clamp-2">{{ data.name }}</p>
       </div>
       <div class="mt-2">
         <p class="text-kd14px18px text-global-highTitle text-opacity-85 blog-font">
