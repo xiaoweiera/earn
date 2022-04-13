@@ -1,15 +1,16 @@
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
 import API from "src/api";
-import type { Router } from "express";
+import type { Request, Response, Router } from "express";
+import type { Callback } from "src/types/common/";
 import { Model } from "src/logic/dapp";
 import { Model as InvestModel } from "src/logic/dapp/invest";
-import type { Request, Response } from "express";
 import type { DAppProject } from "src/types/dapp/data";
-import { TabName, ProjectType } from "src/types/dapp/data";
+import { ProjectType, TabName } from "src/types/dapp/data";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
+import { TabTypes } from "src/types/dapp/airdrop";
 
 export const list = async function (req: Request, res: Response) {
   const api = new Model(req);
@@ -82,16 +83,84 @@ export const nftList = async function (req: Request, res: Response) {
   res.send(result);
 };
 
+//处理缓存数据
+const airdrop = {
+  [TabTypes.all]: async function (req: Request) {
+    const api = new Model(req);
+    const query = req.query;
+    const [ongoingList, potentialList, upcomingList, endedList, operationList, hotList] = await Promise.all([
+      api.getOngoingList({ ...query, page: 1, page_size: 4, status: TabTypes.ongoing }),
+      api.getPotentialList({ ...query, page: 1, page_size: 4, status: TabTypes.potential }),
+      api.getUpcomingList({ ...query, page: 1, page_size: 4, status: TabTypes.upcoming }),
+      api.getEndedList({ ...query, page: 1, page_size: 4, status: TabTypes.ended }),
+      api.getOperationList({ ...query, page: 1, page_size: 4, potential: true }),
+      api.getHotPotentialList({ ...query, page: 1, page_size: 4, potential: false }),
+    ]);
+    return {
+      [alias.airdrop.ongoing]: ongoingList, // airdrop进行中数据
+      [alias.airdrop.potential]: potentialList, // airdrop优质空投数据
+      [alias.airdrop.upcoming]: upcomingList, // airdrop即将开始数据
+      [alias.airdrop.ended]: endedList, // airdrop已结束数据
+      [alias.airdrop.operation]: operationList, // airdrop运营热门数据
+      [alias.airdrop.hotPotential]: hotList, // airdrop运营优质数据
+    };
+  },
+  [TabTypes.ongoing]: async function (req: Request) {
+    const api = new Model(req);
+    const ongoingList = await api.getOngoingList({ page: 1, page_size: 20, status: TabTypes.ongoing });
+    return {
+      [alias.airdrop.ongoing]: ongoingList, // airdrop进行中数据
+    };
+  },
+  [TabTypes.potential]: async function (req: Request) {
+    const api = new Model(req);
+    const potentialList = await api.getPotentialList({ page: 1, page_size: 20, status: TabTypes.potential });
+    return {
+      [alias.airdrop.potential]: potentialList, // airdrop优质空投数据
+    };
+  },
+  [TabTypes.upcoming]: async function (req: Request) {
+    const api = new Model(req);
+    const upcomingList = await api.getPotentialList({ page: 1, page_size: 20, status: TabTypes.upcoming });
+    return {
+      [alias.airdrop.upcoming]: upcomingList, // airdrop即将开始数据
+    };
+  },
+  [TabTypes.ended]: async function (req: Request) {
+    const api = new Model(req);
+    const endedList = await api.getEndedList({ page: 1, page_size: 20, status: TabTypes.ended });
+    return {
+      [alias.airdrop.ended]: endedList, // airdrop已结束数据
+    };
+  },
+  [TabTypes.hot]: async function (req: Request) {
+    const api = new Model(req);
+    const operationList = await api.getOperationList({ page: 1, page_size: 6, potential: true });
+    const hotList = await api.getHotPotentialList({ page: 1, page_size: 6, potential: false });
+    return {
+      [alias.airdrop.operation]: operationList, // airdrop运营精选数据
+      [alias.airdrop.hotPotential]: hotList, // airdrop运营精选数据
+    };
+  },
+};
+
 // 空投列表
 export const airdropList = async function (req: Request, res: Response) {
-  const api = new Model(req);
-  res.locals.menuActive = names.dapp.airdrop;
-  const query: any = { ...req.query };
-  const [list] = await Promise.all([api.getAirdropList(query)]);
-  const result = {
-    [alias.airdrop.list]: list, // airdrop数据
-  };
-  res.send(result);
+  const i18n = I18n(req);
+  const name = safeGet<TabTypes>(req.params, "name") || TabTypes.all;
+  let data: object = {};
+  // 判断 [name] 是否是 [airdrop] 的键
+  if (name in airdrop) {
+    // 获取回调函数
+    const callback = safeGet<Callback>(airdrop, name);
+    data = await callback(req);
+  }
+  res.send({
+    ...data,
+    title: i18n.home.webAirdrop.title,
+    keywords: i18n.home.webAirdrop.key,
+    description: i18n.home.webAirdrop.des,
+  });
 };
 
 //投融资列表

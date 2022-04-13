@@ -10,6 +10,8 @@ import { toLower, toUpper } from "ramda";
 import { isString } from "src/utils/check/is";
 import { AnyEquals } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
+import { RouteLocationNormalizedLoaded } from "vue-router";
+import { getValue } from "src/utils/root/data";
 
 export const tabs = function () {
   const i18n = I18n();
@@ -87,4 +89,17 @@ export const decorate = function (value: string | object, size: number | string 
     return `hot-${size}`;
   }
   return "";
+};
+// 获取缓存列表
+export const getCacheList = function <T>($route: RouteLocationNormalizedLoaded, key: string): T[] {
+  // 当前 url 参数
+  const $params = { ...$route.params };
+  const name: TabTypes = $params.name as any;
+  // 加载时 url 参数
+  const oldName = getValue<TabTypes>("query.name", TabTypes.all);
+  // 如果相同，则返回缓存数据
+  if (name === oldName) {
+    return getValue<T[]>(key, []);
+  }
+  return [];
 };

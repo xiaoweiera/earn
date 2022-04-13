@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { ref, onMounted, reactive } from "vue";
-import { oss } from "src/config";
 import I18n from "src/utils/i18n";
 import safeGet from "@fengqiaogang/safe-get";
-import { Model, tokenUrl } from "src/logic/dapp/detail";
+import { Model } from "src/logic/dapp/detail";
 import { Currency, TabName } from "src/types/dapp/data";
 import DAppTokensNfts from "src/pages/dapp/detail/token/nfts.vue";
 import DAppTokensAirdrops from "src/pages/dapp/detail/token/airdrops.vue";

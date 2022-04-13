@@ -134,6 +134,11 @@ export default {
     key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdrops,Data-driven investing",
     des: "Popular NFTs, potential NFTs through the KingData project",
   },
+  webAirdrop: {
+    title: "List of Airdrops | KingData",
+    key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdrops,Data-driven investing",
+    des: "Popular Airdrops, potential Airdrops through the KingData project",
+  },
   blog: {
     title: "Research",
     tips: "KingData reseach report, tracking the latest trends in Web3",

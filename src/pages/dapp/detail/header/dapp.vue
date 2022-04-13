@@ -6,7 +6,7 @@
 import I18n from "src/utils/i18n";
 import type { DAppData, DAppProject } from "src/types/dapp/data";
 import type { PropType } from "vue";
-import { isNumber, toNumberFormat, getNotEmptySize } from "src/utils/";
+import { toNumberFormat, getNotEmptySize } from "src/utils/";
 import { ElButton } from "element-plus";
 import Price from "./price.vue";
 import Table from "./table.vue";
