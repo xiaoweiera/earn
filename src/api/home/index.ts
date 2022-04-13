@@ -15,7 +15,6 @@ export default class extends ApiTemplate {
   getSummary<T>(): Promise<T> {
     return [] as any;
   }
-
   // 首页顶部话题榜单接口
   @tryError(DefaultValue([])) // 处理默认值
   @get(api.home.topicRank, expire.min30) // 定义一个 get 请求
@@ -24,7 +23,6 @@ export default class extends ApiTemplate {
   getTopicRank<T>(): Promise<T> {
     return [] as any;
   }
-
   // 推荐话题
   @tryError(DefaultValue([])) // 处理默认值
   @get(api.home.recommend, expire.min10) // 定义一个 get 请求

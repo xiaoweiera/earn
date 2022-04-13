@@ -16,7 +16,7 @@ const i18n = I18n();
       <div class="flex flex-col items-center">
         <p class="text-kd14px18px text-global-highTitle text-opacity-65">{{ i18n.part(i18n.airdrop.content.score, toInteger(safeGet(dataProvide, "clout")), { count: toInteger(safeGet(dataProvide, "clout")) }) }}</p>
         <div class="flex items-end">
-          <p class="mt-2 text-kd48px48px text-global-highTitle font-kdSemiBold">{{ toFixed(safeGet(dataProvide, "overall_score"), 1) }}</p>
+          <p class="mt-2 text-kd48px48px text-global-highTitle">{{ toFixed(safeGet(dataProvide, "overall_score"), 1) }}</p>
           <p class="text-kd14px24px text-global-highTitle text-opacity-65 ml-1.5">分</p>
         </div>
         <UiRateStar :id="safeGet(dataProvide, 'id')" class="mt-3" :value="toNumber(safeGet(dataProvide, 'my_score'))"></UiRateStar>
