@@ -52,6 +52,10 @@ const className = computed<string[]>(function () {
 const error = ref<boolean>(false);
 const auto = ref<string>("/images/common/logo.jpg");
 
+const getFitValue = function (value: Fit): string {
+  return value === "none" ? "scale-down" : value;
+};
+
 const index = computed<number>(function () {
   if (props.src && props.preview) {
     const value = props.preview.indexOf(props.src);
@@ -66,14 +70,14 @@ const index = computed<number>(function () {
 <template>
   <client-only :class="className" :data-help="title" class="ui-image overflow-hidden">
     <template v-if="src && !error">
-      <el-image :fit="fit" :initial-index="index" :lazy="true" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
+      <el-image :fit="getFitValue(fit)" :initial-index="index" :lazy="true" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
         <template #placeholder>
           <slot name="loading"></slot>
         </template>
       </el-image>
     </template>
     <template v-else>
-      <el-image :fit="fit" :lazy="true" :src="auto" class="block w-full h-full" />
+      <el-image :fit="getFitValue(fit)" :lazy="true" :src="auto" class="block w-full h-full" />
     </template>
   </client-only>
 </template>
