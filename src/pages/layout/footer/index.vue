@@ -31,7 +31,7 @@ const list = createRef<MenuItem[]>(alias.common.layout.footer, []);
             </div>
             <label class="menu-label cursor-pointer block lg:hidden">
               <span class="select-none w-full flex justify-between items-center">
-                <span class="text-base ">{{ i18n.common.nav.download }}</span>
+                <span class="text-base">{{ i18n.common.nav.download }}</span>
               </span>
             </label>
             <div class="pt-3 lg:pt-6 w-27 menu-content">
@@ -58,8 +58,8 @@ const list = createRef<MenuItem[]>(alias.common.layout.footer, []);
       <div class="lg:flex lg:items-end lg:justify-between text-global-highTitle text-opacity-65">
         <div>
           <v-router :href="env.dashboard" class="md:flex md:items-end">
-            <div>
-              <img class="min-w-28" src="/images/common/logo.svg">
+            <div class="w-28">
+              <ui-image src="/images/common/logo.svg" />
             </div>
             <div class="md:ml-6">
               <span class="text-13">{{ i18n.menu.footer.desc }}</span>
@@ -92,7 +92,7 @@ const list = createRef<MenuItem[]>(alias.common.layout.footer, []);
 
 <style lang="scss" scoped>
 .wrap-footer-box {
-  background-color: #F6F9FC;
+  background-color: #f6f9fc;
   @apply pt-4 pb-8;
   @screen xl {
     @apply py-16;
