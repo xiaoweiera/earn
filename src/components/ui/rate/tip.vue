@@ -20,7 +20,6 @@ width.value = document.body.clientWidth > 375 ? "344px" : "340px";
       <div class="pt-4.5 pb-7 md:px-6.5 px-4">
         <div class="flex justify-between items-center">
           <span class="text-kd14px20px text-global-hei text-opacity-85">{{ i18n.dapp.star.title }}</span>
-          <IconFont size="16" class="text-global-hei right-4 top-4.5 hand text-opacity-60" type="icon-xClose" @click="state.value = false" />
         </div>
         <div class="my-4 text-kd16px24px text-global-hei text-opacity-85 mt-8 flex flex-wrap justify-center items-center">{{ i18n.dapp.star.desc }}</div>
         <v-router href="/activity?lang=cn" class="go mt-8 hand" @click="state.value = false">{{ i18n.dapp.star.go }}</v-router>
