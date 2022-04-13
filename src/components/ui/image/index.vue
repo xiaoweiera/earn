@@ -82,6 +82,9 @@ const index = computed<number>(function () {
 
 .ui-image {
   @apply relative;
+  @at-root .kd-ui-icon & {
+    @apply overflow-hidden;
+  }
   &.help {
     @apply cursor-pointer;
     &:after {

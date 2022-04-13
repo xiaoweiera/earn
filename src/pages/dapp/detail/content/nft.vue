@@ -7,6 +7,7 @@ import { toUpper } from "ramda";
 import { timeValue, timeFormat } from "src/logic/dapp/index";
 import VRouter from "src/components/v/router.vue";
 import { ref } from "vue";
+import { Progress } from "src/types/dapp/data";
 
 const i18n = I18n();
 
@@ -44,14 +45,14 @@ const showClick = function () {
           </div>
         </div>
         <div class="w-6 h-6 bg-global-highTitle bg-opacity-6 rounded-md flex items-center justify-center cursor-pointer" @click="showClick()">
-          <IconFont :type="show_content ? 'icon-arrow-up' : 'icon-arrow-down'" class="text-global-highTitle text-opacity-85" size="16" />
+          <IconFont :type="show_content ? 'icon-arrow-down' : 'icon-arrow-up'" class="text-global-highTitle text-opacity-85" size="16" />
         </div>
       </div>
       <!-- 内容 -->
       <div class="flex flex-col md:flex-row justify-between overflow-hidden" :class="show_content ? 'h-0' : 'mt-5'">
         <!-- 描述 -->
         <div class="text-global-highTitle text-kd14px24px font-normal">
-          <ui-description class="airdrop-des" :line="isAfter(data.nft.mint_start_at) || isAfter(data.nft.mint_end_at) ? 10 : 4">
+          <ui-description class="airdrop-des" :line="isAfter(data.nft.mint_start_at) || isAfter(data.nft.mint_end_at) ? 10 : 6">
             <ui-markdown :value="data.participation" />
           </ui-description>
         </div>
@@ -90,11 +91,11 @@ const showClick = function () {
               </li>
             </ul>
             <!-- 按钮 -->
-            <div class="flex mt-5 justify-between">
-              <v-router v-if="data.tutorial_blog_url" class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.participation_url || data.website ? 'w-42.5' : 'w-87'" :href="data.tutorial_blog_url" target="_blank">
+            <div class="w-full flex mt-5 justify-between">
+              <v-router v-if="data.tutorial_blog_url" class="block h-11 bg-global-white border-1 border-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="(data.participation_url || data.website) && data.nft.mint_status !== Progress.finished ? 'w-42.5' : 'w-87'" :href="data.tutorial_blog_url" target="_blank">
                 <span class="text-kd16px22px text-global-darkblue font-medium font-kdFang">{{ i18n.dapp.detail.tutorial }}</span>
               </v-router>
-              <v-router v-if="data.participation_url || data.website" class="block h-11 ml-2 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
+              <v-router v-if="(data.participation_url || data.website) && data.nft.mint_status !== Progress.finished" class="block h-11 bg-global-primary rounded-md py-1.5 px-3 flex items-center justify-center" :class="data.tutorial_blog_url ? 'w-42.5' : 'w-87'" :href="data.participation_url || data.website" target="_blank">
                 <span class="text-kd16px22px text-global-white font-medium font-kdFang">Go To Mint</span>
               </v-router>
             </div>
