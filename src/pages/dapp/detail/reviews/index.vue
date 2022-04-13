@@ -3,14 +3,12 @@
  * @file DApp 评论
  */
 import { reactive } from "vue";
-
 defineProps({
   id: {
     type: [String, Number],
     required: true,
   },
 });
-
 // 项目数据
 const isDisShow = reactive({ value: false });
 </script>
