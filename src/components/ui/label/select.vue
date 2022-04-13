@@ -64,7 +64,7 @@ const handleCommand = function (data: LabelItem) {
             <slot :arrow="false" :data="curr"></slot>
           </div>
         </template>
-        <el-dropdown placement="bottom-start" size="small" trigger="click" @command="handleCommand">
+        <el-dropdown popper-class="ui-label-dropdown" placement="bottom-start" size="small" trigger="click" @command="handleCommand">
           <slot :arrow="true" :data="curr"></slot>
           <template #dropdown>
             <el-dropdown-menu>

@@ -67,7 +67,10 @@ const isAllEmpty = function (data: DAppData) {
     </div>
     <template v-else>
       <div class="flex items-center justify-between">
-        <template v-if="isHeaderEmpty(data)">
+        <template v-if="isHeaderEmpty(data) && isFooterEmpty(data)">
+          <div></div>
+        </template>
+        <template v-else-if="isHeaderEmpty(data)">
           <Not />
         </template>
         <template v-else>

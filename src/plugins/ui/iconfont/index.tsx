@@ -57,7 +57,7 @@ export default defineComponent({
           imgClassName.push(`icon-${toLower(this.type as string)}`);
         }
         return (<div class={className}>
-          <UiImage class={imgClassName} src={image} fit="contain" rounded/>
+          <UiImage class={imgClassName} src={image} fit="contain" rounded={true} lazy={false}/>
         </div>);
       } else {
         const name = getAlias(this.type as string, this.bright);

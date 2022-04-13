@@ -36,6 +36,10 @@ const props = defineProps({
     default: null,
     type: Array as PropType<string[]>,
   },
+  lazy: {
+    type: Boolean,
+    default: () => true,
+  },
 });
 
 const className = computed<string[]>(function () {
@@ -70,7 +74,7 @@ const index = computed<number>(function () {
 <template>
   <client-only :class="className" :data-help="title" class="ui-image overflow-hidden">
     <template v-if="src && !error">
-      <el-image :fit="getFitValue(fit)" :initial-index="index" :lazy="true" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
+      <el-image :fit="getFitValue(fit)" :initial-index="index" :lazy="lazy" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
         <template #placeholder>
           <slot name="loading"></slot>
         </template>
