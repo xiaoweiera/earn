@@ -12,7 +12,6 @@ defineProps({
 // 项目数据
 const isDisShow = reactive({ value: false });
 </script>
-
 <template>
   <div class="flex w-full h-full">
     <Comment :discuss="true" :is-show="isDisShow" :project-id="id" />

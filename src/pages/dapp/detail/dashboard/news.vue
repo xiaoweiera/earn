@@ -7,7 +7,6 @@ import { getInject } from "src/utils/use/state";
 const api = new API();
 const isShow = ref<boolean>(false);
 const detail: any = getInject("detailState");
-
 const initValue = function () {
   const data = getValue("API.dapp.news", []);
   if (data.length > 0) {
