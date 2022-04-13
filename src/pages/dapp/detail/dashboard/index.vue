@@ -3,7 +3,9 @@ import Introduction from "src/pages/dapp/detail/dashboard/introduction.vue";
 import News from "src/pages/dapp/detail/dashboard/news.vue";
 import Token from "src/pages/dapp/detail/token/index.vue";
 import Information from "src/pages/dapp/detail/content/chain/index.vue";
-
+import CommonTopics from "src/pages/home/recommend.vue";
+import I18n from "src/utils/i18n";
+const i18n = I18n();
 defineProps({
   data: {
     type: Object,
@@ -19,18 +21,24 @@ defineProps({
       <Token :value="data" />
     </div>
     <Information v-if="data.rank" :value="data" />
-    <div class="mt-14">
-      <h class="title">Introduction</h>
-      <Introduction class="mt-2" />
+    <Introduction />
+    <News />
+    <div class="mt-4 md:mt-14 flex items-center justify-between">
+      <div class="title font-kdSemiBold">{{ i18n.home.hotRecommend }}</div>
+      <div class="flex items-center">
+        <span class="more">{{ i18n.home.lookMore }}</span>
+        <iconFont class="text-global-highTitle text-opacity-65 ml-1" type="rightNo" size="12" />
+      </div>
     </div>
-    <div class="mt-14">
-      <p class="title">News</p>
-      <News />
-    </div>
+    <CommonTopics :isShowTitle="false" />
   </div>
 </template>
 <style scoped lang="scss">
 .title {
-  @apply text-global-highTitle text-kd24px28px font-medium;
+  @apply mb-3;
+  @apply text-kd24px28px text-global-highTitle font-semibold;
+}
+.more {
+  @apply text-global-primary text-kd14px18px font-medium;
 }
 </style>

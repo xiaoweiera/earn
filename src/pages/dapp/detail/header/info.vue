@@ -49,7 +49,7 @@ const getMediaUrl = function (data: DAppData, name: string) {
         <Progress :value="data.ido.ido_status" class="mt-4" />
       </template>
       <!--风险等级-->
-      <Risk v-if="data.risk" :value="data.risk" class="mt-4" />
+      <Risk :value="data.risk" />
       <!--公链-->
       <ui-label :value="data.chains" class="mt-4" icon-name="logo" />
       <!--项目类型-->
@@ -131,8 +131,8 @@ const getMediaUrl = function (data: DAppData, name: string) {
       <div class="md:mt-6">
         <ui-share :value="data.name">
           <div class="flex items-center py-2 px-3 rounded bg-global-darkblue bg-opacity-6">
-            <IconFont class="md:order-2 mr-1 md:mr-0" size="16" type="icon-fenxiang1" />
-            <span class="font-m md:mr-1 md:order-1">{{ i18n.dapp.share.label }}</span>
+            <IconFont class="mr-1" size="16" type="icon-fenxiang1" />
+            <span class="font-m">{{ i18n.dapp.share.label }}</span>
           </div>
         </ui-share>
       </div>

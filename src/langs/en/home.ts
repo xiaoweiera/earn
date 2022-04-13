@@ -11,6 +11,7 @@ export default {
     ido: "IDO/IGO Projects",
     air: "Airdrops Projects",
   },
+  hotRecommend: "Recommended Topics",
   topTip: "During the last 24 hours：",
   todayTrend: {
     title: "Trends for today",
@@ -22,6 +23,7 @@ export default {
   },
   hotTopic: "Top Trends List",
   more: "More",
+  lookMore: "More",
   loadingMore: "More",
   projectApply: "Apply",
   share: "Share",

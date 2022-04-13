@@ -4,6 +4,7 @@
  * @auth svon.me@gmail.com
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import { computed } from "vue";
 import type { PropType } from "vue";
 import type { LabelItem } from "src/types/ui/label";
@@ -51,9 +52,12 @@ const props = defineProps({
 });
 
 const list = computed<LabelItem[]>(function () {
-  const array = map(function (value: string | LabelItem) {
+  const array: LabelItem[] = map(function (value: string | LabelItem) {
     if (isObject(value)) {
-      return value;
+      if (safeGet<string>(value, props.nameKey)) {
+        return value;
+      }
+      return void 0;
     }
     return {
       icon: props.icon,
@@ -61,10 +65,11 @@ const list = computed<LabelItem[]>(function () {
       [props.iconName]: props.icon,
     };
   }, compact(toArray(props.value)));
+  const data = compact(array);
   if (props.noSelect) {
-    return array.slice(0, 1);
+    return data.slice(0, 1);
   }
-  return array;
+  return data;
 });
 
 const onChange = function (data: LabelItem) {
@@ -80,15 +85,15 @@ const onChange = function (data: LabelItem) {
           <div class="flex items-center">
             <!--icon-->
             <slot :data="data" name="prefix">
-              <div v-if="data[iconName] || data.icon" class="flex pr-1">
-                <IconFont :type="data[iconName] || data.icon" size="16" />
+              <div v-if="data[iconName] || data.icon" class="flex w-4 mr-1">
+                <IconFont :type="data[iconName] || data.icon" class="flex" size="16" />
               </div>
             </slot>
             <!--内容-->
             <div class="flex text-global-highTitle text-opacity-85">
               <slot :data="data">
                 <label class="text-12-18">
-                  <template v-if="data[nameKey].length >= 11">{{ encryption(data[nameKey]).value() }}</template>
+                  <template v-if="copy && size(data[nameKey]) >= 11">{{ encryption(data[nameKey]).value() }}</template>
                   <template v-else>{{ data[nameKey] }}</template>
                 </label>
               </slot>

@@ -206,5 +206,16 @@ export default {
     mintTime: "Mint 时间",
     airdropTime: "空投时间",
     activityTime: "活动时间",
+    go: "Go To DApp",
+    price: "代币价格{name}",
+    mcapTvl: "TVL/MCap",
+    tvl: "TVL",
+    buy: "Buy Now",
+    mcap: "市值(24H)",
+    owners: "持有人(24H)",
+  },
+  not: {
+    text1: "市场数据未经追踪",
+    text2: "由于该项目相对较新，请查看我们的免责声明",
   },
 };

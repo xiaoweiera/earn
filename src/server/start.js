@@ -19,6 +19,8 @@ getConfig(argv).then(function (data) {
   return main();
 }).then(function ({http, config}) {
   // const opt = http.address();
+  // eslint-disable-next-line no-console
   console.log("http://localhost:%s", config.port);
+  // eslint-disable-next-line no-console
   console.log("http://127.0.0.1:%s", config.port);
 });
