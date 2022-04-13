@@ -17,6 +17,7 @@ export enum TabName {
   twitter = "twitter",
   nft = "nft",
   dapp = "dapp",
+  igo = "igo",
   airdrop = "airdrops",
 }
 

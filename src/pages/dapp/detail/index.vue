@@ -91,7 +91,7 @@ const getTabData = function (info: DAppProject, data: DAppData) {
         <template v-else-if="AnyEquals(project.tab, TabName.airdrop)">
           <AirDrops :data="detail" />
         </template>
-        <template v-else-if="AnyEquals(project.tab, TabName.dapp)">
+        <template v-else-if="AnyEquals(project.tab, TabName.dapp) || AnyEquals(project.tab, TabName.igo)">
           <IDO :data="detail" />
         </template>
         <template v-else>
