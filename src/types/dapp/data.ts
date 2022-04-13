@@ -7,6 +7,7 @@ export enum Progress {
   oncoming = "oncoming", // 即将开始
   ongoing = "ongoing", // 进行中
   finished = "finished", // 已结束
+  no = "no", //无状态
 }
 
 export enum TabName {
