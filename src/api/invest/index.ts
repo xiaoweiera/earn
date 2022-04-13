@@ -5,10 +5,8 @@
 import * as api from "src/config/api";
 import { DefaultValue, get, tryError } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
-
 import safeGet from "@fengqiaogang/safe-get";
 import { listModel } from "src/types/invest";
-
 export default class extends ApiTemplate {
   //得到列表
   @tryError(DefaultValue([])) // 处理默认值
