@@ -20,7 +20,7 @@ defineProps({
     <div>
       <Token :value="data" />
     </div>
-    <Information v-if="data.rank" :value="data" />
+    <Information :value="data" />
     <Introduction />
     <News />
     <div class="mt-4 md:mt-14 flex items-center justify-between">
