@@ -3,9 +3,8 @@
  * @file NFT 数据
  * @auth svon.me@gmail.com
  */
-
-import safeGet from "@fengqiaogang/safe-get";
 import { toUpper } from "ramda";
+import safeGet from "@fengqiaogang/safe-get";
 import UiPercent from "src/components/ui/percent/index.vue";
 import I18n from "src/utils/i18n/";
 import type { DAppData, DAppProject } from "src/types/dapp/data";
