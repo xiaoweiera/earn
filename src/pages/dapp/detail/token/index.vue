@@ -9,7 +9,7 @@ import DAppTokensAirdrops from "src/pages/dapp/detail/token/airdrops.vue";
 import { uuid } from "src/utils";
 
 const props = defineProps({
-  value: {
+  data: {
     type: Object,
     default: () => {
       return {};
@@ -26,7 +26,7 @@ const active = ref<string | number>("");
 const tokenList = ref<Currency[]>([]);
 
 const params = reactive({
-  id: props.value.id,
+  id: props.data.id,
 });
 
 const onCustom = function (data: object) {
@@ -56,7 +56,7 @@ const getTokenList = async () => {
   if (tokenList.value.length <= 0) {
     empty.value = true;
   }
-  if (props.value.tab === TabName.dashboard && list.length) {
+  if (props.data.tab === TabName.dashboard && list.length) {
     const [first] = list;
     if (first) {
       const value = { token: first.id };

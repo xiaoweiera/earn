@@ -18,9 +18,9 @@ defineProps({
 <template>
   <div>
     <div>
-      <Token :value="data" />
+      <Token :data="data" />
     </div>
-    <Information :value="data" />
+    <Information :data="data" />
     <Introduction />
     <News />
     <div class="mt-4 md:mt-14 flex items-center justify-between">
