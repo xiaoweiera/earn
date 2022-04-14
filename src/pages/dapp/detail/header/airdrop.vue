@@ -3,7 +3,7 @@
  * @file Airdrop
  * @auth svon.me@gmail.com
  */
-import I18n from "src/utils/i18n";
+// import I18n from "src/utils/i18n";
 import { Progress } from "src/types/dapp/data";
 import type { DAppData, DAppProject } from "src/types/dapp/data";
 import type { PropType } from "vue";
@@ -14,7 +14,7 @@ import Table from "./table.vue";
 import Td from "./td.vue";
 import Not from "./not.vue";
 
-const i18n = I18n();
+// const i18n = I18n();
 
 defineProps({
   project: {

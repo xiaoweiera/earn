@@ -27,13 +27,6 @@ defineProps({
   },
 });
 
-const getStatus = function (data: DAppData) {
-  const value = data.ido.ido_status;
-  if (value && value !== "no") {
-    return value;
-  }
-};
-
 const isFooterEmpty = function (data: DAppData) {
   if (!data.ido.ido_status || data.ido.ido_status === Progress.no) {
     return true;
