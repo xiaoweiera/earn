@@ -7,7 +7,7 @@ import { getValue } from "src/utils/root/data";
 import * as alias from "src/utils/root/alias";
 import safeGet from "@fengqiaogang/safe-get";
 import { sort as _sort } from "ramda";
-import { compact, flatten, size, toLower, toUpper } from "lodash";
+import { compact, flattenDeep as flatten, size, toLower, toUpper } from "lodash";
 import uuid from "./uuid/";
 import { Equals, isArray } from "./check/is";
 
