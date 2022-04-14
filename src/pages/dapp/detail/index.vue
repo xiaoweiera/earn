@@ -14,6 +14,7 @@ import { useReactiveProvide } from "src/utils/use/state";
 import { asyncLoad } from "src/plugins/lazyload/";
 import { AnyEquals } from "src/utils/";
 import Header from "./header/index.vue";
+import I18n from "src/utils/i18n";
 
 const Twitter = asyncLoad(() => import("./content/twitter.vue"));
 const IDO = asyncLoad(() => import("./content/ido.vue"));
@@ -21,7 +22,9 @@ const Reviews = asyncLoad(() => import("./reviews/index.vue"));
 const Dashboard = asyncLoad(() => import("./dashboard/index.vue"));
 const NFT = asyncLoad(() => import("./content/nft.vue"));
 const AirDrops = asyncLoad(() => import("./content/airdrop.vue"));
+const CommonTopics = asyncLoad(() => import("src/pages/home/recommend.vue"));
 
+const i18n = I18n();
 // 项目信息
 const project = createReactive<DAppProject>("query", {} as DAppProject);
 // 项目数据
@@ -99,8 +102,25 @@ const getTabData = function (info: DAppProject, data: DAppData) {
         </template>
       </div>
     </div>
-    <div v-else>
-      <ui-empty />
+    <div class="mt-4 md:mt-14">
+      <div class="flex items-center justify-between">
+        <div class="title font-kdFang">{{ i18n.home.hotRecommend }}</div>
+        <div class="flex items-center">
+          <span class="more">{{ i18n.home.lookMore }}</span>
+          <iconFont class="text-global-highTitle text-opacity-65 ml-1" type="rightNo" size="12" />
+        </div>
+      </div>
+      <CommonTopics :isShowTitle="false" />
     </div>
   </ui-spin>
 </template>
+
+<style lang="scss" scoped>
+.title {
+  @apply mb-3;
+  @apply text-kd24px28px text-global-highTitle font-medium;
+}
+.more {
+  @apply text-global-primary text-kd14px18px font-medium;
+}
+</style>
