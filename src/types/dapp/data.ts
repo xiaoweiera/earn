@@ -35,8 +35,9 @@ export enum ProjectType {
   nft = "nft",
   game = "game",
   defi = "defi",
-  airdrop = "airdrop",
+  airdrop = "airdrops",
   mint = "mint",
+  airdrops = "airdrop",
 }
 
 export interface DAppProject {

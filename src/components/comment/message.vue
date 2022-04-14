@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps, onMounted, defineEmits, watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 import API from "src/api";
 const api = new API();
 import I18n from "src/utils/i18n";
