@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, computed, ref, defineEmits } from "vue";
+import { computed, ref } from "vue";
 import { timeago, dataToTimestamp } from "src/lib/tool";
 import safeGet from "@fengqiaogang/safe-get";
 import API from "src/api";

@@ -74,7 +74,7 @@ export const getTabList = function (project: DAppProject, data: DAppData) {
     },
   ];
   // 空投
-  if (data.preferred_module === ProjectType.airdrop && data.airdrop.airdrop_status !== Progress.no) {
+  if (data.preferred_module === ProjectType.airdrops && data.airdrop.airdrop_status !== Progress.no) {
     list.push({
       tab: TabName.airdrop,
       label: i18n.dapp.project.airdrop,
