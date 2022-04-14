@@ -69,7 +69,7 @@ onMounted(() => {
     <div class="relative">
       <div class="w-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
-          <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" fit="cover" @click="last" />
+          <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" :lazy="false" fit="cover" @click="last" />
         </div>
         <Swiper v-if="recommend.length > 0" class="h-full swiper-recom" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
           <template v-for="(item, index) in recommend" :key="index">
@@ -87,7 +87,7 @@ onMounted(() => {
         </Swiper>
       </div>
       <div :class="isEnd ? 'hidden' : 'jian-right'" class="xshidden">
-        <img class="right shadow" :src="`${oss}/dapp/rightjian.png`" alt="" @click="next" />
+        <ui-image class="right shadow" :src="`${oss}/dapp/rightjian.png`" :lazy="false" fit="" cover alt="" @click="next" />
       </div>
       <div v-if="!isBegin" class="xshidden absolute top-0 left-0 left-jian w-15 h-full z-9" />
       <div v-if="!isEnd" class="xshidden absolute top-0 right-0 right-jian w-15 h-full z-9" />
