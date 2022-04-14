@@ -10,7 +10,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
 import { XAxisItem, SeriesItem, SeriesMap } from "src/types/echarts/type";
 
-import { sort, map, forEach, dateTime, dateMDFormat, dateYMDFormat, dateYMDHmFormat, dateAdd, convertInterval, isNumber, max, min, toNumber } from "src/utils/";
+import { sort, map, forEach, dateTime, dateMDFormat, dateYMDFormat, dateYMDHmFormat, dateAdd, convertInterval, isNumber, max, min, toNumber, isArray } from "src/utils/";
 
 interface Trend {
   [key: string]: number[][];
@@ -275,13 +275,29 @@ export const calcYAxis = function (series: any[], stack = false, log = false, Ma
     }
   }
 
+  if (isArray(maxValue)) {
+    // @ts-ignore
+    maxValue = maxValue[0];
+  }
+  if (isArray(minValue)) {
+    // @ts-ignore
+    minValue = minValue[0];
+  }
+
+  if (maxValue < minValue) {
+    const temp = minValue;
+    minValue = maxValue;
+    maxValue = temp;
+  }
+
   let interval: any = new BigNumber(maxValue);
   interval = interval.minus(minValue);
   interval = interval.times(0.1, 10);
-  interval = Math.floor(interval.toNumber());
+  interval = interval.toNumber();
 
-  const maxTemp = new BigNumber(maxValue).plus(interval).toNumber();
-  const minTemp = new BigNumber(minValue).minus(interval).toNumber();
+  const maxTemp: any = new BigNumber(maxValue).plus(interval).toNumber();
+  const minTemp: any = new BigNumber(minValue).minus(interval).toNumber();
+
   if (maxValue < maxTemp) {
     maxValue = maxTemp;
   }
@@ -299,8 +315,9 @@ export const calcYAxis = function (series: any[], stack = false, log = false, Ma
     } else {
       minValue = 0;
     }
-    minValue = Math.floor(minValue);
-    maxValue = Math.ceil(Math.log10(maxValue));
+    // minValue = Math.floor(minValue);
+    // maxValue = Math.ceil(Math.log10(maxValue));
+    maxValue = Math.log10(maxValue);
   }
   return {
     splitNumber,

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import * as console from "src/plugins/log/";
 defineProps({
   headerData: {
     type: Object,

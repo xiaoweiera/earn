@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 /**
- * @file IDO/IGO/Airdrop
+ * @file DApp
  * @auth svon.me@gmail.com
  */
 import I18n from "src/utils/i18n";

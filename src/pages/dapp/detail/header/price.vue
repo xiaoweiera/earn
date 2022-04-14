@@ -5,7 +5,9 @@
  */
 import I18n from "src/utils/i18n";
 import { toUpper } from "ramda";
-import { toNumberFormat } from "src/utils/";
+import { Progress as ProjectProgress } from "src/types/dapp/data";
+import { toNumberFormat, isString, upperFirst } from "src/utils/";
+import { PropType } from "vue";
 
 defineProps({
   label: {
@@ -13,7 +15,7 @@ defineProps({
     required: true,
   },
   value: {
-    type: Number,
+    type: [Number, String],
     required: true,
   },
   unit: {
@@ -24,7 +26,13 @@ defineProps({
     type: String,
     default: "",
   },
+  progress: {
+    type: String as PropType<ProjectProgress>,
+    default: "",
+  },
 });
+
+const i18n = I18n();
 
 const getLabel = function (label: string, symbol: string) {
   const i18n = I18n();
@@ -34,6 +42,14 @@ const getLabel = function (label: string, symbol: string) {
   };
   return i18n.template(label, data);
 };
+
+const equalsStatus = function (value: ProjectProgress, progress: ProjectProgress) {
+  if (value && value !== ProjectProgress.no) {
+    if (value === progress) {
+      return true;
+    }
+  }
+};
 </script>
 
 <template>
@@ -42,8 +58,19 @@ const getLabel = function (label: string, symbol: string) {
       <span>{{ getLabel(label, symbol) }}</span>
     </label>
     <p class="text-32 mt-2 text-global-highTitle">
-      <b v-if="unit">{{ toNumberFormat(value, toUpper(unit)) }}</b>
+      <b v-if="isString(value)">{{ upperFirst(value) }}</b>
+      <b v-else-if="unit">{{ toNumberFormat(value, toUpper(unit)) }}</b>
       <b v-else>{{ toNumberFormat(value) }}</b>
     </p>
+    <slot>
+      <p v-if="equalsStatus(progress, ProjectProgress.ongoing)" class="text-global-numGreen flex items-center mt-2">
+        <IconFont class="mr-1" type="icon-jinhangzhong" />
+        <span class="text-14-18 font-m">{{ i18n.dapp.detail.ongoing }}</span>
+      </p>
+      <p v-else-if="equalsStatus(progress, ProjectProgress.oncoming)" class="text-global-numGreen flex items-center mt-2">
+        <IconFont class="mr-1" type="icon-time" />
+        <span class="text-14-18 font-m">{{ i18n.dapp.detail.upcoming }}</span>
+      </p>
+    </slot>
   </div>
 </template>
