@@ -57,22 +57,10 @@ onMounted(() => {
       <div class="flex justify-between items-center">
         <div class="flex items-center">
           <!-- 项目类型 -->
-          <DAppDiscoversContentType
-            v-if="data.category"
-            :key="key"
-            :list="tabCage(data.category, 'category', `${config.nft}/discover`)"
-            :split="3"
-            :title="i18n.home.topList.category"
-            name="category"
-          />
+          <DAppDiscoversContentType v-if="data.category" :key="key" :list="tabCage(data.category, 'category', `${config.nft}/discover`)" :split="3" :title="i18n.home.topList.category" name="category" />
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4" />
           <!-- 公链 -->
-          <DAppDiscoversContentChain
-            :title="i18n.home.idoIgoProject.chain"
-            :chain-data="data.chain"
-            :href="config.nftList"
-            name="chain"
-          />
+          <DAppDiscoversContentChain :title="i18n.home.idoIgoProject.chain" :chain-data="data.chain" :href="config.nftList" name="chain" />
         </div>
         <!-- 搜索框 -->
         <client-only class="w-50 input-style">
@@ -86,19 +74,8 @@ onMounted(() => {
     </div>
     <div class="block md:hidden">
       <div class="flex items-center">
-        <DAppDiscoversContentChain
-          :key="keys"
-          :title="i18n.home.idoIgoProject.chain"
-          :chain-data="data.chain"
-          :href="config.nftList"
-          name="chain"
-        />
-        <IconFont
-          v-if="data.chain"
-          size="24"
-          class="text-global-highTitle text-opacity-10 mx-2 relative h-full"
-          type="icon-gang"
-        />
+        <DAppDiscoversContentChain :key="keys" :title="i18n.home.idoIgoProject.chain" :chain-data="data.chain" :href="config.nftList" name="chain" />
+        <IconFont v-if="data.chain" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative h-full" type="icon-gang" />
         <client-only class="w-1/2 input-style">
           <ElInput v-model="search" class="w-full" :placeholder="i18n.common.placeholder.search" @change="onSearch">
             <template #prefix>
@@ -113,6 +90,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .input-style {
   ::v-deep(.el-input__inner) {
+    padding-left: 31px !important;
     @apply border-1 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
   }
   ::v-deep(input::-webkit-input-placeholder) {
@@ -126,6 +104,7 @@ onMounted(() => {
 @screen md {
   .input-style {
     ::v-deep(.el-input__inner) {
+      padding-left: 31px !important;
       @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
     }
     ::v-deep(input::-webkit-input-placeholder) {
