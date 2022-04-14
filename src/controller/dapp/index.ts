@@ -147,6 +147,7 @@ const airdrop = {
 // 空投列表
 export const airdropList = async function (req: Request, res: Response) {
   const i18n = I18n(req);
+  res.locals.menuActive = names.dapp.airdrop;
   const name = safeGet<TabTypes>(req.params, "name") || TabTypes.all;
   let data: object = {};
   // 判断 [name] 是否是 [airdrop] 的键

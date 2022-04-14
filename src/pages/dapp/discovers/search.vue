@@ -56,25 +56,12 @@ onMounted(() => {
         <div class="flex items-center flex-1">
           <!-- 项目类型 -->
           <div class="hidden md:block">
-            <DappDiscoversContentType
-              :key="keys"
-              :list="tabCage(data.category, 'group', config.dappList)"
-              name="group"
-              :split="4"
-              :title="i18n.home.topList.category"
-              :title-width="getClassWidth()"
-            />
+            <DappDiscoversContentType :key="keys" :list="tabCage(data.category, 'group', config.dappList)" name="group" :split="4" :title="i18n.home.topList.category" :title-width="getClassWidth()" />
           </div>
           <div class="flex items-center">
             <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4" />
             <!-- 公链 -->
-            <DappDiscoversContentChain
-              :key="keys"
-              :chain-data="data.chain"
-              :href="config.dappList"
-              name="chain"
-              :title="i18n.home.idoIgoProject.chain"
-            />
+            <DappDiscoversContentChain :key="keys" :chain-data="data.chain" :href="config.dappList" name="chain" :title="i18n.home.idoIgoProject.chain" />
           </div>
         </div>
         <!-- 搜索框 -->
@@ -87,57 +74,18 @@ onMounted(() => {
         </client-only>
       </div>
       <!-- platform -->
-      <DappDiscoversContentType
-        :key="keys"
-        :list="tabPlat(data.platform, 'platform', config.dappList)"
-        class="mt-4"
-        name="platform"
-        :split="5"
-        :title="i18n.home.topList.plat"
-        :title-width="getClassWidth()"
-      />
+      <DappDiscoversContentType :key="keys" :list="tabPlat(data.platform, 'platform', config.dappList)" class="mt-4" name="platform" :split="5" :title="i18n.home.topList.plat" :title-width="getClassWidth()" />
     </div>
     <div class="block md:hidden">
       <div>
         <div class="flex items-center">
-          <DappDiscoversContentChain
-            :key="keyID"
-            class="w-1/2"
-            :chain-data="data.chain"
-            :href="config.dappList"
-            name="chain"
-            :title="i18n.home.idoIgoProject.chain"
-          />
-          <IconFont
-            v-if="data.chain && data.category"
-            size="24"
-            class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5 h-full"
-            type="icon-gang"
-          />
-          <DappDiscoversContentChain
-            :key="keyID"
-            class="w-1/2"
-            :chain-data="data.category"
-            :href="config.dappList"
-            name="group"
-            :title="i18n.home.topList.category"
-          />
+          <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.chain" :href="config.dappList" name="chain" :title="i18n.home.idoIgoProject.chain" />
+          <IconFont v-if="data.chain && data.category" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5 h-full" type="icon-gang" />
+          <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.category" :href="config.dappList" name="group" :title="i18n.home.topList.category" />
         </div>
         <div class="flex items-center mt-4">
-          <DappDiscoversContentChain
-            :key="keyID"
-            class="w-1/2"
-            :chain-data="data.platform"
-            :href="config.dappList"
-            name="platform"
-            :title="i18n.home.topList.plat"
-          />
-          <IconFont
-            v-if="data.chain && data.category"
-            size="24"
-            class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5 h-full"
-            type="icon-gang"
-          />
+          <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.platform" :href="config.dappList" name="platform" :title="i18n.home.topList.plat" />
+          <IconFont v-if="data.chain && data.category" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5 h-full" type="icon-gang" />
           <!-- 搜索框 -->
           <client-only class="w-1/2 input-style">
             <ElInput v-model="search" class="w-full" :placeholder="i18n.common.placeholder.search" @change="onSearch">
@@ -154,6 +102,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .input-style {
   ::v-deep(.el-input__inner) {
+    padding-left: 31px !important;
     @apply border-1 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
   }
   ::v-deep(input::-webkit-input-placeholder) {
@@ -167,6 +116,7 @@ onMounted(() => {
 @screen md {
   .input-style {
     ::v-deep(.el-input__inner) {
+      padding-left: 31px !important;
       @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
     }
     ::v-deep(input::-webkit-input-placeholder) {

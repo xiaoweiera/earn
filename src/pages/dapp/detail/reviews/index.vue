@@ -17,3 +17,9 @@ const isDisShow = reactive({ value: false });
     <Comment :discuss="true" :is-show="isDisShow" :project-id="id" />
   </div>
 </template>
+
+<style lang="scss" scoped>
+::v-deep(.ui-pagination) {
+  @apply min-h-8;
+}
+</style>

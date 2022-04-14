@@ -14,6 +14,7 @@ import { useReactiveProvide } from "src/utils/use/state";
 import { asyncLoad } from "src/plugins/lazyload/";
 import { AnyEquals } from "src/utils/";
 import Header from "./header/index.vue";
+import I18n from "src/utils/i18n";
 
 const Twitter = asyncLoad(() => import("./content/twitter.vue"));
 const IDO = asyncLoad(() => import("./content/ido.vue"));
@@ -21,7 +22,9 @@ const Reviews = asyncLoad(() => import("./reviews/index.vue"));
 const Dashboard = asyncLoad(() => import("./dashboard/index.vue"));
 const NFT = asyncLoad(() => import("./content/nft.vue"));
 const AirDrops = asyncLoad(() => import("./content/airdrop.vue"));
+const CommonTopics = asyncLoad(() => import("src/pages/home/recommend.vue"));
 
+const i18n = I18n();
 // 项目信息
 const project = createReactive<DAppProject>("query", {} as DAppProject);
 // 项目数据
@@ -52,7 +55,7 @@ const getTwitterName = function (data: DAppData) {
 const getTabData = function (info: DAppProject, data: DAppData) {
   const array: object[] = [];
   const twitterName = getTwitterName(data);
-  for (const item of getTabList(info)) {
+  for (const item of getTabList(info, data)) {
     const value = safeGet<TabName>(item, "tab");
     if (value === TabName.twitter) {
       if (twitterName) {
@@ -68,39 +71,58 @@ const getTabData = function (info: DAppProject, data: DAppData) {
 
 <template>
   <ui-spin class="pt-8 pb-16 px-4">
-    <div v-if="detail && detail.id" class="w-full max-w-300 mx-auto">
-      <Header :data="detail" :project="project" />
-      <ui-sticky class="mt-11 bg-white">
-        <ui-tab :def="TabName.dashboard" :list="getTabData(project, detail)" active-name="tab" @change="onChangeTab">
-          <template #default="{ data }">
-            <span class="text-18-24 font-m">{{ data.label }}</span>
+    <div class="max-w-300 mx-auto">
+      <div v-if="detail && detail.id" class="w-full">
+        <Header :data="detail" :project="project" />
+        <ui-sticky class="mt-11 bg-white">
+          <ui-tab :def="TabName.dashboard" :list="getTabData(project, detail)" active-name="tab" @change="onChangeTab">
+            <template #default="{ data }">
+              <span class="text-18-24 font-m">{{ data.label }}</span>
+            </template>
+          </ui-tab>
+        </ui-sticky>
+        <!--内容-->
+        <div :key="project.tab" class="mt-6" :data-tab="project.tab">
+          <template v-if="AnyEquals(project.tab, TabName.twitter)">
+            <Twitter :name="getTwitterName(detail)" class="bg-white" />
           </template>
-        </ui-tab>
-      </ui-sticky>
-      <!--内容-->
-      <div :key="project.tab" class="mt-6" :data-tab="project.tab">
-        <template v-if="AnyEquals(project.tab, TabName.twitter)">
-          <Twitter :name="getTwitterName(detail)" class="bg-white" />
-        </template>
-        <template v-else-if="AnyEquals(project.tab, TabName.reviews)">
-          <Reviews :id="project.id" />
-        </template>
-        <template v-else-if="AnyEquals(project.tab, TabName.nft)">
-          <NFT :data="detail" />
-        </template>
-        <template v-else-if="AnyEquals(project.tab, TabName.airdrop)">
-          <AirDrops :data="detail" />
-        </template>
-        <template v-else-if="AnyEquals(project.tab, TabName.dapp) || AnyEquals(project.tab, TabName.igo)">
-          <IDO :data="detail" />
-        </template>
-        <template v-else>
-          <Dashboard :data="project" />
-        </template>
+          <template v-else-if="AnyEquals(project.tab, TabName.reviews)">
+            <Reviews :id="project.id" />
+          </template>
+          <template v-else-if="AnyEquals(project.tab, TabName.nft)">
+            <NFT :data="detail" />
+          </template>
+          <template v-else-if="AnyEquals(project.tab, TabName.airdrop)">
+            <AirDrops :data="detail" />
+          </template>
+          <template v-else-if="AnyEquals(project.tab, TabName.dapp) || AnyEquals(project.tab, TabName.igo)">
+            <IDO :data="detail" :project="project" />
+          </template>
+          <template v-else>
+            <Dashboard :data="project" />
+          </template>
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <ui-empty />
+      <div class="mt-4 md:mt-14">
+        <div class="flex items-center justify-between">
+          <div class="title font-kdFang">{{ i18n.home.hotRecommend }}</div>
+          <div class="flex items-center">
+            <span class="more">{{ i18n.home.lookMore }}</span>
+            <iconFont class="text-global-highTitle text-opacity-65 ml-1" type="rightNo" size="12" />
+          </div>
+        </div>
+        <CommonTopics :isShowTitle="false" />
+      </div>
     </div>
   </ui-spin>
 </template>
+
+<style lang="scss" scoped>
+.title {
+  @apply mb-3;
+  @apply text-kd24px28px text-global-highTitle font-medium;
+}
+.more {
+  @apply text-global-primary text-kd14px18px font-medium;
+}
+</style>

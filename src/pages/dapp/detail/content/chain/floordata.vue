@@ -6,7 +6,7 @@ import { toNumberCashFormat } from "src/utils";
 import { uuid } from "src/utils";
 
 const props = defineProps({
-  value: {
+  data: {
     type: Object,
     default: () => {
       return {};
@@ -22,7 +22,7 @@ const onCustom = function (data: object) {
   return data;
 };
 const params = reactive({
-  id: props.value.id,
+  id: props.data.id,
   range: "30d",
 });
 const getData = async () => {

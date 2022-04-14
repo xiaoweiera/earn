@@ -6,7 +6,7 @@ import { toNumberCashFormat } from "src/utils";
 import { uuid } from "src/utils";
 
 const props = defineProps({
-  value: {
+  data: {
     type: Object,
     default: () => {
       return {};
@@ -22,7 +22,7 @@ const onCustom = function (data: object) {
   return data;
 };
 const params = reactive({
-  id: props.value.id,
+  id: props.data.id,
   range: "30d",
 });
 const getData = async () => {
@@ -59,7 +59,7 @@ onMounted(function () {
           <span class="inline-block w-2 h-2 bg-global-darkblue rounded mr-1.5"></span>
           <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ i18n.dapp.project.marketCap }}</span>
         </p>
-        <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(value.type === "nft" && value.rank ? chartData.current.mcap : chartData.current.marketcap, chartData.legends[0].unit) }}</p>
+        <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(data.type === "nft" && data.rank ? chartData.current.mcap : chartData.current.marketcap, chartData.legends[0].unit) }}</p>
       </div>
       <div class="ml-7 mr-8 flex items-center">
         <span class="inline-block h-2/3 w-0.25 bg-global-highTitle bg-opacity-10"></span>

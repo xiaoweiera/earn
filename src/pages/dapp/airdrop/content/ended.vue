@@ -3,7 +3,6 @@ import DAppAirdropItem from "./item.vue";
 import { Model } from "src/logic/dapp";
 import { alias } from "src/utils/ssr/ref";
 import { TabTypes } from "src/types/dapp/airdrop";
-import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { getCacheList } from "src/logic/dapp/airdrop";
 

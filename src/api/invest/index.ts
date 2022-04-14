@@ -1,7 +1,3 @@
-/**
- * 评论
- */
-
 import * as api from "src/config/api";
 import { DefaultValue, get, tryError } from "src/plugins/dao/http";
 import ApiTemplate from "../template";

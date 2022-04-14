@@ -6,7 +6,7 @@ import { toNumberCashFormat } from "src/utils";
 import { uuid } from "src/utils";
 
 const props = defineProps({
-  value: {
+  data: {
     type: Object,
     default: () => {
       return {};
@@ -22,7 +22,7 @@ const onCustom = function (data: object) {
   return data;
 };
 const params = reactive({
-  id: props.value.id,
+  id: props.data.id,
   range: "30d",
 });
 const getData = async () => {
@@ -46,7 +46,7 @@ onMounted(function () {
     <div v-if="chartData && chartData.legends">
       <div class="w-full flex flex-row justify-between">
         <p class="text-global-highTitle text-kd16px24px">
-          <span>{{ value.type === "nft" && value.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
+          <span>{{ data.type === "nft" && data.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
           <span class="m-x-2">&</span>
           <span>{{ i18n.dapp.project.balance }}</span>
         </p>
@@ -58,9 +58,9 @@ onMounted(function () {
         <div class="flex flex-col justify-between">
           <p class="flex items-center">
             <span class="inline-block w-2 h-2 bg-global-darkblue rounded mr-1.5"></span>
-            <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ value.type === "nft" && value.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
+            <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ data.type === "nft" && data.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
           </p>
-          <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(value.type === "nft" && value.rank ? chartData.current.owners : chartData.current.users) }}</p>
+          <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(data.type === "nft" && data.rank ? chartData.current.owners : chartData.current.users) }}</p>
         </div>
         <div class="ml-7 mr-8 flex items-center">
           <span class="inline-block h-2/3 w-0.25 bg-global-highTitle bg-opacity-10"></span>
@@ -70,7 +70,7 @@ onMounted(function () {
             <span class="inline-block w-2 h-2 bg-global-money rounded mr-1.5"></span>
             <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ i18n.dapp.project.balance }}</span>
           </p>
-          <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(value.type === "nft" && value.rank ? chartData.current.assets : chartData.current.balance, chartData.legends[1].unit) }}</p>
+          <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(data.type === "nft" && data.rank ? chartData.current.assets : chartData.current.balance, chartData.legends[1].unit) }}</p>
         </div>
       </div>
       <div v-if="chartData.legends" :key="dataKey" class="w-full h-48 mx-auto md:mt-2">

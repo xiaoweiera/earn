@@ -9,7 +9,7 @@ import DAppTokensAirdrops from "src/pages/dapp/detail/token/airdrops.vue";
 import { uuid } from "src/utils";
 
 const props = defineProps({
-  value: {
+  data: {
     type: Object,
     default: () => {
       return {};
@@ -26,7 +26,7 @@ const active = ref<string | number>("");
 const tokenList = ref<Currency[]>([]);
 
 const params = reactive({
-  id: props.value.id,
+  id: props.data.id,
 });
 
 const onCustom = function (data: object) {
@@ -56,7 +56,7 @@ const getTokenList = async () => {
   if (tokenList.value.length <= 0) {
     empty.value = true;
   }
-  if (props.value.tab === TabName.dashboard && list.length) {
+  if (props.data.tab === TabName.dashboard && list.length) {
     const [first] = list;
     if (first) {
       const value = { token: first.id };
@@ -89,7 +89,7 @@ onMounted(function () {
 <template>
   <!-- 代币页面显示 -->
   <div>
-    <div v-if="tokenList && tokenList.length > 0" :key="tokenKey" class="min-h-85">
+    <div v-if="tokenList && tokenList.length > 0" :key="tokenKey" class="mb-6 md:mb-10 min-h-85">
       <!-- 添加loading -->
       <div class="md:flex md:flex-nowrap">
         <div class="md:flex-1">
@@ -114,7 +114,7 @@ onMounted(function () {
             </div>
             <div class="pt-1">
               <template v-for="item in tokenList" :key="item.id">
-                <div v-if="value.type === TabName.nft">
+                <div v-if="data.type === TabName.nft">
                   <DAppTokensNfts :list="item" />
                 </div>
                 <div v-else>
@@ -125,21 +125,6 @@ onMounted(function () {
           </div>
         </div>
       </div>
-      <!--      <div v-else class="relative">-->
-      <!--        <div v-if="empty">-->
-      <!--          <div class="w-full h-full">-->
-      <!--            <img class="w-full h-87.5" :src="`${oss}/common/tokenImg.png`" />-->
-      <!--          </div>-->
-      <!--          <div class="tokenEmpty">-->
-      <!--            <p class="text-kd14px18px text-global-highTitle text-opacity-85">{{ i18n.dapp.project.captured }}</p>-->
-      <!--            <p class="mt-3 text-kd14px18px text-global-white text-center px-3 py-2 bg-global-darkblue text-white rounded">-->
-      <!--              <v-router :href="tokenUrl" target="_blank">-->
-      <!--                {{ i18n.dapp.project.submit }}-->
-      <!--              </v-router>-->
-      <!--            </p>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </div>
   </div>
 </template>
