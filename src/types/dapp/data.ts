@@ -19,6 +19,7 @@ export enum TabName {
   dapp = "dapp",
   igo = "igo",
   airdrop = "airdrops",
+  mint = "mint",
 }
 
 export enum DataType {
@@ -34,7 +35,8 @@ export enum ProjectType {
   nft = "nft",
   game = "game",
   defi = "defi",
-  airdrop = "airdrops",
+  airdrop = "airdrop",
+  mint = "mint",
 }
 
 export interface DAppProject {
@@ -170,6 +172,7 @@ export interface DAppData {
   airdrop: Airdrop; // airdrop 数据
   community: Community; // 社交媒体
   tutorial_blog_url: string; //参与教程
+  preferred_module: string;
 }
 
 export interface blogDAppData extends DAppData {

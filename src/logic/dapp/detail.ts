@@ -4,10 +4,9 @@
  */
 
 import API from "src/api";
-import type { DataQuery, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
+import type { DAppProject, DataQuery, TokenDataQuery, TokenQuery } from "src/types/dapp/data";
+import { DAppData, Progress, ProjectType, TabName } from "src/types/dapp/data";
 import I18n from "src/utils/i18n";
-import { TabName, ProjectType } from "src/types/dapp/data";
-import type { DAppProject } from "src/types/dapp/data";
 
 export class Model extends API {
   // 用户资产图表
@@ -55,7 +54,7 @@ const makeUrl = function (project: DAppProject, tab: TabName): string {
   return app();
 };
 
-export const getTabList = function (project: DAppProject) {
+export const getTabList = function (project: DAppProject, data: DAppData) {
   const i18n = I18n();
   const list: object[] = [
     {
@@ -75,25 +74,25 @@ export const getTabList = function (project: DAppProject) {
     },
   ];
   // 空投
-  if (project.type === ProjectType.airdrop && !project.rank) {
+  if (data.preferred_module === ProjectType.airdrop && data.airdrop.airdrop_status !== Progress.no) {
     list.push({
       tab: TabName.airdrop,
       label: i18n.dapp.project.airdrop,
       href: makeUrl(project, TabName.airdrop),
     });
-  } else if (project.type === ProjectType.nft && !project.rank) {
+  } else if (data.preferred_module === ProjectType.mint && data.nft.mint_status !== Progress.no) {
     list.push({
       tab: TabName.nft,
       label: "Mint",
       href: makeUrl(project, TabName.nft),
     });
-  } else if (project.type === ProjectType.dapp && !project.rank) {
+  } else if ((project.type === ProjectType.dapp || project.rank) && (data.preferred_module === ProjectType.ido || data.preferred_module === ProjectType.igo) && data.ido.ido_status !== Progress.no) {
     list.push({
       tab: project.type,
       label: "IDO",
       href: makeUrl(project, project.type as any),
     });
-  } else if (project.type === ProjectType.igo && !project.rank) {
+  } else if ((project.type === ProjectType.igo || project.rank) && (data.preferred_module === ProjectType.ido || data.preferred_module === ProjectType.igo) && data.ido.ido_status !== Progress.no) {
     list.push({
       tab: project.type,
       label: "IGO",

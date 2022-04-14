@@ -4,7 +4,6 @@ import { ref } from "vue";
 import { toArray, dateDiff } from "src/utils";
 import API from "src/api";
 import { getInject } from "src/utils/use/state";
-const api = new API();
 const isShow = ref<boolean>(false);
 const detail: any = getInject("detailState");
 const initValue = function () {

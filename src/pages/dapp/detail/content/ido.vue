@@ -6,13 +6,19 @@ import I18n from "src/utils/i18n";
 import { timeValue, timeFormat, getClassColor } from "src/logic/dapp/index";
 import { toNumberCashFormat, isAfter } from "src/utils";
 import IconFont from "src/components/icon/font.vue";
-import { DAppData, Progress } from "src/types/dapp/data";
+import { DAppData, Progress, ProjectType } from "src/types/dapp/data";
 
 const i18n = I18n();
 
 defineProps({
   data: {
     type: Object as PropType<DAppData>,
+    default: () => {
+      return {};
+    },
+  },
+  project: {
+    type: Object,
     default: () => {
       return {};
     },
@@ -33,7 +39,7 @@ const showClick = function () {
         <div class="flex flex-col md:flex-row">
           <div class="flex items-center">
             <DAppDetailState :start="data.ido.ido_start_at" :ended="data.ido.ido_end_at" />
-            <p class="text-kd16px22px text-global-highTitle font-medium font-kdFang ml-3">IDO</p>
+            <p class="text-kd16px22px text-global-highTitle font-medium font-kdFang ml-3">{{ project.tab === ProjectType.dapp ? "IDO" : "IGO" }}</p>
           </div>
           <div class="flex items-center mt-1.5 md:mt-0">
             <p v-if="data.ido.ido_start_at || data.ido.ido_end_at" class="hidden md:block h-4 mx-3 border-l border-sold border-global-highTitle border-opacity-6"></p>

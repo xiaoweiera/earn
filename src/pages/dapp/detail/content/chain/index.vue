@@ -3,7 +3,6 @@ import DAppUserData from "src/pages/dapp/detail/content/chain/userdata.vue";
 import MarketCapData from "src/pages/dapp/detail/content/chain/marketcap.vue";
 import TVLData from "src/pages/dapp/detail/content/chain/tvldata.vue";
 import FloorData from "src/pages/dapp/detail/content/chain/floordata.vue";
-import { TabName } from "src/types/dapp/data";
 
 defineProps({
   value: {

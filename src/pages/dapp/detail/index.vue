@@ -52,7 +52,7 @@ const getTwitterName = function (data: DAppData) {
 const getTabData = function (info: DAppProject, data: DAppData) {
   const array: object[] = [];
   const twitterName = getTwitterName(data);
-  for (const item of getTabList(info)) {
+  for (const item of getTabList(info, data)) {
     const value = safeGet<TabName>(item, "tab");
     if (value === TabName.twitter) {
       if (twitterName) {
@@ -92,7 +92,7 @@ const getTabData = function (info: DAppProject, data: DAppData) {
           <AirDrops :data="detail" />
         </template>
         <template v-else-if="AnyEquals(project.tab, TabName.dapp) || AnyEquals(project.tab, TabName.igo)">
-          <IDO :data="detail" />
+          <IDO :data="detail" :project="project" />
         </template>
         <template v-else>
           <Dashboard :data="project" />
