@@ -24,7 +24,7 @@ defineProps({
         </div>
         <div class="ml-4 flex flex-col justify-between">
           <div class="min-w-67.5 w-full xl:w-67.5 h-full">
-            <p class="text-kd18px24px text-global-highTitle font-medium blog-font">{{ data.name }}</p>
+            <p class="text-kd18px24px text-global-highTitle font-medium blog-font line-clamp-3">{{ data.name }}</p>
             <p v-if="data.desc" class="mt-2 text-kd14px18px text-global-highTitle text-opacity-65 font-normal line-clamp-3 blog-font" v-text="data.desc"></p>
           </div>
           <div class="w-full">

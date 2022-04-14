@@ -90,3 +90,28 @@ export const post = function (url: string, expire = 0, config: AxiosRequestConfi
     };
   };
 };
+/**
+ * @file delete 请求
+ * @param url 请求地址
+ * @param expire 缓存时间
+ * @param config Axios 配置
+ */
+export const deleted = function (url: string, expire = 0, config: AxiosRequestConfig = {}) {
+  return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const app = descriptor.value;
+    descriptor.value = async function (...args: any[]) {
+      const self: any = this;
+      const [data = {}, callback]: [object, (value?: any) => void] = await Promise.resolve(app.apply(self, args));
+      const _user = safeGet<string>(data, "_user");
+      const result = await self.delete(url, {
+        ...config,
+        data,
+        params: { expire, _user },
+      });
+      if (callback && isFunction(callback)) {
+        return callback(result);
+      }
+      return result;
+    };
+  };
+};

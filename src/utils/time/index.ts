@@ -13,27 +13,27 @@ import { toDate, toNumber } from "src/utils/convert/to";
 export const timeFormat = "YYYY-MM-DD HH:mm:ss";
 
 export const monthEnName = {
-  "1": "January",
-  "01": "January",
-  "2": "February",
-  "02": "February",
-  "3": "March",
-  "03": "March",
-  "4": "April",
-  "04": "April",
+  "1": "Jan",
+  "01": "Jan",
+  "2": "Feb",
+  "02": "Feb",
+  "3": "Mar",
+  "03": "Mar",
+  "4": "Apr",
+  "04": "Apr",
   "5": "May",
   "05": "May",
-  "6": "June",
-  "06": "June",
-  "7": "July",
-  "07": "July",
-  "8": "August",
-  "08": "August",
-  "9": "September",
-  "09": "September",
-  "10": "October",
-  "11": "November",
-  "12": "December",
+  "6": "Jun",
+  "06": "Jun",
+  "7": "Jul",
+  "07": "Jul",
+  "8": "Aug",
+  "08": "Aug",
+  "9": "Sept",
+  "09": "Sept",
+  "10": "Oct",
+  "11": "Nov",
+  "12": "Dec",
 };
 
 export const dateTime = function (value?: TimeType, format?: string): number {
@@ -181,4 +181,15 @@ export const dateAdd = function (time: any, interval?: string) {
   const date = toDate(time);
   const { number, type } = convertInterval(interval);
   return dateTime(date.add(number, type as any).valueOf());
+};
+
+// 得到年月日 区分中英文
+export const getEnDateMDY = (t: string | number) => {
+  const i18n = I18n();
+  if (i18n.getLang() === Language.en) {
+    // @ts-ignore
+    return `${monthEnName[dateMonthFormat(t)]} ${dateDayFormat(t)},${dateYearFormat(t)}`;
+  } else {
+    return dateFormat(t, "YYYY.MM.DD");
+  }
 };

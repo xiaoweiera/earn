@@ -17,22 +17,13 @@ html, body {
   background-color: white;
 }
 
-@mixin clamp($number: 1) {
-  .line-clamp-#{$number} {
-    display: -webkit-box ;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-all;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: $number;
-  }
-}
-
 body {
   -webkit-overflow-scrolling: touch;
 
   @for $i from 1 through 10 {
-    @include clamp($i);
+    .line-clamp-#{$i} {
+      @include clamp($i);
+    }
   }
 }
 %disable {
@@ -104,7 +95,9 @@ a {
 .shadow-border-b {
   box-shadow: 0 1px 0 rgba(3, 54, 102, 0.06);
 }
-
+.w-fit {
+  width: fit-content;
+}
 
 .blog-content {
   img {

@@ -45,8 +45,8 @@ const isShowSub = computed<boolean>(() => {
           </div>
 
           <!--Logo-->
-          <v-router :href="env.dashboard" class="inline-block select-none">
-            <img :alt="env.title" :src="Logo" class="min-w-28" />
+          <v-router :href="env.dashboard" class="inline-block select-none w-28">
+            <ui-image :src="Logo" />
           </v-router>
         </div>
 

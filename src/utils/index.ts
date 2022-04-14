@@ -2,6 +2,9 @@
  * @file 常用方法
  * @author svon.me@gmail.com
  */
+import type { ChainItem } from "src/types/common/chain";
+import { getValue } from "src/utils/root/data";
+import * as alias from "src/utils/root/alias";
 import safeGet from "@fengqiaogang/safe-get";
 import { sort as _sort } from "ramda";
 import { compact, flatten, size, toLower, toUpper } from "lodash";
@@ -74,12 +77,10 @@ export const min = function (...args: any[]): number {
   return void 0;
 };
 
-type eachCallback = (value: any, index: number | string, list: any[] | any) => void;
-
 /**
  * 循环
  */
-export const forEach = function (callback: eachCallback, data: any[] | never) {
+export const forEach = function (callback: any, data: any[] | any) {
   if (callback && data) {
     if (isArray(data)) {
       data.forEach((value: any, index: number) => {
@@ -94,6 +95,26 @@ export const forEach = function (callback: eachCallback, data: any[] | never) {
       });
     }
   }
+};
+
+/**
+ * 循环
+ */
+export const map = function (callback: any, data: any): any {
+  const isArr = isArray(data);
+  const array: any[] = [];
+  const result: any = {};
+  // @ts-ignore
+  forEach(function (value: any, index: number | string, origin: any) {
+    const item = callback(value, index, origin);
+    if (isArr) {
+      // @ts-ignore
+      array[index] = item;
+    } else {
+      result[`${index}`] = item;
+    }
+  }, data);
+  return isArr ? array : result;
 };
 
 export class Encryption {
@@ -133,6 +154,24 @@ export class Encryption {
     return this.text.replace(reg, replace);
   }
 }
+
 export const encryption = function (value: string): Encryption {
   return new Encryption(value || "");
+};
+
+export const getChain = function (name: string) {
+  const data = getValue(alias.common.chain.site, {});
+  const chain = safeGet<object>(data, "chain");
+  if (chain) {
+    const value = safeGet<ChainItem>(chain, name);
+    if (value) {
+      return value;
+    }
+  }
+};
+export const getChainLogo = function (name: string) {
+  const data = getChain(name);
+  if (data) {
+    return data.logo;
+  }
 };

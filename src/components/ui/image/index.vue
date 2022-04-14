@@ -1,11 +1,12 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 图片处理
  * @author svon.me@gmail.com
  */
 
+import { ElImage } from "element-plus";
 import type { PropType } from "vue";
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 
 type Fit = "cover" | "contain" | "fill" | "none";
 
@@ -18,90 +19,96 @@ const props = defineProps({
     type: String as PropType<Fit>,
     default: () => "cover",
   },
+  alt: {
+    type: String,
+    default: "",
+  },
+  title: {
+    type: String,
+    default: "",
+  },
   rounded: {
     type: Boolean,
     default: () => false,
   },
+  // 预览列表
+  preview: {
+    default: null,
+    type: Array as PropType<string[]>,
+  },
+  lazy: {
+    type: Boolean,
+    default: () => true,
+  },
+});
+
+const className = computed<string[]>(function () {
+  const data: string[] = [];
+  if (props.rounded) {
+    data.push("rounded-1/2");
+  }
+  if (props.title) {
+    data.push("help");
+  }
+  return data;
 });
 
 const error = ref<boolean>(false);
+const auto = ref<string>("/images/common/logo.jpg");
 
-const value = computed<string>(() => {
-  if (props.src) {
-    return `background-image: url(${props.src})`;
-  }
-  return "";
-});
+const getFitValue = function (value: Fit): string {
+  return value === "none" ? "scale-down" : value;
+};
 
-onMounted(() => {
-  if (props.src) {
-    const image = new Image();
-    image.src = props.src;
-    image.onerror = () => {
-      error.value = true;
-    };
-  } else {
-    error.value = true;
+const index = computed<number>(function () {
+  if (props.src && props.preview) {
+    const value = props.preview.indexOf(props.src);
+    if (value > 0) {
+      return value;
+    }
   }
+  return 0;
 });
 </script>
 
 <template>
-  <div class="ui-image overflow-hidden" :class="{ error: error, rounded }">
-    <img v-if="src && fit === 'none'" class="max-h-full max-w-full" :src="src" />
-    <i :class="fit" :style="value" />
-  </div>
+  <client-only :class="className" :data-help="title" class="ui-image overflow-hidden">
+    <template v-if="src && !error">
+      <el-image :fit="getFitValue(fit)" :initial-index="index" :lazy="lazy" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
+        <template #placeholder>
+          <slot name="loading"></slot>
+        </template>
+      </el-image>
+    </template>
+    <template v-else>
+      <el-image :fit="getFitValue(fit)" :lazy="true" :src="auto" class="block w-full h-full" />
+    </template>
+  </client-only>
 </template>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "src/styles/function";
 
-%contain {
-  background-size: contain;
-}
-
 .ui-image {
-  i {
-    @apply block w-full h-full;
-    background-position: center;
-    background-repeat: no-repeat;
+  @apply relative;
+  @at-root .kd-ui-icon & {
+    @apply overflow-hidden;
   }
+  &.help {
+    @apply cursor-pointer;
+    &:after {
+      content: attr(data-help);
+      transition: all 0.5s;
+      @apply invisible opacity-0;
+      @apply block z-2 bg-white py-1 px-1.5;
+      @apply absolute top-full left-1/2 transform translate-y-1 -translate-x-1/2;
+      @apply text-global-darkblue text-opacity-60 whitespace-pre text-sm;
+      @apply border border-solid border-gray-300 rounded-md;
+    }
 
-  img {
-    @apply w-full inline-block;
-    & ~ i {
-      @apply hidden;
-    }
-  }
-
-  &:not(.error) i {
-    &.cover {
-      background-size: cover;
-    }
-    &.contain {
-      @extend %contain;
-    }
-    &.fill {
-      background-size: 100% 100%;
-    }
-  }
-
-  &.error {
-    @apply relative;
-    img {
-      @apply opacity-0 invisible;
-    }
-    i {
-      @apply block;
-      @extend %contain;
-      @apply absolute left-0 top-0 right-0 bottom-0;
-      background-image: static("/assets/kingdata.png") !important;
-    }
-  }
-  &.rounded {
-    border-radius: 50%;
-    i,
-    img {
-      border-radius: 50%;
+    &:hover {
+      &:after {
+        @apply visible opacity-100;
+      }
     }
   }
 }

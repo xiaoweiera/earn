@@ -198,4 +198,27 @@ export default {
     desc: "评分成功！去给更多榜单项目打分吧~",
     go: "去看看",
   },
+  detail: {
+    upcoming: "即将开始",
+    ongoing: "进行中",
+    ended: "已结束",
+    tutorial: "参与教程",
+    mintTime: "Mint 时间",
+    airdropTime: "空投时间",
+    activityTime: "活动时间",
+    go: "Go To DApp",
+    price: "代币价格{name}",
+    mcapTvl: "TVL/MCap",
+    tvl: "TVL",
+    buy: "Buy Now",
+    mcap: "市值(24H)",
+    owners: "持有人(24H)",
+  },
+  not: {
+    text1: "市场数据未经追踪",
+    text2: "由于该项目相对较新，请查看我们的免责声明",
+  },
+  introduction: {
+    title: "项目描述",
+  },
 };

@@ -77,7 +77,7 @@ export default {
     zichan: "Assets",
     number: "Amount",
     zhanbi: "Proportion",
-    jiage: "Price",
+    jiage: "Token",
     jiazhi: "Value",
     reward: "Yield/Reward",
     kingInfo: "Recommend Tokens & Protocols to us",

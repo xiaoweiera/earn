@@ -115,7 +115,27 @@ export const isEmpty = function (value: any, checkUndefined?: boolean): boolean 
     // 判断 [], '', {}
     return true;
   }
+  if (value === 0) {
+    return false;
+  }
   return isNil(value); // 判断 null, undefined
+};
+// 获取非空数据
+export const getNotEmptySize = function (...args: Array<any | any[]>): number {
+  let size = 0;
+  for (const value of args) {
+    if (isArray(value)) {
+      // @ts-ignore
+      const temp = [].concat(value);
+      size += getNotEmptySize(...temp);
+      continue;
+    }
+    if (isEmpty(value)) {
+      continue;
+    }
+    size++;
+  }
+  return size;
 };
 
 /**
@@ -126,7 +146,7 @@ export const isElement = function (value: any) {
   if (isEmpty(value) || isString(value) || isNumber(value) || isArray(value)) {
     return false;
   }
-  return !!(value && value.activeElement);
+  return !!(value && value.addEventListener);
 };
 
 export const Equals = function (...args: Array<string | number>): boolean {

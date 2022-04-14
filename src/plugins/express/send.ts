@@ -7,6 +7,7 @@ import _ from "lodash";
 import SSR from "src/plugins/vue";
 import { footers } from "src/config/footer";
 import type { Env } from "src/config";
+import { Command } from "src/config";
 import { languageKey } from "src/config";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
@@ -49,8 +50,8 @@ const send = async function (root: string, env: Env) {
           {
             [languageKey]: safeGet<string>(req.query, languageKey) || Language.auto,
           },
-          req.params || {},
           req.query || {},
+          req.params || {},
         ),
         ...res.locals,
         ...value,
@@ -69,7 +70,13 @@ const send = async function (root: string, env: Env) {
       } catch (e: any) {
         console.log(e);
         log();
-        return go404(req, res);
+        // 线上环境跳转到 404 页面
+        if (env.VITE_command === Command.build) {
+          return go404(req, res);
+        } else {
+          // 开发环境下输出错误日志
+          return send(e);
+        }
       }
     };
     return next();

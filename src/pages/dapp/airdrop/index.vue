@@ -16,13 +16,15 @@ import { computed, onMounted, ref } from "vue";
 import DAppAirdropAd from "./ad/index.vue";
 import DAppAirdropContent from "./content/index.vue";
 import { AnyEquals } from "src/utils";
+import { uuid } from "src/utils";
 
 const i18n = I18n();
 const activeName = ref<string>("name");
 const active = ref<string>(getValue("query.name", TabTypes.all));
-
+const listKey = ref(uuid());
 const onChange = function (data: object) {
   const value = safeGet<string>(data, activeName.value);
+  listKey.value = uuid();
   if (value) {
     active.value = value;
   }
@@ -65,10 +67,10 @@ onMounted(() => {
         <!-- 广告 -->
         <DAppAirdropAd :active="active" class="w-full mt-8" />
         <!-- 内容 -->
-        <div v-if="isAll">
+        <div v-if="isAll" :key="listKey">
           <DAppAirdropContent :active="active" class="mt-8" />
         </div>
-        <div v-else class="airdrop-wrap mt-8">
+        <div v-else :key="listKey" class="airdrop-wrap mt-8">
           <Ongoing v-if="active === TabTypes.ongoing" />
           <Hot v-else-if="active === TabTypes.hot" />
           <Potential v-else-if="active === TabTypes.potential" />

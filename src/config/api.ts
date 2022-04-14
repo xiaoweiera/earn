@@ -15,6 +15,7 @@ export const home = {
 };
 
 export const dapp = {
+  detail: "/api/v1/dapps/detail", // 项目库详情
   list: "/api/v1/dapps/ido", // IDO项目列表
   igoList: "/api/v1/dapps/igo", // IGO项目列表
   nftList: "/api/v1/dapps/nft", // nft项目列表
@@ -23,6 +24,13 @@ export const dapp = {
   airdropList: "/api/dapps/v1/airdrop", //空投列表
   operation: "/api/v1/dapps/airdrop_recommended", //空投运营精选
   investList: "/api/dapps/v1/airdrop", //投融资列表
+  userData: "/api/v1/dapps/chart/user", //用户资产图表
+  marketCapData: "/api/v1/dapps/chart/marketcap", //用户市值图表
+  TVLData: "/api/v1/dapps/chart/tvl", //用户TVL图表
+  floorData: "/api/v1/dapps/chart/floor_price", //地板价图表
+  tokenData: "/api/v1/dapps/cryptocurrency/price_chart", //代币图表
+  tokenList: "/api/v1/dapps/cryptocurrency", //代币列表
+  news: "/api/v1/dapps/news", //news列表
 };
 
 export const blog = {
@@ -72,4 +80,15 @@ export const rank = {
   nftTable: "/api/dapps/v1/rank/nfts", //nft列表
   dappChart: "/api/dapps/v1/rank/chart/tvl", //dapp chart
   nftChart: "/api/dapps/v1/rank/chart/volume", //nft Chart
+};
+export const comment = {
+  list: "/api/dapps/v1/expand_comments", //评论列表
+  isLike: "/api/dapps/v1/comment/like", //点赞
+  push: "/api/dapps/v1/comment", //评论
+  reply: "/api/dapps/v1/comment/reply", //回复
+  deleteReply: "/api/dapps/v1/comment/reply", //删除评论
+  star: "/api/v1/dapps/rating", // 评分
+};
+export const invest = {
+  list: "/api/dapps/v1/investments",
 };

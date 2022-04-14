@@ -11,6 +11,7 @@ export default {
     ido: "IDO/IGO Projects",
     air: "Airdrops Projects",
   },
+  hotRecommend: "Recommended Topics",
   topTip: "During the last 24 hours：",
   todayTrend: {
     title: "Trends for today",
@@ -22,6 +23,7 @@ export default {
   },
   hotTopic: "Top Trends List",
   more: "More",
+  lookMore: "More",
   loadingMore: "More",
   projectApply: "Apply",
   share: "Share",
@@ -101,29 +103,29 @@ export default {
   IdoIgo: {
     title: "Comprehensive aggregation platform for IDO",
     igotitle: "Comprehensive aggregation platform for IGO",
-    desc: "Comprehensive Services: Web3.0,DeFi,GameFi,NFTs,Airdorps",
+    desc: "Comprehensive Services: Web3.0,DeFi,GameFi,NFTs,Airdrops",
   },
   nfts: {
     title: "Comprehensive aggregation platform for NFT",
-    desc: "Comprehensive Services: Web3.0,DeFi,GameFi,NFTs,Airdorps",
+    desc: "Comprehensive Services: Web3.0,DeFi,GameFi,NFTs,Airdrops",
     today: "Today",
     tomorrow: "Tomorrow",
   },
   webInfo: {
     home: {
       title: "KingData | One-stop investment platform on Web3",
-      key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing",
+      key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdrops,Data-driven investing",
       des: "Explore NFTs, NFT Marketplaces, Blockchain Games, De-Fi, Dapps On The Blockchain And More On The World’s DApp Store",
     },
     homeDetail: {
       title: "Recommended Topics | KingData",
-      key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing",
+      key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdrops,Data-driven investing",
       des: "Find out the most popular trending items on KingData today, this week and this month",
     },
   },
   webIdo: {
     title: "List of IDO | KingData",
-    key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing",
+    key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdrops,Data-driven investing",
     des: "List of upcoming token generation events and token sales",
   },
   webIgo: {
@@ -131,8 +133,13 @@ export default {
   },
   webNft: {
     title: "List of NFTs | KingData",
-    key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing",
+    key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdrops,Data-driven investing",
     des: "Popular NFTs, potential NFTs through the KingData project",
+  },
+  webAirdrop: {
+    title: "List of Airdrops | KingData",
+    key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdrops,Data-driven investing",
+    des: "Popular Airdrops, potential Airdrops through the KingData project",
   },
   blog: {
     title: "Research",

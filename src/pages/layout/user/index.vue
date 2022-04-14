@@ -5,7 +5,7 @@
  */
 
 import API from "src/api/index";
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import I18n from "src/utils/i18n";
 import { Language } from "src/types/language";
 import type { User } from "src/types/common/user";
@@ -16,6 +16,7 @@ import { showLogin, showRegister } from "src/logic/user/login";
 import { set as setValue, getLang } from "src/utils/root/data";
 import { createRef } from "src/utils/ssr/ref";
 import { asyncLoad } from "src/plugins/lazyload/";
+import { useRoute, RouteLocationNormalizedLoaded } from "vue-router";
 import UserMenu from "./menu.vue";
 import UserDialog from "./dialog.vue";
 
@@ -24,6 +25,7 @@ const WalletConnect = asyncLoad(() => import("src/components/ui/wallet/connect.v
 
 const env = getEnv();
 const i18n = I18n();
+const $route = useRoute();
 const url = createRef<string>("url", window.location.href);
 const user = createReactive<User>(alias.common.user, {} as User);
 
@@ -50,6 +52,10 @@ const getLangValue = function () {
 };
 
 onMounted(function () {
+  // 监听 url 变化
+  watch($route, function (data: RouteLocationNormalizedLoaded) {
+    url.value = data.fullPath;
+  });
   return onLoadReactive<User>(user, getUserData);
 });
 </script>
@@ -58,7 +64,7 @@ onMounted(function () {
   <div>
     <div class="flex items-center text-white">
       <!--中英文切换-->
-      <v-router class="flex items-center cursor-pointer" :href="url" :query="getLangValue()">
+      <v-router :href="url" :query="getLangValue()" class="flex items-center cursor-pointer">
         <span class="inline-block whitespace-nowrap text-14-18">{{ i18n.common.lang }}</span>
       </v-router>
 
@@ -72,7 +78,7 @@ onMounted(function () {
         </template>
         <template #content>
           <div class="p-3">
-            <ui-qrcode width="136" height="136" :value="env.appDownload" />
+            <ui-qrcode :value="env.appDownload" height="136" width="136" />
           </div>
         </template>
       </ui-hover>
@@ -96,7 +102,7 @@ onMounted(function () {
             <UserMenu :user="user" />
           </template>
         </ui-hover>
-        <EmailTips class="absolute right-0 top-full" :user="user" />
+        <EmailTips :user="user" class="absolute right-0 top-full" />
       </div>
 
       <!--未登录-->

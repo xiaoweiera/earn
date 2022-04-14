@@ -9,6 +9,7 @@ import {defineComponent} from "vue";
 import {getAlias} from "./alias";
 import {getLink} from "./oss";
 import {props, sizes} from "./props";
+import UiImage from "src/components/ui/image/index.vue";
 
 export default defineComponent({
   props,
@@ -51,13 +52,13 @@ export default defineComponent({
         }
         return (<span class={className}><i class={imgClassName}/></span>);
       } else if (image) {
-        className.push("none-select", "icon-font");
+        className.push("none-select", "icon-font", "inline-block");
         if (/^[\w-]+$/.test(this.type as string)) {
           imgClassName.push(`icon-${toLower(this.type as string)}`);
         }
-        return (<span class={className}>
-          <img class={imgClassName} src={image} alt=""/>
-        </span>);
+        return (<div class={className}>
+          <UiImage class={imgClassName} src={image} fit="contain" rounded={true} lazy={false}/>
+        </div>);
       } else {
         const name = getAlias(this.type as string, this.bright);
         className.push("inline-flex");
@@ -91,6 +92,6 @@ export default defineComponent({
         className = `${className} ${this.$props.class}`;
       }
     }
-    return (<span class={className}>{content}</span>);
+    return (<div class={className}>{content}</div>);
   }
 });

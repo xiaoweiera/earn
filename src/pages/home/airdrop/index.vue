@@ -14,10 +14,6 @@ const i18n = I18n();
     <div>
       <HomeAirdropsHeader :tips="i18n.home.airdrop.tips" :title="i18n.home.airdrop.title" />
     </div>
-    <!-- 项目 -->
-    <div class="my-4 text-kd24px28px text-global-highTitle font-semibold font-kdBarlow">
-      {{ i18n.home.airdrop.airdrop }}
-    </div>
     <!-- 空投列表 -->
     <HomeAirdropsRow />
     <!-- 推文列表 -->

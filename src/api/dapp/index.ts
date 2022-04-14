@@ -9,6 +9,9 @@ import type { nftQuery } from "src/types/dapp/nft";
 import type { AirdropQuery } from "src/types/dapp/airdrop";
 import { nftStatus } from "src/types/dapp/nft";
 import ApiTemplate from "../template";
+import type { DAppData, DataQuery, newsModel, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
+import { echart } from "src/logic/ui/echart/decorate";
+import type { EchartData } from "src/types/echarts/type";
 
 export default class extends ApiTemplate {
   // 项目库列表
@@ -78,12 +81,45 @@ export default class extends ApiTemplate {
     );
     return [params] as any;
   }
+
   // airdrop首页 数据
   @tryError(DefaultValue([]))
   @get(api.dapp.airdropList, expire.min30)
   @userToken()
   @validate
   getAirdropList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // airdrop 进行中数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList)
+  @userToken()
+  @validate
+  getOngoingList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // airdrop 潜在优质数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList)
+  @userToken()
+  @validate
+  getPotentialList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // airdrop 即将开始数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList)
+  @userToken()
+  @validate
+  getUpcomingList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+  // airdrop 结束数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.airdropList)
+  @userToken()
+  @validate
+  getEndedList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
   // airdrop运营推荐 数据
@@ -94,6 +130,15 @@ export default class extends ApiTemplate {
   getOperationList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+  // airdrop运营推荐 数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.operation, expire.min30)
+  @userToken()
+  @validate
+  getHotPotentialList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+
   // 投融资的project数据
   @tryError(DefaultValue([]))
   @get(api.dapp.investList, expire.min30)
@@ -102,12 +147,82 @@ export default class extends ApiTemplate {
   getProjectsList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // 投融资的funds数据
   @tryError(DefaultValue([]))
   @get(api.dapp.investList, expire.min30)
   @userToken()
   @validate
   getFundsList<T>(@required query: AirdropQuery): Promise<T> {
+    return [query] as any;
+  }
+
+  // 项目库详情
+  @tryError(DefaultValue({}))
+  @get(api.dapp.detail, expire.min2)
+  @validate
+  getDetail(@required id: string | number): Promise<DAppData> {
+    const query = { id };
+    return [query] as any;
+  }
+  // 用户资产图表
+  @tryError(DefaultValue({}))
+  @echart
+  @get(api.dapp.userData, expire.min30)
+  @userToken()
+  @validate
+  getUserData(@required query: DataQuery): Promise<EchartData> {
+    return [query] as any;
+  }
+  // 用户市值图表
+  @tryError(DefaultValue({}))
+  @echart
+  @get(api.dapp.marketCapData, expire.min30)
+  @userToken()
+  @validate
+  getMarketCapData(@required query: DataQuery): Promise<EchartData> {
+    return [query] as any;
+  }
+  // 用户TVL图表
+  @tryError(DefaultValue({}))
+  @echart
+  @get(api.dapp.TVLData, expire.min30)
+  @userToken()
+  @validate
+  getTVLData(@required query: DataQuery): Promise<EchartData> {
+    return [query] as any;
+  }
+  // 地板价图表
+  @tryError(DefaultValue({}))
+  @echart
+  @get(api.dapp.floorData, expire.min30)
+  @userToken()
+  @validate
+  getFloorData(@required query: DataQuery): Promise<EchartData> {
+    return [query] as any;
+  }
+  // 代币图表
+  @tryError(DefaultValue({}))
+  @echart
+  @get(api.dapp.tokenData, expire.min30)
+  @userToken()
+  @validate
+  getTokenData(@required query: TokenDataQuery): Promise<EchartData> {
+    return [query] as any;
+  }
+  // 代币列表
+  @tryError(DefaultValue({}))
+  @get(api.dapp.tokenList, expire.min30)
+  @userToken()
+  @validate
+  getTokenList<T>(@required query: TokenQuery): Promise<T> {
+    return [query] as any;
+  }
+  //News列表
+  @tryError(DefaultValue([]))
+  @get(api.dapp.news, expire.min5)
+  @validate
+  getNews<T>(@required query: newsModel): Promise<T> {
     return [query] as any;
   }
 }

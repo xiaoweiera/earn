@@ -6,6 +6,7 @@ import { redirect } from "src/controller/common/redirect";
 import type { Request, Response, NextFunction } from "express";
 import { Router as ExpressRouter } from "express";
 import { TabTypes } from "src/types/dapp/airdrop";
+import { ProjectType } from "src/types/dapp/data";
 
 const Router = function () {
   const router = ExpressRouter();
@@ -69,6 +70,10 @@ const Router = function () {
     dApp.airdropList,
   );
 
+  // DApp 详情
+  dApp.dAppDetail(router, config.dapp, ProjectType.dapp);
+  dApp.dAppDetail(router, config.nft, ProjectType.nft);
+  dApp.dAppDetail(router, config.airdrop, ProjectType.airdrop);
   return router;
 };
 export default Router;

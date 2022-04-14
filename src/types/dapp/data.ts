@@ -3,10 +3,49 @@
  * @author svon.me@gmail.com
  */
 
+export enum Progress {
+  oncoming = "oncoming", // 即将开始
+  ongoing = "ongoing", // 进行中
+  finished = "finished", // 已结束
+  no = "no", //无状态
+}
+
+export enum TabName {
+  dashboard = "dashboard",
+  project = "project",
+  reviews = "reviews",
+  twitter = "twitter",
+  nft = "nft",
+  dapp = "dapp",
+  igo = "igo",
+  airdrop = "airdrops",
+  mint = "mint",
+}
+
 export enum DataType {
   ido = "ido",
   nft = "nft",
-  airdrop = "airdrop",
+  airdrop = "airdrops",
+}
+
+export enum ProjectType {
+  dapp = "dapp",
+  ido = "ido",
+  igo = "igo",
+  nft = "nft",
+  game = "game",
+  defi = "defi",
+  airdrop = "airdrops",
+  mint = "mint",
+  airdrops = "airdrop",
+}
+
+export interface DAppProject {
+  type: ProjectType; // 项目类型
+  rank: boolean; // 是否为排行榜
+  id: string | number; // 项目id
+  tab: TabName; // tab 名称
+  [key: string]: any;
 }
 
 // 社交媒体数据
@@ -51,17 +90,23 @@ export interface Contract {
 }
 
 export interface IDO {
+  ido_status?: Progress; // 项目进度状态
   ido_price: number; //IDO价格
   ido_sale_amount: number; // IDO代币出售
   ido_symbol: string; // IDO币种名称
   ido_fundraising_goal: number; // 筹款目标
   ido_start_at: number; // IDO开始时间
   ido_end_at: number; // IDO结束时间
+  platform: string; //来源平台
+  ath_since_ido: number; //自IDO以来收益
   [key: string]: any;
 }
 
 export interface NFT {
+  mint_status?: Progress; // 项目进度状态
+  mint_price: number; // 当前价格
   owners: number; // 持有人
+  owners_change_percent: number; // NFT拥有者数量24小时变化率
   floor_price: number; // 当前地板价
   price_unit: string; // 价格单位
   issue_volume: number; //发行总量
@@ -72,6 +117,7 @@ export interface NFT {
 }
 
 export interface Airdrop {
+  airdrop_status?: Progress; // 项目进度状态
   price: number; // 代币价格
   airdrop_winner_count: number; // 空投名额
   airdrop_amount: number; // 空投总量
@@ -89,6 +135,18 @@ export interface Community {
   twitter: CommunityItem;
 }
 
+export interface Ticker {
+  tvl: number; // 锁仓
+  tvl_change_percent: number; // 锁仓24小时变化率
+  mcap: number; // 市值
+  mcap_change_percent: number; // 市值24小时变化率
+  mcap_tvl: number; // 锁仓市值比
+  h24volume: number; // 24小时成交量
+  h24volume_change_percent: number; // 24小时成交量变化率
+  users: number; //  用户数
+  user_change_percent: number; // 用户数24小时变化率
+}
+
 export interface DAppData {
   anchor: DataType; // 项目类型
   id: number | string; // 项目 ID
@@ -97,6 +155,7 @@ export interface DAppData {
   gallery: string[]; // nft 图集
   risk: Risk;
   website?: string; // 项目地址
+  ticker: Ticker; // 排行榜类型项目描述
   description?: string; // 描述
   score: number; // 综合得分
   clout: number; // 打分数
@@ -113,6 +172,8 @@ export interface DAppData {
   nft: NFT; // nft 数据
   airdrop: Airdrop; // airdrop 数据
   community: Community; // 社交媒体
+  tutorial_blog_url: string; //参与教程
+  preferred_module: string;
 }
 
 export interface blogDAppData extends DAppData {
@@ -123,4 +184,45 @@ export interface blogDAppData extends DAppData {
   time: string;
   timeText: string;
   url: string;
+}
+
+export interface DataQuery {
+  id: number;
+  range: string;
+}
+
+export interface TokenQuery {
+  id: number;
+}
+
+export interface TokenDataQuery {
+  symbol: string | number;
+  range: string;
+}
+
+export interface Currency {
+  symbol: string; //代币名称
+  price: number; // 当前价格
+  price_change_percent_24h: number; //24小时跌涨幅
+  highest_open_price: number; //开盘最高价
+  highest_yield: number; //最高收益
+  volume_24h: number; //24小时交易量
+  marketcap: number; //市值
+  fully_diluted_marketcap: number; //完全流通市值
+  total_supply: number; //总供应量
+  max_supply: number; //最大供应量
+  circulating_supply: number; //流通供应量
+  owners: number | string; //持有人
+  assets: number; //资产
+  avg_price: number; //平均成交价
+  floor_price: number; //当前地板价
+  price_unit: string; //价格单位
+  sold_24h: number; //24小时售卖
+  total_volume: number; //总交易量
+}
+
+export interface newsModel {
+  id: number | string;
+  page: number;
+  page_size: number;
 }

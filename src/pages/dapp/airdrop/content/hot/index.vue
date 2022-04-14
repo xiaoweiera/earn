@@ -32,7 +32,7 @@ const i18n = I18n();
 </template>
 
 <style lang="scss" scoped>
-.ui-pagination {
+::v-deep(.ui-pagination) {
   @apply min-h-50;
 }
 </style>

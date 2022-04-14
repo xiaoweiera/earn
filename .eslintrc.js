@@ -118,6 +118,7 @@ module.exports = {
     "node/no-callback-literal": 0,
     "@typescript-eslint/indent": "off",
     "vue/singleline-html-element-content-newline": "off",
-    "prefer-promise-reject-errors": "off"
+    "prefer-promise-reject-errors": "off",
+    "vue/attribute-hyphenation":0
   }
 };

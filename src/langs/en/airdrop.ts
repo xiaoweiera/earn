@@ -13,7 +13,7 @@ export default {
   content: {
     quota: "Quota",
     amount: "Total",
-    score: "0 Rating | {count} Ratings",
+    score: "0 Reviews | {count} Reviews",
   },
   time: {
     before: {

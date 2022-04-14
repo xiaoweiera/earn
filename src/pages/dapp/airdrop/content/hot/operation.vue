@@ -3,10 +3,9 @@ import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
 // import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
 import { Model } from "src/logic/dapp";
 import { scrollGoToDom } from "src/plugins/browser/scroll";
-import { getValue } from "src/utils/root/data";
 import { alias } from "src/utils/ssr/ref";
-
-const potential = true;
+import { useRoute } from "vue-router";
+import { getCacheList } from "src/logic/dapp/airdrop";
 
 defineProps({
   limit: {
@@ -14,11 +13,15 @@ defineProps({
     default: () => 0,
   },
 });
+
+const $route = useRoute();
+const potential = true;
 let initStatus = true;
+
 const initValue = function () {
   if (initStatus) {
     initStatus = false;
-    return getValue(alias.airdrop.operation, []);
+    return getCacheList($route, alias.airdrop.operation);
   }
   return [];
 };
@@ -32,16 +35,18 @@ const changeView = function () {
 </script>
 
 <template>
-  <ui-pagination skin="pagination" :limit="limit > 0 ? limit : 6" :init-value="initValue()" :show-loading="limit < 1" :request="request" @next="changeView" @prev="changeView">
-    <template #default="scope">
-      <div class="airdrop-list">
-        <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data" />
-      </div>
-    </template>
-    <template #empty>
-      <div class="operation-empty">
-        <ui-empty />
-      </div>
-    </template>
-  </ui-pagination>
+  <div>
+    <ui-pagination skin="pagination" :limit="limit > 0 ? limit : 6" :init-value="initValue()" :show-loading="limit < 1" :request="request" @next="changeView" @prev="changeView">
+      <template #default="scope">
+        <div class="airdrop-list">
+          <DAppAirdropItem v-for="(data, index) in scope.list" :key="index" :data="data" />
+        </div>
+      </template>
+      <template #empty>
+        <div class="operation-empty">
+          <ui-empty />
+        </div>
+      </template>
+    </ui-pagination>
+  </div>
 </template>
