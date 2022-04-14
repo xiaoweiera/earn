@@ -104,7 +104,7 @@ const onChange = function (data: LabelItem) {
                 <IconFont v-if="arrow" size="16" type="icon-arrow-down" />
               </span>
               <div v-else-if="copy" class="flex pl-1">
-                <v-copy :value="data[nameKey]" class="flex cursor-pointer">
+                <v-copy :value="data[nameKey]" message class="flex cursor-pointer">
                   <IconFont size="16" type="icon-copy" />
                 </v-copy>
               </div>

@@ -15,7 +15,7 @@ import Price from "./price.vue";
 import Table from "./table.vue";
 import Td from "./td.vue";
 import Not from "./not.vue";
-import { getNotEmptySize, toNumberFormat } from "src/utils/";
+import { getNotEmptySize, formatCash } from "src/utils/";
 
 const i18n = I18n();
 
@@ -67,7 +67,10 @@ const isAllEmpty = function (data: DAppData) {
     </div>
     <template v-else>
       <div class="flex items-center justify-between">
-        <template v-if="isHeaderEmpty(data)">
+        <template v-if="isHeaderEmpty(data) && isFooterEmpty(data)">
+          <div></div>
+        </template>
+        <template v-else-if="isHeaderEmpty(data)">
           <Not />
         </template>
         <template v-else>
@@ -92,7 +95,7 @@ const isAllEmpty = function (data: DAppData) {
           <Td v-if="data.nft.mint_price">
             <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.priceData.mintPrice }}</label>
             <p class="text-14-18 text-global-highTitle">
-              <b class="font-m">{{ toNumberFormat(data.nft.mint_price) }}</b>
+              <b class="font-m">{{ formatCash(data.nft.mint_price) }}</b>
               <b v-if="data.nft.price_unit" class="ml-0.5 font-m">{{ toUpper(data.nft.price_unit) }}</b>
             </p>
             <!--占位-->
@@ -102,7 +105,7 @@ const isAllEmpty = function (data: DAppData) {
           <Td v-if="data.ticker.mcap">
             <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.mcap }}</label>
             <p class="text-14-18 text-global-highTitle">
-              <b class="font-m">{{ toNumberFormat(data.ticker.mcap) }}</b>
+              <b class="font-m">{{ formatCash(data.ticker.mcap) }}</b>
             </p>
             <ui-percent :value="data.ticker.mcap_change_percent" />
           </Td>
@@ -110,7 +113,7 @@ const isAllEmpty = function (data: DAppData) {
           <Td v-if="data.ticker.h24volume">
             <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.priceData.count }}</label>
             <p class="text-14-18 text-global-highTitle">
-              <b class="font-m">{{ toNumberFormat(data.ticker.h24volume) }}</b>
+              <b class="font-m">{{ formatCash(data.ticker.h24volume) }}</b>
             </p>
             <ui-percent :value="data.ticker.h24volume_change_percent" />
           </Td>
@@ -118,7 +121,7 @@ const isAllEmpty = function (data: DAppData) {
           <Td v-if="data.nft.owners">
             <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.owners }}</label>
             <p class="text-14-18 text-global-highTitle">
-              <b class="font-m">{{ toNumberFormat(data.nft.owners) }}</b>
+              <b class="font-m">{{ formatCash(data.nft.owners) }}</b>
             </p>
             <ui-percent :value="data.nft.owners_change_percent" />
           </Td>

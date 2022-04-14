@@ -16,7 +16,7 @@ const visible = ref<boolean>(false);
       <slot></slot>
     </div>
     <!--dialog 内容-->
-    <el-dialog v-model="visible" :append-to-body="true">
+    <el-dialog v-model="visible" :append-to-body="true" custom-class="min-w-80 max-w-150">
       <div>
         <slot name="content"></slot>
       </div>

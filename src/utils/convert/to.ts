@@ -93,8 +93,8 @@ export const toNumberCash = function (value: string | number = 0, unit = "", pre
   return text;
 };
 // 千分位计数
-export const formatCash = function (value: string | number = 0): string {
-  const number = toNumberFormat(value);
+export const formatCash = function (value: string | number = 0, unit = "", prefix = ""): string {
+  const number = toNumberFormat(value, unit, prefix);
   if (number === defaultNumberValue) {
     return number;
   }
