@@ -114,7 +114,7 @@ onMounted(function () {
             </div>
             <div class="pt-1">
               <template v-for="item in tokenList" :key="item.id">
-                <div v-if="value.type === TabName.nft">
+                <div v-if="data.type === TabName.nft">
                   <DAppTokensNfts :list="item" />
                 </div>
                 <div v-else>
