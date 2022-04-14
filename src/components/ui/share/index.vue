@@ -4,7 +4,7 @@
  * @auth svon.me@gmail.com
  */
 import I18n from "src/utils/i18n/";
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { ElDialog } from "element-plus";
 import window from "src/plugins/browser/window";
 
@@ -23,19 +23,6 @@ const i18n = I18n();
 const link = ref<string>("");
 const status = ref<boolean>(false);
 
-const twitterLink = computed(function () {
-  const query = [];
-  if (props.value) {
-    query.push(`text=${props.value}`);
-  }
-  query.push(`url=${link.value}`);
-  return `https://twitter.com/share?${query.join("&")}`;
-});
-
-const telegramLink = computed(function () {
-  return `https://t.me/share/url?url=${link.value}`;
-});
-
 onMounted(function () {
   link.value = props.url || window.location.href;
 });
@@ -53,13 +40,9 @@ onMounted(function () {
     </div>
     <el-dialog v-model="status" :append-to-body="true" :title="i18n.common.title.share" width="340px">
       <div class="flex items-center justify-center" @click="status = false">
-        <v-router :href="twitterLink" target="_blank">
-          <IconFont bright size="36" type="twitter" />
-        </v-router>
+        <ui-share-twitter :href="link" :text="value" />
         <span class="block mx-8 w-px h-6 bg-global-highTitle bg-opacity-10"></span>
-        <v-router :href="telegramLink" target="_blank">
-          <IconFont bright size="36" type="telegram" />
-        </v-router>
+        <ui-share-telegram :href="link" />
       </div>
       <template #footer>
         <v-copy :value="link" class="block w-full cursor-pointer bg-global-bgFb" @click="status = false">

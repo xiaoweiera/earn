@@ -30,12 +30,17 @@ export const config = {
   dapp: "/dapp",
   dappList: "/dapp/discover",
   dappApply: "/dapp/apply",
+  rankDapp: "/rank/dapp",
+  rankGame: "/rank/game",
+  rankDefi: "/rank/defi",
+  rankNft: "/rank/nft",
   nft: "/nft",
   nftList: "/nft/discover",
   quota: "/indicators", // 指标监控
   airdrop: "/airdrops", // 最新空投
   address: "/whaleaddress",
   portfolio: "/portfolio",
+  download: "/download",
   invest: "/invest", //投融资
   investDetail: "/invest/detail", //投融资详情
   E404: "/404",

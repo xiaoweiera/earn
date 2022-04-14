@@ -97,6 +97,7 @@ export default {
       join: "加入优质项目讨论群",
       wechat: "和行业大佬交流信息",
     },
+    tutorial: "教程链接",
   },
   priceData: {
     high: "最高收益",

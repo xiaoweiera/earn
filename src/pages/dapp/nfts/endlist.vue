@@ -23,8 +23,8 @@ const sort = (key: string) => {
 };
 
 const sortIcon: any = {
-  desc: "icon-shuangxiangjiantou-down",
-  asc: "icon-shuangxiangjiantou-up",
+  "desc": "icon-shuangxiangjiantou-down",
+  "asc": "icon-shuangxiangjiantou-up",
   "": "icon-shuangxiangjiantou",
 };
 const getIcon = (item: string) => {
@@ -41,11 +41,7 @@ const getIcon = (item: string) => {
         <tr class="min-h-11.5 h-11.5">
           <template v-for="(item, index) in nftHeader()" :key="index">
             <td :class="item.width" class="thead-hr hand">
-              <div
-                :class="index === 0 ? 'justify-start' : 'justify-center'"
-                class="flex items-center"
-                @click="item.sort && sort(item.key)"
-              >
+              <div :class="index === 0 ? 'justify-start' : 'justify-center'" class="flex items-center" @click="item.sort && sort(item.key)">
                 <IconFont v-if="item.sort" :type="getIcon(item.key)" class="mr-1" size="14" />
                 <span>{{ item.name }}</span>
               </div>
@@ -67,35 +63,31 @@ const getIcon = (item: string) => {
             </td>
             <td>
               <div class="text-center text-kd14px16px text-global-highTitle text text-number">
-                {{ item.category ? item.category : '--' }}
+                {{ item.category ? item.category : "--" }}
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ toNumberCashFormat(item.owners, '', '', '--') }}</div>
+              <div class="numberDefault text-number">{{ toNumberCashFormat(item.owners, "", "", "--") }}</div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ toNumberCashFormat(item.issue_volume, '', '', '--') }}</div>
+              <div class="numberDefault text-number">{{ toNumberCashFormat(item.issue_volume, "", "", "--") }}</div>
             </td>
             <td>
               <div class="numberDefault text-number">
                 <div v-if="item.floor_price">
                   <IconFont v-if="item.chain" :type="getLog(item.chain)" size="16" />
-                  {{ toNumberCashFormat(item.floor_price, '', '', '') }}
+                  {{ toNumberCashFormat(item.floor_price, "", "", "") }}
                 </div>
-                <div v-else>
-                  --
-                </div>
+                <div v-else>--</div>
               </div>
             </td>
             <td>
               <div class="numberDefault text-number">
                 <div v-if="item.mint_price">
                   <IconFont v-if="item.chain" :type="getLog(item.chain)" size="16" />
-                  {{ toNumberCashFormat(item.mint_price, '', '', '') }}
+                  {{ toNumberCashFormat(item.mint_price, "", "", "") }}
                 </div>
-                <div v-else>
-                  --
-                </div>
+                <div v-else>--</div>
               </div>
             </td>
             <td>

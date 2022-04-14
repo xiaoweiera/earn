@@ -2,13 +2,19 @@ import _ from "lodash";
 import safeGet from "@fengqiaogang/safe-get";
 import { config } from "src/router/config";
 import * as dApp from "src/controller/dapp";
-import redirect from "src/controller/common/redirect";
+import { redirect } from "src/controller/common/redirect";
 import type { Request, Response, NextFunction } from "express";
 import { Router as ExpressRouter } from "express";
 import { TabTypes } from "src/types/dapp/airdrop";
 
 const Router = function () {
   const router = ExpressRouter();
+  router.get(config.dapp, function (req: Request, res: Response) {
+    redirect(req, res, config.dappList);
+  });
+  router.get(config.nft, function (req: Request, res: Response) {
+    redirect(req, res, config.nftList);
+  });
 
   // 列表
   router.get(config.dappList, (req: Request, res: Response) => {
@@ -16,7 +22,10 @@ const Router = function () {
     if (igo) {
       // 兼容老项目，修正错误参数
       const query: object = _.omit(req.query, "isIgo");
-      redirect(req, res, req.path, { ...query, igo });
+      redirect(req, res, req.path, {
+        ...query,
+        igo,
+      });
     } else {
       return dApp.list(req, res);
     }
@@ -43,6 +52,7 @@ const Router = function () {
     return redirect(req, res, url, query);
   };
   router.get(config.airdrop, compatible);
+  router.get(`${config.airdrop}/discover`, compatible);
   router.get(`${config.airdrop}/list`, compatible);
   router.get(
     `${config.airdrop}/list/:name`,

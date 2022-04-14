@@ -11,12 +11,16 @@ export const common = {
   tiding: {
     list: "common.tidings",
   },
+  system: {
+    info: "API.common.getSystemInfo",
+  },
 };
 
 export const blog = {
   tabs: "API.blog.tabs",
   list: "API.blog.getList",
   detail: "API.blog.getDetail",
+  dApp: "API.blog.getDAppList",
 };
 
 export const quota = {
@@ -55,4 +59,10 @@ export const invest = {
     projects: "API.invest.list",
     funds: "API.invest.list.",
   },
+};
+export const rank = {
+  chains: "API.Rank.chains",
+  groups: "API.Rank.groups",
+  dappList: "API.Rank.dappList",
+  nftList: "API.Rank.nftList",
 };

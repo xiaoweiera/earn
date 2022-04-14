@@ -42,7 +42,7 @@ onMounted(() => {
     <div class="max-w-300 mx-auto">
       <!-- 标题 -->
       <div class="py-8">
-        <h2 class="text-kd32px32px text-global-highTitle">
+        <h2 class="text-kd30px28px md:text-kd40px40px text-global-highTitle">
           <b class="font-b font-kdBarlow">{{ i18n.airdrop.title }}</b>
         </h2>
         <p class="text-kd13px18px md:text-kd14px18px mt-3 text-global-highTitle text-opacity-45 font-kdInter" v-html="i18n.airdrop.desc"></p>

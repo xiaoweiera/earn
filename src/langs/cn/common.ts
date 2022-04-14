@@ -27,6 +27,7 @@ export default {
     apply: "项目申请",
     about: { name: "产品介绍", href: "https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c" },
     download: "下载 KingData APP",
+    download2: "下载 APP",
   },
   time: {
     dd: "天",
@@ -79,6 +80,7 @@ export default {
     goto: "去完成",
     prev: "上一页",
     next: "下一页",
+    shut: "关闭",
   },
   message: {
     verification: "获取验证码",
@@ -133,6 +135,7 @@ export default {
   symbol: {
     plus: "+",
     divide: "瓜分",
+    colon: "：",
   },
   api: {
     wrong: "系统异常，请稍后再试",
@@ -158,5 +161,19 @@ export default {
     deleteDes: "删除后内容将无法恢复，您确定要删除该条测评/回复吗？",
     close: "取消",
     ok: "确认",
+  },
+  lock: {
+    text1: "好空投一起撸，分享好友查看完整教程",
+    text2: "通过以下方式分享有效",
+    gain: "获得",
+    gainAgain: "再获得",
+    unlock: "名好友助力，即可解锁完整内容",
+    shared: "查看进度",
+    success: "已解锁完整教程",
+  },
+  share: {
+    telegram: "分享至Telegram",
+    twitter: "分享至Twitter",
+    link: "复制链接分享至群或好友",
   },
 };

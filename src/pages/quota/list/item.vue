@@ -4,6 +4,7 @@
  * @auth svon.me@gmail.com
  */
 
+import I18n from "src/utils/i18n/";
 import { computed } from "vue";
 import { config as routerConfig } from "src/router/config";
 import type { Data } from "src/types/quota/";
@@ -12,6 +13,7 @@ import AtTime from "./time.vue";
 import OnFollow from "../follow/on.vue";
 import { asyncLoad } from "src/plugins/lazyload/";
 
+const i18n = I18n();
 const Image = asyncLoad(() => import("../list/image.vue"));
 
 const props = defineProps({
@@ -59,7 +61,7 @@ const link = computed<string>(function () {
         </v-router>
         <!-- 原文链接 -->
         <div v-if="data.origin_url" class="mt-2">
-          <v-router :href="data.origin_url" class="link" target="_blank">原文链接</v-router>
+          <v-router :href="data.origin_url" class="link" target="_blank">{{ i18n.news.link }}</v-router>
         </div>
       </div>
     </div>

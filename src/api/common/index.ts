@@ -2,21 +2,24 @@
  * @file 公共接口
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import { tidingName } from "src/config/";
 import * as api from "src/config/api";
 import Cookie from "src/plugins/browser/cookie";
-import { DefaultValue, expire, get, tryError, userToken } from "src/plugins/dao/http";
+import { DefaultValue, expire, get, post, tryError, userToken } from "src/plugins/dao/http";
 import type { AreaCode } from "src/types/common/area";
 import type { SiteConfig } from "src/types/common/chain";
 import type { TidingList } from "src/types/common/tiding";
 import ApiTemplate from "../template";
 
 // 国际区号默认数据
-const areaCodeDefault = DefaultValue([{
-  cn: "中国",
-  en: "China",
-  phone_code: "+86",
-}]);
+const areaCodeDefault = DefaultValue([
+  {
+    cn: "中国",
+    en: "China",
+    phone_code: "+86",
+  },
+]);
 
 // 公链站点默认数据
 const chainSiteDefault = DefaultValue({
@@ -52,5 +55,51 @@ export default class extends ApiTemplate {
       [tidingName]: cookie.getTidingTime(),
     };
     return [params] as any;
+  }
+
+  // 获取下载地址
+  @tryError(DefaultValue({}))
+  @get(api.common.system, expire.min5)
+  @userToken()
+  getSystemInfo<T>(): Promise<T> {
+    return [] as any;
+  }
+
+  // 博客解锁
+  @tryError(DefaultValue(false))
+  @post(api.blog.unLock)
+  @userToken()
+  blogUnLock(data: object): Promise<boolean> {
+    const callback = function (value: object) {
+      return !!value;
+    };
+    return [data, callback] as any;
+  }
+
+  // 获取用户 ip 地址
+  @tryError(DefaultValue({}))
+  @get(api.common.ipValidate, 0, {
+    baseURL: "https://kingdata.xyz",
+  })
+  @userToken()
+  ipValidate(): Promise<object> {
+    return [] as any;
+  }
+
+  async ipIsChina(): Promise<boolean> {
+    const name = "ip-validate";
+    const cookie = new Cookie(this.getRequest());
+    const status = cookie.get(name);
+    if (status) {
+      return false;
+    }
+    const data = await this.ipValidate();
+    // 判断是否是 chinese 地区 ip
+    const value = safeGet<boolean>(data, "chinese");
+    if (value) {
+      const time = 1000 * 60 * 60 * 24;
+      cookie.set(name, "1", time); // 缓存1天，1天之后在做检查
+    }
+    return value;
   }
 }

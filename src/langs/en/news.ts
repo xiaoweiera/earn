@@ -1,4 +1,6 @@
 export default {
+  tips: "Download App, manage followed indicators, and unlock the other 200+ indicators to help you be the first to get wealth!",
+  news: "There are {count} news, click to load",
   comment: {
     reply: {
       count: "{count} people viewed",
@@ -6,6 +8,11 @@ export default {
     project: {
       info: "View project info",
     },
+  },
+  link: "Translation Link",
+  share: {
+    success: "Follow success",
+    download: "please download the app to receive changes",
   },
   meta: {
     title: {

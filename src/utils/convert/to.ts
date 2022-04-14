@@ -12,7 +12,7 @@ export { toLower } from "ramda";
 
 export type TimeType = number | string | Date | dayjs.Dayjs;
 
-const defaultNumberValue = "--";
+export const defaultNumberValue = "--";
 
 // 时间类型转行
 export const toDate = function (time?: TimeType, format?: string) {
@@ -75,15 +75,22 @@ export const toNumberCeil = function (value: string | number = 0): number {
   // return toNumber(number.toFixed(fixed))
 };
 // 千分位计数
-export const toNumberCash = function (value: string | number = 0): string {
-  if (value === defaultNumberValue) {
-    return value;
+export const toNumberCash = function (value: string | number = 0, unit = "", prefix = ""): string {
+  if (value === defaultNumberValue || isEmpty(value)) {
+    return defaultNumberValue;
   }
+  let text = "0";
   if (value) {
     const data = `${value}`;
-    return data.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    text = data.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-  return "0";
+  if (prefix) {
+    return `${prefix}${text}${unit || ""}`;
+  }
+  if (unit) {
+    return `${text}${unit}`;
+  }
+  return text;
 };
 // 千分位计数
 export const formatCash = function (value: string | number = 0): string {

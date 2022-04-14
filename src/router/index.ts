@@ -11,7 +11,9 @@ import Home from "./home";
 import DAppList from "./dapp";
 import BlogList from "./blog";
 import User from "./user";
+import DownLoad from "./download";
 import quota from "./quota";
+import rank from "./rank";
 
 const routes = [
   {
@@ -27,7 +29,9 @@ const routes = [
       ...Home,
       ...DAppList,
       ...BlogList,
+      ...DownLoad,
       ...quota,
+      ...rank,
       {
         path: config.E404,
         component: () => import("src/pages/e404/index.vue"),

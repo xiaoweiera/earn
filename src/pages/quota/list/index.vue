@@ -4,9 +4,11 @@
  * @auth svon.me@gmail.com
  */
 
+import I18n from "src/utils/i18n";
 import DBList from "@fengqiaogang/dblist";
 import { last } from "lodash";
 import API from "src/api/";
+import * as track from "src/logic/track";
 import { notifyMe } from "src/plugins/webkit/notice";
 import type { Data, DataMap } from "src/types/quota/";
 import { forEach, sort, uuid } from "src/utils/";
@@ -119,7 +121,14 @@ const onSync = function () {
   contentId.value = uuid();
 };
 
+const newText = function (count: number): string {
+  const i18n = I18n();
+  return i18n.template(i18n.news.news, { count });
+};
+
 onMounted(function () {
+  // 上报数据
+  track.push(track.Origin.gio, track.event.quota.signals);
   setTimeout(diff, diffTime);
 });
 </script>
@@ -128,7 +137,7 @@ onMounted(function () {
   <div>
     <div v-show="newCount > 0" class="new-tips top-header">
       <div class="tips-content cursor-pointer" @click="onSync">
-        <el-alert :title="`有 ${newCount} 条新播报，点击加载`" type="error" center :closable="false" />
+        <el-alert :closable="false" :title="newText(newCount)" center type="error" />
       </div>
     </div>
     <ui-box>
@@ -162,15 +171,18 @@ onMounted(function () {
 .ui-box {
   --ui-box-right: 184px;
 }
+
 .new-tips {
   @apply fixed z-10020 left-0;
   .tips-content {
     @apply w-screen px-4;
     transition: all 0.3s;
+
     .el-alert {
       @apply px-8 rounded;
     }
   }
+
   @screen md {
     @apply left-1/2 transform -translate-x-1/2 translate-y-3;
     .tips-content {

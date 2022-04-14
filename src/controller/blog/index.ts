@@ -38,7 +38,7 @@ export const detail = async function (req: Request, res: Response) {
   const api = new Model(req);
   const id = safeGet<number>(req.params, "id");
   // 获取详情数据
-  const data = await api.blog.getDetail<BlogDetail>(id);
+  const [data, list] = await Promise.all([api.blog.getDetail<BlogDetail>(id), api.blog.getDAppList(id)]);
   // 如果能获取到详情数据
   if (data) {
     const i18n = I18n(req);
@@ -48,6 +48,7 @@ export const detail = async function (req: Request, res: Response) {
       keywords: i18n.blog.meta.keywords,
       description: data && data.name ? data.desc : i18n.dapp.meta.description,
       [alias.blog.detail]: data,
+      [alias.blog.dApp]: list,
     };
     res.send(result);
   } else {

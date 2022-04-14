@@ -7,6 +7,7 @@
 import type { PropType } from "vue";
 import { toInteger } from "src/utils";
 import type { MenuItem } from "src/types/menu/";
+import { asyncLoad } from "src/plugins/lazyload/";
 
 defineProps({
   list: {
@@ -18,6 +19,12 @@ defineProps({
     default: "",
   },
 });
+
+const HeaderSubDApp = asyncLoad(() => import("../expand/dapp.vue"));
+const HeaderAddressChange = asyncLoad(() => import("../expand/address.vue"));
+const HeaderSubApy = asyncLoad(() => import("../expand/apy.vue"));
+const HeaderSubData = asyncLoad(() => import("../expand/data.vue"));
+const HeaderSubRank = asyncLoad(() => import("../expand/rank.vue"));
 </script>
 
 <template>
@@ -27,12 +34,7 @@ defineProps({
         <div class="flex h-full">
           <template v-for="(data, index) in list" :key="index">
             <template v-if="data.header">
-              <v-router
-                class="sub-menu-item text-14-18 whitespace-nowrap font-kdFang"
-                :class="{ active: data.active }"
-                :href="data.href"
-                :target="data.target ? '_blank' : '_self'"
-              >
+              <v-router class="sub-menu-item text-14-18 whitespace-nowrap font-kdFang" :class="{ active: data.active }" :href="data.href" :target="data.target ? '_blank' : '_self'">
                 <span>{{ data.name }}</span>
                 <i :class="{ hidden: toInteger(data.message) === 0 }">{{ toInteger(data.message) }}</i>
               </v-router>
@@ -41,9 +43,13 @@ defineProps({
         </div>
       </div>
       <div class="extend ml-5 h-full">
-        <div v-if="sub" class="hidden md:block h-full">
-          <client-only>
-            <component :is="sub" />
+        <div v-if="sub" class="hidden md:flex items-center h-full">
+          <client-only class="text-global-highTitle text-opacity-65">
+            <HeaderSubDApp v-if="sub === 'HeaderSubDApp'" />
+            <HeaderSubRank v-else-if="sub === 'HeaderSubRank'" />
+            <HeaderAddressChange v-else-if="sub === 'HeaderAddressChange'" />
+            <HeaderSubApy v-else-if="sub === 'HeaderSubApy'" />
+            <HeaderSubData v-else-if="sub === 'HeaderSubData'" />
           </client-only>
         </div>
       </div>

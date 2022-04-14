@@ -2,16 +2,16 @@
  * @file 导航菜单配置
  * @author svon.me@gmail.com
  */
-import { Lang, Language } from 'src/types/language';
-import getLang from 'src/utils/url/lang';
-import { Address, name as AddressName, Portfolio } from './address';
+import { Lang, Language } from "src/types/language";
+import getLang from "src/utils/url/lang";
+import { Address, name as AddressName, Portfolio } from "./address";
 
-import { APY, name as ApyName } from './apy';
-import { Blog, name as BlogName } from './blog';
-import { DApp, name as DAppName } from './dapp';
-import { name as QuotaName, Quota } from './quota';
-import { name as RankName, Ranks } from './rank';
-import { name as TopicName, TopicList } from './topic';
+import { APY, name as ApyName } from "./apy";
+import { Blog, name as BlogName } from "./blog";
+import { DApp, name as DAppName } from "./dapp";
+import { name as QuotaName, Quota } from "./quota";
+import { name as RankName, Ranks } from "./rank";
+import { name as TopicName, TopicList } from "./topic";
 
 export const names = {
   dapp: DAppName,

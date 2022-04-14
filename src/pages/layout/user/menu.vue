@@ -8,7 +8,7 @@ import I18n from "src/utils/i18n";
 import type { User } from "src/types/common/user";
 import { isConnect } from "src/logic/common/wallet";
 import { config as routerConfig } from "src/router/config";
-import Email from "./email.vue";
+import { asyncLoad } from "src/plugins/lazyload/";
 
 defineProps({
   user: {
@@ -18,6 +18,7 @@ defineProps({
 });
 
 const i18n = I18n();
+const Email = asyncLoad(() => import("./email.vue"));
 
 // 获取昵称
 const getUserName = function (data: User): string | number {

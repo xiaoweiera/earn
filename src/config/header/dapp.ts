@@ -21,7 +21,7 @@ export const DApp = function (lang?: Lang): MenuItem {
   return {
     name: i18n.menu.dapp.title, // dApp
     href: `${config.dapp}/discover`,
-    expand: "HeaderSubDapp", // 二级导航末尾自定义组件名称
+    expand: "HeaderSubDApp", // 二级导航末尾自定义组件名称
     newTip: true,
     children: [
       {

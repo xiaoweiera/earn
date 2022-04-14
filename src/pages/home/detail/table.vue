@@ -11,7 +11,7 @@ import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router";
 import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { PropType } from "vue";
-import { onMounted, reactive, ref, watch, computed } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import HomeFilter from "../filter.vue";
 import HomeTableHeader from "../table/header.vue";

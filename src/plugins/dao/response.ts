@@ -6,7 +6,7 @@ import type { AxiosResponse } from "axios";
 import safeGet from "@fengqiaogang/safe-get";
 import { isNumber, isObject, isString } from "src/utils/";
 
-const getResult = function(response: AxiosResponse) {
+const getResult = function (response: AxiosResponse) {
   if (response && response.data) {
     const data = response.data;
     if (isString(data)) {
@@ -21,7 +21,7 @@ const getResult = function(response: AxiosResponse) {
 };
 
 // 判断状态码
-export const check = function<T>(response: AxiosResponse): T {
+export const check = function <T>(response: AxiosResponse): T {
   const result = getResult(response);
   if (isObject(result)) {
     const code = safeGet<number>(result, "code");
@@ -33,10 +33,10 @@ export const check = function<T>(response: AxiosResponse): T {
       throw result;
     }
   }
-  return safeGet<T>(result, "data");
+  return result;
 };
 
-export const asyncCheck = async function<T>(result: any): Promise<T> {
+export const asyncCheck = async function <T>(result: any): Promise<T> {
   const data = await Promise.resolve(result);
   return check(data);
 };

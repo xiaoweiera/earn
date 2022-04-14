@@ -20,6 +20,10 @@
   &.ui-hover {
     @apply p-0;
     min-width: initial;
+    &.rounded {
+      @apply p-2;
+      @apply rounded-kd100px;
+    }
   }
 }
 
@@ -50,7 +54,7 @@
 .dialog-user-wrap {
   width: 80% !important;
   max-width: 350px !important;
-  @screen md{
+  @screen md {
     margin-top: 7vh;
   }
   .el-dialog__body {
@@ -62,7 +66,8 @@
     .el-tabs__nav-wrap {
       @apply inline-block;
     }
-    .el-tabs__item{
+
+    .el-tabs__item {
       @apply text-global-noSelect;
       &.is-active {
         @apply text-global-primary;
@@ -77,6 +82,7 @@
     width: fit-content !important;
   }
 }
+
 /* 关注 */
 .follow-custom {
   width: fit-content !important;
@@ -84,12 +90,59 @@
   .el-message-box__header {
     @apply hidden;
   }
+
   .el-message-box__content {
     @apply pt-0 px-0 pb-2;
   }
+
   .el-message-box__btns {
     .el-button {
       @apply min-w-23;
     }
+  }
+}
+
+
+/* 用户地址判断（是否为中国用户） */
+.validate-dialog {
+  width: 21rem;
+  border-radius: 6px;
+
+  .el-dialog__header {
+    display: none;
+  }
+
+  .el-dialog__body {
+    padding: 0 !important;
+    border-radius: 6px;
+  }
+
+  @media screen and (min-width: 375px) {
+    & {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      margin-top: 25vh !important;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    & {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      margin-top: 18vh !important;
+    }
+  }
+
+  .tip{
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+  }
+}
+
+/* 解决 el-popover 底部有一点空白，如果 el-popover 父元素是 flex 属性则生效 */
+.flex-popover {
+  @apply flex;
+  & > .el-tooltip__trigger {
+    @apply flex;
   }
 }

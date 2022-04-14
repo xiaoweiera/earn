@@ -95,6 +95,8 @@ const getDom = () => {
     return "";
   }
 };
+const txtCss = props.info.id ? "text-number" : "font-kdBarlow";
+const getNumColor = (value: number | string | null) => `${getUpDownColor(value)} ${txtCss}`;
 onMounted(() => {
   typeDom.value = getDom();
   domData.value = getData(props.typeName, props.data);
@@ -106,21 +108,19 @@ onMounted(() => {
     <div v-if="(typeName === 'name' && !info.id) || (typeName === 'name' && safeGet(info, 'show_type') === 'data')" class="flex-center max-w-28 whitespace-nowrap">
       <ui-image :class="info.id ? 'min-w-8 min-h-8 w-8 h-8' : 'min-w-6 min-h-6 w-6 h-6'" class="rounded-full" :src="safeGet(data, 'logo')" />
       <div class="ml-1.5">
-        <div class="numberDefault text-number line-height-no smallTxt max-w-28 whitespace-nowrap">
-          {{ data["name"] }}
-        </div>
-        <div class="nameTag text-number text-left line-height-no">{{ data["symbol"] }}</div>
+        <div class="numberDefault line-height-no smallTxt max-w-33 text-left whitespace-nowrap" :class="txtCss">{{ data["name"] }}</div>
+        <div class="nameTag text-left line-height-no" :class="txtCss">{{ data["symbol"] }}</div>
       </div>
     </div>
     <!--NameDes-->
     <div v-else-if="typeName === 'name' && info.id && safeGet(info, 'show_type') === 'desc'" class="flex-center short min-w-140">
       <ui-image class="w-8 h-8 md:w-12 md:h-12 rounded-kd6px" :src="data.logo" />
       <div class="ml-3 short">
-        <div class="nameNameDes text-number line-height-no flex-center">
+        <div class="nameNameDes line-height-no flex-center" :class="txtCss">
           <span>{{ data["name"] }}</span>
           <IconFont v-if="data.chain" size="16" :type="safeGet(config, `chain.${data.chain}.logo`)" />
         </div>
-        <div class="nameDes md:mt-1.5 text-number line-height-no w-130 short text-left">{{ data["description"] }}</div>
+        <div class="nameDes md:mt-1.5 line-height-no w-130 short text-left" :class="txtCss">{{ data["description"] }}</div>
       </div>
     </div>
     <!--chainIcon-->
@@ -140,64 +140,64 @@ onMounted(() => {
           </template>
         </el-popover>
       </div>
-      <div v-else class="numberDefault text-number text-center">N/A</div>
+      <div v-else class="numberDefault text-center" :class="txtCss">N/A</div>
     </div>
     <!--    iconHref  tge_platform-->
     <div v-else-if="typeDom === 'iconHref'" class="flex-center justify-right justify-center">
       <div v-if="domData && safeGet(config, `tge_platform.${domData}`)" class="w-full flex items-center justify-center">
         <IconFont v-if="config" size="16" :type="safeGet(config, `tge_platform.${domData}.logo`)" />
-        <div class="link text-number">{{ domData }}</div>
+        <div class="link" :class="txtCss">{{ domData }}</div>
       </div>
-      <div v-else class="numberDefault text-number text-center">Not Set</div>
+      <div v-else class="numberDefault text-center" :class="txtCss">Not Set</div>
     </div>
     <!--starNumber overall_score-->
     <div v-else-if="typeDom === 'starNumber'" class="flex-center justify-center">
       <div v-if="domData || domData === 0" class="w-full flex items-center justify-center">
         <IconFont size="12" type="icon-star" />
-        <span class="star-txt text-number">{{ domData ? getSaveNumber(domData, 1) : 0 }}</span>
+        <span class="star-txt" :class="txtCss">{{ domData ? getSaveNumber(domData, 1) : 0 }}</span>
       </div>
-      <div v-else class="numberDefault text-number text-center">Not Set</div>
+      <div v-else class="numberDefault text-center" :class="txtCss">Not Set</div>
     </div>
     <!--txt categories-->
-    <div v-else-if="typeDom === 'txt'" class="numberDefault text-number text-center">
+    <div v-else-if="typeDom === 'txt'" class="numberDefault text-center" :class="txtCss">
       {{ domData ? domData : "N/A" }}
     </div>
     <!--numberPrice-->
-    <div v-else-if="typeDom === 'numberPrice'" class="numberDefault text-number text-center">
+    <div v-else-if="typeDom === 'numberPrice'" class="numberDefault text-center" :class="txtCss">
       {{ toNumberCashFormat(domData, "$", "", typeName === "ido_price" ? "TBA" : "--") }}
     </div>
     <div v-else-if="typeDom === 'dappNftMix'">
       <div v-if="data.is_nft" class="flex-center justify-center">
         <IconFont size="16" :type="safeGet(config, `chain.${data.chain}.logo`)" />
-        <span class="numberDefault text-number ml-1">{{ toNumberCashFormat(domData) }}</span>
+        <span class="numberDefault ml-1" :class="txtCss">{{ toNumberCashFormat(domData) }}</span>
       </div>
-      <div v-else>{{ toNumberCashFormat(domData, "$") }}</div>
+      <div v-else :class="txtCss">{{ toNumberCashFormat(domData, "$") }}</div>
     </div>
     <!--chainNumber-->
     <div v-else-if="typeDom === 'chainNumber'" class="flex-center justify-center">
       <IconFont size="16" :type="safeGet(config, `chain.${data.chain}.logo`)" />
-      <span class="numberDefault text-number ml-1">{{ toNumberCashFormat(domData) }}</span>
+      <span class="numberDefault ml-1" :class="txtCss">{{ toNumberCashFormat(domData) }}</span>
     </div>
     <!--numberUnit-->
     <div v-else-if="typeDom === 'numberUnit'" class="flex-center justify-center">
-      <span class="numberDefault text-number">{{ toNumberCashFormat(domData[0]) }}</span>
+      <span class="numberDefault" :class="txtCss">{{ toNumberCashFormat(domData[0]) }}</span>
       <span class="unit">{{ domData[1] }}</span>
     </div>
     <!--numbers-->
-    <div v-else-if="typeDom === 'numbers'" class="numberDefault text-number text-center">
+    <div v-else-if="typeDom === 'numbers'" class="numberDefault text-center" :class="txtCss">
       {{ toNumberCashFormat(domData) }}
     </div>
     <!--numberChange-->
     <div v-else-if="typeDom === 'numberChange'">
-      <div class="numberDefault text-number text-center">{{ toNumberCashFormat(domData[0]) }}</div>
+      <div class="numberDefault text-center" :class="txtCss">{{ toNumberCashFormat(domData[0]) }}</div>
       <div v-if="domData[1] !== 0" class="flex-center justify-center">
         <IconFont size="8" :type="domData[1] > 0 ? 'icon-zheng' : 'icon-fu'" />
-        <span :class="getUpDownColor(domData[1])" class="numberChange text-number ml-1">{{ toNumberCashFormat(domData[1], "%", "", "N/A") }}</span>
+        <span :class="getNumColor(domData[1])" class="numberChange ml-1">{{ toNumberCashFormat(domData[1], "%", "", "N/A") }}</span>
       </div>
-      <div v-else class="numberDefault text-number">0</div>
+      <div v-else class="numberDefault" :class="txtCss">0</div>
     </div>
     <!--lever-->
-    <div v-else-if="typeDom === 'lever'" class="text-kd12px16px md:text-kd14px16px text-number justify-right" :class="getUpDownColor(domData)">
+    <div v-else-if="typeDom === 'lever'" class="text-kd12px16px md:text-kd14px16px text-number justify-right" :class="getNumColor(domData)">
       {{ toNumberCashFormat(domData, "x", "", "N/A") }}
     </div>
     <!--timeType-->

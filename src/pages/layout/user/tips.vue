@@ -6,9 +6,11 @@
 import I18n from "src/utils/i18n/";
 import type { PropType } from "vue";
 import type { User } from "src/types/common/user";
-import Email from "./email.vue";
 import { ref, onMounted } from "vue";
 import Cookie from "src/plugins/browser/cookie";
+import { asyncLoad } from "src/plugins/lazyload/";
+
+const Email = asyncLoad(() => import("./email.vue"));
 
 const props = defineProps({
   user: {
@@ -44,7 +46,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div v-if="visible" class="tips-box transform -translate-x-6 translate-y-3">
+  <div v-if="visible" class="tips-box z-10011 transform -translate-x-6 translate-y-3">
     <div class="bg-white p-4 rounded-md flex items-center">
       <span class="text-14-18 text-global-highTitle">{{ i18n.common.account.email.tips }}</span>
       <div class="ml-1.5">

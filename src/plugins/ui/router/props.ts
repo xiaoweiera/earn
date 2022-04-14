@@ -26,6 +26,11 @@ export const props = {
     type: [String, Object],
     default: "",
   },
+  // 链接是否需要二次处理
+  hrefCompile: {
+    type: Boolean,
+    default: () => true, // 默认为 true, 需要处理
+  },
   query: {
     type: Object,
     default() {

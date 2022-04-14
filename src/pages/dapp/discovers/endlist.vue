@@ -25,8 +25,8 @@ const sort = (key: string) => {
 };
 
 const sortIcon: any = {
-  desc: "icon-shuangxiangjiantou-down",
-  asc: "icon-shuangxiangjiantou-up",
+  "desc": "icon-shuangxiangjiantou-down",
+  "asc": "icon-shuangxiangjiantou-up",
   "": "icon-shuangxiangjiantou",
 };
 const getIcon = (item: string) => {
@@ -43,11 +43,7 @@ const getIcon = (item: string) => {
         <tr class="min-h-11.5 h-11.5">
           <template v-for="(item, index) in IdoHeader()" :key="index">
             <td class="thead-hr hand" :class="item.width">
-              <div
-                class="flex items-center"
-                :class="index === 0 ? 'justify-start' : 'justify-center'"
-                @click="item.sort && sort(item.key)"
-              >
+              <div class="flex items-center" :class="index === 0 ? 'justify-start' : 'justify-center'" @click="item.sort && sort(item.key)">
                 <IconFont v-if="item.sort" class="mr-1" size="14" :type="getIcon(item.key)" />
                 <span>{{ item.name }}</span>
               </div>
@@ -68,29 +64,29 @@ const getIcon = (item: string) => {
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ item.category ? item.category : '--' }}</div>
+              <div class="numberDefault text-number">{{ item.category ? item.category : "--" }}</div>
             </td>
             <td>
               <div class="numberDefault text-number">
-                {{ toNumberCashFormat(item.ido_fundraising_goal, '$', '', 'TBA') }}
+                {{ toNumberCashFormat(item.ido_fundraising_goal, "$", "", "TBA") }}
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ toNumberCashFormat(item.ido_price, '$', '', '--') }}</div>
+              <div class="numberDefault text-number">{{ toNumberCashFormat(item.ido_price, "$", "", "--") }}</div>
             </td>
             <td>
               <div class="numberDefault text-number">
-                {{ toNumberCashFormat(item.current_price, '$', '', '--') }}
+                {{ toNumberCashFormat(item.current_price, "$", "", "--") }}
               </div>
             </td>
             <td>
               <div class="text-kd14px16px text-number" :class="getClassColor(item.current_roi_usd)">
-                {{ toNumberCashFormat(item.current_roi_usd, 'x', '', 'N/A') }}
+                {{ toNumberCashFormat(item.current_roi_usd, "x", "", "N/A") }}
               </div>
             </td>
             <td>
               <div class="text-kd14px16px text-number" :class="getClassColor(item.ath_since_ido)">
-                {{ toNumberCashFormat(item.ath_since_ido, 'x', '', 'N/A') }}
+                {{ toNumberCashFormat(item.ath_since_ido, "x", "", "N/A") }}
               </div>
             </td>
             <!--            <td>-->
