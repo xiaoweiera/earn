@@ -147,7 +147,7 @@ export class Model extends API {
     return this.dApp.ixoEnd<ProjectItem | AdItem>(query);
   }
   //空投项目数据
-  getAirdropList(query: AirdropQuery) {
+  getAirdropList(query: object) {
     return this.dApp.getAirdropList<DataItem>(query);
   }
   //空投进行中项目

@@ -8,10 +8,12 @@ import { onMounted } from "vue";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from "swiper";
+import I18n from "src/utils/i18n";
 
 // 装载 swiper 组件
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
+const i18n = I18n();
 // 创建列表对象并获取缓存数据
 const AirdropList = createRef<DataItem[]>(alias.dApp.airdrop.ongoing, [] as any);
 const params = {
@@ -22,7 +24,7 @@ const params = {
 // 即将上线列表
 const getAirdropList = async function () {
   const model = new Model();
-  return model.getAirdropProjects(params);
+  return model.getAirdropList(params);
 };
 
 onMounted(() => {
@@ -33,6 +35,10 @@ onMounted(() => {
 
 <template>
   <div>
+    <!-- 项目 -->
+    <div v-if="AirdropList && AirdropList.length > 0" class="my-4 text-kd24px28px text-global-highTitle font-semibold font-kdBarlow">
+      {{ i18n.home.airdrop.airdrop }}
+    </div>
     <!-- 空投内容 -->
     <div class="airdrop-list mt-4 hidden md:block">
       <DAppAirdropItem v-for="(data, index) in AirdropList" :key="index" :data="data" />
