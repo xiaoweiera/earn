@@ -91,8 +91,8 @@ const initValue = () => {
                     <td class="pl-3 index-number">{{ index + 1 }}</td>
                     <td>
                       <div class="flex items-center max-w-29 whitespace-nowrap">
-                        <ui-image class="min-w-8 min-h-8 rounded-full" :src="safeGet(item, 'logo')" />
-                        <div class="ml-1.5">
+                        <ui-image class="min-w-8 max-w-8 w-8 h-8 rounded-full" :src="safeGet(item, 'logo')" />
+                        <div class="ml-1.5 flex-1">
                           <div class="numberDefault text-number line-height-no short max-w-29 whitespace-nowrap">{{ safeGet(item, "project.name") }}</div>
                           <div class="nameTag text-number text-left line-height-no">{{ safeGet(item, "project.symbol") }}</div>
                         </div>

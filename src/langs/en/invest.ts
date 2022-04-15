@@ -27,4 +27,9 @@ export default {
     funds: "FUNDS",
     trend: "Investment Trends",
   },
+  page: {
+    title: "Investment trends | KingData",
+    key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing",
+    description: "List of crypto projects, with latest information on private and public funding",
+  },
 };
