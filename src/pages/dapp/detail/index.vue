@@ -5,9 +5,11 @@
  */
 
 import { onMounted } from "vue";
+import * as track from "src/logic/track";
 import safeGet from "@fengqiaogang/safe-get";
 import { TabName } from "src/types/dapp/data";
 import { getTabList } from "src/logic/dapp/detail";
+import { ProjectType } from "src/types/dapp/data";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { DAppProject, DAppData } from "src/types/dapp/data";
 import { useReactiveProvide } from "src/utils/use/state";
@@ -31,6 +33,29 @@ const project = createReactive<DAppProject>("query", {} as DAppProject);
 const detail = createReactive<DAppData>(alias.dApp.detail, {} as DAppData);
 useReactiveProvide("detailState", detail);
 
+// 上报数据
+const pushTrack = function (tab?: string | TabName) {
+  const id = project.id;
+  const type = project.type;
+  let value = tab ? tab : project.tab;
+
+  if (AnyEquals(value, TabName.nft)) {
+    value = "Mint";
+  }
+  // 上报数据
+  if (type === ProjectType.nft) {
+    track.push(track.Origin.gio, track.event.dApp.nftDetail, {
+      nft_id: id,
+      nft_tab: value,
+    });
+    return;
+  }
+  track.push(track.Origin.gio, track.event.dApp.dappDetail, {
+    project_id: id,
+    project_tab: value,
+  });
+};
+
 onMounted(function () {
   const id = project.id;
   if (id) {
@@ -41,6 +66,7 @@ onMounted(function () {
 const onChangeTab = function (data: object) {
   const key = safeGet<TabName>(data, "tab");
   if (key) {
+    pushTrack(key);
     project.tab = key;
   }
 };
