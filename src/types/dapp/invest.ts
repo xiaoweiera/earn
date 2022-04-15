@@ -23,3 +23,10 @@ export interface InvestProjects {
   categories: string;
   symbol: string;
 }
+
+export interface FundsQuery {
+  page: number | string;
+  page_size: number | string;
+  keyword: string;
+  stage?: string;
+}

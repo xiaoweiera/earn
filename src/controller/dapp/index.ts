@@ -170,16 +170,14 @@ export const investList = async function (req: Request, res: Response) {
   res.locals.menuActive = names.dapp.invest;
   const query: any = {
     ...req.query,
-    paginate: true,
   };
   const params: any = {
     ...req.query,
-    paginate: true,
   };
-  const [project, funds] = await Promise.all([api.getProjectsList(query), api.getFundsList(params)]);
+  const [project, funds, round] = await Promise.all([api.getProjectsList(query), api.getFundsList(params), api.getRoundList()]);
   const result = {
-    [alias.invest.list.projects]: project, // 投融资项目
-    [alias.invest.list.funds]: funds, //投资动向
+    // [alias.invest.list.projects]: project, // 投融资项目
+    // [alias.invest.list.funds]: funds, //投资动向
   };
   res.send(result);
 };

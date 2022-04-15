@@ -8,32 +8,35 @@ import { createHref } from "src/plugins/router/pack";
 import window from "src/plugins/browser/window";
 import { useRouter } from "vue-router";
 import { Model } from "src/logic/dapp/invest";
-import { alias } from "src/utils/ssr/ref";
+import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
 import { getValue } from "src/utils/root/data";
 import { scrollGoToDom } from "src/plugins/browser/scroll";
 
 import DAppInvestProjectsItem from "src/pages/dapp/investment/projects/item.vue";
-import { uuid } from "src/utils";
+import { toArray, uuid } from "src/utils";
+import { getAll } from "src/logic/blog";
 
 const i18n = I18n();
-const search = ref<string>("");
-const round = ref<string>("");
+const keyword = ref<string>("");
+const stage = ref<string>("");
 const $router = useRouter();
 let initValue = true;
 
 const searchKey = ref<string>(uuid());
 
+const list = createRef<[]>(alias.invest.list.round, toArray(getAll()));
+
 // 获取 项目 列表
 const requestList = function (data: object) {
-  const search = getParam<string>("query");
-  const round = getParam<string>("round");
+  const keyword = getParam<string>("keyword");
+  const stage = getParam<string>("stage");
   const model = new Model();
   const query = {
     ...data,
     page: 1,
     page_size: 8,
-    search: search || "",
-    round: round || "All",
+    keyword: keyword || "",
+    stage: stage || "",
   };
   return model.getProjectsList(query);
 };
@@ -45,11 +48,15 @@ const getInitValue = function () {
   }
 };
 onMounted(() => {
-  round.value = getParam<string>("round") || "All";
-  search.value = getParam<string>("query") || "";
+  stage.value = getParam<string>("stage") || "";
+  keyword.value = getParam<string>("keyword") || "";
+  onLoadRef(list, () => {
+    const api = new Model();
+    return api.getRoundList();
+  });
 });
 const onSearch = _.debounce(async () => {
-  const query = { ...getParam<object>(), query: search.value || "" };
+  const query = { ...getParam<object>(), query: keyword.value || "" };
   const url = createHref(window.location.pathname, query);
   await $router.push(url);
   searchKey.value = uuid();
@@ -61,13 +68,6 @@ const onChange = _.debounce(async (value: string) => {
   await $router.push(url);
   searchKey.value = uuid();
 }, 300);
-const list = [
-  { value: "All", key: "All" },
-  { value: "A轮", key: "A" },
-  { value: "B轮", key: "B" },
-  { value: "C轮", key: "C" },
-  { value: "D轮", key: "D" },
-];
 const changeView = function () {
   scrollGoToDom(".j-project-title");
 };
@@ -89,7 +89,7 @@ const changeView = function () {
             <div class="flex items-center flex-1 w-full w-25 h-8 ml-2 md:ml-4">
               <div class="w-full">
                 <client-only class="flex items-center justify-between">
-                  <el-select v-model="round" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="onChange">
+                  <el-select v-model="stage" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="onChange">
                     <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.key" />
                   </el-select>
                 </client-only>
@@ -100,7 +100,7 @@ const changeView = function () {
         <!-- search -->
         <div>
           <client-only class="w-50 ml-3 input-style">
-            <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
+            <ElInput v-model="keyword" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
               <template #prefix>
                 <IconFont size="16" type="icon-sousuo" @click="onSearch" />
               </template>

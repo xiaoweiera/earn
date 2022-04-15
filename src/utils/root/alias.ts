@@ -63,6 +63,7 @@ export const invest = {
   list: {
     projects: "API.invest.project",
     funds: "API.invest.funds",
+    round: "API.invest.round",
   },
 };
 export const rank = {
