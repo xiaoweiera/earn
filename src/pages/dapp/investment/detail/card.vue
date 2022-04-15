@@ -15,7 +15,6 @@ defineProps({
 const twitterShare = ref<string>("https://twitter.com/share");
 const telegramShare = ref<string>("https://t.me/share/url");
 const copyUrl = (url: string) => copyTxtMessage(url ? url : window.location.href, i18n.common.message.copyAlert);
-
 onMounted(() => {
   twitterShare.value = `https://twitter.com/share?url=${window.location.href}`;
   telegramShare.value = `https://t.me/share/url?url=${window.location.href}`;
