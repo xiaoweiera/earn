@@ -213,6 +213,21 @@ export default {
     buy: "Buy Now",
     mcap: "市值(24H)",
     owners: "持有人(24H)",
+    status: "阶段",
+    airdrop: "空投",
+    claimIt: "认领",
+    winNumber: "获奖人数",
+    airdropAmount: "空投总量",
+
+    ido: "IDO",
+    idoPrice: "IDO 价格",
+    participate: "去参与",
+    fundraisingRounds: "筹款回合",
+
+    seed: "Seed",
+    mint: "Mint",
+    toMint: "铸造",
+    mintSupply: "Mint 数量",
   },
   not: {
     text1: "市场数据未经追踪",

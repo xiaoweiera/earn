@@ -99,6 +99,7 @@ export interface IDO {
   ido_end_at: number; // IDO结束时间
   platform: string; //来源平台
   ath_since_ido: number; //自IDO以来收益
+  valuation: number; // 估值
   [key: string]: any;
 }
 
@@ -147,6 +148,21 @@ export interface Ticker {
   user_change_percent: number; // 用户数24小时变化率
 }
 
+export enum Activity {
+  airdrop = "airdrop", // 空投
+  ido = "ido", // ido
+  invest = "invest", // 融资
+  mint = "mint", // 铸造
+  none = "none", // 无活动状态
+}
+
+export interface Investment {
+  stage_name: Progress; // 投资阶段
+  amount: number; // 投资总额 美元
+  valuation: number; // 估值
+  invested_at: string | number; // 投资日期
+}
+
 export interface DAppData {
   anchor: DataType; // 项目类型
   id: number | string; // 项目 ID
@@ -174,6 +190,8 @@ export interface DAppData {
   community: Community; // 社交媒体
   tutorial_blog_url: string; //参与教程
   preferred_module: string;
+  preferred_activity?: Activity; // 目前阶段
+  latest_investment?: Investment; // 项目最新融资轮次
 }
 
 export interface blogDAppData extends DAppData {

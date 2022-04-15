@@ -71,7 +71,12 @@ export const dateDiffData = function (time: TimeType, now?: TimeType) {
   const hour = dateDiffHour(time, now);
   const minute = dateDiffMinute(time, now);
   const second = dateDiffSecond(time, now);
-  return { day, hour, minute, second };
+  return {
+    day,
+    hour,
+    minute,
+    second,
+  };
 };
 
 // 判断时间是否是当前时间之前
@@ -80,13 +85,15 @@ export const isBefore = function (value: TimeType): boolean {
     const old = toDate(value);
     return dayjs(old).isBefore(toDate());
   }
-  return true;
+  return false;
 };
 
 // 判断时间是否是当前时间以后
 export const isAfter = function (value: TimeType): boolean {
-  const before = isBefore(value);
-  return !before;
+  if (value) {
+    return !isBefore(value);
+  }
+  return false;
 };
 
 // 时间格式化
@@ -146,7 +153,10 @@ export const getDateMDY = (t: number) => {
 export const convertInterval = function (interval = "1d") {
   const number = toNumber(interval.replace(/[^0-9]/g, ""));
   const type = toLower(interval.replace(/[^a-zA-Z]/g, ""));
-  return { number, type };
+  return {
+    number,
+    type,
+  };
 };
 
 // 日期与当前时间做比较

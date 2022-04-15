@@ -137,9 +137,9 @@ export default {
     des: "Popular NFTs, potential NFTs through the KingData project",
   },
   webAirdrop: {
-    title: "List of Airdrops | KingData",
+    title: "List of Airdrop | KingData",
     key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdrops,Data-driven investing",
-    des: "Popular Airdrops, potential Airdrops through the KingData project",
+    des: "We list the current exclusive crypto airdrops calendar, including cryptocurrencies, tokens and other cryptoassets.",
   },
   blog: {
     title: "Research",

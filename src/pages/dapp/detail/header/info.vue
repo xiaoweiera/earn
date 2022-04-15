@@ -33,6 +33,12 @@ const getMediaUrl = function (data: DAppData, name: string) {
   }
   return void 0;
 };
+
+const getAirdropStatus = function (project: DAppProject, data: DAppData) {
+  if (project.type === ProjectType.airdrop) {
+    return safeGet<string>(data, "airdrop.airdrop_status");
+  }
+};
 </script>
 
 <template>
@@ -45,8 +51,8 @@ const getMediaUrl = function (data: DAppData, name: string) {
     </div>
     <div class="flex flex-wrap empty:hidden">
       <!--项目进度-->
-      <template v-if="project.type === ProjectType.airdrop && data.ido && data.ido.ido_status">
-        <Progress :value="data.ido.ido_status" class="mt-4" />
+      <template v-if="getAirdropStatus(project, data)">
+        <Progress :value="getAirdropStatus(project, data)" class="mt-4" />
       </template>
       <!--风险等级-->
       <Risk :value="data.risk" />

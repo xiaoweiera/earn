@@ -4,6 +4,7 @@
  */
 
 import _ from "lodash";
+import { getBigNumber } from "src/lib/tool";
 import { toRaw } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
@@ -14,7 +15,7 @@ import * as logicToolTip from "./tooltip";
 import * as svg from "./svg";
 import { getReactiveInject, getRefInject, setInject } from "src/utils/use/state";
 import { xAxis as makeXAxisOption, yAxisKline as makeYAxisOption, tooltips as makeTooltipOption } from "./option";
-import { toArray, compact, flatten, map, forEach, toBoolean, toNumber, numberUint } from "src/utils";
+import { toArray, compact, flatten, map, forEach, toBoolean, toNumber } from "src/utils";
 import { EchartsOptionName, SeriesType, Position, LegendDirection, GridModel, Direction, LegendItem } from "src/types/echarts/type";
 
 // 获取提示框配置
@@ -79,7 +80,7 @@ export const getYAxis = function (yAxisData: object[], legends: LegendItem[], se
     const yaxisData = getYAxisValue(position) || {};
     const max = safeGet<number>(yaxisData, "max");
     const min = safeGet<number>(yaxisData, "min");
-    const value = calcYAxis(data, props.stack && position === Position.left, props.log, max, min);
+    const yAxisValue = calcYAxis(data, props.stack && position === Position.left, props.log, max, min);
     const textStyleKey = "axisLabel.textStyle";
     const textStyle = safeGet<string>(yaxisData, textStyleKey);
     const [option] = makeYAxisOption(function (value: number) {
@@ -89,9 +90,9 @@ export const getYAxis = function (yAxisData: object[], legends: LegendItem[], se
         if (value === 0) {
           return 0;
         }
-        res = numberUint(Math.pow(10, value));
+        res = getBigNumber(Math.pow(10, value));
       } else {
-        res = numberUint(value);
+        res = getBigNumber(value);
       }
       if (formatter) {
         return formatter(res, {
@@ -103,13 +104,12 @@ export const getYAxis = function (yAxisData: object[], legends: LegendItem[], se
     });
     if (textStyle) {
       const temp = safeGet(option, textStyleKey) || {};
-      const value = Object.assign(temp, textStyle);
-      safeSet(option, textStyleKey, value);
+      safeSet(option, textStyleKey, Object.assign(temp, textStyle));
     }
     return Object.assign(
       {},
       option,
-      value,
+      yAxisValue,
       {
         position,
       },
@@ -421,7 +421,6 @@ export const makeChart = function () {
       if (yAxis && yAxis.value && legend && legend.value) {
         return getYAxis(yAxis.value, legend.value, seriesList, props || {});
       }
-      return [{ type: "value" }];
     },
     getTooltip: function () {
       if (tooltip) {

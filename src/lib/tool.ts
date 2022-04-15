@@ -333,9 +333,11 @@ export const getVNumber = (value: any, zeroIndex: number, isFour: boolean) => {
 // hour 小数后18位数字全展示，18位以后科学技术法
 export const getBigNumber = (n: string | number) => {
   const v = new BigNumber(n);
-  const newV = v.toFixed(); // 科学技术法展开
-  if (newV.split(".")[1].length < 19) return newV;
-  else return parseFloat(newV);
+  const newV = v.toFixed(20); // 科学技术法展开
+  if (newV.includes(".")) {
+    if (newV.split(".")[1].length < 19) return newV;
+  }
+  return parseFloat(newV);
 };
 // 数字格式化 约分
 export const getRulesNumber = (v: any, isShowAll = false, defaultValue = "-") => {

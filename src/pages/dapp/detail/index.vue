@@ -106,10 +106,10 @@ const getTabData = function (info: DAppProject, data: DAppData) {
       <div class="mt-4 md:mt-14">
         <div class="flex items-center justify-between">
           <div class="title font-kdFang">{{ i18n.home.hotRecommend }}</div>
-          <div class="flex items-center">
+          <v-router class="flex items-center" href="/" target="_blank">
             <span class="more">{{ i18n.home.lookMore }}</span>
             <iconFont class="text-global-highTitle text-opacity-65 ml-1" type="rightNo" size="12" />
-          </div>
+          </v-router>
         </div>
         <CommonTopics :isShowTitle="false" />
       </div>

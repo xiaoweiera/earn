@@ -30,6 +30,7 @@ export default {
     download2: "下载 APP",
   },
   time: {
+    date: "日期",
     dd: "天",
     hh: "小时",
     mm: "分钟",

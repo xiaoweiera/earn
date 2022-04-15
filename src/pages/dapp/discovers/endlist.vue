@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import { PropType } from "vue";
 import { toNumberCashFormat } from "src/utils/convert/to";
-import { getClassColor, getNextUrl, getTegLog, getTegUrl } from "src/logic/dapp";
+import { getClassColor, getTegLog, getTegUrl } from "src/logic/dapp";
 import { IdoHeader } from "src/logic/dapp/config";
 import { toFixed } from "src/utils";
+import { ProjectItem } from "src/types/dapp/ixo";
+import VRouter from "src/components/v/router.vue";
 
 const emit = defineEmits(["changeSort"]);
 const props = defineProps({
   list: {
-    type: Object,
+    type: Object as PropType<ProjectItem>,
     default: () => {
       return {};
     },
@@ -53,7 +56,7 @@ const getIcon = (item: string) => {
       </thead>
       <tbody>
         <template v-for="(item, index) in list" :key="index">
-          <tr v-if="item.data_type !== 'ad'" class="h-14 hand" @click="getNextUrl(item)">
+          <v-router v-if="item.data_type !== 'ad'" class="h-14 hand" :href="item.url" target="_blank" name="tr">
             <td>
               <div class="flex-center">
                 <ui-image class="w-8 h-8" rounded :src="item.logo" />
@@ -111,7 +114,7 @@ const getIcon = (item: string) => {
                 <span class="star-txt">{{ toFixed(item.overall_score, 1) }}</span>
               </div>
             </td>
-          </tr>
+          </v-router>
         </template>
       </tbody>
     </table>
