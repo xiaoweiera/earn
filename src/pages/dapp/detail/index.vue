@@ -72,7 +72,7 @@ const getTabData = function (info: DAppProject, data: DAppData) {
 <template>
   <ui-spin class="pt-8 pb-16 px-4">
     <div class="max-w-300 mx-auto">
-      <div v-if="detail && detail.id" class="w-full">
+      <div v-if="detail && detail.id" class="w-full mb-4 md:mb-14">
         <Header :data="detail" :project="project" />
         <ui-sticky class="mt-11 bg-white">
           <ui-tab :def="TabName.dashboard" :list="getTabData(project, detail)" active-name="tab" @change="onChangeTab">
@@ -82,7 +82,7 @@ const getTabData = function (info: DAppProject, data: DAppData) {
           </ui-tab>
         </ui-sticky>
         <!--内容-->
-        <div :key="project.tab" class="mt-6" :data-tab="project.tab">
+        <div :key="project.tab" :data-tab="project.tab" class="mt-6">
           <template v-if="AnyEquals(project.tab, TabName.twitter)">
             <Twitter :name="getTwitterName(detail)" class="bg-white" />
           </template>
@@ -103,26 +103,14 @@ const getTabData = function (info: DAppProject, data: DAppData) {
           </template>
         </div>
       </div>
-      <div class="mt-4 md:mt-14">
-        <div class="flex items-center justify-between">
-          <div class="title font-kdFang">{{ i18n.home.hotRecommend }}</div>
-          <v-router class="flex items-center" href="/" target="_blank">
-            <span class="more">{{ i18n.home.lookMore }}</span>
-            <iconFont class="text-global-highTitle text-opacity-65 ml-1" type="rightNo" size="12" />
-          </v-router>
+      <div>
+        <div class="text-24-28 text-global-highTitle font-medium">
+          <p class="title">{{ i18n.home.hotRecommend }}</p>
         </div>
-        <CommonTopics :isShowTitle="false" />
+        <div class="mt-3">
+          <CommonTopics :isShowTitle="false" />
+        </div>
       </div>
     </div>
   </ui-spin>
 </template>
-
-<style lang="scss" scoped>
-.title {
-  @apply mb-3;
-  @apply text-kd24px28px text-global-highTitle font-medium;
-}
-.more {
-  @apply text-global-primary text-kd14px18px font-medium;
-}
-</style>
