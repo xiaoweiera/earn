@@ -60,7 +60,6 @@ const getShareText = function (list: DAppData[], title: string): string {
       }
     }
   }
-  text.push(`${i18n.dapp.share.tutorial}${colon}`);
   return text.join("\n");
 };
 
