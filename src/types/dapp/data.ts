@@ -25,7 +25,7 @@ export enum TabName {
 export enum DataType {
   ido = "ido",
   nft = "nft",
-  airdrop = "airdrops",
+  airdrop = "airdrop",
 }
 
 export enum ProjectType {

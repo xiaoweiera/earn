@@ -5,6 +5,7 @@
  */
 
 import _ from "lodash";
+import { ref } from "vue";
 import { uuid, toBoolean } from "src/utils/";
 import { $ } from "src/plugins/browser/event";
 import window from "src/plugins/browser/window";
@@ -13,17 +14,18 @@ import * as echarts from "echarts";
 import { graphic } from "src/logic/ui/echart/option";
 import { makeChart, getGrid } from "src/logic/ui/echart/";
 import { chartProps } from "src/logic/ui/echart/props";
-import { getCurrentInstance, onMounted, onBeforeUnmount } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
+import document from "src/plugins/browser/document";
 import { Direction, LegendItem } from "src/types/echarts/type";
 import safeSet from "@fengqiaogang/safe-set";
 
 const chartName = uuid();
 
+const chartId = ref<string>(`j-${chartName}`);
+
 const emitEvent = defineEmits(["load"]);
 
 const props = defineProps(chartProps());
-
-const instance = getCurrentInstance();
 
 const chart = makeChart();
 
@@ -33,13 +35,9 @@ const getChart = function () {
   if (_$echarts) {
     return _$echarts;
   }
-  const vNode = instance?.vnode;
-  if (vNode) {
-    const dom: HTMLDivElement = vNode.el as any;
-    const container = dom.querySelector(".j-echarts");
-    if (container) {
-      _$echarts = echarts.init(container as HTMLElement);
-    }
+  const container = document.querySelector(`#j-${chartName}`);
+  if (container) {
+    _$echarts = echarts.init(container as HTMLElement);
   }
   return _$echarts;
 };
@@ -179,6 +177,6 @@ onBeforeUnmount(function () {
 
 <template>
   <div>
-    <div class="h-full j-echarts"></div>
+    <div :id="chartId" class="h-full j-echarts"></div>
   </div>
 </template>

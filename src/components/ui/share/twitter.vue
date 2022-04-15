@@ -27,18 +27,19 @@ const i18n = I18n();
 
 const shareLink = function (href?: string, text?: string) {
   const link = encodeURIComponent(href || window.location.href);
-  const query = [];
-  if (href && text) {
+  const query: string[] = [`url=${link}`];
+  if (text) {
+    // const colon = i18n.common.symbol.colon;
+    // text += (`\n${i18n.dapp.share.tutorial}${colon}`);
     query.push(`text=${encodeURIComponent(text)}`);
   }
-  query.push(`url=${link}`);
   return `https://twitter.com/share?${query.join("&")}`;
 };
 </script>
 
 <template>
   <v-router :href="shareLink(href, text)" :href-compile="false" class="block" target="_blank">
-    <ui-hover class="flex-popover" rounded :offset="5">
+    <ui-hover :offset="5" class="flex-popover" rounded>
       <template #label>
         <slot>
           <IconFont :size="size" bright type="twitter" />

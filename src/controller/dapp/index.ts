@@ -176,16 +176,6 @@ export const investList = async function (req: Request, res: Response) {
   };
   res.send(result);
 };
-//投融资详情
-export const investDetail = async function (req: Request, res: Response) {
-  const i18n = I18n(req);
-  const result = {
-    title: i18n.home.webNft.title,
-    keywords: i18n.home.webNft.key,
-    description: i18n.home.webNft.des,
-  };
-  res.send(result);
-};
 
 /**
  * 项目库详情
@@ -235,15 +225,19 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
       }
     }
 
+    const i18n = I18n(req);
     req.params = Object.assign(project, req.params || {});
 
-    const result: object = {};
+    const result: object = {
+      title: i18n.blog.meta.title,
+    };
     const id = safeGet<string | number>(req.params, "id");
     if (id) {
       const api = new API(req);
       const data = await api.dApp.getDetail(id);
       Object.assign(result, {
         [alias.dApp.detail]: data,
+        title: data && data.name ? `${data.name} | KingData` : i18n.blog.meta.title,
       });
     }
     res.send(result);

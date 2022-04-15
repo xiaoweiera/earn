@@ -43,7 +43,6 @@ const integratedData = async (data: any) => {
         id: item.symbol,
         name: item.symbol,
       };
-      return item;
     });
   }
   return data;
@@ -66,16 +65,15 @@ const getTokenList = async () => {
 };
 // 币种切换
 const onChange = async function (data: object) {
-  const api = new Model();
   const tokenId = safeGet<string | number>(data, "token");
   if (tokenId) {
+    const api = new Model();
     active.value = tokenId;
     const tokenParams = {
       symbol: tokenId,
       range: "ALL",
     };
     const data = await api.getTokenData(tokenParams);
-
     if (data) {
       chartData.value = data;
     }
@@ -97,7 +95,7 @@ onMounted(function () {
           <!-- 代币图表 -->
           <div class="token-echart md:mt-2">
             <div class="h-110">
-              <div v-if="chartData.legends" class="w-full h-full mx-auto md:mt-2">
+              <div v-if="chartData.legends" class="h-full mx-auto md:mt-2">
                 <ui-echart-content :custom="onCustom" :data="chartData" class="h-full" />
               </div>
             </div>

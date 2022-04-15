@@ -12,6 +12,10 @@ defineProps({
     type: [String, Object],
     default: "",
   },
+  text: {
+    type: String,
+    default: "",
+  },
   // icon 大小
   size: {
     type: Number,
@@ -21,14 +25,18 @@ defineProps({
 
 const i18n = I18n();
 
-const shareLink = function (href?: string) {
+const shareLink = function (href?: string, text?: string) {
   const link = encodeURIComponent(href || window.location.href);
-  return `https://t.me/share/url?url=${link}`;
+  const query: string[] = [`url=${link}`];
+  if (text) {
+    query.push(`text=${encodeURIComponent(text)}`);
+  }
+  return `https://t.me/share/url?url=${query.join("&")}`;
 };
 </script>
 
 <template>
-  <v-router :href="shareLink(href)" target="_blank">
+  <v-router :href="shareLink(href, text)" target="_blank">
     <ui-hover class="flex-popover" rounded :offset="5">
       <template #label>
         <slot>

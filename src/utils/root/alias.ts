@@ -65,6 +65,11 @@ export const invest = {
     funds: "API.invest.funds",
     round: "API.invest.round",
   },
+  detail: {
+    investList: "API.invest.list",
+    info: "API.invest.info",
+    investment: "API.invest.investment",
+  },
 };
 export const rank = {
   chains: "API.Rank.chains",

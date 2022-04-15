@@ -45,6 +45,5 @@ export const config = {
   investDetail: "/invest/detail", //投融资详情
   funds: "/funds",
   E404: "/404",
-
   user,
 };

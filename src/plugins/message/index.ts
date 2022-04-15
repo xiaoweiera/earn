@@ -7,17 +7,17 @@ import I18n from "src/utils/i18n";
 import { ElMessageBox } from "element-plus";
 
 enum Status {
-	Cancel = "cancel",
-	Confirm = "confirm",
+  Cancel = "cancel",
+  Confirm = "confirm",
 }
 
 interface Content {
-	value: string;
-	warn?: string;
-	desc?: string;
+  value: string;
+  warn?: string;
+  desc?: string;
 }
 
-const getContent = function(content?: Content | string): string {
+const getContent = function (content?: Content | string): string {
   let text = "";
   if (!content) {
     content = "";
@@ -28,29 +28,32 @@ const getContent = function(content?: Content | string): string {
     };
   }
   if (content.value) {
-    text += `<p class="text-base font-normal" style="color: rgba(37, 62, 111, 0.85); word-break: break-word; overflow-wrap: break-word;">${content.value}</p>`;
+    text += `<p class="text-left text-base font-normal text-global-darkblue text-opacity-85 break-words">${content.value}</p>`;
   }
   if (content.warn) {
-    text += `<p class="text-xs font-normal" style="color: #E9592D; word-break: break-word; overflow-wrap: break-word;">* ${content.warn}</p>`;
+    text += `<p class="text-left text-xs font-normal text-global-numRed break-words">* ${content.warn}</p>`;
   }
   if (content.desc) {
-    text += `<p class="text-xs font-normal pt-2" style="color: rgba(37, 62, 111, 0.85); word-break: break-word; overflow-wrap: break-word;">${content.desc}</p>`;
+    text += `<p class="text-left text-xs font-normal pt-2 text-global-darkblue text-opacity-85 break-words">${content.desc}</p>`;
   }
   return `<div class="text-center">${text}</div>`;
 };
 
-const app = function(title: string, content: string, type: "alert" | "confirm", opt?: object): Promise<boolean> {
+const app = function (title: string, content: string, type: "alert" | "confirm", opt?: object): Promise<boolean> {
   const i18n = I18n();
-  const option = Object.assign({
-    customClass: "directive-message",
-    dangerouslyUseHTMLString: true,
-    closeOnClickModal: true,
-    showConfirmButton: true,
-    confirmButtonText: i18n.common.button.confirm,
-    showCancelButton: false,
-    cancelButtonText: i18n.common.button.close,
-    closeOnPressEscape: true,
-  }, opt || {});
+  const option = Object.assign(
+    {
+      customClass: "directive-message",
+      dangerouslyUseHTMLString: true,
+      closeOnClickModal: true,
+      showConfirmButton: true,
+      confirmButtonText: i18n.common.button.confirm,
+      showCancelButton: false,
+      cancelButtonText: i18n.common.button.close,
+      closeOnPressEscape: true,
+    },
+    opt || {},
+  );
 
   if (type === "confirm") {
     option.showCancelButton = true;
@@ -69,29 +72,29 @@ const app = function(title: string, content: string, type: "alert" | "confirm", 
   });
 };
 
-const message = function(title: string, content?: Content | string, opt?: object): Promise<boolean> {
+const message = function (title: string, content?: Content | string, opt?: object): Promise<boolean> {
   if (content) {
     return app(title, getContent(content), "confirm", opt);
   }
   return app(title, "", "alert", opt);
 };
 
-message.confirm = function(title: string, content?: Content | string, opt?: object): Promise<boolean> {
+message.confirm = function (title: string, content?: Content | string, opt?: object): Promise<boolean> {
   return message(title, content, opt);
 };
 
-message.alert = function(title: string, content?: Content | string, opt?: object) {
+message.alert = function (title: string, content?: Content | string, opt?: object) {
   if (content) {
     return app(title, getContent(content), "alert", opt);
   }
   return app("", title, "alert", opt);
 };
 
-message.copy = function(content?: Content | string, opt?: object) {
+message.copy = function (content?: Content | string, opt?: object) {
   return app("", getContent(content), "alert", opt);
 };
 
-message.custom = function(title?: string, content?: string, type: "alert" | "confirm" = "alert", opt?: object) {
+message.custom = function (title?: string, content?: string, type: "alert" | "confirm" = "alert", opt?: object) {
   if (title) {
     return app(title, content || "", type, opt);
   }
