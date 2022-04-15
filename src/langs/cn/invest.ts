@@ -27,4 +27,9 @@ export default {
     funds: "机构",
     trend: "机构投资动向",
   },
+  page: {
+    title: "机构投资动向 | KingData",
+    key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资",
+    description: "加密项目列表，以及有关私人和公共资金的最新信息",
+  },
 };
