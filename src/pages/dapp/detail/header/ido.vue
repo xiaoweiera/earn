@@ -53,7 +53,7 @@ const isFooterEmpty = function (data: DAppData) {
         <v-router v-if="data.website" :href="data.website" class="block mt-2" target="_blank">
           <client-only>
             <el-button class="text-16-20 w-full" type="primary">
-              <span>Participate It</span>
+              <span>{{ i18n.dapp.detail.participate }}</span>
             </el-button>
           </client-only>
         </v-router>
@@ -67,7 +67,7 @@ const isFooterEmpty = function (data: DAppData) {
       <template v-else>
         <!--IDO Price-->
         <Td v-if="data.ido.ido_price">
-          <label class="text-12-18 text-global-highTitle text-opacity-65">IDO Price</label>
+          <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.idoPrice }}</label>
           <p class="text-14-18 text-global-highTitle">
             <b class="font-m">{{ toNumberFormat(data.ido.ido_price, "$") }}</b>
           </p>
@@ -81,7 +81,7 @@ const isFooterEmpty = function (data: DAppData) {
         </Td>
         <!--Airdrop Time-->
         <Td v-if="data.ido.ido_start_at || data.ido.ido_end_at">
-          <label class="text-12-18 text-global-highTitle text-opacity-65">Airdrop Time</label>
+          <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.airdropTime }}</label>
           <p class="text-14-18 text-global-highTitle">
             <b v-if="isAfter(data.ido.ido_start_at)" class="font-m">
               <span>{{ dateYMDFormat(data.ido.ido_start_at) }}</span>
