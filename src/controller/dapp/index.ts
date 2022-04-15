@@ -242,15 +242,19 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
       }
     }
 
+    const i18n = I18n(req);
     req.params = Object.assign(project, req.params || {});
 
-    const result: object = {};
+    const result: object = {
+      title: i18n.blog.meta.title,
+    };
     const id = safeGet<string | number>(req.params, "id");
     if (id) {
       const api = new API(req);
       const data = await api.dApp.getDetail(id);
       Object.assign(result, {
         [alias.dApp.detail]: data,
+        title: data && data.name ? `${data.name} | KingData` : i18n.blog.meta.title,
       });
     }
     res.send(result);
