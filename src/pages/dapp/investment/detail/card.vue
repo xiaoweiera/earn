@@ -29,7 +29,7 @@ onMounted(() => {
         <a :href="data.twitter_url" class="icon-url" target="_blank">
           <IconFont type="icon-twitter" size="24" />
         </a>
-        <div class="icon-url hand flex items-center" @click="copyUrl(data.website)">
+        <div v-if="data.website" class="icon-url hand flex items-center" @click="copyUrl(data.website)">
           <IconFont type="icon-link" size="24" />
         </div>
       </div>
