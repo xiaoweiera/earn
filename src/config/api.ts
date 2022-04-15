@@ -90,5 +90,6 @@ export const comment = {
   star: "/api/v1/dapps/rating", // 评分
 };
 export const invest = {
-  list: "/api/dapps/v1/investments",
+  info: "/api/dapps/v1/investors/{investor_id}",
+  investment: "/api/dapps/v1/investments",
 };

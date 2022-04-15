@@ -18,7 +18,7 @@ const routes = [
     component: () => import("src/pages/dapp/investment/index.vue"),
   },
   {
-    path: router.investDetail,
+    path: `${router.invest}/:id`,
     component: () => import("src/pages/dapp/investment/detail/index.vue"),
   },
   // 详情

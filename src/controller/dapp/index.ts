@@ -183,16 +183,6 @@ export const investList = async function (req: Request, res: Response) {
   };
   res.send(result);
 };
-//投融资详情
-export const investDetail = async function (req: Request, res: Response) {
-  const i18n = I18n(req);
-  const result = {
-    title: i18n.home.webNft.title,
-    keywords: i18n.home.webNft.key,
-    description: i18n.home.webNft.des,
-  };
-  res.send(result);
-};
 
 /**
  * 项目库详情
