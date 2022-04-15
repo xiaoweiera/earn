@@ -87,7 +87,7 @@ onMounted(() => {
         <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       </lazy-load>
       <!-- 投融资项目 -->
-      <HomeInvest class="mt-11 md:mt-17.5" />
+      <!--      <HomeInvest class="mt-11 md:mt-17.5" />-->
     </div>
   </div>
 </template>
