@@ -213,6 +213,21 @@ export default {
     buy: "Buy Now",
     mcap: "Market Cap(24H)",
     owners: "Owners(24H)",
+    status: "Status",
+    airdrop: "Airdrop",
+    claimIt: "Claim It",
+    winNumber: "Number of Winners",
+    airdropAmount: "Total Airdrop Amount",
+
+    ido: "IDO",
+    idoPrice: "IDO Price",
+    participate: "Participate It",
+    fundraisingRounds: "Fundraising Rounds",
+
+    seed: "Seed",
+    mint: "Mint",
+    toMint: "Go To Mint",
+    mintSupply: "Mint Supply",
   },
   not: {
     text1: "Market data is untracked",
