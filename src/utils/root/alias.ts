@@ -62,7 +62,12 @@ export const airdrop = {
 export const invest = {
   list: {
     projects: "API.invest.list",
-    funds: "API.invest.list.",
+    funds: "API.invest.list",
+  },
+  detail: {
+    investList: "API.invest.list",
+    info: "API.invest.info",
+    investment: "API.invest.investment",
   },
 };
 export const rank = {

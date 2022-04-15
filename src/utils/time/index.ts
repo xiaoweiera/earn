@@ -139,7 +139,7 @@ export const dateHMFormat = function (time?: any): string {
   return dateFormat(time, "HH:mm");
 };
 // 得到年月日 区分中英文
-export const getDateMDY = (t: number) => {
+export const getDateMDY = (t: number | string) => {
   const i18n = I18n();
   if (i18n.getLang() === Language.en) {
     // @ts-ignore
