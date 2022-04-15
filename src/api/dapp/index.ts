@@ -159,7 +159,7 @@ export default class extends ApiTemplate {
   }
   // 投融资的轮次数据
   @tryError(DefaultValue([]))
-  @get(api.dapp.funds, expire.min30)
+  @get(api.dapp.roundList, expire.min30)
   @userToken()
   @validate
   getRoundList<T>(): Promise<T> {

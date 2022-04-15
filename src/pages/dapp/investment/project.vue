@@ -13,18 +13,18 @@ import { getValue } from "src/utils/root/data";
 import { scrollGoToDom } from "src/plugins/browser/scroll";
 
 import DAppInvestProjectsItem from "src/pages/dapp/investment/projects/item.vue";
-import { toArray, uuid } from "src/utils";
-import { getAll } from "src/logic/blog";
+import { uuid } from "src/utils";
+import { transformRound } from "src/logic/dapp/invest";
 
 const i18n = I18n();
 const keyword = ref<string>("");
-const stage = ref<string>("");
+const stage = ref<string>("All");
 const $router = useRouter();
 let initValue = true;
 
 const searchKey = ref<string>(uuid());
 
-const list = createRef<[]>(alias.invest.list.round, toArray(getAll()));
+const list = createRef<any[]>(alias.invest.list.round, []);
 
 // 获取 项目 列表
 const requestList = function (data: object) {
@@ -33,8 +33,6 @@ const requestList = function (data: object) {
   const model = new Model();
   const query = {
     ...data,
-    page: 1,
-    page_size: 8,
     keyword: keyword || "",
     stage: stage || "",
   };
@@ -48,7 +46,7 @@ const getInitValue = function () {
   }
 };
 onMounted(() => {
-  stage.value = getParam<string>("stage") || "";
+  stage.value = getParam<string>("stage") || "All";
   keyword.value = getParam<string>("keyword") || "";
   onLoadRef(list, () => {
     const api = new Model();
@@ -56,20 +54,21 @@ onMounted(() => {
   });
 });
 const onSearch = _.debounce(async () => {
-  const query = { ...getParam<object>(), query: keyword.value || "" };
+  const query = { ...getParam<object>(), keyword: keyword.value || "" };
   const url = createHref(window.location.pathname, query);
   await $router.push(url);
   searchKey.value = uuid();
 }, 300);
 
 const onChange = _.debounce(async (value: string) => {
-  const query = { ...getParam<object>(), round: value };
+  const query = { ...getParam<object>(), stage: value };
   const url = createHref(window.location.pathname, query);
   await $router.push(url);
   searchKey.value = uuid();
 }, 300);
+
 const changeView = function () {
-  scrollGoToDom(".j-project-title");
+  scrollGoToDom(".j-project-title", 40);
 };
 </script>
 
@@ -90,7 +89,7 @@ const changeView = function () {
               <div class="w-full">
                 <client-only class="flex items-center justify-between">
                   <el-select v-model="stage" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="onChange">
-                    <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.key" />
+                    <el-option v-for="item in transformRound(list)" :key="item.id" :label="item.name" :value="item.name" />
                   </el-select>
                 </client-only>
               </div>
@@ -126,8 +125,8 @@ const changeView = function () {
           <div class="flex items-center flex-1 w-full md:w-25 h-8 ml-2 md:ml-4">
             <div class="w-full">
               <client-only class="flex items-center justify-between">
-                <el-select v-model="round" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="onChange">
-                  <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.key" />
+                <el-select v-model="stage" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="onChange">
+                  <el-option v-for="item in transformRound(list)" :key="item.id" :label="item.name" :value="item.name" />
                 </el-select>
               </client-only>
             </div>
@@ -137,7 +136,7 @@ const changeView = function () {
       <!-- search -->
       <div>
         <client-only class="w-42.5 ml-3 input-style">
-          <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
+          <ElInput v-model="keyword" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
             <template #prefix>
               <IconFont size="16" type="icon-sousuo" @click="onSearch" />
             </template>
@@ -151,7 +150,7 @@ const changeView = function () {
     <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList" @next="changeView" @prev="changeView">
       <template #default="scope">
         <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <DAppInvestProjectsItem v-for="(item, index) in scope.list" :key="index" />
+          <DAppInvestProjectsItem v-for="item in scope.list" :key="item.id" :data="item" />
         </div>
       </template>
     </ui-pagination>
@@ -161,6 +160,7 @@ const changeView = function () {
 <style lang="scss" scoped>
 .input-style {
   ::v-deep(.el-input__inner) {
+    padding-left: 31px !important;
     @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
   }
 
@@ -176,6 +176,7 @@ const changeView = function () {
 @screen md {
   .input-style {
     ::v-deep(.el-input__inner) {
+      padding-left: 31px !important;
       @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
     }
 

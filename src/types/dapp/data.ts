@@ -38,6 +38,7 @@ export enum ProjectType {
   airdrop = "airdrops",
   mint = "mint",
   airdrops = "airdrop",
+  funds = "funds",
 }
 
 export interface DAppProject {

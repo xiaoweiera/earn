@@ -46,6 +46,14 @@ const routes = [
     path: `${router.airdrop}/:id/:tab`,
     component: () => import("src/pages/dapp/detail/index.vue"),
   },
+  {
+    path: `${router.funds}/:id`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: `${router.funds}/:id/:tab`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
 ];
 
 export default routes;

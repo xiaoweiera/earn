@@ -23,16 +23,14 @@ export class Model extends API {
 }
 
 export const getAll = function () {
-  return {
-    id: "",
-    name: "All",
-  };
+  return ["All"];
 };
 export const activeName = "name";
+export const All = "All";
 
 export const transformRound = function (list: []) {
-  const value = toArray(getAll(), list);
+  const value = toArray(All, list);
   return _.map(value, (item: any) => {
-    return { ...item, [activeName]: item.id };
+    return { id: item, [activeName]: item };
   });
 };

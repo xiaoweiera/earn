@@ -74,6 +74,7 @@ const Router = function () {
   dApp.dAppDetail(router, config.dapp, ProjectType.dapp);
   dApp.dAppDetail(router, config.nft, ProjectType.nft);
   dApp.dAppDetail(router, config.airdrop, ProjectType.airdrop);
+  dApp.dAppDetail(router, config.funds, ProjectType.funds);
   return router;
 };
 export default Router;

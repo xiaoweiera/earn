@@ -35,9 +35,7 @@ const requestList = function (data: object) {
   const param = getParam<string>("search");
   const query = {
     ...data,
-    page: 1,
-    page_size: 8,
-    query: param || "",
+    keyword: param || "",
   };
   return model.getFundsList(query);
 };
@@ -52,7 +50,7 @@ const onSearch = _.debounce(async () => {
 }, 300);
 
 const changeView = function () {
-  scrollGoToDom(".j-project-title");
+  scrollGoToDom(".j-funds-title", 40);
 };
 </script>
 
@@ -101,7 +99,7 @@ const changeView = function () {
         <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList" @next="changeView" @prev="changeView">
           <template #default="scope">
             <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <DAppInvestFundItem v-for="(item, index) in scope.list" :key="index" />
+              <DAppInvestFundItem v-for="item in scope.list" :key="item.id" :data="item" />
             </div>
           </template>
         </ui-pagination>
