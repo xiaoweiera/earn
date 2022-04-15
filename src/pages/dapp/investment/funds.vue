@@ -14,6 +14,7 @@ import { alias } from "src/utils/ssr/ref";
 
 import DAppInvestFundItem from "src/pages/dapp/investment/fund/item.vue";
 import { uuid } from "src/utils";
+import { scrollGoToDom } from "src/plugins/browser/scroll";
 
 const i18n = I18n();
 const search = ref<string>("");
@@ -34,8 +35,7 @@ const requestList = function (data: object) {
   const param = getParam<string>("search");
   const query = {
     ...data,
-    status: "ended",
-    query: param || "",
+    keyword: param || "",
   };
   return model.getFundsList(query);
 };
@@ -48,6 +48,10 @@ const onSearch = _.debounce(async () => {
   await $router.push(url);
   searchKey.value = uuid();
 }, 300);
+
+const changeView = function () {
+  scrollGoToDom(".j-funds-title", 40);
+};
 </script>
 
 <template>
@@ -92,10 +96,10 @@ const onSearch = _.debounce(async () => {
       </div>
       <!--  -->
       <div :key="searchKey">
-        <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList">
+        <ui-pagination :limit="8" skin="pagination" :init-value="getInitValue()" :request="requestList" @next="changeView" @prev="changeView">
           <template #default="scope">
             <div class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <DAppInvestFundItem v-for="(item, index) in scope.list" :key="index" />
+              <DAppInvestFundItem v-for="item in scope.list" :key="item.id" :data="item" />
             </div>
           </template>
         </ui-pagination>

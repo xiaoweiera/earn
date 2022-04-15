@@ -1,31 +1,51 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { PropType } from "vue";
 import I18n from "src/utils/i18n";
+import { ProjectItem } from "src/types/dapp/invest";
+import { toNumberCashFormat, getEnDateMDY } from "src/utils/";
+import { config } from "src/router/config";
+import document from "src/plugins/browser/document";
+
+defineProps({
+  data: {
+    type: Object as PropType<ProjectItem>,
+    default: () => {
+      return {};
+    },
+  },
+});
 
 const i18n = I18n();
 
-const list = ref<any[]>([]);
-list.value = new Array(19).fill("");
+const getCount = function (data: number) {
+  if (data && data > 11) {
+    if (document.body.clientWidth >= 1024) {
+      return `+${data - 11}`;
+    } else {
+      return `+${data - 14}`;
+    }
+  }
+};
 </script>
 
 <template>
   <div class="min-h-94.5 p-1.5 bg-global-white border-1 border-global-highTitle border-opacity-6 rounded-md">
-    <v-router href="https://www.baidu.com" target="_blank" name="div">
+    <v-router :href="`${config.funds}/${data.id}`" target="_blank" name="div">
       <!-- 头部 -->
       <div class="w-full">
         <p class="w-full h-11.25 rounded-md bg-global-numGreen bg-opacity-12 flex items-center justify-center">
-          <span class="text-kd24px24px text-global-numGreen font-semibold font-kdBarlow">{{ i18n.invest.project.sendRound }}</span>
+          <span class="text-kd24px24px text-global-numGreen font-semibold font-kdBarlow">{{ data.stage_name }}</span>
         </p>
       </div>
       <!-- logo -->
       <div class="w-full mt-3">
         <div class="w-24 h-24 mx-auto relative">
           <div class="w-full h-full">
-            <ui-image class="w-full h-full" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/Rarity/Gallery/237561404597baaab7378b83fd3152e1.png"></ui-image>
+            <ui-image class="w-full h-full" rounded fit="cover" :src="data.project.logo"></ui-image>
           </div>
           <div class="w-full h-6.5 flex justify-center absolute left-0 bottom-0">
             <p class="w-max flex px-2 pt-1 py-1.75 bg-global-numGreen border-2 border-global-white rounded-2xl">
-              <span class="text-kd14px14px text-global-white font-kdSemiBold">Gaming</span>
+              <span class="text-kd14px14px text-global-white font-kdSemiBold">{{ data.project.categories[0] }}</span>
             </p>
           </div>
         </div>
@@ -33,27 +53,27 @@ list.value = new Array(19).fill("");
       <!-- name -->
       <div class="w-full mt-1.5">
         <p class="w-full text-center">
-          <span class="text-kd24px28px text-global-highTitle font-kdBarlow">Drunk Robots</span>
+          <span class="text-kd24px28px text-global-highTitle font-kdBarlow">{{ data.project.name }}</span>
         </p>
       </div>
       <!-- 总数 -->
       <div class="w-full mt-2">
         <p class="w-full text-center">
           <span class="text-kd14px18px text-global-highTitle text-opacity-65 font-medium font-kdFang">{{ i18n.invest.project.total }}</span>
-          <span class="mx-1 text-kd20px20px text-global-highTitle text-opacity-85 font-semibold font-kdBarlow">24</span>
+          <span class="mx-1 text-kd20px20px text-global-highTitle text-opacity-85 font-semibold font-kdBarlow">{{ data.investors.length }}</span>
           <span class="text-kd14px18px text-global-highTitle text-opacity-65 font-medium font-kdFang">{{ i18n.invest.project.investors }}</span>
         </p>
       </div>
       <!-- 参与logo -->
-      <div :class="{ overlap: list.length > 9 }" class="w-full mt-2 px-1.5 group-list">
+      <div :class="{ overlap: data.investors.length > 9 }" class="w-full mt-2 px-1.5 group-list">
         <div class="w-full py-2 pl-1.5 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex justify-center items-center">
-          <template v-for="(item, index) in list" :key="index">
-            <v-router class="block p-0.5 group-item bg-white rounded-1/2" href="https://www.google.com" target="_blank">
-              <ui-image class="w-6 h-6" rounded fit="cover" src="https://jsdata-web.kingdata.xyz/media/DeFi/NFT/a808e7d0c37f22b86ceef3abaa0f5161" />
+          <template v-for="item in data.investors" :key="item.id">
+            <v-router class="block p-0.5 group-item bg-white rounded-1/2" :href="`${config.invest}/${item.id}`" target="_blank">
+              <ui-image class="w-6 h-6" rounded fit="cover" :src="item.logo" />
             </v-router>
           </template>
           <a class="group-more link">
-            <span class="text-kd16px20px font-kdBarlow font-medium">+24</span>
+            <span class="text-kd16px20px font-kdBarlow font-medium">{{ getCount(data.investors.length) }}</span>
           </a>
         </div>
       </div>
@@ -66,7 +86,7 @@ list.value = new Array(19).fill("");
               <span>{{ i18n.invest.project.totalRaised }}</span>
             </p>
             <p class="mt-1 text-global-highTitle text-opacity-85">
-              <b class="text-kd18px18px font-semibold font-kdBarlow">$1.8M</b>
+              <b class="text-kd18px18px font-semibold font-kdBarlow">{{ toNumberCashFormat(data.amount, "$") }}</b>
             </p>
           </div>
           <div class="flex-1 px-2 border-l border-solid border-global-highTitle border-opacity-6">
@@ -75,14 +95,14 @@ list.value = new Array(19).fill("");
               <span>{{ i18n.invest.project.lastFund }}</span>
             </p>
             <p class="mt-1 text-global-highTitle text-opacity-85">
-              <b class="text-kd18px18px font-semibold font-kdBarlow">Mar10,2022</b>
+              <b class="text-kd18px18px font-semibold font-kdBarlow">{{ getEnDateMDY(data.invested_at) }}</b>
             </p>
           </div>
         </div>
       </div>
       <!-- 更多 -->
       <div class="w-full mt-2">
-        <v-router class="block" href="https://kingdata.com" target="_blank">
+        <v-router class="block" :href="`${config.funds}/${data.id}`" target="_blank">
           <p class="w-full h-11 bg-global-darkblue rounded-md flex items-center justify-center">
             <span class="text-kd16px22px text-global-white font-medium font-kdFang">{{ i18n.invest.project.learnMore }}</span>
           </p>

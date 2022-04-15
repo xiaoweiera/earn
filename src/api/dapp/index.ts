@@ -12,6 +12,7 @@ import ApiTemplate from "../template";
 import type { DAppData, DataQuery, newsModel, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
 import { echart } from "src/logic/ui/echart/decorate";
 import type { EchartData } from "src/types/echarts/type";
+import { FundsQuery } from "src/types/dapp/invest";
 
 export default class extends ApiTemplate {
   // 项目库列表
@@ -144,19 +145,26 @@ export default class extends ApiTemplate {
   @get(api.dapp.investList, expire.min30)
   @userToken()
   @validate
-  getProjectsList<T>(@required query: AirdropQuery): Promise<T> {
+  getProjectsList<T>(@required query: FundsQuery): Promise<T> {
     return [query] as any;
   }
 
   // 投融资的funds数据
   @tryError(DefaultValue([]))
-  @get(api.dapp.investList, expire.min30)
+  @get(api.dapp.funds, expire.min30)
   @userToken()
   @validate
-  getFundsList<T>(@required query: AirdropQuery): Promise<T> {
+  getFundsList<T>(@required query: FundsQuery): Promise<T> {
     return [query] as any;
   }
-
+  // 投融资的轮次数据
+  @tryError(DefaultValue([]))
+  @get(api.dapp.roundList, expire.min30)
+  @userToken()
+  @validate
+  getRoundList<T>(): Promise<T> {
+    return [] as any;
+  }
   // 项目库详情
   @tryError(DefaultValue({}))
   @get(api.dapp.detail, expire.min2)

@@ -168,18 +168,11 @@ export const airdropList = async function (req: Request, res: Response) {
 export const investList = async function (req: Request, res: Response) {
   const api = new InvestModel(req);
   res.locals.menuActive = names.dapp.invest;
-  const query: any = {
-    ...req.query,
-    paginate: true,
-  };
-  const params: any = {
-    ...req.query,
-    paginate: true,
-  };
-  const [project, funds] = await Promise.all([api.getProjectsList(query), api.getFundsList(params)]);
+  const [project, funds, list] = await Promise.all([api.getProjectsList({ page: 1, page_size: 8, stage: "All", keyword: "" }), api.getFundsList({ page: 1, page_size: 8, keyword: "" }), api.getRoundList()]);
   const result = {
     [alias.invest.list.projects]: project, // 投融资项目
     [alias.invest.list.funds]: funds, //投资动向
+    [alias.invest.list.round]: list, //轮次列表
   };
   res.send(result);
 };

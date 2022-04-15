@@ -23,7 +23,9 @@ export const dapp = {
   ixo: "/api/v1/dapps/ixo",
   airdropList: "/api/dapps/v1/airdrop", //空投列表
   operation: "/api/v1/dapps/airdrop_recommended", //空投运营精选
-  investList: "/api/dapps/v1/airdrop", //投融资列表
+  investList: "/api/dapps/v1/investments", //投融资项目列表
+  funds: "/api/dapps/v1/investors", //投融资机构列表
+  roundList: "/api/dapps/v1/investment_stage_names", //投融资轮次
   userData: "/api/v1/dapps/chart/user", //用户资产图表
   marketCapData: "/api/v1/dapps/chart/marketcap", //用户市值图表
   TVLData: "/api/v1/dapps/chart/tvl", //用户TVL图表

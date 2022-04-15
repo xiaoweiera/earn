@@ -7,7 +7,7 @@ import DAppInvestFunds from "src/pages/dapp/investment/funds.vue";
 <template>
   <div class="pt-8 pb-16 max-w-315 mx-auto px-3 md:px-0">
     <!-- 项目 -->
-    <div>
+    <div class="j-project-title">
       <DAppInvestProject />
     </div>
     <!-- 广告位 -->
@@ -16,7 +16,7 @@ import DAppInvestFunds from "src/pages/dapp/investment/funds.vue";
     </div>
     <!-- 机构 -->
     <div class="mt-8 md:mt-12">
-      <DAppInvestFunds />
+      <DAppInvestFunds class="j-funds-title" />
     </div>
   </div>
 </template>
