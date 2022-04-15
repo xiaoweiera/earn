@@ -73,3 +73,7 @@ export const rank = {
   dappChart: "/api/dapps/v1/rank/chart/tvl", //dapp chart
   nftChart: "/api/dapps/v1/rank/chart/volume", //nft Chart
 };
+export const invest = {
+  info: "/api/dapps/v1/investors/{investor_id}",
+  investment: "/api/dapps/v1/investments",
+};

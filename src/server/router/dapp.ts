@@ -32,7 +32,6 @@ const Router = function () {
   });
   router.get(config.nftList, dApp.nftList);
   router.get(config.invest, dApp.investList);
-  router.get(config.investDetail, dApp.investDetail);
 
   const airdropAllValue = Object.values(TabTypes);
   // 判断 value 是否存在
