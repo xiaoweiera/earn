@@ -38,6 +38,13 @@ const onClick = function () {
   return emitEvent("sync");
 };
 
+const getCopyValue = function (url: string, value?: string) {
+  if (value) {
+    return `${value}  \n${url}`;
+  }
+  return url;
+};
+
 onMounted(function () {
   link.value = getShareLink(props.type, props.id);
 });
@@ -69,7 +76,7 @@ onMounted(function () {
             <IconFont size="16" type="icon-telegram" />
           </div>
         </ui-share-telegram>
-        <v-copy :value="text ? text + '\n' + link : link" class="ml-4 cursor-pointer">
+        <v-copy :value="getCopyValue(link, text)" class="ml-4 cursor-pointer">
           <ui-hover :offset="5" class="flex-popover" rounded>
             <template #label>
               <div class="circular">
