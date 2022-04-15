@@ -42,7 +42,7 @@ export const config = {
   portfolio: "/portfolio",
   download: "/download",
   invest: "/invest", //投融资
+  funds: "/funds",
   E404: "/404",
-
   user,
 };

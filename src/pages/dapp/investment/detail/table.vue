@@ -2,6 +2,7 @@
 import { reactive, PropType, ref } from "vue";
 import Filter from "./filter.vue";
 import { ElPopover } from "element-plus";
+import { config as routerConfig } from "src/router/config";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getDateMDY } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
@@ -72,7 +73,7 @@ const initValue = () => {
                     <uiSort class="sort justify-center" :sort-data="params" key-name="project__categories" :name="i18n.invest.type" @change="sort" />
                   </td>
                   <td class="w-20">
-                    <uiSort class="sort justify-center" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundedRound" @change="sort" />
+                    <uiSort class="sort justify-end" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundedRound" @change="sort" />
                   </td>
                   <td class="w-20">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="amount" :name="i18n.invest.fundAmount" @change="sort" />
@@ -87,7 +88,7 @@ const initValue = () => {
               </thead>
               <tbody>
                 <template v-for="(item, index) in scope.list" :key="index">
-                  <tr class="h-14">
+                  <v-router :href="`${config.funds}/${safeGet(item, 'project.id')}`" name="tr" class="h-14">
                     <td class="pl-3 index-number">{{ index + 1 }}</td>
                     <td>
                       <div class="flex items-center max-w-29 whitespace-nowrap">
@@ -98,7 +99,7 @@ const initValue = () => {
                         </div>
                       </div>
                     </td>
-                    <td class="text-center txt text-number">
+                    <td class="text-right txt text-number">
                       <div v-if="safeGet(item, 'project.categories') && safeGet(item, 'project.categories.length') > 0" class="flex items-center whitespace-nowrap justify-center">
                         <template v-for="(typeName, i) in item.project.categories.slice(0, typeLength)" :key="i">
                           <span :class="i === 0 ? '' : 'ml-1.5'" class="typeTxt i8n-font-inter">{{ typeName }}</span>
@@ -117,11 +118,11 @@ const initValue = () => {
                         </client-only>
                       </div>
                     </td>
-                    <td class="text-center txt text-number">{{ safeGet(item, "stage_name") }}</td>
+                    <td class="text-right txt text-number">{{ safeGet(item, "stage_name") }}</td>
                     <td class="text-right txt text-number">{{ toNumberCashFormat(safeGet(item, "amount"), "$") }}</td>
                     <td class="text-right txt text-number">{{ 1 ? getDateMDY(safeGet(item, "invested_at")) : "TBA" }}</td>
                     <td class="text-right txt text-number pr-3">{{ safeGet(item, "project.symbol") ? i18n.invest.okSend : i18n.invest.noSend }}</td>
-                  </tr>
+                  </v-router>
                 </template>
               </tbody>
             </table>

@@ -30,7 +30,7 @@ onMounted(() => {
           <IconFont type="icon-twitter" size="24" />
         </a>
         <div v-if="data.website" class="icon-url hand flex items-center" @click="copyUrl(data.website)">
-          <IconFont type="icon-link" size="24" />
+          <IconFont type="icon-yuyan" size="24" />
         </div>
       </div>
       <p class="des text-number">{{ data.description }}</p>
