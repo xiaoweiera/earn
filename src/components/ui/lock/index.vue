@@ -64,13 +64,13 @@ onMounted(function () {
             <IconFont class="flex" size="16" type="icon-twitter" />
           </div>
         </ui-share-twitter>
-        <ui-share-telegram class="ml-4" :href="link">
+        <ui-share-telegram :href="link" :text="text" class="ml-4">
           <div class="circular">
             <IconFont size="16" type="icon-telegram" />
           </div>
         </ui-share-telegram>
-        <v-copy :value="link" class="ml-4 cursor-pointer">
-          <ui-hover class="flex-popover" rounded :offset="5">
+        <v-copy :value="text ? text + '\n' + link : link" class="ml-4 cursor-pointer">
+          <ui-hover :offset="5" class="flex-popover" rounded>
             <template #label>
               <div class="circular">
                 <IconFont size="16" type="icon-link" />
@@ -103,7 +103,7 @@ onMounted(function () {
       </div>
       <div class="mt-3 text-global-gemstone user flex justify-center items-center">
         <template v-for="index in data.share_target" :key="index">
-          <i v-if="index <= data.share_progress" class="circular" :data-portrait="index % 6"></i>
+          <i v-if="index <= data.share_progress" :data-portrait="index % 6" class="circular"></i>
           <i v-else class="circular">
             <IconFont size="16" type="icon-user-plus" />
           </i>
@@ -115,6 +115,7 @@ onMounted(function () {
 
 <style lang="scss" scoped>
 @import "src/styles/function";
+
 .virtual-shadow {
   @apply z-100;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.0716618) 0%, rgba(255, 255, 255, 0) 12.78%, #ffffff 100%);
@@ -139,6 +140,7 @@ onMounted(function () {
     &[data-portrait] {
       @apply bg-center bg-no-repeat bg-cover border-0;
     }
+
     @for $index from 1 through 6 {
       &[data-portrait="#{$index}"] {
         background-image: cdn("/static/images/portrait/0#{$index}.jpg");
