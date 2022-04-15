@@ -30,7 +30,8 @@ const requestList = function (data: object) {
   const model = new Model();
   const query = {
     ...data,
-    status: "potential",
+    page: 1,
+    page_size: 8,
     search: search || "",
     round: round || "All",
   };

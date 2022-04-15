@@ -35,7 +35,8 @@ const requestList = function (data: object) {
   const param = getParam<string>("search");
   const query = {
     ...data,
-    status: "ended",
+    page: 1,
+    page_size: 8,
     query: param || "",
   };
   return model.getFundsList(query);
