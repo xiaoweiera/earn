@@ -31,6 +31,7 @@ export default {
     download2: "Download APP",
   },
   time: {
+    date: "Date",
     dd: "Days",
     hh: "Hours",
     mm: "Minutes",

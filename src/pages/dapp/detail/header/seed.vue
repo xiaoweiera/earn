@@ -29,12 +29,22 @@ defineProps({
 const isFooterEmpty = function (data: DAppData): boolean {
   return !data.latest_investment;
 };
+
+/*
+Valuation 估值
+<Td v-if="data.latest_investment.valuation">
+  <label class="text-12-18 text-global-highTitle text-opacity-65">Valuation</label>
+  <p class="text-14-18 text-global-highTitle">
+    <b class="font-m">{{ toNumberFormat(data.latest_investment.valuation, "$") }}</b>
+  </p>
+</Td>
+ */
 </script>
 
 <template>
   <div>
     <div class="flex items-center justify-between">
-      <Price :label="i18n.dapp.project.fundraising" value="Seed" />
+      <Price :label="i18n.dapp.detail.fundraisingRounds" :value="i18n.dapp.detail.seed" />
       <div>
         <v-router v-if="data.website" :href="data.website" class="block mt-2" target="_blank">
           <client-only>
@@ -53,22 +63,14 @@ const isFooterEmpty = function (data: DAppData): boolean {
       <template v-else>
         <!--Amount 筹款目标-->
         <Td v-if="data.latest_investment.amount">
-          <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.project.fundraising }}</label>
+          <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.address.money.number }}</label>
           <p class="text-14-18 text-global-highTitle">
             <b class="font-m">{{ toNumberFormat(data.latest_investment.amount, "$") }}</b>
           </p>
         </Td>
-        <!--Valuation 估值-->
-        <Td v-if="data.latest_investment.valuation">
-          <label class="text-12-18 text-global-highTitle text-opacity-65">Valuation</label>
-          <p class="text-14-18 text-global-highTitle">
-            <b class="font-m">{{ toNumberFormat(data.latest_investment.valuation, "$") }}</b>
-          </p>
-        </Td>
-
         <!--Date-->
         <Td v-if="data.latest_investment.invested_at">
-          <label class="text-12-18 text-global-highTitle text-opacity-65">Date</label>
+          <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.common.time.date }}</label>
           <p class="text-14-18 text-global-highTitle">
             <b class="font-m">{{ dateYMDFormat(data.latest_investment.invested_at) }}</b>
           </p>
