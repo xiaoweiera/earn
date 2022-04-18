@@ -25,6 +25,7 @@ export const event = {
     igo: "show_igo", // DApp igo
     nft: "show_nfts", // DApp nft
     airdrop: "show_airdrops", // DApp airdrop
+    invest: "show_invest", // DApp funds
     nftDetail: "nft_detail_show", // nft 详情
     dappDetail: "dapp_detail_show", // dapp 详情
   },

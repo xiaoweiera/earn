@@ -10,7 +10,7 @@ export interface InvestItem {
   website: string; //
   email: string; //
   twitter_url: string; //
-  founded_year: string; //
+  founded_year: number | string; //
   description: string; //
   project_count: number; //
   top_projects: InvestProjects[]; //

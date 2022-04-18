@@ -2,6 +2,13 @@
 import DAppInvestProject from "src/pages/dapp/investment/project.vue";
 import DAppInvestAd from "src/pages/dapp/investment/ad.vue";
 import DAppInvestFunds from "src/pages/dapp/investment/funds.vue";
+import { onMounted } from "vue";
+import * as track from "src/logic/track";
+
+onMounted(() => {
+  // 上报数据
+  track.push(track.Origin.gio, track.event.dApp.invest);
+});
 </script>
 
 <template>

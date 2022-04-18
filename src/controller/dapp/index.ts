@@ -166,10 +166,29 @@ export const airdropList = async function (req: Request, res: Response) {
 
 //投融资列表
 export const investList = async function (req: Request, res: Response) {
+  const i18n = I18n(req);
   const api = new InvestModel(req);
   res.locals.menuActive = names.dapp.invest;
-  const [project, funds, list] = await Promise.all([api.getProjectsList({ page: 1, page_size: 8, stage: "All", keyword: "" }), api.getFundsList({ page: 1, page_size: 8, keyword: "" }), api.getRoundList()]);
+  const stage = req.query.stage as string;
+  const keyword = req.query.keyword as string;
+  const search = req.query.search as string;
+  const params = {
+    page: 1,
+    page_size: 8,
+    stage: stage || "All",
+    keyword: keyword || "",
+  };
+  const fundsParams = {
+    params: 1,
+    page_size: 8,
+    keyword: search || "",
+  };
+  const [project, funds, list] = await Promise.all([api.getProjectsList(params), api.getFundsList(fundsParams), api.getRoundList()]);
   const result = {
+    title: i18n.invest.page.title,
+    keywords: i18n.invest.page.key,
+    description: i18n.invest.page.description,
+
     [alias.invest.list.projects]: project, // 投融资项目
     [alias.invest.list.funds]: funds, //投资动向
     [alias.invest.list.round]: list, //轮次列表
@@ -221,6 +240,9 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
         } else {
           res.locals.menuActive = names.dapp.dapp;
         }
+        break;
+      case ProjectType.funds:
+        res.locals.menuActive = names.dapp.invest;
         break;
       }
     }

@@ -189,14 +189,16 @@ const changeView = function () {
     }
   }
 }
-.select {
+.projectMining {
   ::v-deep(.el-input__inner) {
+    padding-right: 30px !important;
     @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg h-8 rounded-md;
-    @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
+    @apply text-kd14px18px w-full text-left text-global-highTitle text-opacity-85 text-kd14px18px;
   }
   @screen md {
     ::v-deep(.el-input__inner) {
-      @apply border-1 border-global-highTitle border-opacity-4 text-kd14px18px w-25 h-8 pl-3 bg-global-topBg text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
+      padding-right: 30px !important;
+      @apply border-1 border-global-highTitle border-opacity-4 text-kd14px18px w-25 h-8 pl-3 bg-global-topBg text-left text-global-highTitle text-opacity-85 text-kd14px18px;
     }
   }
 }

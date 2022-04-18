@@ -111,6 +111,7 @@ const changeView = function () {
 <style lang="scss" scoped>
 .input-style {
   ::v-deep(.el-input__inner) {
+    padding-left: 31px !important;
     @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
   }
 
@@ -126,6 +127,7 @@ const changeView = function () {
 @screen md {
   .input-style {
     ::v-deep(.el-input__inner) {
+      padding-left: 31px !important;
       @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
     }
 

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import I18n from "src/utils/i18n";
 import { config } from "src/router/config";
 
@@ -6,15 +7,46 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from "swiper";
 import DAppInvestProjectsItem from "src/pages/dapp/investment/projects/item.vue";
 import DAppInvestFundItem from "src/pages/dapp/investment/fund/item.vue";
+import { onMounted } from "vue";
+import { Model } from "src/logic/dapp/invest";
+import { InvestItem, ProjectItem } from "src/types/dapp/invest";
 
 // 装载 swiper 组件
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 const i18n = I18n();
+const params = {
+  page: 1,
+  page_size: 4,
+  keyword: "",
+  stage: "",
+};
+const fundsParams = {
+  page: 1,
+  page_size: 4,
+  keyword: "",
+};
+const projectsList = ref<ProjectItem[]>([]);
+const getProjectsList = async function () {
+  const api = new Model();
+  const list = (await api.getProjectsList(params)) as ProjectItem[];
+  projectsList.value = list;
+};
+
+const fundsList = ref<InvestItem[]>([]);
+const getFundsList = async function () {
+  const api = new Model();
+  const list = (await api.getFundsList(fundsParams)) as InvestItem[];
+  fundsList.value = list;
+};
+onMounted(() => {
+  getProjectsList();
+  getFundsList();
+});
 </script>
 
 <template>
   <div>
-    <div class="w-full">
+    <div v-if="(projectsList && projectsList.length > 0) || (fundsList && fundsList.length > 0)" class="w-full">
       <!-- pc端头部 -->
       <div class="w-full hidden md:block">
         <div class="flex items-center justify-between">
@@ -46,40 +78,40 @@ const i18n = I18n();
         </div>
       </div>
       <!-- projects -->
-      <div class="mt-4 w-full">
+      <div v-if="projectsList && projectsList.length > 0" class="mt-4 w-full">
         <div class="w-full">
           <h4 class="text-kd24px28px text-global-highTitle font-kdBarlow">{{ i18n.invest.project.title }}</h4>
         </div>
         <div class="mt-3 hidden md:block">
           <div class="grid grid-cols-2 gap-6 lg:grid-cols-2 xl:grid-cols-4">
-            <DAppInvestProjectsItem v-for="(item, index) in 4" :key="index" />
+            <DAppInvestProjectsItem v-for="item in projectsList" :key="item.id" :data="item" />
           </div>
         </div>
         <div class="mt-3 block md:hidden h-105">
           <Swiper :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" :pagination="{ clickable: true }" :slides-per-view="1" :space-between="0" class="h-full swiper-recom">
-            <template v-for="(item, index) in 4" :key="index">
+            <template v-for="item in projectsList" :key="item.id">
               <SwiperSlide class="w-full h-full rounded-kd6px">
-                <DAppInvestProjectsItem class="w-full" />
+                <DAppInvestProjectsItem :data="item" class="w-full" />
               </SwiperSlide>
             </template>
           </Swiper>
         </div>
       </div>
       <!-- funds -->
-      <div class="mt-4 md:mt-6 w-full">
+      <div v-if="fundsList && fundsList.length > 0" class="mt-4 md:mt-6 w-full">
         <div class="w-full">
           <h4 class="text-kd24px28px text-global-highTitle font-kdBarlow">{{ i18n.invest.project.funds }}</h4>
         </div>
         <div class="mt-3 hidden md:block">
           <div class="grid grid-cols-2 gap-6 lg:grid-cols-2 xl:grid-cols-4">
-            <DAppInvestFundItem v-for="(item, index) in 4" :key="index" />
+            <DAppInvestFundItem v-for="item in fundsList" :key="item.id" :data="item" />
           </div>
         </div>
         <div class="mt-3 block md:hidden h-82">
           <Swiper :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" :pagination="{ clickable: true }" :slides-per-view="1" :space-between="0" class="h-full swiper-recom">
-            <template v-for="(item, index) in 4" :key="index">
+            <template v-for="item in fundsList" :key="item.id">
               <SwiperSlide class="w-full h-full rounded-kd6px">
-                <DAppInvestFundItem />
+                <DAppInvestFundItem :data="item" />
               </SwiperSlide>
             </template>
           </Swiper>

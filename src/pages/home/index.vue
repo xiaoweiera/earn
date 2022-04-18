@@ -19,6 +19,7 @@ const DAppHomeResearch = asyncLoad(() => import("src/pages/home/research.vue"));
 const HomeAd = asyncLoad(() => import("./ad.vue"));
 const HomeCompany = asyncLoad(() => import("./company.vue"));
 const Quota = asyncLoad(() => import("./quota/index.vue"));
+const HomeInvest = asyncLoad(() => import("src/pages/home/invest.vue"));
 
 useReactiveProvide(stateAlias.ui.tab);
 
@@ -60,6 +61,10 @@ onMounted(() => {
       <!--  nft模块  -->
       <lazy-load>
         <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
+      </lazy-load>
+      <!-- 投融资项目 -->
+      <lazy-load>
+        <HomeInvest class="mt-11 md:mt-17.5" />
       </lazy-load>
       <!-- 研究文章-->
       <lazy-load>
