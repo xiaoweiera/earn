@@ -14,6 +14,7 @@ export default {
   phoneForget: "Phone",
   emailForget: "Email",
   emailUpdate: "Email",
+  noData: "No Data",
   lang: "CN",
   loginOut: "Log Out",
   copyOk: "Copy ",
@@ -167,11 +168,11 @@ export default {
   lock: {
     text1: "Enjoy the great airdrop and share them with your friends",
     text2: "Valid ways to share",
-    gain: "Gain",
-    gainAgain: "Gain again",
-    unlock: "unlock the full content with the help from your friends",
+    gain: "Get",
+    unlock: "more friends <i>to click on this link</i> to help you unlock the full content",
     shared: "View Progress",
     success: "Unlock Full Content",
+    progress: "Unlock progress",
   },
   share: {
     telegram: "Share On Telegram",

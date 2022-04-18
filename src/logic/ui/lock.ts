@@ -17,9 +17,8 @@ import { getValue } from "src/utils/root/data";
 // 获取分享链接
 export const getShareLink = function (type?: Type, id?: string | number, href?: string) {
   const user = getValue<User>(alias.common.user, {} as User);
-
+  const url = href || window.location.href;
   if (user && user.id) {
-    const url = href || window.location.href;
     const data = {
       suser: `${user.id}`,
     };
@@ -29,6 +28,7 @@ export const getShareLink = function (type?: Type, id?: string | number, href?: 
     }
     return createHref(url, data);
   }
+  return createHref(url);
 };
 
 // 查看状态

@@ -1,12 +1,8 @@
 <script lang="ts" setup>
-import safeGet from "@fengqiaogang/safe-get";
-import { languageKey } from "src/config/";
 import { Model } from "src/logic/home";
 import * as track from "src/logic/track";
 import { asyncLoad } from "src/plugins/lazyload/";
 import type { summaryModel } from "src/types/home";
-import { Language } from "src/types/language/";
-import { getValue } from "src/utils/root/data";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import { stateAlias, useReactiveProvide } from "src/utils/use/state";
 import { onMounted } from "vue";
@@ -26,12 +22,6 @@ const Quota = asyncLoad(() => import("./quota/index.vue"));
 const HomeInvest = asyncLoad(() => import("src/pages/home/invest.vue"));
 
 useReactiveProvide(stateAlias.ui.tab);
-
-const isShowQuota = function () {
-  const query = getValue<object>("query", {});
-  const value = safeGet<Language>(query, languageKey) || Language.en;
-  return value === Language.cn;
-};
 
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(() => {
@@ -62,7 +52,7 @@ onMounted(() => {
       </lazy-load>
       <!--指标-->
       <lazy-load>
-        <Quota v-if="isShowQuota()" class="mt-15" />
+        <Quota class="mt-15" />
       </lazy-load>
       <!-- Airdrops-->
       <lazy-load>

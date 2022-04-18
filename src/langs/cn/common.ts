@@ -14,6 +14,7 @@ export default {
   phoneForget: "手机号找回",
   emailForget: "邮箱找回",
   emailUpdate: "邮箱修改",
+  noData: "暂无信息",
   lang: "EN",
   loginOut: "退出",
   account: {
@@ -166,11 +167,11 @@ export default {
   lock: {
     text1: "好空投一起撸，分享好友查看完整教程",
     text2: "通过以下方式分享有效",
-    gain: "获得",
-    gainAgain: "再获得",
-    unlock: "名好友助力，即可解锁完整内容",
+    gain: "再获得",
+    unlock: "名好友<i>点击该链接</i>助力，即可解锁完整内容",
     shared: "查看进度",
     success: "已解锁完整教程",
+    progress: "解锁进度",
   },
   share: {
     telegram: "分享至Telegram",
