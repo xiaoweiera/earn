@@ -74,14 +74,14 @@ const index = computed<number>(function () {
 <template>
   <client-only :class="className" :data-help="title" class="ui-image overflow-hidden">
     <template v-if="src && !error">
-      <el-image :fit="getFitValue(fit)" :initial-index="index" :lazy="lazy" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
+      <el-image :fit="getFitValue(fit)" :initial-index="index" :lazy="false" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
         <template #placeholder>
           <slot name="loading"></slot>
         </template>
       </el-image>
     </template>
     <template v-else>
-      <el-image :fit="getFitValue(fit)" :lazy="true" :src="auto" class="block w-full h-full" />
+      <el-image :fit="getFitValue(fit)" :lazy="false" :src="auto" class="block w-full h-full" />
     </template>
   </client-only>
 </template>
