@@ -7,7 +7,7 @@ import { Model } from "src/logic/dapp";
 import { Model as InvestModel } from "src/logic/dapp/invest";
 import type { DAppProject } from "src/types/dapp/data";
 import { ProjectType, TabName } from "src/types/dapp/data";
-import { toArray, compact } from "src/utils";
+import { toArray, compact, forEach } from "src/utils";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
@@ -319,6 +319,15 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
         // 分类
         array.push(...toArray([], data.categories));
         // 公链
+        forEach(function (item: object) {
+          if (item) {
+            const value = safeGet<string>(item, "name");
+            if (value) {
+              array.push(value);
+            }
+          }
+        }, toArray([], data.chains));
+
         array.push(...toArray([], data.chains));
         const list = compact(array);
         return list.join(",") + "dashboard,reviews,website,twitter,telegram,tvl,token,User,Market Cap,Volume,MCap/TVL,Introduction";
