@@ -327,8 +327,6 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
             }
           }
         }, toArray([], data.chains));
-
-        array.push(...toArray([], data.chains));
         const list = compact(array);
         return list.join(",") + "dashboard,reviews,website,twitter,telegram,tvl,token,User,Market Cap,Volume,MCap/TVL,Introduction";
       };
