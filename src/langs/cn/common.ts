@@ -14,6 +14,7 @@ export default {
   phoneForget: "手机号找回",
   emailForget: "邮箱找回",
   emailUpdate: "邮箱修改",
+  noData: "暂无信息",
   lang: "EN",
   loginOut: "退出",
   account: {
