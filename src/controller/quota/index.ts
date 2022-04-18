@@ -13,7 +13,19 @@ import type { Request, Response } from "express";
 import { go404 } from "src/controller/common/redirect";
 import type { Data } from "src/types/quota/";
 
-// 列表
+// 推荐指标
+export const indicators = function (req: Request, res: Response) {
+  const i18n = I18n(req);
+  res.locals.menuActive = names.quota.indicators;
+
+  res.send({
+    title: i18n.news.meta.title.quota,
+    description: i18n.news.meta.description,
+    keywords: i18n.news.meta.keywords,
+  });
+};
+
+// 指标异动 - 列表
 export const signals = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new API(req);
@@ -34,7 +46,7 @@ export const signals = async function (req: Request, res: Response) {
   res.send(data);
 };
 
-// 详情
+// 指标异动 - 详情
 export const detail = async function (req: Request, res: Response) {
   const id = safeGet<string>(req.params, "id");
   if (id) {
