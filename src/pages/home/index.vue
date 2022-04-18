@@ -1,12 +1,8 @@
 <script lang="ts" setup>
-import safeGet from "@fengqiaogang/safe-get";
-import { languageKey } from "src/config/";
 import { Model } from "src/logic/home";
 import * as track from "src/logic/track";
 import { asyncLoad } from "src/plugins/lazyload/";
 import type { summaryModel } from "src/types/home";
-import { Language } from "src/types/language/";
-import { getValue } from "src/utils/root/data";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import { stateAlias, useReactiveProvide } from "src/utils/use/state";
 import { onMounted } from "vue";
@@ -14,7 +10,6 @@ import HomeHeader from "./header.vue";
 import HomeRecommend from "./recommend.vue";
 import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
-import HomeInvest from "src/pages/home/invest.vue";
 
 const DAppHomeAirdrop = asyncLoad(() => import("src/pages/home/airdrop/index.vue"));
 const DAppHomeDiscover = asyncLoad(() => import("src/pages/dapp/homediscover.vue"));
@@ -26,12 +21,6 @@ const HomeCompany = asyncLoad(() => import("./company.vue"));
 const Quota = asyncLoad(() => import("./quota/index.vue"));
 
 useReactiveProvide(stateAlias.ui.tab);
-
-const isShowQuota = function () {
-  const query = getValue<object>("query", {});
-  const value = safeGet<Language>(query, languageKey) || Language.en;
-  return value === Language.cn;
-};
 
 const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(() => {
@@ -62,7 +51,7 @@ onMounted(() => {
       </lazy-load>
       <!--指标-->
       <lazy-load>
-        <Quota v-if="isShowQuota()" class="mt-15" />
+        <Quota class="mt-15" />
       </lazy-load>
       <!-- Airdrops-->
       <lazy-load>
@@ -86,8 +75,6 @@ onMounted(() => {
       <lazy-load>
         <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       </lazy-load>
-      <!-- 投融资项目 -->
-      <!--      <HomeInvest class="mt-11 md:mt-17.5" />-->
     </div>
   </div>
 </template>

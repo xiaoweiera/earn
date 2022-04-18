@@ -26,7 +26,7 @@ export const createReactive = function <T>(key: string, auto: T) {
 type Callback1 = <T>() => Promise<T>;
 type Callback2 = <T>(query?: object | string | number) => Promise<T>;
 type ApiFun = any;
-type UpdateCallback = (...args: any[]) => Promise<void>;
+type UpdateCallback = (...args: any[]) => Promise<any>;
 
 const getData = async function <T>(api: ApiFun, query?: object | string | number) {
   if (_.isString(api)) {
@@ -64,6 +64,7 @@ export const onUpdateRef = function <T>(data: Ref, api: ApiFun): UpdateCallback 
     } else {
       data.value = void 0;
     }
+    return data.value;
   };
 };
 export const onUpdateReactive = function <T>(data: UnwrapNestedRefs<T>, api: ApiFun): UpdateCallback {
@@ -81,6 +82,7 @@ export const onUpdateReactive = function <T>(data: UnwrapNestedRefs<T>, api: Api
         delete data[key];
       }
     }
+    return toRaw(data);
   };
 };
 
