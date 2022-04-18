@@ -21,6 +21,7 @@ export default {
     sendRound: "Seed round",
     total: "Total:",
     investors: "investors",
+    Investments: "Investments",
     totalRaised: "Total Raised",
     lastFund: "Last Funding",
     learnMore: "Learn More",
@@ -29,7 +30,7 @@ export default {
   },
   page: {
     title: "Investment trends | KingData",
-    key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdorps,Data-driven investing",
+    key: "Discover, Track, Invest DeFi, NFT, Gaming, Web3.0,Airdrops,Data-driven investing",
     description: "List of crypto projects, with latest information on private and public funding",
   },
 };

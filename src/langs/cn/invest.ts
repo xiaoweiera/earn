@@ -21,6 +21,7 @@ export default {
     sendRound: "种子轮",
     total: "总计:",
     investors: "投资者",
+    Investments: "投资",
     totalRaised: "筹款总额",
     lastFund: "最后的投资",
     learnMore: "查看详情",
@@ -29,7 +30,7 @@ export default {
   },
   page: {
     title: "机构投资动向 | KingData",
-    key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdorps、数据驱动投资",
+    key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdrops、数据驱动投资",
     description: "加密项目列表，以及有关私人和公共资金的最新信息",
   },
 };

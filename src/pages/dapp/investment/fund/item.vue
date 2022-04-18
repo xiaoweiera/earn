@@ -54,7 +54,7 @@ const getCount = function (data: number) {
           <p class="w-full text-center">
             <span class="text-kd14px18px text-global-highTitle text-opacity-65 font-medium font-kdFang">{{ i18n.invest.project.total }}</span>
             <span class="mx-1 text-kd20px20px text-global-highTitle text-opacity-85 font-semibold font-kdBarlow">{{ data.project_count }}</span>
-            <span class="text-kd14px18px text-global-highTitle text-opacity-65 font-medium font-kdFang">{{ i18n.invest.project.investors }}</span>
+            <span class="text-kd14px18px text-global-highTitle text-opacity-65 font-medium font-kdFang">{{ i18n.invest.project.Investments }}</span>
           </p>
         </div>
         <div :class="{ overlap: data.top_projects.length > 9 }" class="w-full mt-2 px-1.5 group-list">

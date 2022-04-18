@@ -14,7 +14,6 @@ import HomeHeader from "./header.vue";
 import HomeRecommend from "./recommend.vue";
 import HomeTopic from "./topic.vue";
 import HomeTrends from "./trends.vue";
-import HomeInvest from "src/pages/home/invest.vue";
 
 const DAppHomeAirdrop = asyncLoad(() => import("src/pages/home/airdrop/index.vue"));
 const DAppHomeDiscover = asyncLoad(() => import("src/pages/dapp/homediscover.vue"));
@@ -24,6 +23,7 @@ const DAppHomeResearch = asyncLoad(() => import("src/pages/home/research.vue"));
 const HomeAd = asyncLoad(() => import("./ad.vue"));
 const HomeCompany = asyncLoad(() => import("./company.vue"));
 const Quota = asyncLoad(() => import("./quota/index.vue"));
+const HomeInvest = asyncLoad(() => import("src/pages/home/invest.vue"));
 
 useReactiveProvide(stateAlias.ui.tab);
 
@@ -87,7 +87,9 @@ onMounted(() => {
         <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       </lazy-load>
       <!-- 投融资项目 -->
-      <!--      <HomeInvest class="mt-11 md:mt-17.5" />-->
+      <lazy-load>
+        <HomeInvest class="mt-11 md:mt-17.5" />
+      </lazy-load>
     </div>
   </div>
 </template>
