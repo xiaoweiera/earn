@@ -167,6 +167,7 @@ export default {
     text1: "好空投一起撸，分享好友查看完整教程",
     text2: "通过以下方式分享有效",
     gain: "再获得",
+    again: "继续分享",
     unlock: "名好友<i>点击该链接</i>助力，即可解锁完整内容",
     shared: "查看进度",
     success: "已解锁完整教程",
