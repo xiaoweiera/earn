@@ -72,6 +72,10 @@ onMounted(() => {
       <lazy-load>
         <DAppHomeNft v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
       </lazy-load>
+      <!-- 投融资项目 -->
+      <lazy-load>
+        <HomeInvest class="mt-11 md:mt-17.5" />
+      </lazy-load>
       <!-- 研究文章-->
       <lazy-load>
         <DAppHomeResearch class="mt-11 md:mt-17.5" />
@@ -85,10 +89,6 @@ onMounted(() => {
       </lazy-load>
       <lazy-load>
         <DAppHomeDiscoverEnd v-if="summary" :summary="summary" class="mt-11 md:mt-17.5" />
-      </lazy-load>
-      <!-- 投融资项目 -->
-      <lazy-load>
-        <HomeInvest class="mt-11 md:mt-17.5" />
       </lazy-load>
     </div>
   </div>
