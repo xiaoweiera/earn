@@ -53,7 +53,7 @@ const getCount = function (data: number) {
       <!-- name -->
       <div class="w-full mt-1.5">
         <p class="w-full text-center">
-          <span class="text-kd24px28px text-global-highTitle font-kdBarlow">{{ data.project.name }}</span>
+          <span class="text-kd24px28px text-global-highTitle font-kdBarlow line-clamp-1">{{ data.project.name }}</span>
         </p>
       </div>
       <!-- 总数 -->
