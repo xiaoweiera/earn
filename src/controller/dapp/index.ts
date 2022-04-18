@@ -307,13 +307,13 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
 
       const title = function () {
         if (data && data.name) {
-          return `${data.name} | KingData`;
+          return `${data.name} - KingData`;
         }
         return "KingData";
       };
 
       const Keywords = function () {
-        const array = [title()];
+        const array = [safeGet<string>(data, "name")];
         // 代币名称
         array.push(safeGet<string>(data, "ido.ido_symbol") || safeGet<string>(data, "airdrop.airdrop_symbol"));
         // 分类
