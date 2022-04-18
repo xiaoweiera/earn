@@ -2,7 +2,6 @@
 import { reactive, PropType, ref } from "vue";
 import Filter from "./filter.vue";
 import { ElPopover } from "element-plus";
-import { config as routerConfig } from "src/router/config";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getDateMDY } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
@@ -19,7 +18,7 @@ const props = defineProps({
     required: true,
   },
 });
-const typeLength = 2; //类型显示个数
+const typeLength = 1; //类型显示个数
 const data: any = createRef<object[]>(alias.invest.detail.investment, []);
 const key = ref(0);
 const route = useRoute();
@@ -69,32 +68,32 @@ const initValue = () => {
                   <td>
                     <uiSort class="sort" :sort="false" :sort-data="params" key-name="name" :name="i18n.invest.projectName" @change="sort" />
                   </td>
-                  <td class="w-45">
+                  <td class="w-26">
                     <uiSort class="sort justify-center" :sort-data="params" key-name="project__categories" :name="i18n.invest.type" @change="sort" />
                   </td>
-                  <td class="w-20">
+                  <td class="w-15">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundedRound" @change="sort" />
                   </td>
-                  <td class="w-20">
+                  <td class="w-40">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="amount" :name="i18n.invest.fundAmount" @change="sort" />
                   </td>
-                  <td class="w-33">
+                  <td class="w-28">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="invested_at" :name="i18n.invest.date" @change="sort" />
                   </td>
-                  <td class="w-27">
+                  <td class="w-36">
                     <uiSort class="sort justify-end pr-3" :sort-data="params" key-name="project__symbol" :name="i18n.invest.isSend" @change="sort" />
                   </td>
                 </tr>
               </thead>
               <tbody>
                 <template v-for="(item, index) in scope.list" :key="index">
-                  <v-router :href="`${config.funds}/${safeGet(item, 'project.id')}`" name="tr" class="h-14">
+                  <v-router :href="`${safeGet(config, 'funds')}/${safeGet(item, 'project.id')}`" name="tr" class="h-14">
                     <td class="pl-3 index-number">{{ index + 1 }}</td>
                     <td>
-                      <div class="flex items-center max-w-29 whitespace-nowrap">
+                      <div class="flex items-center max-w-31 whitespace-nowrap">
                         <ui-image class="min-w-8 max-w-8 w-8 h-8 rounded-full" :src="safeGet(item, 'logo')" />
                         <div class="ml-1.5 flex-1">
-                          <div class="numberDefault text-number line-height-no short max-w-29 whitespace-nowrap">{{ safeGet(item, "project.name") }}</div>
+                          <div class="numberDefault text-number line-height-no short max-w-31 whitespace-nowrap">{{ safeGet(item, "project.name") }}1221312312213123</div>
                           <div class="nameTag text-number text-left line-height-no">{{ safeGet(item, "project.symbol") }}</div>
                         </div>
                       </div>
