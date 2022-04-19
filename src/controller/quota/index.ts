@@ -11,17 +11,22 @@ import { names } from "src/config/header";
 import * as alias from "src/utils/root/alias";
 import type { Request, Response } from "express";
 import { go404 } from "src/controller/common/redirect";
-import type { Data } from "src/types/quota/";
+import type { Data, IndicatorItem } from "src/types/quota/";
 
 // 推荐指标
-export const indicators = function (req: Request, res: Response) {
+export const indicators = async function (req: Request, res: Response) {
   const i18n = I18n(req);
+  const api = new API(req);
   res.locals.menuActive = names.quota.indicators;
-
+  const list = await api.quota.getIndicator<IndicatorItem>({
+    page: 1,
+    page_size: 20,
+  });
   res.send({
     title: i18n.news.meta.title.quota,
     description: i18n.news.meta.description,
     keywords: i18n.news.meta.keywords,
+    [alias.quota.indicator]: list,
   });
 };
 

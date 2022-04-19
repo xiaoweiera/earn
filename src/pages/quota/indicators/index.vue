@@ -30,8 +30,8 @@ const requestList = function (data: object) {
 <template>
   <div>
     <!-- 推荐指标 -->
-    <div class="w-full md:w-234 mx-auto pt-6 pb-4 md:pb-12 flex justify-between">
-      <div class="flex-1 pr-6">
+    <div class="w-full md:w-234 mx-auto px-4 md:px-0 pt-6 pb-6 md:pb-12 md:flex md:justify-between">
+      <div class="flex-1 pr-0 md:pr-6">
         <!-- 头部 -->
         <div class="px-4 hidden md:block">
           <Tips />
@@ -40,7 +40,7 @@ const requestList = function (data: object) {
         <div>
           <ui-pagination :limit="20" skin="pagination" :init-value="getInitValue()" :request="requestList">
             <template #default="scope">
-              <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div class="grid grid-cols-1 gap-4 md:gap-4 md:grid-cols-2">
                 <div v-for="(item, index) in scope.list" :key="index">
                   <IndicatorItem :data="item" />
                 </div>
@@ -50,7 +50,7 @@ const requestList = function (data: object) {
         </div>
       </div>
       <!-- 下载-->
-      <div>
+      <div class="hidden md:block">
         <ui-app-download />
       </div>
     </div>

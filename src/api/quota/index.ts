@@ -70,7 +70,7 @@ export default class extends ApiTemplate {
   // 推荐指标
   @tryError(DefaultValue([]))
   @get(api.quota.indicator)
-  @userToken()
+  @userToken(true)
   @validate
   getIndicator<T>(@required query: IndicatorQuery): Promise<T> {
     const callback = function (data: object): T[] {
