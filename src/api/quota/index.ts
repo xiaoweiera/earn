@@ -11,6 +11,7 @@ import * as api from "src/config/api";
 import { toInteger } from "src/utils/";
 import { DefaultValue, expire, get, post, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
+import { IndicatorQuery } from "src/types/quota/index";
 
 export default class extends ApiTemplate {
   // 指标列表
@@ -65,5 +66,20 @@ export default class extends ApiTemplate {
   @validate
   unFollow<T>(@required id: string | number): Promise<T> {
     return [{ id }] as any;
+  }
+  // 推荐指标
+  @tryError(DefaultValue([]))
+  @get(api.quota.indicator)
+  @userToken()
+  @validate
+  getIndicator<T>(@required query: IndicatorQuery): Promise<T> {
+    const callback = function (data: object): T[] {
+      const list = safeGet<T[]>(data, "results");
+      if (list) {
+        return list;
+      }
+      return [];
+    };
+    return [query, callback] as any;
   }
 }

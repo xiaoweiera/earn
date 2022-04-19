@@ -90,3 +90,38 @@ export interface Recommend {
   content: string;
   chart: Chart; // 所属信息流数据
 }
+
+export interface DataExt {
+  last: number; // 当前数据
+  change: number; // 涨跌率
+}
+
+export interface TrendData extends DataExt {
+  data_ext: DataExt;
+  id: number | string;
+  [key: string]: any;
+}
+
+export interface IndicatorItem {
+  id: number | string;
+  desc: string; // 描述
+  followed: boolean; // 是否关注
+  name: string; // 标题
+  trends: TrendData | undefined; // 图表数据
+  [key: string]: any;
+}
+
+export interface IndicatorResult {
+  count: number;
+  next: string | undefined;
+  previous: string | undefined;
+  results: IndicatorItem[];
+}
+export interface IndicatorQuery {
+  page: number;
+  page_size: number;
+}
+
+export enum indicatorTypes {
+  news = "news",
+}
