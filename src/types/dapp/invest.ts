@@ -20,7 +20,7 @@ export interface ProjectItem {
   stage_name: string; // 投资阶段
   amount: number | string; // 投资总额
   invested_at: number | string; // 投资日期
-  project: ProjectRound[]; //
+  project: ProjectRound; //
   investors: ProjectInvestors[]; // 投资机构列表
 }
 
