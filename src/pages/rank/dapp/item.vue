@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ElPopover } from "element-plus";
-import { defineProps, computed } from "vue";
+import { computed } from "vue";
 import { formatRulesNumber, getNumberColor } from "src/lib/tool";
 import safeGet from "@fengqiaogang/safe-get";
 import { config as routerConfig } from "src/router/config";

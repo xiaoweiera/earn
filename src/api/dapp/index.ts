@@ -90,6 +90,7 @@ export default class extends ApiTemplate {
   getAirdropList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // airdrop 进行中数据
   @tryError(DefaultValue([]))
   @get(api.dapp.airdropList)
@@ -98,6 +99,7 @@ export default class extends ApiTemplate {
   getOngoingList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // airdrop 潜在优质数据
   @tryError(DefaultValue([]))
   @get(api.dapp.airdropList)
@@ -106,6 +108,7 @@ export default class extends ApiTemplate {
   getPotentialList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // airdrop 即将开始数据
   @tryError(DefaultValue([]))
   @get(api.dapp.airdropList)
@@ -114,6 +117,7 @@ export default class extends ApiTemplate {
   getUpcomingList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // airdrop 结束数据
   @tryError(DefaultValue([]))
   @get(api.dapp.airdropList)
@@ -122,6 +126,7 @@ export default class extends ApiTemplate {
   getEndedList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // airdrop运营推荐 数据
   @tryError(DefaultValue([]))
   @get(api.dapp.operation, expire.min30)
@@ -130,6 +135,7 @@ export default class extends ApiTemplate {
   getOperationList<T>(@required query: AirdropQuery): Promise<T> {
     return [query] as any;
   }
+
   // airdrop运营推荐 数据
   @tryError(DefaultValue([]))
   @get(api.dapp.operation, expire.min30)
@@ -159,12 +165,19 @@ export default class extends ApiTemplate {
 
   // 项目库详情
   @tryError(DefaultValue({}))
-  @get(api.dapp.detail, expire.min2)
+  @get(api.dapp.detail, expire.min5)
   @validate
   getDetail(@required id: string | number): Promise<DAppData> {
     const query = { id };
-    return [query] as any;
+    const callback = function (data: DAppData) {
+      if (data && data.id) {
+        return data;
+      }
+      return {};
+    };
+    return [query, callback] as any;
   }
+
   // 用户资产图表
   @tryError(DefaultValue({}))
   @echart
@@ -174,6 +187,7 @@ export default class extends ApiTemplate {
   getUserData(@required query: DataQuery): Promise<EchartData> {
     return [query] as any;
   }
+
   // 用户市值图表
   @tryError(DefaultValue({}))
   @echart
@@ -183,6 +197,7 @@ export default class extends ApiTemplate {
   getMarketCapData(@required query: DataQuery): Promise<EchartData> {
     return [query] as any;
   }
+
   // 用户TVL图表
   @tryError(DefaultValue({}))
   @echart
@@ -192,6 +207,7 @@ export default class extends ApiTemplate {
   getTVLData(@required query: DataQuery): Promise<EchartData> {
     return [query] as any;
   }
+
   // 地板价图表
   @tryError(DefaultValue({}))
   @echart
@@ -201,6 +217,7 @@ export default class extends ApiTemplate {
   getFloorData(@required query: DataQuery): Promise<EchartData> {
     return [query] as any;
   }
+
   // 代币图表
   @tryError(DefaultValue({}))
   @echart
@@ -210,6 +227,7 @@ export default class extends ApiTemplate {
   getTokenData(@required query: TokenDataQuery): Promise<EchartData> {
     return [query] as any;
   }
+
   // 代币列表
   @tryError(DefaultValue({}))
   @get(api.dapp.tokenList, expire.min30)
@@ -218,6 +236,7 @@ export default class extends ApiTemplate {
   getTokenList<T>(@required query: TokenQuery): Promise<T> {
     return [query] as any;
   }
+
   //News列表
   @tryError(DefaultValue([]))
   @get(api.dapp.news, expire.min5)
