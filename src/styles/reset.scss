@@ -51,16 +51,21 @@
   }
 }
 
-.ui-tab {
-  .tab-wrap {
-    .el-select {
-      .el-input__inner {
-        border-width: 0 !important;
-        background: transparent !important;
-        border-color: transparent !important;
-      }
-    }
-  }
+//.ui-tab {
+//  .tab-wrap {
+//    .el-select {
+//      .el-input__inner {
+//        border-width: 0 !important;
+//        background: transparent !important;
+//        border-color: transparent !important;
+//      }
+//    }
+//  }
+//}
+
+.el-input__inner{
+  background:none;
+  border:none;
 }
 
 /* 重置登录框某些样式 */

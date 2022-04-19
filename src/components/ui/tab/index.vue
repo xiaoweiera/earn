@@ -267,8 +267,4 @@ onMounted(() => {
      */
   }
 }
-
-::v-deep(.el-select) {
-  background: #fafbfc !important;
-}
 </style>

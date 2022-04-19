@@ -77,7 +77,7 @@ const initValue = () => {
                   <td class="w-38">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="amount" :name="i18n.invest.fundAmount" @change="sort" />
                   </td>
-                  <td class="w-26">
+                  <td class="w-28">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="invested_at" :name="i18n.invest.date" @change="sort" />
                   </td>
                   <td class="w-33">
