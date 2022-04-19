@@ -18,9 +18,14 @@ export default {
     title: {
       quota: "KingData 指标监控",
       alert: "KingData 指标异动",
-      sub: "数据指标异动监控，快人一步获取【财富密码】",
+      sub: "数据指标异动监控，快人一步获取财富密码",
     },
     description: "KingData -- 实时关注币圈最新资讯",
     keywords: "NFT,DApp,CoinMarketCap,CoinGecko,pancakeswap,交易所,binance,defi,crypto,airdrop,空投,加密货币,巨鲸,山寨币,token",
+  },
+  detail: {
+    recommend: "相关推荐",
+    follow: "人关注",
+    caption: "指标解释",
   },
 };

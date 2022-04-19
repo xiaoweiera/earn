@@ -45,7 +45,7 @@ const getCount = function (data: number) {
           </div>
           <div class="w-full h-6.5 flex justify-center absolute left-0 bottom-0">
             <p class="w-max flex px-2 pt-1 py-1.75 bg-global-numGreen border-2 border-global-white rounded-2xl">
-              <span class="text-kd14px14px text-global-white font-kdSemiBold">{{ data.project.categories[0] }}</span>
+              <span v-if="data.project.categories && data.project.categories.length > 0" class="text-kd14px14px text-global-white font-kdSemiBold">{{ data.project.categories[0] }}</span>
             </p>
           </div>
         </div>

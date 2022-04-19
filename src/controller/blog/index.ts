@@ -44,7 +44,7 @@ export const detail = async function (req: Request, res: Response) {
     const i18n = I18n(req);
     res.locals.menuActive = names.blog.blog;
     const result = {
-      title: data && data.name ? `${data.name} | KingData` : i18n.blog.meta.title,
+      title: data && data.name ? `${data.name} - KingData` : i18n.blog.meta.title,
       keywords: i18n.blog.meta.keywords,
       description: data && data.name ? data.desc : i18n.dapp.meta.description,
       [alias.blog.detail]: data,

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, onMounted, watch, ref } from "vue";
+import { onMounted, watch, ref } from "vue";
 import { Model } from "src/logic/rank";
 import { formatRulesNumber, getNumberColor, getTip } from "src/lib/tool";
 import { chartConfig } from "src/logic/rank/chartConfig";

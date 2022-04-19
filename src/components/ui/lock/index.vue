@@ -112,6 +112,11 @@ const getCopyValue = function (value?: string) {
               </i>
             </template>
           </div>
+          <div class="mt-6">
+            <el-button class="w-full" type="primary" size="large" @click="status = false">
+              <span>{{ i18n.common.lock.again }}</span>
+            </el-button>
+          </div>
         </div>
       </el-dialog>
     </div>
@@ -173,6 +178,8 @@ const getCopyValue = function (value?: string) {
   }
 }
 .lock-progress {
+  word-break: break-word;
+  @apply break-words;
   ::v-deep(i) {
     @apply text-global-darkblue not-italic;
     @at-root [lang="cn"] & {
