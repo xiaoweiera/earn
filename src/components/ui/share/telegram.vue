@@ -31,7 +31,7 @@ const shareLink = function (href?: string, text?: string) {
   if (text) {
     query.push(`text=${encodeURIComponent(text)}`);
   }
-  return `https://t.me/share/url?url=${query.join("&")}`;
+  return `https://t.me/share/url?${query.join("&")}`;
 };
 </script>
 

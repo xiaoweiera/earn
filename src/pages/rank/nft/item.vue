@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { formatRulesNumber, getNumberColor } from "src/lib/tool";
-import { defineProps, computed } from "vue";
+import { computed } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import { ElPopover } from "element-plus";
 import { config as routerConfig } from "src/router/config";

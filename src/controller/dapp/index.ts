@@ -7,6 +7,7 @@ import { Model } from "src/logic/dapp";
 import { Model as InvestModel } from "src/logic/dapp/invest";
 import type { DAppProject } from "src/types/dapp/data";
 import { ProjectType, TabName } from "src/types/dapp/data";
+import { toArray, compact, forEach } from "src/utils";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
@@ -89,12 +90,42 @@ const airdrop = {
     const api = new Model(req);
     const query = req.query;
     const [ongoingList, potentialList, upcomingList, endedList, operationList, hotList] = await Promise.all([
-      api.getOngoingList({ ...query, page: 1, page_size: 4, status: TabTypes.ongoing }),
-      api.getPotentialList({ ...query, page: 1, page_size: 4, status: TabTypes.potential }),
-      api.getUpcomingList({ ...query, page: 1, page_size: 4, status: TabTypes.upcoming }),
-      api.getEndedList({ ...query, page: 1, page_size: 4, status: TabTypes.ended }),
-      api.getOperationList({ ...query, page: 1, page_size: 4, potential: true }),
-      api.getHotPotentialList({ ...query, page: 1, page_size: 4, potential: false }),
+      api.getOngoingList({
+        ...query,
+        page: 1,
+        page_size: 4,
+        status: TabTypes.ongoing,
+      }),
+      api.getPotentialList({
+        ...query,
+        page: 1,
+        page_size: 4,
+        status: TabTypes.potential,
+      }),
+      api.getUpcomingList({
+        ...query,
+        page: 1,
+        page_size: 4,
+        status: TabTypes.upcoming,
+      }),
+      api.getEndedList({
+        ...query,
+        page: 1,
+        page_size: 4,
+        status: TabTypes.ended,
+      }),
+      api.getOperationList({
+        ...query,
+        page: 1,
+        page_size: 4,
+        potential: true,
+      }),
+      api.getHotPotentialList({
+        ...query,
+        page: 1,
+        page_size: 4,
+        potential: false,
+      }),
     ]);
     return {
       [alias.airdrop.ongoing]: ongoingList, // airdrop进行中数据
@@ -107,36 +138,60 @@ const airdrop = {
   },
   [TabTypes.ongoing]: async function (req: Request) {
     const api = new Model(req);
-    const ongoingList = await api.getOngoingList({ page: 1, page_size: 20, status: TabTypes.ongoing });
+    const ongoingList = await api.getOngoingList({
+      page: 1,
+      page_size: 20,
+      status: TabTypes.ongoing,
+    });
     return {
       [alias.airdrop.ongoing]: ongoingList, // airdrop进行中数据
     };
   },
   [TabTypes.potential]: async function (req: Request) {
     const api = new Model(req);
-    const potentialList = await api.getPotentialList({ page: 1, page_size: 20, status: TabTypes.potential });
+    const potentialList = await api.getPotentialList({
+      page: 1,
+      page_size: 20,
+      status: TabTypes.potential,
+    });
     return {
       [alias.airdrop.potential]: potentialList, // airdrop优质空投数据
     };
   },
   [TabTypes.upcoming]: async function (req: Request) {
     const api = new Model(req);
-    const upcomingList = await api.getPotentialList({ page: 1, page_size: 20, status: TabTypes.upcoming });
+    const upcomingList = await api.getPotentialList({
+      page: 1,
+      page_size: 20,
+      status: TabTypes.upcoming,
+    });
     return {
       [alias.airdrop.upcoming]: upcomingList, // airdrop即将开始数据
     };
   },
   [TabTypes.ended]: async function (req: Request) {
     const api = new Model(req);
-    const endedList = await api.getEndedList({ page: 1, page_size: 20, status: TabTypes.ended });
+    const endedList = await api.getEndedList({
+      page: 1,
+      page_size: 20,
+      status: TabTypes.ended,
+    });
     return {
       [alias.airdrop.ended]: endedList, // airdrop已结束数据
     };
   },
   [TabTypes.hot]: async function (req: Request) {
     const api = new Model(req);
-    const operationList = await api.getOperationList({ page: 1, page_size: 6, potential: true });
-    const hotList = await api.getHotPotentialList({ page: 1, page_size: 6, potential: false });
+    const operationList = await api.getOperationList({
+      page: 1,
+      page_size: 6,
+      potential: true,
+    });
+    const hotList = await api.getHotPotentialList({
+      page: 1,
+      page_size: 6,
+      potential: false,
+    });
     return {
       [alias.airdrop.operation]: operationList, // airdrop运营精选数据
       [alias.airdrop.hotPotential]: hotList, // airdrop运营精选数据
@@ -247,20 +302,48 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
       }
     }
 
-    const i18n = I18n(req);
     req.params = Object.assign(project, req.params || {});
 
-    const result: object = {
-      title: i18n.blog.meta.title,
-    };
+    const result: object = {};
     const id = safeGet<string | number>(req.params, "id");
     if (id) {
       const api = new API(req);
       const data = await api.dApp.getDetail(id);
-      Object.assign(result, {
-        [alias.dApp.detail]: data,
-        title: data && data.name ? `${data.name} | KingData` : i18n.blog.meta.title,
-      });
+
+      const title = function () {
+        if (data && data.name) {
+          return `${data.name} - KingData`;
+        }
+        return "KingData";
+      };
+
+      const Keywords = function () {
+        const array = [safeGet<string>(data, "name")];
+        // 代币名称
+        array.push(safeGet<string>(data, "ido.ido_symbol") || safeGet<string>(data, "airdrop.airdrop_symbol"));
+        // 分类
+        array.push(...toArray([], data.categories));
+        // 公链
+        forEach(function (item: object) {
+          if (item) {
+            const value = safeGet<string>(item, "name");
+            if (value) {
+              array.push(value);
+            }
+          }
+        }, toArray([], data.chains));
+        const list = compact(array);
+        return list.join(",") + ",dashboard,reviews,website,twitter,telegram,tvl,token,User,Market Cap,Volume,MCap/TVL,Introduction";
+      };
+
+      if (data && data.id) {
+        Object.assign(result, {
+          [alias.dApp.detail]: data,
+          title: title(),
+          keywords: Keywords(),
+          description: data.description,
+        });
+      }
     }
     res.send(result);
   };
