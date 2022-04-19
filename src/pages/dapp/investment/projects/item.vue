@@ -30,7 +30,7 @@ const getCount = function (data: number) {
 
 <template>
   <div class="min-h-94.5 p-1.5 bg-global-white border-1 border-global-highTitle border-opacity-6 rounded-md">
-    <v-router :href="`${config.funds}/${data.id}`" target="_blank" name="div">
+    <v-router :href="`${config.funds}/${data.project.id}`" target="_blank" name="div">
       <!-- 头部 -->
       <div class="w-full">
         <p class="w-full h-11.25 rounded-md bg-global-numGreen bg-opacity-12 flex items-center justify-center">
@@ -102,7 +102,7 @@ const getCount = function (data: number) {
       </div>
       <!-- 更多 -->
       <div class="w-full mt-2">
-        <v-router class="block" :href="`${config.funds}/${data.id}`" target="_blank">
+        <v-router class="block" :href="`${config.funds}/${data.project.id}`" target="_blank">
           <p class="w-full h-11 bg-global-darkblue rounded-md flex items-center justify-center">
             <span class="text-kd16px22px text-global-white font-medium font-kdFang">{{ i18n.invest.project.learnMore }}</span>
           </p>
