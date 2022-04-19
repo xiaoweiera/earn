@@ -59,7 +59,7 @@ const initValue = () => {
       <ui-pagination :limit="10" :init-value="initValue()" :request="requestList">
         <template #default="scope">
           <div class="showX">
-            <table class="table-my my-4">
+            <table class="table-my mb-4">
               <thead>
                 <tr class="border-tb">
                   <td>
