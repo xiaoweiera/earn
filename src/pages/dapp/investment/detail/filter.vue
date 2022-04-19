@@ -32,7 +32,7 @@ watch([project_category, stage, has_symbol, keyword], () => {
 <template>
   <div class="flex items-center justify-between w-full flex-wrap">
     <client-only class="flex items-center w-full flex-wrap">
-      <div class="flex mb-4 items-center md:mr-4">
+      <div class="flex mb-4 items-center md:mr-4 invest-select">
         <div class="filter-item flex-1">
           <p>{{ i18n.invest.type }}</p>
           <el-select v-model="project_category" size="small">
@@ -47,13 +47,13 @@ watch([project_category, stage, has_symbol, keyword], () => {
         </div>
       </div>
       <div class="flex mb-4 items-center md:justify-between w-full flex-1 mt-4 md:mt-0">
-        <div class="filter-item">
+        <div class="filter-item invest-select">
           <p>{{ i18n.invest.isSend }}</p>
           <el-select v-model="has_symbol" size="small">
             <el-option v-for="item in sendList" :key="item.key" :label="item.name" :value="item.key" />
           </el-select>
         </div>
-        <div class="relative flex flex-1 md:flex-none justify-right ml-4 md:ml-0 items-center search">
+        <div class="relative flex flex-1 md:flex-none justify-right ml-4 md:ml-0 items-center invest-search">
           <IconFont class="select-icon" size="16" type="icon-sousuo-da1" />
           <el-input v-model="keyword" placeholder="Search" />
         </div>
@@ -62,20 +62,21 @@ watch([project_category, stage, has_symbol, keyword], () => {
   </div>
 </template>
 <style scoped lang="scss">
-::v-deep(.el-input__inner) {
-  border: 1px solid rgba(3, 54, 102, 0.06) !important;
-  box-shadow: none;
-  background: #fafbfc;
-  height: 32px !important;
-  padding-left: 12px !important;
-  border-radius: 6px !important;
-  @apply text-kd14px18px md:w-25 text-left  text-global-highTitle  flex items-center  text-kd14px18px;
-}
-
-.search {
+.invest-select {
   ::v-deep(.el-input__inner) {
     border: 1px solid rgba(3, 54, 102, 0.06) !important;
     box-shadow: none;
+    background: #fafbfc;
+    height: 32px !important;
+    padding-left: 12px !important;
+    border-radius: 6px !important;
+    @apply text-kd14px18px md:w-25 text-left  text-global-highTitle  flex items-center  text-kd14px18px;
+  }
+}
+
+.invest-search {
+  ::v-deep(.el-input__inner) {
+    border: 1px solid rgba(3, 54, 102, 0.06) !important;
     background: #fafbfc;
     height: 32px !important;
     padding-left: 36px !important;

@@ -5,6 +5,9 @@ import { toInteger } from "src/utils";
 import safeSet from "@fengqiaogang/safe-set";
 import { setInject, getInject } from "src/utils/use/state";
 import API from "src/api";
+import { messageSuccess } from "src/lib/tool";
+import I18n from "src/utils/i18n";
+const i18n = I18n();
 const api = new API();
 const detail: any = getInject("detailState");
 const setDetail: any = setInject("detailState");
@@ -51,7 +54,8 @@ const onClick = async function (value: number) {
     data.my_score = score;
     setDetail(data);
     //活动存在时弹框不存在时若提示就可以
-    tipState.value = true;
+    // tipState.value = true;
+    messageSuccess(i18n.comment.success);
   }
 };
 </script>
@@ -63,7 +67,7 @@ const onClick = async function (value: number) {
         <IconFont class="star-item" :class="getClassName(index, starValue)" type="icon-star1" @click="onClick(5 - index + 1)" />
       </template>
     </v-login>
-    <UiRateTip :state="tipState" />
+    <!--    <UiRateTip :state="tipState" />-->
   </div>
 </template>
 
