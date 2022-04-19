@@ -207,7 +207,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .search {
   ::v-deep(.el-input__inner) {
-    border: 1px solid rgba(3, 54, 102, 0.1) !important;
+    border: none !important;
     background: #fafbfc;
     height: 34px !important;
     padding-left: 35px !important;

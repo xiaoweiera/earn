@@ -200,9 +200,6 @@ const EndlistComing = function () {
     </div>
     <div v-else>
       <ui-empty class="pb-3 pt-10" />
-      <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">
-        {{ i18n.address.noData }}
-      </p>
     </div>
     <UiLoading v-if="loading" class="fixed top-0 bottom-0 left-0 right-0" />
   </div>

@@ -14,6 +14,7 @@ export default {
   phoneForget: "Phone",
   emailForget: "Email",
   emailUpdate: "Email",
+  noData: "No Data",
   lang: "CN",
   loginOut: "Log Out",
   copyOk: "Copy ",

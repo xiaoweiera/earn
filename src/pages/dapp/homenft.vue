@@ -94,9 +94,6 @@ onMounted(() => {
       </div>
       <div v-else>
         <ui-empty class="pb-3" />
-        <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">
-          <span>{{ i18n.address.noData }}</span>
-        </p>
       </div>
     </div>
   </div>

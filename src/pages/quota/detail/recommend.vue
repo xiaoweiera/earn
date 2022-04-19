@@ -5,6 +5,7 @@ import safeGet from "@fengqiaogang/safe-get";
  * @file 相关推荐
  * @author svon.me@gmail.com
  */
+import I18n from "src/utils/i18n";
 import API from "src/api/";
 import { onMounted } from "vue";
 import type { Data } from "src/types/quota/";
@@ -12,6 +13,7 @@ import { getValue } from "src/utils/root/data";
 import { config as routerConfig } from "src/router/config";
 import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
 
+const i18n = I18n();
 // 获取相关推荐数据
 const getRecommend = function () {
   // 获取当前指标 id
@@ -32,7 +34,7 @@ onMounted(function () {
 
 <template>
   <div v-show="list.length" class="bg-white recommend-box rounded-md p-4">
-    <h3 class="text-16-24 text-global-highTitle font-m">相关推荐</h3>
+    <h3 class="text-16-24 text-global-highTitle font-m">{{ i18n.news.detail.recommend }}</h3>
     <ul class="pt-4">
       <li v-for="data in list" :key="data.id" class="text-12-16">
         <v-router class="block" :href="`${routerConfig.news}/${data.id}`" target="_blank" name="a">
