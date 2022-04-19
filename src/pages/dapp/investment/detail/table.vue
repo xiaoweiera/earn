@@ -52,7 +52,7 @@ const initValue = () => {
 </script>
 <template>
   <div class="info">
-    <!--    筛选-->
+    <!--    筛选 -->
     <Filter :detail="detail" @change="change" />
     <div :key="key">
       <!--    列表-->
