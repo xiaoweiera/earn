@@ -7,27 +7,6 @@ import _ from "lodash";
 import type { Request } from "express";
 import { IsNode } from "src/config/ssr";
 import { isEmpty as _isEmpty, is, isNil } from "ramda";
-
-/**
- * 判断字符串是否是 http 链接
- * @param value
- */
-export const isHttp = function (value?: string): boolean {
-  if (value) {
-    if (/^http/.test(value)) {
-      return true;
-    }
-    if (/^\//.test(value)) {
-      return true;
-    }
-    const list = value.split("/");
-    if (list.length >= 2) {
-      return true;
-    }
-  }
-  return false;
-};
-
 /**
  * 判断对象是否为空
  * @param value
@@ -57,6 +36,26 @@ export const isNumber = (value: any): boolean => {
     return true;
   }
   return value === 0;
+};
+
+/**
+ * 判断字符串是否是 http 链接
+ * @param value
+ */
+export const isHttp = function (value?: string): boolean {
+  if (value && isString(value)) {
+    if (/^http/.test(value)) {
+      return true;
+    }
+    if (/^\//.test(value)) {
+      return true;
+    }
+    const list = value.split("/");
+    if (list.length >= 2) {
+      return true;
+    }
+  }
+  return false;
 };
 
 /**

@@ -27,6 +27,7 @@ const i18n = I18n();
 
 const shareLink = function (href?: string, text?: string) {
   const link = encodeURIComponent(href || window.location.href);
+  console.log(link);
   const query: string[] = [`url=${link}`];
   if (text) {
     query.push(`text=${encodeURIComponent(text)}`);

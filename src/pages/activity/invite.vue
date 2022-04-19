@@ -42,13 +42,18 @@ Bitcoin is a peer-to-peer online currency, meaning that all transactions happen 
         </div>
       </div>
     </div>
-    <div class="pb-20 px-4">
+    <div class="px-4">
       <div class="max-w-200 mx-auto">
-        <Download />
+        <div class="pb-15">
+          <Download :id="1234"/>
+        </div>
+        <div class="pb-15">
+          <ui-image src="https://iph.href.lu/800x157?text=合作伙伴&fg=666666&bg=cccccc" fit="none" />
+        </div>
       </div>
     </div>
     <div class="pb-6 px-4">
-      <div class="max-w-200 mx-auto">
+      <div class="max-w-200 mx-auto pt-6 border-t border-solid border-global-highTitle border-opacity-6">
         <Footer />
       </div>
     </div>
