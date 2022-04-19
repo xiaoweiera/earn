@@ -3,6 +3,6 @@ export default {
   weChat: "https://u.wechat.com/MAbomlcLpQlWPJTAdyhgEPo",
   twitter: "https://twitter.com/KingData_com",
   weibo: "https://weibo.com/u/5553600723",
-  discord: "https://discord.com/invite/Bvrm8VjbCb",
+  discord: "https://discord.gg/DnrS3B5hGs",
   medium: "https://kingdata.medium.com",
 };

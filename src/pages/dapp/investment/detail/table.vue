@@ -91,7 +91,7 @@ const initValue = () => {
                     <td class="pl-3 index-number">{{ index + 1 }}</td>
                     <td>
                       <div class="flex items-center max-w-31 whitespace-nowrap">
-                        <ui-image class="min-w-8 max-w-8 w-8 h-8 rounded-full" :src="safeGet(item, 'logo')" />
+                        <ui-image class="min-w-8 max-w-8 w-8 h-8 rounded-full" :src="safeGet(item, 'project.logo')" />
                         <div class="ml-1.5 flex-1">
                           <div class="numberDefault text-number line-height-no short max-w-31 whitespace-nowrap">{{ safeGet(item, "project.name") }}1221312312213123</div>
                           <div class="nameTag text-number text-left line-height-no">{{ safeGet(item, "project.symbol") }}</div>
@@ -103,7 +103,7 @@ const initValue = () => {
                         <template v-for="(typeName, i) in item.project.categories.slice(0, typeLength)" :key="i">
                           <span :class="i === 0 ? '' : 'ml-1.5'" class="typeTxt i8n-font-inter">{{ typeName }}</span>
                         </template>
-                        <client-only>
+                        <client-only class="invest-icon">
                           <el-popover v-if="item.project.categories.length > typeLength" popper-class="chain-popper" placement="bottom" trigger="hover" :append-to-body="false">
                             <div class="flex items-center px-2 py-1.5">
                               <template v-for="(typeName, i) in item.project.categories.slice(typeLength)" :key="i">
@@ -132,13 +132,15 @@ const initValue = () => {
   </div>
 </template>
 <style scoped lang="scss">
-::v-deep(.el-popover.el-popper) {
-  min-width: fit-content !important;
-  width: fit-content !important;
-  padding: 0px 0px 0px 0px !important;
-  border-radius: 100px;
-  transform: translate(100%, 100%);
-  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+.invest-icon {
+  ::v-deep(.el-popover.el-popper) {
+    min-width: fit-content !important;
+    width: fit-content !important;
+    padding: 0px 0px 0px 0px !important;
+    border-radius: 100px;
+    transform: translate(100%, 100%);
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  }
 }
 .typeTxt {
   @apply text-kd14px18px text-global-highTitle font-kdFang;
