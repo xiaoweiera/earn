@@ -74,13 +74,13 @@ const initValue = () => {
                   <td class="w-15">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundedRound" @change="sort" />
                   </td>
-                  <td class="w-40">
+                  <td class="w-38">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="amount" :name="i18n.invest.fundAmount" @change="sort" />
                   </td>
-                  <td class="w-28">
+                  <td class="w-26">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="invested_at" :name="i18n.invest.date" @change="sort" />
                   </td>
-                  <td class="w-36">
+                  <td class="w-33">
                     <uiSort class="sort justify-end pr-3" :sort-data="params" key-name="project__symbol" :name="i18n.invest.isSend" @change="sort" />
                   </td>
                 </tr>
@@ -132,6 +132,14 @@ const initValue = () => {
   </div>
 </template>
 <style scoped lang="scss">
+::v-deep(.el-popover.el-popper) {
+  min-width: fit-content !important;
+  width: fit-content !important;
+  padding: 0px 0px 0px 0px !important;
+  border-radius: 100px;
+  transform: translate(100%, 100%);
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+}
 .typeTxt {
   @apply text-kd14px18px text-global-highTitle font-kdFang;
 }
