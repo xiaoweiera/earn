@@ -23,4 +23,9 @@ export default {
     description: "KingData -- 实时关注币圈最新资讯",
     keywords: "NFT,DApp,CoinMarketCap,CoinGecko,pancakeswap,交易所,binance,defi,crypto,airdrop,空投,加密货币,巨鲸,山寨币,token",
   },
+  detail: {
+    recommend: "相关推荐",
+    follow: "人关注",
+    caption: "指标解释",
+  },
 };

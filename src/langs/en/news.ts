@@ -23,4 +23,9 @@ export default {
     description: "KingData -- Follow the latest news in the currency circle in real time",
     keywords: "NFT,DApp,CoinMarketCap,CoinGecko,pancakeswap,交易所,binance,defi,crypto,airdrop,空投,加密货币,巨鲸,山寨币,token",
   },
+  detail: {
+    recommend: "Recommend",
+    follow: "Follow",
+    caption: "Caption",
+  },
 };
