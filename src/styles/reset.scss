@@ -162,3 +162,14 @@
     @apply flex;
   }
 }
+
+/* 活动富文本内容样式重置 */
+.activity-content-wrap {
+  font-size: 1rem;
+  line-height: initial;
+  /* 英文单词换行 */
+  word-break: break-word;
+  @apply break-words;
+  /* 保留换行与空格 */
+  @apply whitespace-pre-wrap;
+}

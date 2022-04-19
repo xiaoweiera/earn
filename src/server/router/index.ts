@@ -16,6 +16,7 @@ import blog from "./blog";
 import quota from "./quota";
 import rank from "./rank";
 import down from "./download";
+import { app as activeApp } from "src/controller/activity/";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   const router = ExpressRouter();
@@ -26,7 +27,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.get("/demo", function (req: Request, res: Response) {
     res.send({});
   });
-
+  // 活动
+  router.get("/activity/:type/:id", activeApp);
   // 装载 DApp 相关路由
   router.use(dApp());
   // 封装 user 相关路由
