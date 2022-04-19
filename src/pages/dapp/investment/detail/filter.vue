@@ -32,7 +32,7 @@ watch([project_category, stage, has_symbol, keyword], () => {
 <template>
   <div class="flex items-center justify-between w-full flex-wrap">
     <client-only class="flex items-center w-full flex-wrap">
-      <div class="flex items-center">
+      <div class="flex mb-4 items-center md:mr-4">
         <div class="filter-item flex-1">
           <p>{{ i18n.invest.type }}</p>
           <el-select v-model="project_category" size="small">
@@ -46,7 +46,7 @@ watch([project_category, stage, has_symbol, keyword], () => {
           </el-select>
         </div>
       </div>
-      <div class="flex items-center md:justify-between w-full flex-1 mt-4 md:ml-4 md:mt-0">
+      <div class="flex mb-4 items-center md:justify-between w-full flex-1 mt-4 md:mt-0">
         <div class="filter-item">
           <p>{{ i18n.invest.isSend }}</p>
           <el-select v-model="has_symbol" size="small">
