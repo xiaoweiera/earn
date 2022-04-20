@@ -3,6 +3,7 @@ import { reactive, PropType, ref } from "vue";
 import Filter from "./filter.vue";
 import { ElPopover } from "element-plus";
 import { toNumberCashFormat } from "src/utils/convert/to";
+import { config } from "src/router/config";
 import { getDateMDY } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
