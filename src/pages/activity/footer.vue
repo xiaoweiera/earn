@@ -22,10 +22,10 @@ const env = getEnv();
         <span class="text-12-20 text-global-highTitle text-opacity-65">{{ i18n.menu.footer.desc }}</span>
       </div>
     </v-router>
-    <v-router class="mt-6 md:mt-0 flex items-center justify-center md:justify-start" href="https://t.me/sue8639313" target="_blank">
-      <span class="text-14-20 text-global-highTitle text-opacity-65">{{ i18n.menu.service.businessCooperation }}</span>
+    <v-router class="mt-6 md:mt-0 flex items-center justify-center md:justify-start" :href="i18n.activity.footer.link" target="_blank">
+      <span class="text-14-20 text-global-highTitle text-opacity-65">{{ i18n.activity.footer.about }}</span>
       <IconFont class="mx-1 flex text-global-darkblue" type="icon-telegram" size="16" />
-      <span class="text-14-18 text-global-darkblue">@linimei</span>
+      <span class="text-14-18 text-global-darkblue">{{ i18n.activity.footer.name }}</span>
     </v-router>
   </div>
 </template>
