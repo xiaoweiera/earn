@@ -56,8 +56,8 @@ const className = computed<string[]>(function () {
 const error = ref<boolean>(false);
 const auto = ref<string>("/images/common/logo.jpg");
 
-const getFitValue = function (value: Fit): string {
-  return value === "none" ? "initial" : value;
+const getFitValue = function (value: Fit) {
+  return value === "none" ? null : value;
 };
 
 const index = computed<number>(function () {
