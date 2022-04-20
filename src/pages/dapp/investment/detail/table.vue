@@ -68,10 +68,10 @@ const initValue = () => {
                   <td>
                     <uiSort class="sort" :sort="false" :sort-data="params" key-name="name" :name="i18n.invest.projectName" @change="sort" />
                   </td>
-                  <td class="w-50">
+                  <td class="w-55">
                     <uiSort class="sort justify-center" :sort-data="params" key-name="project__categories" :name="i18n.invest.type" @change="sort" />
                   </td>
-                  <td class="w-1">
+                  <td class="w-17">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundedRound" @change="sort" />
                   </td>
                   <td class="w-28">
