@@ -5,6 +5,7 @@ import VRouter from "src/components/v/router.vue";
 import { InvestItem } from "src/types/dapp/invest";
 import { config } from "src/router/config";
 import document from "src/plugins/browser/document";
+import { ElButton } from "element-plus";
 
 const list = ref<any[]>([]);
 list.value = new Array(19).fill("");
@@ -72,9 +73,11 @@ const getCount = function (data: number) {
         <!-- 更多 -->
         <div class="w-full mt-2">
           <v-router class="block" :href="`${config.invest}/${data.id}`" target="_blank">
-            <p class="w-full h-11 bg-global-orange rounded-md flex items-center justify-center">
-              <span class="text-kd16px22px text-global-white font-medium font-kdFang">{{ i18n.invest.project.learnMore }}</span>
-            </p>
+            <client-only>
+              <el-button class="w-full" type="warning" size="large">
+                <span class="text-kd16px22px text-global-white font-medium font-kdFang">{{ i18n.invest.project.learnMore }}</span>
+              </el-button>
+            </client-only>
           </v-router>
         </div>
       </div>

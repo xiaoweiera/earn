@@ -5,6 +5,7 @@ import { ProjectItem } from "src/types/dapp/invest";
 import { toNumberCashFormat, getEnDateMDY } from "src/utils/";
 import { config } from "src/router/config";
 import document from "src/plugins/browser/document";
+import { ElButton } from "element-plus";
 
 defineProps({
   data: {
@@ -103,9 +104,11 @@ const getCount = function (data: number) {
       <!-- 更多 -->
       <div class="w-full mt-2">
         <v-router class="block" :href="`${config.funds}/${data.project.id}`" target="_blank">
-          <p class="w-full h-11 bg-global-darkblue rounded-md flex items-center justify-center">
-            <span class="text-kd16px22px text-global-white font-medium font-kdFang">{{ i18n.invest.project.learnMore }}</span>
-          </p>
+          <client-only>
+            <el-button class="w-full" type="primary" size="large">
+              <span class="text-kd16px22px font-medium font-kdFang">{{ i18n.invest.project.learnMore }}</span>
+            </el-button>
+          </client-only>
         </v-router>
       </div>
     </v-router>
