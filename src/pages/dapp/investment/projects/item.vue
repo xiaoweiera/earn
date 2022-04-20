@@ -72,9 +72,9 @@ const getCount = function (data: number) {
               <ui-image class="w-6 h-6" rounded fit="cover" :src="item.logo" />
             </v-router>
           </template>
-          <a class="group-more link">
-            <span class="text-kd16px20px font-kdBarlow font-medium">{{ getCount(data.investors.length) }}</span>
-          </a>
+          <span class="group-more text-kd16px20px text-global-darkblue font-kdBarlow font-medium">
+            {{ getCount(data.investors.length) }}
+          </span>
         </div>
       </div>
       <!-- 价格 -->
