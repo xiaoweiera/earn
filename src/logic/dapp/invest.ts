@@ -1,9 +1,11 @@
-import API from "src/api";
-
 /**
  * @file 投融资逻辑层
  * @author zhangkun@163.com
  */
+
+import API from "src/api";
+import { toArray } from "src/utils";
+import _ from "lodash";
 
 export class Model extends API {
   // 投融资projects数据
@@ -14,4 +16,21 @@ export class Model extends API {
   getFundsList(query: any) {
     return this.dApp.getFundsList(query);
   }
+  // 投融资轮次数据
+  getRoundList() {
+    return this.dApp.getRoundList();
+  }
 }
+
+export const getAll = function () {
+  return ["All"];
+};
+export const activeName = "name";
+export const All = "All";
+
+export const transformRound = function (list: []) {
+  const value = toArray(All, list);
+  return _.map(value, (item: any) => {
+    return { id: item, [activeName]: item };
+  });
+};

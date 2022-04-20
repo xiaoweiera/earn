@@ -17,6 +17,7 @@ import quota from "./quota";
 import rank from "./rank";
 import down from "./download";
 import { app as activeApp } from "src/controller/activity/";
+import invest from "./invest";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   const router = ExpressRouter();
@@ -41,6 +42,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(quota());
   // 榜单
   router.use(rank());
+  //投融资
+  router.use(invest());
   //下载页面
   router.use(down());
   // 404

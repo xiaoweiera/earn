@@ -1,60 +1,64 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, PropType, ref } from "vue";
 import { copyTxtMessage } from "src/lib/tool";
+import { detailModel } from "src/types/invest";
 import window from "src/plugins/browser/window";
 import I18n from "src/utils/i18n";
+import { getDateMDY } from "src/utils";
 const i18n = I18n();
+defineProps({
+  data: {
+    type: Object as PropType<detailModel>,
+    required: true,
+  },
+});
 const twitterShare = ref<string>("https://twitter.com/share");
 const telegramShare = ref<string>("https://t.me/share/url");
-const copyUrl = () => copyTxtMessage(window.location.href, i18n.common.message.copyAlert);
-
+const copyUrl = (url: string) => copyTxtMessage(url ? url : window.location.href, i18n.common.message.copyAlert);
 onMounted(() => {
   twitterShare.value = `https://twitter.com/share?url=${window.location.href}`;
   telegramShare.value = `https://t.me/share/url?url=${window.location.href}`;
 });
 </script>
 <template>
-  <div class="card">
+  <div class="card h-max">
     <div class="text-center">
-      <ui-image class="md:w-30 md:h-30 w-20 h-20 w-full rounded-full mx-auto" src="" />
-      <p class="name font-kdSemiBold">Drunk Robots</p>
-      <div class="flex items-center justify-center w-full mt-3">
-        <a :href="twitterShare" class="icon-url" target="_blank">
+      <ui-image class="md:w-30 md:h-30 w-20 h-20 w-full rounded-full mx-auto" :src="data.logo" />
+      <p class="name font-kdSemiBold">{{ data.name }}</p>
+      <div class="flex items-center justify-center w-full my-3 project-share flex items-center">
+        <a :href="data.twitter_url" class="icon-url" target="_blank">
           <IconFont type="icon-twitter" size="24" />
         </a>
-        <a :href="telegramShare" class="icon-url" target="_blank">
-          <IconFont type="icon-telegram" size="24" />
-        </a>
-        <div class="icon-url hand" @click="copyUrl()">
-          <IconFont type="icon-link" size="24" />
+        <div v-if="data.website" class="icon-url hand flex items-center" @click="copyUrl(data.website)">
+          <IconFont type="icon-yuyan" size="24" />
         </div>
       </div>
-      <p class="des text-number">Drunk Robots has received investments from 4 investors. Their most recent funding round was on March 10, 2022, when they have raised 50.0K.</p>
+      <p class="des text-number">{{ data.description }}</p>
       <div class="mt-4 md:mt-6">
         <div class="flex items-center">
           <div class="card-des">
-            <p class="title">成立年份</p>
-            <p class="mount font-kdSemiBold">2014</p>
+            <p class="title">{{ i18n.invest.yearFound }}</p>
+            <p class="mount font-kdSemiBold">{{ data.founded_year }}</p>
           </div>
           <div class="card-des">
-            <p class="title">最后投资</p>
-            <p class="mount font-kdSemiBold">12</p>
+            <p class="title">{{ i18n.invest.time }}</p>
+            <p class="mount font-kdSemiBold">{{ getDateMDY(data.last_invested_at) }}</p>
           </div>
         </div>
         <div class="flex items-center mt-3">
           <div class="card-des">
-            <p class="title">组合投资公司数</p>
-            <p class="mount font-kdSemiBold">12</p>
+            <p class="title">{{ i18n.invest.fundProject }}</p>
+            <p class="mount font-kdSemiBold">{{ data.project_count || 0 }}</p>
           </div>
           <div class="card-des">
-            <p class="title">投资数量</p>
-            <p class="mount font-kdSemiBold">24</p>
+            <p class="title">{{ i18n.invest.fundedRound }}</p>
+            <p class="mount font-kdSemiBold">{{ data.investment_count || 0 }}</p>
           </div>
         </div>
       </div>
       <div class="gang my-4 md:my-6"></div>
       <div>
-        <p class="share">分享此页面</p>
+        <p class="share">{{ i18n.invest.share }}</p>
         <div class="mt-3 flex items-center justify-center">
           <a :href="twitterShare" class="share-url" target="_blank">
             <IconFont type="icon-twitter" size="16" />
@@ -86,6 +90,11 @@ onMounted(() => {
   @apply ml-4;
 }
 .des {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   @apply text-kd14px20px text-global-highTitle text-opacity-85 font-medium text-left;
 }
 .card-des {
@@ -103,6 +112,9 @@ onMounted(() => {
 }
 .gang {
   border: 1px solid rgba(3, 54, 102, 0.06);
+}
+.project-share a {
+  @apply flex;
 }
 .share {
   @apply text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang;

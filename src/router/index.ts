@@ -15,7 +15,7 @@ import User from "./user";
 import DownLoad from "./download";
 import quota from "./quota";
 import rank from "./rank";
-
+import invest from "./invest";
 const routes = [
   // 活动
   {
@@ -38,6 +38,7 @@ const routes = [
       ...DownLoad,
       ...quota,
       ...rank,
+      ...invest,
       {
         path: config.E404,
         component: () => import("src/pages/e404/index.vue"),

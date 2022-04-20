@@ -16,6 +16,7 @@ export default {
   close: "收起",
   moreTest: "加载更多...",
   delete: "删除",
+  success: "成功",
   warning: {
     min: "字数少于{count}字",
     max: "字数大于{count}字",
