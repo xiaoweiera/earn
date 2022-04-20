@@ -58,7 +58,7 @@ const getCount = function (data: number) {
           </p>
         </div>
         <div :class="{ overlap: data.top_projects.length > 9 }" class="w-full mt-2 px-1.5 group-list">
-          <div class="w-full py-2 pl-1.5 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex justify-center items-center">
+          <div class="w-full min-h-11.5 py-2 pl-1.5 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex justify-center items-center">
             <template v-for="item in data.top_projects" :key="item.id">
               <v-router class="block p-0.5 group-item bg-white rounded-1/2" :href="`${config.funds}/${item.id}`" target="_blank">
                 <ui-image class="w-6 h-6" rounded fit="cover" :src="item.logo" />
