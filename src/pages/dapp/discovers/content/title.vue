@@ -17,7 +17,7 @@ defineProps({
       </div>
       <div class="flex-1 h-15 pl-2.5">
         <div class="flex justify-between items-center">
-          <p class="items-center">
+          <p class="flex max-w-57.5 h-5 overflow-hidden">
             <span class="text-kd18px18px text-global-white font-semibold font-kdBarlow">{{ data.name }}</span>
             <span v-if="data.name && data.name.length < 13" class="text-kd14px18px text-global-white text-opacity-65 font-kdBarlow font-medium ml-1.5">{{ data.symbol }}</span>
           </p>
