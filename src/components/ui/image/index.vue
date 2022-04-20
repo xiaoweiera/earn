@@ -57,7 +57,7 @@ const error = ref<boolean>(false);
 const auto = ref<string>("/images/common/logo.jpg");
 
 const getFitValue = function (value: Fit): string {
-  return value === "none" ? "scale-down" : value;
+  return value === "none" ? "initial" : value;
 };
 
 const index = computed<number>(function () {

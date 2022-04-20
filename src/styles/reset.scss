@@ -16,6 +16,12 @@
   }
 }
 
+.el-button {
+  &.el-button--large {
+    --el-button-size: 2.75rem;
+  }
+}
+
 .el-message-box {
   @apply max-w-81;
 }
@@ -26,6 +32,7 @@
       z-index: 101 !important;
     }
   }
+
   &:not(.header-user) {
     &.ui-hover {
       z-index: 102 !important;
@@ -67,10 +74,14 @@
     }
   }
 }
-//.el-input__inner{
-//  background:none !important;
-//  border:none !important;
-//}
+.el-dialog {
+  &.no-header {
+    .el-dialog__header {
+      @apply pb-0;
+    }
+  }
+}
+
 /* 重置登录框某些样式 */
 .dialog-user-wrap {
   width: 80% !important;
@@ -166,4 +177,15 @@
   & > .el-tooltip__trigger {
     @apply flex;
   }
+}
+
+/* 活动富文本内容样式重置 */
+.activity-content-wrap {
+  font-size: 1rem;
+  line-height: initial;
+  /* 英文单词换行 */
+  word-break: break-word;
+  @apply break-words;
+  /* 保留换行与空格 */
+  @apply whitespace-pre-wrap;
 }
