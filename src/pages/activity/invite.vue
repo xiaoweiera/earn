@@ -7,24 +7,14 @@
  */
 
 import { ref } from "vue";
+import I18n from "src/utils/i18n";
 import Footer from "./footer.vue";
 import Download from "./download.vue";
 import { asyncLoad } from "src/plugins/lazyload";
 
+const i18n = I18n();
+
 const Register = asyncLoad(() => import("./register.vue"));
-
-const text = ref<string>(`1、The live Bitcoin price today is $41,100.38 USD with a 24-hour trading volume of $28,448,855,607 USD. We update our BTC to USD price in real-time. Bitcoin is up 2.95% in the last 24 hours. The current CoinMarketCap ranking is #1, with a live market cap of $781,376,064,641 USD. It has a circulating supply of 19,011,406 BTC coins and a max. supply of 21,000,000 BTC coins.
-
-2、If you would like to know where to buy Bitcoin at the current rate, the top cryptocurrency exchanges for trading in Bitcoin stock are currently Binance, OKX, CoinFLEX, CoinTiger, and Bybit. You can find others listed on our crypto exchanges page.
-
-Bitcoin is a decentralized cryptocurrency originally described in a 2008 whitepaper by a person, or group of people, using the alias Satoshi Nakamoto. It was launched soon after, in January 2009.
-
-Bitcoin is a peer-to-peer online currency, meaning that all transactions happen directly between equal, independent network participants, without the need for any intermediary to permit or facilitate them. Bitcoin was created, according to Nakamoto’s own words, to allow “online payments to be sent directly from one party to another without going through a financial institution.”
-
-1. The live Bitcoin price today is $41,100.38 USD with a 24-hour trading volume of $28,448,855,607 USD. We update our BTC to USD price in real-time. Bitcoin is up 2.95% in the last 24 hours. The current CoinMarketCap ranking is #1, with a live market cap of $781,376,064,641 USD. It has a circulating supply of 19,011,406 BTC coins and a max. supply of 21,000,000 BTC coins.
-2. If you would like to know where to buy Bitcoin at the current rate, the top cryptocurrency exchanges for trading in Bitcoin stock are currently Binance, OKX, CoinFLEX, CoinTiger, and Bybit. You can find others listed on our crypto exchanges page.
-3. Bitcoin is a decentralized cryptocurrency originally described in a 2008 whitepaper by a person, or group of people, using the alias Satoshi Nakamoto. It was launched soon after, in January 2009.
-4. Bitcoin is a peer-to-peer online currency, meaning that all transactions happen directly between equal, independent network participants, without the need for any intermediary to permit or facilitate them. Bitcoin was created, according to Nakamoto’s own words, to allow “online payments to be sent directly from one party to another without going through a financial institution.”`);
 </script>
 
 <template>
@@ -36,12 +26,27 @@ Bitcoin is a peer-to-peer online currency, meaning that all transactions happen 
       <div class="max-w-200 mx-auto">
         <h3 class="text-32 font-b text-global-highTitle">活动名称</h3>
         <p class="mt-3 text-14-20 text-global-highTitle text-opacity-85">
-          <span>活动时间：</span>
+          <span>{{ i18n.activity.label.time }}</span>
           <span>Feb 5,2022/ 12PMUTC</span>
         </p>
-        <h4 class="mt-8 text-global-highTitle">活动奖品规则</h4>
+        <h4 class="mt-8 text-global-highTitle text-24-28">{{ i18n.activity.label.prize }}</h4>
         <div class="mt-4 activity-content-wrap">
-          <div class="text-16-22 text-global-highTitle text-opacity-85" v-html="text" />
+          <div class="text-16-22 text-global-highTitle text-opacity-85">
+            <p>活动内容活动内容活动内容活动内容</p>
+            <p class="mt-4">需要翻译的文案：</p>
+            <div class="mt-1 p-2 border border-solid border-gray-300 text-black">
+              <p>
+                非常抱歉，您不满足领取条件
+                <br />
+                加入社区了解更多活动信息
+              </p>
+              <p class="mt-4">
+                您已成功领取过该空投
+                <br />
+                请勿重复操作
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -49,7 +54,7 @@ Bitcoin is a peer-to-peer online currency, meaning that all transactions happen 
       <div class="max-w-200 mx-auto">
         <div class="pb-8">
           <div class="mb-4 text-center">
-            <h3 class="text-24-28 font-m text-global-highTitle">填写信息完成登录/注册领取奖励 🎁</h3>
+            <h3 class="text-24-28 font-m text-global-highTitle">{{ i18n.activity.label.register }}</h3>
           </div>
           <!--用户注册-->
           <Register :id="1234" />

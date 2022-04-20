@@ -81,6 +81,7 @@ a {
 .whitespace-pre-line,
 .whitespace-pre-wrap,
 .whitespace-pre{
+  word-break: break-word;
   @apply break-words max-w-full;
   a {
     @apply text-global-darkblue;

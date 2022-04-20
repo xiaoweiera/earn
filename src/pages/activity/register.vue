@@ -62,12 +62,12 @@ const submit = function () {
   <div>
     <el-form ref="domForm" :model="formData" :rules="rules" autocomplete="off" label-position="top" size="large" @submit.stop.prevent="submit">
       <!-- 邮箱地址 -->
-      <el-form-item label="邮箱" prop="email">
+      <el-form-item :label="i18n.activity.label.email" prop="email">
         <el-input v-model="formData.email" :placeholder="i18n.common.placeholder.email" autocomplete="off" type="email" />
       </el-form-item>
 
       <!-- 验证码 -->
-      <el-form-item label="验证码" prop="code">
+      <el-form-item :label="i18n.activity.label.code" prop="code">
         <el-input v-model="formData.code" :placeholder="i18n.common.placeholder.verification" autocomplete="off">
           <template #append>
             <ui-validate :before="emailValidate" :query="{ email: formData.email }" :type="ValidateType.create" @click="onSeadCode" />
@@ -76,7 +76,7 @@ const submit = function () {
       </el-form-item>
 
       <!-- 密码 -->
-      <el-form-item label="设置密码" prop="password">
+      <el-form-item :label="i18n.activity.label.password" prop="password">
         <el-input v-model="formData.password" :placeholder="i18n.common.placeholder.password" autocomplete="new-password" show-password type="password" />
       </el-form-item>
 
@@ -95,15 +95,11 @@ const submit = function () {
           <ui-image :oss="true" fit="none" src="/static/images/activity/fail.jpg" />
         </div>
         <div class="py-4">
-          <p class="text-14-24 text-global-highTitle">
-            非常抱歉，您不满足领取条件
-            <br />
-            加入社区了解更多活动信息
-          </p>
+          <p class="text-14-24 text-global-highTitle whitespace-pre-wrap">{{ i18n.activity.tips.fail }}</p>
         </div>
         <div class="w-30 mx-auto">
           <el-button class="w-full" type="primary" @click="failStatus = false">
-            <span>我知道了</span>
+            <span>{{ i18n.activity.label.ok }}</span>
           </el-button>
         </div>
       </div>
@@ -124,7 +120,7 @@ const submit = function () {
         <div class="w-30 mx-auto">
           <v-router :href="getDownloadUrl(id)" class="block" target="_blank">
             <el-button class="w-full" type="primary" @click="successStatus = false">
-              <span>下载 App</span>
+              <span>{{ i18n.common.nav.download2 }}</span>
             </el-button>
           </v-router>
         </div>
@@ -137,15 +133,11 @@ const submit = function () {
           <ui-image :oss="true" fit="none" src="/static/images/activity/warn.jpg" />
         </div>
         <div class="py-4">
-          <p class="text-14-24 text-global-highTitle">
-            您已成功领取过该空投
-            <br />
-            请勿重复操作
-          </p>
+          <p class="text-14-24 text-global-highTitle whitespace-pre-wrap">{{ i18n.activity.tips.warn }}</p>
         </div>
         <div class="w-30 mx-auto">
           <el-button class="w-full" type="primary" @click="warnStatus = false">
-            <span>我知道了</span>
+            <span>{{ i18n.activity.label.ok }}</span>
           </el-button>
         </div>
       </div>

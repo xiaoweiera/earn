@@ -23,6 +23,8 @@ import file from "./file";
 import home from "./home";
 import invest from "./invest";
 import downLoad from "./download";
+import activity from "./activity";
+
 export default {
   home,
   airdrop,
@@ -49,4 +51,5 @@ export default {
   file,
   invest,
   downLoad,
+  activity,
 };

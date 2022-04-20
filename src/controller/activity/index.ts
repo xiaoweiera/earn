@@ -4,7 +4,7 @@
  */
 
 import safeGet from "@fengqiaogang/safe-get";
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response } from "express";
 import { goHome } from "src/controller/common/redirect";
 import { Activity } from "src/types/common/activity";
 
@@ -12,8 +12,8 @@ import { Activity } from "src/types/common/activity";
 export const invite = async function (req: Request, res: Response) {
   return res.send({
     title: "Activity - KingData",
-    keywords: "",
-    description: "",
+    keywords: "活动规则",
+    description: "Bitcoin, Ethereum, blockchain, cryptocurrencies, altcoins, crypto, decentralization, money, DeFi, decentralized finance, derivatives, crypto exchanges, 比特币、以太坊、区块链、加密货币、山寨币、加密、去中心化、货币、DeFi、去中心化金融、衍生品、加密交易所",
   });
 };
 
