@@ -6,12 +6,12 @@
 import _ from "lodash";
 import I18n from "src/utils/i18n";
 import * as Url from "src/utils/url/";
-import { languageKey } from "src/config/";
+import {languageKey} from "src/config/";
 import * as console from "src/plugins/log/";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import getDomain from "src/plugins/browser/domain";
-import type { Href, Location, Query } from "src/types/browser/location";
+import type {Href, Location, Query} from "src/types/browser/location";
 
 export const UtmSource = "utm_source";
 
@@ -22,11 +22,6 @@ export const setUtmSource = function(value: string | Location, domain: string = 
   } else {
     location = value;
   }
-
-  const param = "query";
-  let tempQuery = safeGet<object>(location, param) || {};
-  tempQuery = _.omit(tempQuery, [UtmSource]);
-  safeSet(location, param, tempQuery);
 
   const hostname = location.hostname;
   if (!hostname) {
@@ -41,6 +36,14 @@ export const setUtmSource = function(value: string | Location, domain: string = 
   if (hostname && _.includes(getDomain(), hostname)) {
     return location;
   }
+  if (hostname && _.includes(hostname, "kingdata.com")) {
+    return location;
+  }
+
+  const param = "query";
+  let tempQuery = safeGet<object>(location, param) || {};
+  tempQuery = _.omit(tempQuery, [UtmSource]);
+  safeSet(location, param, tempQuery);
   safeSet(location, `${param}.${UtmSource}`, encodeURI(domain));
   return location;
 };

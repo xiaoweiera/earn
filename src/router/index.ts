@@ -3,9 +3,10 @@
  * @author svon.me@gmail.com
  */
 
-import type { Router } from "vue-router";
-import { createRouter as _createRouter, createMemoryHistory, createWebHistory } from "vue-router";
 import { config } from "./config";
+import type { Router } from "vue-router";
+import { Activity } from "src/types/common/activity";
+import { createRouter as _createRouter, createMemoryHistory, createWebHistory } from "vue-router";
 
 import Home from "./home";
 import DAppList from "./dapp";
@@ -16,6 +17,11 @@ import quota from "./quota";
 import rank from "./rank";
 import invest from "./invest";
 const routes = [
+  // 活动
+  {
+    path: `/activity/${Activity.invite}/:id`,
+    component: () => import("src/pages/activity/invite.vue"),
+  },
   {
     path: "/",
     component: () => import("src/pages/layout/index.vue"),

@@ -7,6 +7,8 @@
 import { ElImage } from "element-plus";
 import type { PropType } from "vue";
 import { computed, ref } from "vue";
+import { getEnv } from "src/config";
+import { isLink } from "src/utils/";
 
 type Fit = "cover" | "contain" | "fill" | "none";
 
@@ -40,6 +42,11 @@ const props = defineProps({
     type: Boolean,
     default: () => true,
   },
+  // 是否属于 OSS 图片资源
+  oss: {
+    type: Boolean,
+    default: () => false,
+  },
 });
 
 const className = computed<string[]>(function () {
@@ -55,6 +62,17 @@ const className = computed<string[]>(function () {
 
 const error = ref<boolean>(false);
 const auto = ref<string>("/images/common/logo.jpg");
+
+const getImageLink = function (src: string, oss?: boolean) {
+  if (src) {
+    if (oss && !isLink(src)) {
+      const env = getEnv();
+      return `${env.VITE_oss}${src}`;
+    }
+    return src;
+  }
+  return auto.value;
+};
 
 const getFitValue = function (value: Fit): string {
   return value === "none" ? "scale-down" : value;
@@ -74,7 +92,7 @@ const index = computed<number>(function () {
 <template>
   <client-only :class="className" :data-help="title" class="ui-image overflow-hidden">
     <template v-if="src && !error">
-      <el-image :fit="getFitValue(fit)" :initial-index="index" :lazy="false" :preview-src-list="preview" :preview-teleported="true" :src="src" class="block w-full h-full" scroll-container="body" @error="error = true">
+      <el-image :fit="getFitValue(fit)" :initial-index="index" :lazy="false" :preview-src-list="preview" :preview-teleported="true" :src="getImageLink(src, oss)" class="block w-full h-full" scroll-container="body" @error="error = true">
         <template #placeholder>
           <slot name="loading"></slot>
         </template>
