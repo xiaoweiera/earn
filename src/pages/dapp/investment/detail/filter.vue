@@ -46,7 +46,7 @@ watch([project_category, stage, has_symbol, keyword], () => {
           </el-select>
         </div>
       </div>
-      <div class="flex mb-4 items-center md:justify-between w-full flex-1 mt-4 md:mt-0">
+      <div class="flex mb-4 items-center md:justify-between w-full flex-1 md:mt-0">
         <div class="filter-item invest-select">
           <p>{{ i18n.invest.isSend }}</p>
           <el-select v-model="has_symbol" size="small">
