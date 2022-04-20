@@ -3,13 +3,14 @@
  * @file 推荐指标
  * @auth svon.me@gmail.com
  */
-
+import { onMounted } from "vue";
 import Tips from "src/pages/quota/tips.vue";
 import IndicatorItem from "src/pages/quota/indicators/item.vue";
 import { getValue } from "src/utils/root/data";
 import { IndicatorResult } from "src/types/quota/index";
 import { Model } from "src/logic/quota/index";
 import { alias } from "src/utils/ssr/ref";
+import * as track from "src/logic/track";
 
 let initValue = true;
 const getInitValue = function () {
@@ -25,6 +26,11 @@ const requestList = function (data: object) {
   const query = { ...data };
   return model.getIndicator(query);
 };
+
+onMounted(function () {
+  // 上传数据
+  track.push(track.Origin.gio, track.event.quota.indicator);
+});
 </script>
 
 <template>
