@@ -51,7 +51,9 @@ const requestList = function (data: object) {
       </div>
       <!-- 下载-->
       <div class="hidden md:block">
-        <ui-app-download />
+        <ui-sticky>
+          <ui-app-download />
+        </ui-sticky>
       </div>
     </div>
   </div>
