@@ -26,8 +26,10 @@
       z-index: 101 !important;
     }
   }
-  &.ui-hover {
-    z-index: 102 !important;
+  &:not(.header-user) {
+    &.ui-hover {
+      z-index: 102 !important;
+    }
   }
 }
 
