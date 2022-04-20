@@ -206,9 +206,6 @@ const itemTransform = function (list: object[]): object[] {
       </div>
       <div v-else-if="!loading">
         <ui-empty class="pb-3" />
-        <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">
-          {{ i18n.address.noData }}
-        </p>
       </div>
     </div>
     <div v-if="list?.length > 0 && resultNumber >= params.page_size && resultNumber <= list?.length" class="more" @click="getMore">

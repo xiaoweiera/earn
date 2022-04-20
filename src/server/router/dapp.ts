@@ -33,7 +33,6 @@ const Router = function () {
   });
   router.get(config.nftList, dApp.nftList);
   router.get(config.invest, dApp.investList);
-  router.get(config.investDetail, dApp.investDetail);
 
   const airdropAllValue = Object.values(TabTypes);
   // 判断 value 是否存在
@@ -74,6 +73,7 @@ const Router = function () {
   dApp.dAppDetail(router, config.dapp, ProjectType.dapp);
   dApp.dAppDetail(router, config.nft, ProjectType.nft);
   dApp.dAppDetail(router, config.airdrop, ProjectType.airdrop);
+  dApp.dAppDetail(router, config.funds, ProjectType.funds);
   return router;
 };
 export default Router;

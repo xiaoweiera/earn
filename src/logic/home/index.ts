@@ -1,6 +1,7 @@
 import API from "src/api";
 import type { projectParams, recommendModel, summaryModel, tutorialParams, tutorialData } from "src/types/home";
 import I18n from "src/utils/i18n";
+import { FundsQuery } from "src/types/dapp/invest";
 
 // 得到header数据 headerName,headerCss
 export const getHeader = (key: string) => {
@@ -128,5 +129,13 @@ export class Model extends API {
   //Tutorial列表
   getTutorialList(query: tutorialParams) {
     return this.home.getTutorialList<tutorialData[]>(query);
+  }
+  // 投融资项目
+  getProjectsList(query: FundsQuery) {
+    return this.dApp.getProjectsList(query);
+  }
+  //投融资机构
+  getFundsList(query: FundsQuery) {
+    return this.dApp.getFundsList(query);
   }
 }

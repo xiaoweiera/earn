@@ -62,8 +62,14 @@ export const airdrop = {
 //投融资
 export const invest = {
   list: {
-    projects: "API.invest.list",
-    funds: "API.invest.list.",
+    projects: "API.invest.project",
+    funds: "API.invest.funds",
+    round: "API.invest.round",
+  },
+  detail: {
+    investList: "API.invest.list",
+    info: "API.invest.info",
+    investment: "API.invest.investment",
   },
 };
 export const rank = {

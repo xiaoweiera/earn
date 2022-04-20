@@ -70,7 +70,7 @@ onMounted(function () {
 
       <span class="mx-4 text-white text-opacity-65 hidden lg:inline-block">|</span>
 
-      <ui-hover class="flex" trigger="hover">
+      <ui-hover popper-class="header-user" class="flex" trigger="hover">
         <template #label>
           <v-router :href="env.appDownload" class="hidden lg:flex" target="_blank">
             <span class="inline-block whitespace-nowrap text-14-18">APP</span>
@@ -87,7 +87,7 @@ onMounted(function () {
 
       <!-- 已登录 -->
       <div v-if="user && user.id">
-        <ui-hover class="flex" placement="bottom-end" trigger="hover">
+        <ui-hover popper-class="header-user" class="flex" placement="bottom-end" trigger="hover">
           <template #label>
             <div class="relative">
               <span class="flex">

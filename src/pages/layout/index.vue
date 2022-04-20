@@ -37,6 +37,7 @@ const notDownload = function (path: string): boolean {
         <DownloadApp />
       </div>
       <client-only>
+        <UiTool :isIdea="true" />
         <!-- 判断用户来源 -->
         <IpValidate />
       </client-only>

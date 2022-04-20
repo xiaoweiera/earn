@@ -16,6 +16,7 @@ export default {
   close: "Close",
   moreTest: "More...",
   delete: "Delete",
+  success: "Success",
   warning: {
     min: "Less than {count} words",
     max: "More than {count} words",

@@ -18,7 +18,7 @@ const routes = [
     component: () => import("src/pages/dapp/investment/index.vue"),
   },
   {
-    path: router.investDetail,
+    path: `${router.invest}/:id`,
     component: () => import("src/pages/dapp/investment/detail/index.vue"),
   },
   // 详情
@@ -44,6 +44,14 @@ const routes = [
   },
   {
     path: `${router.airdrop}/:id/:tab`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: `${router.funds}/:id`,
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: `${router.funds}/:id/:tab`,
     component: () => import("src/pages/dapp/detail/index.vue"),
   },
 ];

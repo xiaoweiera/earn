@@ -139,7 +139,7 @@ export default {
   webAirdrop: {
     title: "Airdrop 列表 | KingData",
     key: "发现、跟踪、投资 DeFi、NFT、游戏、Web3.0、Airdrops、数据驱动投资",
-    des: "发掘热门Airdrops項目，通过 KingData 找出潜力Airdrops",
+    des: "我们列出了当前独家加密空投日历，包括加密货币、代币和其他加密资产。",
   },
   blog: {
     title: "研究文章",
