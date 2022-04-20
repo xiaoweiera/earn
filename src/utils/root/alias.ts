@@ -27,6 +27,7 @@ export const quota = {
   signals: "quota.signals.list",
   detail: "quota.signals.detail",
   recommend: "quota.signals.recommend",
+  indicator: "quota.indicator.list",
 };
 
 export const dApp = {
