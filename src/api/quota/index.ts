@@ -16,7 +16,6 @@ export default class extends ApiTemplate {
   // 指标列表
   @tryError(DefaultValue([]))
   @get(api.quota.list)
-  @userToken()
   getSignals<T>(query?: object): Promise<T[]> {
     const callback = function (data: object): T[] {
       const list = safeGet<T[]>(data, "results");
@@ -65,5 +64,19 @@ export default class extends ApiTemplate {
   @validate
   unFollow<T>(@required id: string | number): Promise<T> {
     return [{ id }] as any;
+  }
+  // 推荐指标
+  @tryError(DefaultValue([]))
+  @get(api.quota.indicator)
+  @validate
+  getIndicator<T>(@required query: object): Promise<T> {
+    const callback = function (data: object): T[] {
+      const list = safeGet<T[]>(data, "results");
+      if (list) {
+        return list;
+      }
+      return [];
+    };
+    return [query, callback] as any;
   }
 }

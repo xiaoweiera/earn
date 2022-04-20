@@ -7,12 +7,17 @@ import { config as routerConfig } from "src/router/config";
 
 const routes = [
   {
-    // 指标推荐 - 列表
+    // 推荐指标
+    path: routerConfig.quota,
+    component: () => import("src/pages/quota/indicators/index.vue"),
+  },
+  {
+    // 指标异动 - 列表
     path: routerConfig.news,
     component: () => import("src/pages/quota/signals.vue"),
   },
   {
-    // 指标推荐 - 详情
+    // 指标异动 - 详情
     path: `${routerConfig.news}/:id`,
     component: () => import("src/pages/quota/detail/index.vue"),
   },

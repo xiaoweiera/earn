@@ -75,7 +75,7 @@ const getImageLink = function (src: string, oss?: boolean) {
 };
 
 const getFitValue = function (value: Fit): string {
-  return value === "none" ? "scale-down" : value;
+  return value === "none" ? "initial" : value;
 };
 
 const index = computed<number>(function () {

@@ -93,7 +93,7 @@ const initValue = () => {
                       <div class="flex items-center max-w-31 whitespace-nowrap">
                         <ui-image class="min-w-8 max-w-8 w-8 h-8 rounded-full" :src="safeGet(item, 'project.logo')" />
                         <div class="ml-1.5 flex-1">
-                          <div class="numberDefault text-number line-height-no short max-w-31 whitespace-nowrap">{{ safeGet(item, "project.name") }}1221312312213123</div>
+                          <div class="numberDefault text-number line-height-no short max-w-31 whitespace-nowrap">{{ safeGet(item, "project.name") }}</div>
                           <div class="nameTag text-number text-left line-height-no">{{ safeGet(item, "project.symbol") }}</div>
                         </div>
                       </div>

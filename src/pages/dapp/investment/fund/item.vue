@@ -5,6 +5,7 @@ import VRouter from "src/components/v/router.vue";
 import { InvestItem } from "src/types/dapp/invest";
 import { config } from "src/router/config";
 import document from "src/plugins/browser/document";
+import { ElButton } from "element-plus";
 
 const list = ref<any[]>([]);
 list.value = new Array(19).fill("");
@@ -59,8 +60,8 @@ const getCount = function (data: number) {
         </div>
         <div :class="{ overlap: data.top_projects.length > 9 }" class="w-full mt-2 px-1.5 group-list">
           <div class="w-full min-h-11.5 py-2 pl-1.5 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex justify-center items-center">
-            <template v-for="item in data.top_projects" :key="item.id">
-              <v-router class="block p-0.5 group-item bg-white rounded-1/2" :href="`${config.funds}/${item.id}`" target="_blank">
+            <template v-for="(item, index) in data.top_projects" :key="item.id">
+              <v-router class="block p-0.5 group-item bg-global-white rounded-1/2" :style="`z-index:${index}`" :href="`${config.funds}/${item.id}`" target="_blank">
                 <ui-image class="w-6 h-6" rounded fit="cover" :src="item.logo" />
               </v-router>
             </template>
@@ -72,9 +73,11 @@ const getCount = function (data: number) {
         <!-- 更多 -->
         <div class="w-full mt-2">
           <v-router class="block" :href="`${config.invest}/${data.id}`" target="_blank">
-            <p class="w-full h-11 bg-global-orange rounded-md flex items-center justify-center">
-              <span class="text-kd16px22px text-global-white font-medium font-kdFang">{{ i18n.invest.project.learnMore }}</span>
-            </p>
+            <client-only>
+              <el-button class="w-full" type="warning" size="large">
+                <span class="text-kd16px22px text-global-white font-medium font-kdFang">{{ i18n.invest.project.learnMore }}</span>
+              </el-button>
+            </client-only>
           </v-router>
         </div>
       </div>

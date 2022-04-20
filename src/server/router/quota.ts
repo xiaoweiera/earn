@@ -10,10 +10,14 @@ import { config as routerConfig } from "src/router/config";
 
 const Router = function () {
   const router = ExpressRouter();
-  // 指标详情
+
+  // 推荐指标
+  router.get(routerConfig.quota, quota.indicators);
+
+  // 指标异动 - 详情
   router.get(`${routerConfig.news}/:id`, quota.detail);
 
-  // 指标监控
+  // 指标异动
   // 旧路由，兼容处理
   router.get("/news", function (req: Request, res: Response) {
     // 跳转到新路由

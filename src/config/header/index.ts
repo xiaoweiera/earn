@@ -26,12 +26,12 @@ export const names = {
 export const headers = function (lang?: Lang) {
   const value = getLang(lang);
 
-  const list = [DApp(lang), Ranks(lang), APY(lang), Address(lang), Portfolio(lang)];
+  const list = [DApp(lang), Ranks(lang), APY(lang), Address(lang)];
   // 只在中文状态下显示此导航
   if (value === Language.cn) {
-    list.push(TopicList(lang), Quota(lang));
+    list.push(Portfolio(lang), TopicList(lang));
   }
-  list.push(Blog(lang));
+  list.push(Quota(lang), Blog(lang));
 
   return list;
 };
