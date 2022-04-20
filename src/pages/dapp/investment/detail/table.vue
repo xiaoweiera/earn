@@ -52,14 +52,14 @@ const initValue = () => {
 </script>
 <template>
   <div class="info">
-    <!--    筛选-->
+    <!--    筛选 -->
     <Filter :detail="detail" @change="change" />
     <div :key="key">
       <!--    列表-->
       <ui-pagination :limit="10" :init-value="initValue()" :request="requestList">
         <template #default="scope">
           <div class="showX">
-            <table class="table-my my-4">
+            <table class="table-my mb-4">
               <thead>
                 <tr class="border-tb">
                   <td>
@@ -74,13 +74,13 @@ const initValue = () => {
                   <td class="w-15">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundedRound" @change="sort" />
                   </td>
-                  <td class="w-40">
+                  <td class="w-38">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="amount" :name="i18n.invest.fundAmount" @change="sort" />
                   </td>
                   <td class="w-28">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="invested_at" :name="i18n.invest.date" @change="sort" />
                   </td>
-                  <td class="w-36">
+                  <td class="w-33">
                     <uiSort class="sort justify-end pr-3" :sort-data="params" key-name="project__symbol" :name="i18n.invest.isSend" @change="sort" />
                   </td>
                 </tr>
@@ -91,7 +91,7 @@ const initValue = () => {
                     <td class="pl-3 index-number">{{ index + 1 }}</td>
                     <td>
                       <div class="flex items-center max-w-31 whitespace-nowrap">
-                        <ui-image class="min-w-8 max-w-8 w-8 h-8 rounded-full" :src="safeGet(item, 'logo')" />
+                        <ui-image class="min-w-8 max-w-8 w-8 h-8 rounded-full" :src="safeGet(item, 'project.logo')" />
                         <div class="ml-1.5 flex-1">
                           <div class="numberDefault text-number line-height-no short max-w-31 whitespace-nowrap">{{ safeGet(item, "project.name") }}1221312312213123</div>
                           <div class="nameTag text-number text-left line-height-no">{{ safeGet(item, "project.symbol") }}</div>
@@ -103,7 +103,7 @@ const initValue = () => {
                         <template v-for="(typeName, i) in item.project.categories.slice(0, typeLength)" :key="i">
                           <span :class="i === 0 ? '' : 'ml-1.5'" class="typeTxt i8n-font-inter">{{ typeName }}</span>
                         </template>
-                        <client-only>
+                        <client-only class="invest-icon">
                           <el-popover v-if="item.project.categories.length > typeLength" popper-class="chain-popper" placement="bottom" trigger="hover" :append-to-body="false">
                             <div class="flex items-center px-2 py-1.5">
                               <template v-for="(typeName, i) in item.project.categories.slice(typeLength)" :key="i">
@@ -132,6 +132,16 @@ const initValue = () => {
   </div>
 </template>
 <style scoped lang="scss">
+.invest-icon {
+  ::v-deep(.el-popover.el-popper) {
+    min-width: fit-content !important;
+    width: fit-content !important;
+    padding: 0px 0px 0px 0px !important;
+    border-radius: 100px;
+    transform: translate(100%, 100%);
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  }
+}
 .typeTxt {
   @apply text-kd14px18px text-global-highTitle font-kdFang;
 }

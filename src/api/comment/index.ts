@@ -7,7 +7,7 @@ import { DefaultValue, get, post, deleted, tryError, userToken } from "src/plugi
 import ApiTemplate from "../template";
 
 import safeGet from "@fengqiaogang/safe-get";
-import { CommentModel, pushCommentModel, ReplyCommentModel } from "src/types/comment";
+import { CommentModel, pushCommentModel, ReplyCommentModel, suggestModel } from "src/types/comment";
 
 export default class extends ApiTemplate {
   //得到列表
@@ -52,6 +52,13 @@ export default class extends ApiTemplate {
   @userToken(true) // 评分
   star<T>(id: number, score: number): Promise<T> {
     const query = { id, score };
+    return [query] as any;
+  }
+  //提建议
+  @tryError(DefaultValue({})) // 处理默认值
+  @post(api.comment.suggest) // 定义一个 get 请求
+  suggest<T>(query: suggestModel): Promise<T> {
+    // 返回参数
     return [query] as any;
   }
 }

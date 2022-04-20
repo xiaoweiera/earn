@@ -42,7 +42,7 @@ const keys = ref<string>(uuid());
 const UpcomingList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.upcoming, [] as any);
 
 // 即将上线列表
-const getUpcomingList = async function() {
+const getUpcomingList = async function () {
   const model = new Model();
   return model.getUpcomingProjects(chain.value);
 };
@@ -52,7 +52,7 @@ const updateUpcomingList = onUpdateRef(UpcomingList, getUpcomingList);
 
 const OngoingList = createRef<Array<ProjectItem | AdItem>>(alias.dApp.ixo.ongoing, []);
 // 进行中列表
-const getOngoingList = async function() {
+const getOngoingList = async function () {
   const model = new Model();
   return model.getOngoingProjects(chain.value);
 };
@@ -77,25 +77,15 @@ onMounted(() => {
   <div>
     <div>
       <div>
-        <DAppHomeHeader
-          :status="Status.upcoming" :tips="i18n.home.idoIgoProject.title" :type="urlType"
-          title="IDO & IGO Projects"
-        />
+        <DAppHomeHeader :status="Status.upcoming" :tips="i18n.home.idoIgoProject.title" :type="urlType" title="IDO & IGO Projects" />
       </div>
       <!-- 公链数据 -->
       <div v-if="summary.ixo_upcoming" :key="keys" class="mt-4 hidden md:block">
-        <DAppDiscoversContentType
-          :list="tabChain(summary.ixo_upcoming.chain, 'chain', config.home)"
-          :split="6" :title="i18n.home.idoIgoProject.chain" class="pb-2.5 border-b-1 border-global-highTitle border-opacity-6"
-          name="chain"
-        />
+        <DAppDiscoversContentType :list="tabChain(summary.ixo_upcoming.chain, 'chain', config.home)" :split="6" :title="i18n.home.idoIgoProject.chain" class="pb-2.5 border-b-1 border-global-highTitle border-opacity-6" name="chain" />
       </div>
       <!--手机端-->
       <div v-if="summary.ixo_upcoming" :key="keys" class="mt-4 block md:hidden">
-        <DAppDiscoversContentChain
-          :chain-data="summary.ixo_upcoming.chain" :href="config.home"
-          :title="i18n.home.idoIgoProject.chain" class="w-full" name="chain"
-        />
+        <DAppDiscoversContentChain :chain-data="summary.ixo_upcoming.chain" :href="config.home" :title="i18n.home.idoIgoProject.chain" class="w-full" name="chain" />
       </div>
       <!-- IDO&IGO即将开始项目 -->
       <div class="mt-5">
@@ -106,13 +96,7 @@ onMounted(() => {
           </div>
         </div>
         <div v-if="UpcomingList.length > 0" class="block md:hidden mt-3 h-95">
-          <Swiper
-            :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
-            :pagination="{ clickable: true }"
-            :slides-per-view="1"
-            :space-between="0"
-            class="h-full swiper-recom"
-          >
+          <Swiper :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" :pagination="{ clickable: true }" :slides-per-view="1" :space-between="0" class="h-full swiper-recom">
             <template v-for="(item, index) in UpcomingList" :key="index">
               <SwiperSlide class="w-full h-full rounded-kd6px">
                 <DAppDiscoversList status="upcoming" :data="item" class="w-full h-full hand" />
@@ -122,9 +106,6 @@ onMounted(() => {
         </div>
         <div v-else>
           <ui-empty class="pb-3" />
-          <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">
-            {{ i18n.address.noData }}
-          </p>
         </div>
       </div>
       <!-- IDO&IGO进行中项目 -->
@@ -136,13 +117,7 @@ onMounted(() => {
           </div>
         </div>
         <div v-if="OngoingList.length > 0" class="block md:hidden mt-3 h-95">
-          <Swiper
-            :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }"
-            :pagination="{ clickable: true }"
-            :slides-per-view="1"
-            :space-between="0"
-            class="h-full swiper-recom"
-          >
+          <Swiper :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" :pagination="{ clickable: true }" :slides-per-view="1" :space-between="0" class="h-full swiper-recom">
             <template v-for="(item, index) in OngoingList" :key="index">
               <SwiperSlide class="w-full h-full rounded-kd6px">
                 <DAppDiscoversList status="ongoing" :data="item" class="w-full h-full hand" />
@@ -152,9 +127,6 @@ onMounted(() => {
         </div>
         <div v-else>
           <ui-empty class="pb-3" />
-          <p class="text-center text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang">
-            {{ i18n.address.noData }}
-          </p>
         </div>
       </div>
     </div>
