@@ -28,7 +28,7 @@ const radio = ref<string>(safeGet<string>(radios, "[0].value"));
 const textarea = ref<string>("");
 const contact = ref<string>("");
 
-const discord = computed(() => "https://discord.com/invite/UfSAhdMyJ3?lang=en&utm_source=https%3A%2F%2Fkingdata.com");
+const discord = computed(() => "https://discord.com/invite/DnrS3B5hGs?utm_source=https%3A%2F%2Fkingdata.com&lang=cn");
 
 // 关闭
 const onCancel = function () {
@@ -39,7 +39,7 @@ const onSubmit = async function () {
   const data = {
     metrics_type: radio.value, // 反馈类型
     content: textarea.value, // 反馈意见内容
-    wechat: contact.value, // 联系方式
+    wechat: contact.value ? contact.value : "无", // 联系方式
   };
   // 向后台留言
   await api.comment.suggest(data);
@@ -81,7 +81,7 @@ const onSubmit = async function () {
           <span class="text-global-highTitle text-opacity-45">{{ i18n.feedback.customer.time }}</span>
         </div>
         <div class="mt-2">
-          <v-router class="inline-flex items-center" :href="discord">
+          <v-router class="inline-flex items-center" :href="discord" target="_blank">
             <IconFont type="discord" bright />
             <span class="ml-1 text-global-darkblue">Discord</span>
           </v-router>
