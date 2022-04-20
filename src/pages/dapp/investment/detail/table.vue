@@ -68,19 +68,19 @@ const initValue = () => {
                   <td>
                     <uiSort class="sort" :sort="false" :sort-data="params" key-name="name" :name="i18n.invest.projectName" @change="sort" />
                   </td>
-                  <td class="w-26">
+                  <td class="w-50">
                     <uiSort class="sort justify-center" :sort-data="params" key-name="project__categories" :name="i18n.invest.type" @change="sort" />
                   </td>
-                  <td class="w-15">
+                  <td class="w-1">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundedRound" @change="sort" />
                   </td>
-                  <td class="w-38">
+                  <td class="w-28">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="amount" :name="i18n.invest.fundAmount" @change="sort" />
                   </td>
-                  <td class="w-28">
+                  <td class="w-34">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="invested_at" :name="i18n.invest.date" @change="sort" />
                   </td>
-                  <td class="w-33">
+                  <td class="w-24">
                     <uiSort class="sort justify-end pr-3" :sort-data="params" key-name="project__symbol" :name="i18n.invest.isSend" @change="sort" />
                   </td>
                 </tr>
@@ -116,6 +116,7 @@ const initValue = () => {
                           </el-popover>
                         </client-only>
                       </div>
+                      <div v-else class="text-center text-global-highTitle">-</div>
                     </td>
                     <td class="text-right txt text-number">{{ safeGet(item, "stage_name") }}</td>
                     <td class="text-right txt text-number">{{ toNumberCashFormat(safeGet(item, "amount"), "$") }}</td>
