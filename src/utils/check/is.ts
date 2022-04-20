@@ -39,14 +39,30 @@ export const isNumber = (value: any): boolean => {
 };
 
 /**
- * 判断字符串是否是 http 链接
+ * 判断字符串是否是 URL 链接
  * @param value
  */
-export const isHttp = function (value?: string): boolean {
+export const isLink = function (value?: string): boolean {
   if (value && isString(value)) {
     if (/^http/.test(value)) {
       return true;
     }
+    if (/^\/{2}/.test(value)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+ * 判断字符串是否是 http 链接
+ * @param value
+ */
+export const isHttp = function (value?: string): boolean {
+  if (isLink(value)) {
+    return true;
+  }
+  if (value && isString(value)) {
     if (/^\//.test(value)) {
       return true;
     }

@@ -9,6 +9,9 @@
 import { ref } from "vue";
 import Footer from "./footer.vue";
 import Download from "./download.vue";
+import { asyncLoad } from "src/plugins/lazyload";
+
+const Register = asyncLoad(() => import("./register.vue"));
 
 const text = ref<string>(`1、The live Bitcoin price today is $41,100.38 USD with a 24-hour trading volume of $28,448,855,607 USD. We update our BTC to USD price in real-time. Bitcoin is up 2.95% in the last 24 hours. The current CoinMarketCap ranking is #1, with a live market cap of $781,376,064,641 USD. It has a circulating supply of 19,011,406 BTC coins and a max. supply of 21,000,000 BTC coins.
 
@@ -27,7 +30,7 @@ Bitcoin is a peer-to-peer online currency, meaning that all transactions happen 
 <template>
   <div>
     <div>
-      <ui-image src="https://iph.href.lu/1440x500?text=activity&fg=666666&bg=cccccc" fit="none" />
+      <ui-image src="https://iph.href.lu/1440x500?text=activity&fg=ffffff&bg=4D56FF" fit="none" />
     </div>
     <div class="pt-16 px-4 pb-8">
       <div class="max-w-200 mx-auto">
@@ -44,8 +47,15 @@ Bitcoin is a peer-to-peer online currency, meaning that all transactions happen 
     </div>
     <div class="px-4">
       <div class="max-w-200 mx-auto">
+        <div class="pb-8">
+          <div class="mb-4 text-center">
+            <h3 class="text-24-28 font-m text-global-highTitle">填写信息完成登录/注册领取奖励 🎁</h3>
+          </div>
+          <!--用户注册-->
+          <Register :id="1234" />
+        </div>
         <div class="pb-15">
-          <Download :id="1234"/>
+          <Download :id="1234" />
         </div>
         <div class="pb-15">
           <ui-image src="https://iph.href.lu/800x157?text=合作伙伴&fg=666666&bg=cccccc" fit="none" />

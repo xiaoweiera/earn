@@ -18,7 +18,7 @@ export const invite = async function (req: Request, res: Response) {
 };
 
 // 活动入口
-export const app = async function (req: Request, res: Response, next: NextFunction) {
+export const app = async function (req: Request, res: Response) {
   const type = safeGet<string>(req.params, "type");
   try {
     if (type === Activity.invite) {

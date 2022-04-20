@@ -16,6 +16,12 @@
   }
 }
 
+.el-button {
+  &.el-button--large {
+    --el-button-size: 2.75rem;
+  }
+}
+
 .el-message-box {
   @apply max-w-81;
 }
@@ -26,6 +32,7 @@
       z-index: 101 !important;
     }
   }
+
   &:not(.header-user) {
     &.ui-hover {
       z-index: 102 !important;
@@ -64,6 +71,13 @@
         background: transparent !important;
         border-color: transparent !important;
       }
+    }
+  }
+}
+.el-dialog {
+  &.no-header {
+    .el-dialog__header {
+      @apply pb-0;
     }
   }
 }
