@@ -7,8 +7,8 @@ import { onMounted } from "vue";
 import Tips from "src/pages/quota/tips.vue";
 import IndicatorItem from "src/pages/quota/indicators/item.vue";
 import { getValue } from "src/utils/root/data";
-import { IndicatorResult } from "src/types/quota/index";
-import { Model } from "src/logic/quota/index";
+import { IndicatorResult } from "src/types/quota/";
+import API from "src/api";
 import { alias } from "src/utils/ssr/ref";
 import * as track from "src/logic/track";
 
@@ -22,9 +22,8 @@ const getInitValue = function () {
 
 // 获取 融资 列表
 const requestList = function (data: object) {
-  const model = new Model();
-  const query = { ...data };
-  return model.getIndicator(query);
+  const api = new API();
+  return api.quota.getIndicator(data);
 };
 
 onMounted(function () {
@@ -34,13 +33,13 @@ onMounted(function () {
 </script>
 
 <template>
-  <div>
+  <div class="pb-6 md:pb-12">
     <!-- 推荐指标 -->
-    <div class="w-full md:w-234 mx-auto px-4 md:px-0">
+    <div class="w-full md:w-235 mx-auto px-4 md:px-0">
       <ui-box>
-        <div class="flex-1 pt-6 pb-6 md:pb-12 pr-0 md:pr-6">
+        <div class="flex-1 pt-6 pr-0 md:pr-6">
           <!-- 头部 -->
-          <div class="px-4 hidden md:block">
+          <div class="hidden md:block">
             <Tips />
           </div>
           <!-- 内容 -->

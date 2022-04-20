@@ -11,13 +11,11 @@ import * as api from "src/config/api";
 import { toInteger } from "src/utils/";
 import { DefaultValue, expire, get, post, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
-import { IndicatorQuery } from "src/types/quota/index";
 
 export default class extends ApiTemplate {
   // 指标列表
   @tryError(DefaultValue([]))
   @get(api.quota.list)
-  @userToken()
   getSignals<T>(query?: object): Promise<T[]> {
     const callback = function (data: object): T[] {
       const list = safeGet<T[]>(data, "results");
@@ -70,9 +68,8 @@ export default class extends ApiTemplate {
   // 推荐指标
   @tryError(DefaultValue([]))
   @get(api.quota.indicator)
-  @userToken(true)
   @validate
-  getIndicator<T>(@required query: IndicatorQuery): Promise<T> {
+  getIndicator<T>(@required query: object): Promise<T> {
     const callback = function (data: object): T[] {
       const list = safeGet<T[]>(data, "results");
       if (list) {
