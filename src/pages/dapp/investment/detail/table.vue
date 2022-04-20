@@ -120,7 +120,7 @@ const initValue = () => {
                     <td class="text-right txt text-number">{{ safeGet(item, "stage_name") }}</td>
                     <td class="text-right txt text-number">{{ toNumberCashFormat(safeGet(item, "amount"), "$") }}</td>
                     <td class="text-right txt text-number">{{ 1 ? getDateMDY(safeGet(item, "invested_at")) : "TBA" }}</td>
-                    <td class="text-right txt text-number pr-3">{{ safeGet(item, "project.symbol") ? i18n.invest.okSend : i18n.invest.noSend }}</td>
+                    <td class="text-right txt text-number pr-3">{{ safeGet(item, "project.symbol") ? safeGet(item, "project.symbol") : i18n.invest.noSend }}</td>
                   </v-router>
                 </template>
               </tbody>
