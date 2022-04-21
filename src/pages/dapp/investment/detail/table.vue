@@ -88,7 +88,7 @@ const initValue = () => {
               </thead>
               <tbody>
                 <template v-for="(item, index) in scope.list" :key="index">
-                  <v-router :href="`${safeGet(config, 'funds')}/${safeGet(item, 'project.id')}`" name="tr" class="h-14">
+                  <v-router :href="`${safeGet(config, 'funds')}/${safeGet(item, 'project.id')}`" name="tr" class="h-14" target="_blank">
                     <td class="pl-3 index-number">{{ index + 1 }}</td>
                     <td>
                       <div class="flex items-center max-w-31 whitespace-nowrap">
