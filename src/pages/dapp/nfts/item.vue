@@ -15,10 +15,15 @@ defineProps({
     },
   },
 });
+const getUrl = function (data: any) {
+  if (data) {
+    return `${data}/nft`;
+  }
+};
 </script>
 <template>
   <div v-if="data" class="w-full h-full">
-    <v-router :href="data.url" target="_blank" class="block w-full h-full">
+    <v-router :href="getUrl(data.url)" target="_blank" class="block w-full h-full">
       <div v-if="data" class="w-full h-full relative">
         <div v-if="data.gallery.length > 0" class="w-full h-full">
           <div v-for="(item, index) in data.gallery" :key="index" class="w-full h-full rounded-md">
