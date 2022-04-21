@@ -28,6 +28,10 @@ const props = defineProps({
     type: Number,
     default: 8,
   },
+  appendToBody: {
+    type: Boolean,
+    default: () => true,
+  },
 });
 
 const className = computed(function () {
@@ -47,7 +51,7 @@ const className = computed(function () {
     <template #note>
       <slot name="label" />
     </template>
-    <el-popover :placement="placement" :popper-class="className" :trigger="trigger" :width="width" :offset="offset">
+    <el-popover :placement="placement" :popper-class="className" :trigger="trigger" :width="width" :offset="offset" :append-to-body="appendToBody">
       <template #reference>
         <div>
           <slot name="label" />

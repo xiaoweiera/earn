@@ -6,10 +6,10 @@
  *
  */
 
-import { ref } from "vue";
 import I18n from "src/utils/i18n";
 import Footer from "./footer.vue";
 import Download from "./download.vue";
+import Fixed from "./fixed.vue";
 import { asyncLoad } from "src/plugins/lazyload";
 
 const i18n = I18n();
@@ -72,5 +72,6 @@ const Register = asyncLoad(() => import("./register.vue"));
         <Footer />
       </div>
     </div>
+    <Fixed />
   </div>
 </template>

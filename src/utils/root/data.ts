@@ -10,7 +10,7 @@ import safeSet from "@fengqiaogang/safe-set";
 
 const cache = {};
 
-export const set = function(data: object) {
+export const set = function (data: object) {
   _.each(data, (value: any, key: string) => {
     safeSet(cache, key, value);
   });
@@ -23,7 +23,7 @@ export const get = function <T>(name?: string): T {
   return { ...cache } as T;
 };
 
-export const getValue = function<T>(key: string, auto: T): T {
+export const getValue = function <T>(key: string, auto?: T): T | undefined {
   const data = get<T>(key);
   if (data) {
     return data;
@@ -32,7 +32,7 @@ export const getValue = function<T>(key: string, auto: T): T {
 };
 
 // 获取当前环境中的语言类型
-export const getLang = function() {
+export const getLang = function () {
   return getValue<Language>(`query.${languageKey}`, Language.auto);
 };
 

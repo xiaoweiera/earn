@@ -131,7 +131,7 @@ const detailLink = function (data: DataItem) {
 
     <div>
       <slot name="footer">
-        <div class="item-time text-14-18" :class="{ ended: isBefore(data.airdrop_end_at) }">
+        <div class="item-time text-14-18" :class="isBefore(data.airdrop_end_at) ? 'ended' : ''">
           <span class="select-none">{{ timeValue(data) }}</span>
         </div>
       </slot>
