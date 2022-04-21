@@ -74,8 +74,8 @@ const getImageLink = function (src: string, oss?: boolean) {
   return auto.value;
 };
 
-const getFitValue = function (value: Fit): string {
-  return value === "none" ? "initial" : value;
+const getFitValue = function (value: Fit) {
+  return value === "none" ? null : value;
 };
 
 const index = computed<number>(function () {

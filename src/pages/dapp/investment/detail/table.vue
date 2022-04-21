@@ -3,6 +3,7 @@ import { reactive, PropType, ref } from "vue";
 import Filter from "./filter.vue";
 import { ElPopover } from "element-plus";
 import { toNumberCashFormat } from "src/utils/convert/to";
+import { config } from "src/router/config";
 import { getDateMDY } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
@@ -68,10 +69,10 @@ const initValue = () => {
                   <td>
                     <uiSort class="sort" :sort="false" :sort-data="params" key-name="name" :name="i18n.invest.projectName" @change="sort" />
                   </td>
-                  <td class="w-50">
+                  <td class="w-55">
                     <uiSort class="sort justify-center" :sort-data="params" key-name="project__categories" :name="i18n.invest.type" @change="sort" />
                   </td>
-                  <td class="w-1">
+                  <td class="w-17">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundedRound" @change="sort" />
                   </td>
                   <td class="w-28">
