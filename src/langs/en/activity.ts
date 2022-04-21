@@ -1,24 +1,24 @@
 export default {
   label: {
-    time: "活动时间: ",
-    prize: "活动奖品及规则",
-    register: "填写信息完成登录/注册领取空投 🎁",
-    email: "邮箱",
-    code: "验证码",
-    password: "设置密码",
-    ok: "我知道了",
+    time: "Time: ",
+    prize: "Rewards and Rules",
+    register: "Fill in the information to log in/register for airdrops 🎁",
+    email: "Mail",
+    code: "Verification Code",
+    password: "Set Password",
+    ok: "Got it",
   },
   prize: {
-    title: "邀请好友一起领取奖励",
+    title: "Invite friends to win rewards together",
   },
   download: {
-    title: "下载 KingData App， 获取更多活动信息",
+    title: "Download KingData App for more event information",
   },
   tips: {
-    fail: `非常抱歉，您不满足领取条件
-加入社区了解更多活动信息`,
-    warn: `您已成功领取过该空投
-请勿重复操作`,
+    fail: `"We're sorry, you don't meet the eligibility criteria
+Join the community for more information about the event"`,
+    warn: `"You have already successfully requested this drop
+Please do not repeat the operation"`,
   },
   footer: {
     about: "Contact Us",
