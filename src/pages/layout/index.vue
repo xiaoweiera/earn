@@ -8,13 +8,12 @@ import Header from "./header/index.vue";
 import Footer from "./footer/index.vue";
 import Notice from "./notice/index.vue";
 import { asyncLoad } from "src/plugins/lazyload/";
-import I18n from "src/utils/i18n";
-const i18n = I18n();
+
 const $route = useRoute();
 
 const IpValidate = asyncLoad(() => import("./notice/validate.vue"));
 const DownloadApp = asyncLoad(() => import("./download/app.vue"));
-const applyUrl = `/dapp/apply?lang=${i18n.getLang()}`;
+const Tool = asyncLoad(() => import("src/components/ui/tool/index.vue"));
 const notDownload = function (path: string): boolean {
   return !/^\/download/.test(path);
 };
@@ -38,7 +37,7 @@ const notDownload = function (path: string): boolean {
         <DownloadApp />
       </div>
       <client-only>
-        <UiTool :applyUrl="applyUrl" :isIdea="true" />
+        <Tool applyUrl="/dapp/apply" :is-idea="true" />
         <!-- 判断用户来源 -->
         <IpValidate />
       </client-only>
