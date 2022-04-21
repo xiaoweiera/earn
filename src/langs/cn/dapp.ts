@@ -164,6 +164,7 @@ export default {
     captured: "暂未捕获行情数据",
     submit: "提交代币信息",
     nodata: "暂无信息",
+    projectInfo: "项目信息",
   },
   activity: {
     headLine: "🔥 KingData 2021",

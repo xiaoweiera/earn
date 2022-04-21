@@ -164,6 +164,7 @@ export default {
     captured: "No Market Data Captured Yet",
     submit: "Submit Token Info",
     nodata: "No Data",
+    projectInfo: "Project Info",
   },
   activity: {
     headLine: "🔥 KingData 2021",

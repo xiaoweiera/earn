@@ -63,6 +63,11 @@ export const getTabList = function (project: DAppProject, data: DAppData) {
       href: makeUrl(project, TabName.dashboard),
     },
     {
+      tab: TabName.project,
+      label: i18n.dapp.project.projectInfo,
+      href: makeUrl(project, TabName.project),
+    },
+    {
       tab: TabName.reviews,
       label: i18n.dapp.project.reviews,
       href: makeUrl(project, TabName.reviews),
