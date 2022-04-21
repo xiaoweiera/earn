@@ -4,7 +4,7 @@ import { copyTxtMessage } from "src/lib/tool";
 import { detailModel } from "src/types/invest";
 import window from "src/plugins/browser/window";
 import I18n from "src/utils/i18n";
-import { getDateMDY } from "src/utils";
+import { getDateMDY, isHttp } from "src/utils";
 const i18n = I18n();
 defineProps({
   data: {
@@ -19,6 +19,12 @@ onMounted(() => {
   twitterShare.value = `https://twitter.com/share?url=${window.location.href}`;
   telegramShare.value = `https://t.me/share/url?url=${window.location.href}`;
 });
+const getUrl = (url: string) => {
+  if (isHttp(url)) {
+    return url;
+  }
+  return `http://${url}`;
+};
 </script>
 <template>
   <div class="card h-max">
@@ -29,9 +35,9 @@ onMounted(() => {
         <a :href="data.twitter_url" class="icon-url" target="_blank">
           <IconFont type="icon-twitter" size="24" />
         </a>
-        <div v-if="data.website" class="icon-url hand flex items-center" @click="copyUrl(data.website)">
+        <v-router v-if="data.website" target="_blank" :href="getUrl(data.website)" class="icon-url hand flex items-center">
           <IconFont type="icon-yuyan" size="24" />
-        </div>
+        </v-router>
       </div>
       <p class="des text-number">{{ data.description }}</p>
       <div class="mt-4 md:mt-6">
