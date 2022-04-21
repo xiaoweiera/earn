@@ -94,7 +94,7 @@ onMounted(function () {
           <p v-if="chartData.xAxis && chartData.xAxis.length > 0" class="text-global-highTitle text-kd16px24px pl-2">{{ i18n.address.money.jiage }}</p>
           <!-- 代币图表 -->
           <div class="token-echart md:mt-2">
-            <div class="h-110">
+            <div :class="tokenList && tokenList.length > 1 ? 'h-110' : 'h-100'">
               <div v-if="chartData.legends" class="h-full mx-auto md:mt-2">
                 <ui-echart-content :custom="onCustom" :data="chartData" class="h-full" />
               </div>
@@ -104,7 +104,7 @@ onMounted(function () {
         <!-- 代币排行 -->
         <div class="md:mt-0 mt-5">
           <div class="md:w-min-75 w-full h-full md:ml-4 lg:ml-6 lg:w-75 rounded-xl bg-global-topBg px-4 pt-2 pb-2">
-            <div class="flex items-center h-10 min-w-67 showX cursor-pointer border-b border-global-darkblue border-opacity-4">
+            <div v-if="tokenList && tokenList.length > 1" class="flex items-center h-10 min-w-67 showX cursor-pointer border-b border-global-darkblue border-opacity-4">
               <p v-for="item in tokenList" :key="item.id" :class="active === item.id ? 'tab-active' : ''" class="inline-flex flex-col items-center justify-center px-1 min-w-15 mr-4 h-full text-kd14px1px8 text-global-highTitle text-opacity-45 font-m" @click="onChange(item)">
                 <span>{{ item.name }}</span>
                 <span class="tab-active-border"></span>
