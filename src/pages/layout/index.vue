@@ -14,6 +14,7 @@ const $route = useRoute();
 
 const IpValidate = asyncLoad(() => import("./notice/validate.vue"));
 const DownloadApp = asyncLoad(() => import("./download/app.vue"));
+const Tool = asyncLoad(() => import("src/components/ui/tool/index.vue"));
 const applyUrl = `/dapp/apply?lang=${i18n.getLang()}`;
 const notDownload = function (path: string): boolean {
   return !/^\/download/.test(path);
@@ -38,7 +39,7 @@ const notDownload = function (path: string): boolean {
         <DownloadApp />
       </div>
       <client-only>
-        <UiTool :applyUrl="applyUrl" :isIdea="true" />
+        <Tool :applyUrl="applyUrl" :isIdea="true" />
         <!-- 判断用户来源 -->
         <IpValidate />
       </client-only>
