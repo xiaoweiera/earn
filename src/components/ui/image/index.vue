@@ -61,9 +61,8 @@ const className = computed<string[]>(function () {
 });
 
 const error = ref<boolean>(false);
-const auto = ref<string>("/images/common/logo.jpg");
 
-const getImageLink = function (src: string, oss?: boolean) {
+const getImageLink = function (src?: string, oss?: boolean) {
   if (src) {
     if (oss && !isLink(src)) {
       const env = getEnv();
@@ -71,11 +70,12 @@ const getImageLink = function (src: string, oss?: boolean) {
     }
     return src;
   }
-  return auto.value;
+  // 返回默认图
+  return "/images/common/logo.jpg";
 };
 
-const getFitValue = function (value: Fit): string {
-  return value === "none" ? "scale-down" : value;
+const getFitValue = function (value: Fit) {
+  return value === "none" ? null : value;
 };
 
 const index = computed<number>(function () {
@@ -99,7 +99,7 @@ const index = computed<number>(function () {
       </el-image>
     </template>
     <template v-else>
-      <el-image :fit="getFitValue(fit)" :lazy="false" :src="auto" class="block w-full h-full" />
+      <el-image :fit="getFitValue(fit)" :lazy="false" :src="getImageLink()" class="block w-full h-full" />
     </template>
   </client-only>
 </template>

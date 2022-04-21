@@ -3,6 +3,7 @@ import { reactive, PropType, ref } from "vue";
 import Filter from "./filter.vue";
 import { ElPopover } from "element-plus";
 import { toNumberCashFormat } from "src/utils/convert/to";
+import { config } from "src/router/config";
 import { getDateMDY } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
@@ -68,10 +69,10 @@ const initValue = () => {
                   <td>
                     <uiSort class="sort" :sort="false" :sort-data="params" key-name="name" :name="i18n.invest.projectName" @change="sort" />
                   </td>
-                  <td class="w-50">
+                  <td class="w-55">
                     <uiSort class="sort justify-center" :sort-data="params" key-name="project__categories" :name="i18n.invest.type" @change="sort" />
                   </td>
-                  <td class="w-1">
+                  <td class="w-17">
                     <uiSort class="sort justify-end" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundedRound" @change="sort" />
                   </td>
                   <td class="w-28">
@@ -87,13 +88,13 @@ const initValue = () => {
               </thead>
               <tbody>
                 <template v-for="(item, index) in scope.list" :key="index">
-                  <v-router :href="`${safeGet(config, 'funds')}/${safeGet(item, 'project.id')}`" name="tr" class="h-14">
+                  <v-router :href="`${safeGet(config, 'funds')}/${safeGet(item, 'project.id')}`" name="tr" class="h-14" target="_blank">
                     <td class="pl-3 index-number">{{ index + 1 }}</td>
                     <td>
                       <div class="flex items-center max-w-31 whitespace-nowrap">
                         <ui-image class="min-w-8 max-w-8 w-8 h-8 rounded-full" :src="safeGet(item, 'project.logo')" />
                         <div class="ml-1.5 flex-1">
-                          <div class="numberDefault text-number line-height-no short max-w-31 whitespace-nowrap">{{ safeGet(item, "project.name") }}1221312312213123</div>
+                          <div class="numberDefault text-number line-height-no short max-w-31 whitespace-nowrap">{{ safeGet(item, "project.name") }}</div>
                           <div class="nameTag text-number text-left line-height-no">{{ safeGet(item, "project.symbol") }}</div>
                         </div>
                       </div>
