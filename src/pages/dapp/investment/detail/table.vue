@@ -13,6 +13,7 @@ import * as alias from "src/utils/root/alias";
 import API from "src/api";
 import { useRoute } from "vue-router";
 import _ from "lodash";
+import { getParam } from "src/utils/router";
 const props = defineProps({
   detail: {
     type: Object as PropType<detailModel>,
@@ -42,8 +43,9 @@ const listChange = _.debounce(() => {
   key.value++;
 }, 300);
 const sort = () => listChange();
-const requestList = () => {
-  return api.invest.getInvestment(params);
+const requestList = (query: object) => {
+  const newParam = Object.assign(params, query);
+  return api.invest.getInvestment(newParam);
 };
 const initValue = () => {
   onLoadRef<object>(data, () => {

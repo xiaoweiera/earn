@@ -38,7 +38,7 @@ onMounted(() => {
         <div class="max-w-315 mx-auto">
           <CommonTopics class="mb-4 md:mb-6" :is-show-title="false" />
           <Ad :position="24" class="my-4 md:my-6" />
-          <Table />
+          <Table orderBy="tvl" />
         </div>
       </div>
     </div>

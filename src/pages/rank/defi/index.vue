@@ -37,7 +37,7 @@ onMounted(() => {
         <div class="max-w-315 mx-auto">
           <CommonTopics class="mb-4 md:mb-6" />
           <Ad :position="24" class="my-4 md:my-6" />
-          <Table category="defi" :is-group="false" />
+          <Table category="defi" orderBy="tvl" :is-group="false" />
         </div>
       </div>
     </div>

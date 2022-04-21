@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import DappDiscoversContentHeader from "./header.vue";
-import DappDiscoversContentTitle from "./title.vue";
-import DappDiscoversContentDec from "./dec.vue";
-import DappDiscoversContentPrice from "./price.vue";
-import DappDiscoversContentTime from "./time.vue";
+import DAppDiscoversContentHeader from "./header.vue";
+import DAppDiscoversContentTitle from "./title.vue";
+import DAppDiscoversContentDec from "./dec.vue";
+import DAppDiscoversContentPrice from "./price.vue";
+import DAppDiscoversContentTime from "./time.vue";
+import { getParam } from "src/utils/router";
+import { ref } from "vue";
+
 defineProps({
   data: {
     type: Object,
@@ -16,31 +19,41 @@ defineProps({
     default: "",
   },
 });
+
+const igo = getParam<boolean>("igo");
+
+const getUrl = function (data: any) {
+  if (igo) {
+    return `${data.path}/igo?igo=${data.query.igo}`;
+  } else {
+    return `${data}/dapp`;
+  }
+};
 </script>
 
 <template>
   <div>
-    <v-router target="_blank" :href="data.url">
+    <v-router target="_blank" :href="getUrl(data.url)">
       <!-- 项目图片和tip角标 -->
       <div class="relative h-40">
-        <DappDiscoversContentHeader :data="data" />
+        <DAppDiscoversContentHeader :data="data" />
       </div>
 
       <!-- 项目头像和项目名 -->
       <div class="w-full h-51.25 px-4 absolute top-35.75 left-0 bg-global-white rounded-md">
-        <DappDiscoversContentTitle :data="data" />
+        <DAppDiscoversContentTitle :data="data" />
         <!-- 项目描述 -->
         <div>
-          <DappDiscoversContentDec :data="data" />
+          <DAppDiscoversContentDec :data="data" />
         </div>
         <!-- 项目价格 -->
         <div>
-          <DappDiscoversContentPrice :data="data" />
+          <DAppDiscoversContentPrice :data="data" />
         </div>
 
         <!-- 项目时间 -->
         <div>
-          <DappDiscoversContentTime :status="status" :data="data" />
+          <DAppDiscoversContentTime :status="status" :data="data" />
         </div>
       </div>
     </v-router>
