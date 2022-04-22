@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import safeGet from "@fengqiaogang/safe-get";
-import safeSet from "@fengqiaogang/safe-set";
-
 /**
  * @file 新用户注册
  * @auth svon.me@gmail.com
@@ -9,17 +6,19 @@ import safeSet from "@fengqiaogang/safe-set";
 
 import API from "src/api/";
 import { messageError } from "src/lib/tool";
-import { resetFields } from "src/logic/account/register";
+import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
 import { getEnv } from "src/config/";
 import type { PropType } from "vue";
 import type { Invite } from "src/types/common/activity";
+import { ActivityStatus } from "src/types/common/activity";
 import { ref, computed } from "vue";
 import { toInteger } from "src/utils/";
 import { getUA } from "src/plugins/browser/ua";
 import * as Common from "src/logic/account/register";
 import { ValidateType } from "src/components/ui/validate/config";
 import { ElButton, ElForm, ElFormItem, ElInput, ElDialog } from "element-plus";
+import { isAfter } from "src/utils/";
 
 const props = defineProps({
   detail: {
@@ -66,7 +65,10 @@ const getDownloadUrl = function (id: string | number = 0) {
 };
 
 const emailValidate = function () {
-  return Common.checkValidateEmail(domForm);
+  if (props.detail.status === ActivityStatus.ONGOING) {
+    return Common.checkValidateEmail(domForm);
+  }
+  return Promise.reject(false);
 };
 
 const onSeadCode = function (data: object) {
@@ -127,7 +129,7 @@ const submit = async function () {
 
 <template>
   <div>
-    <el-form ref="domForm" :model="formData" :rules="rules" autocomplete="off" label-position="top" size="large" @submit.stop.prevent="submit">
+    <el-form ref="domForm" :disabled="detail.status !== ActivityStatus.ONGOING" :model="formData" :rules="rules" autocomplete="off" label-position="top" size="large" @submit.stop.prevent="submit">
       <!-- 邮箱地址 -->
       <el-form-item :label="i18n.activity.label.email" prop="email">
         <el-input v-model="formData.email" :placeholder="i18n.common.placeholder.email" autocomplete="off" type="email" />
@@ -146,14 +148,54 @@ const submit = async function () {
       <el-form-item v-if="isNew" :label="i18n.activity.label.password" prop="password">
         <el-input v-model="formData.password" :placeholder="i18n.common.placeholder.password" autocomplete="new-password" show-password type="password" />
       </el-form-item>
-
-      <el-form-item style="margin-bottom: 0">
+      <!--状态判断-->
+      <el-form-item v-if="detail.status === ActivityStatus.ONGOING" style="margin-bottom: 0">
+        <!--进行中-->
         <client-only class="w-60 mx-auto">
           <el-button class="w-full" type="primary" native-type="submit">
             <span>{{ detail.receive_text || i18n.common.button.submit }}</span>
           </el-button>
         </client-only>
       </el-form-item>
+      <client-only v-else-if="detail.status === ActivityStatus.UPCOMING">
+        <!--未开始-->
+        <div>
+          <p class="text-center">
+            <span class="text-12-16 text-global-highTitle text-opacity-85">{{ i18n.activity.label.startSoon }}</span>
+          </p>
+          <div class="mt-3 text-center">
+            <div class="inline-block">
+              <ui-time-countdown :lang="detail.language" :value="detail.begin_time" />
+            </div>
+          </div>
+        </div>
+      </client-only>
+      <client-only v-else-if="isAfter(detail.end_time)">
+        <!--奖励发完-->
+        <div>
+          <p class="text-center">
+            <span class="text-14-18 text-global-darkblue text-opacity-85">{{ i18n.activity.label.finishSoon }}</span>
+          </p>
+          <div class="mt-3 cursor-not-allowed w-60 mx-auto">
+            <div class="bg-global-highTitle bg-opacity-6 h-11 flex items-center justify-center rounded-md">
+              <span class="text-global-highTitle text-opacity-45 font-m">{{ i18n.activity.label.end }}</span>
+            </div>
+          </div>
+        </div>
+      </client-only>
+      <client-only v-else>
+        <!--已结束-->
+        <div>
+          <p class="text-center">
+            <span class="text-14-18 text-global-darkblue text-opacity-85">{{ i18n.activity.label.endSoon }}</span>
+          </p>
+          <div class="mt-3 cursor-not-allowed w-60 mx-auto">
+            <div class="bg-global-highTitle bg-opacity-6 h-11 flex items-center justify-center rounded-md">
+              <span class="text-global-highTitle text-opacity-45 font-m">{{ i18n.activity.label.end }}</span>
+            </div>
+          </div>
+        </div>
+      </client-only>
     </el-form>
 
     <el-dialog v-model="failStatus" custom-class="no-header" :append-to-body="true" width="340px">

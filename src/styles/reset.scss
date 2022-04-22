@@ -188,4 +188,38 @@
   @apply break-words;
   /* 保留换行与空格 */
   @apply whitespace-pre-wrap;
+  %bold {
+    @apply font-bold;
+  }
+  h1 {
+    font-size: 2rem;
+    @extend %bold;
+  }
+  h2 {
+    @apply text-2xl;
+    @extend %bold;
+  }
+  h3 {
+    @apply text-lg;
+    @extend %bold;
+  }
+  h4 {
+    @apply text-base;
+    @extend %bold;
+  }
+  h5 {
+    @apply text-sm;
+    @extend %bold;
+  }
+  h6 {
+    @apply text-xs;
+    @extend %bold;
+  }
+  ol, ul {
+    margin-block-end: 1rem;
+    margin-block-start: 1rem;
+  }
+  ol li, ul li {
+    list-style: initial;
+  }
 }

@@ -11,6 +11,10 @@ export default {
     code: "Verification Code",
     password: "Set Password",
     ok: "Got it",
+    end: "Ended",
+    startSoon: "The event will start soon",
+    endSoon: "The event has ended, join the community and learn more",
+    finishSoon: "Airdrop has been distributed, join the community and learn more",
   },
   prize: {
     title: "Invite friends to win rewards together",
