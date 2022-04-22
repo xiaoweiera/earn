@@ -45,7 +45,7 @@ onMounted(function () {
       <div class="max-w-200 mx-auto">
         <h3 v-show="detail.name" class="mb-3 text-32 font-b text-global-highTitle">{{ detail.name }}</h3>
         <p v-show="detail.begin_time" class="mb-8 text-14-20 text-global-highTitle text-opacity-85">
-          <span>{{ i18n.activity.label.time }}</span>
+          <span class="block md:inline mb-1 md:mb-0">{{ i18n.activity.label.time }}</span>
           <span>{{ dateYMDHmsFormat(detail.begin_time) }}</span>
           <template v-if="detail.end_time">
             <span class="mx-2">-</span>
