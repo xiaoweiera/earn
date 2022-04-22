@@ -6,16 +6,16 @@
 import _ from "lodash";
 import I18n from "src/utils/i18n";
 import * as Url from "src/utils/url/";
-import {languageKey} from "src/config/";
+import { languageKey } from "src/config/";
 import * as console from "src/plugins/log/";
 import safeSet from "@fengqiaogang/safe-set";
 import safeGet from "@fengqiaogang/safe-get";
 import getDomain from "src/plugins/browser/domain";
-import type {Href, Location, Query} from "src/types/browser/location";
+import type { Href, Location, Query } from "src/types/browser/location";
 
 export const UtmSource = "utm_source";
 
-export const setUtmSource = function(value: string | Location, domain: string = getDomain()) {
+export const setUtmSource = function (value: string | Location, domain: string = getDomain()) {
   let location: Location;
   if (_.isString(value)) {
     location = Url.urlParse(value);
@@ -48,7 +48,7 @@ export const setUtmSource = function(value: string | Location, domain: string = 
   return location;
 };
 
-export const query = function(...data: Query[]): string {
+export const query = function (...data: Query[]): string {
   const array: string[] = [];
   _.each(_.compact(data), (item: Query) => {
     _.each(item, (value: string, key: string) => {
@@ -58,7 +58,7 @@ export const query = function(...data: Query[]): string {
   return array.join("&");
 };
 
-export const createHref = function(value: string | Href | Location = "/", param?: Query) {
+export const createHref = function (value: string | Href | Location = "/", param?: Query) {
   const i18n = I18n();
   if (value) {
     // 判断是否是 Href 类型
@@ -73,8 +73,11 @@ export const createHref = function(value: string | Href | Location = "/", param?
   } else {
     value = Url.urlParse();
   }
-  // 设置中英文
-  safeSet(value, `query.${languageKey}`, i18n.getLang());
+  // 如果 url 中不存在中英文，则设置当前语言类型
+  if (!safeGet(value, `query.${languageKey}`)) {
+    // 设置中英文
+    safeSet(value, `query.${languageKey}`, i18n.getLang());
+  }
   // 设置查询参数
   if (param) {
     Object.assign(value.query, param);
@@ -82,7 +85,7 @@ export const createHref = function(value: string | Href | Location = "/", param?
   return Url.urlFormat(value);
 };
 
-export const router = function(value: string | Href | Location = "/", param?: Query) {
+export const router = function (value: string | Href | Location = "/", param?: Query) {
   console.warn("不推荐使用，请更换换 createHref 方法");
   return createHref(value, param);
 };

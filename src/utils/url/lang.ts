@@ -13,7 +13,7 @@ import { Language } from "src/types/language";
 import { getValue } from "src/utils/root/data";
 import { getQuery } from "./query";
 
-function getLang(value?: Lang): Language {
+const _getLang = function (value?: Lang): Language {
   if (value && _.isString(value)) {
     let key: Language | undefined;
     for (const name of Object.keys(Language)) {
@@ -37,13 +37,21 @@ function getLang(value?: Lang): Language {
     return getQuery<Language>(value as string, languageKey) || Language.auto;
   }
   const lang = getValue<Language>(`query.${languageKey}`);
-  if (lang && lang === Language.en) {
-    return Language.en;
-  }
-  if (lang && lang === Language.cn) {
-    return Language.cn;
+  if (lang) {
+    return lang;
   }
   return getQuery<Language>(window.location.href, languageKey) || Language.auto;
-}
+};
+
+const getLang = function (value?: Lang): Language {
+  const lang = _getLang(value);
+  if (lang === Language.en) {
+    return Language.en;
+  }
+  if (lang === Language.cn) {
+    return Language.cn;
+  }
+  return Language.auto;
+};
 
 export default getLang;

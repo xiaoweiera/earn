@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 验证码
  * @author svon.me@gmail.com
@@ -10,6 +10,9 @@ import I18n from "src/utils/i18n";
 import { messageError } from "src/lib/tool";
 import type { Query } from "src/types/browser/location";
 import { ValidateType, maxTimeValue } from "./config";
+import type { Language } from "src/types/language/";
+
+const emitEvent = defineEmits(["click"]);
 
 const props = defineProps({
   type: {
@@ -31,6 +34,10 @@ const props = defineProps({
     default() {
       return {};
     },
+  },
+  language: {
+    type: String as PropType<Language>,
+    default: "",
   },
 });
 
@@ -56,12 +63,14 @@ const onSeadCode = async function (value: string | undefined) {
     });
     try {
       const api = new API();
+      let res = {};
       // 发送验证码
       if (props.mobile) {
-        await api.user.getMobileCaptcha(data, props.type);
+        res = await api.user.getMobileCaptcha(data, props.type);
       } else {
-        await api.user.getEmailCaptcha(data, props.type);
+        res = await api.user.getEmailCaptcha(data, props.type);
       }
+      emitEvent("click", { ...res, ...data });
     } catch (e: any) {
       const { message } = e || {};
       if (message) {
@@ -71,14 +80,31 @@ const onSeadCode = async function (value: string | undefined) {
         messageError(i18n.apply.tips.error);
       }
       countDownTime(0); // 取消倒计时
+      emitEvent("click", { token: "" });
     }
   }
 };
 </script>
 
 <template>
-  <div class="min-w-10 text-center">
-    <span v-if="times > 0">{{ times }}s</span>
-    <ui-captcha v-else :before="before" @click="onSeadCode" />
+  <div :class="{ 'validate-active': times > 0 }" class="min-w-10 text-center">
+    <span class="time-wrap">{{ times }}s</span>
+    <ui-captcha :before="before" :language="language" class="ui-captcha" @click="onSeadCode" />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.time-wrap {
+  @apply hidden;
+}
+
+.validate-active {
+  .ui-captcha {
+    @apply hidden;
+  }
+
+  .time-wrap {
+    @apply inline-block;
+  }
+}
+</style>

@@ -3,18 +3,31 @@
  * @author svon.me@gmail.com
  */
 
+import I18n from "src/utils/i18n/";
+import API from "src/api/";
+import { languageKey } from "src/config";
 import safeGet from "@fengqiaogang/safe-get";
 import type { Request, Response } from "express";
 import { goHome } from "src/controller/common/redirect";
-import { Activity } from "src/types/common/activity";
+import { Activity, Invite } from "src/types/common/activity";
+import * as alias from "src/utils/root/alias";
 
 // 活动 - 邀请
 export const invite = async function (req: Request, res: Response) {
-  return res.send({
-    title: "Activity - KingData",
-    keywords: "活动规则",
-    description: "Bitcoin, Ethereum, blockchain, cryptocurrencies, altcoins, crypto, decentralization, money, DeFi, decentralized finance, derivatives, crypto exchanges, 比特币、以太坊、区块链、加密货币、山寨币、加密、去中心化、货币、DeFi、去中心化金融、衍生品、加密交易所",
-  });
+  const id = safeGet<string>(req.params, "id");
+  if (id) {
+    const api = new API(req);
+    const data = await api.activity.getInviteDetail<Invite>(id);
+    const i18n = I18n(data?.language);
+    req.query[languageKey] = i18n.getLang();
+
+    return res.send({
+      title: data.name ? `${data.name} - KingData` : "KingData",
+      keywords: i18n.activity.tdk.keywords,
+      description: i18n.activity.tdk.description,
+      [alias.activity.invite.detail]: data,
+    });
+  }
 };
 
 // 活动入口

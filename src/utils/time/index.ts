@@ -126,6 +126,13 @@ export const dateYMDHmFormat = function (time?: any): string {
   }
   return dateFormat(time, "YYYY.MM.DD HH:mm");
 };
+export const dateYMDHmsFormat = function (time?: any): string {
+  const i18n = I18n();
+  if (i18n.getLang() === Language.en) {
+    return dateFormat(time, "MM.DD.YYYY HH:mm:ss");
+  }
+  return dateFormat(time, "YYYY.MM.DD HH:mm:ss");
+};
 export const dateYearFormat = function (time?: any): string {
   return dateFormat(time, "YYYY");
 };

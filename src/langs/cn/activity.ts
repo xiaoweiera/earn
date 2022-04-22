@@ -1,4 +1,8 @@
 export default {
+  tdk: {
+    keywords: "不容错过的加密世界空投活动",
+    description: "比特币,以太坊,区块链,加密货币,山寨币,加密,去中心化,货币,DeFi,去中心化金融,衍生品,加密交易所",
+  },
   label: {
     time: "活动时间: ",
     prize: "活动奖品及规则",

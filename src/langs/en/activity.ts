@@ -1,4 +1,8 @@
 export default {
+  tdk: {
+    keywords: "Never miss an airdrop event in the crypto world",
+    description: "Bitcoin,Ethereum,blockchain,cryptocurrencies,altcoins,crypto,decentralization,money,DeFi,decentralized finance,derivatives,crypto exchanges",
+  },
   label: {
     time: "Time: ",
     prize: "Rewards and Rules",
