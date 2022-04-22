@@ -11,9 +11,9 @@ import { config as routerConfig } from "src/router/config";
 import type { Request, Response } from "express";
 import { Router as ExpressRouter } from "express";
 
-const Router = function() {
+const Router = function () {
   const router = ExpressRouter();
-
+  //兼容博客详情页老路由
   router.get(`${routerConfig.blog}/detail`, (req: Request, res: Response) => {
     const query = req.query;
     const id = safeGet<string>(query, "id");

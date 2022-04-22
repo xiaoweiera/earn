@@ -30,7 +30,7 @@ defineProps({
 .ui-spin {
   &.fit {
     .loading-icon {
-      @apply fixed;
+      @apply fixed z-9999;
     }
   }
 

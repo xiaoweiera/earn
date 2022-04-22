@@ -53,7 +53,7 @@ const getImg = (type: string, item: any) => {
 };
 const getHref = (type: string, item: any) => {
   if (type === "topic") {
-    return `${config.homeDetail}?id=${item.id}`;
+    return `${config.homeDetail}/${item.id}`;
   }
   return item.url;
 };

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import I18n from "src/utils/i18n/index";
 import { ElOption, ElSelect } from "element-plus";
 import { getParam } from "src/utils/router";
@@ -22,6 +22,7 @@ const props = defineProps({
   },
 });
 const router = useRouter();
+const route = useRoute();
 const query = getParam<object>();
 const i18n = I18n();
 const chain = ref(getParam<object>("chain") ? getParam<object>("chain") : "All");
@@ -41,7 +42,7 @@ const mergeData = (key: string, data: any) => {
     data.value.push({
       ...prop,
       href: {
-        path: routerConfig.homeDetail,
+        path: `${routerConfig.homeDetail}/${safeGet(route, "params.id")}`,
         query: param,
       },
     });
@@ -77,21 +78,11 @@ const isCategory = computed<boolean>(() => {
             </div>
             <ui-tab class="relative z-22" :list="categoryData" :split="3" active-name="category" />
           </div>
-          <IconFont
-            v-if="isCategory && isChain"
-            class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5 h-full"
-            type="icon-gang"
-          />
+          <IconFont v-if="isCategory && isChain" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5 h-full" type="icon-gang" />
           <div v-if="isChain" class="flex items-center">
             <span class="mr-4 text-kd14px18px text-global-highTitle text-opacity-65">{{ i18n.home.chain }}</span>
             <client-only class="flex items-center justify-between">
-              <el-select
-                v-model="chain"
-                :popper-append-to-body="false"
-                class="projectMining flex-1 select"
-                size="small"
-                @change="change"
-              >
+              <el-select v-model="chain" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="change">
                 <el-option v-for="item in chainData" :key="item.name" :label="item.name" :value="item.name" />
               </el-select>
             </client-only>

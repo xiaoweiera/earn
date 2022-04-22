@@ -10,7 +10,7 @@ const routes = [
     component: () => import("src/pages/home/index.vue"),
   },
   {
-    path: `${router.homeDetail}`,
+    path: `${router.homeDetail}/:id`,
     component: () => import("src/pages/home/detail/index.vue"),
   },
 ];
