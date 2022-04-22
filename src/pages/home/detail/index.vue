@@ -9,11 +9,12 @@ import HomeDetailTopic from "./topic.vue";
 import HomeDetailTop from "./top.vue";
 import HomeDetailTable from "./table.vue";
 import HomeDetailInfo from "./info.vue";
-
+import { useRoute } from "vue-router";
+import safeGet from "@fengqiaogang/safe-get";
+const route = useRoute();
 const data = createReactive<detail>("API.home.getDetail", {} as any);
 onMounted(() => {
-  const id = getValue<string>("query.id", "");
-
+  const id: string = safeGet(route, "params.id");
   // 上报数据
   track.push(track.Origin.gio, track.event.subject.detail, {
     subject_detail_id: id,
