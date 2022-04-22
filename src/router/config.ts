@@ -12,7 +12,7 @@ const user = {
 export const config = {
   dashboard,
   home: dashboard,
-  homeDetail: "/subject/detail",
+  homeDetail: "/subject",
   topic: "/topic",
   growthpad: "/growthpad",
   apy: "/apy",
