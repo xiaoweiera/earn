@@ -11,6 +11,7 @@ import Rank from "./rank";
 import APY from "./apy/";
 import Comment from "./comment";
 import Invest from "./invest";
+import Activity from "./activity";
 
 export default class API extends ApiTemplate {
   public home: Home;
@@ -23,6 +24,7 @@ export default class API extends ApiTemplate {
   public apy: APY;
   public comment: Comment;
   public invest: Invest;
+  public activity: Activity;
   constructor(value?: Lang) {
     super(value);
     this.home = new Home(value);
@@ -35,5 +37,6 @@ export default class API extends ApiTemplate {
     this.apy = new APY(value);
     this.comment = new Comment(value);
     this.invest = new Invest(value);
+    this.activity = new Activity(value);
   }
 }

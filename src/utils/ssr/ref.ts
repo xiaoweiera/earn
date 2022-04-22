@@ -14,7 +14,10 @@ export * as alias from "src/utils/root/alias";
 
 export const createRef = function <T>(key: string, auto: T) {
   const value = getValue<T>(key, auto);
-  return ref<T>(value);
+  if (value) {
+    return ref<T>(value);
+  }
+  return ref<T>();
 };
 
 export const createReactive = function <T>(key: string, auto: T) {

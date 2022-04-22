@@ -4,6 +4,7 @@
  * @author svon.me@gmail.com
  */
 import * as console from "src/plugins/log/";
+import type { Language } from "src/types/language";
 import type { PropType } from "vue";
 import { onBeforeMount } from "vue";
 import { getEnv } from "src/config/";
@@ -26,6 +27,10 @@ const props = defineProps({
   },
   value: {
     type: String,
+    default: "",
+  },
+  language: {
+    type: String as PropType<Language>,
     default: "",
   },
 });
@@ -80,7 +85,7 @@ const text = function () {
   if (props.value) {
     return props.value;
   }
-  const i18n = I18n();
+  const i18n = I18n(props.language);
   return i18n.common.message.verification;
 };
 
@@ -98,9 +103,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div @click="onSendCode">
+  <span @click="onSendCode">
     <slot>
       <span class="link cursor-pointer">{{ text() }}</span>
     </slot>
-  </div>
+  </span>
 </template>

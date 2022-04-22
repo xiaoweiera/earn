@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import safeGet from "@fengqiaogang/safe-get";
+
 /**
  * @file 邮箱注册
  * @author svon.me@gmail.com
@@ -26,9 +28,9 @@ const emailValidate = function () {
 };
 
 // 获取验证码
-const onSeadCode = async function (value: string | undefined) {
+const onSeadCode = function (data: object) {
   // 保存人机校验得到的值
-  formData.token = value;
+  formData.token = safeGet<string>(data, "token") || "";
 };
 const selfGoBack = function () {
   // 返回登录页面

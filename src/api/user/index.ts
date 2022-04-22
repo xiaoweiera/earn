@@ -106,6 +106,13 @@ export default class extends ApiTemplate {
     };
     return [value] as any;
   }
+  // 运营活动 - 邮箱注册
+  @post(api.user.registerInviteEmail)
+  @userToken()
+  @validate
+  registerInviteEmail<T>(@required data: object): Promise<T> {
+    return [data] as any;
+  }
 
   // 邮箱登录
   @post(api.user.emailLogin)

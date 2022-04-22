@@ -1,51 +1,57 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /**
  * @file 邀请活动
  * @auth svon.me@gmail.com
- *
- *
  */
 
+import API from "src/api/";
+import { onMounted, computed } from "vue";
 import I18n from "src/utils/i18n";
 import Footer from "./footer.vue";
 import Download from "./download.vue";
 import Fixed from "./fixed.vue";
-import { asyncLoad } from "src/plugins/lazyload";
+import Register from "./register.vue";
+import { Invite } from "src/types/common/activity";
+import { getValue } from "src/utils/root/data";
+import { alias, onLoadReactive, createReactive } from "src/utils/ssr/ref";
+import { dateYMDHmsFormat } from "src/utils/";
 
-const i18n = I18n();
+const detail = createReactive<Invite>(alias.activity.invite.detail, {} as Invite);
 
-const Register = asyncLoad(() => import("./register.vue"));
+const i18n = computed(function () {
+  if (detail && detail.language) {
+    return I18n(detail.language);
+  }
+  return I18n();
+});
+
+onMounted(function () {
+  const id = getValue<string>("query.id");
+  if (id) {
+    onLoadReactive<Invite>(detail, function () {
+      const api = new API();
+      return api.activity.getInviteDetail<Invite>(id);
+    });
+  }
+});
 </script>
 
 <template>
   <div>
-    <div>
-      <ui-image src="https://iph.href.lu/1440x500?text=activity&fg=ffffff&bg=4D56FF" fit="none" />
+    <div v-if="detail.cover">
+      <ui-image :src="detail.cover" fit="none" />
     </div>
     <div class="pt-16 px-4 pb-8">
       <div class="max-w-200 mx-auto">
-        <h3 class="text-32 font-b text-global-highTitle">活动名称</h3>
-        <p class="mt-3 text-14-20 text-global-highTitle text-opacity-85">
+        <h3 v-show="detail.name" class="mb-3 text-32 font-b text-global-highTitle">{{ detail.name }}</h3>
+        <p v-show="detail.begin_time" class="mb-8 text-14-20 text-global-highTitle text-opacity-85">
           <span>{{ i18n.activity.label.time }}</span>
-          <span>Feb 5,2022/ 12PMUTC</span>
+          <span>{{ dateYMDHmsFormat(detail.begin_time) }}</span>
         </p>
-        <h4 class="mt-8 text-global-highTitle text-24-28">{{ i18n.activity.label.prize }}</h4>
-        <div class="mt-4 activity-content-wrap">
+        <h4 class="text-global-highTitle text-24-28">{{ i18n.activity.label.prize }}</h4>
+        <div class="mt-4 rich-text">
           <div class="text-16-22 text-global-highTitle text-opacity-85">
-            <p>活动内容活动内容活动内容活动内容</p>
-            <p class="mt-4">需要翻译的文案：</p>
-            <div class="mt-1 p-2 border border-solid border-gray-300 text-black">
-              <p>
-                非常抱歉，您不满足领取条件
-                <br />
-                加入社区了解更多活动信息
-              </p>
-              <p class="mt-4">
-                您已成功领取过该空投
-                <br />
-                请勿重复操作
-              </p>
-            </div>
+            <div v-if="detail.description" v-html="detail.description"></div>
           </div>
         </div>
       </div>
@@ -57,19 +63,21 @@ const Register = asyncLoad(() => import("./register.vue"));
             <h3 class="text-24-28 font-m text-global-highTitle">{{ i18n.activity.label.register }}</h3>
           </div>
           <!--用户注册-->
-          <Register :id="1234" />
+          <client-only v-if="detail.id">
+            <Register :detail="detail" />
+          </client-only>
         </div>
-        <div class="pb-15">
-          <Download :id="1234" />
+        <div v-if="detail.id" class="pb-15">
+          <Download :detail="detail" />
         </div>
-        <div class="pb-15">
-          <ui-image src="https://iph.href.lu/800x157?text=合作伙伴&fg=666666&bg=cccccc" fit="none" />
+        <div v-if="detail.partners_poster" class="pb-15">
+          <ui-image :src="detail.partners_poster" fit="none" />
         </div>
       </div>
     </div>
     <div class="pb-6 px-4">
       <div class="max-w-200 mx-auto pt-6 border-t border-solid border-global-highTitle border-opacity-6">
-        <Footer />
+        <Footer :detail="detail" />
       </div>
     </div>
     <Fixed />

@@ -54,8 +54,8 @@ export const createFormData = function (value?: FormData) {
   return reactive<FormData>(data);
 };
 
-export const rules = function () {
-  const i18n = I18n();
+export const rules = function (lang?: string) {
+  const i18n = I18n(lang);
   return {
     checked: [
       {
@@ -193,7 +193,7 @@ export const checkValidateEmail = function (form: Ref): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const callback = function (isValid?: boolean, invalidFields?: Error) {
       if (isValid && invalidFields) {
-        console.error("validateField email");
+        console.log("validateField email");
         reject(invalidFields);
       } else {
         resolve(true);
@@ -214,7 +214,7 @@ export const checkValidateMobile = function (form: Ref): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const callback = function (isValid?: boolean, invalidFields?: Error) {
       if (isValid && invalidFields) {
-        console.error("validateField mobile");
+        console.log("validateField mobile");
         reject(invalidFields);
       } else {
         resolve(true);

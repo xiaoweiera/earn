@@ -5,11 +5,23 @@
  */
 
 import VRouter from "src/components/v/router.vue";
+import type { Invite } from "src/types/common/activity";
 import I18n from "src/utils/i18n";
 import { getEnv } from "src/config/";
+import { computed } from "vue";
+import type { PropType } from "vue";
 
-const i18n = I18n();
+const props = defineProps({
+  detail: {
+    required: true,
+    type: Object as PropType<Invite>,
+  },
+});
+
 const env = getEnv();
+const i18n = computed(function () {
+  return I18n(props.detail?.language);
+});
 </script>
 
 <template>
