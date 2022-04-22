@@ -56,12 +56,6 @@ onMounted(function () {
         <div class="mt-4 rich-text">
           <div class="text-16-22 text-global-highTitle text-opacity-85">
             <div v-if="detail.description" v-html="detail.description"></div>
-            <div>
-              <ol>
-                <li>1</li>
-                <li>2</li>
-              </ol>
-            </div>
           </div>
         </div>
       </div>
