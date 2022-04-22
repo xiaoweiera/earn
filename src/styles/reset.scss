@@ -188,8 +188,10 @@
   @apply break-words;
   /* 保留换行与空格 */
   @apply whitespace-pre-wrap;
+
   %bold {
     @apply font-bold;
+    line-height: normal;
   }
   h1 {
     font-size: 2rem;
