@@ -15,7 +15,7 @@ const recommend: any = createRef("API.home.getRecommend", []);
 const lastPage = ref(1);
 const resultNumber = ref(0); // 返回结果数
 // 上一页
-const last = async() => {
+const last = async () => {
   if (params.page <= 1 || loading.value) return;
   params.page--;
   lastPage.value--;
@@ -26,7 +26,7 @@ const last = async() => {
   loading.value = false;
 };
 // 下一页
-const next = async() => {
+const next = async () => {
   if (loading.value) return;
   params.page++;
   loading.value = true;
@@ -51,15 +51,15 @@ onMounted(() => {
     <div class="header h-10.5">
       <span class="text-kd14px18px text-global-highTitle font-medium">{{ i18n.home.hotTopic }}</span>
       <div class="flex items-center">
-        <IconFont class="mr-6" :class="lastPage>1?'fan':'fan-no'" size="10" type="icon-leftNo" @click="last()" />
-        <IconFont :class="resultNumber >= params.page_size?'fan':'fan-no'" size="10" type="icon-rightNo" @click="next()" />
+        <IconFont class="mr-6" :class="lastPage > 1 ? 'fan' : 'fan-no'" size="10" type="icon-leftNo" @click="last()" />
+        <IconFont :class="resultNumber >= params.page_size ? 'fan' : 'fan-no'" size="10" type="icon-rightNo" @click="next()" />
       </div>
     </div>
     <template v-for="(item, index) in recommend" :key="index">
       <v-router class="text-kdFang flex items-center mt-3 cursor-pointer" :href="`${config.homeDetail}?id=${item.id}`">
-        <ui-image class="w-8 mix-w-8 h-8 rounded-full overflow-hidden" :src="item['cover']" fit="cover" />
+        <ui-image class="w-8 min-w-8 h-8 rounded-full overflow-hidden" :src="item['cover']" fit="cover" />
         <span class="ml-2 text-global-primary txt">#</span>
-        <span class="txt ml-0.5 text-global-highTitle text-opacity-85 short">{{ item['name'] }}</span>
+        <span class="txt ml-0.5 text-global-highTitle text-opacity-85 short">{{ item["name"] }}</span>
       </v-router>
     </template>
   </div>
@@ -68,7 +68,7 @@ onMounted(() => {
 .fan {
   @apply text-global-highTitle text-opacity-65 cursor-pointer;
 }
-.fan-no{
+.fan-no {
   @apply text-global-highTitle text-opacity-10;
 }
 .pageNumber {

@@ -19,7 +19,11 @@ import _ from "lodash";
 const props = defineProps({
   category: {
     type: String,
-    default: () => "",
+    default: "",
+  },
+  orderBy: {
+    type: String,
+    default: "volume",
   },
 });
 const i18n = I18n();
@@ -31,7 +35,7 @@ const param = reactive({
   chain: getParam<string>("chain") || "all",
   group_id: getParam<string>("group") || "all",
   interval: "24h",
-  sort_field: "volume",
+  sort_field: props.orderBy,
   sort_type: "desc",
   query: "",
 });

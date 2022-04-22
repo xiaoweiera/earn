@@ -28,7 +28,7 @@ const props = defineProps({
 const i18n = I18n();
 const route = useRoute();
 const router = useRouter();
-const id = getParam<string>("id");
+const id: string = safeGet(route, "params.id");
 const chain = ref(getParam<string>("chain"));
 const category = ref(getParam<string>("category"));
 const query = ref(getParam<string>("search"));
@@ -45,7 +45,6 @@ const params = reactive({
 const resultNumber = ref(0);
 const loading = ref(false);
 const key = ref(0);
-
 const api = new Model();
 watch(route, () => {
   const query: any = getParam<string>();
@@ -61,7 +60,7 @@ watch(search, (n: any) => {
   const query: any = getParam<object>();
   params.query = n;
   router.push({
-    path: routerConfig.homeDetail,
+    path: `${routerConfig.homeDetail}/${safeGet(route, "params.id")}`,
     query: {
       ...query,
       // @ts-ignore

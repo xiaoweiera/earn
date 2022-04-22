@@ -9,6 +9,7 @@ import * as alias from "src/utils/root/alias";
 import redirect from "src/controller/common/redirect";
 import { config } from "src/router/config";
 import I18n from "src/utils/i18n";
+import safeGet from "@fengqiaogang/safe-get";
 // home页面
 export const begin = async function (req: Request, res: Response) {
   const i18n = I18n(req);
@@ -33,7 +34,7 @@ export const begin = async function (req: Request, res: Response) {
 export const detail = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
-  const id = req.query.id as string;
+  const id: string = safeGet<string>(req.params, "id");
   if (!id) {
     redirect(req, res, config.home);
     return;

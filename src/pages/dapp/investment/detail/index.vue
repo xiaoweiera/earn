@@ -12,7 +12,6 @@ import safeGet from "@fengqiaogang/safe-get";
 
 const detail: detailModel = createReactive<detailModel>(alias.invest.detail.info, {} as detailModel);
 
-const id = getValue<string>("query.id", "");
 const route = useRoute();
 const investor_id: string | number = safeGet(route, "params.id");
 onMounted(() => {
