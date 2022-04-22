@@ -47,11 +47,21 @@ onMounted(function () {
         <p v-show="detail.begin_time" class="mb-8 text-14-20 text-global-highTitle text-opacity-85">
           <span>{{ i18n.activity.label.time }}</span>
           <span>{{ dateYMDHmsFormat(detail.begin_time) }}</span>
+          <template v-if="detail.end_time">
+            <span class="mx-2">-</span>
+            <span>{{ dateYMDHmsFormat(detail.end_time) }}</span>
+          </template>
         </p>
         <h4 class="text-global-highTitle text-24-28">{{ i18n.activity.label.prize }}</h4>
         <div class="mt-4 rich-text">
           <div class="text-16-22 text-global-highTitle text-opacity-85">
             <div v-if="detail.description" v-html="detail.description"></div>
+            <div>
+              <ol>
+                <li>1</li>
+                <li>2</li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
@@ -80,6 +90,6 @@ onMounted(function () {
         <Footer :detail="detail" />
       </div>
     </div>
-    <Fixed />
+    <Fixed v-if="detail.id" :detail="detail" />
   </div>
 </template>

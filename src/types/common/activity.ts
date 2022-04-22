@@ -27,9 +27,17 @@ export interface ShareItem {
   method: Method;
 }
 
+export enum ActivityStatus {
+  UNCENSORED = "UNCENSORED", // 未审核
+  UPCOMING = "UPCOMING", // 即将开始
+  ONGOING = "ONGOING", // 进行中
+  FINISHED = "FINISHED", // 已结束
+}
+
 // 邀请数据详情
 export interface Invite {
   id: string | number;
+  status: ActivityStatus;
   language: Language;
   name: string; // 标题
   cover: string; // 封面

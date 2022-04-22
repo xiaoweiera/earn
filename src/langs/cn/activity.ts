@@ -11,6 +11,10 @@ export default {
     code: "验证码",
     password: "设置密码",
     ok: "我知道了",
+    end: "活动已结束",
+    startSoon: "活动即将开始",
+    endSoon: "活动已结束，加入社区关注更多活动信息",
+    finishSoon: "空投已发放完毕，加入社区关注更多活动信息",
   },
   prize: {
     title: "邀请好友一起领取奖励",

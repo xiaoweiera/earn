@@ -1,17 +1,25 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 // 倒计时
 import dayjs from "dayjs";
 import { dateTime } from "src/utils";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch, computed } from "vue";
 import I18n from "src/utils/i18n/index";
 
-const i18n = I18n();
 const props = defineProps({
   value: {
     type: [String, Number],
     default: "",
   },
+  lang: {
+    type: String,
+    default: "",
+  },
 });
+
+const i18n = computed(function () {
+  return I18n(props.lang);
+});
+
 const day = ref<string>("00");
 const hour = ref<string>("00");
 const minute = ref<string>("00");
@@ -102,34 +110,22 @@ onMounted(() => {
     <span class="font-color-theme font-bold font-kdFang whitespace-nowrap inline-block pb-4">
       <span class="relative">
         <span class="text-2xl md:text-4xl inline-block min-w-11.5 text-center">{{ day }}</span>
-        <span
-          class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2"
-          >{{ i18n.common.time.dd }}</span
-        >
+        <span class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.dd }}</span>
       </span>
       <span class="text-lg px-4">:</span>
       <span class="relative">
         <span class="text-2xl md:text-4xl inline-block min-w-11.5 text-center">{{ hour }}</span>
-        <span
-          class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2"
-          >{{ i18n.common.time.hh }}</span
-        >
+        <span class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.hh }}</span>
       </span>
       <span class="text-lg px-4 relative">:</span>
       <span class="relative">
         <span class="text-2xl md:text-4xl inline-block min-w-11.5 text-center">{{ minute }}</span>
-        <span
-          class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2"
-          >{{ i18n.common.time.mm }}</span
-        >
+        <span class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.mm }}</span>
       </span>
       <span class="text-lg px-4 relative">:</span>
       <span class="relative">
         <span class="text-2xl md:text-4xl inline-block min-w-11.5 text-center">{{ second }}</span>
-        <span
-          class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2"
-          >{{ i18n.common.time.ss }}</span
-        >
+        <span class="text-global-default text-opacity-65 absolute top-full left-1/2 text-xs transform -translate-x-1/2">{{ i18n.common.time.ss }}</span>
       </span>
     </span>
   </slot>
