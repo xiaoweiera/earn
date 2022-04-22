@@ -27,6 +27,9 @@ export default {
     learnMore: "Learn More",
     funds: "FUNDS",
     trend: "Investment Trends",
+    investmentTitle: "FUNDS",
+    financing: "Round",
+    investment: "Funds",
   },
   page: {
     title: "Investment trends | KingData",
