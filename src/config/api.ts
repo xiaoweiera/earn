@@ -32,6 +32,7 @@ export const dapp = {
   floorData: "/api/v1/dapps/chart/floor_price", //地板价图表
   tokenData: "/api/v1/dapps/cryptocurrency/price_chart", //代币图表
   tokenList: "/api/v1/dapps/cryptocurrency", //代币列表
+  projectInfo: "/api/v1/dapps/cryptocurrency", //项目信息
   news: "/api/v1/dapps/news", //news列表
 };
 

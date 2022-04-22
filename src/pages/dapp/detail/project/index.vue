@@ -3,6 +3,7 @@ import I18n from "src/utils/i18n";
 import _ from "lodash";
 import { reactive, ref } from "vue";
 import { uuid } from "src/utils";
+import { Model } from "src/logic/dapp/detail";
 
 defineProps({
   data: Object,
@@ -20,17 +21,17 @@ const params = reactive({
 
 //排序
 const sort = () => listChange();
-
+const api = new Model();
 const listChange = _.debounce(() => {
   key.value = uuid();
 }, 300);
 
 const requestList = () => {
-  // return api.invest.getInvestment(params);
+  // return api.getProjectInfo(params);
 };
 const initValue = () => {
   // onLoadRef<object>(data, () => {
-  //   return api.invest.getInvestment(params);
+  //   return api.getProjectInfo(params);
   // });
 };
 
@@ -45,16 +46,16 @@ const list = [
 
 <template>
   <div>
-    <div class="mb-6">
-      <h1 class="text-global-highTitle text-kd24px28px font-medium">投资机构</h1>
+    <div class="mb-6 mt-14">
+      <h1 class="text-global-highTitle text-kd24px28px font-medium">{{ i18n.invest.project.investmentTitle }}</h1>
       <!-- 数据合集 -->
       <div class="w-full md:w-92 grid grid-cols-2 gap-6 mt-3">
         <div class="project-round">
-          <p class="round-title">融资轮次</p>
+          <p class="round-title">{{ i18n.invest.project.financing }}</p>
           <p class="round-num">2</p>
         </div>
         <div class="project-round">
-          <p class="round-title">筹款总额</p>
+          <p class="round-title">{{ i18n.invest.project.totalRaised }}</p>
           <p class="round-num">$1.8M</p>
         </div>
       </div>
@@ -67,7 +68,7 @@ const list = [
         <table class="table-my mb-4">
           <thead>
             <tr class="border-tb">
-              <td class="w-20">
+              <td class="w-10">
                 <div class="sort pl-3 text-number">#</div>
               </td>
               <td class="w-30">
@@ -80,7 +81,7 @@ const list = [
                 <uiSort class="sort justify-center" :sort-data="params" key-name="stage_name" :name="i18n.invest.fundAmount" @change="sort" />
               </td>
               <td class="pr-3">
-                <uiSort class="sort justify-end" :sort-data="params" key-name="amount" :name="i18n.invest.fundAmount" @change="sort" />
+                <uiSort class="sort justify-end" :sort-data="params" key-name="amount" :name="i18n.invest.project.investment" @change="sort" />
               </td>
             </tr>
           </thead>
