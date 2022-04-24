@@ -18,7 +18,7 @@ defineProps({
 
 <template>
   <div>
-    <div class="fixed right-5 bottom-1/3 z-99 hidden md:block fixed-wrap">
+    <div class="fixed right-5 bottom-1/5 z-99 hidden md:block fixed-wrap">
       <div v-for="(data, index) in detail.share_links" :key="index" class="mt-3 first:mt-0 flex justify-end">
         <template v-if="data.presentation === Presentation.qrcode">
           <ui-hover :append-to-body="false" :offset="12" placement="left">

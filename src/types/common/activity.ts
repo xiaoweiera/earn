@@ -31,7 +31,8 @@ export enum ActivityStatus {
   UNCENSORED = "UNCENSORED", // 未审核
   UPCOMING = "UPCOMING", // 即将开始
   ONGOING = "ONGOING", // 进行中
-  FINISHED = "FINISHED", // 已结束
+  ENDED = "ENDED", // 活动结束，时间到期
+  COMPLETED = "COMPLETED", // 活动结束，奖励已被领取完毕
 }
 
 // 邀请数据详情
