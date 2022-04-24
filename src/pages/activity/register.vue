@@ -8,7 +8,6 @@ import API from "src/api/";
 import { messageError } from "src/lib/tool";
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
-import { getEnv } from "src/config/";
 import type { PropType } from "vue";
 import type { Invite } from "src/types/common/activity";
 import { ActivityStatus } from "src/types/common/activity";
