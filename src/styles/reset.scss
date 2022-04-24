@@ -189,6 +189,12 @@
   /* 保留换行与空格 */
   @apply whitespace-pre-wrap;
 
+  img {
+    display: block;
+    border: 0 !important;
+    max-width: 100% !important;
+  }
+
   %bold {
     @apply font-bold;
     line-height: normal;
