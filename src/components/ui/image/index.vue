@@ -9,6 +9,8 @@ import type { PropType } from "vue";
 import { computed, ref } from "vue";
 import { getEnv } from "src/config";
 import { isLink } from "src/utils/";
+import { bgColorItem } from "src/types/ui/label";
+import { upperFirst } from "src/utils";
 
 type Fit = "cover" | "contain" | "fill" | "none";
 
@@ -87,6 +89,18 @@ const index = computed<number>(function () {
   }
   return 0;
 });
+const getBgColor = function () {
+  let num = Math.floor(Math.random() * 36);
+  return `--bg-color:${bgColorItem[num]}`;
+};
+
+const getName = function (name: string) {
+  if (name) {
+    let text = upperFirst(name.slice(0, 2));
+    return text;
+  }
+  return "As";
+};
 </script>
 
 <template>
@@ -99,12 +113,18 @@ const index = computed<number>(function () {
       </el-image>
     </template>
     <template v-else>
-      <el-image :fit="getFitValue(fit)" :lazy="false" :src="getImageLink()" class="block w-full h-full" />
+      <span v-if="title" :style="getBgColor()" class="back-color flex items-center justify-center w-full h-full">
+        {{ getName(title) }}
+      </span>
+      <el-image v-else :fit="getFitValue(fit)" :lazy="false" :src="getImageLink()" class="block w-full h-full" />
     </template>
   </client-only>
 </template>
 <style lang="scss" scoped>
 @import "src/styles/function";
+.back-color {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%), var(--bg-color);
+}
 
 .ui-image {
   @apply relative;
