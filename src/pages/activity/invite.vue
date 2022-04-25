@@ -34,6 +34,13 @@ onMounted(function () {
     });
   }
 });
+
+const getHtml = function (value: string): string {
+  if (value) {
+    return value.replace(/>\s+</g, "><br/><");
+  }
+  return "";
+};
 </script>
 
 <template>
@@ -55,7 +62,7 @@ onMounted(function () {
         <h4 class="text-global-highTitle text-24-28">{{ i18n.activity.label.prize }}</h4>
         <div class="mt-4 rich-text">
           <div class="text-16-22 text-global-highTitle text-opacity-85">
-            <div v-if="detail.description" v-html="detail.description"></div>
+            <div v-if="detail.description" v-html="getHtml(detail.description)"></div>
           </div>
         </div>
       </div>
