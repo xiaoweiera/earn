@@ -54,7 +54,7 @@ const getIcon = (item: string) => {
           <tr v-if="item.data_type !== 'ad'" class="h-14 hand" @click="getNextUrl(item)">
             <td>
               <div class="flex-center">
-                <ui-image :src="item.logo" class="w-8 h-8" rounded />
+                <ui-image :src="item.logo" class="w-8 h-8 text-12-12 font-kdInter" rounded :title="item.name" />
                 <div class="ml-1.5">
                   <div class="numberDefault text-number line-height-no">{{ item.name }}</div>
                   <div class="nameTag text-number text-left line-height-no">{{ item.category }}</div>

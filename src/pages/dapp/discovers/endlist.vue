@@ -10,9 +10,9 @@ import VRouter from "src/components/v/router.vue";
 const emit = defineEmits(["changeSort"]);
 const props = defineProps({
   list: {
-    type: Object as PropType<ProjectItem>,
+    type: Array,
     default: () => {
-      return {};
+      return [];
     },
   },
   params: {
@@ -59,7 +59,7 @@ const getIcon = (item: string) => {
           <v-router v-if="item.data_type !== 'ad'" class="h-14 hand" :href="item.url" target="_blank" name="tr">
             <td>
               <div class="flex-center">
-                <ui-image class="w-8 h-8" rounded :src="item.logo" />
+                <ui-image class="w-8 h-8 text-12-12 font-kdInter" rounded :src="item.logo" :title="item.name" />
                 <div class="ml-1.5">
                   <div class="numberDefault text-number line-height-no">{{ item.name }}</div>
                   <div class="nameTag text-number text-left line-height-no">{{ item.symbol }}</div>

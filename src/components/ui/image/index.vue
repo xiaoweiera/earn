@@ -122,7 +122,7 @@ const getName = function (name: string) {
 <style lang="scss" scoped>
 @import "src/styles/function";
 .back-color {
-  @apply flex items-center justify-center w-full h-full text-white tracking-wider;
+  @apply flex items-center justify-center w-full h-full text-white tracking-wider font-semibold;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%), var(--bg-color);
 }
 
