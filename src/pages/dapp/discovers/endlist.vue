@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { PropType } from "vue";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getClassColor, getTegLog, getTegUrl } from "src/logic/dapp";
 import { IdoHeader } from "src/logic/dapp/config";
 import { toFixed } from "src/utils";
-import { ProjectItem } from "src/types/dapp/ixo";
 import VRouter from "src/components/v/router.vue";
 
 const emit = defineEmits(["changeSort"]);
