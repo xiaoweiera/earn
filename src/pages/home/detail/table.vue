@@ -170,8 +170,8 @@ onMounted(() => {
       <table class="table-my min-w-243">
         <thead>
           <tr class="min-h-10">
-            <td class="h-full border-tb">
-              <div class="text-left w-5">#</div>
+            <td class="h-full border-tb w-5">
+              <div class="text-left">#</div>
             </td>
             <template v-for="(item, index) in safeGet(data, 'header')" :key="index">
               <td v-if="item.key !== 'id'" :class="getNameWidth(item)" class="text-left border-tb">
@@ -184,7 +184,7 @@ onMounted(() => {
           <template v-for="(item, index) in data.items" :key="index">
             <tr :class="info.show_type === 'desc' ? 'md:h-18' : 'md:h-13'" class="min-h-12.5 h-12.5 md:min-h19.5 hand" @click="toProject(item.url)">
               <td class="number text-left">
-                <v-router :href="item.url" target="_blank" class="text-left w-5" @click.prevent>{{ index + 1 }}</v-router>
+                <v-router :href="item.url" target="_blank" class="text-left" @click.prevent>{{ index + 1 }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in data.header" :key="index">
                 <td v-if="itemTwo.key !== 'id'" class="text-center">
