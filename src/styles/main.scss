@@ -40,9 +40,6 @@ a {
     @apply cursor-pointer;
     @apply text-global-darkblue;
   }
-  &[href] {
-    @apply text-global-darkblue;
-  }
   @extend %disable;
 }
 .v-router {
