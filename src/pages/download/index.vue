@@ -21,10 +21,10 @@ onMounted(function () {
 
   const utm_source = getValue<string>("query.utm_source", "");
   if (utm_source) {
-    const [type, id, platform]: string[] = utm_source.split("_");
-    if (type && id && type === "activity") {
+    const [type, activity_id, platform]: string[] = utm_source.split("_");
+    if (type && activity_id && type === "activity") {
       track.push(track.Origin.gio, track.event.landing.download, {
-        id,
+        activity_id,
         platform: platform ? platform : "web",
       });
     }

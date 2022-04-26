@@ -30,14 +30,12 @@ onMounted(function () {
   const id = getValue<string>("query.id");
   if (id) {
     // 上报数据
-    track.push(track.Origin.gio, track.event.landing.show, { id });
+    track.push(track.Origin.gio, track.event.landing.show, { activity_id: id });
     // 判断详情数据是否为空
     onLoadReactive<Invite>(detail, function () {
       const api = new API();
       return api.activity.getInviteDetail<Invite>(id);
     });
-  } else {
-    track.push(track.Origin.gio, track.event.landing.show);
   }
 });
 

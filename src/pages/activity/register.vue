@@ -91,7 +91,7 @@ const submit = async function () {
     await api.user.registerInviteEmail(data);
     // 上报数据
     track.push(track.Origin.gio, track.event.landing.success, {
-      id: data.id,
+      activity_id: data.id,
     });
     // 成功
     successStatus.value = true;
