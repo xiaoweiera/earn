@@ -5,6 +5,7 @@
  */
 
 import API from "src/api/";
+import * as track from "src/logic/track";
 import { onMounted, computed } from "vue";
 import I18n from "src/utils/i18n";
 import Footer from "./footer.vue";
@@ -28,10 +29,15 @@ const i18n = computed(function () {
 onMounted(function () {
   const id = getValue<string>("query.id");
   if (id) {
+    // 上报数据
+    track.push(track.Origin.gio, track.event.landing.show, { id });
+    // 判断详情数据是否为空
     onLoadReactive<Invite>(detail, function () {
       const api = new API();
       return api.activity.getInviteDetail<Invite>(id);
     });
+  } else {
+    track.push(track.Origin.gio, track.event.landing.show);
   }
 });
 
