@@ -42,4 +42,9 @@ export const event = {
   topic: {
     list: "show_data", // 数据图表展示
   },
+  landing: {
+    download: "landing_page_download", // LandingPage App下载量
+    success: "landing_page_success", // LandingPage领取成功人数
+    show: "landing_page_show", // LandingPage 展现量
+  },
 };

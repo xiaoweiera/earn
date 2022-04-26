@@ -5,6 +5,7 @@
  */
 
 import API from "src/api/";
+import * as track from "src/logic/track";
 import { messageError } from "src/lib/tool";
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
@@ -88,6 +89,10 @@ const submit = async function () {
   const api = new API();
   try {
     await api.user.registerInviteEmail(data);
+    // 上报数据
+    track.push(track.Origin.gio, track.event.landing.success, {
+      id: data.id,
+    });
     // 成功
     successStatus.value = true;
   } catch (e: any) {
