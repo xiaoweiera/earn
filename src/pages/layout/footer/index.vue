@@ -37,13 +37,13 @@ const list = createRef<MenuItem[]>(alias.common.layout.footer, []);
             <div class="pt-3 lg:pt-6 w-27 menu-content">
               <div class="mb-4">
                 <Hover :desc="i18n.menu.hover.app" :href="env.appDownload">
-                  <ui-image class="block" fit="none" src="https://res.kingdata.xyz/common/download_apple.jpg" />
+                  <ui-image class="block" fit="none" :src="`${env.VITE_oss}/common/download_apple.jpg`" />
                 </Hover>
               </div>
 
               <div>
                 <Hover :desc="i18n.menu.hover.app" :href="env.appDownload">
-                  <ui-image class="block" fit="none" src="https://res.kingdata.xyz/common/download_android.jpg" />
+                  <ui-image class="block" fit="none" :src="`${env.VITE_oss}/common/download_android.jpg`" />
                 </Hover>
               </div>
             </div>

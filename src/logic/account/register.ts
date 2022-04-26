@@ -54,9 +54,10 @@ export const createFormData = function (value?: FormData) {
   return reactive<FormData>(data);
 };
 
-export const rules = function () {
-  const i18n = I18n();
+export const rules = function (lang?: string) {
+  const i18n = I18n(lang);
   return {
+    // 注册前请阅读
     checked: [
       {
         required: true,
@@ -85,13 +86,13 @@ export const rules = function () {
       {
         required: true,
         type: "string",
-        trigger: ["blur", "change"],
+        trigger: ["blur"], // , "change"
         message: i18n.common.placeholder.tel,
       },
       {
         required: true,
         type: "string",
-        trigger: ["blur", "change"],
+        trigger: ["blur"], // , "change"
         pattern: /^[0-9]{8,}$/i,
         message: i18n.common.message.telError,
       },
@@ -101,13 +102,13 @@ export const rules = function () {
       {
         required: true,
         type: "string",
-        trigger: ["blur", "change"],
+        trigger: ["blur"], // , "change"
         message: i18n.common.placeholder.email,
       },
       {
         required: true,
         type: "email",
-        trigger: ["blur", "change"],
+        trigger: ["blur"], // , "change"
         message: i18n.common.message.mailError,
       },
     ],
@@ -116,7 +117,7 @@ export const rules = function () {
       {
         required: true,
         type: "string",
-        trigger: ["blur", "change"],
+        trigger: ["blur"], // , "change"
         message: i18n.common.placeholder.verification,
       },
       {
@@ -131,16 +132,17 @@ export const rules = function () {
       {
         required: true,
         type: "string",
-        trigger: ["blur", "change"],
+        trigger: ["blur"], // , "change"
         message: i18n.common.placeholder.password,
       },
       {
         type: "string",
-        trigger: ["blur", "change"],
+        trigger: ["blur"], // , "change"
         pattern: /^.{6,24}$/,
         message: i18n.common.message.passwordError,
       },
     ],
+    // 邀请码
     invitation_code: [
       {
         type: "string",
@@ -151,24 +153,24 @@ export const rules = function () {
     ],
   };
 };
-
+// 确认密码
 export const checkedNewPassword = function (data: FormData) {
   const i18n = I18n();
   return [
     {
       required: true,
       type: "string",
-      trigger: ["blur", "change"],
+      trigger: ["blur"], // , "change"
       message: i18n.common.placeholder.new_password,
     },
     {
       type: "string",
-      trigger: ["blur", "change"],
+      trigger: ["blur"], // , "change"
       pattern: /^.{6,24}$/,
       message: i18n.common.message.passwordError,
     },
     {
-      trigger: ["blur", "change"],
+      trigger: ["blur"], // , "change"
       validator(rule: any, value: string, callback: any) {
         if (data.password === value) {
           callback();
@@ -193,7 +195,7 @@ export const checkValidateEmail = function (form: Ref): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const callback = function (isValid?: boolean, invalidFields?: Error) {
       if (isValid && invalidFields) {
-        console.error("validateField email");
+        console.log("validateField email");
         reject(invalidFields);
       } else {
         resolve(true);
@@ -214,7 +216,7 @@ export const checkValidateMobile = function (form: Ref): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const callback = function (isValid?: boolean, invalidFields?: Error) {
       if (isValid && invalidFields) {
-        console.error("validateField mobile");
+        console.log("validateField mobile");
         reject(invalidFields);
       } else {
         resolve(true);

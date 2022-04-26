@@ -160,8 +160,8 @@ export const encryption = function (value: string): Encryption {
 };
 
 export const getChain = function (name: string) {
-  const data = getValue(alias.common.chain.site, {});
-  const chain = safeGet<object>(data, "chain");
+  const data = getValue<object>(alias.common.chain.site);
+  const chain = data ? safeGet<object>(data, "chain") : null;
   if (chain) {
     const value = safeGet<ChainItem>(chain, name);
     if (value) {

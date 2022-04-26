@@ -180,7 +180,7 @@
 }
 
 /* 活动富文本内容样式重置 */
-.activity-content-wrap {
+.rich-text {
   font-size: 1rem;
   line-height: initial;
   /* 英文单词换行 */
@@ -188,4 +188,46 @@
   @apply break-words;
   /* 保留换行与空格 */
   @apply whitespace-pre-wrap;
+
+  img {
+    display: block;
+    border: 0 !important;
+    max-width: 100% !important;
+  }
+
+  %bold {
+    @apply font-bold;
+    line-height: normal;
+  }
+  h1 {
+    font-size: 2rem;
+    @extend %bold;
+  }
+  h2 {
+    @apply text-2xl;
+    @extend %bold;
+  }
+  h3 {
+    @apply text-lg;
+    @extend %bold;
+  }
+  h4 {
+    @apply text-base;
+    @extend %bold;
+  }
+  h5 {
+    @apply text-sm;
+    @extend %bold;
+  }
+  h6 {
+    @apply text-xs;
+    @extend %bold;
+  }
+  ol, ul {
+    margin-block-end: 1rem;
+    margin-block-start: 1rem;
+  }
+  ol li, ul li {
+    list-style: initial;
+  }
 }

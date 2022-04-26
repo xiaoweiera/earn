@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import { VueShowdown } from "vue-showdown";
+<script lang="ts" setup>
+import Content from "./content.vue";
 
 defineProps({
   value: {
@@ -9,7 +9,5 @@ defineProps({
 });
 </script>
 <template>
-  <div class="markdown-container">
-    <VueShowdown v-if="value" :markdown="value" flavor="github" :options="{ emoji: true }" />
-  </div>
+  <Content :value="value" class="markdown-container" />
 </template>

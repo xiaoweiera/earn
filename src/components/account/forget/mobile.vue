@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import safeGet from "@fengqiaogang/safe-get";
+
 /**
  * @file 手机密码找回
  * @author svon.me@gmail.com
@@ -25,9 +27,9 @@ const mobileValidate = function () {
 };
 
 // 获取验证码
-const onSeadCode = async function (value: string | undefined) {
+const onSeadCode = function (data: object) {
   // 保存人机校验得到的值
-  formData.token = value;
+  formData.token = safeGet<string>(data, "token") || "";
 };
 
 const selfGoBack = function () {
@@ -69,24 +71,10 @@ onMounted(async () => {
 
 <template>
   <client-only>
-    <el-form
-      ref="domForm"
-      size="large"
-      :rules="rules"
-      :model="formData"
-      autocomplete="off"
-      @submit.stop.prevent="submit"
-    >
+    <el-form ref="domForm" size="large" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
       <!--手机号-->
       <el-form-item prop="mobile">
-        <el-input
-          v-model="formData.mobile"
-          class="user-mobile-box"
-          name="mobile"
-          type="text"
-          :placeholder="i18n.common.placeholder.tel"
-          autocomplete="off"
-        >
+        <el-input v-model="formData.mobile" class="user-mobile-box" name="mobile" type="text" :placeholder="i18n.common.placeholder.tel" autocomplete="off">
           <template #prepend>
             <el-select v-model="formData.area_code" class="w-24" placeholder="Select">
               <template v-for="item in areaCode" :key="item.phone_code">
@@ -99,46 +87,21 @@ onMounted(async () => {
 
       <!-- 验证码 -->
       <el-form-item prop="code">
-        <el-input
-          v-model="formData.code"
-          name="code"
-          :placeholder="i18n.common.placeholder.verification"
-          autocomplete="off"
-        >
+        <el-input v-model="formData.code" name="code" :placeholder="i18n.common.placeholder.verification" autocomplete="off">
           <template #append>
-            <ui-validate
-              mobile
-              :type="ValidateType.forget"
-              :before="mobileValidate"
-              :query="{ mobile: formData.mobile, area_code: formData.area_code }"
-              @click="onSeadCode"
-            />
+            <ui-validate mobile :type="ValidateType.forget" :before="mobileValidate" :query="{ mobile: formData.mobile, area_code: formData.area_code }" @click="onSeadCode" />
           </template>
         </el-input>
       </el-form-item>
 
       <!-- 密码 -->
       <el-form-item prop="password">
-        <el-input
-          v-model="formData.password"
-          name="password"
-          type="password"
-          :placeholder="i18n.common.placeholder.password"
-          show-password
-          autocomplete="off"
-        />
+        <el-input v-model="formData.password" name="password" type="password" :placeholder="i18n.common.placeholder.password" show-password autocomplete="off" />
       </el-form-item>
 
       <!-- 确认密码 -->
       <el-form-item prop="new_password" :rules="Common.checkedNewPassword(formData)">
-        <el-input
-          v-model="formData.new_password"
-          name="password"
-          type="password"
-          :placeholder="i18n.common.placeholder.new_password"
-          show-password
-          autocomplete="off"
-        />
+        <el-input v-model="formData.new_password" name="password" type="password" :placeholder="i18n.common.placeholder.new_password" show-password autocomplete="off" />
       </el-form-item>
 
       <!-- 确定按钮 -->

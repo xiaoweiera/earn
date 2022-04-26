@@ -4,6 +4,7 @@
  * @author svon.me@gmail.com
  */
 
+import safeGet from "@fengqiaogang/safe-get";
 import { ElButton, ElCheckbox, ElForm, ElFormItem, ElInput } from "element-plus";
 import API from "src/api/index";
 import { ValidateType } from "src/components/ui/validate/config";
@@ -24,9 +25,9 @@ const emailValidate = function () {
 };
 
 // 获取验证码
-const onSeadCode = async function (value: string | undefined) {
+const onSeadCode = function (data: object) {
   // 保存人机校验得到的值
-  formData.token = value;
+  formData.token = safeGet<string>(data, "token") || "";
 };
 // 返回
 const selfGoBack = function () {

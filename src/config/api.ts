@@ -62,6 +62,7 @@ export const user = {
   getEmailCaptcha: "/api/v2/users/email_send_verification_code", // 邮箱验证码
   getMobileCaptcha: "/api/v1/users/forget_pass_captcha", // 手机验证码
   registerEmail: "/api/v1/users/email_signup", // 邮箱注册
+  registerInviteEmail: "/api/dapps/v1/activities/{id}/receive",
   emailLogin: "/api/v1/users/email_login", // 邮箱登录
   mobileLogin: "/api/v1/users/login", // 手机号登录
   updateEmail: "/api/v1/users/bind_email", // 修改邮箱
@@ -96,4 +97,8 @@ export const comment = {
 export const invest = {
   info: "/api/dapps/v1/investors/{investor_id}",
   investment: "/api/dapps/v1/investments",
+};
+
+export const activity = {
+  invite: "/api/dapps/v1/activities/{id}",
 };

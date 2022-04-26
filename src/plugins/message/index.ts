@@ -28,13 +28,13 @@ const getContent = function (content?: Content | string): string {
     };
   }
   if (content.value) {
-    text += `<p class="text-left text-base font-normal text-global-darkblue text-opacity-85 break-words">${content.value}</p>`;
+    text += `<p class="text-left text-base font-normal text-global-darkblue text-opacity-85 break-words whitespace-pre-wrap">${content.value}</p>`;
   }
   if (content.warn) {
-    text += `<p class="text-left text-xs font-normal text-global-numRed break-words">* ${content.warn}</p>`;
+    text += `<p class="text-left text-xs font-normal text-global-numRed break-words whitespace-pre-wrap">* ${content.warn}</p>`;
   }
   if (content.desc) {
-    text += `<p class="text-left text-xs font-normal pt-2 text-global-darkblue text-opacity-85 break-words">${content.desc}</p>`;
+    text += `<p class="text-left text-xs font-normal pt-2 text-global-darkblue text-opacity-85 break-words whitespace-pre-wrap">${content.desc}</p>`;
   }
   return `<div class="text-center">${text}</div>`;
 };

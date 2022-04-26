@@ -81,3 +81,9 @@ export const rank = {
 export const comment = {
   list: "API.Comment.list",
 };
+
+export const activity = {
+  invite: {
+    detail: "API.activity.getInviteDetail",
+  },
+};
