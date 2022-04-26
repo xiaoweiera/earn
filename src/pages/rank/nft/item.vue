@@ -51,7 +51,7 @@ const detailUrl = function (data: object) {
       </div>
       <!--     名称-->
       <div :class="headerData[1].width" class="flex items-center justify-left">
-        <ui-image :src="item.logo" class="w-6 h-6 rounded-full" />
+        <ui-image :src="item.logo" class="w-6 h-6 rounded-full text-kd10px12px font-kdInter" :title="item.name" />
         <div class="text-kd14px18px text-global-highTitle ml-1.5 fang w-fit">{{ item.name }}</div>
       </div>
       <!--      类别-->

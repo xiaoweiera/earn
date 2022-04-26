@@ -9,6 +9,10 @@ import type { PropType } from "vue";
 import { computed, ref } from "vue";
 import { getEnv } from "src/config";
 import { isLink } from "src/utils/";
+import { bgColorItem } from "src/types/ui/label";
+import { upperFirst } from "src/utils";
+import { MD5 } from "src/plugins/encryption/md5";
+import safeGet from "@fengqiaogang/safe-get";
 
 type Fit = "cover" | "contain" | "fill" | "none";
 
@@ -87,10 +91,19 @@ const index = computed<number>(function () {
   }
   return 0;
 });
+const getBgColor = function (title: string) {
+  const value: string = MD5(title).slice(-1);
+  const color = safeGet<string>(bgColorItem, value) || bgColorItem.a;
+  return `--bg-color: ${color};`;
+};
+
+const getName = function (name: string) {
+  return upperFirst(name.slice(0, 2));
+};
 </script>
 
 <template>
-  <client-only :class="className" :data-help="title" class="ui-image overflow-hidden">
+  <client-only :class="className" class="ui-image overflow-hidden">
     <template v-if="src && !error">
       <el-image :fit="getFitValue(fit)" :initial-index="index" :lazy="false" :preview-src-list="preview" :preview-teleported="true" :src="getImageLink(src, oss)" class="block w-full h-full" scroll-container="body" @error="error = true">
         <template #placeholder>
@@ -99,18 +112,26 @@ const index = computed<number>(function () {
       </el-image>
     </template>
     <template v-else>
-      <el-image :fit="getFitValue(fit)" :lazy="false" :src="getImageLink()" class="block w-full h-full" />
+      <span v-if="title" :style="getBgColor(title)" class="back-color">
+        {{ getName(title) }}
+      </span>
+      <el-image v-else :fit="getFitValue(fit)" :lazy="false" :src="getImageLink()" class="block w-full h-full" />
     </template>
   </client-only>
 </template>
 <style lang="scss" scoped>
 @import "src/styles/function";
+.back-color {
+  @apply flex items-center justify-center w-full h-full text-white tracking-wider font-semibold;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%), var(--bg-color);
+}
 
 .ui-image {
   @apply relative;
   @at-root .kd-ui-icon & {
     @apply overflow-hidden;
   }
+  /*
   &.help {
     @apply cursor-pointer;
     &:after {
@@ -129,5 +150,6 @@ const index = computed<number>(function () {
       }
     }
   }
+   */
 }
 </style>

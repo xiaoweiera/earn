@@ -106,7 +106,7 @@ onMounted(() => {
   <div v-if="data">
     <!--Name-->
     <div v-if="(typeName === 'name' && !info.id) || (typeName === 'name' && safeGet(info, 'show_type') === 'data')" class="flex-center max-w-28 whitespace-nowrap">
-      <ui-image :class="info.id ? 'min-w-8 min-h-8 w-8 h-8' : 'min-w-6 min-h-6 w-6 h-6'" class="rounded-full" :src="safeGet(data, 'logo')" />
+      <ui-image :class="info.id ? 'min-w-8 min-h-8 w-8 h-8' : 'min-w-6 min-h-6 w-6 h-6'" class="rounded-full text-kd10px12px font-kdInter" :src="safeGet(data, 'logo')" :title="data.name" />
       <div class="ml-1.5">
         <div class="numberDefault line-height-no smallTxt max-w-33 text-left whitespace-nowrap" :class="txtCss">{{ data["name"] }}</div>
         <div class="nameTag text-left line-height-no" :class="txtCss">{{ data["symbol"] }}</div>
