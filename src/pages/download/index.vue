@@ -1,7 +1,12 @@
 <script lang="ts" setup>
+/**
+ * @file APP 下载页面
+ */
 import { onMounted } from "vue";
+import * as track from "src/logic/track";
 import { asyncLoad } from "src/plugins/lazyload";
 import { downList } from "src/logic/common/down";
+import { getValue } from "src/utils/root/data";
 
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { SystemInfo } from "src/types/common/down";
@@ -13,6 +18,17 @@ const detail = createReactive<SystemInfo>(alias.common.system.info, {} as System
 
 onMounted(function () {
   onLoadReactive(detail, alias.common.system.info);
+
+  const utm_source = getValue<string>("query.utm_source", "");
+  if (utm_source) {
+    const [type, activity_id, platform]: string[] = utm_source.split("_");
+    if (type && activity_id && type === "activity") {
+      track.push(track.Origin.gio, track.event.landing.download, {
+        activity_id,
+        platform: platform ? platform : "web",
+      });
+    }
+  }
 });
 </script>
 
