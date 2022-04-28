@@ -54,6 +54,10 @@ const routes = [
     path: `${router.funds}/:id/:tab`,
     component: () => import("src/pages/dapp/detail/index.vue"),
   },
+  {
+    path: router.dappApply,
+    component: () => import("src/pages/dapp/apply/index.vue"),
+  },
 ];
 
 export default routes;

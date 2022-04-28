@@ -13,6 +13,7 @@ import type { DAppData, DataQuery, newsModel, TokenQuery, TokenDataQuery } from 
 import { echart } from "src/logic/ui/echart/decorate";
 import type { EchartData } from "src/types/echarts/type";
 import { FundsQuery } from "src/types/dapp/invest";
+import { FormData } from "src/types/dapp/apply";
 
 export default class extends ApiTemplate {
   // 项目库列表
@@ -251,5 +252,21 @@ export default class extends ApiTemplate {
   @validate
   getNews<T>(@required query: newsModel): Promise<T> {
     return [query] as any;
+  }
+
+  //项目类型和公链
+  @tryError(DefaultValue([]))
+  @get(api.dapp.options, expire.min5)
+  @validate
+  getOptionData<T>(): Promise<T> {
+    return [] as any;
+  }
+
+  //提交项目
+  @tryError(DefaultValue([]))
+  @get(api.dapp.commit, expire.min5)
+  @validate
+  onSubmit<T>(@required data: FormData): Promise<T> {
+    return [data] as any;
   }
 }

@@ -175,3 +175,15 @@ export const getChainLogo = function (name: string) {
     return data.logo;
   }
 };
+
+/**
+ * 不区分大小写比较是否相等
+ * @param str1
+ * @param str2
+ */
+export const equalsIgnoreCase = function (str1 = "", str2 = ""): boolean {
+  if (str1 && str2) {
+    return toUpper(`${str1}`) === toUpper(`${str2}`);
+  }
+  return false;
+};

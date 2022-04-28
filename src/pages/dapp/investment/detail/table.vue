@@ -11,9 +11,7 @@ import { detailModel, filterModel } from "src/types/invest";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
 import * as alias from "src/utils/root/alias";
 import API from "src/api";
-import { useRoute } from "vue-router";
 import _ from "lodash";
-import { getParam } from "src/utils/router";
 const props = defineProps({
   detail: {
     type: Object as PropType<detailModel>,
@@ -23,7 +21,6 @@ const props = defineProps({
 const typeLength = 1; //类型显示个数
 const data: any = createRef<object[]>(alias.invest.detail.investment, []);
 const key = ref(0);
-const route = useRoute();
 const i18n = I18n();
 const api = new API();
 const params = reactive({
