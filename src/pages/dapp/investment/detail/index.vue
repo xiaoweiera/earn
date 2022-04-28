@@ -3,7 +3,6 @@ import Card from "./card.vue";
 import Table from "./table.vue";
 import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import * as alias from "src/utils/root/alias";
-import { getValue } from "src/utils/root/data";
 import { useRoute } from "vue-router";
 import { detailModel } from "src/types/invest";
 import { onMounted } from "vue";

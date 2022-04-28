@@ -3,7 +3,7 @@ import OnFollow from "src/pages/quota/follow/on.vue";
 import { indicatorTypes } from "src/types/quota/index";
 import NewsQuotaTrends from "src/pages/quota/indicators/trends.vue";
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object,
     required: true,

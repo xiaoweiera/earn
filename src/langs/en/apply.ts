@@ -13,6 +13,7 @@ export default {
     online_time: "Release Date",
     online_timezone: "Time Zone",
     telegram: "Telegram",
+    personalTelegram: "Personal Telegram",
     discord: "Discord",
     twitter: "Twitter",
     username: "Your Name",

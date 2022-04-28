@@ -5,7 +5,6 @@ import DAppDiscoversContentDec from "./dec.vue";
 import DAppDiscoversContentPrice from "./price.vue";
 import DAppDiscoversContentTime from "./time.vue";
 import { getParam } from "src/utils/router";
-import { ref } from "vue";
 
 defineProps({
   data: {

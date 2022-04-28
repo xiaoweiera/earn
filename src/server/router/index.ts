@@ -18,6 +18,7 @@ import rank from "./rank";
 import down from "./download";
 import { app as activeApp } from "src/controller/activity/";
 import invest from "./invest";
+import apply from "./apply";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   const router = ExpressRouter();
@@ -46,6 +47,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(invest());
   //下载页面
   router.use(down());
+  //申请页面
+  router.use(apply());
   // 404
   router.get(routerConfig.E404, (req: Request, res: Response) => {
     res.send({});

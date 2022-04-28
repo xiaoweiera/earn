@@ -12,6 +12,7 @@ import APY from "./apy/";
 import Comment from "./comment";
 import Invest from "./invest";
 import Activity from "./activity";
+import Upload from "./upload";
 
 export default class API extends ApiTemplate {
   public home: Home;
@@ -25,6 +26,7 @@ export default class API extends ApiTemplate {
   public comment: Comment;
   public invest: Invest;
   public activity: Activity;
+  public upload: Upload;
   constructor(value?: Lang) {
     super(value);
     this.home = new Home(value);
@@ -38,5 +40,6 @@ export default class API extends ApiTemplate {
     this.comment = new Comment(value);
     this.invest = new Invest(value);
     this.activity = new Activity(value);
+    this.upload = new Upload(value);
   }
 }
