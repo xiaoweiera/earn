@@ -77,6 +77,7 @@ export const common = {
   adList: "/api/v2/commercial", // 广告
   system: "/api/v1/system", //下载链接
   ipValidate: "/api/v1/ip/validate", // 判断 Ip 来源
+  visit: "/api/v1/statistic/do_visit_statistic", // pv/uv 统计
 };
 
 export const rank = {
