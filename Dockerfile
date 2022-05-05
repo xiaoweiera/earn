@@ -11,7 +11,7 @@ COPY . .
 RUN npm install -g pnpm
 
 # 修改 pnpm 镜像源
-# RUN pnpm config set registry https://registry.npmmirror.com/
+ RUN pnpm config set registry https://registry.npmmirror.com/
 
 # 安装项目依赖
 RUN pnpm i
