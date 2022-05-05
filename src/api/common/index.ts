@@ -6,11 +6,12 @@ import safeGet from "@fengqiaogang/safe-get";
 import { tidingName } from "src/config/";
 import * as api from "src/config/api";
 import Cookie from "src/plugins/browser/cookie";
-import { DefaultValue, expire, get, post, tryError, userToken } from "src/plugins/dao/http";
+import { DefaultValue, expire, get, post, tryError, userToken, required, validate } from "src/plugins/dao/http";
 import type { AreaCode } from "src/types/common/area";
 import type { SiteConfig } from "src/types/common/chain";
 import type { TidingList } from "src/types/common/tiding";
 import ApiTemplate from "../template";
+import window from "src/plugins/browser/window";
 
 // 国际区号默认数据
 const areaCodeDefault = DefaultValue([
@@ -101,5 +102,14 @@ export default class extends ApiTemplate {
       cookie.set(name, "1", time); // 缓存1天，1天之后在做检查
     }
     return value;
+  }
+
+  // PV/UV 统计
+  @tryError(DefaultValue(null))
+  @post(api.common.visit)
+  visit(): void {
+    const path = window.location.pathname;
+    const data = { path };
+    return [data] as any;
   }
 }

@@ -31,6 +31,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   });
   // 活动
   router.get("/activity/:type/:id", activeApp);
+  // 榜单
+  router.use(rank());
   // 装载 DApp 相关路由
   router.use(dApp());
   // 封装 user 相关路由
@@ -41,8 +43,6 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(blog());
   // 指标
   router.use(quota());
-  // 榜单
-  router.use(rank());
   //投融资
   router.use(invest());
   //下载页面

@@ -48,6 +48,7 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
           IMAGE_URL: '${{ steps.login-ecr.outputs.registry }}/kd-web4:dev-${{ steps.slug.outputs.sha8 }}'
+          KUBECTL_VERSION: "v1.23.6"
         with:
           args: set image -n dev deployment/kd-web4-v1 container-21ihqu=$IMAGE_URL
 
@@ -55,5 +56,6 @@ jobs:
         uses: kodermax/kubectl-aws-eks@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          KUBECTL_VERSION: "v1.23.6"
         with:
           args: rollout status -n dev deployment/kd-web4-v1
