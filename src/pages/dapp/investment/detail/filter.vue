@@ -4,7 +4,7 @@ import { ElOption, ElSelect, ElInput } from "element-plus";
 import { investmentModel } from "src/types/invest";
 import I18n from "src/utils/i18n";
 const i18n = I18n();
-const props = defineProps({
+defineProps({
   detail: {
     type: Object as PropType<investmentModel>,
     required: true,

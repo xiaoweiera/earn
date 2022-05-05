@@ -56,7 +56,7 @@ onMounted(() => {
       </div>
     </div>
     <template v-for="(item, index) in recommend" :key="index">
-      <v-router class="text-kdFang flex items-center mt-3 cursor-pointer" :href="`${config.homeDetail}?id=${item.id}`">
+      <v-router class="text-kdFang flex items-center mt-3 cursor-pointer" :href="`${config.homeDetail}/${item.id}`">
         <ui-image class="w-8 min-w-8 h-8 rounded-full overflow-hidden" :src="item['cover']" fit="cover" />
         <span class="ml-2 text-global-primary txt">#</span>
         <span class="txt ml-0.5 text-global-highTitle text-opacity-85 short">{{ item["name"] }}</span>

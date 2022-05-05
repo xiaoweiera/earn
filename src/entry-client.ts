@@ -11,6 +11,7 @@ import "virtual:windi-devtools";
 // 引入项目全局样式
 import "src/styles/main.scss";
 
+import API from "src/api/";
 import { config } from "src/router/config";
 import * as webkit from "src/plugins/webkit/";
 import Cookie from "src/plugins/browser/cookie";
@@ -48,6 +49,7 @@ const getCache = async function (): Promise<object> {
 
 // 前置处理
 const prepend = async function () {
+  // 处理用户信息
   const cookie = new Cookie();
   const process = await webkit.env.process(); // 尝试与移动端设备进行交互
   // 如果移动端有返回数据
@@ -81,6 +83,10 @@ const prepend = async function () {
 
 const main = async function () {
   const data = await prepend();
+
+  // pv/uv 统计
+  const api = new API();
+  api.common.visit();
 
   console.log("env : ", getEnv());
   console.log("Server data ", data);

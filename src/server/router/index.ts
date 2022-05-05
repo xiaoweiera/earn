@@ -18,6 +18,7 @@ import rank from "./rank";
 import down from "./download";
 import { app as activeApp } from "src/controller/activity/";
 import invest from "./invest";
+import apply from "./apply";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   const router = ExpressRouter();
@@ -30,6 +31,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   });
   // 活动
   router.get("/activity/:type/:id", activeApp);
+  // 榜单
+  router.use(rank());
   // 装载 DApp 相关路由
   router.use(dApp());
   // 封装 user 相关路由
@@ -40,12 +43,12 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(blog());
   // 指标
   router.use(quota());
-  // 榜单
-  router.use(rank());
   //投融资
   router.use(invest());
   //下载页面
   router.use(down());
+  //申请页面
+  router.use(apply());
   // 404
   router.get(routerConfig.E404, (req: Request, res: Response) => {
     res.send({});

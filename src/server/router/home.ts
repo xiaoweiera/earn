@@ -1,7 +1,6 @@
 import { config as routerConfig, config } from "src/router/config";
 import * as home from "src/controller/home";
 import { Request, Response, Router as ExpressRouter } from "express";
-import * as dApp from "src/controller/invest";
 import safeGet from "@fengqiaogang/safe-get";
 import _ from "lodash";
 import redirect from "src/controller/common/redirect";

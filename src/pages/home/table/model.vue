@@ -35,8 +35,8 @@ const toProject = (url: string) => {
       <table class="table-my">
         <thead>
           <tr class="min-h-5">
-            <td>
-              <div class="text-left w-3.5">#</div>
+            <td class="w-5">
+              <div class="text-left">#</div>
             </td>
             <template v-for="(item, index) in safeGet(data, 'table.header')" :key="index">
               <td v-if="item.key !== 'id'" class="text-left">
@@ -49,7 +49,7 @@ const toProject = (url: string) => {
           <template v-for="(item, index) in safeGet(data, 'table.items')" :key="index">
             <tr class="model-tbody-tr hand" @click="toProject(item.url)">
               <td class="number text-left">
-                <v-router :href="item.url" target="_blank" class="text-left w-3.5" @click.prevent>{{ index + 1 }}</v-router>
+                <v-router :href="item.url" target="_blank" class="text-left" @click.prevent>{{ index + 1 }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in safeGet(data, 'table.header')" :key="index">
                 <td v-if="itemTwo.key !== 'id'">

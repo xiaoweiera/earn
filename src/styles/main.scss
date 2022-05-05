@@ -106,4 +106,12 @@ a {
     max-width: 100% !important;
   }
 }
+.el-date-picker__time-header {
+  .el-input__inner {
+    @apply h-8 rounded-md;
+  }
+  .el-input__inner::placeholder {
+    @apply text-12-16;
+  }
+}
 

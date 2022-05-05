@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { getValue } from "src/utils/root/data";
 import * as track from "src/logic/track";
 import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { detail } from "src/types/home";

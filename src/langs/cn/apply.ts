@@ -13,6 +13,7 @@ export default {
     online_time: "上线时间",
     online_timezone: "时区",
     telegram: "项目 Telegram",
+    personalTelegram: "个人Telegram",
     discord: "项目 Discord",
     twitter: "项目 Twitter",
     username: "姓名",
