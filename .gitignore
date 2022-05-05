@@ -5,7 +5,7 @@ dist
 .vscode
 .idea
 yarn.lock
-pnpm-lock.yaml
+#pnpm-lock.yaml
 components.d.ts
 src/config/iconname.ts
 auto-imports.d.ts
