@@ -80,7 +80,7 @@ const onRemove = function () {
         </div>
       </template>
       <div class="upload-main w-full h-full">
-        <el-upload class="avatar-uploader" action="" accept="image/*" :show-file-list="false" :multiple="false" name="image_url" :drag="true" :on-change="onUpload" :auto-upload="false">
+        <el-upload class="avatar-uploader" action="" accept="image/*" name="image_url" :show-file-list="false" :multiple="false" :drag="true" :on-change="onUpload" :auto-upload="false" :headers="{ 'Content-Type': 'application/x-www-form-urlencoded' }">
           <template v-if="src">
             <span class="preview picture inline-block" :class="size" :style="getStyle(src)" />
           </template>
