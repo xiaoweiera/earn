@@ -8,6 +8,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import { AnyEquals } from "src/utils";
 import { Router } from "express";
 import useragent from "express-useragent";
+import parse from "src/utils/url/parse";
 import type { NextFunction, Request, Response } from "express";
 
 // 客户端判断
@@ -61,6 +62,24 @@ const corsOrigin = function (req: Request, res: Response, next: NextFunction) {
 
 const cors = function () {
   const router = Router();
+
+  router.use(function (req: Request, res: Response, next: NextFunction) {
+    const www = "www.kingdata.com";
+    const host = safeGet<string>(req.headers, "host");
+    if (host && host.includes(www)) {
+      res.redirect(302, `//kingdata.com${req.originalUrl}`);
+      return;
+    }
+    const referer = safeGet<string>(req.headers, "referer");
+    if (referer && referer.includes(www)) {
+      const url = parse(referer);
+      if (url && url.host && url.host.includes(www)) {
+        res.redirect(302, `//kingdata.com${req.originalUrl}`);
+        return;
+      }
+    }
+    next();
+  });
 
   router.use(client, corsOrigin);
   return router;
