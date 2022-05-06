@@ -69,7 +69,7 @@ const getIcon = (item: any) => {
         <div :class="item.key === params?.sort_field || (!params.sort_field && item.active) ? 'sort-border' : ''" />
       </div>
       <span :class="item.key === params?.sort_field || (item.active && shortIcon) ? 'text-global-primary' : ''">
-        <span :class="page === 'home' ? 'font-kdBarlow' : ''">{{ cssData[0] }}</span>
+        <span :class="page === 'home' ? 'font-kdBarlow' : 'text-global-highTitle'">{{ cssData[0] }}</span>
       </span>
     </div>
   </div>

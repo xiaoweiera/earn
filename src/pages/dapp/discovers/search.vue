@@ -68,7 +68,7 @@ onMounted(() => {
         <client-only class="w-50 input-style">
           <ElInput v-model="search" class="w-full" :placeholder="i18n.common.placeholder.search" @change="onSearch">
             <template #prefix>
-              <IconFont type="icon-sousuo" size="16" @click="onSearch" />
+              <IconFont type="icon-sousuo-da" class="text-global-highTitle" size="16" @click="onSearch" />
             </template>
           </ElInput>
         </client-only>
@@ -90,7 +90,7 @@ onMounted(() => {
           <client-only class="w-1/2 input-style">
             <ElInput v-model="search" class="w-full" :placeholder="i18n.common.placeholder.search" @change="onSearch">
               <template #prefix>
-                <IconFont type="icon-sousuo" size="16" @click="onSearch" />
+                <IconFont type="icon-sousuo-da" class="text-global-highTitle" size="16" @click="onSearch" />
               </template>
             </ElInput>
           </client-only>
@@ -106,10 +106,10 @@ onMounted(() => {
     @apply border-1 border-global-highTitle border-opacity-4 bg-global-white rounded-md;
   }
   ::v-deep(input::-webkit-input-placeholder) {
-    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+    @apply text-kd12px16px text-global-highTitle font-medium;
   }
   ::v-deep(input::-ms-input-placeholder) {
-    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+    @apply text-kd12px16px text-global-highTitle font-medium;
   }
 }
 
@@ -120,10 +120,10 @@ onMounted(() => {
       @apply border-1 border-global-highTitle border-opacity-4 bg-global-topBg rounded-md;
     }
     ::v-deep(input::-webkit-input-placeholder) {
-      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+      @apply text-kd14px18px text-global-highTitle font-medium;
     }
     ::v-deep(input::-ms-input-placeholder) {
-      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+      @apply text-kd14px18px text-global-highTitle font-medium;
     }
   }
 }
