@@ -38,6 +38,10 @@ export class Model extends API {
   getTokenList(query: TokenQuery) {
     return this.dApp.getTokenList(query);
   }
+  //项目信息
+  getProjectInfo(query: object) {
+    return this.dApp.getProjectInfo(query);
+  }
 }
 
 const makeUrl = function (project: DAppProject, tab: TabName): string {
@@ -61,6 +65,11 @@ export const getTabList = function (project: DAppProject, data: DAppData) {
       tab: TabName.dashboard,
       label: i18n.dapp.project.dashboard,
       href: makeUrl(project, TabName.dashboard),
+    },
+    {
+      tab: TabName.project,
+      label: i18n.dapp.project.projectInfo,
+      href: makeUrl(project, TabName.project),
     },
     {
       tab: TabName.reviews,

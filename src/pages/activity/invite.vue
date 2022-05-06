@@ -85,8 +85,19 @@ const getHtml = function (value: string): string {
         <div v-if="detail.id" class="pb-15">
           <Download :detail="detail" />
         </div>
-        <div v-if="detail.partners_poster" class="pb-15">
-          <ui-image :src="detail.partners_poster" fit="none" />
+        <div v-if="detail.partners_poster && detail.partners_poster_mobile" class="pb-15">
+          <div class="hidden md:block">
+            <ui-image :src="detail.partners_poster" fit="none" :preview="[detail.partners_poster]" />
+          </div>
+          <div class="block md:hidden">
+            <ui-image :src="detail.partners_poster_mobile" fit="none" :preview="[detail.partners_poster_mobile]" />
+          </div>
+        </div>
+        <div v-else-if="detail.partners_poster" class="pb-15">
+          <ui-image :src="detail.partners_poster" fit="none" :preview="[detail.partners_poster]" />
+        </div>
+        <div v-else-if="detail.partners_poster_mobile" class="pb-15">
+          <ui-image :src="detail.partners_poster_mobile" fit="none" :preview="[detail.partners_poster_mobile]" />
         </div>
       </div>
     </div>

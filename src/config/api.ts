@@ -32,6 +32,7 @@ export const dapp = {
   floorData: "/api/v1/dapps/chart/floor_price", //地板价图表
   tokenData: "/api/v1/dapps/cryptocurrency/price_chart", //代币图表
   tokenList: "/api/v1/dapps/cryptocurrency", //代币列表
+  projectInfo: "/api/v1/dapps/cryptocurrency", //项目信息
   news: "/api/v1/dapps/news", //news列表
   options: "/api/dapps/{version}/apply/content", //获取项目类型
   commit: "/api/dapps/{version}/apply/submit", //提交项目
@@ -77,6 +78,7 @@ export const common = {
   adList: "/api/v2/commercial", // 广告
   system: "/api/v1/system", //下载链接
   ipValidate: "/api/v1/ip/validate", // 判断 Ip 来源
+  visit: "/api/v1/statistic/do_visit_statistic", // pv/uv 统计
 };
 
 export const rank = {

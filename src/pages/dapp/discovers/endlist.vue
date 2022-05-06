@@ -123,7 +123,7 @@ const getIcon = (item: string) => {
   @apply min-h-11.5 h-11.5 border-b-1 border-global-highTitle border-opacity-6;
 }
 thead td {
-  @apply min-h-11.5 h-11.5 text-center text-kd12px16px text-global-highTitle text-opacity-45;
+  @apply min-h-11.5 h-11.5 text-center text-kd12px16px text-global-highTitle font-medium;
   &:first-child {
     @apply text-left pl-3;
   }

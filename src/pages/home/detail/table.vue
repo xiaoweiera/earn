@@ -171,7 +171,7 @@ onMounted(() => {
         <thead>
           <tr class="min-h-10">
             <td class="h-full border-tb w-5">
-              <div class="text-left">#</div>
+              <div class="text-left text-global-highTitle">#</div>
             </td>
             <template v-for="(item, index) in safeGet(data, 'header')" :key="index">
               <td v-if="item.key !== 'id'" :class="getNameWidth(item)" class="text-left border-tb">

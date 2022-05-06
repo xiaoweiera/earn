@@ -254,6 +254,14 @@ export default class extends ApiTemplate {
     return [query] as any;
   }
 
+  // 项目信息
+  @tryError(DefaultValue({}))
+  @get(api.dapp.tokenList, expire.min30)
+  @userToken()
+  @validate
+  getProjectInfo<T>(@required query: any): Promise<T> {
+    return [query] as any;
+  }
   //项目类型和公链
   @tryError(DefaultValue([]))
   @get(api.dapp.options, expire.min5)

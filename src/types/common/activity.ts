@@ -48,5 +48,6 @@ export interface Invite {
   begin_time: number; // 开始时间
   end_time: number; // 结束时间
   partners_poster: string; // 合作伙伴
+  partners_poster_mobile: string; // 合作伙伴
   share_links: ShareItem[];
 }

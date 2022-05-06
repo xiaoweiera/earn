@@ -73,17 +73,11 @@ const change = _.debounce(async (value: string) => {
 <template>
   <div>
     <div class="flex items-center">
-      <div class="text-kd12px16px md:text-14-18 text-global-highTitle text-opacity-65">{{ title }}</div>
+      <div class="text-kd12px16px md:text-14-18 text-global-highTitle">{{ title }}</div>
       <div class="flex items-center flex-1 w-full md:w-25 h-8 ml-2 md:ml-4">
         <div class="w-full">
           <client-only class="flex items-center justify-between">
-            <el-select
-              v-model="routerParam"
-              :popper-append-to-body="false"
-              class="projectMining flex-1 select"
-              size="small"
-              @change="change"
-            >
+            <el-select v-model="routerParam" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="change">
               <el-option v-for="item in list" :key="item.value" :label="item.value" :value="item.value" />
             </el-select>
           </client-only>
@@ -96,11 +90,17 @@ const change = _.debounce(async (value: string) => {
 .select {
   ::v-deep(.el-input__inner) {
     @apply border-1 border-global-highTitle border-opacity-4 bg-global-white h-8 rounded-md;
-    @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
+    @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle flex items-center;
+  }
+  ::v-deep(.el-select-dropdown__item) {
+    @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle;
   }
   @screen md {
     ::v-deep(.el-input__inner) {
-      @apply border-1 border-global-highTitle border-opacity-4 text-kd14px18px w-25 h-8 pl-3 bg-global-topBg text-left text-global-highTitle text-opacity-85 flex items-center text-kd14px18px;
+      @apply border-1 border-global-highTitle border-opacity-4 text-kd14px18px w-25 h-8 pl-3 bg-global-topBg text-left text-global-highTitle flex items-center;
+    }
+    ::v-deep(.el-select-dropdown__item) {
+      @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle;
     }
   }
 }

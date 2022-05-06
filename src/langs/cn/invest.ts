@@ -27,6 +27,9 @@ export default {
     learnMore: "查看详情",
     funds: "机构",
     trend: "机构投资动向",
+    investmentTitle: "投资机构",
+    financing: "融资轮次",
+    investment: "投资机构",
   },
   page: {
     title: "机构投资动向 | KingData",

@@ -24,6 +24,7 @@ const Reviews = asyncLoad(() => import("./reviews/index.vue"));
 const Dashboard = asyncLoad(() => import("./dashboard/index.vue"));
 const NFT = asyncLoad(() => import("./content/nft.vue"));
 const AirDrops = asyncLoad(() => import("./content/airdrop.vue"));
+const ProjectInfo = asyncLoad(() => import("./project/index.vue"));
 const CommonTopics = asyncLoad(() => import("src/pages/home/recommend.vue"));
 
 const i18n = I18n();
@@ -111,6 +112,9 @@ const getTabData = function (info: DAppProject, data: DAppData) {
         <div :key="project.tab" :data-tab="project.tab" class="mt-6">
           <template v-if="AnyEquals(project.tab, TabName.twitter)">
             <Twitter :name="getTwitterName(detail)" class="bg-white" />
+          </template>
+          <template v-if="AnyEquals(project.tab, TabName.project)">
+            <projectInfo :data="project" />
           </template>
           <template v-else-if="AnyEquals(project.tab, TabName.reviews)">
             <Reviews :id="project.id" />
