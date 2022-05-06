@@ -151,7 +151,7 @@ const EndlistComing = function () {
           <client-only class="w-50 input-style">
             <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
               <template #prefix>
-                <IconFont size="16" type="icon-sousuo" @click="onSearch" />
+                <IconFont size="16" type="icon-sousuo-da" class="text-global-highTitle" @click="onSearch" />
               </template>
             </ElInput>
           </client-only>
@@ -177,7 +177,7 @@ const EndlistComing = function () {
         <client-only class="w-1/2 input-style">
           <ElInput v-model="search" :placeholder="i18n.common.placeholder.search" class="w-full" @change="onSearch">
             <template #prefix>
-              <IconFont size="16" type="icon-sousuo" @click="onSearch" />
+              <IconFont size="16" type="icon-sousuo-da" class="text-global-highTitle" @click="onSearch" />
             </template>
           </ElInput>
         </client-only>
@@ -212,11 +212,11 @@ const EndlistComing = function () {
   }
 
   ::v-deep(input::-webkit-input-placeholder) {
-    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+    @apply text-kd12px16px text-global-highTitle font-medium;
   }
 
   ::v-deep(input::-ms-input-placeholder) {
-    @apply text-kd12px16px text-global-highTitle text-opacity-45 font-medium;
+    @apply text-kd12px16px text-global-highTitle font-medium;
   }
 }
 
@@ -228,11 +228,11 @@ const EndlistComing = function () {
     }
 
     ::v-deep(input::-webkit-input-placeholder) {
-      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+      @apply text-kd14px18px text-global-highTitle font-medium;
     }
 
     ::v-deep(input::-ms-input-placeholder) {
-      @apply text-kd14px18px text-global-highTitle text-opacity-45 font-medium;
+      @apply text-kd14px18px text-global-highTitle font-medium;
     }
   }
 }

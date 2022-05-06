@@ -24,12 +24,11 @@ defineProps({
     default: () => "",
   },
 });
-
 </script>
 <template>
   <div>
     <div class="flex items-center">
-      <div v-if="title" :class="titleWidth" class="text-14-18 text-global-highTitle text-opacity-65 mr-4">{{ title }}</div>
+      <div v-if="title" :class="titleWidth" class="text-14-18 text-global-highTitle mr-4">{{ title }}</div>
       <div class="flex-1 is-tab">
         <ui-tab :list="list" :active-name="name" :split="split" />
       </div>

@@ -237,7 +237,7 @@ onMounted(() => {
   }
 
   .tab-item {
-    @apply ml-4 md:ml-8 text-global-highTitle text-opacity-45;
+    @apply ml-4 md:ml-8 text-global-highTitle;
     @extend %first-ml0;
 
     &:after {
@@ -255,6 +255,12 @@ onMounted(() => {
 
     ::v-deep(.el-input__inner) {
       @apply rounded-md;
+      &::placeholder {
+        @apply text-global-highTitle;
+      }
+    }
+    ::v-deep(.el-select-dropdown__item) {
+      @apply text-global-highTitle;
     }
 
     /**
