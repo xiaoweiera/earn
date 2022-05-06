@@ -218,15 +218,12 @@ const itemTransform = function (list: object[]): object[] {
 <style lang="scss" scoped>
 .discover-warp {
   @apply pb-15 bg-global-topBg;
-
   .content {
     @apply max-w-320 mx-auto;
   }
-
   .is-tab {
     box-shadow: 0px 1px 0px rgba(3, 54, 102, 0.06);
   }
-
   .more {
     @apply w-30 h-8 flex items-center justify-center mx-auto w-fit cursor-pointer rounded-kd6px;
     @apply text-kd14px18px font-medium font-kdFang text-global-primary;
