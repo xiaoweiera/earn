@@ -16,12 +16,13 @@ export const TopicList = function (lang?: Lang): MenuItem {
   return {
     id: name.topic,
     name: i18n.nav.analysis.name, // '数据'
+    icon: "icon-shuju",
     href: config.topic,
     expand: "HeaderSubData",
     children: [
       {
         name: i18n.menu.data.topic, // 数据专题
-        icon: "icon-zhuanti",
+        icon: "icon-shuju",
         href: config.topic,
         more: true,
         header: false,
