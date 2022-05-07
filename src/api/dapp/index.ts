@@ -3,7 +3,7 @@
  */
 
 import * as api from "src/config/api";
-import { DefaultValue, expire, get, required, tryError, userToken, validate } from "src/plugins/dao/http";
+import { DefaultValue, expire, get, required, tryError, userToken, validate, post } from "src/plugins/dao/http";
 import type { Query } from "src/types/dapp/ixo";
 import type { nftQuery } from "src/types/dapp/nft";
 import type { AirdropQuery } from "src/types/dapp/airdrop";
@@ -272,7 +272,7 @@ export default class extends ApiTemplate {
 
   //提交项目
   @tryError(DefaultValue([]))
-  @get(api.dapp.commit, expire.min5)
+  @post(api.dapp.commit, expire.min5)
   @validate
   onSubmit<T>(@required data: FormData): Promise<T> {
     return [data] as any;
