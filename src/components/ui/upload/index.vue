@@ -91,6 +91,7 @@ const onSuccess = function (): void {
 const onRemove = function (): void {
   previewUrl.value = "";
   emitEvent("remove");
+  emitEvent("change", "");
 };
 </script>
 
