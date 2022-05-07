@@ -20,7 +20,7 @@ export const Blog = function (lang?: Lang): MenuItem {
     children: [
       {
         id: name.blog,
-        icon: "icon-yanbao",
+        icon: "icon-yanjiuyuan",
         name: i18n.menu.blog.blog,
         href: config.blog,
         header: false,
