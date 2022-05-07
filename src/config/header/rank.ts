@@ -26,7 +26,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         name: i18n.menu.dapp.ranking,
         header: true,
         more: true,
-        icon: "icon-paihang",
+        icon: "icon-Dapp",
         href: config.rankDapp,
       },
       {
@@ -34,7 +34,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         name: i18n.menu.dapp.game,
         header: true,
         more: true,
-        icon: "icon-paihang",
+        icon: "icon-GameFi",
         href: config.rankGame,
       },
       {
@@ -42,7 +42,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         name: i18n.menu.dapp.defi,
         header: true,
         more: true,
-        icon: "icon-paihang",
+        icon: "icon-DeFi",
         href: config.rankDefi,
       },
       {
@@ -50,7 +50,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         name: i18n.menu.nft.ranking,
         header: true,
         more: true,
-        icon: "icon-a-NFTpaihang",
+        icon: "icon-NFTpaihang",
         href: config.rankNft,
       },
     ],

@@ -10,6 +10,17 @@
 .showX::-webkit-scrollbar-thumb:vertical {
   background: rgba(0, 0, 0, 0);
 }
+.showY{
+  @apply overflow-hidden overflow-y-scroll;
+}
+/* 滑轮样式 */
+.showY::-webkit-scrollbar {
+  height: 0;
+}
+
+.showY::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0);
+}
 .short{
   white-space: nowrap;
   overflow: hidden;

@@ -22,7 +22,7 @@ export const Quota = function (lang?: Lang): MenuItem {
       {
         id: name.indicators,
         name: i18n.menu.data.quota, // 推荐指标
-        icon: "icon-jiankong1",
+        icon: "icon-zhibiao",
         href: config.quota,
         more: true,
         header: true,
@@ -30,7 +30,7 @@ export const Quota = function (lang?: Lang): MenuItem {
       {
         id: name.signals,
         name: i18n.menu.data.news, // 指标异动
-        icon: "icon-jiankong1",
+        icon: "icon-yidong1",
         href: config.news,
         more: true,
         header: true,

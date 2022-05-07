@@ -2,6 +2,7 @@ export default {
   login: "Log In",
   register: "Sign Up",
   apply: "Apply",
+  more: "More",
   idea: "Idea",
   resetPassword: "Reset Password",
   switchLogin: "Log In",
