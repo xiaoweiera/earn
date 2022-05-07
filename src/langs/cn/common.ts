@@ -2,6 +2,7 @@ export default {
   login: "登录",
   register: "注册",
   apply: "申请收录",
+  more: "更多",
   idea: "意见反馈",
   resetPassword: "重置密码",
   switchLogin: "返回登录",
