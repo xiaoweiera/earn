@@ -3,7 +3,9 @@ import type { PropType } from "vue";
 import type { MenuItem } from "src/types/menu/";
 import safeGet from "@fengqiaogang/safe-get";
 import VRouter from "src/components/v/router.vue";
+import I18n from "src/utils/i18n";
 
+const i18n = I18n();
 defineProps({
   list: {
     type: Array as PropType<MenuItem[]>,
@@ -22,7 +24,7 @@ defineProps({
           <span class="title">{{ data.name }}</span>
           <template v-for="item in data.children" :key="item.name">
             <v-router :href="item.href" class="flex items-center py-2 min-h-10">
-              <IconFont class="mr-2" :type="item.icon" />
+              <IconFont size="24" class="mr-2" :type="item.icon" />
               <span class="item-name">{{ item.name }}</span>
             </v-router>
           </template>
@@ -30,20 +32,20 @@ defineProps({
       </template>
     </div>
     <div>
-      <span class="title">更多</span>
+      <span class="title">{{ i18n.common.more }}</span>
       <template v-for="data in list.slice(4)" :key="data.id">
         <div class="w-full">
           <div v-if="safeGet(data, 'children.length') > 0">
             <template v-for="item in data.children" :key="item.name">
               <v-router :href="item.href" class="flex items-center py-2 min-h-10">
-                <IconFont class="mr-2" :type="item.icon" />
+                <IconFont size="24" class="mr-2" :type="item.icon" />
                 <span class="item-name">{{ item.name }}</span>
               </v-router>
             </template>
           </div>
           <div v-else>
             <v-router :href="data.href" class="flex items-center py-2 min-h-10">
-              <IconFont class="mr-2" :type="data.icon" />
+              <IconFont size="24" class="mr-2" :type="data.icon" />
               <span class="item-name">{{ data.name }}</span>
             </v-router>
           </div>

@@ -22,9 +22,9 @@ const auditUrl = computed<string>(function () {
   return `audit_reports[${props.index}].report`;
 });
 
-const ruleAudit = [{ required: true, trigger: ["blur", "change"], message: i18n.apply.rules.required }];
-
-const ruleReport = [{ required: true, type: "url", trigger: ["blur", "change"], message: i18n.apply.rules.required }];
+// const ruleAudit = [{ required: true, trigger: ["blur", "change"], message: i18n.apply.rules.required }];
+//
+// const ruleReport = [{ required: true, type: "url", trigger: ["blur", "change"], message: i18n.apply.rules.required }];
 </script>
 
 <template>
@@ -32,7 +32,7 @@ const ruleReport = [{ required: true, type: "url", trigger: ["blur", "change"], 
     <div class="audit-wrap">
       <div class="md:flex">
         <div class="md:w-2/5 md:pr-4">
-          <el-form-item required :prop="auditName" :rules="ruleAudit">
+          <el-form-item :prop="auditName">
             <template #label>
               <span class="text-12-16 font-medium">{{ i18n.apply.label.audit.name }}</span>
             </template>
@@ -40,7 +40,7 @@ const ruleReport = [{ required: true, type: "url", trigger: ["blur", "change"], 
           </el-form-item>
         </div>
         <div class="mt-4 md:w-3/5 md:mt-0 report-url">
-          <el-form-item required :prop="auditUrl" :rules="ruleReport">
+          <el-form-item :prop="auditUrl">
             <template #label>
               <span class="text-12-16 font-medium">{{ i18n.apply.label.audit.url }}</span>
             </template>
