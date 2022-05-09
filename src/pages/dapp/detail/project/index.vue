@@ -114,10 +114,10 @@ const total = function (data: any) {
                     </td>
                     <td class="h-full py-3">
                       <div class="flex flex-wrap items-center justify-end text-kd14px18px text-global-darkblue font-medium">
-                        <temlate v-for="(data, index) in item.investors" :key="index">
-                          <v-router :href="`${config.invest}/${data.id}`" target="_blank" name="span">{{ data.name }}</v-router>
-                          <span class="text-global-highTitle">，</span>
-                        </temlate>
+                        <template v-for="(data, index) in item.investors" :key="index">
+                          <v-router :href="`${config.invest}/${data.id}`" target="_blank">{{ data.name }}</v-router>
+                          <span class="last:hidden text-global-highTitle">，</span>
+                        </template>
                       </div>
                     </td>
                   </tr>
