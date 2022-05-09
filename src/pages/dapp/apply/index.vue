@@ -10,6 +10,7 @@ import { Audit, OptionItem, FormData } from "src/types/dapp/apply";
 import { equalsIgnoreCase } from "src/utils/";
 import { Model } from "src/logic/dapp/apply";
 import { toArray } from "src/utils/";
+import { resetFields } from "src/logic/account/register";
 
 const i18n = I18n();
 const formData = reactive<FormData>({
@@ -96,6 +97,7 @@ const onSubmitApply = async function () {
       }
     }
     tipsStatus.value = true;
+    resetFields(formRef);
   } catch (e: any) {
     const value = e?.message || i18n.apply.tips.error;
     ElMessage(value);

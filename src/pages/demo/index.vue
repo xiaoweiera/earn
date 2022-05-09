@@ -3,24 +3,10 @@
  * @file demo
  * @auth svon.me@gmail.com
  */
-
-import { onMounted } from "vue";
-import type { EchartData } from "src/types/echarts/type";
-import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
-
-const name = "api.apy.getHecoTrends";
-
-const echart = createReactive<EchartData>(name, {} as EchartData);
-
-onMounted(function () {
-  return onLoadReactive(echart, name);
-});
 </script>
 
 <template>
   <div class="p-4 md:p-10">
-    <div v-if="echart.legends" class="max-w-300 mx-auto">
-      <ui-echart-content :data="echart" class="h-75" />
-    </div>
+    <ui-upload src="https://dev-jsdata-web.kingdata.xyz/media/DeFi/Apply/2022/5/96a3be3cf272e017046d1b2674a52bd3.jpg" />
   </div>
 </template>

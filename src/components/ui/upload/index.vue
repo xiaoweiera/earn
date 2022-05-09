@@ -1,13 +1,29 @@
 <script setup lang="ts">
-import { uploadImage } from "src/logic/upload";
+/**
+ * @file 上传
+ * @author svon.me@gmail.com
+ */
+import API from "src/api/";
+import { reactive, ref } from "vue";
+import I18n from "src/utils/i18n";
 import { messageError } from "src/lib/tool";
-import { ElLoading, ElUpload } from "element-plus";
+import { ElUpload, ElLoading } from "element-plus";
+
+const emitEvent = defineEmits(["change", "remove"]);
 
 defineProps({
-  size: {
-    type: String,
+  // 是否支持删除，重新上传
+  remove: {
+    type: Boolean,
     default() {
-      return "";
+      return true;
+    },
+  },
+  // 预览模式
+  preview: {
+    type: Boolean,
+    default() {
+      return false;
     },
   },
   src: {
@@ -16,120 +32,126 @@ defineProps({
       return "";
     },
   },
-  remove: {
-    type: Boolean,
-    default() {
-      return true;
-    },
-  },
-  preview: {
-    type: Boolean,
-    default() {
-      return false;
-    },
-  },
 });
 
-const emitEvent = defineEmits(["change", "remove"]);
+let loading: any;
+const previewUrl = ref<string>("");
+const policy = reactive<{ url: string; fields: object }>({
+  url: "",
+  fields: {},
+});
 
-// @ts-ignore
-const onUpload = async (file: any): Promise<boolean> => {
-  const loading = ElLoading.service({
+const getFileName = function (file: File): string {
+  return file.name;
+};
+
+const onBeforeUpload = async function (file: File): Promise<boolean> {
+  loading = ElLoading.service({
     lock: true,
     text: "Loading",
   });
+  const api = new API();
+  const fileName = getFileName(file);
+  const option: any = await api.upload.getPolicy(fileName);
+  // 签名为空时
+  if (!option.url) {
+    loading.close();
+    // 提示错误信息
+    const i18n = I18n();
+    messageError(i18n.common.api.wrong);
+    return Promise.reject({
+      message: i18n.common.api.wrong,
+    });
+  }
+  // 预览图
+  previewUrl.value = option.preview_url;
+  // 从签名中获取上传地址
+  policy.url = option.url;
+  // 随文件一起的签名信息
+  policy.fields = option.fields;
+  return true;
+};
 
-  const data = file.raw;
-  try {
-    const value = await uploadImage(data);
-    if (value) {
-      emitEvent("change", value);
-    }
-  } catch (e: any) {
-    if (e?.message) {
-      messageError(e.message);
-    }
-  } finally {
+// 上传结束
+const onChange = function (): void {
+  if (loading) {
     loading.close();
   }
-  return false;
+  // 重置
+  policy.url = "";
+  policy.fields = {};
 };
 
-// @ts-ignore
-const getStyle = function (value: string): string {
-  return `background-image: url(${value});`;
+// 上传成功
+const onSuccess = function (): void {
+  emitEvent("change", previewUrl.value);
 };
 
-// @ts-ignore
-const onRemove = function () {
+// 删除
+const onRemove = function (): void {
+  previewUrl.value = "";
   emitEvent("remove");
+  emitEvent("change", "");
 };
 </script>
 
 <template>
-  <client-only>
-    <div v-if="preview" class="preview-wrap upload-box relative rounded-md overflow-hidden" :class="size">
-      <v-router :href="src" class="avatar-uploader cursor-pointer" target="_blank">
-        <span class="preview picture inline-block" :class="size" :style="getStyle(src)" />
-      </v-router>
+  <div class="upload-box rounded-md">
+    <div v-if="preview && src" class="overflow-hidden h-full">
+      <!--是否为预览-->
+      <ui-image :src="src" :preview="[src]" />
     </div>
-    <div v-else class="upload-box relative rounded-md" :class="size">
-      <template v-if="src">
-        <div v-if="remove" class="delete cursor-pointer" @click="onRemove">
-          <IconFont type="icon-remove" />
-        </div>
-      </template>
-      <div class="upload-main w-full h-full">
-        <el-upload class="avatar-uploader" action="" accept="image/*" :show-file-list="false" :multiple="false" name="image_url" :drag="true" :on-change="onUpload" :auto-upload="false">
+    <div v-else class="relative h-full">
+      <!--删除 icon-->
+      <div v-if="remove && src" class="delete cursor-pointer" @click="onRemove">
+        <IconFont type="icon-remove" />
+      </div>
+      <div class="upload-main h-full">
+        <el-upload class="w-full h-full bg-white avatar-uploader overflow-hidden rounded-md" :action="policy.url" :data="policy.fields" method="post" accept="image/*" :show-file-list="false" :multiple="false" name="file" :drag="true" :before-upload="onBeforeUpload" :on-change="onChange" :on-success="onSuccess" :auto-upload="true">
           <template v-if="src">
-            <span class="preview picture inline-block" :class="size" :style="getStyle(src)" />
+            <ui-image class="h-full w-full" :src="src" />
           </template>
-          <template v-else-if="previewSrc">
-            <span class="preview picture inline-block" :style="getStyle(previewSrc)" />
-          </template>
-          <IconFont v-else class="preview" type="plus" suffix="png" />
+          <span v-else class="w-full h-full block flex items-center justify-center">
+            <IconFont class="icon-plus" type="icon-plus" size="30" />
+          </span>
         </el-upload>
       </div>
     </div>
-  </client-only>
+  </div>
 </template>
 
 <style scoped lang="scss">
-@mixin size($number) {
-  min-width: $number;
-  width: $number;
-  height: $number;
-}
-
-.upload-box,
-.picture {
-  @include size(120px);
-  &.xs {
-    @include size(72px);
-  }
-}
-.delete {
-  @apply z-2 absolute right-0 top-0;
-  transform: translate(40%, -40%);
-}
-.upload-main {
+.upload-box {
   border-color: rgba(220, 223, 220, 1);
   @apply border border-solid;
-  @apply rounded-md overflow-hidden;
+  &:not([class~="w-"]),
+  &:not([class*="w-"]) {
+    @apply w-30;
+  }
+
+  &:not([class~="h-"]),
+  &:not([class*="h-"]) {
+    @apply h-30;
+  }
+
+  .delete {
+    @apply z-2 absolute right-0 top-0;
+    transform: translate(40%, -40%);
+  }
 }
+
 .avatar-uploader {
-  @apply w-full h-full bg-white;
   @apply flex items-center justify-center;
-  .preview {
-    @apply transform -translate-x-1/2 -translate-y-1/2;
-    @apply absolute left-1/2 top-1/2;
-    @apply max-w-40;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    @at-root .preview-wrap & {
-      @apply bg-global-topBg;
-    }
+  ::v-deep(.el-upload) {
+    @apply w-full h-full block;
+  }
+
+  ::v-deep(.el-upload-dragger) {
+    @apply w-full h-full border-none;
+  }
+
+  .icon-plus {
+    color: rgba(220, 223, 220, 1);
   }
 }
 </style>

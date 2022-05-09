@@ -8,7 +8,7 @@ import * as env from "src/config";
 import type { MenuItem } from "src/types/menu/";
 import { alias, createRef } from "src/utils/ssr/ref";
 import { asyncLoad } from "src/plugins/lazyload/";
-import Mobile from "./mobile.vue";
+import Mobile from "./mobile/index.vue";
 import isShowChildren from "./isshow";
 import MenuContentList from "./menu.vue";
 
