@@ -57,6 +57,13 @@ const cancel = () => (ideaState.value = !ideaState.value);
               </div>
             </div>
           </div>
+          <!-- 分享 -->
+          <div class="w-full rounded-kd4px py-3 mt-3 tagShadow hand">
+            <ui-share :value="'name'" class="w-full block text-center rounded-kd4px hand">
+              <IconFont class="text-global-highTitle text-opacity-65" size="20" type="icon-fenxiang1" />
+              <div class="text-12-14 text-global-highTitle text-opacity-65">{{ i18n.dapp.share.label }}</div>
+            </ui-share>
+          </div>
           <div class="w-full block rounded-kd4px flex flex-col items-center justify-between py-3 mt-3 tagShadow hand">
             <v-router :href="i18n.chat.medium" target="_blank">
               <IconFont class="text-global-primary" size="26" type="medium" />
