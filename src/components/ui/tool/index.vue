@@ -19,7 +19,7 @@ defineProps({
 });
 
 const title = createRef<string>("title", {} as any);
-const keywords = createRef<string>("keywords", {} as any);
+const description = createRef<string>("description", {} as any);
 
 const current = computed(() => {
   return i18n.getLang();
@@ -67,7 +67,7 @@ const shareText = function (title: string, keywords: string) {
           </div>
           <!-- 分享 -->
           <div class="w-full rounded-kd4px py-3 mt-3 tagShadow hand">
-            <ui-share :value="shareText(title, keywords)" class="w-full block text-center rounded-kd4px hand">
+            <ui-share :value="shareText(title, description)" class="w-full block text-center rounded-kd4px hand">
               <IconFont class="text-global-highTitle text-opacity-65" size="20" type="icon-fenxiang1" />
               <div class="text-12-14 text-global-highTitle text-opacity-65">{{ i18n.dapp.share.label }}</div>
             </ui-share>
