@@ -18,7 +18,7 @@ const i18n = I18n();
 const key = ref(uuid());
 const params = reactive({
   page: 1,
-  page_size: 100,
+  page_size: 200,
   project_id: props.id,
   sort_field: "",
   sort_type: "", // desc asc
@@ -66,7 +66,7 @@ const total = function (data: any) {
     </div>
     <!-- 表格 -->
     <div :key="key">
-      <ui-pagination :limit="10" :init-value="initValue()" :request="requestList">
+      <ui-pagination :limit="200" :init-value="initValue()" :request="requestList">
         <template #default="scope">
           <div class="showX">
             <table class="table-my mb-4">

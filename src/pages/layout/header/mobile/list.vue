@@ -2,7 +2,6 @@
 import type { PropType } from "vue";
 import type { MenuItem } from "src/types/menu/";
 import safeGet from "@fengqiaogang/safe-get";
-import VRouter from "src/components/v/router.vue";
 import I18n from "src/utils/i18n";
 
 const i18n = I18n();
@@ -53,8 +52,6 @@ defineProps({
       </template>
     </div>
   </div>
-
-  <!--    <MSub v-if="data.children" :list="data.children" />-->
 </template>
 <style scoped lang="scss">
 .title {

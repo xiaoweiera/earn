@@ -6,7 +6,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import { tidingName } from "src/config/";
 import * as api from "src/config/api";
 import Cookie from "src/plugins/browser/cookie";
-import { DefaultValue, expire, get, post, tryError, userToken, required, validate } from "src/plugins/dao/http";
+import { DefaultValue, expire, get, post, tryError, userToken } from "src/plugins/dao/http";
 import type { AreaCode } from "src/types/common/area";
 import type { SiteConfig } from "src/types/common/chain";
 import type { TidingList } from "src/types/common/tiding";
