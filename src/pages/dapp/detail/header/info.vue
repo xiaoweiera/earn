@@ -11,6 +11,7 @@ import type { DAppProject, DAppData, ProjectMedias, ProjectMediaItem } from "src
 import { getChainLogo } from "src/utils/";
 import Risk from "src/pages/dapp/risk/index.vue";
 import Progress from "src/pages/dapp/progress/index.vue";
+import { createRef } from "src/utils/ssr/ref";
 
 const i18n = I18n();
 
@@ -24,6 +25,8 @@ defineProps({
     type: Object as PropType<DAppData>,
   },
 });
+const title = createRef<string>("title", {} as any);
+const description = createRef<string>("description", {} as any);
 
 const getMediaUrl = function (data: DAppData, name: string) {
   const medias: ProjectMedias = data?.medias || {};
@@ -38,6 +41,9 @@ const getAirdropStatus = function (project: DAppProject, data: DAppData) {
   if (project.type === ProjectType.airdrop) {
     return safeGet<string>(data, "airdrop.airdrop_status");
   }
+};
+const shareText = function (title: string, keywords: string) {
+  return `${title}\n${keywords}`;
 };
 </script>
 
@@ -135,7 +141,7 @@ const getAirdropStatus = function (project: DAppProject, data: DAppData) {
       </div>
       <!--分享-->
       <div class="md:mt-6">
-        <ui-share :value="data.name">
+        <ui-share :value="shareText(title, description)">
           <div class="flex items-center py-2 px-3 rounded bg-global-darkblue bg-opacity-6">
             <IconFont class="mr-1" size="16" type="icon-fenxiang1" />
             <span class="font-m">{{ i18n.dapp.share.label }}</span>

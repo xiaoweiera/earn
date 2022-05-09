@@ -42,7 +42,7 @@ onMounted(function () {
       <div class="flex items-center justify-center" @click="status = false">
         <ui-share-twitter :href="link" :text="value" />
         <span class="block mx-8 w-px h-6 bg-global-highTitle bg-opacity-10"></span>
-        <ui-share-telegram :href="link" />
+        <ui-share-telegram :href="link" :text="value" />
       </div>
       <template #footer>
         <v-copy :value="link" message class="block w-full cursor-pointer bg-global-bgFb" @click="status = false">
