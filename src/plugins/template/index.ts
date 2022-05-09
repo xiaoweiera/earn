@@ -26,7 +26,7 @@ interface Result {
 
 const makeScript = async function (data: Result): Promise<string> {
   const env = getEnv();
-  const value = _.omit(data, ["title", "keywords", "description", "content", "libs"]);
+  const value = _.omit(data, ["content", "libs"]); // "title", "keywords", "description",
   const scriptCodes: string[] = [];
   const scriptLibs: string[] = [...Icons];
 
@@ -54,8 +54,7 @@ const makeScript = async function (data: Result): Promise<string> {
     html.push(`<script>${value}</script>`);
   });
   if (env.google && env.google.io) {
-    let code =
-      "!function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement(\"script\"),tag=t.getElementsByTagName(\"script\")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,\"script\",\"assets.giocdn.com/2.1/gio.js\",\"gio\");";
+    let code = "!function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement(\"script\"),tag=t.getElementsByTagName(\"script\")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,\"script\",\"assets.giocdn.com/2.1/gio.js\",\"gio\");";
     code += `gio("init","${env.google.io}", {});`;
     code += "gio(\"send\");";
 
