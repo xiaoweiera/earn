@@ -29,11 +29,11 @@ const getData = async () => {
   const api = new Model();
   const data: any = await api.getMarketCapData(params);
   chartData.value = data;
+  dataKey.value = uuid();
 };
 const tabClick = function (value: any) {
   if (params.range === value.id) return false;
   params.range = value.id;
-  dataKey.value = uuid();
   getData();
 };
 onMounted(function () {
