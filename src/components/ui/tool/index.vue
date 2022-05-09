@@ -3,6 +3,7 @@ import { ref, computed } from "vue";
 import { ElPopover } from "element-plus";
 import document from "src/plugins/browser/document";
 import I18n from "src/utils/i18n";
+import { createRef } from "src/utils/ssr/ref";
 
 const i18n = I18n();
 
@@ -16,6 +17,9 @@ defineProps({
     default: false,
   },
 });
+
+const title = createRef<string>("title", {} as any);
+const keywords = createRef<string>("keywords", {} as any);
 
 const current = computed(() => {
   return i18n.getLang();
@@ -32,6 +36,10 @@ const back = () => {
   }
 };
 const cancel = () => (ideaState.value = !ideaState.value);
+
+const shareText = function (title: string, keywords: string) {
+  return `${title}/n${keywords}`;
+};
 </script>
 <template>
   <div>
@@ -59,7 +67,7 @@ const cancel = () => (ideaState.value = !ideaState.value);
           </div>
           <!-- 分享 -->
           <div class="w-full rounded-kd4px py-3 mt-3 tagShadow hand">
-            <ui-share :value="'name'" class="w-full block text-center rounded-kd4px hand">
+            <ui-share :value="shareText(title, keywords)" class="w-full block text-center rounded-kd4px hand">
               <IconFont class="text-global-highTitle text-opacity-65" size="20" type="icon-fenxiang1" />
               <div class="text-12-14 text-global-highTitle text-opacity-65">{{ i18n.dapp.share.label }}</div>
             </ui-share>
