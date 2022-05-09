@@ -93,7 +93,7 @@ onMounted(() => {
                 <div v-else class="h-28 w-47.5 relative overflow-hidden rounded-kd6px">
                   <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute" />
                   <ui-image class="rounded-kd6px w-full h-full" :class="getImg(item) ? '' : 'mohu'" :src="getImg(item) ? getImg(item) : item['logo']" />
-                  <div class="top-3 absolute w-full px-3 flex flex-col items-center justify-center">
+                  <div v-if="item['data_type'] !== 'ad'" class="top-3 absolute w-full px-3 flex flex-col items-center justify-center">
                     <div class="relative">
                       <ui-image v-if="item['data_type'] === 'dapp'" class="cover-logo" :src="item['logo']" fit="cover" />
                       <div class="chain-logo">
@@ -108,7 +108,7 @@ onMounted(() => {
                       <span v-if="safeGet(item, `chain`)" class="chain-tip">{{ safeGet(item, `chain`) }}</span>
                     </div>
                   </div>
-                  <div class="w-47.5 h-28 absolute top-0 left-0 rounded-kd6px jian z-2" />
+                  <div class="w-47.5 h-28 absolute top-0 left-0 rounded-kd6px z-2" :class="item['data_type'] === 'ad' ? '' : 'jian'" />
                 </div>
               </v-router>
             </SwiperSlide>
