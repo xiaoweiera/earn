@@ -19,6 +19,9 @@ import down from "./download";
 import { app as activeApp } from "src/controller/activity/";
 import invest from "./invest";
 import apply from "./apply";
+import agreement from "./agreement";
+import instructions from "./instructions";
+import policys from "./policys";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   const router = ExpressRouter();
@@ -31,6 +34,12 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   });
   // 活动
   router.get("/activity/:type/:id", activeApp);
+  //协议书
+  router.use(agreement());
+  //使用说明
+  router.use(instructions());
+  //用户需知
+  router.use(policys());
   // 榜单
   router.use(rank());
   // 装载 DApp 相关路由

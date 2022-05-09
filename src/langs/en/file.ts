@@ -1,4 +1,5 @@
 export default {
+  title: "KingData Instructions of use",
   desc: `
     Dear users: 
     KingData is an industry-leading blockchain data service platform. KingData is aimed to build a data bridge to shorten the distance between users and complex data and make the data more transparent by analyzing the data on the chain, helping users to make more objective and accurate judgments quickly. 
