@@ -49,9 +49,21 @@ const getHtml = function (value: string): string {
 
 <template>
   <div>
-    <div v-if="detail.cover">
+    <template v-if="detail.cover && detail.cover_mobile">
+      <div class="hidden md:block">
+        <ui-image :src="detail.cover" fit="none" />
+      </div>
+      <div class="block md:hidden">
+        <ui-image :src="detail.cover_mobile" fit="none" />
+      </div>
+    </template>
+    <template v-else-if="detail.cover">
       <ui-image :src="detail.cover" fit="none" />
-    </div>
+    </template>
+    <template v-else-if="detail.cover_mobile">
+      <ui-image :src="detail.cover_mobile" fit="none" />
+    </template>
+
     <div class="pt-16 px-4 pb-8">
       <div class="max-w-200 mx-auto">
         <h3 v-show="detail.name" class="mb-3 text-32 font-b text-global-highTitle">{{ detail.name }}</h3>
