@@ -38,7 +38,7 @@ const back = () => {
 const cancel = () => (ideaState.value = !ideaState.value);
 
 const shareText = function (title: string, keywords: string) {
-  return `${title}/n${keywords}`;
+  return `${title}\n${keywords}`;
 };
 </script>
 <template>
