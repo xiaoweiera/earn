@@ -32,6 +32,7 @@ const listChange = _.debounce(() => {
   key.value = uuid();
 }, 300);
 
+//项目信息列表
 const requestList = async () => {
   infoList.value = await api.getProjectInfo(params);
   return infoList.value;
@@ -39,6 +40,8 @@ const requestList = async () => {
 const initValue = () => {
   return getValue<object[]>(alias.dApp.DAppDetail.invest, []);
 };
+
+//计算总数
 const total = function (data: any) {
   if (data && data.length > 0) {
     return data.reduce((sum: number, item: any) => {
