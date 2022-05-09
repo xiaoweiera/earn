@@ -12,7 +12,7 @@ const api = new API();
 const detail: any = getInject("detailState");
 const setDetail: any = setInject("detailState");
 
-const tipState = reactive({ value: false });
+// const tipState = reactive({ value: false });
 const props = defineProps({
   value: {
     required: true,
