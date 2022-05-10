@@ -1,0 +1,1 @@
+import{_ as a}from"./index.710235ef.js";import{d as s,b4 as o,a7 as t,X as e,aC as p,o as r,c as i,a as n}from"./app.46fe480c.js";import"./lodash.6b1417a0.js";const c={class:"min-h-150"},m=s({setup:s=>(o((()=>{const a=t(),s=e();a.replace({path:`${p.apy}/mining`,query:s})})),(s,o)=>{const t=a;return r(),i("div",c,[n(t,{loading:!0})])})});export{m as default};

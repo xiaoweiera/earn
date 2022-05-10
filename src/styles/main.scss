@@ -49,7 +49,7 @@ a {
 
 .device {
   &.web, &.app {
-    @at-root #app & {
+    @at-root #kd-app & {
       @apply block;
     }
   }

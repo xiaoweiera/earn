@@ -42,6 +42,7 @@ export interface Invite {
   language: Language;
   name: string; // 标题
   cover: string; // 封面
+  cover_mobile: string; // 移动端封面
   description: string; // 活动内容
   receive_text: string; // 按钮文案
   success_text: string; // 邀请成功文案

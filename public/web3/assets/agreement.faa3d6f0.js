@@ -1,0 +1,1 @@
+import{_ as a,r,o as s,c as o,a as e}from"./app.46fe480c.js";import"./lodash.6b1417a0.js";var t=a({},[["render",function(a,t){const n=r("router-view");return s(),o("main",null,[e(n)])}]]);export{t as default};

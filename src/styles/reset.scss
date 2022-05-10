@@ -189,6 +189,15 @@
   /* 保留换行与空格 */
   @apply whitespace-pre-wrap;
 
+  a {
+    &[href] {
+      &:not([style]) {
+        @apply text-global-darkblue;
+      }
+      @apply cursor-pointer;
+    }
+  }
+
   img {
     display: block;
     border: 0 !important;

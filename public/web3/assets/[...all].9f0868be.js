@@ -1,0 +1,1 @@
+import{_ as s}from"./index.710235ef.js";import{d as a,f as o,m as t,o as r,c as e,a as i}from"./app.46fe480c.js";import"./lodash.6b1417a0.js";const f={class:"min-h-150"},m=a({setup:a=>(o((()=>{t.location.href="/"})),(a,o)=>{const t=s;return r(),e("div",f,[i(t,{loading:!0})])})});export{m as default};
