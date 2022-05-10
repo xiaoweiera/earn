@@ -16,8 +16,12 @@ export const config = {
   topic: "/topic",
   growthpad: "/growthpad",
   apy: "/apy",
+  apyLoan: "/apy/loan",
+  apyMining: "/apy/mining",
+  apyProject: "/apy/project",
   apyToken: "/apy/token",
   apyLp: "/apy/lp",
+  apyHeco: "/apy/heco",
   liquidity: "/liquidity",
   bull: "https://kingdata.com/bull", // 板块龙头
   nav: "https://kingdata.com/nav", // 数据网站导航
@@ -39,6 +43,8 @@ export const config = {
   quota: "/indicators", // 指标监控
   airdrop: "/airdrops", // 最新空投
   address: "/whaleaddress",
+  addressAlerts: "/whaleaddress/alerts",
+  addressFind: "/whaleaddress/find",
   portfolio: "/portfolio",
   download: "/download",
   invest: "/invest", //投融资

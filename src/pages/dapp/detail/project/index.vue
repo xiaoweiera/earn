@@ -9,9 +9,9 @@ import { alias, createRef } from "src/utils/ssr/ref";
 import { config } from "src/router/config";
 
 const props = defineProps({
-  id: [String, Number],
-  default: () => {
-    return {};
+  id: {
+    type: [String, Number],
+    default: "",
   },
 });
 const i18n = I18n();
@@ -135,9 +135,11 @@ const total = function (data: any) {
 .project-round {
   @apply bg-global-white border border-global-darkblue border-opacity-6 overflow-hidden rounded-lg;
 }
+
 .round-title {
   @apply h-8.5 flex items-center justify-center text-kd14px18px text-global-highTitle text-opacity-65;
 }
+
 .round-num {
   @apply h-11.5 flex items-center justify-center bg-global-darkblue text-kd24px28px text-global-white;
 }
@@ -147,6 +149,7 @@ const total = function (data: any) {
   @apply flex items-center;
   @apply text-kd12px16px font-medium text-global-highTitle text-opacity-65;
 }
+
 .border-tb {
   @apply border-t-1 border-b-1 border-global-highTitle border-opacity-6;
 }
@@ -154,12 +157,15 @@ const total = function (data: any) {
 .table-my {
   @apply w-300 md:w-full md:max-w-300;
 }
+
 .index-number {
   @apply text-global-highTitle text-kd14px16px;
 }
+
 .project-td {
   @apply flex items-center justify-center text-kd14px18px text-global-highTitle font-medium py-3;
 }
+
 .ui-pagination {
   @apply min-h-30;
 }

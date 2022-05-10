@@ -22,6 +22,7 @@ import apply from "./apply";
 import agreement from "./agreement";
 import instructions from "./instructions";
 import policys from "./policys";
+import Web3 from "./web3";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   const router = ExpressRouter();
@@ -58,6 +59,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(down());
   //申请页面
   router.use(apply());
+  // web3 页面
+  router.use(Web3());
   // 404
   router.get(routerConfig.E404, (req: Request, res: Response) => {
     res.send({});

@@ -53,6 +53,22 @@ const routes = [
       ...rank,
       ...invest,
       {
+        path: `${config.apy}/:name*`,
+        component: () => import("src/pages/apy/index.vue"),
+      },
+      {
+        path: config.topic,
+        component: () => import("src/pages/apy/index.vue"),
+      },
+      {
+        path: config.portfolio,
+        component: () => import("src/pages/address/index.vue"),
+      },
+      {
+        path: `${config.address}/:name*`,
+        component: () => import("src/pages/address/index.vue"),
+      },
+      {
         path: config.E404,
         component: () => import("src/pages/e404/index.vue"),
       },
