@@ -12,6 +12,8 @@ const newAd = asyncLoad(() => import("src/pages/home/new/ad.vue"));
 const chartData = asyncLoad(() => import("src/pages/home/new/data/index.vue"));
 const hotProject = asyncLoad(() => import("src/pages/home/new/hot.vue"));
 const newTopic = asyncLoad(() => import("src/pages/home/new/topic/index.vue"));
+const Apy = asyncLoad(() => import("src/pages/home/apy/index.vue"));
+const Quota = asyncLoad(() => import("./quota/index.vue"));
 
 useReactiveProvide(stateAlias.ui.tab);
 
@@ -45,9 +47,20 @@ onMounted(() => {
         <hotProject class="mt-6" />
       </div>
     </div>
-    <div class="home-content mt-6">
+    <div class="topic-content mt-6">
       <newTopic />
     </div>
+    <lazy-load>
+      <div class="apy-content mt-11">
+        <Apy />
+      </div>
+    </lazy-load>
+    <!--指标-->
+    <lazy-load>
+      <div class="quota-content mt-15">
+        <Quota />
+      </div>
+    </lazy-load>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -56,7 +69,15 @@ onMounted(() => {
 .home-content {
   @apply md:max-w-360 h-144.25 md:px-22.5 px-3 mx-auto;
 }
-
+.topic-content {
+  @apply md:max-w-360 md:px-22.5 px-3 mx-auto;
+}
+.apy-content {
+  @apply md:max-w-360 md:px-22.5 px-3 md:py-11 py-6 mx-auto;
+}
+.quota-content {
+  @apply md:max-w-360 md:px-22.5 px-3 mx-auto;
+}
 .top {
   background-image: cdn("/dapp/homebeijing.jpeg");
   background-size: 100% 577px;
