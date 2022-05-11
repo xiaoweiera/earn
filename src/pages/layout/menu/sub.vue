@@ -38,6 +38,6 @@ const getList = function (header: MenuItem) {
 
 <template>
   <div v-if="size(getList(header)) > 0" class="h-12.5">
-    <SubContent class="h-full" :list="getList(header)"></SubContent>
+    <SubContent class="h-full pl-8" :list="getList(header)"></SubContent>
   </div>
 </template>
