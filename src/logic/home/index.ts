@@ -1,7 +1,7 @@
 import API from "src/api";
 import type { projectParams, recommendModel, summaryModel, tutorialParams, tutorialData } from "src/types/home";
 import I18n from "src/utils/i18n";
-import { FundsQuery, infoModel, lineModel, infoModel } from "src/types/dapp/invest";
+import { FundsQuery, infoModel, lineModel } from "src/types/dapp/invest";
 
 // 得到header数据 headerName,headerCss
 export const getHeader = (key: string) => {
