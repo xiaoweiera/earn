@@ -29,14 +29,12 @@ export const DApp = function (lang?: Lang): MenuItem {
         name: i18n.menu.dapp.discover,
         href: `${config.dapp}/discover`,
         header: true,
-        more: true,
         icon: "icon-IDO",
       },
       {
         id: name.igo,
         name: i18n.menu.dapp.gamefi,
         header: true,
-        more: true,
         icon: "icon-IGO",
         href: `${config.dapp}/discover?igo=true`,
       },
@@ -44,7 +42,6 @@ export const DApp = function (lang?: Lang): MenuItem {
         id: name.nft,
         name: i18n.menu.nft.discover,
         icon: "icon-a-NFTxinxiangmu1",
-        more: true,
         header: true,
         href: `${config.nft}/discover`,
       },
@@ -52,7 +49,6 @@ export const DApp = function (lang?: Lang): MenuItem {
         id: name.airdrop,
         name: i18n.menu.airdrop.title, // 最新空投
         icon: "icon-airdrops",
-        more: true,
         header: true,
         href: `${config.airdrop}/list/${TabTypes.all}`,
       },
@@ -60,7 +56,6 @@ export const DApp = function (lang?: Lang): MenuItem {
         id: name.invest,
         name: i18n.menu.dapp.invest, // 投融资
         icon: "icon-rongzidongxiang",
-        more: true,
         header: true,
         href: config.invest,
       },

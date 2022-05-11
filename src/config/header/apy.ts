@@ -20,7 +20,7 @@ export const APY = function (lang?: Lang): MenuItem {
   const i18n = I18n(lang);
   return {
     // apy // DeFi & APY
-    name: "DeFi APY",
+    name: "投资理财",
     href: `${config.apy}/mining`,
     expand: "HeaderSubApy",
     children: [

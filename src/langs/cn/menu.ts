@@ -45,7 +45,7 @@ export default {
     address: "巨鲸追踪",
     change: "大户地址异动",
     find: "发现大户地址",
-    detail: "投资组合",
+    detail: "资产看板",
   },
   desc: {
     apy: {
