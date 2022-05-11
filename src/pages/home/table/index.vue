@@ -29,7 +29,7 @@ defineProps({
   @apply w-full relative;
 }
 .table-content {
-  @apply relative md:min-h-78  md:bg-global-white rounded-kd16px md:min-w-150;
+  @apply relative   md:bg-global-white rounded-kd16px md:min-w-150;
 }
 .table-model {
   @apply h-full md:absolute top-0;

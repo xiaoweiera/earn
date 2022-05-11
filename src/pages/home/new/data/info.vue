@@ -17,12 +17,16 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="p-4 border-1 bg-global-white rounded-kd6px">
-    <div>我的资产</div>
-    <div>
-      <span>≈</span>
-      {{ toNumberCashFormat(data.fund) }}
+  <div class="p-4 border-1 bg-global-white rounded-kd6px font-kdFang">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-85">我的资产</div>
+        <div class="mt-2 flex items-center">
+          <span class="mr-1 text-kd14px18px font-medium text-global-highTitle text-opacity-65">≈</span>
+          <span class="text-kd26px26px text-global-highTitle text-opacity-85 text-number">{{ toNumberCashFormat(data.fund, "$") }}</span>
+        </div>
+      </div>
+      <chart class="border-1" />
     </div>
-    <chart />
   </div>
 </template>
