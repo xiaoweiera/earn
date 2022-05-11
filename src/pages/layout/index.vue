@@ -109,15 +109,19 @@ const isLayout2 = function (path: string) {
 <style scoped lang="scss">
 .menu {
   @apply hidden w-50;
-  @at-root .layout-2 & {
-    @apply block;
-    border-right: 1px solid rgba(0, 50, 108, 0.06);
+  @screen md {
+    @at-root .layout-2 & {
+      @apply block;
+      border-right: 1px solid rgba(0, 50, 108, 0.06);
+    }
   }
 }
 
 .layout-2 {
-  .router-view {
-    @apply ml-50;
+  @screen md {
+    .router-view {
+      @apply ml-50;
+    }
   }
 }
 </style>
