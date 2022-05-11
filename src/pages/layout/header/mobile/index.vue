@@ -47,11 +47,12 @@ const env = getEnv();
 .mobile-contanier {
   //#FAFBFC
   background: #fafbfc !important;
-  padding: 0px 12px 0px 12px !important;
+  padding: 0 !important;
 }
 .yin {
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 8px 24px rgba(0, 0, 0, 0.1);
-  @apply bg-global-white px-3  pt-1.5 pb-3 my-3 rounded-kd6px;
+  @apply w-full px-4;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.1);
+  @apply bg-global-white rounded-md;
 }
 .wrap-mobile-content {
   @apply z-1020 hidden;
