@@ -25,6 +25,7 @@ const HomeInvest = asyncLoad(() => import("src/pages/home/invest.vue"));
 const newAd = asyncLoad(() => import("src/pages/home/new/ad.vue"));
 const chartData = asyncLoad(() => import("src/pages/home/new/data/index.vue"));
 const hotProject = asyncLoad(() => import("src/pages/home/new/hot.vue"));
+const newTopic = asyncLoad(() => import("src/pages/home/new/topic/index.vue"));
 
 useReactiveProvide(stateAlias.ui.tab);
 
@@ -44,7 +45,7 @@ onMounted(() => {
   <div class="top home-container">
     <div class="home-content">
       <div class="flex">
-        <newAd class="mr-6" />
+        <newAd class="mr-6" :position="25" />
         <div class="w-127.75">
           <div class="w-full h-54.5">
             <chartData class="w-full h-full" />
@@ -54,7 +55,9 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <hotProject />
+      <hotProject class="mt-6 mb-12" />
+      <newTopic class="mt-6" />
+      <HomeTopic />
       <!--      &lt;!&ndash;      顶部信息&ndash;&gt;-->
       <!--      <HomeHeader v-if="summary" :data="summary" />-->
       <!--      &lt;!&ndash;            话题切换&ndash;&gt;-->
@@ -111,7 +114,7 @@ onMounted(() => {
 .top {
   background-color: #e5e5e51a;
   background-image: cdn("/dapp/homebeijing.jpeg");
-  background-size: 100% 652px;
+  background-size: 100% 577px;
   background-repeat: no-repeat;
 }
 </style>

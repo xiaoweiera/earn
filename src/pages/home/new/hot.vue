@@ -54,61 +54,42 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div>
+  <div v-if="trend.length > 1">
     <div class="flex items-end text-global-white">
       <span class="trend-title font-kdBarlow font-semibold">{{ i18n.home.todayTrend.title }}</span>
-      <span class="ml-3 trend-time font-medium text-number">{{ i18n.home.todayTrend.time }}</span>
     </div>
-    <div class="mt-3 relative">
+    <div class="mt-2.5 relative">
       <div class="w-full h-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
           <img class="left shadow" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="" @click="last" />
         </div>
-        <Swiper v-if="trend.length > 0" class="h-full swiper-topic" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
-          <template v-for="(item, index) in trend" :key="index">
+        <Swiper v-if="trend.length > 1" class="h-full swiper-topic w-full" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
+          <template v-for="(item, index) in trend.slice(1)" :key="index">
             <SwiperSlide class="rounded-kd6px">
               <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
-                <div v-if="item['data_type'] === 'blog' && index === 0" class="relative">
-                  <div class="trend-blog">
-                    <div class="blog-name font-kdSemiBold font-semibold">
-                      <span>Daily Trending</span>
-                      <span class="ml-1">({{ formatDefaultTime(item["release_date"], "MM/DD") }})</span>
-                    </div>
-                    <div v-if="item['label'].length > 0" class="blog-label mt-1.5 font-kdFang">
-                      <span>{{ i18n.home.todayTrend.key }}:</span>
-                      <template v-for="(label, i) in item['label']" :key="i">
-                        <span>{{ label }}</span>
-                        <span v-if="i + 1 < item['label'].length">、</span>
-                      </template>
-                    </div>
-                    <div class="blog-label viewers">
-                      <span>{{ item["viewers"] ? item["viewers"] : 0 }} {{ i18n.home.todayTrend.read }}</span>
-                      <span v-if="item['release_date']" class="mx-1 gang text-kd12px16px">|</span>
-                      <span v-if="item['release_date']">{{ i18n.home.todayTrend.updateTime }}: {{ timeago(dataToTimestamp(item["release_date"])) }}</span>
-                    </div>
-                  </div>
-                  <ui-image class="trend-img" :src="getImg(item)" fit="cover" />
-                  <div class="blog-jian" />
-                </div>
-                <div v-else class="h-28 w-47.5 relative overflow-hidden rounded-kd6px">
+                <div class="h-23 w-47.5 relative overflow-hidden rounded-kd6px">
                   <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute" />
-                  <ui-image class="rounded-kd6px w-full h-full" :class="getImg(item) ? '' : 'mohu'" :src="getImg(item) ? getImg(item) : item['logo']" />
-                  <div v-if="item['data_type'] !== 'ad'" class="top-3 absolute w-full px-3 flex flex-col items-center justify-center">
-                    <div class="relative">
-                      <ui-image v-if="item['data_type'] === 'dapp'" class="cover-logo" :src="item['logo']" fit="cover" />
-                      <div class="chain-logo">
-                        <ui-image class="w-3.5 h-3.5" :src="safeGet(config, `chain.${item.chain}.logo`)" fit="cover" />
+                  <ui-image class="rounded-kd6px h-23 w-47.5" :class="getImg(item) ? '' : 'mohu'" :src="getImg(item) ? getImg(item) : item['logo']" />
+                  <div v-if="item['data_type'] !== 'ad'" class="top-0 absolute w-full h-full p-3">
+                    <div class="flex">
+                      <div class="relative mr-3 w-9 h-9">
+                        <ui-image v-if="item['data_type'] === 'dapp'" class="cover-logo w-full h-full" :src="item['logo']" fit="cover" />
+                        <div class="chain-logo absolute bottom-0">
+                          <ui-image class="w-3.5 h-3.5" :src="safeGet(config, `chain.${item.chain}.logo`)" fit="cover" />
+                        </div>
+                      </div>
+                      <div class="relative z-30">
+                        <div class="max-w-30.5 text-kd14px14px text-global-white text-center font-kdBarlow whitespace-nowrap short">{{ item.name }}</div>
+                        <div class="relative mt-2 flex">
+                          <span v-if="safeGet(item, `category`)" :class="safeGet(item, `category`) === 'NFT' ? 'bg-global-money' : 'bg-global-primary'" class="chain-coin mr-2">{{ safeGet(item, `category`) }}</span>
+                          <span v-if="safeGet(item, `chain`)" class="chain-tip">{{ safeGet(item, `chain`) }}</span>
+                        </div>
                       </div>
                     </div>
-                    <div class="mt-2 font-medium font-kdSemiBold text-kd14px14px font-kdSemiBold text-global-white relative z-10">
-                      <div class="w-41.5 text-center font-kdSemiBold whitespace-nowrap short">{{ item.name }}</div>
-                    </div>
-                    <div class="relative z-3 mt-2 flex">
-                      <span v-if="safeGet(item, `category`)" :class="safeGet(item, `category`) === 'NFT' ? 'bg-global-money' : 'bg-global-primary'" class="chain-coin mr-2">{{ safeGet(item, `category`) }}</span>
-                      <span v-if="safeGet(item, `chain`)" class="chain-tip">{{ safeGet(item, `chain`) }}</span>
-                    </div>
+                    <span class="relative z-30 top-1 text-global-white text-kd12px16px font-kdBarlow">{{ safeGet(item, `recommendation_reason`) }}1212dad1212dad1212dad</span>
                   </div>
-                  <div class="w-47.5 h-28 absolute top-0 left-0 rounded-kd6px z-2" :class="item['data_type'] === 'ad' ? '' : 'jian'" />
+
+                  <div class="w-47.5 h-23 absolute top-0 left-0 rounded-kd6px z-2" :class="item['data_type'] === 'ad' ? '' : 'jian'" />
                 </div>
               </v-router>
             </SwiperSlide>
@@ -143,7 +124,7 @@ onMounted(() => {
 }
 
 .cover-logo {
-  @apply w-9 h-9 border-2 border-global-white rounded-full relative z-3;
+  @apply border-2 border-global-white rounded-full relative z-3;
 }
 
 .chain-logo {
