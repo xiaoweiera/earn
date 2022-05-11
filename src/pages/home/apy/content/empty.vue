@@ -9,7 +9,7 @@ const i18n = I18n();
 <template>
   <div>
     <div class="apy-coming flex flex-col items-center pt-17">
-      <ui-image class="w-63 md:w-98 h-10 md:h-16" fit="cover" :src="`${oss}/image/soon.png`" />
+      <ui-image class="w-51.5 md:w-98 h-9 md:h-16" fit="cover" :src="`${oss}/image/soon.png`" />
       <div class="text-16-18 text-global-highTitle text-opacity-65 font-kdFang mt-6">{{ i18n.home.apy.tips }}</div>
       <div class="flex items-center mt-3.5">
         <v-router :href="i18n.chat.twitter" class="flex" target="_blank">

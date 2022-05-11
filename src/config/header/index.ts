@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 import { Lang } from "src/types/language";
-import { MenuItem } from "src/types/menu";
+import { config as routerConfig } from "src/router/config";
 import { name as AddressName, Portfolio } from "./address";
 
 import { APY, name as ApyName } from "./apy";
@@ -37,11 +37,8 @@ export const headers = function (lang?: Lang) {
     Portfolio(lang),
     Analysis(lang),
     {
-      id: apiName.api,
       name: "API", // dApp
-      href: "/api",
-      coming: true,
-      children: [],
+      href: routerConfig.api,
     },
   ];
 

@@ -62,11 +62,11 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(apply());
   // web3 页面
   router.use(Web3());
-  router.get("/api", function (req: Request, res: Response) {
+  router.get(routerConfig.api, function (req: Request, res: Response) {
     res.locals.menuActive = names.api.api;
     res.send({});
   });
-  router.get("/token", function (req: Request, res: Response) {
+  router.get(routerConfig.token, function (req: Request, res: Response) {
     res.locals.menuActive = names.analysis.token;
     res.send({});
   });
