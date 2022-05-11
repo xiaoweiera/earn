@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 import { Lang } from "src/types/language";
+import { MenuItem } from "src/types/menu";
 import { name as AddressName, Portfolio } from "./address";
 
 import { APY, name as ApyName } from "./apy";
@@ -12,7 +13,11 @@ import { name as QuotaName } from "./quota";
 import { name as RankName } from "./rank";
 import { name as TopicName } from "./topic";
 
-import { Analysis } from "./analysis";
+import { name as AnalysisName, Analysis } from "./analysis";
+
+const apiName = {
+  api: "api",
+};
 
 export const names = {
   dapp: DAppName,
@@ -22,10 +27,23 @@ export const names = {
   blog: BlogName,
   address: AddressName,
   topic: TopicName,
+  analysis: AnalysisName,
+  api: apiName,
 };
 
 export const headers = function (lang?: Lang) {
-  return [APY(lang), Portfolio(lang), Analysis(lang)];
+  return [
+    APY(lang),
+    Portfolio(lang),
+    Analysis(lang),
+    {
+      id: apiName.api,
+      name: "API", // dApp
+      href: "/api",
+      coming: true,
+      children: [],
+    },
+  ];
 
   // DApp(lang), Ranks(lang), APY(lang), Address(lang)
   // list.push(Portfolio(lang), TopicList(lang));

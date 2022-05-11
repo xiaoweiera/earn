@@ -95,4 +95,7 @@ export default {
     key: "BTC, ETH, EOS, USDT, Polkadot, DeFi, DOT, smart investment research, big data analysis, coinmarket, digital currency data analysis, digital currency industry big data, virtual currency data analysis, Coinmarketcap, Chinese version of Coinmarketcap, blockchain , Big data, analysis, Bitcoin, Lebit, Ethereum, ETH, EOS, wallet, smart algorithm, public opinion, cryptocompare, coinmarket, digital currency data analysis, investment, investment advisor, smart investment, investment, investment tools, data analysis , Data visualization, digital currency data analysis, digital currency industry big data, digital currency industry big data, virtual currency data analysis, virtual currency data analysis, Chinese version of Coinmarketcap, blockchain, big data, BTC, Bitcoin, Lebit, LTC, Ethereum, ETH, EOS, wallet, wallet, encryption algorithm, public opinion analysis, consensus algorithm, cryptocompare, public opinion analysis growth platform GrowthPad, APY search,APY aggregator,APY search,APY tracker,APY dashboard,APY analytics,DeFi Dashboard,Cross-chain DeFi Dashboard,DeFi tracking dashboard,DeFi portfolio tracker,All-in-one liquidity pool analytics and yield farming rewards tracking tool,Best portfolio tracker",
     des: "Kingdata Defi提供全行业最全的挖矿和借贷平台信息，通过Defi数据，您可发现最优质的矿池、挖矿策略和借贷路径.",
   },
+  analytic: "机会分析",
+  invest: "投资理财",
+  token: "Token 分析",
 };

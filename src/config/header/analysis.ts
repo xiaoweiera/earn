@@ -3,6 +3,7 @@
  * @author svon.me@gmail.com
  */
 import _ from "lodash";
+import I18n from "src/utils/i18n";
 import DB from "@fengqiaogang/dblist";
 import { MenuItem } from "src/types/menu";
 import { Lang } from "src/types/language";
@@ -13,6 +14,10 @@ import { Blog } from "./blog";
 import { Quota } from "./quota";
 import { DApp } from "./dapp";
 
+export const name = {
+  token: "token",
+};
+
 const getItem = function (list?: MenuItem[], id?: string) {
   if (id) {
     const db = new DB(list || [], "id");
@@ -22,6 +27,7 @@ const getItem = function (list?: MenuItem[], id?: string) {
 };
 
 export const Analysis = function (lang?: Lang): MenuItem {
+  const i18n = I18n(lang);
   const dAppList = DApp(lang);
   const ranks = Ranks(lang);
   const address = Address(lang);
@@ -48,10 +54,20 @@ export const Analysis = function (lang?: Lang): MenuItem {
   db.insert(topic);
   db.insert(blog);
 
+  db.insert({
+    id: name.token,
+    icon: "icon-touzizuhe",
+    name: i18n.menu.token,
+    href: "/token",
+    blank: true,
+    header: true,
+    coming: true,
+  });
+
   return {
-    name: "机会分析", // dApp
+    name: i18n.menu.analytic, // dApp
     href: nft ? nft.href : "/",
-    newTip: true,
+    newTip: false,
     layout: true,
     children: db.clone<MenuItem>(),
   };
