@@ -7,13 +7,13 @@ const iconFont = [
   "//at.alicdn.com/t/font_2949076_aozkk0nlh6.js",
 
   // apy
-  "//at.alicdn.com/t/font_2735019_oigfmp0hptd.js",
+  "//at.alicdn.com/t/font_2735019_1lko65ljqkr.js",
 
   // 行情&流动性呀
   "//at.alicdn.com/t/font_2596648_z6gkytzcaf.js",
 
   // 通用
-  "//at.alicdn.com/t/font_2596380_pmstpqw74yi.js"
+  "//at.alicdn.com/t/font_2596380_peq58bmpftr.js"
 ];
 
 module.exports = iconFont;

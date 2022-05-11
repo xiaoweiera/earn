@@ -5,7 +5,9 @@
 import * as api from "src/config/api";
 import { DefaultValue, expire, get, tryError, userToken } from "src/plugins/dao/http";
 import type { projectParams, recommendModel, tutorialParams } from "src/types/home";
+import { lineModel, infoModel } from "src/types/dapp/invest";
 import ApiTemplate from "../template";
+import type { ApyQuery } from "src/types/home/apy";
 
 export default class extends ApiTemplate {
   // 数据汇总
@@ -19,9 +21,9 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue([])) // 处理默认值
   @get(api.home.topicRank, expire.min30) // 定义一个 get 请求
   @userToken() // 不需要用户信息
-  @userToken() // 不需要用户信息
-  getTopicRank<T>(): Promise<T> {
-    return [] as any;
+  getTopicRank<T>(category: string): Promise<T> {
+    const query = { category };
+    return [query] as any;
   }
   // 推荐话题
   @tryError(DefaultValue([])) // 处理默认值
@@ -92,6 +94,38 @@ export default class extends ApiTemplate {
   @get(api.home.tutorial) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getTutorialList<T>(query: tutorialParams): Promise<T> {
+    // 返回参数
+    return [query] as any;
+  }
+  // 矿池币种列表
+  @tryError(DefaultValue([])) // 处理默认值
+  @get(api.home.apy) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getApyList<T>(query: ApyQuery): Promise<T> {
+    // 返回参数
+    return [query] as any;
+  }
+  // 热门项目列表
+  @tryError(DefaultValue([])) // 处理默认值
+  @get(api.home.hotProject) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getHotProject<T>(): Promise<T> {
+    // 返回参数
+    return [] as any;
+  }
+  //line 图表
+  @tryError(DefaultValue({})) // 处理默认值
+  @get(api.home.lineChart) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getLineChart<T>(query: lineModel): Promise<T> {
+    // 返回参数
+    return [query] as any;
+  }
+  //大户历史交易
+  @tryError(DefaultValue({})) // 处理默认值
+  @get(api.home.addressInfo) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getHistory<T>(query: infoModel): Promise<T> {
     // 返回参数
     return [query] as any;
   }
