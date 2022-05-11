@@ -13,6 +13,8 @@ export const home = {
   platforms: "/api/v1/dapps/platforms", // TGE平台列表
   tutorial: "/api/blog/v1/blogs", //空投教程列表
   hotProject: "/api/dapps/v1/recommendations", //热门项目列表
+  lineChart: "/api/apy/whale/address_fund_trending", //大户地址图表
+  addressInfo: "/api/apy/whale/address", //大户历史交易
 };
 
 export const dapp = {

@@ -13,7 +13,6 @@ import "swiper/swiper-bundle.css";
 import { getValue } from "src/utils/root/data";
 import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
 import { Model } from "src/logic/home";
-import { dataToTimestamp, formatDefaultTime, timeago } from "src/lib/tool";
 import I18n from "src/utils/i18n";
 import type { SiteConfig } from "src/types/common/chain";
 
@@ -72,9 +71,9 @@ onMounted(() => {
                   <ui-image class="rounded-kd6px h-23 w-47.5" :class="getImg(item) ? '' : 'mohu'" :src="getImg(item) ? getImg(item) : item['logo']" />
                   <div v-if="item['data_type'] !== 'ad'" class="top-0 absolute w-full h-full p-3">
                     <div class="flex">
-                      <div class="relative mr-3 w-9 h-9">
-                        <ui-image v-if="item['data_type'] === 'dapp'" class="cover-logo w-full h-full" :src="item['logo']" fit="cover" />
-                        <div class="chain-logo absolute bottom-0">
+                      <div class="relative mr-3 min-w-9 min-h-9 max-w-9 max-w-9 h-9">
+                        <ui-image v-if="item['data_type'] === 'dapp'" class="cover-logo min-w-9 min-h-9 max-w-9 max-w-9 h-9" :src="item['logo']" fit="cover" />
+                        <div class="chain-logo absolute bottom-2">
                           <ui-image class="w-3.5 h-3.5" :src="safeGet(config, `chain.${item.chain}.logo`)" fit="cover" />
                         </div>
                       </div>

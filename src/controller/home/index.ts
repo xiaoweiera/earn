@@ -14,8 +14,9 @@ import safeGet from "@fengqiaogang/safe-get";
 export const begin = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
+  const category = "NFT";
   const params = { page: 1, page_size: 100, show_commercial: true };
-  const [summary, topicRank, recommend, trend, platforms] = await Promise.all([api.getSummary(), api.getTopicRank(), api.getRecommend(params), api.getTrend(), api.getPlatform()]);
+  const [summary, topicRank, recommend, trend, platforms] = await Promise.all([api.getSummary(), api.getTopicRank(category), api.getRecommend(params), api.getTrend(), api.getPlatform()]);
   const result = {
     "title": i18n.home.webInfo.home.title,
     "keywords": i18n.home.webInfo.home.key,

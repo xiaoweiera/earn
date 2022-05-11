@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import document from "src/plugins/browser/document";
-import { getEnv } from "src/config";
-import { getValue } from "src/utils/root/data";
-import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
+import { onMounted } from "vue";
+import { createRef, onLoadRef } from "src/utils/ssr/ref";
 import { Model } from "src/logic/home";
 import { dataToTimestamp, formatDefaultTime, timeago } from "src/lib/tool";
 import I18n from "src/utils/i18n";
-import type { SiteConfig } from "src/types/common/chain";
 
-const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const i18n = I18n();
-const env = getEnv();
 
 const trend = createRef("API.home.getTrend", []);
 
