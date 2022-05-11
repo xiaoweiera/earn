@@ -1,0 +1,1 @@
+import{_ as a}from"./plugin-vue_export-helper.5a098b48.js";import{r as o,o as r,c as s,a as t}from"./app.c3012526.js";import"./lodash.6b1417a0.js";const e={class:"block layout-box"};var p=a({},[["render",function(a,p){const n=o("router-view");return r(),s("main",e,[t(n)])}]]);export{p as default};

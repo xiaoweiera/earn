@@ -28,6 +28,9 @@ const hiddenFooter = function (path: string) {
   if (/^\/apy\/project/i.test(path)) {
     return true;
   }
+  if (/^\/portfolio/i.test(path)) {
+    return true;
+  }
 };
 // 判断是否需要展示底部
 const notDownload = function (path: string): boolean {

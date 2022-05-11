@@ -1,0 +1,1 @@
+import{_ as r}from"./plugin-vue_export-helper.5a098b48.js";import{r as a,o,c as e,a as s}from"./app.c3012526.js";import"./lodash.6b1417a0.js";var t=r({},[["render",function(r,t){const p=a("router-view");return o(),e("main",null,[s(p)])}]]);export{t as default};
