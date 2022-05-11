@@ -11,5 +11,7 @@ const html = computed<string>(function () {
 });
 </script>
 <template>
-  <div class="apy-main" v-html="html"></div>
+  <div>
+    <div class="apy-main" v-html="html"></div>
+  </div>
 </template>

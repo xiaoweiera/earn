@@ -1,1 +1,0 @@
-import{_ as a,r as o,o as s,c as r,a as t}from"./app.46fe480c.js";import"./lodash.6b1417a0.js";const e={class:"block layout-box"};var c=a({},[["render",function(a,c){const n=o("router-view");return s(),r("main",e,[t(n)])}]]);export{c as default};

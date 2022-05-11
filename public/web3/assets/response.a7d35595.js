@@ -1,0 +1,1 @@
+import{aV as a,an as t}from"./app.c3012526.js";import"./lodash.6b1417a0.js";const o=function(o){if(a(t(o,"data")))throw t(o,"data");const r=t(o,"data.code");if(0===r)return t(o,"data.data");if(1===r)throw t(o,"data");return t(o,"data")},r=async function(a){const t=await Promise.resolve(a);return o(t)};export{r as a,o as c};
