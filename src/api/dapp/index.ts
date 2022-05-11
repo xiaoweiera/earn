@@ -256,7 +256,7 @@ export default class extends ApiTemplate {
 
   // 项目信息
   @tryError(DefaultValue({}))
-  @get(api.dapp.tokenList, expire.min30)
+  @get(api.dapp.investList, expire.min30)
   @userToken()
   @validate
   getProjectInfo<T>(@required query: any): Promise<T> {

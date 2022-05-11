@@ -101,7 +101,7 @@ const getTabData = function (info: DAppProject, data: DAppData) {
     <div class="max-w-300 mx-auto">
       <div v-if="detail && detail.id" class="w-full mb-4 md:mb-14">
         <Header :data="detail" :project="project" />
-        <ui-sticky class="mt-11 bg-white">
+        <ui-sticky class="is-tab mt-11 bg-white">
           <ui-tab :def="TabName.dashboard" :list="getTabData(project, detail)" active-name="tab" @change="onChangeTab">
             <template #default="{ data }">
               <span class="text-18-24 font-m">{{ data.label }}</span>
@@ -114,7 +114,7 @@ const getTabData = function (info: DAppProject, data: DAppData) {
             <Twitter :name="getTwitterName(detail)" class="bg-white" />
           </template>
           <template v-if="AnyEquals(project.tab, TabName.project)">
-            <projectInfo :data="project" />
+            <projectInfo :id="project.id" />
           </template>
           <template v-else-if="AnyEquals(project.tab, TabName.reviews)">
             <Reviews :id="project.id" />
@@ -144,3 +144,9 @@ const getTabData = function (info: DAppProject, data: DAppData) {
     </div>
   </ui-spin>
 </template>
+
+<style lang="scss" scoped>
+.is-tab {
+  box-shadow: 0px 1px 0px rgba(3, 54, 102, 0.06);
+}
+</style>

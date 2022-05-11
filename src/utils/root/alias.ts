@@ -43,6 +43,9 @@ export const dApp = {
     ongoing: "Api.dApp.airdrop",
   },
   detail: "api.dApp.getDetail",
+  DAppDetail: {
+    invest: "API.DApp.invest",
+  },
   apply: "api.dApp.apply",
 };
 

@@ -66,11 +66,6 @@ export const getTabList = function (project: DAppProject, data: DAppData) {
       label: i18n.dapp.project.dashboard,
       href: makeUrl(project, TabName.dashboard),
     },
-    // {
-    //   tab: TabName.project,
-    //   label: i18n.dapp.project.projectInfo,
-    //   href: makeUrl(project, TabName.project),
-    // },
     {
       tab: TabName.reviews,
       label: i18n.dapp.project.reviews,
@@ -106,6 +101,12 @@ export const getTabList = function (project: DAppProject, data: DAppData) {
       tab: project.type,
       label: "IGO",
       href: makeUrl(project, project.type as any),
+    });
+  } else if (data.latest_investment !== null) {
+    list.splice(1, 0, {
+      tab: TabName.project,
+      label: i18n.dapp.project.projectInfo,
+      href: makeUrl(project, TabName.project),
     });
   }
   return list;
