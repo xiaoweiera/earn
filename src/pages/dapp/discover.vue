@@ -185,7 +185,7 @@ const itemTransform = function (list: object[]): object[] {
         <HomeAd class="mb-6" :position="24" />
       </div>
       <!-- 分类 -->
-      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
+      <ui-sticky active-class="table-box-title" class="z-900 is-tab bg-global-topBg">
         <ui-tab :key="key" :list="logic.tabs" active-name="type" />
       </ui-sticky>
       <!-- 搜索条件 -->

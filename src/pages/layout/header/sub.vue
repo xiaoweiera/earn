@@ -28,8 +28,8 @@ const HeaderSubRank = asyncLoad(() => import("../expand/rank.vue"));
 </script>
 
 <template>
-  <div class="bg-white ui-header-sub">
-    <div class="h-full px-20 flex items-center justify-between text-kdFang">
+  <div class="bg-white ui-header-sub px-20">
+    <div class="h-full flex items-center justify-between text-kdFang">
       <div class="sub-content text-global-highTitle text-opacity-65">
         <div class="flex h-full">
           <template v-for="(data, index) in list" :key="index">

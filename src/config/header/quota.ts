@@ -18,6 +18,7 @@ export const Quota = function (lang?: Lang): MenuItem {
     name: i18n.menu.quota.title, // 指标监控
     href: config.quota,
     newTip: false,
+    icon: "icon-zhibiao",
     children: [
       {
         id: name.indicators,

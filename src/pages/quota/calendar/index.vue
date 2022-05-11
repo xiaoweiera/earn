@@ -51,7 +51,7 @@ const getWeek = function (value: number) {
 
 <template>
   <div class="calendar" :class="{ small: small }">
-    <ui-sticky v-if="!small" active-class="calendar-active" class="box-calendar transform -translate-y-px">
+    <ui-sticky v-if="!small" active-class="calendar-active" class="z-900 box-calendar transform -translate-y-px">
       <div class="header inline-block min-w-10">
         <div class="date relative block text-center text-12-18 text-global-highTitle text-opacity-85">
           <div class="overflow-hidden rounded-lg date-content">

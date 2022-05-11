@@ -11,7 +11,7 @@ export default {
   nft: {
     title: "Trends Rankings",
     ranking: "NFT Rankings",
-    discover: "NFTs",
+    discover: "Mint",
   },
   apy: {
     mining: "Farm APY",

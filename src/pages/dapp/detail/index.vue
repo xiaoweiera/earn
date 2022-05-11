@@ -101,7 +101,7 @@ const getTabData = function (info: DAppProject, data: DAppData) {
     <div class="max-w-300 mx-auto">
       <div v-if="detail && detail.id" class="w-full mb-4 md:mb-14">
         <Header :data="detail" :project="project" />
-        <ui-sticky class="is-tab mt-11 bg-white">
+        <ui-sticky class="z-900 is-tab mt-11 bg-white">
           <ui-tab :def="TabName.dashboard" :list="getTabData(project, detail)" active-name="tab" @change="onChangeTab">
             <template #default="{ data }">
               <span class="text-18-24 font-m">{{ data.label }}</span>

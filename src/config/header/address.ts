@@ -15,6 +15,7 @@ export const Address = function (lang?: Lang): MenuItem {
     name: i18n.menu.address.address, // 大户地址追踪
     href: config.address,
     newTip: false,
+    icon: "icon-dahudizhiyidong",
     children: [
       {
         id: name.alert,

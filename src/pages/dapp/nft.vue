@@ -99,7 +99,7 @@ const getFilter = function (data: any) {
         <HomeAd class="mb-6" :position="24" />
       </div>
       <!-- 分类 -->
-      <ui-sticky active-class="table-box-title" class="is-tab bg-global-topBg">
+      <ui-sticky active-class="table-box-title" class="z-900 is-tab bg-global-topBg">
         <ui-tab :list="nftTabs" active-name="status" />
       </ui-sticky>
       <!-- 搜索条件 -->

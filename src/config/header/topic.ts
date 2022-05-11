@@ -17,9 +17,14 @@ export const TopicList = function (lang?: Lang): MenuItem {
     id: name.topic,
     name: i18n.nav.analysis.name, // '数据'
     icon: "icon-shuju",
-    href: config.topic,
+    href: `${config.topic}?tagID=11&topicID=34`,
     expand: "HeaderSubData",
-    children: [
+    blank: true,
+    header: true,
+  };
+};
+/*
+children: [
       {
         name: i18n.menu.data.topic, // 数据专题
         icon: "icon-shuju",
@@ -183,5 +188,4 @@ export const TopicList = function (lang?: Lang): MenuItem {
         ],
       },
     ],
-  };
-};
+ */

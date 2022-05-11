@@ -14,7 +14,7 @@ export default {
   nft: {
     title: "趋势榜单",
     ranking: "NFT 排行榜",
-    discover: "NFTs",
+    discover: "Mint",
   },
   apy: {
     mining: "挖矿 APY",
@@ -45,7 +45,7 @@ export default {
     address: "巨鲸追踪",
     change: "大户地址异动",
     find: "发现大户地址",
-    detail: "投资组合",
+    detail: "资产看板",
   },
   desc: {
     apy: {

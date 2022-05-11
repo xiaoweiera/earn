@@ -3,18 +3,23 @@
  * @file 导航-菜单
  * @author svon.me@gmail.com
  */
-import { computed } from "vue";
+import { computed, PropType } from "vue";
 import * as env from "src/config";
 import type { MenuItem } from "src/types/menu/";
-import { alias, createRef } from "src/utils/ssr/ref";
 import { asyncLoad } from "src/plugins/lazyload/";
 import Mobile from "./mobile/index.vue";
 import isShowChildren from "./isshow";
 import MenuContentList from "./menu.vue";
 
+const props = defineProps({
+  headers: {
+    type: Array as PropType<MenuItem[]>,
+    default: () => [],
+  },
+});
+
 const User = asyncLoad(() => import("../user/index.vue"));
 
-const headers = createRef<MenuItem[]>(alias.common.layout.header, []);
 const Logo = computed<string>(() => {
   const data = env.getEnv();
   return `${data.VITE_oss}/common/logo-white.svg`;
@@ -22,12 +27,15 @@ const Logo = computed<string>(() => {
 
 const isShowSub = computed<boolean>(() => {
   let flag = false;
-  const menus: MenuItem[] = headers.value;
-  for (let i = 0, len = menus.length; i < len; i++) {
-    const item = menus[i];
+  // @ts-ignore
+  const list: MenuItem[] = props.headers;
+  for (let i = 0, len = list.length; i < len; i++) {
+    const item = list[i];
     if (item.active && isShowChildren(item.children)) {
-      flag = true;
-      break;
+      if (!item.layout) {
+        flag = true;
+        break;
+      }
     }
   }
   return flag;
@@ -55,7 +63,6 @@ const isShowSub = computed<boolean>(() => {
           <div class="ml-10 h-full hidden lg:block flex-1">
             <MenuContentList :menus="headers" class="pt-2.5 h-full" />
           </div>
-
           <!--用户信息-->
           <User />
         </div>

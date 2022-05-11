@@ -14,18 +14,10 @@ export const name = {
 export const Blog = function (lang?: Lang): MenuItem {
   const i18n = I18n(lang);
   return {
-    name: i18n.menu.blog.blog, // 博客
+    id: name.blog,
+    icon: "icon-yanjiuyuan",
+    name: i18n.menu.blog.blog,
     href: config.blog,
-    newTip: false,
-    children: [
-      {
-        id: name.blog,
-        icon: "icon-yanjiuyuan",
-        name: i18n.menu.blog.blog,
-        href: config.blog,
-        header: false,
-        more: true,
-      },
-    ],
+    header: true,
   };
 };
