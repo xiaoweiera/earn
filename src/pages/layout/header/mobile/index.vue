@@ -28,7 +28,7 @@ const env = getEnv();
     <div class="wrap-mobile-content top-header fixed left-0 right-0 bottom-0 bg-global-navBody">
       <el-container direction="vertical" class="h-full w-full">
         <el-main class="mobile-contanier">
-          <div class="yin">
+          <div class="yin w-full h-full overflow-auto">
             <List :list="menus" />
             <div class="text-kdFang text-white mt-4">
               <v-router class="flex items-center justify-center h-11 bg-global-darkblue rounded-kd6px" :href="env.appDownload">
@@ -50,7 +50,7 @@ const env = getEnv();
   padding: 0 !important;
 }
 .yin {
-  @apply w-full px-4;
+  @apply px-4 pb-4;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.1);
   @apply bg-global-white rounded-md;
 }
