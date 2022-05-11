@@ -21,6 +21,7 @@ export const begin = async function (req: Request, res: Response) {
     "keywords": i18n.home.webInfo.home.key,
     "description": i18n.home.webInfo.home.des,
 
+    // "API.home.getHotProject":hotProject,//热门数据
     [alias.dApp.summary.list]: summary, // 数据汇总
     "API.home.getTopicRank": topicRank, // 首页顶部话题榜单接口
     "API.home.getRecommend": recommend, // 推荐话题

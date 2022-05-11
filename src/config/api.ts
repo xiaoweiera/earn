@@ -12,6 +12,7 @@ export const home = {
   projects: "/api/v1/dapps/topic/projects", // 话题项目列表
   platforms: "/api/v1/dapps/platforms", // TGE平台列表
   tutorial: "/api/blog/v1/blogs", //空投教程列表
+  hotProject: "/api/dapps/v1/recommendations", //热门项目列表
 };
 
 export const dapp = {

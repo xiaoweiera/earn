@@ -138,4 +138,8 @@ export class Model extends API {
   getFundsList(query: FundsQuery) {
     return this.dApp.getFundsList(query);
   }
+  //热门项目列表
+  getHotProject() {
+    return this.home.getHotProject();
+  }
 }

@@ -95,4 +95,12 @@ export default class extends ApiTemplate {
     // 返回参数
     return [query] as any;
   }
+  // 热门项目列表
+  @tryError(DefaultValue([])) // 处理默认值
+  @get(api.home.hotProject) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getHotProject<T>(): Promise<T> {
+    // 返回参数
+    return [] as any;
+  }
 }
