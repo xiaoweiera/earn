@@ -35,7 +35,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="adsList.length > 0" class="w-181.25 h-90.5 relative">
+  <div v-if="adsList.length > 0" class="w-full md:w-181.25 h-90.5 relative">
     <Swiper class="h-full rounded-kd6px" :initial-slide="0" :loop="true" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true }">
       <template v-for="(item, index) in adsList" :key="index">
         <SwiperSlide>

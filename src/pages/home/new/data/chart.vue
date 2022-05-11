@@ -4,7 +4,6 @@ import window from "src/plugins/browser/window";
 import document from "src/plugins/browser/document";
 import { Model } from "src/logic/home";
 import { getagoTimeStamp, getTip } from "src/lib/tool";
-// import I18n from "src/utils/i18n";
 import { address } from "src/logic/common/wallet";
 import * as echarts from "echarts";
 import { chartConfig } from "src/logic/rank/chartConfig";
@@ -15,7 +14,6 @@ const param: any = reactive({
   from_ts: getagoTimeStamp(14),
   to_ts: getagoTimeStamp(0),
 });
-// const i18n = I18n();
 const chartData = ref({});
 let myChart: any = null;
 
@@ -44,7 +42,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="w-86.75 h-17.6 relative">
-    <div id="homeChart" class="w-86.75 h-17.6"></div>
+  <div class="w-full h-26.5 relative">
+    <div id="homeChart" class="w-full h-26.5"></div>
   </div>
 </template>

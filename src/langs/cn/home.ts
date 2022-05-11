@@ -151,4 +151,11 @@ export default {
     airdrop: "项目",
     tutorial: "教程",
   },
+  new: {
+    fund: "我的资产",
+    hot: "本周热门项目",
+    wallet: "连接钱包",
+    des1: "自动监控您的资产变化，并给出投资建议",
+    followTip: "关注我们，第一时间体验最新功能",
+  },
 };
