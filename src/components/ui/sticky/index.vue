@@ -60,7 +60,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="stickyRef" class="sticky top-header z-999" :class="active">
+  <div ref="stickyRef" class="sticky top-header" :class="active">
     <slot />
   </div>
 </template>

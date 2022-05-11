@@ -19,5 +19,6 @@ export interface MenuItem {
   message?: number; // 消息数量
   layout?: boolean; // 布局方式
   children?: MenuItem[]; // 子菜单
+  blank?: boolean; // 是否为新开窗口
   [key: string]: any;
 }

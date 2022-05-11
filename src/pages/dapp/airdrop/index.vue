@@ -52,7 +52,7 @@ onMounted(() => {
       <!-- 广告 -->
       <HomeAd :position="24" class="w-full h-full mb-6" />
       <!-- 分类 -->
-      <ui-sticky active-class="table-box-title" class="shadow-border-b bg-global-topBg">
+      <ui-sticky active-class="table-box-title" class="z-900 shadow-border-b bg-global-topBg">
         <ui-tab :active-name="activeName" :list="tabs()" trigger="router" @change="onChange">
           <template #default="{ data }">
             <div v-if="data.logo" class="flex items-center">

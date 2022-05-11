@@ -11,7 +11,7 @@ import { Address } from "./address";
 import { TopicList } from "./topic";
 import { Blog } from "./blog";
 import { Quota } from "./quota";
-import { name as DAppName, DApp } from "./dapp";
+import { DApp } from "./dapp";
 
 const getItem = function (list?: MenuItem[], id?: string) {
   if (id) {
@@ -32,9 +32,6 @@ export const Analysis = function (lang?: Lang): MenuItem {
   const nft = getItem(ranks.children, RankName.nft);
   const rankDApp = getItem(ranks.children, RankName.dapp);
   const gameFi = getItem(ranks.children, RankName.gamefi);
-
-  const dApp = getItem(dAppList.children, DAppName.dapp);
-
   const db = new DB();
   if (nft) {
     db.insert(nft);
@@ -45,15 +42,9 @@ export const Analysis = function (lang?: Lang): MenuItem {
   if (gameFi) {
     db.insert(gameFi);
   }
-  if (dApp) {
-    db.insert(dApp);
-  }
-  if (address.children && address.children.length > 0) {
-    db.insert(address.children);
-  }
-  if (quota.children && quota.children.length > 0) {
-    db.insert(quota.children);
-  }
+  db.insert(dAppList);
+  db.insert(address);
+  db.insert(quota);
   db.insert(topic);
   db.insert(blog);
 

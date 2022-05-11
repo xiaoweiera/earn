@@ -14,7 +14,7 @@ export default {
   nft: {
     title: "趋势榜单",
     ranking: "NFT 排行榜",
-    discover: "NFTs",
+    discover: "Mint",
   },
   apy: {
     mining: "挖矿 APY",

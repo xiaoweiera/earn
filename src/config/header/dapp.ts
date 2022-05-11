@@ -23,6 +23,7 @@ export const DApp = function (lang?: Lang): MenuItem {
     href: `${config.dapp}/discover`,
     expand: "HeaderSubDApp", // 二级导航末尾自定义组件名称
     newTip: true,
+    icon: "icon-IDO",
     children: [
       {
         id: name.dapp, // id

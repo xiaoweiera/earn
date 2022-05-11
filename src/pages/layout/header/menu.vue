@@ -42,7 +42,7 @@ defineProps({
   --menu-content-text: rgba(255, 255, 255, 0.65);
 
   .menu-children {
-    @apply fixed top-15 left-0 right-0 opacity-0 invisible z-1000;
+    @apply fixed top-15 left-0 right-0 opacity-0 invisible z-1010;
   }
 }
 

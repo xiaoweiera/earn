@@ -57,7 +57,10 @@ const currMenu = function () {
   return value;
 };
 
-const isLayout2 = function () {
+const isLayout2 = function (path: string) {
+  if (/^\/topic/i.test(path)) {
+    return false;
+  }
   const data = currMenu();
   if (data && data.layout) {
     return true;
@@ -73,14 +76,16 @@ const isLayout2 = function () {
     <div class="main">
       <!--全局消息-->
       <Notice />
-      <div class="clearfix" :class="{ 'layout-2': isLayout2() }">
-        <ui-sticky class="float-left view-full bg-white menu">
-          <div v-if="isLayout2()" class="h-full overflow-auto">
+      <div class="clearfix" :class="{ 'layout-2': isLayout2($route.path) }">
+        <ui-sticky class="z-900 float-left view-full bg-white menu">
+          <div v-if="isLayout2($route.path)" class="h-full overflow-auto">
             <MenuContent :header="currMenu()" />
           </div>
         </ui-sticky>
         <div class="router-view">
-          <MenuSub v-if="isLayout2()" :header="currMenu()" />
+          <ui-sticky v-if="isLayout2($route.path)" class="z-999">
+            <MenuSub :header="currMenu()" />
+          </ui-sticky>
           <router-view />
         </div>
       </div>
@@ -106,7 +111,7 @@ const isLayout2 = function () {
   @apply hidden w-50;
   @at-root .layout-2 & {
     @apply block;
-    box-shadow: 1px 0 0 rgba(0, 50, 108, 0.06);
+    border-right: 1px solid rgba(0, 50, 108, 0.06);
   }
 }
 
