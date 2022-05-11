@@ -9,9 +9,9 @@ import { alias, createRef } from "src/utils/ssr/ref";
 import { config } from "src/router/config";
 
 const props = defineProps({
-  id: [String, Number],
-  default: () => {
-    return {};
+  id: {
+    type: [String, Number],
+    required: true,
   },
 });
 const i18n = I18n();

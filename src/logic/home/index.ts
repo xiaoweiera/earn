@@ -1,8 +1,8 @@
 import API from "src/api";
 import type { projectParams, recommendModel, summaryModel, tutorialParams, tutorialData } from "src/types/home";
 import I18n from "src/utils/i18n";
-import { FundsQuery } from "src/types/dapp/invest";
 import { ApyQuery } from "src/types/home/apy";
+import { FundsQuery, infoModel, lineModel } from "src/types/dapp/invest";
 
 // 得到header数据 headerName,headerCss
 export const getHeader = (key: string) => {
@@ -91,8 +91,8 @@ export class Model extends API {
   }
 
   // topic table切换
-  getTopicRank() {
-    return this.home.getTopicRank();
+  getTopicRank(category: string) {
+    return this.home.getTopicRank(category);
   }
 
   // 推荐话题
@@ -142,5 +142,17 @@ export class Model extends API {
   //矿池币种列表
   getApyList(query: ApyQuery) {
     return this.home.getApyList(query);
+  }
+  //热门项目列表
+  getHotProject() {
+    return this.home.getHotProject();
+  }
+  //得到大户地址图表
+  getLineChart(query: lineModel) {
+    return this.home.getLineChart(query);
+  }
+  //大户历史交易
+  getHistory(query: infoModel) {
+    return this.home.getHistory(query);
   }
 }
