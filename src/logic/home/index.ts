@@ -2,6 +2,7 @@ import API from "src/api";
 import type { projectParams, recommendModel, summaryModel, tutorialParams, tutorialData } from "src/types/home";
 import I18n from "src/utils/i18n";
 import { FundsQuery } from "src/types/dapp/invest";
+import { ApyQuery } from "src/types/home/apy";
 
 // 得到header数据 headerName,headerCss
 export const getHeader = (key: string) => {
@@ -137,5 +138,9 @@ export class Model extends API {
   //投融资机构
   getFundsList(query: FundsQuery) {
     return this.dApp.getFundsList(query);
+  }
+  //矿池币种列表
+  getApyList(query: ApyQuery) {
+    return this.home.getApyList(query);
   }
 }

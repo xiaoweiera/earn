@@ -151,4 +151,14 @@ export default {
     airdrop: "Airdrops",
     tutorial: "Tutorial",
   },
+  apy: {
+    title: "We Find & Maximize DeFi and NFTs Vault Strategies",
+    defi: "DeFi",
+    nft: "NFTFi",
+    alpaca: "Alpaca APY:",
+    top: "Top 3 Vaults",
+    deposit: "Deposit",
+    more: "View More",
+    tips: "Follow us and experience the latest features for the first time.",
+  },
 };

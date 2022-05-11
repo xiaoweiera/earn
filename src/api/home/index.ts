@@ -6,6 +6,7 @@ import * as api from "src/config/api";
 import { DefaultValue, expire, get, tryError, userToken } from "src/plugins/dao/http";
 import type { projectParams, recommendModel, tutorialParams } from "src/types/home";
 import ApiTemplate from "../template";
+import type { ApyQuery } from "src/types/home/apy";
 
 export default class extends ApiTemplate {
   // 数据汇总
@@ -92,6 +93,14 @@ export default class extends ApiTemplate {
   @get(api.home.tutorial) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getTutorialList<T>(query: tutorialParams): Promise<T> {
+    // 返回参数
+    return [query] as any;
+  }
+  // 矿池币种列表
+  @tryError(DefaultValue([])) // 处理默认值
+  @get(api.home.apy) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getApyList<T>(query: ApyQuery): Promise<T> {
     // 返回参数
     return [query] as any;
   }

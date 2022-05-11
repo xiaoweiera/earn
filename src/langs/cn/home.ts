@@ -151,4 +151,14 @@ export default {
     airdrop: "项目",
     tutorial: "教程",
   },
+  apy: {
+    title: "快速发现高收益DeFi和NFTs金库",
+    defi: "DeFi",
+    nft: "NFTFi",
+    alpaca: "Alpaca APY:",
+    top: "Top 3 金库",
+    deposit: "去挖矿",
+    more: "查看更多",
+    tips: "关注我们，第一时间体验最新功能",
+  },
 };

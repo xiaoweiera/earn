@@ -12,6 +12,7 @@ export const home = {
   projects: "/api/v1/dapps/topic/projects", // 话题项目列表
   platforms: "/api/v1/dapps/platforms", // TGE平台列表
   tutorial: "/api/blog/v1/blogs", //空投教程列表
+  apy: "/api/apy/ninja/recommended_pool_tokens", //首页推荐矿池币种列表
 };
 
 export const dapp = {
