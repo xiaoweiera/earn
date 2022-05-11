@@ -69,11 +69,11 @@ const routes = [
         component: () => import("src/pages/address/index.vue"),
       },
       {
-        path: "/api",
+        path: config.api,
         component: () => import("src/pages/api/index.vue"),
       },
       {
-        path: "/token",
+        path: config.token,
         component: () => import("src/pages/api/index.vue"),
       },
       {
