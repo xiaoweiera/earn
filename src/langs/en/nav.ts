@@ -34,7 +34,7 @@ export default {
     },
   },
   analysis: {
-    name: "Analysis",
+    name: "Dashboards",
     hData: {
       name: "Alerts",
       desc: "Seize any trading opportunity",
@@ -127,5 +127,4 @@ export default {
       desc: "Comprehensive blockchain resource website",
     },
   },
-
 };

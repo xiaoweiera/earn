@@ -3,26 +3,53 @@
  * @file 显示与隐藏
  * @auth svon.me@gmail.com
  */
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { uuid } from "src/utils/";
 
 const key = ref<string>(`visible-${uuid()}`);
 
-defineProps({
+const props = defineProps({
   arrow: {
     type: Boolean,
     default: () => true,
   },
+  arrowSize: {
+    type: Number,
+    default: 24,
+  },
+  titleClass: {
+    type: String,
+    default: "",
+  },
+  checked: {
+    type: Boolean,
+    default: () => false,
+  },
 });
 
+const className = computed<string[]>(function () {
+  const array: string[] = [];
+  if (props.arrow) {
+    array.push("show-arrow");
+  }
+  if (props.titleClass) {
+    array.push(props.titleClass);
+  }
+  return array;
+});
 </script>
 
 <template>
   <div>
-    <input :id="key" :name="key" class="hidden visible-input" type="checkbox">
-    <label :for="key" class="block select-none visible-label cursor-pointer" :class="{'show-arrow': arrow}">
+    <template v-if="checked">
+      <input :id="key" :name="key" class="hidden visible-input" type="checkbox" checked />
+    </template>
+    <template v-else>
+      <input :id="key" :name="key" class="hidden visible-input" type="checkbox" />
+    </template>
+    <label :for="key" class="block select-none visible-label cursor-pointer" :class="className">
       <slot :id="key" name="label" />
-      <IconFont class="arrow-icon hidden" type="icon-arrow-down" size="24" />
+      <IconFont class="arrow-icon hidden" type="icon-arrow-down" :size="arrowSize" />
     </label>
     <div class="visible-content">
       <slot />

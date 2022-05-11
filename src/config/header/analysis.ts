@@ -48,12 +48,6 @@ export const Analysis = function (lang?: Lang): MenuItem {
   if (gameFi) {
     db.insert(gameFi);
   }
-  db.insert(dAppList);
-  db.insert(address);
-  db.insert(quota);
-  db.insert(topic);
-  db.insert(blog);
-
   db.insert({
     id: name.token,
     icon: "icon-touzizuhe",
@@ -61,8 +55,12 @@ export const Analysis = function (lang?: Lang): MenuItem {
     href: "/token",
     blank: true,
     header: true,
-    coming: true,
   });
+  db.insert(dAppList);
+  db.insert(address);
+  db.insert(quota);
+  db.insert(topic);
+  db.insert(blog);
 
   return {
     name: i18n.menu.analytic, // dApp

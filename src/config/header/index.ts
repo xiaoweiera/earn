@@ -37,11 +37,8 @@ export const headers = function (lang?: Lang) {
     Portfolio(lang),
     Analysis(lang),
     {
-      id: apiName.api,
       name: "API", // dApp
       href: "/api",
-      coming: true,
-      children: [],
     },
   ];
 
