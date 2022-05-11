@@ -36,6 +36,5 @@ const i18n = I18n();
 <style lang="scss" scoped>
 .apy-coming {
   @apply h-full w-full;
-  background: linear-gradient(180deg, rgba(0, 111, 247, 0.05) 0%, rgba(0, 111, 247, 0) 100%);
 }
 </style>

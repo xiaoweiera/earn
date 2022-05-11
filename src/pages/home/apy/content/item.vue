@@ -39,12 +39,12 @@ const getUrl = function (name: string) {
         <div class="flex items-center justify-between">
           <div class="flex items-center text-global-highTitle text-18-24 font-medium font-kdFang">
             <ui-image rounded class="w-10 h-10" :src="data.symbol_logo" :title="data.symbol_name" />
-            <span class="ml-2">{{ data.symbol_name }}</span>
+            <span class="ml-2 font-medium">{{ data.symbol_name }}</span>
           </div>
           <div class="flex flex-col items-end">
-            <p class="flex items-center text-global-highTitle text-12-16 font-medium font-kdFang">
-              <span>{{ i18n.home.apy.alpaca }}</span>
-              <span class="text-global-numGreen text-18-24 ml-1">{{ valueFormat(toFixed(data.pools[0].apy, 2), "%") }}</span>
+            <p class="flex items-center">
+              <span class="text-global-highTitle text-12-16 font-medium font-kdFang">{{ data.pools[0].project }} APY</span>
+              <span class="text-global-numGreen text-18-24 font-medium ml-1">{{ valueFormat(toFixed(data.pools[0].apy, 2), "%") }}</span>
             </p>
             <p class="text-12-16 text-global-highTitle text-opacity-65">
               <span>TVL</span>
@@ -97,7 +97,7 @@ const getUrl = function (name: string) {
 
 <style lang="scss" scoped>
 .apy-item {
-  @apply w-full h-full border-1 border-global-highTitle border-opacity-6 p-4 rounded-md;
+  @apply w-full min-h-69 border-1 border-global-highTitle border-opacity-6 p-4 rounded-md;
   background: linear-gradient(180deg, rgba(0, 111, 247, 0.05) 0%, rgba(250, 251, 252, 0) 100%, rgba(0, 111, 247, 0) 100%);
 }
 .back::before {

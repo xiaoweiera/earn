@@ -50,7 +50,7 @@ const tabClick = function (value: any) {
       <div class="flex items-center justify-center">
         <div class="flex items-center">
           <ui-image class="w-6 h-6" :src="`${oss}/image/apy-left.png`" />
-          <h1 class="text-16-22 md:text-24-28 text-global-highTitle mx-4 text-center">{{ i18n.home.apy.title }}</h1>
+          <h1 class="text-kd16px22px md:text-kd24px28px text-global-highTitle mx-4 text-center">{{ i18n.home.apy.title }}</h1>
           <ui-image class="w-6 h-6" :src="`${oss}/image/apy-right.png`" />
         </div>
       </div>
@@ -79,7 +79,7 @@ const tabClick = function (value: any) {
           <Swiper :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" :pagination="{ clickable: true }" :slides-per-view="1" :space-between="0" class="h-full swiper-recom">
             <template v-for="(item, index) in ApyList" :key="index">
               <SwiperSlide class="w-full h-full rounded-kd6px">
-                <ApyItem :data="item" class="w-full max-h-69 hand" />
+                <ApyItem :data="item" class="w-full hand" />
               </SwiperSlide>
             </template>
           </Swiper>
