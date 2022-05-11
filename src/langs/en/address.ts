@@ -81,7 +81,7 @@ export default {
     jiazhi: "Value",
     reward: "Yield/Reward",
     kingInfo: "Recommend Tokens & Protocols to us",
-    valueTip: "Apy is estimated based on the rate of return in the current statistical time",
+    valueTip: "Data is estimated based on the rate of return in the current statistical time",
   },
   awaitData: "Data loading, it will take 30s ~ 2m for the first loading, please wait a moment",
   noData: "No Data",

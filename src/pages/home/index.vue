@@ -35,7 +35,7 @@ onMounted(() => {
       <div class="home-content">
         <div class="flex items-center">
           <newAd class="mr-6" :position="25" />
-          <div class="w-127.75">
+          <div class="w-full md:w-127.75">
             <div class="w-full h-54.5">
               <chartData class="w-full h-full" />
             </div>

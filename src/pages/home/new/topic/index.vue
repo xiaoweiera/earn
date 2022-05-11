@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
-// import I18n from "src/utils/i18n";
 import { Model } from "src/logic/home";
 import Table from "src/pages/home/table/index.vue";
 const category = ref("NFT");
@@ -11,7 +10,7 @@ const api = new Model();
 const list = [
   { id: 1, name: "NFT", value: "NFT", icon: "icon-paihang" },
   { id: 2, name: "DApp", value: "DAPP", icon: "icon-nfttag" },
-  { id: 3, name: "APY", value: "APY", icon: "icon-apytag" },
+  // { id: 3, name: "APY", value: "APY", icon: "icon-apytag" },
 ];
 const rank: any = createRef("API.home.getTopicRank", []);
 const tabClick = async (value: string) => {
