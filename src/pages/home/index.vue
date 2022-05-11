@@ -57,8 +57,10 @@ onMounted(() => {
     </lazy-load>
     <!--指标-->
     <lazy-load>
-      <div class="quota-content">
-        <Quota />
+      <div class="quota">
+        <div class="quota-content">
+          <Quota />
+        </div>
       </div>
     </lazy-load>
   </div>
@@ -75,9 +77,12 @@ onMounted(() => {
 .apy-content {
   @apply md:max-w-360 md:px-22.5 px-3 md:py-11 py-6 mx-auto;
 }
-.quota-content {
+.quota {
   background: #f8fafa;
-  @apply md:max-w-360 md:px-22.5 px-3 md:py-11 py-6 mx-auto;
+  @apply md:py-11 py-6;
+}
+.quota-content {
+  @apply md:max-w-360 md:px-22.5 px-3 mx-auto;
 }
 .top {
   background-image: cdn("/dapp/homebeijing.jpeg");
