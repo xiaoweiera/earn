@@ -8,6 +8,7 @@ import DB from "@fengqiaogang/dblist";
 import { MenuItem } from "src/types/menu";
 import { Lang } from "src/types/language";
 import { name as RankName, Ranks } from "./rank";
+import { config as routerConfig } from "src/router/config";
 import { Address } from "./address";
 import { TopicList } from "./topic";
 import { Blog } from "./blog";
@@ -52,7 +53,7 @@ export const Analysis = function (lang?: Lang): MenuItem {
     id: name.token,
     icon: "icon-touzizuhe",
     name: i18n.menu.token,
-    href: "/token",
+    href: routerConfig.token,
     blank: true,
     header: true,
   });

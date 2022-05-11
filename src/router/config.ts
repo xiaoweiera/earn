@@ -54,5 +54,7 @@ export const config = {
   instructions: "/instructions",
   policy: "/policy",
   E404: "/404",
+  api: "/w-api",
+  token: "/token",
   user,
 };
