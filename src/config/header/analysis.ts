@@ -59,7 +59,7 @@ export const Analysis = function (lang?: Lang): MenuItem {
     icon: "icon-Token",
     name: i18n.menu.token,
     href: routerConfig.token,
-    blank: true,
+    blank: false,
     header: true,
   });
   db.insert(dAppList);

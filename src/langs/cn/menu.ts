@@ -1,11 +1,11 @@
 export default {
   dapp: {
     title: "新项目",
-    ranking: "DApp 排行榜",
+    ranking: "DApp 分析",
     discover: "IDO",
     gamefi: "IGO",
-    game: "GameFi 排行榜",
-    defi: "DeFi 排行榜",
+    game: "GameFi 分析",
+    defi: "DeFi 分析",
     invest: "投资动向",
   },
   airdrop: {
@@ -13,7 +13,7 @@ export default {
   },
   nft: {
     title: "趋势榜单",
-    ranking: "NFT 排行榜",
+    ranking: "NFT 分析",
     discover: "Mint",
   },
   apy: {
