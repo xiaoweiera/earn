@@ -56,12 +56,9 @@ const tabClick = function (value: any) {
       </div>
       <!-- 切换按钮 -->
       <div class="flex items-center justify-center mt-6">
-        <div class="w-full md:w-92 h-11 md:h-14.25 bg-global-highTitle bg-opacity-6 rounded-md p-1 flex items-center hand">
+        <div class="w-full md:w-auto h-11 md:h-11.5 bg-global-highTitle bg-opacity-6 rounded-md p-1 flex items-center hand">
           <div v-for="(item, index) in list" :key="index" :class="item.id === activeId ? 'tab-item tab-item-active' : 'tab-item'" @click="tabClick(item)">
-            <div class="hidden md:block">
-              <IconFont class="flex items-center" :type="item.icon" size="24" />
-            </div>
-            <IconFont class="block md:hidden flex items-center" :type="item.icon" size="20" />
+            <IconFont class="flex items-center" :type="item.icon" size="20" />
             <span class="ml-2 md:ml-3">{{ item.name }}</span>
           </div>
         </div>
@@ -105,7 +102,7 @@ const tabClick = function (value: any) {
   font-family: "PingFang SC" !important;
 }
 .tab-item {
-  @apply w-45 h-full flex items-center justify-center text-global-highTitle text-18-24 md:text-kd24px28px font-medium font-kdFang;
+  @apply w-1/2 md:w-35 h-full flex items-center justify-center text-global-highTitle text-18-24 font-medium font-kdFang;
 }
 .tab-item-active {
   @apply bg-global-darkblue text-global-white rounded-md;
