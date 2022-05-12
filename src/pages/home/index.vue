@@ -39,8 +39,10 @@ onMounted(() => {
         <hotProject class="mt-4 md:mt-6" />
       </div>
     </div>
-    <div class="topic-content pb-6 pt-6 md:pb-11">
-      <newTopic />
+    <div class="topic-container pb-6 pt-6 md:pb-11">
+      <div class="topic-content">
+        <newTopic />
+      </div>
     </div>
     <lazy-load>
       <div class="apy-content">
@@ -62,6 +64,9 @@ onMounted(() => {
 
 .home-content {
   @apply md:max-w-360  md:px-22.5 px-3 mx-auto;
+}
+.topic-container {
+  background: rgba(248, 250, 250, 1);
 }
 .topic-content {
   background: rgba(248, 250, 250, 1);

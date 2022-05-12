@@ -163,7 +163,7 @@ export default {
   },
   new: {
     fund: "Fund",
-    hot: "Hot Project Of The Week",
+    hot: "Hot projects of the week",
     wallet: "Connect Wallet",
     des1: "Automatically monitor changes in your assets and give investment advice.",
     followTip: "Follow us and experience the latest features for the first time.",

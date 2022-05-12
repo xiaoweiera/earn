@@ -55,7 +55,7 @@ onMounted(() => {
 <template>
   <div v-if="trend.length > 1">
     <div class="flex items-end text-global-white">
-      <span class="trend-title font-kdBarlow font-semibold">{{ i18n.home.todayTrend.title }}</span>
+      <span class="trend-title font-kdBarlow font-semibold">{{ i18n.home.new.hot }}</span>
     </div>
     <div class="mt-2.5 relative">
       <div class="w-full h-full">
