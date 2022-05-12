@@ -29,26 +29,18 @@ defineProps({
   @apply w-full relative;
 }
 .table-content {
-  @apply relative   md:bg-global-white rounded-kd16px md:min-w-150;
+  @apply relative  rounded-kd16px md:min-w-150;
 }
 .table-model {
   @apply h-full md:absolute top-0;
 }
 .bg {
   height: 97%;
-  @apply w-138 mx-auto absolute left-0 right-0   top-0 bg-global-white bg-opacity-45 rounded-kd16px;
+  @apply w-138 mx-auto absolute left-0 right-0   top-0   rounded-kd16px;
 }
 
 .table-box {
-  @apply w-full h-full bg-global-white rounded-kd16px;
-}
-
-.yuan {
-  @apply w-2 h-2 bg-global-white rounded-full;
-}
-
-.yuan-no {
-  @apply w-2 h-2 bg-global-white bg-opacity-45 rounded-full;
+  @apply w-full h-full  rounded-kd16px;
 }
 
 .dian:not(:first-child) {

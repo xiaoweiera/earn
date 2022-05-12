@@ -39,15 +39,14 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="flex items-center mt-4 showX">
+    <div class="flex items-center mt-4 showX md:justify-center">
       <template v-for="(item, i) in rank" :key="item.id">
-        <div class="relative two-tag max-h-7">
+        <div class="relative two-tag max-h-8">
           <div :class="topicIndex === i ? 'two-tag-active' : 'two-tag-default'" class="whitespace-nowrap" @click="titleClick(i)">{{ item.name }}</div>
         </div>
       </template>
     </div>
     <Table :key="topicIndex" :topic-index="topicIndex" :data="rank" />
-    <Table />
     <UiLoading v-if="isLoad" class="fixed top-0 bottom-0 left-0 right-0" />
   </div>
 </template>
@@ -59,7 +58,7 @@ onMounted(() => {
   @apply bg-global-darkblue text-global-white rounded-md;
 }
 .two-tag {
-  @apply cursor-pointer pb-2;
+  @apply cursor-pointer pb-4;
 }
 .two-tag-default {
   @apply text-kd16px22px text-global-highTitle font-medium;

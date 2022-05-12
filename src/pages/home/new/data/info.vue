@@ -25,12 +25,12 @@ onMounted(() => {
   <div v-if="data" class="p-3 md:p-4 h-36 md:h-41.5 flex flex-col bg-global-white rounded-kd6px font-kdFang">
     <div class="flex flex-1 justify-between">
       <div class="flex-1">
-        <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-85">{{ i18n.home.new.fund }}</div>
-        <div class="mt-2 flex items-center">
+        <div class="text-kd14px18px w-full font-medium text-global-highTitle text-opacity-85">{{ i18n.home.new.fund }}</div>
+        <div class="mt-2 flex w-full items-center">
           <span class="mr-1 text-kd14px18px font-medium text-global-highTitle text-opacity-65">≈</span>
           <span class="text-kd20px20px md:text-kd26px26px text-global-highTitle text-opacity-85 text-number whitespace-pre-wrap">{{ toNumberCashFormat(data.fund, "$") }}</span>
         </div>
-        <div class="flex items-center mt-2">
+        <div class="flex w-full items-center mt-2">
           <IconFont v-if="data['earning_rate'] >= 0" class="mr-1" size="12" type="icon-zheng" />
           <IconFont v-else class="mr-1" size="10" type="icon-fu" />
           <span v-if="data['earning_rate']" class="mr-1 text-kd16px18px text-number" :class="getNumberColor(data['earning_rate'])">{{ toNumberCashFormat(data.earning_rate) }}%</span>
