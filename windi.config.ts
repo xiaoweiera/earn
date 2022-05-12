@@ -44,7 +44,8 @@ const cssGlobal = {
   textBlack: "#212121",
   hei: "#000000",
   orange: "#EAB144",
-  navBody: "#FAFBFC"
+  navBody: "#FAFBFC",
+  emptyBlue: "#0729F1",
 };
 
 export default defineConfig({

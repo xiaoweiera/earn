@@ -81,7 +81,7 @@ export default {
     jiazhi: "价值",
     reward: "Reward/收益率",
     kingInfo: "推荐TOKEN或协议给我们",
-    valueTip: "APY是根据当前统计时间内的收益率估算而成",
+    valueTip: "数值是根据当前统计时间内的收益率估算而成",
   },
   awaitData: "数据加载中，首次加载需要30秒-2分钟，请稍等",
   noData: "暂无数据",

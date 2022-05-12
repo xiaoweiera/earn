@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import HomeTableModel from "./model.vue";
 
 defineProps({
   topicIndex: {
     type: [String, Number],
-    default: "",
+    required: true,
   },
   data: {
     type: Object,
@@ -14,51 +13,34 @@ defineProps({
     },
   },
 });
-const id = ref(0);
-const changeTopic = (index: number) => (id.value = index);
 </script>
 <template>
   <div class="table-con">
     <div class="bg xshidden" />
     <div class="table-content">
       <template v-for="(item, index) in data" :key="item.id">
-        <HomeTableModel class="table-model xshidden" :class="topicIndex === index ? 'active' : 'active-no'" :data="item" />
-        <HomeTableModel v-if="index === id" class="h-full mdhidden" :class="id === index ? 'block' : 'hidden'" :data="item" />
-      </template>
-    </div>
-    <!--手机端翻页-->
-    <div class="mdhidden flex items-center justify-center mt-4">
-      <template v-for="(item, index) in data" :key="index">
-        <div class="dian hand" :class="id === index ? 'yuan' : 'yuan-no'" @click="changeTopic(index)" />
+        <HomeTableModel v-if="index === topicIndex" class="h-full" :class="index === index ? 'block' : 'hidden'" :data="item" />
       </template>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 .table-con {
-  @apply md:w-150 w-full md:min-h-75  md:py-3.5 relative;
+  @apply w-full relative;
 }
 .table-content {
-  @apply relative md:min-h-78  md:bg-global-white rounded-kd16px md:min-w-150;
+  @apply relative  rounded-kd16px md:min-w-150;
 }
 .table-model {
   @apply h-full md:absolute top-0;
 }
 .bg {
   height: 97%;
-  @apply w-138 mx-auto absolute left-0 right-0   top-0 bg-global-white bg-opacity-45 rounded-kd16px;
+  @apply w-138 mx-auto absolute left-0 right-0   top-0   rounded-kd16px;
 }
 
 .table-box {
-  @apply w-full h-full bg-global-white rounded-kd16px;
-}
-
-.yuan {
-  @apply w-2 h-2 bg-global-white rounded-full;
-}
-
-.yuan-no {
-  @apply w-2 h-2 bg-global-white bg-opacity-45 rounded-full;
+  @apply w-full h-full  rounded-kd16px;
 }
 
 .dian:not(:first-child) {

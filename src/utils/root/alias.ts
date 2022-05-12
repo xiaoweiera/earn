@@ -91,3 +91,9 @@ export const activity = {
     detail: "API.activity.getInviteDetail",
   },
 };
+
+export const home = {
+  apy: {
+    list: "API.apy.list",
+  },
+};
