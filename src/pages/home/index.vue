@@ -29,21 +29,21 @@ onMounted(() => {
           <newAd class="md:mr-6" :position="25" />
           <div class="w-full mt-4 md:mt-0 md:w-127.75">
             <div class="w-full">
-              <chartData class="w-full h-full" />
+              <chartData class="w-full h-full md:min-h-41.5" />
             </div>
             <div class="w-full h-22.5 mt-4 md:mt-6">
-              <Trend class="h-full" />
+              <Trend class="w-full h-full" />
             </div>
           </div>
         </div>
         <hotProject class="mt-4 md:mt-6" />
       </div>
     </div>
-    <div class="topic-content mt-6">
+    <div class="topic-content pb-6 pt-6 md:pb-11">
       <newTopic />
     </div>
     <lazy-load>
-      <div class="apy-content mt-11">
+      <div class="apy-content">
         <Apy />
       </div>
     </lazy-load>
@@ -64,6 +64,7 @@ onMounted(() => {
   @apply md:max-w-360  md:px-22.5 px-3 mx-auto;
 }
 .topic-content {
+  background: rgba(248, 250, 250, 1);
   @apply md:max-w-360 md:px-22.5 px-3 mx-auto;
 }
 .apy-content {

@@ -20,11 +20,11 @@ onMounted(() => {
     <template v-for="(item, i) in trend.slice(0, 1)" :key="i">
       <v-router :href="item['url']" target="_blank" class="rounded-kd6px w-full h-full relative cursor-pointer">
         <div class="trend-blog">
-          <div class="blog-name font-kdSemiBold font-semibold">
+          <div class="blog-name w-full font-kdSemiBold font-semibold">
             <span>Daily Trending</span>
             <span class="ml-1">({{ formatDefaultTime(item["release_date"], "MM/DD") }})</span>
           </div>
-          <div v-if="item['label'].length > 0" class="blog-label mt-1.5 font-kdFang">
+          <div v-if="item['label'].length > 0" class="blog-label w-full mt-1.5 font-kdFang">
             <span>{{ i18n.home.todayTrend.key }}:</span>
             <template v-for="(label, i) in item['label']" :key="i">
               <span>{{ label }}</span>

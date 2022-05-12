@@ -22,7 +22,7 @@ const toProject = (url: string) => {
 };
 </script>
 <template>
-  <div class="table-box bg-global-white relative">
+  <div class="table-box relative">
     <div class="showX">
       <table class="table-my">
         <thead>
@@ -89,7 +89,7 @@ tbody td {
   @apply text-center text-kd14px18px text-global-highTitle;
 }
 .table-box {
-  @apply w-full h-full bg-global-white rounded-kd16px;
+  @apply w-full h-full  rounded-kd16px;
 }
 
 .table-my {
