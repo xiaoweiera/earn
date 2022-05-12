@@ -22,25 +22,17 @@ const toProject = (url: string) => {
 };
 </script>
 <template>
-  <div class="table-box bg-global-white relative">
-    <div class="flex items-center justify-between flex-wrap">
-      <span class="title">{{ data.name }}</span>
-      <v-router :href="`${config.homeDetail}/${data.id}`" target="_blank" class="flex items-center hand">
-        <span class="more cursor-pointer">{{ i18n.home.more }}</span>
-        <IconFont class="text-global-primary ml-0.5" size="12" type="icon-rightNo" />
-      </v-router>
-    </div>
-    <div class="gang" />
+  <div class="table-box relative">
     <div class="showX">
       <table class="table-my">
         <thead>
-          <tr class="min-h-5">
+          <tr class="border-tb px-10">
             <td class="w-5">
-              <div class="text-left">#</div>
+              <div class="text-left flex items-center min-h-10 pl-3 mr-2">#</div>
             </td>
             <template v-for="(item, index) in safeGet(data, 'table.header')" :key="index">
               <td v-if="item.key !== 'id'" class="text-left">
-                <HomeTableHeader page="home" :short-icon="true" :sort="false" height="h-5" name="Dapp Name" :item="item" />
+                <HomeTableHeader class="min-h-10" :class="index === safeGet(data, 'table.header.length') - 1 ? 'pr-3' : ''" page="home" :short-icon="true" :sort="false" height="h-5" name="Dapp Name" :item="item" />
               </td>
             </template>
           </tr>
@@ -48,12 +40,12 @@ const toProject = (url: string) => {
         <tbody>
           <template v-for="(item, index) in safeGet(data, 'table.items')" :key="index">
             <tr class="model-tbody-tr hand" @click="toProject(item.url)">
-              <td class="number text-left">
-                <v-router :href="item.url" target="_blank" class="text-left" @click.prevent>{{ index + 1 }}</v-router>
+              <td class="number text-left h-12">
+                <v-router :href="item.url" target="_blank" class="text-left pl-3 mr-2" @click.prevent>{{ index + 1 }}</v-router>
               </td>
               <template v-for="(itemTwo, index) in safeGet(data, 'table.header')" :key="index">
                 <td v-if="itemTwo.key !== 'id'">
-                  <HomeTableTd :type-name="itemTwo.key" :data="item" />
+                  <HomeTableTd :class="index === safeGet(data, 'table.header.length') - 1 ? 'pr-3' : ''" :type-name="itemTwo.key" :data="item" />
                 </td>
               </template>
             </tr>
@@ -61,9 +53,21 @@ const toProject = (url: string) => {
         </tbody>
       </table>
     </div>
+    <div class="flex justify-center">
+      <v-router :href="`${config.homeDetail}/${data.id}`" target="_blank" class="btn-more">
+        <span class="more cursor-pointer">{{ i18n.common.button.more }}</span>
+      </v-router>
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
+.border-tb {
+  @apply border-t-1 border-b-1 border-global-highTitle border-opacity-6;
+}
+.btn-more {
+  @apply bg-global-primary bg-opacity-6 w-max px-8 rounded-kd4px;
+  @apply flex h-8 items-center hand mt-1.5;
+}
 .model-tbody-tr {
   @apply h-10 md:h-10.7;
 }
@@ -85,11 +89,10 @@ tbody td {
   @apply text-center text-kd14px18px text-global-highTitle;
 }
 .table-box {
-  @apply p-3 pb-2 md:p-4 md:pb-4 w-full h-full bg-global-white rounded-kd16px;
+  @apply w-full h-full  rounded-kd16px;
 }
 
 .table-my {
-  //border-collapse:separate;  border-spacing:0px 0px;
   @apply min-w-140 md:w-full bg-opacity-0 rounded-kd6px;
 }
 </style>

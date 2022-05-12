@@ -92,8 +92,7 @@ const list = createRef<MenuItem[]>(alias.common.layout.footer, []);
 
 <style lang="scss" scoped>
 .wrap-footer-box {
-  background-color: #f6f9fc;
-  @apply pt-4 pb-8;
+  @apply pt-4 pb-8 bg-global-white;
   @screen xl {
     @apply py-16;
   }

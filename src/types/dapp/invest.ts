@@ -57,3 +57,13 @@ export interface FundsQuery {
   keyword: string;
   stage?: string;
 }
+export interface lineModel {
+  address: string;
+  chain: string;
+  from_ts?: number;
+  to_ts?: number;
+}
+export interface infoModel {
+  address?: string;
+  chain: string;
+}

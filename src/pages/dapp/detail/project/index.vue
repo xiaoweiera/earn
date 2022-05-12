@@ -11,7 +11,7 @@ import { config } from "src/router/config";
 const props = defineProps({
   id: {
     type: [String, Number],
-    default: "",
+    required: true,
   },
 });
 const i18n = I18n();
