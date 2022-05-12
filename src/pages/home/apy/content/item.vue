@@ -57,7 +57,7 @@ const mouseEnter = function (num: number) {
           </div>
         </div>
         <!-- 排行 -->
-        <div class="mt-4.25">
+        <div class="mt-4.25 min-h-31.5">
           <p class="text-14-18 text-global-highTitle font-medium item-font">{{ i18n.home.apy.top }}</p>
           <div class="flex">
             <!-- 左侧图标 -->
