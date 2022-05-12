@@ -39,12 +39,12 @@ const getUrl = function (name: string) {
         <div class="flex items-center justify-between">
           <div class="flex items-center text-global-highTitle text-18-24 font-medium font-kdFang">
             <ui-image rounded class="w-10 h-10" :src="data.symbol_logo" :title="data.symbol_name" />
-            <span class="ml-2 font-medium">{{ data.symbol_name }}</span>
+            <span class="ml-2 font-medium font-kdFang">{{ data.symbol_name }}</span>
           </div>
           <div class="flex flex-col items-end">
-            <p class="flex items-center">
-              <span class="text-global-highTitle text-12-16 font-medium font-kdFang">{{ data.pools[0].project }} APY</span>
-              <span class="text-global-numGreen text-18-24 font-medium ml-1">{{ valueFormat(toFixed(data.pools[0].apy, 2), "%") }}</span>
+            <p class="flex items-center font-medium">
+              <span class="text-global-highTitle text-12-16 item-font">{{ data.pools[0].project }} APY</span>
+              <span class="text-global-numGreen text-18-24 font-kdFang ml-1 item-font">{{ valueFormat(toFixed(data.pools[0].apy, 2), "%") }}</span>
             </p>
             <p class="text-12-16 text-global-highTitle text-opacity-65">
               <span>TVL</span>
@@ -54,7 +54,7 @@ const getUrl = function (name: string) {
         </div>
         <!-- 排行 -->
         <div class="mt-4.25">
-          <p class="text-14-18 font-medium font-kdFang">{{ i18n.home.apy.top }}</p>
+          <p class="text-14-18 text-global-highTitle font-medium item-font">{{ i18n.home.apy.top }}</p>
           <div class="flex">
             <!-- 左侧图标 -->
             <div>
@@ -64,14 +64,14 @@ const getUrl = function (name: string) {
                   <IconFont class="absolute -right-1 bottom-0 w-3.5 h-3.5 bg-global-white rounded-full text-global-highTitle text-opacity-25" type="icon-V" size="14" />
                 </div>
                 <IconFont class="mx-1.5" :type="item.chain" size="16" />
-                <p class="w-23.5 text-14-18 text-global-highTitle font-kdFang font-medium">{{ item.project }}</p>
+                <p class="w-23.5 text-14-18 text-global-highTitle font-medium item-font">{{ item.project }}</p>
               </div>
             </div>
             <!-- 右侧进度条 -->
             <div class="w-full ml-1.5">
               <template v-for="(item, index) in data.pools" :key="index">
                 <div class="mt-2.5 h-6.5 py-0.5 relative">
-                  <p class="w-full h-5.5 px-1 py-0.5 flex rounded justify-end text-14-18 font-semibold font-kdFang" :class="index === 0 ? 'back text-global-numGreen' : 'backdrop'" :style="`--wv:${getWidth(item, index)}%`">
+                  <p class="w-full h-5.5 px-1 py-0.5 flex rounded justify-end text-14-18 font-semibold item-font" :class="index === 0 ? 'back text-global-numGreen' : 'backdrop text-global-highTitle'" :style="`--wv:${getWidth(item, index)}%`">
                     <span v-if="index === 0">BEST APY</span>
                     <span :class="index === 0 ? 'ml-1' : ''">{{ valueFormat(toFixed(item.apy, 2), "%") }}</span>
                   </p>
@@ -118,5 +118,8 @@ const getUrl = function (name: string) {
   ::v-deep(.back-color) {
     @apply text-12-16;
   }
+}
+.item-font {
+  font-family: "PingFang SC" !important;
 }
 </style>
