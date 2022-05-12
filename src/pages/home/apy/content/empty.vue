@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { oss } from "src/config";
 import I18n from "src/utils/i18n";
 import Hover from "src/pages/layout/footer/hover.vue";
 
@@ -8,10 +7,10 @@ const i18n = I18n();
 
 <template>
   <div>
-    <div class="apy-coming w-full h-144.5 px-15.5 md:px-53 py-11 md:py-38.5">
-      <div class="w-full flex flex-col md:flex-row justify-center md:justify-between items-center">
+    <div class="apy-coming w-full h-142.5 py-6">
+      <div class="w-full flex flex-col justify-center items-center">
         <!-- 左侧部分 -->
-        <div class="py-8 flex flex-col items-center md:items-start text-center md:text-left">
+        <div class="flex flex-col items-center justify-center text-center">
           <div class="w-37.5 h-12">
             <ui-image src="/images/common/logo.svg" />
           </div>
@@ -39,7 +38,7 @@ const i18n = I18n();
           </div>
         </div>
         <!-- 右侧部分 -->
-        <div class="w-55.5 h-67.5 ml-0 md:ml-22 flex justify-center">
+        <div class="w-55.5 h-67.5 flex justify-center mt-12">
           <ui-image class="w-41.5 md:w-55.5 h-50 md:h-67.5" src="/images/apy/Group.svg" />
         </div>
       </div>
@@ -51,7 +50,7 @@ const i18n = I18n();
 @import "src/styles/function";
 .apy-coming {
   @apply h-full w-full;
-  background-image: cdn("/image/empty-bg.png");
+  background-image: cdn("/image/empty.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }

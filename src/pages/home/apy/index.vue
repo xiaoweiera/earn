@@ -50,7 +50,7 @@ const tabClick = function (value: any) {
       <div class="flex items-center justify-center">
         <div class="flex items-center">
           <ui-image class="w-6 h-6" :src="`${oss}/image/apy-left.png`" />
-          <h1 class="text-kd16px22px md:text-kd24px28px text-global-highTitle mx-4 text-center">{{ i18n.home.apy.title }}</h1>
+          <h1 class="title text-kd16px22px md:text-kd24px28px text-global-highTitle font-medium mx-4 text-center">{{ i18n.home.apy.title }}</h1>
           <ui-image class="w-6 h-6" :src="`${oss}/image/apy-right.png`" />
         </div>
       </div>
@@ -92,7 +92,7 @@ const tabClick = function (value: any) {
         </div>
       </div>
       <div v-if="activeId === 2" class="mt-6">
-        <div class="h-150 md:h-144.5 rounded-md overflow-hidden">
+        <div class="h-142 rounded-md overflow-hidden">
           <Empty class="w-full h-full" />
         </div>
       </div>
@@ -101,6 +101,9 @@ const tabClick = function (value: any) {
 </template>
 
 <style lang="scss" scoped>
+.title {
+  font-family: "PingFang SC" !important;
+}
 .tab-item {
   @apply w-45 h-full flex items-center justify-center text-global-highTitle text-18-24 md:text-kd24px28px font-medium font-kdFang;
 }
