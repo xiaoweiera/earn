@@ -85,7 +85,7 @@ onMounted(() => {
                         </div>
                       </div>
                     </div>
-                    <span class="relative z-30 top-1 text-global-white text-kd12px16px font-kdBarlow">{{ safeGet(item, `recommendation_reason`) }}1212dad1212dad1212dad</span>
+                    <span class="relative z-30 top-1 text-global-white text-kd12px16px font-kdBarlow">{{ safeGet(item, `recommendation_reason`) }}</span>
                   </div>
 
                   <div class="w-47.5 h-23 absolute top-0 left-0 rounded-kd6px z-2" :class="item['data_type'] === 'ad' ? '' : 'jian'" />

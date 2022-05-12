@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import noData from "./nodata.vue";
-import info from "./info.vue";
+import NoData from "./nodata.vue";
+import { isLogin } from "src/logic/user/login";
+import Info from "./info.vue";
 import { address } from "src/logic/common/wallet";
-import { ref, watch } from "vue";
-const key = ref(0);
+isLogin;
 </script>
 <template>
   <div>
     <client-only>
-      <info v-if="address" />
-      <noData v-else class="w-full" />
+      <Info v-if="address && isLogin" />
+      <NoData v-else class="w-full" />
     </client-only>
   </div>
 </template>
