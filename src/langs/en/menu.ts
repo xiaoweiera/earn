@@ -98,4 +98,9 @@ export default {
   analytic: "Analysis",
   invest: "Invest",
   token: "Token Analysis",
+  group: {
+    analytic: "Project Analytic",
+    tool: "Track Tool",
+    data: "Research",
+  },
 };

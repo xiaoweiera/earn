@@ -21,8 +21,8 @@ defineProps({
             <span class="h3 block text-16-22 font-m text-global-highTitle" :class="{ active: data.active }">{{ data.name }}</span>
           </template>
           <template v-for="item in data.children" :key="item.name">
-            <v-router :href="item.href" class="flex items-center py-2 min-h-10">
-              <IconFont size="24" class="mr-2" :type="item.icon" />
+            <v-router v-if="!item.group" :href="item.href" class="flex items-center py-2 min-h-10">
+              <IconFont v-if="item.icon" size="24" class="mr-2" :type="item.icon" />
               <span class="item-name">{{ item.name }}</span>
             </v-router>
           </template>

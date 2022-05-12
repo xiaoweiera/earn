@@ -15,7 +15,7 @@ export const Blog = function (lang?: Lang): MenuItem {
   const i18n = I18n(lang);
   return {
     id: name.blog,
-    icon: "icon-yanjiuyuan",
+    icon: "icon-yanjiuyuan1",
     name: i18n.menu.blog.blog,
     href: config.blog,
     header: true,
