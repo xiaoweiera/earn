@@ -20,9 +20,6 @@ const onConnect = async function () {
     }
   } catch (e) {
     const code = safeGet<number>(e as object, "code");
-    // if (code === 4001) {
-    //   // todo 用户取消授权
-    // }
     messageError(getErrorMessageContent(code));
   }
 };
