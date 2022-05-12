@@ -28,7 +28,7 @@ const onConnect = async function () {
   <div class="rounded-kd6px bg top w-full">
     <div class="flex flex-col justify-center items-center h-36 md:h-41.5">
       <div class="text-kd16px20px font-medium text-global-highTitle text-opacity-85">{{ i18n.home.new.wallet }}</div>
-      <div class="mt-1.5 text-kd13px18px text-global-highTitle text-opacity-85">{{ i18n.home.new.des1 }}</div>
+      <div class="mt-1.5 text-kd13px18px text-global-highTitle text-opacity-85 text-center">{{ i18n.home.new.des1 }}</div>
       <v-login class="hand">
         <div class="wallet-btn" @click="onConnect">
           <iconFont size="16" class="mr-0.5" type="icon-manage" />
