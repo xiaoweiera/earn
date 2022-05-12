@@ -2,7 +2,6 @@
 import { Model } from "src/logic/home";
 import * as track from "src/logic/track";
 import { asyncLoad } from "src/plugins/lazyload/";
-import type { summaryModel } from "src/types/home";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import { stateAlias, useReactiveProvide } from "src/utils/use/state";
 import { onMounted } from "vue";
@@ -17,16 +16,9 @@ const Quota = asyncLoad(() => import("./quota/index.vue"));
 
 useReactiveProvide(stateAlias.ui.tab);
 
-const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(() => {
   // 上报数据
   track.push(track.Origin.gio, track.event.home);
-
-  // 得到数据汇总
-  onLoadReactive(summary, function () {
-    const api = new Model();
-    return api.getSummary();
-  });
 });
 </script>
 <template>
@@ -85,7 +77,7 @@ onMounted(() => {
   @apply md:max-w-360 md:px-22.5 px-3 mx-auto;
 }
 .top {
-  background-image: cdn("/dapp/homebeijing.jpeg");
+  background-image: cdn("/common/homeDefault.jpg");
   background-size: 100% 495px;
   background-repeat: no-repeat;
 }

@@ -15,19 +15,15 @@ export const begin = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
   const category = "NFT";
-  const params = { page: 1, page_size: 100, show_commercial: true };
-  const [summary, topicRank, recommend, trend, platforms] = await Promise.all([api.getSummary(), api.getTopicRank(category), api.getRecommend(params), api.getTrend(), api.getPlatform()]);
+  const [ads, topicRank, trend] = await Promise.all([api.getAdList(25), api.getTopicRank(category), api.getTrend()]);
   const result = {
     "title": i18n.home.webInfo.home.title,
     "keywords": i18n.home.webInfo.home.key,
     "description": i18n.home.webInfo.home.des,
 
-    // "API.home.getHotProject":hotProject,//热门数据
-    [alias.dApp.summary.list]: summary, // 数据汇总
+    "API.home.ads": ads, //Ad
     "API.home.getTopicRank": topicRank, // 首页顶部话题榜单接口
-    "API.home.getRecommend": recommend, // 推荐话题
     "API.home.getTrend": trend, // 今日趋势
-    "API.home.getPlatform": platforms, // TGE平台列表
   };
   res.send(result);
 };
