@@ -8,6 +8,16 @@ const i18n = I18n();
 
 <template>
   <div>
+    <div class="w-full h-144.5 px-53 py-38.5">
+      <div class="w-full flex justify-between">
+        <!-- 左侧部分 -->
+        <div class="w-52">
+          <ui-image fit="cover" :src="`${oss}/images/common/logo.svg`" />
+        </div>
+        <!-- 右侧部分 -->
+        <div></div>
+      </div>
+    </div>
     <div class="apy-coming flex flex-col items-center pt-17">
       <ui-image class="w-51.5 md:w-98 h-9 md:h-16" fit="cover" :src="`${oss}/image/soon.png`" />
       <div class="text-16-18 text-global-highTitle text-opacity-65 font-kdFang mt-6">{{ i18n.home.apy.tips }}</div>
