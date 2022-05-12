@@ -40,6 +40,11 @@ export const Analysis = function (lang?: Lang): MenuItem {
   const rankDApp = getItem(ranks.children, RankName.dapp);
   const gameFi = getItem(ranks.children, RankName.gamefi);
   const db = new DB();
+  db.insert({
+    name: i18n.menu.group.analytic,
+    header: false,
+    group: true,
+  });
   if (nft) {
     db.insert(nft);
   }
@@ -51,15 +56,25 @@ export const Analysis = function (lang?: Lang): MenuItem {
   }
   db.insert({
     id: name.token,
-    icon: "icon-touzizuhe",
+    icon: "icon-Token",
     name: i18n.menu.token,
     href: routerConfig.token,
     blank: true,
     header: true,
   });
   db.insert(dAppList);
+  db.insert({
+    name: i18n.menu.group.tool,
+    header: false,
+    group: true,
+  });
   db.insert(address);
   db.insert(quota);
+  db.insert({
+    name: i18n.menu.group.data,
+    header: false,
+    group: true,
+  });
   db.insert(topic);
   db.insert(blog);
 

@@ -23,14 +23,14 @@ export const DApp = function (lang?: Lang): MenuItem {
     href: `${config.dapp}/discover`,
     expand: "HeaderSubDApp", // 二级导航末尾自定义组件名称
     newTip: true,
-    icon: "icon-IDO",
+    icon: "icon-xinxiangmufaxian",
     children: [
       {
         id: name.dapp, // id
         name: i18n.menu.dapp.discover,
         href: `${config.dapp}/discover`,
         header: true,
-        icon: "icon-IDO",
+        icon: "icon-xinxiangmufaxian",
       },
       {
         id: name.igo,

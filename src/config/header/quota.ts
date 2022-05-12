@@ -18,12 +18,13 @@ export const Quota = function (lang?: Lang): MenuItem {
     name: i18n.menu.quota.title, // 指标监控
     href: config.quota,
     newTip: false,
-    icon: "icon-zhibiao",
+    header: true,
+    icon: "icon-zhibiaojiankong",
     children: [
       {
         id: name.indicators,
         name: i18n.menu.data.quota, // 推荐指标
-        icon: "icon-zhibiao",
+        icon: "icon-zhibiaojiankong",
         href: config.quota,
         more: true,
         header: true,
