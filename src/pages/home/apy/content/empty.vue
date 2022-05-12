@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { oss } from "src/config";
 import I18n from "src/utils/i18n";
 import Hover from "src/pages/layout/footer/hover.vue";
 
