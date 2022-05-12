@@ -43,7 +43,7 @@ const onConnect = async function () {
 </template>
 <style scoped lang="scss">
 .wallet-btn {
-  @apply mt-2.5 text-global-white rounded-kd6px h-8 w-24.5 bg-global-primary flex items-center justify-center;
+  @apply mt-2.5 text-global-white rounded-kd6px h-8 px-3 bg-global-primary flex items-center justify-center;
 }
 .top {
   background-image: url("https://res.kingdata.xyz/common/chartBg.jpg");
