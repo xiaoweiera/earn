@@ -98,6 +98,8 @@ export default {
     endIn: "结束于(UTC)",
     totalRaised: "筹款目标",
     noData: "无数据",
+    changePercent24: "交易量%(24H)",
+    changePercent7: "交易量%(7D)",
   },
   tagTop: "Tag Top 3",
   IdoIgo: {

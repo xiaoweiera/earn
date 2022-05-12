@@ -62,6 +62,7 @@ const numbers = ["owners", "assets", "mcap_tvl"]; // -- Owners Assets MCap/TVL
 const numberChange = ["users_24h", "users_7d", "tvl"]; // User/Change   TVL/Change
 const lever = ["ath_since_ido", "current_roi_usd"]; // number + x  ATH Since IDO   Current ROI USD
 const timeType = ["ido_end_at", "mint_start_at"]; // time
+const changePercent = ["volume_change_percent_24h", "volume_change_percent_7d"];
 
 const typeDom = ref(""); // dom类型
 const domData = ref(); // dom数据
@@ -91,6 +92,8 @@ const getDom = () => {
     return "lever";
   } else if (timeType.includes(name)) {
     return "timeType";
+  } else if (changePercent.includes(name)) {
+    return "changePercent";
   } else {
     return "";
   }
@@ -203,6 +206,9 @@ onMounted(() => {
     <!--timeType-->
     <div v-else-if="typeDom === 'timeType'" class="numberDefault text-number text-center">
       {{ domData ? getDateMDY(dataToTimestamp(domData)) : "TBA" }}
+    </div>
+    <div v-else-if="typeDom === 'changePercent'" :class="getNumColor(domData)" class="text-kd12px16px md:text-kd14px16px text-number text-center">
+      {{ toNumberCashFormat(domData, "%") }}
     </div>
     <div v-else>-</div>
   </div>
