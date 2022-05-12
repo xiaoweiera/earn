@@ -14,7 +14,7 @@ const list = [
 ];
 const rank: any = createRef("API.home.getTopicRank", []);
 const tabClick = async (value: string) => {
-  if (isLoad.value) return;
+  if (isLoad.value || value === category.value) return;
   isLoad.value = true;
   category.value = value;
   topicIndex.value = 0;
