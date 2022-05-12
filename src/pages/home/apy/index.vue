@@ -36,7 +36,7 @@ onMounted(() => {
 const activeId = ref(1);
 const list = [
   { id: 1, name: "DeFi", icon: "icon-paihang" },
-  { id: 2, name: "NFTFi", icon: "icon-NFT" },
+  { id: 2, name: "NFTFi", icon: "icon-NFTs" },
 ];
 const tabClick = function (value: any) {
   activeId.value = value.id;
