@@ -98,6 +98,8 @@ export default {
     endIn: "Ended in (UTC)",
     totalRaised: "Total Raised",
     noData: "No Data",
+    changePercent24: "Change(24H)",
+    changePercent7: "Change(7D)",
   },
   tagTop: "Tag Top 3",
   IdoIgo: {

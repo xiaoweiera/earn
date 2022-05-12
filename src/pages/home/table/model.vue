@@ -93,6 +93,6 @@ tbody td {
 }
 
 .table-my {
-  @apply min-w-140 md:w-full bg-opacity-0 rounded-kd6px;
+  @apply min-w-250 md:w-full bg-opacity-0 rounded-kd6px;
 }
 </style>

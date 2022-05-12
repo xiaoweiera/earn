@@ -33,7 +33,7 @@ onMounted(() => {
     <div class="flex items-center justify-center">
       <div class="h-11 w-full md:w-auto md:min-h-9.5 bg-global-highTitle bg-opacity-6 rounded-md p-1 flex items-center hand">
         <div v-for="(item, index) in list" :key="index" :class="item.value === category ? 'tab-item tab-item-active' : 'tab-item'" @click="tabClick(item.value)">
-          <IconFont class="mdhidden" :type="item.icon" size="20" />
+          <IconFont :type="item.icon" size="20" />
           <span class="ml-1.5 md:ml-3.5">{{ item.name }}</span>
         </div>
       </div>
