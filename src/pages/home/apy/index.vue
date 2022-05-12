@@ -92,7 +92,7 @@ const tabClick = function (value: any) {
         </div>
       </div>
       <div v-if="activeId === 2" class="mt-6">
-        <div class="h-50 md:h-69.5 rounded-md overflow-hidden">
+        <div class="h-150 md:h-144.5 rounded-md overflow-hidden">
           <Empty class="w-full h-full" />
         </div>
       </div>
