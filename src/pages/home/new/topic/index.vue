@@ -31,9 +31,8 @@ onMounted(() => {
 <template>
   <div>
     <div class="flex items-center justify-center">
-      <div class="w-92 h-11 md:h-14.25 bg-global-highTitle bg-opacity-6 rounded-md p-1 flex items-center hand">
+      <div class="h-11 w-full md:w-auto md:min-h-9.5 bg-global-highTitle bg-opacity-6 rounded-md p-1 flex items-center hand">
         <div v-for="(item, index) in list" :key="index" :class="item.value === category ? 'tab-item tab-item-active' : 'tab-item'" @click="tabClick(item.value)">
-          <IconFont class="xshidden" :type="item.icon" size="24" />
           <IconFont class="mdhidden" :type="item.icon" size="20" />
           <span class="ml-1.5 md:ml-3.5">{{ item.name }}</span>
         </div>
@@ -52,7 +51,7 @@ onMounted(() => {
 </template>
 <style scoped lang="scss">
 .tab-item {
-  @apply w-1/2  md:w-45 h-full flex items-center justify-center text-global-highTitle text-kd18px24px md:text-kd24px28px font-medium font-kdFang;
+  @apply w-1/2  md:w-35 h-full flex items-center justify-center text-global-highTitle text-kd18px24px font-medium font-kdFang;
 }
 .tab-item-active {
   @apply bg-global-darkblue text-global-white rounded-md;
