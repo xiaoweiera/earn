@@ -15,14 +15,15 @@ export const Address = function (lang?: Lang): MenuItem {
     name: i18n.menu.address.address, // 大户地址追踪
     href: config.address,
     newTip: false,
-    icon: "icon-dahudizhiyidong",
+    header: true,
+    icon: "icon-jujingzhuizong",
     children: [
       {
         id: name.alert,
         name: i18n.menu.address.change,
         header: true,
         more: true,
-        icon: "icon-dahudizhiyidong",
+        icon: "icon-jujingzhuizong",
         href: `${config.address}/alerts`,
       },
       {

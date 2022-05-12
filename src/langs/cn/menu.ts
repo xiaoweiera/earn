@@ -98,4 +98,9 @@ export default {
   analytic: "机会分析",
   invest: "投资理财",
   token: "Token 分析",
+  group: {
+    analytic: "项目分析",
+    tool: "追踪工具",
+    data: "数据研究",
+  },
 };

@@ -108,7 +108,7 @@ const isLayout2 = function (path: string) {
 
 <style scoped lang="scss">
 .menu {
-  @apply hidden w-54;
+  @apply hidden w-60;
   @screen md {
     @at-root .layout-2 & {
       @apply block;
@@ -120,7 +120,7 @@ const isLayout2 = function (path: string) {
 .layout-2 {
   @screen md {
     .router-view {
-      @apply ml-54;
+      @apply ml-60;
     }
   }
 }

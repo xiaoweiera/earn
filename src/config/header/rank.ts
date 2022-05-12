@@ -26,7 +26,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         name: i18n.menu.dapp.ranking,
         header: true,
         more: true,
-        icon: "icon-Dapp",
+        icon: "icon-Dapp1",
         href: config.rankDapp,
       },
       {
@@ -34,7 +34,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         name: i18n.menu.dapp.game,
         header: true,
         more: true,
-        icon: "icon-GameFi",
+        icon: "icon-GameFi1",
         href: config.rankGame,
       },
       {
@@ -50,7 +50,7 @@ export const Ranks = function (lang?: Lang): MenuItem {
         name: i18n.menu.nft.ranking,
         header: true,
         more: true,
-        icon: "icon-NFTpaihang",
+        icon: "icon-NFT",
         href: config.rankNft,
       },
     ],

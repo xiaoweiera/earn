@@ -21,5 +21,6 @@ export interface MenuItem {
   children?: MenuItem[]; // 子菜单
   blank?: boolean; // 是否为新开窗口
   coming?: boolean; // 是否为开发中
+  group?: boolean; // 是否属于分组样式
   [key: string]: any;
 }
