@@ -53,7 +53,7 @@ onMounted(() => {
 </template>
 <style scoped lang="scss">
 .tab-item {
-  @apply w-28.5 md:w-45 h-full flex items-center justify-center text-global-highTitle text-kd18px24px md:text-kd24px28px font-medium font-kdFang;
+  @apply w-1/2  md:w-45 h-full flex items-center justify-center text-global-highTitle text-kd18px24px md:text-kd24px28px font-medium font-kdFang;
 }
 .tab-item-active {
   @apply bg-global-darkblue text-global-white rounded-md;
