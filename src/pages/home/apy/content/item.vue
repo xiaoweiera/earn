@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { PropType } from "vue";
+import { PropType, ref } from "vue";
 import { ElButton } from "element-plus";
 import IconFont from "src/components/icon/font.vue";
 import I18n from "src/utils/i18n";
@@ -14,6 +14,7 @@ const props = defineProps({
   },
 });
 const i18n = I18n();
+const dataIndex = ref(0);
 const getWidth = function (value: PoolsItem, index: number) {
   if (value) {
     if (index === 0) {
@@ -29,6 +30,9 @@ const getUrl = function (name: string) {
     return `${config.apyToken}?symbol=${name}&category=mining`;
   }
 };
+const mouseEnter = function (num: number) {
+  dataIndex.value = num;
+};
 </script>
 
 <template>
@@ -43,12 +47,12 @@ const getUrl = function (name: string) {
           </div>
           <div class="flex flex-col items-end">
             <p class="flex items-center font-medium">
-              <span class="text-global-highTitle text-12-16 item-font">{{ data.pools[0].project }} APY</span>
-              <span class="text-global-numGreen text-18-24 font-kdFang ml-1 item-font">{{ valueFormat(toFixed(data.pools[0].apy, 2), "%") }}</span>
+              <span class="text-global-highTitle text-12-16 item-font">{{ data.pools[dataIndex].project }} APY</span>
+              <span class="text-global-numGreen text-18-24 font-kdFang ml-1 item-font">{{ valueFormat(toFixed(data.pools[dataIndex].apy, 2), "%") }}</span>
             </p>
             <p class="text-12-16 text-global-highTitle text-opacity-65">
               <span>TVL</span>
-              <span>{{ toNumberCashFormat(data.pools[0].tvl, "$") }}</span>
+              <span>{{ toNumberCashFormat(data.pools[dataIndex].tvl, "$") }}</span>
             </p>
           </div>
         </div>
@@ -58,7 +62,7 @@ const getUrl = function (name: string) {
           <div class="flex">
             <!-- 左侧图标 -->
             <div>
-              <div v-for="(item, index) in data.pools" :key="index" class="mt-2.5 flex items-center" :class="index !== 0 ? 'opacity-60' : ''">
+              <div v-for="(item, index) in data.pools" :key="index" class="mt-2.5 flex items-center" :class="dataIndex === index ? 'opacity-100' : 'opacity-60'" @mouseenter="mouseEnter(index)">
                 <div class="w-6.5 h-6.5 relative">
                   <ui-image rounded class="w-full item-font" :src="item.project_logo" :title="item.project" />
                   <IconFont class="absolute -right-1 bottom-0 w-3.5 h-3.5 bg-global-white rounded-full text-global-highTitle text-opacity-25" type="icon-V" size="14" />
@@ -70,8 +74,8 @@ const getUrl = function (name: string) {
             <!-- 右侧进度条 -->
             <div class="w-full ml-1.5">
               <template v-for="(item, index) in data.pools" :key="index">
-                <div class="mt-2.5 h-6.5 py-0.5 relative">
-                  <p class="w-full h-5.5 px-1 py-0.5 flex rounded justify-end text-14-18 font-semibold item-font" :class="index === 0 ? 'back text-global-numGreen' : 'backdrop text-global-highTitle'" :style="`--wv:${getWidth(item, index)}%`">
+                <div class="mt-2.5 h-6.5 py-0.5 relative" @mouseenter="mouseEnter(index)">
+                  <p class="min-w-15.75 h-5.5 px-1 py-0.5 flex rounded justify-end text-14-18 font-semibold item-font" :class="dataIndex === index ? 'back' : 'backdrop text-global-highTitle'" :style="`width:${getWidth(item, index)}%`">
                     <span v-if="index === 0">BEST APY</span>
                     <span :class="index === 0 ? 'ml-1' : ''">{{ valueFormat(toFixed(item.apy, 2), "%") }}</span>
                   </p>
@@ -82,13 +86,13 @@ const getUrl = function (name: string) {
         </div>
         <!-- 按钮 -->
         <div class="w-full h-11 flex items-center justify-center mt-4">
-          <v-router class="w-full block text-16-22 text-global-darkblue font-kdFang font-medium" target="_blank">
+          <div class="w-full block text-16-22 text-global-darkblue font-kdFang font-medium">
             <client-only>
               <el-button class="text-16-22 w-full border-0" plain type="primary" size="large">
                 <span>{{ i18n.home.apy.deposit }}</span>
               </el-button>
             </client-only>
-          </v-router>
+          </div>
         </div>
       </div>
     </v-router>
@@ -100,19 +104,11 @@ const getUrl = function (name: string) {
   @apply w-full min-h-69 border-1 border-global-highTitle border-opacity-6 p-4 rounded-md;
   background: linear-gradient(180deg, rgba(0, 111, 247, 0.05) 0%, rgba(250, 251, 252, 0) 100%, rgba(0, 111, 247, 0) 100%);
 }
-.back::before {
-  content: "";
-  z-index: 1;
-  width: var(--wv);
-  @apply absolute left-0 bottom-0.5 top-0.5 bg-global-numGreen bg-opacity-12;
-  @apply rounded-kd6px;
+.back {
+  @apply text-global-numGreen bg-global-numGreen bg-opacity-12;
 }
-.backdrop::before {
-  content: "";
-  z-index: 1;
-  width: var(--wv);
-  @apply absolute left-0 bottom-0.5 top-0.5 bg-global-highTitle bg-opacity-6;
-  @apply rounded-kd6px;
+.backdrop {
+  @apply text-global-highTitle bg-global-highTitle bg-opacity-6;
 }
 .item-font {
   ::v-deep(.back-color) {

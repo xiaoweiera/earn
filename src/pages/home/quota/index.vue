@@ -51,7 +51,7 @@ onMounted(function () {
       </div>
     </div>
     <div class="md:flex">
-      <div class="h-120 md:flex-1 md:w-1 quota-shadow">
+      <div class="h-75 md:flex-1 md:w-1 quota-shadow">
         <div class="h-full overflow-y-auto">
           <Calendar :data="quotaRes" :small="true">
             <template #default="{ data }">
@@ -61,7 +61,7 @@ onMounted(function () {
           </Calendar>
         </div>
       </div>
-      <div class="h-120 hidden md:block">
+      <div class="h-75 hidden md:block">
         <Ad />
       </div>
     </div>
