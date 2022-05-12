@@ -22,7 +22,7 @@ const props = defineProps({
 });
 const adsList = createRef("API.home.ads", []);
 const isBegin = ref(true);
-const isEnd = ref(false);
+const isEnd = ref(true);
 // 下一页
 const next = () => document.querySelector(".swiper-recom").swiper.slideNext();
 // 上一页
@@ -51,21 +51,21 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="adsList.length > 0">
-    <div class="w-full md:w-181.25 h-43.695 md:h-70 relative">
-      <div v-if="!isBegin" class="yuan top-28 left-4" @click="last()">
+  <div class="md:min-w-181.25 md:min-h-70">
+    <div v-if="adsList.length > 0" class="w-full md:w-181.25 h-33.75 md:h-70 relative">
+      <div v-if="!isBegin && adsList.length > 0" class="yuan top-14 md:top-28 left-4" @click="last()">
         <IconFont class="text-global-white" size="20" type="icon-leftNo" />
       </div>
       <Swiper class="h-full rounded-kd6px swiper-recom" :initial-slide="0" :loop="false" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true, paginationShow: true }" @init="init" @set-translate="change">
         <template v-for="(item, index) in adsList" :key="index">
           <SwiperSlide>
-            <v-router :href="item['url']" target="_blank" class="w-full h-43.695 md:h-70 hand">
+            <v-router :href="item['url']" target="_blank" class="w-full h-33.75 md:h-70 hand">
               <ui-image class="w-full h-full" :src="getUrl(item)" fit="cover" />
             </v-router>
           </SwiperSlide>
         </template>
       </Swiper>
-      <div v-if="!isEnd" class="yuan top-28 right-4" @click="next()">
+      <div v-if="!isEnd && adsList.length > 0" class="yuan top-14 md:top-28 right-4" @click="next()">
         <IconFont class="text-global-white" size="20" type="icon-rightNo" />
       </div>
     </div>
@@ -75,7 +75,7 @@ onMounted(() => {
 .yuan {
   background: rgba(0, 0, 0, 0.45);
   border-radius: 50%;
-  @apply absolute w-11 h-11 z-999;
+  @apply absolute md:w-11 md:h-11 w-8 h-8 z-999;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.06), 0px 16px 48px rgba(0, 0, 0, 0.1);
   opacity: 0.8;
   @apply flex items-center justify-center cursor-pointer;

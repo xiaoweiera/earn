@@ -43,7 +43,7 @@ const onConnect = async function () {
   @apply mt-2.5 text-global-white rounded-kd6px h-8 px-3 bg-global-primary flex items-center justify-center;
 }
 .top {
-  background-image: url("https://res.kingdata.xyz/common/chartBg.jpg");
+  background-image: url("https://res.kingdata.xyz/common/chartDefault2.jpg");
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
