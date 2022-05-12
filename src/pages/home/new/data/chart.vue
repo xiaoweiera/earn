@@ -42,7 +42,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="w-full h-26.5 relative">
-    <div id="homeChart" class="w-full h-26.5"></div>
+  <div class="w-full h-18 md:h-20 relative">
+    <div id="homeChart" class="w-full h-18 md:h-20"></div>
   </div>
 </template>

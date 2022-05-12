@@ -5,7 +5,8 @@ import Wallet from "src/plugins/web3/wallet";
 import safeGet from "@fengqiaogang/safe-get";
 import { messageError } from "src/lib/tool";
 import { getErrorMessageContent } from "src/plugins/web3/message";
-
+import I18n from "src/utils/i18n";
+const i18n = I18n();
 const onConnect = async function () {
   // 如果已获取到地址
   if (isConnect()) {
@@ -28,13 +29,13 @@ const onConnect = async function () {
 </script>
 <template>
   <div class="rounded-kd6px bg top w-full">
-    <div class="flex flex-col justify-center items-center min-h-54.5">
-      <div class="text-kd16px20px font-medium text-global-highTitle text-opacity-85">连接钱包</div>
-      <div class="mt-1.5 text-kd13px18px text-global-highTitle text-opacity-85">自动监控资产变化，并给出投资建议</div>
+    <div class="flex flex-col justify-center items-center h-36 md:h-41.5">
+      <div class="text-kd16px20px font-medium text-global-highTitle text-opacity-85">{{ i18n.home.new.wallet }}</div>
+      <div class="mt-1.5 text-kd13px18px text-global-highTitle text-opacity-85">{{ i18n.home.new.des1 }}</div>
       <v-login class="hand">
         <div class="wallet-btn" @click="onConnect">
           <iconFont size="16" class="mr-0.5" type="icon-manage" />
-          <div class="text-kd14px18px font-medium font-kdFang">链接钱包</div>
+          <div class="text-kd14px18px font-medium font-kdFang">{{ i18n.home.new.wallet }}</div>
         </div>
       </v-login>
     </div>

@@ -9,7 +9,7 @@ import I18n from "src/utils/i18n";
 const i18n = I18n();
 import { Model } from "src/logic/home";
 const param = {
-  address: address.value ? address.value : "0x6cf9aa65ebad7028536e353393630e2340ca6049",
+  address: address.value,
   chain: "all",
 };
 const data: any = ref({});
@@ -22,24 +22,26 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="data" class="p-4 min-h-54.5 flex flex-col bg-global-white rounded-kd6px font-kdFang">
+  <div v-if="data" class="p-3 md:p-4 h-36 md:h-41.5 flex flex-col bg-global-white rounded-kd6px font-kdFang">
     <div class="flex flex-1 justify-between">
       <div class="flex-1">
         <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-85">{{ i18n.home.new.fund }}</div>
         <div class="mt-2 flex items-center">
           <span class="mr-1 text-kd14px18px font-medium text-global-highTitle text-opacity-65">≈</span>
-          <span class="text-kd26px26px text-global-highTitle text-opacity-85 text-number whitespace-pre-wrap">{{ toNumberCashFormat(data.fund, "$") }}</span>
+          <span class="text-kd20px20px md:text-kd26px26px text-global-highTitle text-opacity-85 text-number whitespace-pre-wrap">{{ toNumberCashFormat(data.fund, "$") }}</span>
         </div>
-        <IconFont v-if="data['earning_rate'] >= 0" class="mr-1" size="12" type="icon-zheng" />
-        <IconFont v-else class="mr-1" size="10" type="icon-fu" />
-        <span v-if="data['earning_rate']" class="mr-1 text-kd16px18px text-number" :class="getNumberColor(data['earning_rate'])">{{ toNumberCashFormat(data.earning_rate) }}%</span>
+        <div class="flex items-center mt-2">
+          <IconFont v-if="data['earning_rate'] >= 0" class="mr-1" size="12" type="icon-zheng" />
+          <IconFont v-else class="mr-1" size="10" type="icon-fu" />
+          <span v-if="data['earning_rate']" class="mr-1 text-kd16px18px text-number" :class="getNumberColor(data['earning_rate'])">{{ toNumberCashFormat(data.earning_rate) }}%</span>
+        </div>
       </div>
       <Chart class="w-54 md:w-86.75" />
     </div>
-    <div class="mt-2 h-11.5 pt-2 flex items-center justify-between fen">
+    <div class="mt-2 h-10 md:h-11.5 pt-2 flex items-center justify-between fen">
       <div class="he">
         <div class="name">{{ i18n.address.money.deposit }}</div>
-        <div class="flex items-center mt-0.5">
+        <div class="flex items-center md:mt-0.5">
           <span class="yue mr-0.5">≈</span>
           <span class="zhi text-number">{{ toNumberCashFormat(data["stacked_usd_value"], "$") }}</span>
         </div>
@@ -47,7 +49,7 @@ onMounted(() => {
       <div class="gang"></div>
       <div class="he">
         <div class="name">{{ i18n.address.money.liabilities }}</div>
-        <div class="flex items-center mt-0.5">
+        <div class="flex items-center md:mt-0.5">
           <span class="yue mr-0.5">≈</span>
           <span class="zhi text-number">{{ toNumberCashFormat(data["debt_usd_value"], "$") }}</span>
         </div>
@@ -58,7 +60,7 @@ onMounted(() => {
           <div class="name mr-1">{{ i18n.address.money.earnings }}</div>
           <Tip :data="data" />
         </div>
-        <div class="flex items-center mt-0.5">
+        <div class="flex items-center md:mt-0.5">
           <span class="yue mr-0.5">≈</span>
           <span class="zhi text-number">{{ toNumberCashFormat(data["earn_usd_value"], "$") }}</span>
         </div>
@@ -69,7 +71,7 @@ onMounted(() => {
           <div class="name mr-1">APY</div>
           <Tip :data="data" />
         </div>
-        <div class="flex items-center mt-0.5">
+        <div class="flex items-center md:mt-0.5">
           <span class="yue mr-0.5">≈</span>
           <span class="zhi text-number">{{ toNumberCashFormat(data["apy"], "%") }}</span>
         </div>
@@ -95,6 +97,6 @@ onMounted(() => {
   @apply text-kd14px18px text-global-highTitle text-opacity-25 font-medium;
 }
 .zhi {
-  @apply text-kd14px16px text-global-highTitle text-opacity-85;
+  @apply text-kd12px14px md:text-kd14px16px text-global-highTitle text-opacity-85;
 }
 </style>

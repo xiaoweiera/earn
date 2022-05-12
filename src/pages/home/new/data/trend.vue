@@ -52,7 +52,7 @@ onMounted(() => {
 }
 
 .trend-img {
-  @apply rounded-kd6px h-30  w-full;
+  @apply rounded-kd6px h-full  w-full;
 }
 .trend-blog {
   @apply absolute z-3 w-full h-full px-2 md:px-3;

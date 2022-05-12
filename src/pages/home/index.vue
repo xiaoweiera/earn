@@ -31,20 +31,20 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div class="top">
-      <div class="home-content">
-        <div class="flex items-center">
-          <newAd class="mr-6" :position="25" />
-          <div class="w-full md:w-127.75">
-            <div class="w-full h-54.5">
+    <div class="top md:h-123.75">
+      <div class="home-content pt-3">
+        <div class="md:flex items-center">
+          <newAd class="md:mr-6" :position="25" />
+          <div class="w-full mt-4 md:mt-0 md:w-127.75">
+            <div class="w-full">
               <chartData class="w-full h-full" />
             </div>
-            <div class="w-full h-30 mt-6">
-              <Trend />
+            <div class="w-full h-22.5 mt-4 md:mt-6">
+              <Trend class="h-full" />
             </div>
           </div>
         </div>
-        <hotProject class="mt-6" />
+        <hotProject class="mt-4 md:mt-6" />
       </div>
     </div>
     <div class="topic-content mt-6">
@@ -69,7 +69,7 @@ onMounted(() => {
 @import "src/styles/function";
 
 .home-content {
-  @apply md:max-w-360 h-144.25 md:px-22.5 px-3 mx-auto;
+  @apply md:max-w-360  md:px-22.5 px-3 mx-auto;
 }
 .topic-content {
   @apply md:max-w-360 md:px-22.5 px-3 mx-auto;
@@ -86,7 +86,7 @@ onMounted(() => {
 }
 .top {
   background-image: cdn("/dapp/homebeijing.jpeg");
-  background-size: 100% 577px;
+  background-size: 100% 495px;
   background-repeat: no-repeat;
 }
 </style>
