@@ -36,7 +36,7 @@ onMounted(() => {
     </div>
     <div class="flex">
       <HomeDetailTable v-if="data.id" :info="data" class="mt-8 md:mr-12" />
-      <HomeDetailTopic class="mt-8 min-w-65 xshidden" />
+      <HomeDetailTopic class="mt-8 w-65 xshidden" />
     </div>
   </div>
 </template>
