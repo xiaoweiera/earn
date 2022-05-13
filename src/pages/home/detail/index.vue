@@ -29,14 +29,14 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="md:max-w-360 md:py-8 md:pb-30 md:px-20 mx-auto px-3 flex">
-    <div class="w-full md:mr-12">
-      <HomeDetailInfo :data="data" class="mt-6 md:mt-0 min-h-37.5" />
-      <HomeDetailTable v-if="data.id" :info="data" class="mt-8" />
+  <div class="md:max-w-360 md:py-8 md:pb-30 md:px-20 mx-auto px-3">
+    <div class="w-full md:flex justify-between">
+      <HomeDetailInfo :data="data" class="mt-6 md:mt-0 min-h-37.5 flex-1" />
+      <HomeDetailTop class="min-w-65 md:mt-0 mt-3 xshidden" />
     </div>
-    <div class="min-w-65 xshidden">
-      <HomeDetailTop />
-      <HomeDetailTopic class="mt-8" />
+    <div class="flex">
+      <HomeDetailTable v-if="data.id" :info="data" class="mt-8 md:mr-12" />
+      <HomeDetailTopic class="mt-8 min-w-65 xshidden" />
     </div>
   </div>
 </template>
