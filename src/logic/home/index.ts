@@ -59,6 +59,10 @@ export const getHeader = (key: string) => {
     return ["Ended in (UTC)", "justify-center"];
   } else if (key === "ido_end_at") {
     return ["Mint (UTC)", "justify-center"];
+  } else if (key === "volume_change_percent_24h") {
+    return [i18n.home.topList.changePercent24, "justify-center"];
+  } else if (key === "volume_change_percent_7d") {
+    return [i18n.home.topList.changePercent7, "justify-center"];
   }
   return [i18n.home.topList.noData, "justify-center"];
 };

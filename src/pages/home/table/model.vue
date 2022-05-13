@@ -38,7 +38,7 @@ const toProject = (url: string) => {
           </tr>
         </thead>
         <tbody>
-          <template v-for="(item, index) in safeGet(data, 'table.items').slice(0, 5)" :key="index">
+          <template v-for="(item, index) in safeGet(data, 'table.items')" :key="index">
             <tr class="model-tbody-tr hand" @click="toProject(item.url)">
               <td class="number text-left h-12">
                 <v-router :href="item.url" target="_blank" class="text-left pl-3 mr-2" @click.prevent>{{ index + 1 }}</v-router>
@@ -93,6 +93,6 @@ tbody td {
 }
 
 .table-my {
-  @apply min-w-140 md:w-full bg-opacity-0 rounded-kd6px;
+  @apply min-w-250 md:w-full bg-opacity-0 rounded-kd6px;
 }
 </style>
