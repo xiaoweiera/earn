@@ -22,9 +22,9 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="data" class="p-3 md:p-4 h-36 md:h-41.5 flex flex-col bg-global-white rounded-kd6px font-kdFang">
-    <div class="flex flex-1 justify-between">
-      <div class="flex-1">
+  <div v-if="data" class="p-3 md:p-4 h-36 md:h-full flex flex-col bg-global-white rounded-kd6px font-kdFang">
+    <div class="flex flex-1 justify-between relative">
+      <div class="flex-1 md:absolute">
         <div class="text-kd14px18px w-full font-medium text-global-highTitle text-opacity-85">{{ i18n.home.new.fund }}</div>
         <div class="mt-2 flex w-full items-center">
           <span class="mr-1 text-kd14px18px font-medium text-global-highTitle text-opacity-65">≈</span>
@@ -36,7 +36,7 @@ onMounted(() => {
           <span v-if="data['earning_rate']" class="mr-1 text-kd16px18px text-number" :class="getNumberColor(data['earning_rate'])">{{ toNumberCashFormat(data.earning_rate) }}%</span>
         </div>
       </div>
-      <Chart class="w-54 md:w-86.75" />
+      <Chart class="w-54 md:flex-1 md:w-full" />
     </div>
     <div class="mt-2 h-10 md:h-11.5 pt-2 flex items-center justify-between fen">
       <div class="he">

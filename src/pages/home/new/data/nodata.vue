@@ -25,8 +25,8 @@ const onConnect = async function () {
 };
 </script>
 <template>
-  <div class="rounded-kd6px bg top w-full">
-    <div class="flex flex-col justify-center items-center h-36 md:h-41.5">
+  <div class="rounded-kd6px bg top">
+    <div class="flex flex-col justify-center items-center h-36 md:h-full">
       <div class="text-kd16px20px font-medium text-global-highTitle text-opacity-85">{{ i18n.home.new.wallet }}</div>
       <div class="mt-1.5 text-kd13px18px text-global-highTitle text-opacity-85 text-center">{{ i18n.home.new.des1 }}</div>
       <v-login class="hand">
@@ -43,8 +43,15 @@ const onConnect = async function () {
   @apply mt-2.5 text-global-white rounded-kd6px h-8 px-3 bg-global-primary flex items-center justify-center;
 }
 .top {
-  background-image: url("https://res.kingdata.xyz/common/chartDefault2.jpg");
+  background-image: url("https://res.kingdata.xyz/common/mobileNoWallet.jpg");
   background-size: 100% 100%;
   background-repeat: no-repeat;
+}
+@screen md {
+  .top {
+    background-image: url("https://res.kingdata.xyz/common/noWallets.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
 }
 </style>
