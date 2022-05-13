@@ -16,7 +16,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="w-full bg-global-topBg h-37.5 p-3 font-kdFang rounded-kd8px">
+  <div v-if="top3.length > 0" class="max-fit bg-global-topBg h-37.5 p-3 md:ml-12 font-kdFang rounded-kd8px">
     <div class="flex">
       <IconFont size="16" type="icon-hot" />
       <span class="ml-1.5 text-kd14px18px font-medium font-kdFang text-global-highTitle">Tag Top 3</span>

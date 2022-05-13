@@ -57,12 +57,13 @@ const chainNumber = [
   "floor_price", // Floor price
   "mint_price", // Mint price
 ]; // chain + number
+
 const numberUnit = ["ido_sale_amount"]; // number + 单位 --- Tokens for Sale    ido_symbol
-const numbers = ["owners", "assets", "mcap_tvl"]; // -- Owners Assets MCap/TVL
+const numbers = ["owners", "assets", "mcap_tvl", "whales_num", "whales_holding", "bule_chip_holders", "blue_chip_holding"]; // -- Owners Assets MCap/TVL
 const numberChange = ["users_24h", "users_7d", "tvl"]; // User/Change   TVL/Change
 const lever = ["ath_since_ido", "current_roi_usd"]; // number + x  ATH Since IDO   Current ROI USD
 const timeType = ["ido_end_at", "mint_start_at"]; // time
-const changePercent = ["volume_change_percent_24h", "volume_change_percent_7d"];
+const changePercent = ["volume_change_percent_24h", "volume_change_percent_7d", "whales_ratio", "whale_num_change_24h", "whale_holding_ratio", "blue_chip_holders_change_24h", "blue_chip_holders_ratio", "blue_chip_holding_ratio"];
 
 const typeDom = ref(""); // dom类型
 const domData = ref(); // dom数据

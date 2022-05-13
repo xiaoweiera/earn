@@ -7,10 +7,10 @@ import { computed } from "vue";
 const isLoginState = computed(() => isLogin());
 </script>
 <template>
-  <div>
-    <client-only>
+  <div class="h-full">
+    <client-only class="h-full">
       <Info v-if="address && isLoginState" />
-      <NoData v-else class="w-full" />
+      <NoData v-else class="w-full h-full" />
     </client-only>
   </div>
 </template>

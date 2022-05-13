@@ -32,16 +32,9 @@ onMounted(() => {
   <div>
     <div class="flex items-end justify-between flex-wrap w-full md:py-2.5">
       <div class="md:flex items-center flex-wrap break-all md:mr-6">
-        <span
-          class="text-kd32px32px whitespace-pre-line md:text-kd40px40px font-kdSemiBold text-global-highTitle text-opacity-85 font-semibold"
-          >{{ data.name }}</span
-        >
+        <span class="text-kd32px32px whitespace-pre-line md:text-kd40px40px font-kdSemiBold text-global-highTitle text-opacity-85 font-semibold">{{ data.name }}</span>
       </div>
-      <v-router
-        class="min-w-25 h-8 bg-global-primary rounded-kd6px flex items-center justify-center cursor-pointer"
-        :href="routerConfig.dappApply"
-        target="_blank"
-      >
+      <v-router class="md:mt-0 mt-3 min-w-25 h-8 bg-global-primary rounded-kd6px flex items-center justify-center cursor-pointer" :href="routerConfig.dappApply" target="_blank">
         <IconFont class="text-global-white" size="16" type="icon-updata" />
         <span class="text-kd14px18px text-global-white font-medium ml-1">{{ i18n.home.projectApply }}</span>
       </v-router>

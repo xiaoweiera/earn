@@ -16,10 +16,10 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="w-full h-full">
+  <div class="w-full h-full h-22.5">
     <template v-for="(item, i) in trend.slice(0, 1)" :key="i">
-      <v-router :href="item['url']" target="_blank" class="rounded-kd6px w-full h-full relative cursor-pointer">
-        <div class="trend-blog">
+      <v-router :href="item['url']" target="_blank" class="rounded-kd6px w-full relative cursor-pointer">
+        <div class="trend-blog border-1 h-22.5">
           <div class="blog-name w-full font-kdSemiBold font-semibold">
             <span>Daily Trending</span>
             <span class="ml-1">({{ formatDefaultTime(item["release_date"], "MM/DD") }})</span>
@@ -38,7 +38,7 @@ onMounted(() => {
           </div>
         </div>
         <ui-image class="trend-img" :src="item.cover" fit="cover" />
-        <div class="blog-jian" />
+        <div class="blog-jian border-1 border-global-numRed w-100 h-50" />
       </v-router>
     </template>
   </div>

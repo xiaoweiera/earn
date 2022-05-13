@@ -27,12 +27,9 @@ onMounted(() => {
       <div class="home-content pt-3">
         <div class="md:flex items-center">
           <newAd class="md:mr-6" :position="25" />
-          <div class="w-full mt-4 md:mt-0 md:w-127.75">
-            <div class="w-full">
-              <chartData class="w-full h-full md:min-h-41.5" />
-            </div>
-            <div class="w-full h-22.5 mt-4 md:mt-6">
-              <Trend class="w-full h-full" />
+          <div class="w-full mt-4 md:mt-0 md:w-127.75 md:h-70 h-full">
+            <div class="w-full h-full">
+              <chartData class="w-full h-full" />
             </div>
           </div>
         </div>
