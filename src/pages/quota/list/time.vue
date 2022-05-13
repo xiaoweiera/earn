@@ -31,7 +31,7 @@ const shareText = computed<string>(function () {
 
 <template>
   <client-only class="at-time flex items-center justify-between">
-    <p class="text-12-16 text-global-highTitle text-opacity-65">
+    <p class="text-12-16 text-global-highTitle text-opacity-65 whitespace-nowrap">
       <span>{{ dateDiff(data.published_at) }}</span>
     </p>
     <div>
