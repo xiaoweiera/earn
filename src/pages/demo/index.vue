@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import safeGet from "@fengqiaogang/safe-get";
-import safeSet from "@fengqiaogang/safe-set";
-
 /**
  * @file demo
  * @auth svon.me@gmail.com
