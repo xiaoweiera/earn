@@ -84,9 +84,10 @@ const onResize = function () {
         duration: 0,
       },
     });
-    setTimeout(function () {
+    setTimeout(async function () {
       const option = getBasisOption(chart.getDom());
-      chart.setOption(option, {
+      const value = await Promise.resolve(props.custom<object>(option));
+      chart.setOption(value, {
         replaceMerge: "grid",
       });
     });

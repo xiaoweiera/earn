@@ -2,7 +2,9 @@
  *
  */
 
+import safeSet from "@fengqiaogang/safe-set";
 import * as api from "src/config/api";
+import { echart } from "src/logic/ui/echart/decorate";
 import { DefaultValue, expire, get, tryError, userToken } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
 import I18n from "src/utils/i18n";
@@ -63,6 +65,13 @@ export default class extends ApiTemplate {
   @userToken() // 不需要用户信息
   dappChart<T>(): Promise<T> {
     return [] as any;
+  }
+  @echart
+  async dappTvl() {
+    const data = await this.dappChart<object>();
+    const series = safeGet(data, "series");
+    safeSet(data, "series", [series]);
+    return data;
   }
   //nft 列表
   @tryError(DefaultValue({})) // 处理默认值
