@@ -3,20 +3,20 @@
  * @author svon.me@gmail.com
  */
 
-import _ from "lodash";
-import { getBigNumber } from "src/lib/tool";
-import { toRaw } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
+import _ from "lodash";
+import { getBigNumber } from "src/lib/tool";
 import { calcYAxis } from "src/logic/ui/echart/series";
-import { layout } from "src/types/echarts/colors";
 import type { Callback } from "src/types/common/";
-import * as logicToolTip from "./tooltip";
-import * as svg from "./svg";
+import { layout } from "src/types/echarts/colors";
+import { Direction, EchartsOptionName, GridModel, LegendDirection, LegendItem, Position, SeriesType } from "src/types/echarts/type";
+import { compact, flatten, forEach, map, toArray, toBoolean, toNumber } from "src/utils";
 import { getReactiveInject, getRefInject, setInject } from "src/utils/use/state";
-import { xAxis as makeXAxisOption, yAxisKline as makeYAxisOption, tooltips as makeTooltipOption } from "./option";
-import { toArray, compact, flatten, map, forEach, toBoolean, toNumber } from "src/utils";
-import { EchartsOptionName, SeriesType, Position, LegendDirection, GridModel, Direction, LegendItem } from "src/types/echarts/type";
+import { toRaw } from "vue";
+import { tooltips as makeTooltipOption, xAxis as makeXAxisOption, yAxisKline as makeYAxisOption } from "./option";
+import * as svg from "./svg";
+import * as logicToolTip from "./tooltip";
 
 // 获取提示框配置
 const getTooltip = function (tooltip: object): object {
@@ -175,8 +175,10 @@ const getLegend = function (yAxisData: object[], legends: LegendItem[], directio
     safeSet(option, "right", 0);
     safeSet(option, "top", "middle");
     safeSet(option, "orient", "vertical");
-  } else {
+  } else if (direction === LegendDirection.bottom) {
     safeSet(option, "bottom", 0);
+  } else {
+    safeSet(option, "show", false);
   }
   return option;
 };
@@ -340,6 +342,9 @@ export const clacLegendRows = function (legends: object[], dom: HTMLElement) {
 // chart Layout 容器配置
 export const getGrid = function (direction: LegendDirection | boolean, dom: HTMLElement, legends: object[], grid: GridModel): GridModel {
   if (!direction) {
+    return grid;
+  }
+  if (direction === LegendDirection.custom) {
     return grid;
   }
   const row = clacLegendRows(legends, dom);

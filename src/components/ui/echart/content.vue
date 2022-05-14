@@ -7,7 +7,7 @@
 import type { PropType } from "vue";
 import type { Callback } from "src/types/common";
 import type { EchartData } from "src/types/echarts/type";
-import { Position } from "src/types/echarts/type";
+import { Position, LegendDirection } from "src/types/echarts/type";
 
 defineProps({
   data: {
@@ -22,7 +22,7 @@ defineProps({
 </script>
 
 <template>
-  <ui-echart :custom="custom">
+  <ui-echart :custom="custom" :legend="LegendDirection.custom">
     <!--提示框-->
     <ui-echart-tooltip />
     <!--x轴数据-->

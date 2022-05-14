@@ -4,10 +4,11 @@
  * @auth svon.me@gmail.com
  */
 
+import { reactive } from "vue";
 import _ from "lodash";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
-import { Position, triggerType } from "src/types/echarts/type";
+import { Position, triggerType, LegendDirection } from "src/types/echarts/type";
 import type { PropType } from "vue";
 import type { Callback } from "src/types/common";
 import type { EchartData } from "src/types/echarts/type";
@@ -21,6 +22,13 @@ const props = defineProps({
     type: Function as PropType<Callback>,
     default: null,
   },
+});
+
+const grid = reactive<object>({
+  bottom: 0,
+  left: 0,
+  right: 0,
+  top: 0,
 });
 
 const setHidden = function (data: object, key: string) {
@@ -37,17 +45,6 @@ const setHidden = function (data: object, key: string) {
 const onCustom = function (data: object): object {
   setHidden(data, "xAxis");
   setHidden(data, "yAxis");
-  const legend = safeGet<object>(data, "legend");
-  safeSet(data, "legend", {
-    ...legend,
-    show: false,
-  });
-  safeSet(data, "grid", {
-    bottom: 0,
-    left: 0,
-    right: 0,
-    top: 0,
-  });
   safeSet(data, "graphic", null);
   safeSet(data, "tooltip.show", false);
   if (props.custom) {
@@ -59,7 +56,7 @@ const onCustom = function (data: object): object {
 
 <template>
   <div>
-    <ui-echart :area="true" :custom="onCustom" class="h-full">
+    <ui-echart :area="true" :custom="onCustom" class="h-full" :legend="LegendDirection.custom" :grid="grid">
       <!--提示框-->
       <ui-echart-tooltip :trigger="triggerType.none" />
       <!--x轴数据-->
