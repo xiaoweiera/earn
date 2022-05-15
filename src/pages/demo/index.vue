@@ -32,6 +32,9 @@ onMounted(function () {
     <!--    </div>-->
     <div class="mt-2">
       <div v-if="chart.key" class="w-200">
+        <!--
+          当设置 legend 为 custom 时，ui-echart 的 class 需要使用 custom-class 属性
+        -->
         <ui-echart-content custom-class="h-80 border border-black" :legend="LegendDirection.custom" :data="chart">
           <!--展示自定义图列-->
           <template #legend="scope">

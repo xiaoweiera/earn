@@ -65,10 +65,21 @@ const onChangeLegend = function (data: object): void {
     onChange(name);
   }
 };
+
+const getClassName = function () {
+  const array: string[] = [];
+  if (props.customClass) {
+    array.push(props.customClass);
+  }
+  if (props.legend !== LegendDirection.custom) {
+    array.push("h-full");
+  }
+  return array;
+};
 </script>
 
 <template>
-  <div :class="{ 'h-full': legend !== LegendDirection.custom }">
+  <div>
     <div v-if="legend === LegendDirection.custom" class="flex flex-wrap">
       <template v-for="(item, index) in legends" :key="index">
         <div :class="{ disabled: selected[item.name] }" @click="onChangeLegend(item)">
@@ -76,7 +87,7 @@ const onChangeLegend = function (data: object): void {
         </div>
       </template>
     </div>
-    <ui-echart :class="customClass" :custom="onCustom" :legend="legend">
+    <ui-echart :class="getClassName()" :custom="onCustom" :legend="legend">
       <!--提示框-->
       <ui-echart-tooltip />
       <!--x轴数据-->
