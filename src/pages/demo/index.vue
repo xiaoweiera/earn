@@ -6,7 +6,8 @@
 import API from "src/api/";
 import { onMounted, reactive } from "vue";
 import { onUpdateReactive } from "src/utils/ssr/ref";
-import type { EchartData, LegendItem } from "src/types/echarts/type";
+import { LegendDirection } from "src/types/echarts/type";
+import type { EchartData } from "src/types/echarts/type";
 
 const chart = reactive<EchartData>({} as EchartData);
 
@@ -21,18 +22,37 @@ onMounted(function () {
 
 <template>
   <div class="p-4 md:p-10">
-    <div class="flex">
-      <div v-if="chart.key" class="h-6 w-30 border border-black">
-        <ui-echart-small :data="chart" class="h-full" />
-      </div>
-      <!--      <div v-if="chart.key" class="h-6 w-30 ml-5">-->
-      <!--        <ui-echart-small :data="setBar(chart)" class="h-full" />-->
-      <!--      </div>-->
-    </div>
-    <!--    <div class="mt-2">-->
-    <!--      <div v-if="chart.key" class="w-100 h-80 border border-black">-->
-    <!--        <ui-echart-content :data="chart" class="h-full" />-->
+    <!--    <div class="flex">-->
+    <!--      <div v-if="chart.key" class="h-6 w-30 border border-black">-->
+    <!--        <ui-echart-small :data="chart" class="h-full" />-->
+    <!--      </div>-->
+    <!--      <div v-if="chart.key" class="h-6 w-30 ml-5">-->
+    <!--        <ui-echart-small :data="setBar(chart)" class="h-full" />-->
     <!--      </div>-->
     <!--    </div>-->
+    <div class="mt-2">
+      <div v-if="chart.key" class="w-200">
+        <ui-echart-content custom-class="h-80 border border-black" :legend="LegendDirection.custom" :data="chart">
+          <!--展示自定义图列-->
+          <template #legend="scope">
+            <span class="block p-2 cursor-pointer" :style="scope.style">
+              <span class="legend-item">
+                <span class="text-base" v-html="scope.icon"></span>
+                <span>{{ scope.value }}</span>
+              </span>
+            </span>
+          </template>
+        </ui-echart-content>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.legend-item {
+  @apply flex items-center;
+  @at-root .disabled & {
+    @apply text-global-disabled;
+  }
+}
+</style>

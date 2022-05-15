@@ -219,7 +219,6 @@ const getSeriesList = function (legends: LegendItem[], yAxisOption: object[], se
     if (toBoolean(data.disabled)) {
       option.data = [];
     }
-
     safeSet(option, "itemStyle.color", safeGet<string>(data, "itemStyle.color"));
 
     if (data.type === SeriesType.line) {

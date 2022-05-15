@@ -6,17 +6,18 @@
 
 import _ from "lodash";
 import { ref } from "vue";
-import { uuid, toBoolean } from "src/utils/";
-import { $ } from "src/plugins/browser/event";
-import window from "src/plugins/browser/window";
-import safeGet from "@fengqiaogang/safe-get";
+import { uuid } from "src/utils/";
 import * as echarts from "echarts";
+import { $ } from "src/plugins/browser/event";
+import safeGet from "@fengqiaogang/safe-get";
+import { setInject } from "src/utils/use/state";
+import window from "src/plugins/browser/window";
 import { graphic } from "src/logic/ui/echart/option";
 import { makeChart, getGrid } from "src/logic/ui/echart/";
 import { chartProps } from "src/logic/ui/echart/props";
 import { onMounted, onBeforeUnmount } from "vue";
 import document from "src/plugins/browser/document";
-import { Direction, LegendItem } from "src/types/echarts/type";
+import { Direction, EchartsOptionName, LegendItem } from "src/types/echarts/type";
 import safeSet from "@fengqiaogang/safe-set";
 
 const chartName = uuid();
@@ -28,6 +29,8 @@ const emitEvent = defineEmits(["load"]);
 const props = defineProps(chartProps());
 
 const chart = makeChart();
+
+const setLegendEvent = setInject(EchartsOptionName.legendEvent);
 
 let _$echarts: any;
 
@@ -136,13 +139,14 @@ const onSync = async function () {
   }
 };
 
+// 调整图列效果
 const onChangeLegend = function (data: object) {
   const name = safeGet<string>(data, "name");
   if (name && chart.legend) {
-    const disabled = toBoolean(safeGet<boolean>(data, `selected.${name}`));
     const list: LegendItem[] = [];
     for (const item of chart.legend.value) {
       if (item.name === name) {
+        const { disabled } = item;
         const data = {
           ...item,
           disabled: !disabled,
@@ -169,6 +173,9 @@ const init = async function () {
 };
 
 onMounted(function () {
+  setLegendEvent(function (name: string) {
+    onChangeLegend({ name });
+  });
   return setTimeout(init);
 });
 onBeforeUnmount(function () {
