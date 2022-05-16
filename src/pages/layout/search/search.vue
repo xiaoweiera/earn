@@ -4,18 +4,45 @@
  * @auth svon.me@gmail.com
  */
 import Result from "./result.vue";
+import { ref } from "vue";
+
+const searchList = ref<object[]>([]);
+
+const onFocus = function () {
+  searchList.value = [
+    {
+      id: 1,
+      name: "Dinamo Zagreb Fan Token (DZG)",
+      icon: "icon-NEAR",
+    },
+    {
+      id: 2,
+      name: "Dinamo Zagreb Fan Token (DZG)",
+      icon: "icon-NEAR",
+    },
+    {
+      id: 3,
+      name: "Dinamo Zagreb Fan Token (DZG)",
+      icon: "icon-NEAR",
+    },
+  ];
+};
+
+const onBlur = function () {
+  searchList.value = [];
+};
 </script>
 
 <template>
-  <div class="search-main relative w-full">
-    <input class="text-14-18 text-m" placeholder="搜索 DApp/NFT" />
+  <div class="search-main relative w-full" :class="{ result: searchList.length > 0 }">
+    <input class="text-14-18 text-m" placeholder="搜索 DApp/NFT" @focus="onFocus" @blur="onBlur" />
     <span class="search-icon">
       <span class="flex items-center justify-center w-full h-full">
         <IconFont type="icon-sousuo" size="16" />
       </span>
     </span>
-    <div class="result-list absolute top-full left-0 right-0 hidden">
-      <Result />
+    <div class="result-list absolute top-full left-0 right-0">
+      <Result :list="searchList" />
     </div>
   </div>
 </template>
@@ -25,8 +52,9 @@ import Result from "./result.vue";
   @apply block h-8.5;
   transition: all 0.3s;
 }
+
 %animation {
-  @apply w-full max-w-full h-10.5;
+  @apply w-full max-w-full h-10.5 rounded-t-kd20px rounded-b-none;
   & ~ .search-icon {
     @apply right-full h-10.5;
   }
@@ -60,16 +88,26 @@ import Result from "./result.vue";
   }
 
   .result-list {
-    @apply bg-white rounded-b-2xl;
+    @apply bg-white rounded-b-kd20px;
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility, opacity 0.3s;
+    transition-delay: 0.3s;
+    overflow: hidden;
   }
 
   &.result {
     input {
       @extend %animation;
-      @apply rounded-b-none;
     }
+
     .result-list {
       @apply block shadow-md;
+      visibility: visible;
+      opacity: 1;
+      height: auto;
+      overflow: auto;
     }
   }
 }

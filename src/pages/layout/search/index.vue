@@ -8,7 +8,7 @@ import Search from "./search.vue";
 
 <template>
   <div>
-    <div class="h-full flex items-center">
+    <div class="h-full flex items-center max-w-100 ml-auto">
       <Search />
     </div>
   </div>

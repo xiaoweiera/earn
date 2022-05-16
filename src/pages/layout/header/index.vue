@@ -19,7 +19,7 @@ const props = defineProps({
 });
 
 const User = asyncLoad(() => import("../user/index.vue"));
-const Search = asyncLoad(() => import("./search/index.vue"));
+const Search = asyncLoad(() => import("../search/index.vue"));
 
 const Logo = computed<string>(() => {
   const data = env.getEnv();
