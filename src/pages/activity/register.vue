@@ -49,6 +49,7 @@ const domForm = ref<any>(null);
 const failStatus = ref<boolean>(false);
 const successStatus = ref<boolean>(false);
 const warnStatus = ref<boolean>(false);
+const tipsMessage = ref<string>("");
 
 // 校验规则
 const rules = computed(function () {
@@ -99,7 +100,9 @@ const submit = async function () {
     // 获取接口返回的错误内容
     const message = safeGet<string>(e, "message");
     if (message) {
-      messageError(message);
+      Common.resetFields(domForm);
+      tipsMessage.value = message;
+      failStatus.value = true;
       return;
     }
     // 无错误内容时，根据 code 码提示错误信息
@@ -108,6 +111,7 @@ const submit = async function () {
     // 不满足领取条件
     if (code && toInteger(code) === 2) {
       Common.resetFields(domForm);
+      tipsMessage.value = "";
       failStatus.value = true;
       return;
     }
@@ -175,7 +179,7 @@ const submit = async function () {
     <client-only>
       <el-dialog v-model="failStatus" custom-class="no-header" :append-to-body="true" width="340px">
         <!--领取失败提示-->
-        <TipsFail :lang="detail.language" @click="failStatus = false" />
+        <TipsFail :lang="detail.language" :message="tipsMessage" @click="failStatus = false" />
       </el-dialog>
       <el-dialog v-model="successStatus" :append-to-body="true" custom-class="no-header" width="340px">
         <!--奖品领取成-->

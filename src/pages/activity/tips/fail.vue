@@ -15,6 +15,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  message: {
+    type: String,
+    default: "",
+  },
 });
 
 const i18n = computed(function () {
@@ -33,7 +37,10 @@ const onClick = function (e: Event) {
         <ui-image :oss="true" class="h-30" fit="none" src="/static/images/activity/fail.jpg" />
       </div>
       <div class="py-4">
-        <p class="text-14-24 text-global-highTitle whitespace-pre-wrap">{{ i18n.activity.tips.fail }}</p>
+        <p class="text-14-24 text-global-highTitle whitespace-pre-wrap">
+          <template v-if="message">{{ message }}</template>
+          <template v-else>{{ i18n.activity.tips.fail }}</template>
+        </p>
       </div>
       <div class="w-30 mx-auto">
         <el-button class="w-full" type="primary" @click="onClick">
