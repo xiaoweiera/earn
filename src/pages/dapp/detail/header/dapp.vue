@@ -27,7 +27,7 @@ defineProps({
 });
 
 const isHeaderEmpty = function (data: DAppData): boolean {
-  return getNotEmptySize(data.ido.ido_price) <= 0;
+  return getNotEmptySize(data.current_price) <= 0;
 };
 
 const isFooterEmpty = function (data: DAppData): boolean {
@@ -66,7 +66,7 @@ const isAllEmpty = function (data: DAppData) {
           <Not />
         </template>
         <template v-else>
-          <Price :value="data.ido.ido_price" :label="i18n.dapp.detail.price" :symbol="data.ido.ido_symbol" unit="$" />
+          <Price :value="data.current_price" :label="i18n.dapp.detail.price" :symbol="data.ido.ido_symbol" unit="$" />
         </template>
         <div>
           <v-router v-if="data.website" :href="data.website" class="block" target="_blank">

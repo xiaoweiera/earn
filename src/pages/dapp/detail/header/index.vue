@@ -1,13 +1,12 @@
 <script lang="ts">
+import type { PropType } from "vue";
 /**
  * @file 项目详情数据
  * @auth svon.me@gmail.com
  */
 import { defineComponent } from "vue";
-import type { PropType } from "vue";
-import type { DAppProject, DAppData } from "src/types/dapp/data";
-import { Activity } from "src/types/dapp/data";
-import { ProjectType } from "src/types/dapp/data";
+import type { DAppData, DAppProject } from "src/types/dapp/data";
+import { Progress, ProjectType } from "src/types/dapp/data";
 
 import InfoView from "./info.vue";
 
@@ -41,26 +40,29 @@ export default defineComponent({
   },
   computed: {
     name: function () {
-      const activity = this.data.preferred_activity;
-      if (activity && activity !== Activity.none) {
-        if (activity === Activity.ido) {
+      const data = this.data;
+      const type: ProjectType = this.project.type;
+      if (type && (type === ProjectType.dapp || type === ProjectType.igo)) {
+        if (data.current_price > 0) {
+          return "DApp";
+        } else {
           return "IDO";
         }
-        if (activity === Activity.airdrop) {
+      } else if (type && type === ProjectType.airdrop) {
+        if (data.current_price > 0) {
+          return "DApp";
+        } else {
           return "AirDrop";
         }
-        if (activity === Activity.mint) {
+      } else if (type && type === ProjectType.nft) {
+        if (data.nft.floor_price > 0) {
+          return "NFT";
+        } else {
           return "Mint";
         }
-        if (activity === Activity.invest) {
-          return "Seed";
-        }
+      } else {
+        return "Seed";
       }
-      const type: ProjectType = this.project.type;
-      if (type && type === ProjectType.nft) {
-        return "NFT";
-      }
-      return "DApp";
     },
   },
 });
