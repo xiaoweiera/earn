@@ -86,7 +86,7 @@ const submit = async function () {
     code: formData.code,
     password: isNew.value ? formData.password : null,
   };
-  const api = new API();
+  const api = new API(props.detail?.language);
   try {
     await api.user.registerInviteEmail(data);
     // 上报数据
@@ -96,6 +96,13 @@ const submit = async function () {
     // 成功
     successStatus.value = true;
   } catch (e: any) {
+    // 获取接口返回的错误内容
+    const message = safeGet<string>(e, "message");
+    if (message) {
+      messageError(message);
+      return;
+    }
+    // 无错误内容时，根据 code 码提示错误信息
     // 异常情况
     const code = safeGet<number | string>(e, "code");
     // 不满足领取条件
@@ -110,15 +117,9 @@ const submit = async function () {
       warnStatus.value = true;
       return;
     }
-
-    // 其它失败
-    const message = safeGet<string>(e, "message");
-    if (message) {
-      messageError(message);
-    } else {
-      const i18n = I18n(props.detail?.language);
-      messageError(i18n.apply.tips.error);
-    }
+    // 提示模式错误信息
+    const i18n = I18n(props.detail?.language);
+    messageError(i18n.apply.tips.error);
   }
 };
 </script>
