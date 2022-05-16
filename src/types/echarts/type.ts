@@ -43,6 +43,7 @@ export enum EchartsOptionName {
   yAxis = "yAxis",
   xAxis = "xAxis",
   legend = "legend",
+  legendEvent = "legendEvent",
   tooltip = "tooltip",
 }
 
