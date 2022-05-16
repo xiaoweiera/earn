@@ -18,6 +18,10 @@ const props = defineProps({
     required: true,
     type: Object as PropType<ShareItem>,
   },
+  link: {
+    type: Boolean,
+    default: () => true,
+  },
 });
 
 const Icon = {
@@ -51,7 +55,7 @@ const getIcon = function (data: ShareItem): string | undefined {
 </script>
 
 <template>
-  <v-router :href="data.url" class="rounded-3xl px-4 item" target="_blank">
+  <v-router :href="link ? data.url : null" class="rounded-3xl px-4 item" target="_blank">
     <div class="h-11 py-2.5 flex items-center">
       <span class="hidden label pr-2.5 text-18-28">{{ getLabel(data.method.name) }}</span>
       <template v-if="getIcon(data)">
