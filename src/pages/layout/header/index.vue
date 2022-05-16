@@ -19,6 +19,7 @@ const props = defineProps({
 });
 
 const User = asyncLoad(() => import("../user/index.vue"));
+const Search = asyncLoad(() => import("./search/index.vue"));
 
 const Logo = computed<string>(() => {
   const data = env.getEnv();
@@ -60,8 +61,11 @@ const isShowSub = computed<boolean>(() => {
 
         <div class="h-full flex-1 flex items-center justify-end lg:justify-between">
           <!-- PC端导航 -->
-          <div class="ml-10 h-full hidden lg:block flex-1">
+          <div class="ml-10 h-full hidden lg:flex flex-1">
             <MenuContentList :menus="headers" class="pt-2.5 h-full" />
+            <div class="h-full flex-auto pr-4">
+              <Search class="w-full h-full" />
+            </div>
           </div>
           <!--用户信息-->
           <User />
