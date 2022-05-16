@@ -9,7 +9,7 @@ import { isNumber, toInteger } from "src/utils/";
 import { onBeforeMount } from "vue";
 
 import { setInject, getRefInject } from "src/utils/use/state";
-import { colors } from "src/types/echarts/colors";
+import { colors, layout } from "src/types/echarts/colors";
 import { EchartsOptionName, Position, SeriesType, LegendData } from "src/types/echarts/type";
 import safeSet from "@fengqiaogang/safe-set";
 
@@ -66,15 +66,20 @@ const getData = function (index: number): LegendData {
   if (props.color) {
     safeSet(data, "itemStyle.color", props.color);
   } else {
-    if (props.position !== Position.right) {
+    if (props.position === Position.right) {
+      // 设置为价格颜色
+      safeSet(data, "itemStyle.color", layout.rightColor);
+    } else {
       // 给左侧数据，设置默认颜色
       safeSet(data, "itemStyle.color", colors[index]);
     }
   }
+
   return data;
 };
 
 const sync = function () {
+  // @ts-ignore
   if (set && legendList && isNumber(props.index)) {
     const arr = legendList.value;
     arr[props.index] = getData(toInteger(props.index));
