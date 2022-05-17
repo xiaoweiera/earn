@@ -180,4 +180,8 @@ export default {
     twitter: "分享至Twitter",
     link: "复制链接分享至群或好友",
   },
+  validate: {
+    title: "亲爱的用户:",
+    desc: "本网站不支持来自中国大陆地区的用户。访问前请确认您不是来自上述国家或地区。",
+  },
 };
