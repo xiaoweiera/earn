@@ -181,4 +181,8 @@ export default {
     twitter: "Share On Twitter",
     link: "Copy links to share with groups or friends",
   },
+  validate: {
+    title: "Dear User:",
+    desc: "This website does not support users from mainland China.Please confrm that you are not from the above countries or regions before visiting.",
+  },
 };
