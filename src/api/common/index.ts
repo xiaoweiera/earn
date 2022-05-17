@@ -12,6 +12,7 @@ import type { SiteConfig } from "src/types/common/chain";
 import type { TidingList } from "src/types/common/tiding";
 import ApiTemplate from "../template";
 import window from "src/plugins/browser/window";
+import type { SearchItem } from "src/types/search/";
 
 // 国际区号默认数据
 const areaCodeDefault = DefaultValue([
@@ -111,5 +112,114 @@ export default class extends ApiTemplate {
     const path = window.location.pathname;
     const data = { path };
     return [data] as any;
+  }
+  // 获取热门搜索
+  async getHotDapp(): Promise<SearchItem[]> {
+    return [
+      {
+        id: "1",
+        name: "Dinamo Zagreb Fan Token (DZG)",
+        icon: "icon-NEAR",
+      },
+      {
+        id: "2",
+        name: "Dinamo Zagreb Fan Token (DZG)",
+        icon: "icon-NEAR",
+      },
+      {
+        id: "3",
+        name: "Dinamo Zagreb Fan Token (DZG)",
+        icon: "icon-NEAR",
+      },
+      {
+        id: "4",
+        name: "Dinamo Zagreb Fan Token (DZG)",
+        icon: "icon-NEAR",
+      },
+      {
+        id: "5",
+        name: "Dinamo Zagreb Fan Token (DZG)",
+        icon: "icon-NEAR",
+      },
+      {
+        id: "6",
+        name: "Dinamo Zagreb Fan Token (DZG)",
+        icon: "icon-NEAR",
+      },
+    ];
+  }
+  // 获取搜索内容
+  async getSearchList(keyword?: string): Promise<SearchItem[]> {
+    if (keyword) {
+      return [
+        {
+          name: "DAPP",
+          children: [
+            {
+              id: 1,
+              name: "Dinamo Zagreb Fan Token (A)",
+              icon: "icon-NEAR",
+            },
+            {
+              id: 2,
+              name: "Dinamo Zagreb Fan Token (B)",
+              icon: "icon-NEAR",
+            },
+            {
+              id: 3,
+              name: "Dinamo Zagreb Fan Token (C)",
+              icon: "icon-NEAR",
+            },
+            {
+              id: 4,
+              name: "Dinamo Zagreb Fan Token (D)",
+              icon: "icon-NEAR",
+            },
+            {
+              id: 5,
+              name: "Dinamo Zagreb Fan Token (1)",
+              icon: "icon-NEAR",
+            },
+            {
+              id: 6,
+              name: "Dinamo Zagreb Fan Token (2)",
+              icon: "icon-NEAR",
+            },
+            {
+              id: 7,
+              name: "Dinamo Zagreb Fan Token (3)",
+              icon: "icon-NEAR",
+            },
+          ],
+        },
+        {
+          name: "NFT",
+          children: [
+            {
+              id: "a1",
+              name: "Dinamo Zagreb Fan Token",
+              icon: "icon-NEAR",
+            },
+            {
+              id: "a2",
+              name: "Dinamo Zagreb Fan Token",
+              icon: "icon-NEAR",
+            },
+            {
+              id: "a3",
+              name: "Dinamo Zagreb Fan Token",
+              icon: "icon-NEAR",
+            },
+          ],
+        },
+      ];
+    }
+    const list = await this.getHotDapp();
+    return [
+      {
+        name: "热门搜索 🔥",
+        children: list,
+      },
+    ];
   }
 }

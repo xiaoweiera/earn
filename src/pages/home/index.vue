@@ -1,16 +1,9 @@
 <script lang="ts" setup>
-import { Model } from "src/logic/home";
 import * as track from "src/logic/track";
 import { asyncLoad } from "src/plugins/lazyload/";
-import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import { stateAlias, useReactiveProvide } from "src/utils/use/state";
 import { onMounted } from "vue";
-import Trend from "./new/data/trend.vue";
-
-const newAd = asyncLoad(() => import("src/pages/home/new/ad.vue"));
 const chartData = asyncLoad(() => import("src/pages/home/new/data/index.vue"));
-const hotProject = asyncLoad(() => import("src/pages/home/new/hot.vue"));
-const newTopic = asyncLoad(() => import("src/pages/home/new/topic/index.vue"));
 const Apy = asyncLoad(() => import("src/pages/home/apy/index.vue"));
 const Quota = asyncLoad(() => import("./quota/index.vue"));
 
