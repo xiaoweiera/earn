@@ -108,6 +108,67 @@ export const getData = (key: string, data: any) => {
   }
   return value || "";
 };
+const chainIcon = ["chains"]; // icon类
+const iconHref = ["tge_platform"]; // icon + href
+const starNumber = ["overall_score"]; // 星星 + number
+const txt = ["categories"]; // txt
+const numberPrice = [
+  "current_price",
+  "ido_price",
+  "balance_24h",
+  "balance_7d",
+  "ido_fundraising_goal", // Total Raised
+]; // $number
+//dapp $+数字 ｜ nft icon+数字
+const dappNftMix = [
+  "volume_24h",
+  "volume_7d",
+  "mcap", // MarketCap-
+];
+const chainNumber = [
+  "floor_price", // Floor price
+  "mint_price", // Mint price
+]; // chain + number
+
+const numberUnit = ["ido_sale_amount"]; // number + 单位 --- Tokens for Sale    ido_symbol
+const numbers = ["owners", "assets", "mcap_tvl", "whales_num", "whales_holding", "bule_chip_holders", "blue_chip_holding"]; // -- Owners Assets MCap/TVL
+const numberChange = ["users_24h", "users_7d", "tvl"]; // User/Change   TVL/Change
+const lever = ["ath_since_ido", "current_roi_usd"]; // number + x  ATH Since IDO   Current ROI USD
+const timeType = ["ido_end_at", "mint_start_at"]; // time
+const changePercent = ["volume_change_percent_24h", "volume_change_percent_7d", "whales_ratio", "whale_num_change_24h", "whale_holding_ratio", "blue_chip_holders_change_24h", "blue_chip_holders_ratio", "blue_chip_holding_ratio"];
+
+export const getDom = (name: string) => {
+  if (chainIcon.includes(name)) {
+    return "chainIcon";
+  } else if (iconHref.includes(name)) {
+    return "iconHref";
+  } else if (starNumber.includes(name)) {
+    return "starNumber";
+  } else if (txt.includes(name)) {
+    return "txt";
+  } else if (numberPrice.includes(name)) {
+    return "numberPrice";
+  } else if (dappNftMix.includes(name)) {
+    return "dappNftMix";
+  } else if (chainNumber.includes(name)) {
+    return "chainNumber";
+  } else if (numberUnit.includes(name)) {
+    return "numberUnit";
+  } else if (numbers.includes(name)) {
+    return "numbers";
+  } else if (numberChange.includes(name)) {
+    return "numberChange";
+  } else if (lever.includes(name)) {
+    return "lever";
+  } else if (timeType.includes(name)) {
+    return "timeType";
+  } else if (changePercent.includes(name)) {
+    return "changePercent";
+  } else {
+    return "";
+  }
+};
+
 export class Model extends API {
   getSummary() {
     // @ts-ignore

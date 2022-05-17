@@ -20,6 +20,10 @@ const props = defineProps({
     type: String,
     default: () => "h-10.5",
   },
+  name: {
+    type: String,
+    default: "",
+  },
   params: {
     type: Object,
     default: () => {
@@ -65,7 +69,7 @@ const getIcon = (item: any) => {
         <div :class="item.key === params?.sort_field || (!params.sort_field && item.active) ? 'sort-border' : ''" />
       </div>
       <span :class="item.key === params?.sort_field || (item.active && shortIcon) ? 'text-global-primary' : ''">
-        <span class="text-global-highTitle text-kd12px16px font-medium font-kdFang">{{ cssData[0] }}</span>
+        <span :class="page === 'home' ? 'font-kdBarlow' : 'text-global-highTitle'">{{ cssData[0] }}</span>
       </span>
     </div>
   </div>
