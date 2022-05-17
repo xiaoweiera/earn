@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
 import { Model } from "src/logic/home";
-import Table from "src/pages/home/table/index.vue";
+import Table from "src/pages/home/new/table/index.vue";
 const category = ref("NFT");
 const topicIndex = ref(0);
 const isLoad = ref(false);
