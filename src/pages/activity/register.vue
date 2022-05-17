@@ -4,6 +4,7 @@
  * @auth svon.me@gmail.com
  */
 
+import _ from "lodash";
 import API from "src/api/";
 import * as track from "src/logic/track";
 import { messageError } from "src/lib/tool";
@@ -68,10 +69,15 @@ const emailValidate = function () {
 const onSeadCode = function (data: object) {
   // 保存人机校验得到的值
   formData.token = safeGet<string>(data, "token") || "";
-  // 判断是否是老用户
-  const status = safeGet<boolean>(data, "is_email_used");
-  // 如果是新用户，则控制密码框显示
-  isNew.value = !toBoolean(status);
+  const key = "is_email_used";
+  if (key in data) {
+    // 判断是否是老用户
+    const status = safeGet<boolean>(data, "is_email_used");
+    if (_.isBoolean(status)) {
+      // 如果是新用户，则控制密码框显示
+      isNew.value = !toBoolean(status);
+    }
+  }
 };
 
 const submit = async function () {
