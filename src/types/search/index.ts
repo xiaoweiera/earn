@@ -7,5 +7,6 @@ export interface SearchItem {
   icon?: string;
   name: string;
   id?: string | number;
+  key?: string;
   children?: SearchItem[];
 }

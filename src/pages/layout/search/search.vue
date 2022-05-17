@@ -4,91 +4,115 @@
  * @auth svon.me@gmail.com
  */
 
-import _ from "lodash";
 import API from "src/api/";
 import Result from "./result.vue";
 import { ref, onMounted } from "vue";
+import DB from "@fengqiaogang/dblist";
 import { $ } from "src/plugins/browser/event";
 import { selectItem } from "src/logic/common/search";
 import type { SearchItem } from "src/types/search/";
 import { onUpdateRef } from "src/utils/ssr/ref";
 
+let oldText = "";
 const inputValue = ref<string>("");
 const active = ref<string | number>("");
 const searchList = ref<SearchItem[]>([]);
 const domInput = ref<any>(null);
 
-const onUpdate = onUpdateRef(searchList, async function () {
+const onUpdate = onUpdateRef(searchList, async function (keyword = "") {
+  oldText = keyword;
+  active.value = "";
   const api = new API();
-  const keyword: string = inputValue.value;
-  const list = await api.common.getSearchList(keyword);
-  const data = selectItem(list);
-  if (data.id) {
-    active.value = data.id;
-  } else {
-    active.value = "";
-  }
-  return list;
+  return api.common.getSearchList(keyword);
 });
 
 const onChange = function (): void {
-  onUpdate();
+  const keyword: string = inputValue.value;
+  if (keyword && keyword === oldText) {
+    return;
+  }
+  onUpdate(keyword);
 };
 
-const onFocus = function (e?: Event) {
-  if (!e) {
-    const input = domInput.value;
-    if (input && input.focus) {
-      input.focus();
-    }
+const onFocus = function () {
+  const $input = $(".search-main input");
+  if ($input) {
+    $input.focus();
   }
   return onChange();
 };
 
-const onBlur = function (e?: Event) {
-  if (e) {
-    const target = e.target;
-    const $search = $(target).closest(".search-main");
-    if ($search.length > 0) {
-      onFocus();
-      return;
-    }
+const onBlur = function () {
+  searchList.value = [];
+  active.value = "";
+  const $input = $(".search-main input");
+  if ($input) {
+    $input.blur();
   }
-  // searchList.value = [];
-  // active.value = "";
+};
+
+const onSelectItem = function (data: SearchItem): void {
+  if (data.id) {
+    active.value = data.id;
+    oldText = data.name;
+    inputValue.value = data.name;
+  }
 };
 
 const onUp = function () {
   const data = selectItem(searchList.value, active.value, -1);
-  if (data.id) {
-    active.value = data.id;
-  }
+  onSelectItem(data);
 };
 
 const onDown = function () {
   const data = selectItem(searchList.value, active.value, 1);
-  if (data.id) {
-    active.value = data.id;
+  onSelectItem(data);
+};
+
+// 确认事件
+const onSubmit = function () {
+  // 如果当前有选中项
+  if (active.value) {
+    // 获取选中的对象
+    const db = new DB([]);
+    db.insert(db.flatten(searchList.value));
+    const item = db.selectOne<SearchItem>({ id: active.value });
+    if (item) {
+      alert(`你选中的是${item.name}`);
+      oldText = "";
+      inputValue.value = "";
+      onBlur();
+      return;
+    }
   }
+  // 搜索
+  const keyword: string = inputValue.value;
+  onUpdate(keyword);
 };
 
 onMounted(function () {
   $("body").on("click", function (e: Event) {
-    onBlur(e);
+    const target = e.target;
+    const $search = $(target).closest(".search-main");
+    if ($search.length > 0) {
+      onFocus();
+    } else {
+      onBlur();
+    }
   });
 });
 </script>
 
 <template>
-  <div class="search-main relative w-full" :class="{ result: searchList.length > 0 }">
-    <input ref="domInput" v-model="inputValue" class="text-14-18 text-m" placeholder="搜索 DApp/NFT" @input="onChange" @keyup.up="onUp" @keyup.down="onDown" @focus="onFocus" @click.stop.prevent />
-    <span class="search-icon" @click="onFocus">
+  <div class="search-main relative w-full" :class="{ result: searchList.length > 0 }" @click.prevent.stop="onFocus">
+    <input ref="domInput" v-model="inputValue" class="text-14-18 text-m" placeholder="搜索 DApp/NFT" @input="onChange" @keyup.up="onUp" @keyup.down="onDown" @keyup.enter="onSubmit" @focus="onFocus" @click.stop.prevent />
+    <span class="search-icon">
       <span class="flex items-center justify-center w-full h-full">
         <IconFont type="icon-sousuo" size="16" />
       </span>
     </span>
     <div class="result-list absolute top-full left-0 right-0">
-      <template v-for="(item, index) in searchList" :key="index">
+      <template v-for="(item, index) in searchList" :key="`${index}-${item.key}`">
         <Result v-if="item.children" :name="item.name" :list="item.children" :active="active" />
       </template>
     </div>
@@ -155,7 +179,8 @@ onMounted(function () {
       visibility: visible;
       opacity: 1;
       height: auto;
-      overflow: auto;
+      overflow-y: auto;
+      max-height: 380px;
     }
   }
 }

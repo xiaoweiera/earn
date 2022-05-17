@@ -45,7 +45,7 @@ const isShow = function (index: number): boolean {
     </div>
     <ul>
       <template v-for="(data, index) in list" :key="index">
-        <li v-show="isShow(index)" :class="{ active: data.id === active }">
+        <li v-if="isShow(index)" :class="{ active: data.id === active }" :data-id="data.id">
           <v-router class="px-3 block">
             <div class="flex items-center p-2 result-content rounded-lg">
               <IconFont :type="data.icon" size="24" class="mr-1.5" />

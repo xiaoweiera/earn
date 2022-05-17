@@ -2,9 +2,10 @@
  * @file 公共接口
  */
 
-import safeGet from "@fengqiaogang/safe-get";
-import { tidingName } from "src/config/";
+import { uuid } from "src/utils/";
 import * as api from "src/config/api";
+import { tidingName } from "src/config/";
+import safeGet from "@fengqiaogang/safe-get";
 import Cookie from "src/plugins/browser/cookie";
 import { DefaultValue, expire, get, post, tryError, userToken } from "src/plugins/dao/http";
 import type { AreaCode } from "src/types/common/area";
@@ -154,6 +155,7 @@ export default class extends ApiTemplate {
       return [
         {
           name: "DAPP",
+          key: uuid(),
           children: [
             {
               id: 1,
@@ -194,6 +196,7 @@ export default class extends ApiTemplate {
         },
         {
           name: "NFT",
+          key: uuid(),
           children: [
             {
               id: "a1",
@@ -217,6 +220,7 @@ export default class extends ApiTemplate {
     const list = await this.getHotDapp();
     return [
       {
+        key: uuid(),
         name: "热门搜索 🔥",
         children: list,
       },

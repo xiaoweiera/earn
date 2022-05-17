@@ -3,7 +3,9 @@
  * @author svon.me@gmail.com
  */
 
+import { compact } from "src/utils";
 import DB from "@fengqiaogang/dblist";
+import { $ } from "src/plugins/browser/event";
 import type { SearchItem } from "src/types/search/";
 
 const filter = function (list: SearchItem[]): SearchItem[] {
@@ -20,7 +22,20 @@ const filter = function (list: SearchItem[]): SearchItem[] {
 
 export const selectItem = function (list: SearchItem[], id?: string | number, shift = 0): SearchItem {
   // 过滤数据
-  const array = filter(list);
+  let array = filter(list);
+
+  if (shift !== 0) {
+    const $ul = $(".result-list ul");
+    if ($ul.length > 0) {
+      const temp = array.map(function (item: SearchItem) {
+        const $li = $(`.result-list li[data-id="${item.id}"]`);
+        if ($li.length > 0) {
+          return item;
+        }
+      });
+      array = compact(temp);
+    }
+  }
 
   if (id || id === 0) {
     let i = 0;
