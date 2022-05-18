@@ -26,8 +26,8 @@ export default class extends ApiTemplate {
   }
 
   // 博客列表
-  @tryError(DefaultValue([])) // 处理默认值
-  @get(api.blog.list, expire.min5) // 定义一个 get 请求
+  @tryError(DefaultValue([]))
+  @get(api.blog.list, expire.min5)
   @userToken()
   getList<T>(query: object = {}): Promise<T> {
     // 返回参数
@@ -35,7 +35,7 @@ export default class extends ApiTemplate {
   }
 
   // 热门数据
-  getHostList<T>(query: object = {}) {
+  getHostList<T>(query: object = {}): Promise<T> {
     return this.getList<T>({
       ...query,
       is_hot: true,
@@ -43,7 +43,7 @@ export default class extends ApiTemplate {
   }
 
   // 置顶数据
-  getTopList<T>(query: object = {}) {
+  getTopList<T>(query: object = {}): Promise<T> {
     return this.getList<T>({
       ...query,
       recommend: true,

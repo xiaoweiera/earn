@@ -15,10 +15,13 @@ import window from "src/plugins/browser/window";
 import { selectItem } from "src/logic/common/search";
 import type { SearchItem } from "src/types/search/";
 import { onUpdateRef } from "src/utils/ssr/ref";
+import { cache } from "src/plugins/cache";
+import { uuid } from "src/utils/";
 
 const i18n = I18n();
 
 let oldText = "";
+const focusStatus = ref<boolean>(false);
 const inputValue = ref<string>("");
 const active = ref<string | number>("");
 const searchList = ref<SearchItem[]>([]);
@@ -31,11 +34,22 @@ const placeholder = computed<string>(function () {
 const _updateRefList = onUpdateRef(searchList, async function (keyword = "") {
   oldText = keyword;
   active.value = "";
+  const key = uuid({ keyword });
+  const temp = cache.getItem(key);
+  if (temp) {
+    try {
+      return JSON.parse(temp);
+    } catch (e) {
+      // todo
+    }
+  }
   const api = new API();
-  return api.common.getSearchList(keyword);
+  const value = await api.common.getSearchList(keyword);
+  cache.setItem(key, JSON.stringify(value));
+  return value;
 });
 
-const onUpdate = _.debounce(function (value: string) {
+const onUpdate = _.debounce(function (value?: string) {
   return _updateRefList(value);
 }, 300);
 
@@ -48,6 +62,7 @@ const onChange = function (): void {
 };
 
 const onFocus = function () {
+  focusStatus.value = true;
   const $input = $(".search-main input");
   if ($input) {
     $input.focus();
@@ -56,6 +71,7 @@ const onFocus = function () {
 };
 
 const onBlur = function () {
+  focusStatus.value = false;
   searchList.value = [];
   active.value = "";
   oldText = "";
@@ -104,6 +120,9 @@ const onSubmit = function () {
 };
 
 onMounted(function () {
+  // 获取默认的搜索数据
+  setTimeout(onUpdate);
+
   const is = function (dom: HTMLElement, parentSelect: string, isSelect?: string) {
     if (isSelect) {
       if ($(dom).is(isSelect)) {
@@ -130,14 +149,14 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="search-main relative w-full" :class="{ result: searchList.length > 0 }" @click.stop="onFocus">
+  <div class="search-main relative w-full" :class="{ result: focusStatus }" @click.stop="onFocus">
     <input ref="domInput" v-model="inputValue" class="text-14-18 text-m" :placeholder="placeholder" @input="onChange" @keyup.up="onUp" @keyup.down="onDown" @keyup.enter="onSubmit" @focus="onFocus" @click.stop.prevent />
     <span class="search-icon">
       <span class="flex items-center justify-center w-full h-full">
         <IconFont type="icon-sousuo" size="16" />
       </span>
     </span>
-    <div class="result-list absolute top-full right-0 left-0">
+    <div class="result-list absolute top-full right-0">
       <div class="result-wrap">
         <template v-for="(item, index) in searchList" :key="`${index}-${item.key}`">
           <Result v-if="item.children" :name="item.name" :list="item.children" :active="active" />
@@ -150,7 +169,7 @@ onMounted(function () {
 <style scoped lang="scss">
 %transition {
   @apply block h-8.5;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 
 %animation {
@@ -175,6 +194,9 @@ onMounted(function () {
     & ~ .search-icon {
       @apply w-8.5 right-56;
     }
+    & ~ .result-list {
+      @apply w-56;
+    }
 
     &:hover,
     &:focus,
@@ -191,20 +213,21 @@ onMounted(function () {
     height: auto;
     @apply bg-white rounded-b-kd20px;
     @apply max-h-95 invisible overflow-y-auto;
-    transition: all 0.2s;
+    transition: all 0.3s;
 
     .result-wrap {
       @apply invisible opacity-40;
       transition: all 0.3s;
-      transition-delay: 0.2s;
     }
   }
 
   &.result {
     input {
       @extend %animation;
+      & ~ .result-list {
+        @apply w-full;
+      }
     }
-
     .result-list {
       @apply block shadow-md visible z-10012;
       .result-wrap {
