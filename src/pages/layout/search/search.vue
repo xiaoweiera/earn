@@ -45,6 +45,7 @@ const onFocus = function () {
 const onBlur = function () {
   searchList.value = [];
   active.value = "";
+  oldText = "";
   const $input = $(".search-main input");
   if ($input) {
     $input.blur();
