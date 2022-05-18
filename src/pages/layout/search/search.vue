@@ -54,13 +54,13 @@ const onUpdate = _.debounce(function (value?: string) {
   return _updateRefList(value);
 }, 300);
 
-const onChange = function (): void {
+const onChange = _.debounce(function () {
   const keyword: string = inputValue.value;
   if (keyword && keyword === oldText) {
     return;
   }
   onUpdate(keyword);
-};
+}, 100);
 
 const onFocus = function () {
   focusStatus.value = true;
@@ -88,9 +88,9 @@ const onClear = function () {
 
 const onSelectItem = function (data: SearchItem): void {
   if (data.id) {
-    active.value = data.id;
     oldText = data.name;
     inputValue.value = data.name;
+    active.value = data.id;
   }
 };
 
