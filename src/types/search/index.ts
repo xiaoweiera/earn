@@ -4,9 +4,11 @@
  */
 
 export interface SearchItem {
-  icon?: string;
+  logo?: string;
   name: string;
   id?: string | number;
   key?: string;
+  url?: string;
   children?: SearchItem[];
+  [key: string]: any;
 }

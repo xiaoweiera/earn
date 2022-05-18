@@ -4,14 +4,19 @@
  * @auth svon.me@gmail.com
  */
 
+import _ from "lodash";
 import API from "src/api/";
 import Result from "./result.vue";
-import { ref, onMounted } from "vue";
+import I18n from "src/utils/i18n/";
+import { ref, onMounted, computed } from "vue";
 import DB from "@fengqiaogang/dblist";
 import { $ } from "src/plugins/browser/event";
+import window from "src/plugins/browser/window";
 import { selectItem } from "src/logic/common/search";
 import type { SearchItem } from "src/types/search/";
 import { onUpdateRef } from "src/utils/ssr/ref";
+
+const i18n = I18n();
 
 let oldText = "";
 const inputValue = ref<string>("");
@@ -19,12 +24,20 @@ const active = ref<string | number>("");
 const searchList = ref<SearchItem[]>([]);
 const domInput = ref<any>(null);
 
-const onUpdate = onUpdateRef(searchList, async function (keyword = "") {
+const placeholder = computed<string>(function () {
+  return i18n.common.placeholder.search + " DApp/NFT";
+});
+
+const _updateRefList = onUpdateRef(searchList, async function (keyword = "") {
   oldText = keyword;
   active.value = "";
   const api = new API();
   return api.common.getSearchList(keyword);
 });
+
+const onUpdate = _.debounce(function (value: string) {
+  return _updateRefList(value);
+}, 300);
 
 const onChange = function (): void {
   const keyword: string = inputValue.value;
@@ -78,10 +91,9 @@ const onSubmit = function () {
     const db = new DB([]);
     db.insert(db.flatten(searchList.value));
     const item = db.selectOne<SearchItem>({ id: active.value });
-    if (item) {
-      alert(`你选中的是${item.name}`);
+    if (item && item.url) {
+      window.open(item.url);
       oldText = "";
-      inputValue.value = "";
       onBlur();
       return;
     }
@@ -92,10 +104,23 @@ const onSubmit = function () {
 };
 
 onMounted(function () {
+  const is = function (dom: HTMLElement, parentSelect: string, isSelect?: string) {
+    if (isSelect) {
+      if ($(dom).is(isSelect)) {
+        return true;
+      }
+    }
+    const $list = $(dom).closest(parentSelect);
+    return $list.length > 0;
+  };
+
   $("body").on("click", function (e: Event) {
     const target = e.target;
-    const $search = $(target).closest(".search-main");
-    if ($search.length > 0) {
+    if (is(target as HTMLElement, "a", "a")) {
+      onBlur();
+      return;
+    }
+    if (is(target as HTMLElement, ".search-main")) {
       onFocus();
     } else {
       onBlur();
@@ -105,17 +130,19 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="search-main relative w-full" :class="{ result: searchList.length > 0 }" @click.prevent.stop="onFocus">
-    <input ref="domInput" v-model="inputValue" class="text-14-18 text-m" placeholder="搜索 DApp/NFT" @input="onChange" @keyup.up="onUp" @keyup.down="onDown" @keyup.enter="onSubmit" @focus="onFocus" @click.stop.prevent />
+  <div class="search-main relative w-full" :class="{ result: searchList.length > 0 }" @click.stop="onFocus">
+    <input ref="domInput" v-model="inputValue" class="text-14-18 text-m" :placeholder="placeholder" @input="onChange" @keyup.up="onUp" @keyup.down="onDown" @keyup.enter="onSubmit" @focus="onFocus" @click.stop.prevent />
     <span class="search-icon">
       <span class="flex items-center justify-center w-full h-full">
         <IconFont type="icon-sousuo" size="16" />
       </span>
     </span>
-    <div class="result-list absolute top-full left-0 right-0">
-      <template v-for="(item, index) in searchList" :key="`${index}-${item.key}`">
-        <Result v-if="item.children" :name="item.name" :list="item.children" :active="active" />
-      </template>
+    <div class="result-list absolute top-full right-0 left-0">
+      <div class="result-wrap">
+        <template v-for="(item, index) in searchList" :key="`${index}-${item.key}`">
+          <Result v-if="item.children" :name="item.name" :list="item.children" :active="active" />
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -123,7 +150,7 @@ onMounted(function () {
 <style scoped lang="scss">
 %transition {
   @apply block h-8.5;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 %animation {
@@ -161,13 +188,16 @@ onMounted(function () {
   }
 
   .result-list {
+    height: auto;
     @apply bg-white rounded-b-kd20px;
-    height: 0;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility, opacity 0.3s;
-    transition-delay: 0.3s;
-    overflow: hidden;
+    @apply max-h-95 invisible overflow-y-auto;
+    transition: all 0.2s;
+
+    .result-wrap {
+      @apply invisible opacity-40;
+      transition: all 0.3s;
+      transition-delay: 0.2s;
+    }
   }
 
   &.result {
@@ -176,12 +206,10 @@ onMounted(function () {
     }
 
     .result-list {
-      @apply block shadow-md;
-      visibility: visible;
-      opacity: 1;
-      height: auto;
-      overflow-y: auto;
-      max-height: 380px;
+      @apply block shadow-md visible z-10012;
+      .result-wrap {
+        @apply opacity-100 visible;
+      }
     }
   }
 }
