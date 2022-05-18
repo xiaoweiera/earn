@@ -16,7 +16,8 @@ import { selectItem } from "src/logic/common/search";
 import type { SearchItem } from "src/types/search/";
 import { onUpdateRef } from "src/utils/ssr/ref";
 import { cache } from "src/plugins/cache";
-import { uuid } from "src/utils/";
+import { uuid, toBoolean } from "src/utils/";
+import { createHref } from "src/plugins/router/pack";
 
 const i18n = I18n();
 
@@ -81,6 +82,10 @@ const onBlur = function () {
   }
 };
 
+const onClear = function () {
+  inputValue.value = "";
+};
+
 const onSelectItem = function (data: SearchItem): void {
   if (data.id) {
     active.value = data.id;
@@ -108,7 +113,7 @@ const onSubmit = function () {
     db.insert(db.flatten(searchList.value));
     const item = db.selectOne<SearchItem>({ id: active.value });
     if (item && item.url) {
-      window.open(item.url);
+      window.open(createHref(item.url));
       oldText = "";
       onBlur();
       return;
@@ -156,6 +161,9 @@ onMounted(function () {
         <IconFont type="icon-sousuo" size="16" />
       </span>
     </span>
+    <span v-show="toBoolean(inputValue)" class="clear-search text-global-highTitle text-opacity-45" @click="onClear">
+      <IconFont type="icon-x" size="16" />
+    </span>
     <div class="result-list absolute top-full right-0">
       <div class="result-wrap">
         <template v-for="(item, index) in searchList" :key="`${index}-${item.key}`">
@@ -173,9 +181,15 @@ onMounted(function () {
 }
 
 %animation {
-  @apply w-full max-w-full h-10.5 rounded-t-kd20px rounded-b-none;
+  @apply w-full max-w-full h-10.5 rounded-t-kd20px rounded-b-none pr-12;
   & ~ .search-icon {
     @apply right-full h-10.5;
+  }
+  & ~ .clear-search {
+    @apply h-10.5;
+  }
+  & ~ .result-list {
+    @apply w-full;
   }
 }
 
@@ -183,6 +197,11 @@ onMounted(function () {
   .search-icon {
     @extend %transition;
     @apply absolute top-0 cursor-pointer transform translate-x-full;
+  }
+  .clear-search {
+    @extend %transition;
+    @apply flex hidden items-center justify-center;
+    @apply absolute top-0 right-3 cursor-pointer w-6;
   }
 
   input {
@@ -224,9 +243,9 @@ onMounted(function () {
   &.result {
     input {
       @extend %animation;
-      & ~ .result-list {
-        @apply w-full;
-      }
+    }
+    .clear-search {
+      @apply flex;
     }
     .result-list {
       @apply block shadow-md visible z-10012;
