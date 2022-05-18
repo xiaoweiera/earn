@@ -30,7 +30,7 @@ onMounted(async function () {
   <div>
     <div v-if="status">
       <el-dialog v-model="status" custom-class="validate-dialog">
-        <div class="p-6 mx-auto z-99999 md:w-100 md:h-90.5 tip">
+        <div class="p-6 mx-auto z-99999">
           <div class="w-37.25 mt-2 mx-auto">
             <ui-image src="/images/common/logo.svg" />
           </div>
