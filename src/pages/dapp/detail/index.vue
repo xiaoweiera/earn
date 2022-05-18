@@ -25,6 +25,7 @@ const Dashboard = asyncLoad(() => import("./dashboard/index.vue"));
 const NFT = asyncLoad(() => import("./content/nft.vue"));
 const AirDrops = asyncLoad(() => import("./content/airdrop.vue"));
 const ProjectInfo = asyncLoad(() => import("./project/index.vue"));
+const Holder = asyncLoad(() => import("./holder/index.vue"));
 const CommonTopics = asyncLoad(() => import("src/pages/home/recommend.vue"));
 
 const i18n = I18n();
@@ -124,6 +125,9 @@ const getTabData = function (info: DAppProject, data: DAppData) {
           </template>
           <template v-else-if="AnyEquals(project.tab, TabName.airdrop)">
             <AirDrops :data="detail" />
+          </template>
+          <template v-else-if="AnyEquals(project.tab, TabName.holder)">
+            <Holder :data="detail" />
           </template>
           <template v-else-if="AnyEquals(project.tab, TabName.dapp) || AnyEquals(project.tab, TabName.igo)">
             <IDO :data="detail" :project="project" />

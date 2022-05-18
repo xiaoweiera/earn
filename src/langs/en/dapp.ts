@@ -229,6 +229,23 @@ export default {
     mint: "Mint",
     toMint: "Go To Mint",
     mintSupply: "Mint Supply",
+
+    holder: {
+      holder: "Holders",
+      whale: "Whales",
+      holdNft: "Holding NFTs",
+      blueChip: "Blue Chip Holders",
+      holderTrend: "Holder Trends",
+      ratioTrend: "Holder Ratio Trends",
+      nftTrend: "Holding NFTs Trends",
+      nftRatioTrend: "Holding NFTs Ratio Trends",
+      holderTips: "The number and percentage of addresses with $1,000,000+ NFT holding value of all collections hold at least one NFT of this collection.",
+      holdingTips: "The number and percentage of NFTs in this collection held by whales.。",
+      blueChipTips: "For Blue Chip collections, Blue Chip Holders must hold at least one NFT from both of this and any other Blue Chip collections.\n" + "For Non-Blue Chip collections, Blue Chip Holders must hold at least one NFT from a Blue Chip collection.",
+      blueHoldingTips: "The number and percentage of NFTs in this collection held by Blue Chip holders.",
+      day: "30D",
+      all: "All",
+    },
   },
   not: {
     text1: "Market data is untracked",

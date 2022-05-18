@@ -229,6 +229,23 @@ export default {
     mint: "Mint",
     toMint: "铸造",
     mintSupply: "Mint 数量",
+
+    holder: {
+      holder: "持有人",
+      whale: "巨鲸",
+      holdNft: "持有趋势",
+      blueChip: "蓝筹股持有人",
+      holderTrend: "持有人数量",
+      ratioTrend: "持有人变化趋势",
+      nftTrend: "持有NFTs趋势",
+      nftRatioTrend: "持有NFTs比率趋势",
+      holderTips: "所有收题中持有NFT价值超过1,000,000美元的地址的数量和百分比至少持有该收题的一个NFT。",
+      holdingTips: "鲸鱼持有的该集合中NFT的数量和百分比。",
+      blueChipTips: "对于蓝筹股收题品，蓝筹股持有者必须持有至少一个来自该系列和任何其他蓝 筹股收题品的NFT。\n" + "对于非蓝筹股集合，蓝筹股持有者必须持有至少一个蓝筹股集合的NFT。",
+      blueHoldingTips: "蓝筹股持有者持有的该集合中NFT的数量和百分比。",
+      day: "近1月",
+      all: "全部",
+    },
   },
   not: {
     text1: "市场数据未经追踪",
