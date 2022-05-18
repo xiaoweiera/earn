@@ -2,7 +2,7 @@
  * @file 公共接口
  */
 
-import { uuid } from "src/utils/";
+import _ from "lodash";
 import * as api from "src/config/api";
 import { tidingName } from "src/config/";
 import safeGet from "@fengqiaogang/safe-get";
@@ -114,116 +114,47 @@ export default class extends ApiTemplate {
     const data = { path };
     return [data] as any;
   }
-  // 获取热门搜索
-  async getHotDapp(): Promise<SearchItem[]> {
-    return [
-      {
-        id: "1",
-        name: "Dinamo Zagreb Fan Token (DZG)",
-        icon: "icon-NEAR",
-      },
-      {
-        id: "2",
-        name: "Dinamo Zagreb Fan Token (DZG)",
-        icon: "icon-NEAR",
-      },
-      {
-        id: "3",
-        name: "Dinamo Zagreb Fan Token (DZG)",
-        icon: "icon-NEAR",
-      },
-      {
-        id: "4",
-        name: "Dinamo Zagreb Fan Token (DZG)",
-        icon: "icon-NEAR",
-      },
-      {
-        id: "5",
-        name: "Dinamo Zagreb Fan Token (DZG)",
-        icon: "icon-NEAR",
-      },
-      {
-        id: "6",
-        name: "Dinamo Zagreb Fan Token (DZG)",
-        icon: "icon-NEAR",
-      },
-    ];
-  }
+
   // 获取搜索内容
+  @tryError(DefaultValue([]))
+  @get(api.common.search)
+  @userToken()
   async getSearchList(keyword?: string): Promise<SearchItem[]> {
-    if (keyword) {
+    const createUrl = function (list?: SearchItem[], isDapp?: boolean): SearchItem[] {
+      if (list) {
+        return _.map(list, function (data: SearchItem) {
+          data.url = isDapp ? `/dapp/${data.id}` : `/nft/${data.id}`;
+          return data;
+        });
+      }
+      return [];
+    };
+
+    const minCharLength = 2;
+    const value = _.trim(`${keyword || ""}`);
+    const callback = function (result: object): SearchItem[] {
+      if (value && value.length >= minCharLength) {
+        return [
+          {
+            name: "DAPP",
+            children: createUrl(safeGet<SearchItem[]>(result, "dapps"), true),
+          },
+          {
+            name: "NFT",
+            children: createUrl(safeGet<SearchItem[]>(result, "nfts"), false),
+          },
+        ];
+      }
       return [
         {
-          name: "DAPP",
-          key: uuid(),
-          children: [
-            {
-              id: 1,
-              name: "Dinamo Zagreb Fan Token (A)",
-              icon: "icon-NEAR",
-            },
-            {
-              id: 2,
-              name: "Dinamo Zagreb Fan Token (B)",
-              icon: "icon-NEAR",
-            },
-            {
-              id: 3,
-              name: "Dinamo Zagreb Fan Token (C)",
-              icon: "icon-NEAR",
-            },
-            {
-              id: 4,
-              name: "Dinamo Zagreb Fan Token (D)",
-              icon: "icon-NEAR",
-            },
-            {
-              id: 5,
-              name: "Dinamo Zagreb Fan Token (1)",
-              icon: "icon-NEAR",
-            },
-            {
-              id: 6,
-              name: "Dinamo Zagreb Fan Token (2)",
-              icon: "icon-NEAR",
-            },
-            {
-              id: 7,
-              name: "Dinamo Zagreb Fan Token (3)",
-              icon: "icon-NEAR",
-            },
-          ],
-        },
-        {
-          name: "NFT",
-          key: uuid(),
-          children: [
-            {
-              id: "a1",
-              name: "Dinamo Zagreb Fan Token",
-              icon: "icon-NEAR",
-            },
-            {
-              id: "a2",
-              name: "Dinamo Zagreb Fan Token",
-              icon: "icon-NEAR",
-            },
-            {
-              id: "a3",
-              name: "Dinamo Zagreb Fan Token",
-              icon: "icon-NEAR",
-            },
-          ],
+          name: "热门搜索 🔥",
+          children: createUrl(safeGet<SearchItem[]>(result, "hots") || [], true),
         },
       ];
+    };
+    if (value.length >= minCharLength) {
+      return [{ keyword: value }, callback] as any;
     }
-    const list = await this.getHotDapp();
-    return [
-      {
-        key: uuid(),
-        name: "热门搜索 🔥",
-        children: list,
-      },
-    ];
+    return [{ keyword: "" }, callback] as any;
   }
 }

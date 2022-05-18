@@ -46,9 +46,14 @@ const isShow = function (index: number): boolean {
     <ul>
       <template v-for="(data, index) in list" :key="index">
         <li v-if="isShow(index)" :class="{ active: data.id === active }" :data-id="data.id">
-          <v-router class="px-3 block">
+          <v-router class="px-3 block" :href="data.url" target="_blank">
             <div class="flex items-center p-2 result-content rounded-lg">
-              <IconFont :type="data.icon" size="24" class="mr-1.5" />
+              <template v-if="data.logo">
+                <IconFont :type="data.logo" size="24" class="mr-1.5" />
+              </template>
+              <span v-else class="block w-6 h-6 mr-1.5">
+                <ui-image class="w-full h-full" :rounded="true" />
+              </span>
               <span class="block flex-1">
                 <span class="text-14-18 font-m">{{ data.name }}</span>
               </span>
@@ -58,9 +63,7 @@ const isShow = function (index: number): boolean {
       </template>
       <li v-if="list.length > 6 && !showAll">
         <div class="px-3">
-          <a class="p-2 inline-block link cursor-pointer" @click="onShowMore">
-            <span>展开更多 ({{ list.length - 3 }})</span>
-          </a>
+          <a class="p-2 inline-block link cursor-pointer show-more" @click="onShowMore">展开更多 ({{ list.length - 3 }})</a>
         </div>
       </li>
     </ul>
