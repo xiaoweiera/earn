@@ -1,9 +1,13 @@
 <script lang="ts" setup>
+import { onMounted } from "vue";
 import * as track from "src/logic/track";
 import { asyncLoad } from "src/plugins/lazyload/";
 import { stateAlias, useReactiveProvide } from "src/utils/use/state";
-import { onMounted } from "vue";
-const chartData = asyncLoad(() => import("src/pages/home/new/data/index.vue"));
+
+const NewAd = asyncLoad(() => import("src/pages/home/new/ad.vue"));
+const ChartData = asyncLoad(() => import("src/pages/home/new/data/index.vue"));
+const HotProject = asyncLoad(() => import("src/pages/home/new/hot.vue"));
+const NewTopic = asyncLoad(() => import("src/pages/home/new/topic/index.vue"));
 const Apy = asyncLoad(() => import("src/pages/home/apy/index.vue"));
 const Quota = asyncLoad(() => import("./quota/index.vue"));
 
@@ -19,19 +23,19 @@ onMounted(() => {
     <div class="top md:h-123.75">
       <div class="home-content pt-3">
         <div class="md:flex items-center">
-          <newAd class="md:mr-6" :position="25" />
+          <NewAd class="md:mr-6" :position="25" />
           <div class="w-full mt-4 md:mt-0 md:w-127.75 md:h-70 h-full">
             <div class="w-full h-full">
-              <chartData class="w-full h-full" />
+              <ChartData class="w-full h-full" />
             </div>
           </div>
         </div>
-        <hotProject class="mt-4 md:mt-6" />
+        <HotProject class="mt-4 md:mt-6" />
       </div>
     </div>
     <div class="topic-container pb-6 pt-6 md:pb-11">
       <div class="topic-content">
-        <newTopic />
+        <NewTopic />
       </div>
     </div>
     <lazy-load>
