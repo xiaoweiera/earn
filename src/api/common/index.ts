@@ -3,6 +3,7 @@
  */
 
 import _ from "lodash";
+import I18n from "src/utils/i18n/";
 import * as api from "src/config/api";
 import { tidingName } from "src/config/";
 import safeGet from "@fengqiaogang/safe-get";
@@ -132,11 +133,11 @@ export default class extends ApiTemplate {
 
     const minCharLength = 2;
     const value = _.trim(`${keyword || ""}`);
-    const callback = function (result: object): SearchItem[] {
+    const callback = (result: object): SearchItem[] => {
       if (value && value.length >= minCharLength) {
         return [
           {
-            name: "DAPP",
+            name: "DApp",
             children: createUrl(safeGet<SearchItem[]>(result, "dapps"), true),
           },
           {
@@ -145,9 +146,10 @@ export default class extends ApiTemplate {
           },
         ];
       }
+      const i18n = I18n(this.lang);
       return [
         {
-          name: "热门搜索 🔥",
+          name: i18n.liquidity.select.hot + " 🔥",
           children: createUrl(safeGet<SearchItem[]>(result, "hots") || [], true),
         },
       ];

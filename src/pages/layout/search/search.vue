@@ -6,7 +6,8 @@
 
 import API from "src/api/";
 import Result from "./result.vue";
-import { ref, onMounted } from "vue";
+import I18n from "src/utils/i18n/";
+import { ref, onMounted, computed } from "vue";
 import DB from "@fengqiaogang/dblist";
 import { $ } from "src/plugins/browser/event";
 import window from "src/plugins/browser/window";
@@ -14,11 +15,17 @@ import { selectItem } from "src/logic/common/search";
 import type { SearchItem } from "src/types/search/";
 import { onUpdateRef } from "src/utils/ssr/ref";
 
+const i18n = I18n();
+
 let oldText = "";
 const inputValue = ref<string>("");
 const active = ref<string | number>("");
 const searchList = ref<SearchItem[]>([]);
 const domInput = ref<any>(null);
+
+const placeholder = computed<string>(function () {
+  return i18n.common.placeholder.search + " DApp/NFT";
+});
 
 const onUpdate = onUpdateRef(searchList, async function (keyword = "") {
   oldText = keyword;
@@ -118,8 +125,8 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="search-main relative w-full" :class="{ result: searchList.length > 0 }">
-    <input ref="domInput" v-model="inputValue" class="text-14-18 text-m" placeholder="搜索 DApp/NFT" @input="onChange" @keyup.up="onUp" @keyup.down="onDown" @keyup.enter="onSubmit" @focus="onFocus" @click.stop.prevent />
+  <div class="search-main relative w-full" :class="{ result: searchList.length > 0 }" @click.stop="onFocus">
+    <input ref="domInput" v-model="inputValue" class="text-14-18 text-m" :placeholder="placeholder" @input="onChange" @keyup.up="onUp" @keyup.down="onDown" @keyup.enter="onSubmit" @focus="onFocus" @click.stop.prevent />
     <span class="search-icon">
       <span class="flex items-center justify-center w-full h-full">
         <IconFont type="icon-sousuo" size="16" />
@@ -194,7 +201,7 @@ onMounted(function () {
     }
 
     .result-list {
-      @apply block shadow-md visible;
+      @apply block shadow-md visible z-10012;
       .result-wrap {
         @apply opacity-100 visible;
       }
