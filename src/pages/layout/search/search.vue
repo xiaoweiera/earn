@@ -4,6 +4,7 @@
  * @auth svon.me@gmail.com
  */
 
+import _ from "lodash";
 import API from "src/api/";
 import Result from "./result.vue";
 import I18n from "src/utils/i18n/";
@@ -27,12 +28,16 @@ const placeholder = computed<string>(function () {
   return i18n.common.placeholder.search + " DApp/NFT";
 });
 
-const onUpdate = onUpdateRef(searchList, async function (keyword = "") {
+const _updateRefList = onUpdateRef(searchList, async function (keyword = "") {
   oldText = keyword;
   active.value = "";
   const api = new API();
   return api.common.getSearchList(keyword);
 });
+
+const onUpdate = _.debounce(function (value: string) {
+  return _updateRefList(value);
+}, 300);
 
 const onChange = function (): void {
   const keyword: string = inputValue.value;
