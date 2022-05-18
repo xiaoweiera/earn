@@ -40,6 +40,7 @@ export const dapp = {
   news: "/api/v1/dapps/news", //news列表
   options: "/api/dapps/{version}/apply/content", //获取项目类型
   commit: "/api/dapps/{version}/apply/submit", //提交项目
+  holder: "/api/v1/dapps/{project_id}/holder_info", //项目NFT持有人信息
 };
 
 export const blog = {
