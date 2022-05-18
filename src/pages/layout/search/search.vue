@@ -231,7 +231,7 @@ onMounted(function () {
   .result-list {
     height: auto;
     @apply bg-white rounded-b-kd20px;
-    @apply max-h-95 invisible overflow-y-auto;
+    @apply max-h-110 invisible overflow-y-auto;
     transition: all 0.3s;
 
     .result-wrap {
