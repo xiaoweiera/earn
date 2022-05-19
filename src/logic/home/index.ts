@@ -63,6 +63,26 @@ export const getHeader = (key: string) => {
     return [i18n.home.topList.changePercent24, "justify-center"];
   } else if (key === "volume_change_percent_7d") {
     return [i18n.home.topList.changePercent7, "justify-center"];
+  } else if (key === "whales_num") {
+    return [i18n.home.topList.whales_num, "justify-center"];
+  } else if (key === "whales_ratio") {
+    return [i18n.home.topList.whales_ratio, "justify-center"];
+  } else if (key === "whale_num_change_24h") {
+    return [i18n.home.topList.whale_num_change_24h, "justify-center"];
+  } else if (key === "whales_holding") {
+    return [i18n.home.topList.whales_holding, "justify-center"];
+  } else if (key === "whale_holding_ratio") {
+    return [i18n.home.topList.whale_holding_ratio, "justify-center"];
+  } else if (key === "bule_chip_holders") {
+    return [i18n.home.topList.bule_chip_holders, "justify-center"];
+  } else if (key === "blue_chip_holders_change_24h") {
+    return [i18n.home.topList.blue_chip_holders_change_24h, "justify-center"];
+  } else if (key === "blue_chip_holders_ratio") {
+    return [i18n.home.topList.blue_chip_holders_ratio, "justify-center"];
+  } else if (key === "blue_chip_holding") {
+    return [i18n.home.topList.blue_chip_holding, "justify-center"];
+  } else if (key === "blue_chip_holding_ratio") {
+    return [i18n.home.topList.blue_chip_holding_ratio, "justify-center"];
   }
   return [i18n.home.topList.noData, "justify-center"];
 };
