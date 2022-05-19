@@ -3,9 +3,10 @@
  * @file 变化率，百分比
  * @auth svon.me@gmail.com
  */
-import safeGet from "@fengqiaogang/safe-get";
-import { toNumber } from "src/utils";
+
 import { computed } from "vue";
+import { toNumber } from "src/utils";
+import safeGet from "@fengqiaogang/safe-get";
 
 const props = defineProps({
   name: {

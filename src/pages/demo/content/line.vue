@@ -4,14 +4,13 @@
  * @auth svon.me@gmail.com
  */
 
-import Echart from "./chart.vue";
+import _ from "lodash";
 import { defineComponent } from "vue";
+import safeGet from "@fengqiaogang/safe-get";
 import { SeriesType } from "src/types/echarts/type";
+import { echartTransform } from "src/logic/ui/echart/decorate";
 
 export default defineComponent({
-  components: {
-    Echart,
-  },
   props: {
     name: {
       required: true,
@@ -27,13 +26,37 @@ export default defineComponent({
       type: SeriesType.line,
     };
   },
+  methods: {
+    chartData(name: string, data: object) {
+      let result = safeGet<number[][]>(data, name);
+      if (!result) {
+        result = [];
+        for (let i = 0; i < 30; i++) {
+          result.push([_.random(10, 200), Date.now()]);
+        }
+      }
+      const series: number[] = [];
+      const xAxis: number[] = [];
+      _.forEach(result, function (item: number[]) {
+        const [value, time] = item;
+        series.push(value);
+        xAxis.push(time);
+      });
+      const opt = {
+        xAxis,
+        legends: [{ id: 0, name: "", unit: "" }],
+        series: [series],
+      };
+      return echartTransform(opt as any);
+    },
+  },
 });
 </script>
 
 <template>
   <div>
-    <lazy-load height="40px">
-      <Echart class="h-10" :type="type" :name="name" :data="data"></Echart>
-    </lazy-load>
+    <client-only class="w-full h-10">
+      <ui-echart-small :type="type" :data="chartData(name, data)" class="h-full" />
+    </client-only>
   </div>
 </template>

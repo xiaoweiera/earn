@@ -4,15 +4,15 @@
  * @auth svon.me@gmail.com
  */
 
+import { computed } from "vue";
 import { toNumber } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
 import { ElProgress } from "element-plus";
-import type { PropType } from "vue";
 
-defineProps({
+const props = defineProps({
   name: {
     required: true,
-    type: Array as PropType<string[]>,
+    type: String,
   },
   data: {
     required: true,
@@ -21,24 +21,14 @@ defineProps({
 });
 
 // 计算百分比
-const getValue = function (name: string[], data: object): number {
-  const [key1, key2] = name || [];
-  if (key1 && key2) {
-    const number1 = toNumber(safeGet<number>(data, key1));
-    const number2 = toNumber(safeGet<number>(data, key2));
-    if (number1 >= number2) {
-      return 100;
-    }
-    if (number2 > 0) {
-      return toNumber((number1 / number2) * 100);
-    }
-  }
-  return 1;
-};
+const value = computed<number>(function () {
+  const value = safeGet<number>(props.data, props.name);
+  return toNumber(value);
+});
 </script>
 
 <template>
   <client-only>
-    <el-progress :percentage="getValue(name, data)" :show-text="false" />
+    <el-progress :percentage="value" :show-text="false" />
   </client-only>
 </template>

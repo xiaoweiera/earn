@@ -79,7 +79,7 @@ const header: Header[] = [
   },
   {
     label: "巨鲸占比",
-    key: ["whales_num", "whales_holding"],
+    key: "whales_num",
     type: HeaderType.progress,
   },
   {

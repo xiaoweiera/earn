@@ -13,7 +13,7 @@ import Icon from "./icon.vue";
 import Logo from "./logo.vue";
 import Text from "./text.vue";
 import Number from "./number.vue";
-import Percent from "./percent.vue";
+import Radio from "./radio.vue";
 import Progress from "./progress.vue";
 import Line from "./line.vue";
 
@@ -24,7 +24,7 @@ export default defineComponent({
     Logo,
     Text,
     Number,
-    Percent,
+    Radio,
     Progress,
     Line,
     Bar: {
@@ -73,10 +73,7 @@ export default defineComponent({
 
 <template>
   <div>
-    <template v-if="type === 'progress'">
-      <component :is="upperFirst(type)" :name="name" :data="data" />
-    </template>
-    <template v-else-if="isArray(type)">
+    <template v-if="isArray(type)">
       <div class="flex item-list w-full" :class="{ column: isColumn(type) }">
         <template v-for="(value, index) in type" :key="index">
           <TableTD class="flex table-item" :name="name[index]" :type="value" :data="data" />
