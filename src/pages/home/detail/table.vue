@@ -2,7 +2,7 @@
 import safeGet from "@fengqiaogang/safe-get";
 import { ElTable, ElTableColumn } from "element-plus";
 import _ from "lodash";
-import { Model } from "src/logic/home";
+import { getWidth, Model } from "src/logic/home";
 // import window from "src/plugins/browser/window";
 // import { createHref } from "src/plugins/router/pack";
 import { config as routerConfig } from "src/router/config";
@@ -53,7 +53,6 @@ watch(route, () => {
   key.value++;
   getData(true);
 });
-
 // 搜索
 const search = ref(getParam<object>("search"));
 watch(search, (n: any) => {
@@ -204,8 +203,6 @@ const cellClass = () => ({ border: "none" });
 //       return "";
 //     }
 // }
-
-const getWidth = () => 200;
 </script>
 <template>
   <div class="table-box overflow-hidden md:mb-0 mb-4">
@@ -220,7 +217,7 @@ const getWidth = () => 200;
           </template>
         </el-table-column>
         <template v-for="(item, i) in data.header" :key="i">
-          <el-table-column class-name="lie" :fixed="i === 0 ? true : false" :height="60" :width="getWidth()">
+          <el-table-column class-name="lie" :fixed="i === 0 ? true : false" :height="60" :width="getWidth(item.key, info.show_type)">
             <template #header>
               <HomeTableHeader :params="params" :item="item" @click="sort(item)" />
             </template>

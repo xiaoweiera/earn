@@ -55,7 +55,7 @@ const getIcon = (item: any) => {
 };
 </script>
 <template>
-  <div class="flex items-center" :class="`${cssData[1]} ${height}`">
+  <div class="flex items-center" :class="`${cssData.length > 1 ? cssData[1] : 'justify-center'} ${height}`">
     <div class="relative h-full flex items-center" :class="item.sort && sort ? 'hand' : ''">
       <div v-if="shortIcon">
         <img v-if="item.active" class="w-2 h-1 mr-1 relative -top-0.6" :src="`${oss}/common/sortDown.png`" />
