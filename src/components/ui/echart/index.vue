@@ -37,7 +37,7 @@ const onLoad = function () {
     <client-only class="h-full echart-main">
       <Echarts :area="props.area" :bg-color="props.bgColor" :class="props.customClass" :custom="props.custom" :direction="props.direction" :grid="props.grid" :legend="props.legend" :log="props.log" :stack="props.stack" @load="onLoad" />
     </client-only>
-    <div v-show="loading" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div v-show="props.showLoading && loading" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <IconFont size="32" suffix="png" type="loading" />
     </div>
     <div class="hidden">
