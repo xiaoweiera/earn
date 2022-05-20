@@ -4,7 +4,7 @@
  * @auth svon.me@gmail.com
  */
 defineProps({
-  name: {
+  field: {
     required: true,
     type: String,
   },
@@ -16,5 +16,5 @@ defineProps({
 </script>
 
 <template>
-  <ui-image class="w-8 h-8" :src="data[name]" rounded />
+  <ui-image class="w-8 h-8" :src="data[field]" rounded />
 </template>

@@ -20,8 +20,8 @@ export enum HeaderType {
 export interface Header {
   sort?: boolean; // 是否支持排序
   active?: boolean; // 是否为激活状态
-  label: string; // 表格名称
-  key: string | string[] | Array<string[] | string>; // 对应数据的键名
+  title: string; // 表格名称
+  fields: string | string[] | Array<string[] | string>; // 对应数据的键名
   type: HeaderType | HeaderType[] | Array<Array<HeaderType> | HeaderType>; // 展示效果
 }
 
@@ -33,63 +33,63 @@ export interface Table {
 const header: Header[] = [
   {
     sort: false,
-    label: "项目名称",
-    key: ["logo", "name"],
+    title: "项目名称",
+    fields: ["logo", "name"],
     type: [HeaderType.logo, HeaderType.text],
   },
   {
-    label: "地板价", // 表格名称
-    key: ["chains", "floor_price"],
+    title: "地板价", // 表格名称
+    fields: ["chains", "floor_price"],
     type: [HeaderType.icon, HeaderType.text],
   },
   {
-    label: "交易量",
-    key: [["chains", "volume_24h"], "volume_change_percent_24h"],
+    title: "交易量",
+    fields: [["chains", "volume_24h"], "volume_change_percent_24h"],
     type: [[HeaderType.icon, HeaderType.number], HeaderType.radio],
   },
   {
-    label: "交易量(24)%",
-    key: "volume_change_percent_24h",
+    title: "交易量(24)%",
+    fields: "volume_change_percent_24h",
     type: HeaderType.radio,
   },
   {
-    label: "巨鲸Holders",
-    key: "whales_num",
-    type: HeaderType.text,
+    title: "巨鲸Holders",
+    fields: ["whales_num"],
+    type: [HeaderType.text],
   },
   {
-    label: "巨鲸Holders涨幅",
-    key: "whale_num_change_24h",
+    title: "巨鲸Holders涨幅",
+    fields: "whale_num_change_24h",
     type: HeaderType.radio,
   },
   {
-    label: "巨鲸Holders%",
-    key: "whales_ratio",
+    title: "巨鲸Holders%",
+    fields: "whales_ratio",
     type: HeaderType.radio,
   },
   {
-    label: "巨鲸持仓",
-    key: "whales_holding",
+    title: "巨鲸持仓",
+    fields: "whales_holding",
     type: HeaderType.number,
   },
   {
-    label: "巨鲸Holding%",
-    key: "whale_holding_ratio",
+    title: "巨鲸Holding%",
+    fields: "whale_holding_ratio",
     type: HeaderType.radio,
   },
   {
-    label: "巨鲸占比",
-    key: "whales_num",
+    title: "巨鲸占比",
+    fields: "whales_num",
     type: HeaderType.progress,
   },
   {
-    label: "走势图1",
-    key: "id",
+    title: "走势图1",
+    fields: "id",
     type: HeaderType.bar,
   },
   {
-    label: "走势图2",
-    key: "id",
+    title: "走势图2",
+    fields: "id",
     type: HeaderType.line,
   },
 ];

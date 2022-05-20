@@ -37,7 +37,7 @@ export default defineComponent({
     },
   },
   props: {
-    name: {
+    fields: {
       required: true,
       type: [String, Array] as PropType<string | string[] | Array<string[] | string>>,
     },
@@ -76,12 +76,12 @@ export default defineComponent({
     <template v-if="isArray(type)">
       <div class="flex item-list w-full" :class="{ column: isColumn(type) }">
         <template v-for="(value, index) in type" :key="index">
-          <TableTD class="flex table-item" :name="name[index]" :type="value" :data="data" />
+          <TableTD class="flex table-item" :fields="fields[index]" :type="value" :data="data" />
         </template>
       </div>
     </template>
     <template v-else-if="upperFirst(type)">
-      <component :is="upperFirst(type)" :name="name" :data="data" />
+      <component :is="upperFirst(type)" :field="fields" :data="data" />
     </template>
   </div>
 </template>

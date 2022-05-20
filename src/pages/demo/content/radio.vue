@@ -9,7 +9,7 @@ import { toNumber } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 
 const props = defineProps({
-  name: {
+  field: {
     required: true,
     type: String,
   },
@@ -20,8 +20,8 @@ const props = defineProps({
 });
 
 const value = computed<string>(function () {
-  if (props.name) {
-    const value = safeGet<string | number>(props.data, props.name);
+  if (props.field) {
+    const value = safeGet<string | number>(props.data, props.field);
     if (value || value === 0) {
       return `${value}`;
     }

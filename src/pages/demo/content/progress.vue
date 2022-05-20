@@ -10,7 +10,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import { ElProgress } from "element-plus";
 
 const props = defineProps({
-  name: {
+  field: {
     required: true,
     type: String,
   },
@@ -22,7 +22,7 @@ const props = defineProps({
 
 // 计算百分比
 const value = computed<number>(function () {
-  const value = safeGet<number>(props.data, props.name);
+  const value = safeGet<number>(props.data, props.field);
   return toNumber(value);
 });
 </script>

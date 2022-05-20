@@ -4,7 +4,7 @@
  * @auth svon.me@gmail.com
  */
 defineProps({
-  name: {
+  field: {
     required: true,
     type: String,
   },
@@ -16,5 +16,5 @@ defineProps({
 </script>
 
 <template>
-  <span class="inline-block max-w-full truncate text-14-16 text-global-highTitle" v-text="data[name] || '-'"></span>
+  <span class="inline-block max-w-full truncate text-14-16 text-global-highTitle" v-text="data[field] || '-'"></span>
 </template>

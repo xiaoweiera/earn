@@ -8,7 +8,7 @@ import { toArray, compact, getChainLogo } from "src/utils/";
 import type { PropType } from "vue";
 
 const props = defineProps({
-  name: {
+  field: {
     required: true,
     type: [String, Array] as PropType<string | string[]>,
   },
@@ -19,7 +19,7 @@ const props = defineProps({
 });
 
 const src = computed<string | undefined>(function () {
-  const [key]: string[] = toArray(props.name);
+  const [key]: string[] = toArray(props.field);
   if (key) {
     const [value] = compact<string>(toArray(props.data[key]));
     if (value) {

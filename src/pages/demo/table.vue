@@ -23,10 +23,10 @@ onMounted(update);
         <template v-for="(header, index) in table.header" :key="index">
           <el-table-column>
             <template #header>
-              <span>{{ header.label }}</span>
+              <span>{{ header.title }}</span>
             </template>
             <template #default="scope">
-              <Content :name="header.key" :type="header.type" :data="scope.row" />
+              <Content :fields="header.fields" :type="header.type" :data="scope.row" />
             </template>
           </el-table-column>
         </template>

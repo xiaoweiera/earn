@@ -12,7 +12,7 @@ import { echartTransform } from "src/logic/ui/echart/decorate";
 
 export default defineComponent({
   props: {
-    name: {
+    field: {
       required: true,
       type: String,
     },
@@ -27,8 +27,8 @@ export default defineComponent({
     };
   },
   methods: {
-    chartData(name: string, data: object) {
-      let result = safeGet<number[][]>(data, name);
+    chartData(field: string, data: object) {
+      let result = safeGet<number[][]>(data, field);
       if (!result) {
         result = [];
         for (let i = 0; i < 30; i++) {
@@ -56,7 +56,7 @@ export default defineComponent({
 <template>
   <div>
     <client-only class="w-full h-10">
-      <ui-echart-small :type="type" :data="chartData(name, data)" class="h-full" />
+      <ui-echart-small :type="type" :data="chartData(field, data)" class="h-full" />
     </client-only>
   </div>
 </template>
