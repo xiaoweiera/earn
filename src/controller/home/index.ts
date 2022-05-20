@@ -5,7 +5,6 @@
 
 import { Model } from "src/logic/home";
 import type { Request, Response } from "express";
-import * as alias from "src/utils/root/alias";
 import redirect from "src/controller/common/redirect";
 import { config } from "src/router/config";
 import I18n from "src/utils/i18n";
