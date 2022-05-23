@@ -3,8 +3,13 @@ import { getDateMDY } from "src/utils";
 const i18n = I18n();
 import { ElPopover } from "element-plus";
 import I18n from "src/utils/i18n";
-const props = defineProps({
-  data: Object,
+defineProps({
+  data: {
+    type: Object,
+    default() {
+      return {};
+    },
+  },
 });
 </script>
 <template>

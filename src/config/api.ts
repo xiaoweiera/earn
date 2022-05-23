@@ -83,6 +83,7 @@ export const common = {
   system: "/api/v1/system", //下载链接
   ipValidate: "/api/v1/ip/validate", // 判断 Ip 来源
   visit: "/api/v1/statistic/do_visit_statistic", // pv/uv 统计
+  search: "/api/v1/dapps/search", // 搜索
 };
 
 export const rank = {

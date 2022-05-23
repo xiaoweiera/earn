@@ -85,6 +85,7 @@ export default {
     prev: "Prev",
     next: "Next",
     shut: "Close",
+    expandMore: "More | More ({size})",
   },
   message: {
     verification: "Send",

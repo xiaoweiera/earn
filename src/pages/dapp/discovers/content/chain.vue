@@ -90,17 +90,17 @@ const change = _.debounce(async (value: string) => {
 .select {
   ::v-deep(.el-input__inner) {
     @apply border-1 border-global-highTitle border-opacity-4 bg-global-white h-8 rounded-md;
-    @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle flex items-center;
+    @apply text-kd14px18px w-full text-left text-global-highTitle flex items-center;
   }
   ::v-deep(.el-select-dropdown__item) {
-    @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle;
+    @apply text-kd14px18px w-full text-left text-global-highTitle;
   }
-  @screen md {
+  @screen lg {
     ::v-deep(.el-input__inner) {
       @apply border-1 border-global-highTitle border-opacity-4 text-kd14px18px w-25 h-8 pl-3 bg-global-topBg text-left text-global-highTitle flex items-center;
     }
     ::v-deep(.el-select-dropdown__item) {
-      @apply text-kd14px18px w-full md:w-25 text-left text-global-highTitle;
+      @apply text-kd14px18px w-25 text-left text-global-highTitle;
     }
   }
 }
