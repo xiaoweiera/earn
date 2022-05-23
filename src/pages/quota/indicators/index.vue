@@ -12,6 +12,7 @@ import { getValue } from "src/utils/root/data";
 import { IndicatorResult } from "src/types/quota/";
 import { alias } from "src/utils/ssr/ref";
 import * as track from "src/logic/track";
+import { config as routerConfig } from "src/router/config";
 
 let initValue = true;
 const getInitValue = function () {
@@ -27,12 +28,17 @@ const requestList = function (data: object) {
   return api.quota.getIndicator(data);
 };
 
-const getClass = function (data: object) {
+const getClass = function (data: object): object {
   const type = safeGet<string>(data, "chart_type");
   return {
     "vip-40": type === "vip",
     "vip-pro-40": type === "vip_pro",
   };
+};
+
+const getHref = function (data: object): string {
+  const id = safeGet<string>(data, "id");
+  return `${routerConfig.quota}/${id}`;
 };
 
 onMounted(function () {
@@ -49,9 +55,9 @@ onMounted(function () {
         <template #default="scope">
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <template v-for="(item, index) in scope.list" :key="index">
-              <div :class="getClass(item)">
+              <v-router class="block" :class="getClass(item)" :href="getHref(item)">
                 <IndicatorItem :data="item" />
-              </div>
+              </v-router>
             </template>
           </div>
         </template>
