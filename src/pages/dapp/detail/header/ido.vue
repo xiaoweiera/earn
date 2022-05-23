@@ -37,11 +37,11 @@ const isFooterEmpty = function (data: DAppData) {
 <template>
   <div>
     <div class="flex items-center justify-between">
-      <Price label="Status" value="IDO" :progress="data.ido.ido_status">
-        <p class="text-global-numGreen flex items-center mt-2">
-          <IconFont class="mr-1" type="icon-time" />
-          <span class="text-14-18 font-m">{{ i18n.dapp.detail.upcoming }}</span>
-        </p>
+      <Price label="Status" :value="project.type === 'igo' ? 'IGO' : 'IDO'" :progress="data.ido.ido_status">
+        <!--        <p class="text-global-numGreen flex items-center mt-2">-->
+        <!--          <IconFont class="mr-1" type="icon-time" />-->
+        <!--          <span class="text-14-18 font-m">{{ i18n.dapp.detail.upcoming }}</span>-->
+        <!--        </p>-->
       </Price>
       <div>
         <div v-if="isAfter(data.ido.ido_start_at)" class="p-1">
