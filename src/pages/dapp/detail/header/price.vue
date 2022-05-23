@@ -6,7 +6,7 @@
 import I18n from "src/utils/i18n";
 import { toUpper } from "ramda";
 import { Progress as ProjectProgress } from "src/types/dapp/data";
-import { toNumberFormat, isString } from "src/utils/";
+import { toNumberCashFormat, isString } from "src/utils/";
 import { PropType } from "vue";
 
 defineProps({
@@ -59,8 +59,8 @@ const equalsStatus = function (value: ProjectProgress, progress: ProjectProgress
     </label>
     <p class="text-32 mt-2 text-global-highTitle">
       <b v-if="isString(value)">{{ value }}</b>
-      <b v-else-if="unit">{{ toNumberFormat(value, toUpper(unit)) }}</b>
-      <b v-else>{{ toNumberFormat(value) }}</b>
+      <b v-else-if="unit">{{ toNumberCashFormat(value, toUpper(unit)) }}</b>
+      <b v-else>{{ toNumberCashFormat(value) }}</b>
     </p>
     <slot>
       <p v-if="equalsStatus(progress, ProjectProgress.ongoing)" class="text-global-numGreen flex items-center mt-2">

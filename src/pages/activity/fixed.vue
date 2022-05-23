@@ -24,7 +24,7 @@ defineProps({
           <ui-hover :append-to-body="false" :offset="12" placement="left">
             <!--二维码展示-->
             <template #label>
-              <Icon :data="data" :lang="detail.language" />
+              <Icon :link="false" :data="data" :lang="detail.language" />
             </template>
             <template #content>
               <div class="p-2">

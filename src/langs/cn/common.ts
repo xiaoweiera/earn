@@ -84,6 +84,7 @@ export default {
     prev: "上一页",
     next: "下一页",
     shut: "关闭",
+    expandMore: "展开更多 | 展开更多 ({size})",
   },
   message: {
     verification: "获取验证码",
@@ -179,5 +180,9 @@ export default {
     telegram: "分享至Telegram",
     twitter: "分享至Twitter",
     link: "复制链接分享至群或好友",
+  },
+  validate: {
+    title: "亲爱的用户:",
+    desc: "本网站不支持来自中国大陆地区的用户。访问前请确认您不是来自上述国家或地区。",
   },
 };

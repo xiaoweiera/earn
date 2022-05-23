@@ -13,7 +13,7 @@ defineProps({
     <h3 class="py-4 text-kd18px24px text-global-bgBlack font-kdFang">{{ data.title }}</h3>
     <div class="coming-item showX">
       <div v-for="(item, index) in data.list" :key="item.id">
-        <DAppNftList :key="item.id" :data="item" class="md:ml-0" :class="{ 'ml-6': index > 0 }" />
+        <DAppNftList :key="item.id" :data="item" class="lg:ml-0" :class="{ 'ml-6': index > 0 }" />
       </div>
     </div>
   </div>
@@ -22,19 +22,19 @@ defineProps({
 .coming-item {
   @apply flex items-center flex-nowrap;
 }
-@screen md {
+//@screen md {
+//  .coming-item {
+//    @apply grid grid-cols-2 gap-6;
+//  }
+//}
+@screen lg {
   .coming-item {
     @apply grid grid-cols-3 gap-6;
   }
 }
-@screen lg {
-  .coming-item {
-    @apply grid grid-cols-4 gap-6;
-  }
-}
 @screen xl {
   .coming-item {
-    @apply grid grid-cols-5 gap-6;
+    @apply grid grid-cols-4 gap-6;
   }
 }
 </style>

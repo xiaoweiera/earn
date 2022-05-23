@@ -56,14 +56,14 @@ export const APY = function (lang?: Lang): MenuItem {
         more: true,
         header: true,
       },
-      {
-        id: name.heco,
-        name: i18n.menu.apy.heco, // 'HECO 节点 APY'
-        href: `${config.apy}/heco`,
-        icon: "icon-heco2",
-        more: true,
-        header: true,
-      },
+      // {
+      //   id: name.heco,
+      //   name: i18n.menu.apy.heco, // 'HECO 节点 APY'
+      //   href: `${config.apy}/heco`,
+      //   icon: "icon-heco2",
+      //   more: true,
+      //   header: true,
+      // },
     ],
   };
 };

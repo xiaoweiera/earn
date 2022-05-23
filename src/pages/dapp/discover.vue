@@ -200,7 +200,7 @@ const itemTransform = function (list: object[]): object[] {
             <DAppDiscoversEndlist :params="params" class="px-4" :list="itemTransform(list)" @change-sort="changeSort" />
           </div>
         </div>
-        <div v-else class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div v-else class="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
           <DAppDiscoversList v-for="(item, index) in itemTransform(list)" :key="index" :status="params.status" :data="item" />
         </div>
       </div>

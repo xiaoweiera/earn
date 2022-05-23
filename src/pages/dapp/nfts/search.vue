@@ -52,7 +52,7 @@ onMounted(() => {
 </script>
 <template>
   <div v-if="data" class="mt-5">
-    <div class="hidden md:block">
+    <div class="hidden lg:block">
       <!-- 项目类型、公链、搜索框 -->
       <div class="flex justify-between items-center">
         <div class="flex items-center">
@@ -72,7 +72,7 @@ onMounted(() => {
         </client-only>
       </div>
     </div>
-    <div class="block md:hidden">
+    <div class="block lg:hidden">
       <div class="flex items-center">
         <DAppDiscoversContentChain :key="keys" :title="i18n.home.idoIgoProject.chain" :chain-data="data.chain" :href="config.nftList" name="chain" />
         <IconFont v-if="data.chain" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative h-full" type="icon-gang" />

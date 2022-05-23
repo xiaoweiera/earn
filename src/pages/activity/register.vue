@@ -4,6 +4,7 @@
  * @auth svon.me@gmail.com
  */
 
+import _ from "lodash";
 import API from "src/api/";
 import * as track from "src/logic/track";
 import { messageError } from "src/lib/tool";
@@ -49,6 +50,7 @@ const domForm = ref<any>(null);
 const failStatus = ref<boolean>(false);
 const successStatus = ref<boolean>(false);
 const warnStatus = ref<boolean>(false);
+const tipsMessage = ref<string>("");
 
 // 校验规则
 const rules = computed(function () {
@@ -67,10 +69,15 @@ const emailValidate = function () {
 const onSeadCode = function (data: object) {
   // 保存人机校验得到的值
   formData.token = safeGet<string>(data, "token") || "";
-  // 判断是否是老用户
-  const status = safeGet<boolean>(data, "is_email_used");
-  // 如果是新用户，则控制密码框显示
-  isNew.value = !toBoolean(status);
+  const key = "is_email_used";
+  if (key in data) {
+    // 判断是否是老用户
+    const status = safeGet<boolean>(data, "is_email_used");
+    if (_.isBoolean(status)) {
+      // 如果是新用户，则控制密码框显示
+      isNew.value = !toBoolean(status);
+    }
+  }
 };
 
 const submit = async function () {
@@ -86,7 +93,7 @@ const submit = async function () {
     code: formData.code,
     password: isNew.value ? formData.password : null,
   };
-  const api = new API();
+  const api = new API(props.detail?.language);
   try {
     await api.user.registerInviteEmail(data);
     // 上报数据
@@ -96,11 +103,21 @@ const submit = async function () {
     // 成功
     successStatus.value = true;
   } catch (e: any) {
+    // 获取接口返回的错误内容
+    const message = safeGet<string>(e, "message");
+    if (message) {
+      Common.resetFields(domForm);
+      tipsMessage.value = message;
+      failStatus.value = true;
+      return;
+    }
+    // 无错误内容时，根据 code 码提示错误信息
     // 异常情况
     const code = safeGet<number | string>(e, "code");
     // 不满足领取条件
     if (code && toInteger(code) === 2) {
       Common.resetFields(domForm);
+      tipsMessage.value = "";
       failStatus.value = true;
       return;
     }
@@ -110,15 +127,9 @@ const submit = async function () {
       warnStatus.value = true;
       return;
     }
-
-    // 其它失败
-    const message = safeGet<string>(e, "message");
-    if (message) {
-      messageError(message);
-    } else {
-      const i18n = I18n(props.detail?.language);
-      messageError(i18n.apply.tips.error);
-    }
+    // 提示模式错误信息
+    const i18n = I18n(props.detail?.language);
+    messageError(i18n.apply.tips.error);
   }
 };
 </script>
@@ -174,7 +185,7 @@ const submit = async function () {
     <client-only>
       <el-dialog v-model="failStatus" custom-class="no-header" :append-to-body="true" width="340px">
         <!--领取失败提示-->
-        <TipsFail :lang="detail.language" @click="failStatus = false" />
+        <TipsFail :lang="detail.language" :message="tipsMessage" @click="failStatus = false" />
       </el-dialog>
       <el-dialog v-model="successStatus" :append-to-body="true" custom-class="no-header" width="340px">
         <!--奖品领取成-->

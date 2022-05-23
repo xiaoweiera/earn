@@ -2,9 +2,11 @@
  * @file 公共接口
  */
 
-import safeGet from "@fengqiaogang/safe-get";
-import { tidingName } from "src/config/";
+import _ from "lodash";
+import I18n from "src/utils/i18n/";
 import * as api from "src/config/api";
+import { tidingName } from "src/config/";
+import safeGet from "@fengqiaogang/safe-get";
 import Cookie from "src/plugins/browser/cookie";
 import { DefaultValue, expire, get, post, tryError, userToken } from "src/plugins/dao/http";
 import type { AreaCode } from "src/types/common/area";
@@ -12,6 +14,7 @@ import type { SiteConfig } from "src/types/common/chain";
 import type { TidingList } from "src/types/common/tiding";
 import ApiTemplate from "../template";
 import window from "src/plugins/browser/window";
+import type { SearchItem } from "src/types/search/";
 
 // 国际区号默认数据
 const areaCodeDefault = DefaultValue([
@@ -111,5 +114,49 @@ export default class extends ApiTemplate {
     const path = window.location.pathname;
     const data = { path };
     return [data] as any;
+  }
+
+  // 获取搜索内容
+  @tryError(DefaultValue([]))
+  @get(api.common.search)
+  @userToken()
+  async getSearchList(keyword?: string): Promise<SearchItem[]> {
+    const createUrl = function (list?: SearchItem[], isDapp?: boolean): SearchItem[] {
+      if (list) {
+        return _.map(list, function (data: SearchItem) {
+          data.url = isDapp ? `/dapp/${data.id}` : `/nft/${data.id}`;
+          return data;
+        });
+      }
+      return [];
+    };
+
+    const minCharLength = 2;
+    const value = _.trim(`${keyword || ""}`);
+    const callback = (result: object): SearchItem[] => {
+      if (value && value.length >= minCharLength) {
+        return [
+          {
+            name: "DApp",
+            children: createUrl(safeGet<SearchItem[]>(result, "dapps"), true),
+          },
+          {
+            name: "NFT",
+            children: createUrl(safeGet<SearchItem[]>(result, "nfts"), false),
+          },
+        ];
+      }
+      const i18n = I18n(this.lang);
+      return [
+        {
+          name: i18n.liquidity.select.hot + " 🔥",
+          children: createUrl(safeGet<SearchItem[]>(result, "hots") || [], true),
+        },
+      ];
+    };
+    if (value.length >= minCharLength) {
+      return [{ keyword: value }, callback] as any;
+    }
+    return [{ keyword: "" }, callback] as any;
   }
 }
