@@ -102,7 +102,7 @@ export default {
     changePercent7: "Volume%(7D)",
     whales_num: "Whales",
     whales_ratio: "Whales%",
-    whale_num_change_24h: "whalles_chang(24h)",
+    whale_num_change_24h: "whales_chang(24h)",
     whales_holding: "Whales_Holding",
     whale_holding_ratio: "Whales_Holding%",
     bule_chip_holders: "BC Holders",
