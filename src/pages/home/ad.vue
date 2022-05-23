@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import document from "src/plugins/browser/document";
 import safeGet from "@fengqiaogang/safe-get";
+import { AdData } from "src/types/home/index";
 // 引入 swiper vue 组件
 // @ts-ignore
 import SwiperCore, { Autoplay, Pagination } from "swiper";
@@ -20,7 +21,7 @@ const props = defineProps({
     required: true,
   },
 });
-const adsList = createRef("API.home.ads", []);
+const adsList = createRef<AdData[]>("API.home.ads", []);
 const getUrl = (data: any) => {
   if (document.body.clientWidth > 768) {
     return safeGet(data, "image");
@@ -36,18 +37,20 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div v-if="adsList && adsList.length > 0">
-      <div class="w-full h-full relative">
-        <div class="ad text-number">AD</div>
-        <Swiper class="h-15 rounded-kd6px" :initial-slide="0" :loop="true" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true }">
-          <template v-for="(item, index) in adsList" :key="index">
-            <SwiperSlide>
-              <v-router :href="item['url']" target="_blank" class="w-full h-15 hand">
-                <ui-image class="w-full h-full" :src="getUrl(item)" fit="cover" />
-              </v-router>
-            </SwiperSlide>
-          </template>
-        </Swiper>
+    <div v-if="adsList">
+      <div v-if="adsList.length > 0">
+        <div class="w-full h-full relative">
+          <div class="ad text-number">AD</div>
+          <Swiper class="h-15 rounded-kd6px" :initial-slide="0" :loop="true" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true }">
+            <template v-for="(item, index) in adsList" :key="index">
+              <SwiperSlide>
+                <v-router :href="item['url']" target="_blank" class="w-full h-15 hand">
+                  <ui-image class="w-full h-full" :src="getUrl(item)" fit="cover" />
+                </v-router>
+              </SwiperSlide>
+            </template>
+          </Swiper>
+        </div>
       </div>
     </div>
   </div>
