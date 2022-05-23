@@ -8,6 +8,7 @@ import { Language } from "src/types/language";
 import message from "src/plugins/message";
 import window from "src/plugins/browser/window";
 import document from "src/plugins/browser/document";
+import _ from "lodash";
 
 export function colorHexToRGBA(sHex: string, alpha = 1) {
   // 十六进制颜色值的正则表达式
@@ -112,7 +113,8 @@ export const toopTipsContainer = (divDoms: string[]) => {
 };
 
 // 时间转化为时间戳
-export function dataToTimestamp(time: string) {
+export function dataToTimestamp(time: string | number) {
+  if (_.isNumber(time)) return time;
   return dayjs(time).valueOf() / 1000;
 }
 

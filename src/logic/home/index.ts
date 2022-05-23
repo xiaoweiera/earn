@@ -2,7 +2,6 @@ import API from "src/api";
 import type { projectParams, recommendModel, summaryModel, tutorialParams, tutorialData } from "src/types/home";
 import I18n from "src/utils/i18n";
 import { ApyQuery } from "src/types/home/apy";
-const i18n = I18n();
 import { FundsQuery, infoModel, lineModel } from "src/types/dapp/invest";
 
 // 得到header数据 headerName,headerCss
