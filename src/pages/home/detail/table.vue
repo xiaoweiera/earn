@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import VRouter from "src/components/v/router.vue";
+import { isBoolean, uuid } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
 import { ElTable, ElTableColumn } from "element-plus";
 // import { Model} from "src/logic/home";
@@ -13,9 +15,10 @@ import { onUpdateReactive } from "src/utils/ssr/ref";
 import type { PropType } from "vue";
 import { reactive, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { getValue } from "src/utils/root/data";
 
 import Content from "src/pages/home/topic/content/index.vue";
-import { getList, Table } from "src/pages/home/topic/data";
+import { getList, Table, Header } from "src/pages/home/topic/data";
 
 defineProps({
   info: {
@@ -28,47 +31,51 @@ defineProps({
 // const i18n = I18n();
 const route = useRoute();
 const router = useRouter();
-const id: string = safeGet(route, "params.id");
-const chain = ref(getParam<string>("chain"));
-const category = ref(getParam<string>("category"));
-const query = ref(getParam<string>("search"));
-const params = reactive({
-  id,
-  page: 1,
-  page_size: 30,
-  chain: chain.value,
-  category: category.value,
-  query: query.value,
-  sort_field: "",
-  sort_type: "", // desc asc
-});
-const key = ref(0);
+const key = ref<string>(uuid());
+const headerList = ref<Header[]>([]);
+const id: string = getValue<string>("query.id") as string;
+const chain = ref(getValue<string>("chain"));
+const category = ref(getValue<string>("category"));
+const query = ref(getValue<string>("search"));
+const sortField = ref(getValue<string>("sort_field"));
+const sortType = ref(getValue<string>("sort_type"));
+const params = function () {
+  return {
+    id,
+    page: 1,
+    page_size: 30,
+    chain: chain.value,
+    category: category.value,
+    query: query.value,
+    sort_field: sortField.value,
+    sort_type: sortType.value, // desc asc
+  };
+};
 // const isSearch = ref(false);
 // const api = new Model();
 watch(route, () => {
-  const query: any = getParam<string>();
-  params.chain = query.chain;
-  params.category = query.category;
-  key.value++;
+  chain.value = getParam<string>("chain");
+  category.value = getParam<string>("category");
 });
 // 搜索
-const search = ref(getParam<object>("search"));
+const search = ref(getParam<string>("search"));
 watch(search, (n: any) => {
-  const query: any = getParam<object>();
-  params.query = n;
+  const value = getParam<object>();
   router.push({
-    path: `${routerConfig.homeDetail}/${safeGet(route, "params.id")}`,
-    query: {
-      ...query,
-      // @ts-ignore
+    path: `${routerConfig.homeDetail}/${id}`,
+    query: Object.assign({}, value, {
       search: n,
-    },
+    }),
   });
 });
-// const data: any = createReactive<detail>("API.home.getProjects", {} as any);
 
 // 排序
-const sort = () => key.value++;
+const sort = (data: object) => {
+  // 修改排序字段与类型
+  sortField.value = safeGet<string>(data, "field");
+  sortType.value = safeGet<string>(data, "type");
+  key.value = uuid(params());
+};
 // const toProject = (url: string) => {
 //   if (url) {
 //     window.open(createHref(url));
@@ -98,55 +105,56 @@ const sort = () => key.value++;
 //   }
 //   return false;
 // };
-const table = reactive<Table>({} as Table);
-const update = onUpdateReactive(table, getList);
-update();
 
-let initStatus = true; //初始化
+// let initStatus = true; //初始化
 const initValue = function () {
-  if (initStatus) {
-    initStatus = false;
-    return table.items;
-  }
+  // if (initStatus) {
+  //   initStatus = false;
+  //   return table.items;
+  // }
   return [];
 };
-const requestList = function () {
-  // const newParam = Object.assign(
-  //     params,
-  //     query,
-  // );
-  update();
-  return table.items;
+const requestList = async function () {
+  const { header, items } = await getList();
+  // 如果 header 数据已存在，则直接返回列表
+  if (headerList.value.length > 0) {
+    return items;
+  }
+  headerList.value = header;
+  return items;
 };
 </script>
 <template>
   <div class="table-box overflow-hidden md:mb-0 mb-4">
-    <div v-if="safeGet(table, 'items.length') > 0" :key="key">
+    <div :key="key">
       <ui-pagination :limit="3" :init-value="initValue()" :request="requestList">
-        <template #default="scope">
-          <div>
-            <el-table :data="scope.list" class="w-full" :row-style="rowClass" :header-cell-style="headerCellClass" :cell-style="cellClass">
-              <el-table-column class-name="lie" fixed :height="60" :width="30">
+        <template #default="{ list }">
+          <el-table :data="list" class="w-full" :row-style="rowClass" :header-cell-style="headerCellClass" :cell-style="cellClass">
+            <el-table-column class-name="lie" fixed :height="60" :width="30">
+              <template #header>
+                <div class="header-name items-center flex h-full">#</div>
+              </template>
+              <template #default="scope">
+                <span class="text-kd14px16px text-number text-global-highTitle whitespace-nowrap">
+                  <span>{{ scope.$index + 1 }}</span>
+                  <!--隐藏一个链接，用作 seo-->
+                  <v-router class="hidden">{{ scope.row.name }}</v-router>
+                </span>
+              </template>
+            </el-table-column>
+            <template v-for="(header, index) in headerList" :key="index">
+              <el-table-column :fixed="index === 0" :width="header.width ? header.width : 150">
                 <template #header>
-                  <div class="header-name items-center flex h-full">#</div>
+                  <ui-sort class="header-name" :active="header.active" :sort="header.sort" :sort-data="params()" :key-name="header.sort_field" :name="header.title" @change="sort" />
                 </template>
                 <template #default="scope">
-                  <div class="text-kd14px16px text-number text-global-highTitle whitespace-nowrap">{{ scope.$index + 1 }}</div>
+                  <div :class="{ 'text-center': isBoolean(header.center) }">
+                    <Content :fields="header.fields" :type="header.type" :data="scope.row" />
+                  </div>
                 </template>
               </el-table-column>
-              <template v-for="(header, index) in table.header" :key="index">
-                <el-table-column :fixed="index === 0" :width="header.width ? header.width : 150">
-                  <template #header>
-                    <uiSort class="header-name" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :name="header.title" @change="sort" />
-                  </template>
-                  <template #default="scope">
-                    <!-- <div>test</div>-->
-                    <Content :fields="header.fields" :center="header.center" :type="header.type" :data="scope.row" />
-                  </template>
-                </el-table-column>
-              </template>
-            </el-table>
-          </div>
+            </template>
+          </el-table>
         </template>
       </ui-pagination>
     </div>

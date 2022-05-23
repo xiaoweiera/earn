@@ -12,7 +12,7 @@ import type { PropType } from "vue";
 import Chain from "./chain.vue";
 import Logo from "./logo.vue";
 import Text from "./text.vue";
-import Number from "./number.vue";
+import _Number from "./number.vue";
 import Radio from "./radio.vue";
 import Progress from "./progress.vue";
 import Line from "./line.vue";
@@ -26,7 +26,7 @@ export default defineComponent({
     Chain,
     Logo,
     Text,
-    Number,
+    Number: _Number,
     Radio,
     Progress,
     Line,
@@ -55,10 +55,6 @@ export default defineComponent({
       required: true,
       type: Object,
     },
-    center: {
-      required: true,
-      type: Boolean,
-    },
     width: {
       type: Number,
       default: () => 0,
@@ -86,7 +82,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div :class="center ? 'text-center' : ''">
+  <div>
     <template v-if="isArray(type)">
       <div class="flex item-list w-full" :class="{ column: isColumn(type) }">
         <template v-for="(value, index) in type" :key="index">

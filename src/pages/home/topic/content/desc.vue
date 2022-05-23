@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import I18n from "src/utils/i18n";
-import Number from "src/pages/home/topic/content/number.vue";
 const i18n = I18n();
+
 defineProps({
   field: {
     required: true,

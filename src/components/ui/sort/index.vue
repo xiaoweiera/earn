@@ -56,7 +56,7 @@ const change = () => {
   }
   props.sortData.sort_field = sortKey.value;
   getIcon();
-  emit("change");
+  emit("change", { field: props.sortData.sort_field, type: props.sortData.sort_type });
 };
 const borderCss = computed(() => {
   if (sortKey.value === props.sortData.sort_field || (props.active && !props.sortData.sort_field)) {
