@@ -9,7 +9,7 @@ import { name as AddressName, Portfolio } from "./address";
 import { APY, name as ApyName } from "./apy";
 import { name as BlogName } from "./blog";
 import { name as DAppName } from "./dapp";
-import { name as QuotaName } from "./quota";
+import { Quota, name as QuotaName } from "./quota";
 import { name as RankName } from "./rank";
 import { name as TopicName } from "./topic";
 
@@ -36,6 +36,7 @@ export const headers = function (lang?: Lang) {
     APY(lang),
     Portfolio(lang),
     Analysis(lang),
+    Quota(lang),
     {
       name: "API", // dApp
       href: routerConfig.api,
