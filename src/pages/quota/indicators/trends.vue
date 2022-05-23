@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { computed, toRaw } from "vue";
-import safeGet from "@fengqiaogang/safe-get";
-import * as quota from "src/types/quota/index";
 import _ from "lodash";
-import { toNumberCash, toNumberCashFormat } from "src/utils";
+import { computed, toRaw } from "vue";
+import * as quota from "src/types/quota/";
+import safeGet from "@fengqiaogang/safe-get";
+import { toNumberCash, toNumberCashFormat } from "src/utils/";
 
 const props = defineProps({
   value: {

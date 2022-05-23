@@ -4,7 +4,7 @@
  */
 
 .main {
-  $decorate: ("new", "ad", "sticky", "hot");
+  $decorate: ("new", "ad", "sticky", "hot", "vip", "vip-pro");
   @each $name in $decorate {
     $size: 14, 16, 24, 26, 30, 40;
     @each $number in $size {
@@ -21,9 +21,7 @@
       @apply relative;
       &:after {
         content: "";
-        @apply absolute left-0 top-0;
-        background-position: left top;
-        background-repeat: no-repeat;
+        @apply absolute left-0 top-0 bg-left-top bg-no-repeat;
       }
     }
   }
@@ -59,6 +57,20 @@
       @at-root .cn & {
         background-image: cdn("/dapp/hot_cn.png");
       }
+    }
+  }
+  [class~=vip-], [class*=vip-] {
+    &:after {
+      background-image: cdn("/static/images/vip.png");
+      left: inherit;
+      @apply right-0;
+    }
+  }
+  [class~=vip-pro-], [class*=vip-pro-] {
+    &:after {
+      background-image: cdn("/static/images/vip-pro.png");
+      left: inherit;
+      @apply right-0;
     }
   }
 }

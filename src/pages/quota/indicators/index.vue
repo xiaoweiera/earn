@@ -3,12 +3,13 @@
  * @file 推荐指标
  * @auth svon.me@gmail.com
  */
+
+import API from "src/api";
 import { onMounted } from "vue";
-import Tips from "src/pages/quota/tips.vue";
-import IndicatorItem from "src/pages/quota/indicators/item.vue";
+import IndicatorItem from "./item.vue";
+import safeGet from "@fengqiaogang/safe-get";
 import { getValue } from "src/utils/root/data";
 import { IndicatorResult } from "src/types/quota/";
-import API from "src/api";
 import { alias } from "src/utils/ssr/ref";
 import * as track from "src/logic/track";
 
@@ -26,6 +27,14 @@ const requestList = function (data: object) {
   return api.quota.getIndicator(data);
 };
 
+const getClass = function (data: object) {
+  const type = safeGet<string>(data, "chart_type");
+  return {
+    "vip-40": type === "vip",
+    "vip-pro-40": type === "vip_pro",
+  };
+};
+
 onMounted(function () {
   // 上传数据
   track.push(track.Origin.gio, track.event.quota.indicator);
@@ -33,41 +42,20 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="pb-6 md:pb-12">
+  <div class="pb-6 md:pb-12 px-4 pt-6">
     <!-- 推荐指标 -->
-    <div class="w-full md:w-235 mx-auto px-4 md:px-0">
-      <ui-box>
-        <div class="flex-1 pt-6 pr-0 md:pr-6">
-          <!-- 头部 -->
-          <div class="hidden md:block">
-            <Tips />
-          </div>
-          <!-- 内容 -->
-          <div>
-            <ui-pagination :limit="20" skin="pagination" :init-value="getInitValue()" :request="requestList">
-              <template #default="scope">
-                <div class="grid grid-cols-1 gap-4 md:gap-4 md:grid-cols-2">
-                  <div v-for="(item, index) in scope.list" :key="index">
-                    <IndicatorItem :data="item" />
-                  </div>
-                </div>
-              </template>
-            </ui-pagination>
-          </div>
-        </div>
-        <!--右侧 App 下载-->
-        <template #right>
-          <div class="pt-6">
-            <ui-app-download />
+    <div class="w-250 max-w-full mx-auto">
+      <ui-pagination :limit="20" skin="pagination" :init-value="getInitValue()" :request="requestList">
+        <template #default="scope">
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <template v-for="(item, index) in scope.list" :key="index">
+              <div :class="getClass(item)">
+                <IndicatorItem :data="item" />
+              </div>
+            </template>
           </div>
         </template>
-      </ui-box>
+      </ui-pagination>
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.ui-box {
-  --ui-box-right: 184px;
-}
-</style>
