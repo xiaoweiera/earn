@@ -24,12 +24,12 @@ defineProps({
     <template v-for="(data, index) in header.children" :key="index">
       <template v-if="data.group">
         <div class="py-1.5 first:pt-0">
-          <span class="text-12-16 text-global-highTitle">{{ data.name }}</span>
+          <span class="text-12-16 text-global-highTitle text-opacity-45">{{ data.name }}</span>
         </div>
       </template>
       <v-router v-else class="item flex items-center" :href="data.href" :class="{ active: data.active }" :target="data.blank ? Target.blank : Target.self">
-        <IconFont v-if="data.icon" class="mr-2" :type="data.icon" size="24" />
-        <span class="flex-1 text-14-18 inline-block font-m">{{ data.name }}</span>
+        <IconFont v-if="data.icon" class="mr-2" :type="data.icon" size="16" />
+        <span class="flex-1 text-14-18 inline-block">{{ data.name }}</span>
       </v-router>
     </template>
   </div>
@@ -37,7 +37,7 @@ defineProps({
 
 <style scoped lang="scss">
 .item {
-  @apply py-2 pl-4 pr-2 text-global-highTitle;
+  @apply py-3 pl-4 pr-2 text-global-highTitle text-opacity-65;
   transition: all 0.3s;
 
   &.active,
