@@ -18,6 +18,8 @@ export default {
   noData: "暂无信息",
   lang: "EN",
   loginOut: "退出",
+  reviews: "kingData 运营测评",
+  copyOk: "Copy success",
   account: {
     email: {
       tips: "您暂未绑定邮箱，请尽快绑定",

@@ -55,6 +55,14 @@ export default defineComponent({
       required: true,
       type: Object,
     },
+    center: {
+      required: true,
+      type: Boolean,
+    },
+    width: {
+      type: Number,
+      default: () => 0,
+    },
   },
   methods: {
     isArray,
@@ -78,7 +86,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <div :class="center ? 'text-center' : ''">
     <template v-if="isArray(type)">
       <div class="flex item-list w-full" :class="{ column: isColumn(type) }">
         <template v-for="(value, index) in type" :key="index">
@@ -87,7 +95,7 @@ export default defineComponent({
       </div>
     </template>
     <template v-else-if="upperFirst(type)">
-      <component :is="upperFirst(type)" :field="fields" :data="data" />
+      <component :is="upperFirst(type)" :width="width" :field="fields" :data="data" />
     </template>
   </div>
 </template>

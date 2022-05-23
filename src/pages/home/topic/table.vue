@@ -3,7 +3,7 @@ import { onMounted, reactive } from "vue";
 import { getList, Table } from "./data";
 import { onUpdateReactive } from "src/utils/ssr/ref";
 import { ElTable, ElTableColumn } from "element-plus";
-import Content from "./content/index.vue";
+import Content from "src/pages/home/topic/content/index.vue";
 
 const rowClass = () => {
   const styleJson = {
@@ -43,12 +43,12 @@ onMounted(update);
           </template>
         </el-table-column>
         <template v-for="(header, index) in table.header" :key="index">
-          <el-table-column :fixed="index === 0" :width="150">
+          <el-table-column :fixed="index === 0" :width="header.width ? header.width : 150">
             <template #header>
               <span class="header-name">{{ header.title }}</span>
             </template>
             <template #default="scope">
-              <Content :fields="header.fields" :type="header.type" :data="scope.row" />
+              <Content :fields="header.fields" :width="header.width ? header.width - 8 : null" :center="header.center" :type="header.type" :data="scope.row" />
             </template>
           </el-table-column>
         </template>

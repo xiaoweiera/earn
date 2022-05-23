@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Number from "src/pages/home/topic/content/number.vue";
+
 /**
  * @file text
  * @auth svon.me@gmail.com
@@ -12,11 +14,15 @@ defineProps({
     required: true,
     type: Object,
   },
+  width: {
+    type: Number,
+    default: () => 0,
+  },
 });
 </script>
 
 <template>
-  <span class="numberDefault" v-text="data[field] || '-'"></span>
+  <span class="numberDefault short">{{ data[field] || "-" }}</span>
 </template>
 <style scoped lang="scss">
 .numberDefault {

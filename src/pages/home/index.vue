@@ -10,7 +10,6 @@ const hotProject = asyncLoad(() => import("src/pages/home/new/hot.vue"));
 const newTopic = asyncLoad(() => import("src/pages/home/new/topic/index.vue"));
 const Apy = asyncLoad(() => import("src/pages/home/apy/index.vue"));
 const Quota = asyncLoad(() => import("./quota/index.vue"));
-import tables from "./topic/table.vue";
 useReactiveProvide(stateAlias.ui.tab);
 
 onMounted(() => {
@@ -19,10 +18,6 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div>
-    2
-    <tables />
-  </div>
   <div>
     <div class="top md:h-123.75">
       <div class="home-content pt-3">

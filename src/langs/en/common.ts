@@ -18,7 +18,8 @@ export default {
   noData: "No Data",
   lang: "CN",
   loginOut: "Log Out",
-  copyOk: "Copy ",
+  reviews: "kingData operate reviews",
+  copyOk: "Copy success",
   account: {
     email: {
       tips: "Please connect your email",

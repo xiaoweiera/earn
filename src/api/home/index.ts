@@ -64,7 +64,7 @@ export default class extends ApiTemplate {
   }
 
   // 话题项目列表
-  @tryError(DefaultValue([])) // 处理默认值
+  @tryError(DefaultValue({})) // 处理默认值
   @get(api.home.projects, expire.min10) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getProjects<T>(query: projectParams): Promise<T> {

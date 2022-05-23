@@ -13,14 +13,18 @@ export enum HeaderType {
   progress = "progress", // 进度条
   chain = "chain", // 小图标
   logo = "logo", // 大图标
-  bar = "bar", // 柱状图
-  line = "line", // 折线图
+  chartBar = "bar", // 柱状图
+  chartLine = "line", // 折线图
   money = "money", // 金额
   time = "time", //时间
+  desc = "desc", //描述
 }
 
 export interface Header {
   sort?: boolean; // 是否支持排序
+  sort_field?: string; // 排序字段
+  center?: boolean; // 是否居中
+  width?: number; //宽度
   active?: boolean; // 是否为激活状态
   title: string; // 表格名称
   fields: string | string[] | Array<string[] | string>; // 对应数据的键名
@@ -34,18 +38,22 @@ export interface Table {
 
 const header: Header[] = [
   {
-    sort: false,
     title: "项目名称",
     fields: ["logo", "name"],
     type: [HeaderType.logo, HeaderType.text],
   },
   {
+    sort: true,
+    active: true,
     title: "地板价", // 表格名称
     fields: ["chains", "floor_price"],
     type: [HeaderType.chain, HeaderType.text],
   },
   {
+    sort: true,
+    sort_field: "volume_24h",
     title: "交易量",
+    center: true,
     fields: [["chains", "volume_24h"], "volume_change_percent_24h"],
     type: [[HeaderType.chain, HeaderType.number], HeaderType.radio],
   },
@@ -61,6 +69,9 @@ const header: Header[] = [
   },
   {
     title: "巨鲸Holders涨幅",
+    sort: true,
+    sort_field: "whale_num_change_24h",
+    active: true,
     fields: "whale_num_change_24h",
     type: HeaderType.radio,
   },
@@ -84,18 +95,36 @@ const header: Header[] = [
     fields: "whales_num",
     type: HeaderType.progress,
   },
-  {
-    title: "走势图1",
-    fields: "id",
-    type: HeaderType.bar,
-  },
-  {
-    title: "走势图2",
-    fields: "id",
-    type: HeaderType.line,
-  },
+  // {
+  //   title: "走势图1",
+  //   fields: "id",
+  //   type: HeaderType.chartBar,
+  // },
+  // {
+  //   title: "走势图2",
+  //   fields: "id",
+  //   type: HeaderType.chartLine,
+  // },
 ];
 
+export const rowClass = () => {
+  const styleJson = {
+    height: "60px",
+    border: "none",
+  };
+  return styleJson;
+};
+export const headerCellClass = () => {
+  const styleJson = {
+    border: "none",
+    borderTop: "1px solid rgba(3, 54, 102, 0.06) !important",
+    borderBottom: "1px solid rgba(3, 54, 102, 0.06) !important",
+    padding: "0",
+    height: "40px",
+  };
+  return styleJson;
+};
+export const cellClass = () => ({ border: "none" });
 export const getList = async function (): Promise<Table> {
   const api = new API();
   const result = await api.home.getProjects<object>({
