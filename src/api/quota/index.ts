@@ -79,4 +79,11 @@ export default class extends ApiTemplate {
     };
     return [query, callback] as any;
   }
+  // 推荐指标 - 详情
+  @tryError(DefaultValue([]))
+  @get(api.quota.indicatorDetail)
+  @validate
+  getIndicatorDetail<T>(@required id: string | number): Promise<T> {
+    return [{ id }] as any;
+  }
 }
