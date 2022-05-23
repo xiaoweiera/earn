@@ -71,3 +71,7 @@ export interface tutorialData {
   release_date?: number; // 更新时间
   author?: string; // 作者
 }
+export interface AdData {
+  image: string;
+  url: string;
+}
