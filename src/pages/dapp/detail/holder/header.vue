@@ -40,7 +40,7 @@ onMounted(() => {
       <div class="whale">
         <!-- 标题  -->
         <div class="h-8 flex justify-between items-center">
-          <div class="text-kd18px24px text-global-highTitle font-kdFang font-medium">{{ i18n.dapp.detail.holder.whale }}</div>
+          <div class="text-18-24 font-b text-global-highTitle font-kdFang">{{ i18n.dapp.detail.holder.whale }}</div>
           <div class="rank">
             <span class="rank-tips"># 192</span>
           </div>
@@ -103,7 +103,7 @@ onMounted(() => {
       <div class="whale ml-0 md:ml-6 mt-6 md:mt-0">
         <!-- 标题  -->
         <div class="h-8 flex justify-between items-center">
-          <div class="text-kd18px24px text-global-highTitle font-kdFang font-medium">{{ i18n.dapp.detail.holder.blueChip }}</div>
+          <div class="text-18-24 font-b text-global-highTitle font-kdFang">{{ i18n.dapp.detail.holder.blueChip }}</div>
           <div class="rank">
             <span class="rank-tips"># 192</span>
           </div>
@@ -175,12 +175,6 @@ onMounted(() => {
   @apply h-full px-3 py-1.75 bg-global-darkblue bg-opacity-6 rounded-md flex items-center cursor-pointer;
   .rank-tips {
     @apply text-kd14px18px text-global-darkblue font-kdFang font-medium;
-  }
-  &:hover {
-    @apply bg-global-darkblue;
-    .rank-tips {
-      @apply text-global-white;
-    }
   }
 }
 .rank-hover {

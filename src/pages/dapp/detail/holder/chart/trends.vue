@@ -46,7 +46,7 @@ onMounted(function () {
     <!-- holder trends图表 -->
     <div class="w-full mt-7">
       <div class="w-full flex justify-between">
-        <div class="text-kd16px22px text-global-highTitle font-kdFang font-medium">
+        <div class="text-kd16px22px text-global-highTitle font-kdFang font-semibold">
           {{ i18n.dapp.detail.holder.holderTrend }}
         </div>
         <div>
