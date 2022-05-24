@@ -4,22 +4,47 @@
  * @auth svon.me@gmail.com
  */
 import API from "src/api/";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { getValue } from "src/utils/root/data";
-import { createReactive, onUpdateReactive } from "src/utils/ssr/ref";
-import type { IndicatorDetail } from "src/types/quota/";
+import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
+import type { Data, IndicatorDetail, DataMap } from "src/types/quota/";
+import { Classify } from "src/utils/convert/classify";
 
+import Item from "../list/item.vue";
+import Calendar from "../calendar/index.vue";
+
+const classify = Classify("published_at", "date");
+const quotaList = ref<DataMap[]>([]);
 const detail = createReactive<IndicatorDetail>("quota.detail", {} as IndicatorDetail);
 
-const onUpdate = onUpdateReactive(detail, function () {
+// 获取指标对应的快讯数据
+const onUpdateList = function () {
   const id = getValue<string>("query.id");
   if (id) {
     const api = new API();
-    return api.quota.getIndicatorDetail<IndicatorDetail>(id);
+    return api.quota.indicatorNewList<Data>(id);
   }
-});
+  return [];
+};
 
-onMounted(onUpdate);
+// 当分页组件有数据变化时
+const onChange = function (result: Data[][]) {
+  // 数据进行分类
+  const [, list] = result;
+  const value = classify<Data>(list);
+  quotaList.value = value as DataMap[];
+};
+
+onMounted(function () {
+  // 判断 detail 是否为空，如果为空时则进行数据重新获取
+  onLoadReactive(detail, () => {
+    const id = getValue<string>("query.id");
+    if (id) {
+      const api = new API();
+      return api.quota.getIndicatorDetail<IndicatorDetail>(id);
+    }
+  });
+});
 </script>
 
 <template>
@@ -41,8 +66,20 @@ onMounted(onUpdate);
           <span class="ml-1 text-12-16">{{ detail.view_count }}</span>
         </div>
       </div>
+      <!--快讯列表-->
+      <div class="pt-9">
+        <h5 class="text-18-24 mb-5">异动播报</h5>
+        <ui-pagination :limit="20" :request="onUpdateList" @change="onChange">
+          <div>
+            <Calendar v-for="data in quotaList" :key="data.date" :data="data">
+              <template #default="{ data }">
+                <ui-ad v-if="data && data.type" :data="data" />
+                <Item v-else-if="data" :data="data" />
+              </template>
+            </Calendar>
+          </div>
+        </ui-pagination>
+      </div>
     </div>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

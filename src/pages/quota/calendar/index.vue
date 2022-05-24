@@ -4,20 +4,15 @@
  * @auth svon.me@gmail.com
  */
 
-import type { Data } from "src/types/quota/";
 import { dateDayFormat, dateMonthFormat, dateTime, toInteger } from "src/utils/";
 import I18n from "src/utils/i18n/";
 import type { PropType } from "vue";
-
-interface Result {
-  date: number;
-  list: Data[];
-}
+import type { DataMap } from "src/types/quota/";
 
 defineProps({
   data: {
     required: true,
-    type: Object as PropType<Result>,
+    type: Object as PropType<DataMap>,
   },
   small: {
     type: Boolean,
@@ -27,15 +22,15 @@ defineProps({
 
 const i18n = I18n();
 
-const getDate = function (value: number) {
+const getDate = function (value: number | string) {
   return dateTime(`${value}`, "YYYYMMDD");
 };
 
-const getDay = function (value: number) {
+const getDay = function (value: number | string) {
   return dateDayFormat(getDate(value));
 };
 
-const getMonth = function (time: number) {
+const getMonth = function (time: number | string) {
   let value: number = toInteger(dateMonthFormat(getDate(time))) - 1;
   if (value < 0) {
     value = 0;
@@ -43,7 +38,7 @@ const getMonth = function (time: number) {
   return i18n.part(i18n.common.time.month, value, {});
 };
 
-const getWeek = function (value: number) {
+const getWeek = function (value: number | string) {
   const date = new Date(getDate(value));
   return i18n.part(i18n.common.time.week, date.getDay(), {});
 };
