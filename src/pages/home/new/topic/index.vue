@@ -10,7 +10,6 @@ const api = new Model();
 const list = [
   { id: 1, name: "NFT", value: "NFT", icon: "icon-paihang" },
   { id: 2, name: "DApp", value: "DAPP", icon: "icon-NFTs" },
-  // { id: 3, name: "APY", value: "APY", icon: "icon-apytag" },
 ];
 const rank: any = createRef("API.home.getTopicRank", []);
 const tabClick = async (value: string) => {

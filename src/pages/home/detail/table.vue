@@ -1,26 +1,24 @@
 <script lang="ts" setup>
-import VRouter from "src/components/v/router.vue";
-import { isBoolean, uuid } from "src/utils/";
+import { isBoolean } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
-import { ElTable, ElTableColumn } from "element-plus";
-// import { Model} from "src/logic/home";
-// import window from "src/plugins/browser/window";
-// import { createHref } from "src/plugins/router/pack";
-import { rowClass, headerCellClass, cellClass } from "src/pages/home/topic/data";
+import { ElTable, ElTableColumn, ElInput } from "element-plus";
+import HomeFilter from "../filter.vue";
+import window from "src/plugins/browser/window";
+import { createHref } from "src/plugins/router/pack";
+import { rowClass, headerCellClass, cellClass, toProject } from "src/pages/home/topic/data";
 import { config as routerConfig } from "src/router/config";
 import type { detail } from "src/types/home";
-// import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router";
-import { onUpdateReactive } from "src/utils/ssr/ref";
 import type { PropType } from "vue";
-import { reactive, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getValue } from "src/utils/root/data";
 
 import Content from "src/pages/home/topic/content/index.vue";
-import { getList, Table, Header } from "src/pages/home/topic/data";
+import { getList, Header } from "src/pages/home/topic/data";
+import document from "src/plugins/browser/document";
 
-defineProps({
+const props = defineProps({
   info: {
     type: Object as PropType<detail>,
     default: () => {
@@ -28,34 +26,27 @@ defineProps({
     },
   },
 });
-// const i18n = I18n();
+const height = document.body.clientWidth > 375 ? 60 : 50;
 const route = useRoute();
 const router = useRouter();
-const key = ref<string>(uuid());
+const key = ref<number>(0);
 const headerList = ref<Header[]>([]);
 const id: string = getValue<string>("query.id") as string;
-const chain = ref(getValue<string>("chain"));
-const category = ref(getValue<string>("category"));
-const query = ref(getValue<string>("search"));
-const sortField = ref(getValue<string>("sort_field"));
-const sortType = ref(getValue<string>("sort_type"));
-const params = function () {
-  return {
-    id,
-    page: 1,
-    page_size: 30,
-    chain: chain.value,
-    category: category.value,
-    query: query.value,
-    sort_field: sortField.value,
-    sort_type: sortType.value, // desc asc
-  };
-};
-// const isSearch = ref(false);
-// const api = new Model();
+const params = reactive({
+  id,
+  page: 1,
+  page_size: 20,
+  chain: getParam<string>("chain"),
+  category: getParam<string>("category"),
+  query: getParam<string>("search"),
+  sort_field: "",
+  sort_type: "", // desc asc
+});
+const isSearch = ref(false);
 watch(route, () => {
-  chain.value = getParam<string>("chain");
-  category.value = getParam<string>("category");
+  params.chain = getParam<string>("chain");
+  params.category = getParam<string>("category");
+  key.value++;
 });
 // 搜索
 const search = ref(getParam<string>("search"));
@@ -70,52 +61,26 @@ watch(search, (n: any) => {
 });
 
 // 排序
-const sort = (data: object) => {
-  // 修改排序字段与类型
-  sortField.value = safeGet<string>(data, "field");
-  sortType.value = safeGet<string>(data, "type");
-  key.value = uuid(params());
-};
-// const toProject = (url: string) => {
-//   if (url) {
-//     window.open(createHref(url));
-//   }
-// };
-// const getNameWidth = (item: any) => {
-//   // @ts-ignore
-//   if (item.key === "name" && safeGet(props.info, "show_type") === "data") {
-//     return "min-w-30 max-w-30";
-//     // @ts-ignore
-//   } else if (item.key === "name" && safeGet(props.info, "show_type") === "desc") {
-//     return "w-150";
-//   }
-//   return "";
-// };
-// 是否有筛选
-// const isFilter = () => {
-//   // @ts-ignore
-//   if (safeGet(props.info, "filters.chain.show") && safeGet(props.info, "filters.chain.options.length") > 0) {
-//     return true;
-//     // @ts-ignore
-//   } else if (safeGet(props.info, "filters.category.show") && safeGet(props.info, "filters.category.options.length") > 0) {
-//     return true;
-//     // @ts-ignore
-//   } else if (safeGet(props.info, "filters.search.show") && safeGet(props.info, "filters.search.options.length") > 0) {
-//     return true;
-//   }
-//   return false;
-// };
+const sort = () => key.value++;
 
-// let initStatus = true; //初始化
+// 是否有筛选
+const isFilter = computed(() => {
+  if (safeGet(props.info, "filters.chain.show") && (safeGet(props.info, "filters.chain.options.length") as number) > 0) {
+    return true;
+  } else if (safeGet(props.info, "filters.category.show") && (safeGet(props.info, "filters.category.options.length") as number) > 0) {
+    return true;
+  } else if (safeGet(props.info, "filters.search.show") && (safeGet(props.info, "filters.search.options.length") as number) > 0) {
+    return true;
+  }
+  return false;
+});
+
 const initValue = function () {
-  // if (initStatus) {
-  //   initStatus = false;
-  //   return table.items;
-  // }
   return [];
 };
-const requestList = async function () {
-  const { header, items } = await getList();
+const requestList = async function (query: any) {
+  const newParam = Object.assign(params, query);
+  const { header, items } = await getList(newParam);
   // 如果 header 数据已存在，则直接返回列表
   if (headerList.value.length > 0) {
     return items;
@@ -125,12 +90,22 @@ const requestList = async function () {
 };
 </script>
 <template>
-  <div class="table-box overflow-hidden md:mb-0 mb-4">
+  <div class="overflow-hidden md:mb-0 mb-4">
+    {{ isPc }}
+    <div class="flex xshidden flex-wrap justify-between items-baseline">
+      <HomeFilter v-if="safeGet(info, 'id') && isFilter" :key="key" :filters="safeGet(info, 'filters')" :info="info" class="mb-4" />
+      <client-only>
+        <div v-if="isSearch" class="relative flex flex-wrap items-center search">
+          <IconFont class="absolute text-global-highTitle text-opacity-45 z-22 left-3" size="16" type="icon-sousuo-da1" />
+          <el-input v-model="search" placeholder="Search" />
+        </div>
+      </client-only>
+    </div>
     <div :key="key">
-      <ui-pagination :limit="3" :init-value="initValue()" :request="requestList">
+      <ui-pagination :limit="20" :init-value="initValue()" :request="requestList">
         <template #default="{ list }">
-          <el-table :data="list" class="w-full" :row-style="rowClass" :header-cell-style="headerCellClass" :cell-style="cellClass">
-            <el-table-column class-name="lie" fixed :height="60" :width="30">
+          <el-table :data="list" class="w-full" :row-style="rowClass(height)" :header-cell-style="headerCellClass" :cell-style="cellClass" @row-click="toProject">
+            <el-table-column class-name="lie" fixed :width="50">
               <template #header>
                 <div class="header-name items-center flex h-full">#</div>
               </template>
@@ -145,7 +120,7 @@ const requestList = async function () {
             <template v-for="(header, index) in headerList" :key="index">
               <el-table-column :fixed="index === 0" :width="header.width ? header.width : 150">
                 <template #header>
-                  <ui-sort class="header-name" :active="header.active" :sort="header.sort" :sort-data="params()" :key-name="header.sort_field" :name="header.title" @change="sort" />
+                  <ui-sort class="header-name" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :name="header.title" @change="sort" />
                 </template>
                 <template #default="scope">
                   <div :class="{ 'text-center': isBoolean(header.center) }">

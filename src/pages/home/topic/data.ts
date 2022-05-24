@@ -4,6 +4,8 @@
 
 import safeGet from "@fengqiaogang/safe-get";
 import API from "src/api/";
+import window from "src/plugins/browser/window";
+import { createHref } from "src/plugins/router/pack";
 
 // 展示效果
 export enum HeaderType {
@@ -95,22 +97,23 @@ const header: Header[] = [
     fields: "whales_num",
     type: HeaderType.progress,
   },
-  // {
-  //   title: "走势图1",
-  //   fields: "id",
-  //   type: HeaderType.chartBar,
-  // },
-  // {
-  //   title: "走势图2",
-  //   fields: "id",
-  //   type: HeaderType.chartLine,
-  // },
+  {
+    title: "走势图1",
+    fields: "id",
+    type: HeaderType.chartBar,
+  },
+  {
+    title: "走势图2",
+    fields: "id",
+    type: HeaderType.chartLine,
+  },
 ];
 
-export const rowClass = () => {
+export const rowClass = (height = 60) => {
   const styleJson = {
-    height: "60px",
+    height: `${height}px`,
     border: "none",
+    cursor: "Pointer",
   };
   return styleJson;
 };
@@ -124,15 +127,21 @@ export const headerCellClass = () => {
   };
   return styleJson;
 };
+// row跳转
+export const toProject = (row: any) => {
+  if (!row.category) return "";
+  let url = "";
+  if (row.category === "NFT") {
+    url = `/rank/nft/${row.id}`;
+  } else {
+    url = `/rank/dapp/${row.id}`;
+  }
+  window.open(createHref(url));
+};
 export const cellClass = () => ({ border: "none" });
-export const getList = async function (): Promise<Table> {
+export const getList = async function (query: any): Promise<Table> {
   const api = new API();
-  const result = await api.home.getProjects<object>({
-    id: 2179,
-    page: 1,
-    page_size: 30,
-    category: "All",
-  } as any);
+  const result = await api.home.getProjects<object>(query);
 
   return {
     header,
