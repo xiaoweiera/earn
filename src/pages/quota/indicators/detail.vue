@@ -48,7 +48,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="py-6 px-4">
+  <div class="py-6 px-4 bg-global-topBg min-h-150">
     <div v-if="detail && detail.id" class="max-w-full w-250 mx-auto">
       <div class="shadow p-4 rounded-md">
         <div class="text-global-highTitle">

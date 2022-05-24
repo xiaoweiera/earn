@@ -32,7 +32,7 @@ const chartData = computed(function () {
 <template>
   <div>
     <div class="w-full h-full">
-      <ui-echart-content :custom="onCustom" :data="chartData.list" class="h-full" />
+      <!--      <ui-echart-content :custom="onCustom" :data="chartData.list" class="h-full" />-->
     </div>
     <div class="absolute left-4 bottom-4 z-1">
       <b class="block text-20 text-global-darkblue mb-2">{{ toNumberCash(value.last) }}</b>
