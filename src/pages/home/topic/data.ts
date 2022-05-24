@@ -6,6 +6,10 @@ import safeGet from "@fengqiaogang/safe-get";
 import API from "src/api/";
 import window from "src/plugins/browser/window";
 import { createHref } from "src/plugins/router/pack";
+import I18n from "src/utils/i18n";
+import { toUpper } from "ramda";
+
+const i18n = I18n();
 
 // 展示效果
 export enum HeaderType {
@@ -38,29 +42,49 @@ export interface Table {
   items: object[];
 }
 
+//得到title
+export const getTitle = (field: string) => {
+  let title = "";
+  //获取基础字段
+  const base = field.includes("_") ? field.split("_")[0] : field;
+  //@ts-ignore 基础字段title
+  const baseTitle = i18n.table[base];
+  const time = ["24h", "7d", "30d"];
+  //如果是图表 或者 基础字段 title为baseTitle
+  if (field.includes("chart") || !field.includes("_")) return baseTitle ? baseTitle : "--";
+  //变化率和变化量都是xxxChg+颗粒度
+  time.forEach((t) => {
+    if (field.includes(t)) {
+      //@ts-ignore
+      title = `${i18n.table[base]}Chg ${toUpper(t)}`;
+      return false;
+    }
+  });
+  return title ? title : "--";
+};
 const header: Header[] = [
   {
-    title: "项目名称",
+    title: "users",
     fields: ["logo", "name"],
     type: [HeaderType.logo, HeaderType.text],
   },
   {
     sort: true,
     active: true,
-    title: "地板价", // 表格名称
+    title: "users_24h_radio", // 表格名称
     fields: ["chains", "floor_price"],
     type: [HeaderType.chain, HeaderType.text],
   },
   {
     sort: true,
-    sort_field: "volume_24h",
-    title: "交易量",
+    sort_field: "users_24h",
+    title: "users_24h",
     center: true,
     fields: [["chains", "volume_24h"], "volume_change_percent_24h"],
     type: [[HeaderType.chain, HeaderType.number], HeaderType.radio],
   },
   {
-    title: "交易量(24)%",
+    title: "users_24h_chart",
     fields: "volume_change_percent_24h",
     type: HeaderType.radio,
   },

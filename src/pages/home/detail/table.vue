@@ -3,9 +3,7 @@ import { isBoolean } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
 import { ElTable, ElTableColumn, ElInput } from "element-plus";
 import HomeFilter from "../filter.vue";
-import window from "src/plugins/browser/window";
-import { createHref } from "src/plugins/router/pack";
-import { rowClass, headerCellClass, cellClass, toProject } from "src/pages/home/topic/data";
+import { rowClass, headerCellClass, cellClass, toProject, getTitle } from "src/pages/home/topic/data";
 import { config as routerConfig } from "src/router/config";
 import type { detail } from "src/types/home";
 import { getParam } from "src/utils/router";
@@ -17,7 +15,9 @@ import { getValue } from "src/utils/root/data";
 import Content from "src/pages/home/topic/content/index.vue";
 import { getList, Header } from "src/pages/home/topic/data";
 import document from "src/plugins/browser/document";
+import I18n from "src/utils/i18n";
 
+const i18n = I18n();
 const props = defineProps({
   info: {
     type: Object as PropType<detail>,
@@ -91,7 +91,6 @@ const requestList = async function (query: any) {
 </script>
 <template>
   <div class="overflow-hidden md:mb-0 mb-4">
-    {{ isPc }}
     <div class="flex xshidden flex-wrap justify-between items-baseline">
       <HomeFilter v-if="safeGet(info, 'id') && isFilter" :key="key" :filters="safeGet(info, 'filters')" :info="info" class="mb-4" />
       <client-only>
@@ -120,7 +119,7 @@ const requestList = async function (query: any) {
             <template v-for="(header, index) in headerList" :key="index">
               <el-table-column :fixed="index === 0" :width="header.width ? header.width : 150">
                 <template #header>
-                  <ui-sort class="header-name" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :name="header.title" @change="sort" />
+                  <ui-sort class="header-name" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :name="getTitle(header.title)" @change="sort" />
                 </template>
                 <template #default="scope">
                   <div :class="{ 'text-center': isBoolean(header.center) }">
