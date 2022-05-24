@@ -42,20 +42,21 @@ export default defineComponent({
     name: function () {
       const data = this.data;
       const type: ProjectType = this.project.type;
+      const rank = this.project.rank;
       if (type && (type === ProjectType.dapp || type === ProjectType.igo)) {
-        if (data.current_price > 0) {
+        if (rank) {
           return "DApp";
         } else {
           return "IDO";
         }
       } else if (type && type === ProjectType.airdrop) {
-        if (data.current_price > 0) {
+        if (rank) {
           return "DApp";
         } else {
           return "AirDrop";
         }
       } else if (type && type === ProjectType.nft) {
-        if (data.nft.floor_price > 0) {
+        if (rank) {
           return "NFT";
         } else {
           return "Mint";
