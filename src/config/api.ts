@@ -60,6 +60,8 @@ export const quota = {
   follow: "/api/v3/charts/{id}/follow", // 关注
   unfollow: "/api/v3/charts/{id}/unfollow", // 取消关注
   indicator: "/api/v1/charts/recommended", //推荐指标
+  indicatorDetail: "api/v2/charts/{id}/details", //推荐指标
+  indicatorNews: "/api/v1/charts/2194/posts", // 指标相关快讯列表
 };
 
 export const user = {

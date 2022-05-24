@@ -13,9 +13,10 @@ const Router = function () {
 
   // 推荐指标
   router.get(routerConfig.quota, quota.indicators);
+  router.get(`${routerConfig.quota}/:id`, quota.indicators);
 
   // 指标异动 - 详情
-  router.get(`${routerConfig.news}/:id`, quota.detail);
+  router.get(`${routerConfig.news}/:id`, quota.indicatorsDetail);
 
   // 指标异动
   // 旧路由，兼容处理

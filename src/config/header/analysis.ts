@@ -12,7 +12,6 @@ import { config as routerConfig } from "src/router/config";
 import { Address } from "./address";
 import { TopicList } from "./topic";
 import { Blog } from "./blog";
-import { Quota } from "./quota";
 import { DApp } from "./dapp";
 
 export const name = {
@@ -34,7 +33,6 @@ export const Analysis = function (lang?: Lang): MenuItem {
   const address = Address(lang);
   const topic = TopicList(lang);
   const blog = Blog(lang);
-  const quota = Quota(lang);
 
   const nft = getItem(ranks.children, RankName.nft);
   const rankDApp = getItem(ranks.children, RankName.dapp);
@@ -69,7 +67,6 @@ export const Analysis = function (lang?: Lang): MenuItem {
     group: true,
   });
   db.insert(address);
-  db.insert(quota);
   db.insert({
     name: i18n.menu.group.data,
     header: false,
