@@ -83,9 +83,9 @@ const isLayout2 = function (path: string) {
           </div>
         </ui-sticky>
         <div class="router-view">
-          <ui-sticky v-if="isLayout2($route.path)" class="z-999">
+          <div v-if="isLayout2($route.path)">
             <MenuSub :header="currMenu()" />
-          </ui-sticky>
+          </div>
           <router-view />
         </div>
       </div>

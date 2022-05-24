@@ -125,3 +125,12 @@ export interface IndicatorQuery {
 export enum indicatorTypes {
   news = "news",
 }
+
+export interface IndicatorDetail {
+  id: string | number;
+  name: string; // 标题
+  desc: string; // 描述
+  follow_count: number; // 已关注人数
+  follows_avatar_url: string; // 关注人数图片
+  view_count: number; // 已查看人数
+}

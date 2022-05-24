@@ -45,6 +45,7 @@ export const dApp = {
   detail: "api.dApp.getDetail",
   DAppDetail: {
     invest: "API.DApp.invest",
+    holder: "API.DApp.holder",
   },
   apply: "api.dApp.apply",
 };

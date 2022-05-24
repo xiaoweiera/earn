@@ -38,15 +38,10 @@ const link = computed<string>(function () {
 
 <template>
   <div class="quota-detail">
-    <!-- 发布时间 -->
-    <AtTime v-if="!isList" :data="data" :is-list="isList" class="mb-2" />
-
     <div v-if="isList && data.chart" class="mb-2 flex justify-between items-center">
       <!-- 标题 -->
-      <v-router class="flex items-center mr-2 md:mr-0" :disable="!isList" :href="link" target="_blank">
+      <v-router class="block mr-2 md:mr-0" :disable="!isList" :href="link" target="_blank">
         <h3 class="text-16-24 text-global-highTitle">{{ data.chart.name }}</h3>
-        <!-- 发布时间 -->
-        <AtTime class="ml-1.5" :is-list="isList" :data="data" />
       </v-router>
       <div>
         <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />

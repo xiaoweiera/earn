@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { isArray } from "src/utils/";
 import { onMounted } from "vue";
 import document from "src/plugins/browser/document";
 import safeGet from "@fengqiaogang/safe-get";
+import type { AdData } from "src/types/home/index";
 // 引入 swiper vue 组件
 // @ts-ignore
 import SwiperCore, { Autoplay, Pagination } from "swiper";
@@ -20,7 +22,7 @@ const props = defineProps({
     required: true,
   },
 });
-const adsList = createRef("API.home.ads", []);
+const adsList = createRef<AdData[]>("API.home.ads", []);
 const getUrl = (data: any) => {
   if (document.body.clientWidth > 768) {
     return safeGet(data, "image");
@@ -28,6 +30,12 @@ const getUrl = (data: any) => {
     return safeGet(data, "image_app") ? safeGet(data, "image_app") : safeGet(data, "image");
   }
 };
+
+const isShow = function (): boolean {
+  const list = adsList.value;
+  return !!(list && isArray(list) && list.length > 0);
+};
+
 onMounted(() => {
   const api = new Model();
   // 得到数据汇总
@@ -36,8 +44,8 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div v-if="adsList && adsList.length > 0">
-      <div class="w-full h-full relative">
+    <div v-if="isShow()">
+      <div class="w-full h-15 relative">
         <div class="ad text-number">AD</div>
         <Swiper class="h-15 rounded-kd6px" :initial-slide="0" :loop="true" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true }">
           <template v-for="(item, index) in adsList" :key="index">
@@ -61,6 +69,7 @@ onMounted(() => {
   @apply absolute top-3 left-3 z-3;
   @apply flex items-center justify-center;
 }
+
 ::v-deep(.swiper-pagination-bullet) {
   background: rgba(255, 255, 255, 0.45) !important;
 }

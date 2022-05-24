@@ -16,7 +16,7 @@ import RichText from "./richtext.vue";
 import { Invite } from "src/types/common/activity";
 import { getValue } from "src/utils/root/data";
 import { alias, onLoadReactive, createReactive } from "src/utils/ssr/ref";
-import { dateYMDHmsFormat } from "src/utils/";
+import { dateYMDFormat } from "src/utils/";
 
 const detail = createReactive<Invite>(alias.activity.invite.detail, {} as Invite);
 
@@ -63,13 +63,13 @@ onMounted(function () {
         <h3 v-show="detail.name" class="mb-3 text-32 font-b text-global-highTitle">{{ detail.name }}</h3>
         <p v-show="detail.begin_time" class="mb-8 text-14-20 text-global-highTitle text-opacity-85">
           <span class="block md:inline mb-1 md:mb-0">{{ i18n.activity.label.time }}</span>
-          <span>{{ dateYMDHmsFormat(detail.begin_time) }}</span>
+          <span>{{ dateYMDFormat(detail.begin_time) }}</span>
           <template v-if="detail.end_time">
             <span class="mx-2">-</span>
-            <span>{{ dateYMDHmsFormat(detail.end_time) }}</span>
+            <span>{{ dateYMDFormat(detail.end_time) }}</span>
           </template>
         </p>
-        <h4 class="text-global-highTitle text-24-28">{{ i18n.activity.label.prize }}</h4>
+        <!--        <h4 class="text-global-highTitle text-24-28">{{ i18n.activity.label.prize }}</h4>-->
         <RichText :html="detail.description" />
       </div>
     </div>

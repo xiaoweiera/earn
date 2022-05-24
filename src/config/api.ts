@@ -40,6 +40,7 @@ export const dapp = {
   news: "/api/v1/dapps/news", //news列表
   options: "/api/dapps/{version}/apply/content", //获取项目类型
   commit: "/api/dapps/{version}/apply/submit", //提交项目
+  holder: "/api/v1/dapps/{project_id}/holder_info", //项目NFT持有人信息
 };
 
 export const blog = {
@@ -59,6 +60,8 @@ export const quota = {
   follow: "/api/v3/charts/{id}/follow", // 关注
   unfollow: "/api/v3/charts/{id}/unfollow", // 取消关注
   indicator: "/api/v1/charts/recommended", //推荐指标
+  indicatorDetail: "api/v2/charts/{id}/details", //推荐指标
+  indicatorNews: "/api/v1/charts/2194/posts", // 指标相关快讯列表
 };
 
 export const user = {
@@ -83,6 +86,7 @@ export const common = {
   system: "/api/v1/system", //下载链接
   ipValidate: "/api/v1/ip/validate", // 判断 Ip 来源
   visit: "/api/v1/statistic/do_visit_statistic", // pv/uv 统计
+  search: "/api/v1/dapps/search", // 搜索
 };
 
 export const rank = {

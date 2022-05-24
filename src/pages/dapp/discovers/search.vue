@@ -50,12 +50,12 @@ onMounted(() => {
 </script>
 <template>
   <div v-if="data" class="mt-5">
-    <div class="hidden md:block">
+    <div class="hidden lg:block">
       <!-- 项目类型、公链、搜索框 -->
       <div class="flex justify-between items-center">
         <div class="flex items-center flex-1">
           <!-- 项目类型 -->
-          <div class="hidden md:block">
+          <div>
             <DappDiscoversContentType :key="keys" :list="tabCage(data.category, 'group', config.dappList)" name="group" :split="4" :title="i18n.home.topList.category" :title-width="getClassWidth()" />
           </div>
           <div class="flex items-center">
@@ -76,7 +76,7 @@ onMounted(() => {
       <!-- platform -->
       <DappDiscoversContentType :key="keys" :list="tabPlat(data.platform, 'platform', config.dappList)" class="mt-4" name="platform" :split="5" :title="i18n.home.topList.plat" :title-width="getClassWidth()" />
     </div>
-    <div class="block md:hidden">
+    <div class="block lg:hidden">
       <div>
         <div class="flex items-center">
           <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.chain" :href="config.dappList" name="chain" :title="i18n.home.idoIgoProject.chain" />
@@ -113,7 +113,7 @@ onMounted(() => {
   }
 }
 
-@screen md {
+@screen lg {
   .input-style {
     ::v-deep(.el-input__inner) {
       padding-left: 31px !important;

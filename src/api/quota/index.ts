@@ -24,12 +24,23 @@ export default class extends ApiTemplate {
           const published_at = safeGet<number>(data, "published_at") || Date.now();
           const time = dateTime(published_at);
           const date = toInteger(dayjs(time).format("YYYYMMDD"));
-          return { ...data, published_at, time, date };
+          return {
+            ...data,
+            published_at,
+            time,
+            date,
+          };
         }, list);
       }
       return [];
     };
-    const param = Object.assign({ page: 1, page_size: 50 }, query ? query : {});
+    const param = Object.assign(
+      {
+        page: 1,
+        page_size: 50,
+      },
+      query ? query : {},
+    );
     return [param, callback] as any;
   }
 
@@ -51,6 +62,7 @@ export default class extends ApiTemplate {
     const query = { id };
     return [query] as any;
   }
+
   // 关注
   @post(api.quota.follow)
   @userToken(true)
@@ -58,6 +70,7 @@ export default class extends ApiTemplate {
   onFollow<T>(@required id: string | number): Promise<T> {
     return [{ id }] as any;
   }
+
   // 取消关注
   @post(api.quota.unfollow)
   @userToken(true)
@@ -65,11 +78,40 @@ export default class extends ApiTemplate {
   unFollow<T>(@required id: string | number): Promise<T> {
     return [{ id }] as any;
   }
+
   // 推荐指标
   @tryError(DefaultValue([]))
   @get(api.quota.indicator)
   @validate
   getIndicator<T>(@required query: object): Promise<T> {
+    const callback = function (data: object): T[] {
+      const list = safeGet<T[]>(data, "results");
+      if (list) {
+        return list;
+      }
+      return [];
+    };
+    return [query, callback] as any;
+  }
+
+  // 推荐指标 - 详情
+  @tryError(DefaultValue({}))
+  @get(api.quota.indicatorDetail)
+  @validate
+  getIndicatorDetail<T>(@required id: string | number): Promise<T> {
+    return [{ id }] as any;
+  }
+
+  // 指标 - 相关快讯列表
+  @tryError(DefaultValue([]))
+  @get(api.quota.indicatorNews)
+  @validate
+  indicatorNewList<T>(@required indicatorID: string | number, page = 1, limit = 20): Promise<T[]> {
+    const query = {
+      page,
+      page_size: limit,
+      indicatorID,
+    };
     const callback = function (data: object): T[] {
       const list = safeGet<T[]>(data, "results");
       if (list) {

@@ -30,6 +30,10 @@ export const indicators = async function (req: Request, res: Response) {
   });
 };
 
+export const indicatorsDetail = async function (req: Request, res: Response) {
+  res.send({});
+};
+
 // 指标异动 - 列表
 export const signals = async function (req: Request, res: Response) {
   const i18n = I18n(req);

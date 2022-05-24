@@ -14,6 +14,7 @@ import { echart } from "src/logic/ui/echart/decorate";
 import type { EchartData } from "src/types/echarts/type";
 import { FundsQuery } from "src/types/dapp/invest";
 import { FormData } from "src/types/dapp/apply";
+import { HolderQuery } from "src/types/dapp/holder";
 
 export default class extends ApiTemplate {
   // 项目库列表
@@ -276,5 +277,13 @@ export default class extends ApiTemplate {
   @validate
   onSubmit<T>(@required data: FormData): Promise<T> {
     return [data] as any;
+  }
+  // NFT持有人信息
+  @tryError(DefaultValue({}))
+  @get(api.dapp.holder, expire.min30)
+  @userToken()
+  @validate
+  getHolderInfo<T>(@required query: HolderQuery): Promise<T> {
+    return [query] as any;
   }
 }

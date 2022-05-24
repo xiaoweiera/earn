@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { ElPopover } from "element-plus";
 import document from "src/plugins/browser/document";
 import I18n from "src/utils/i18n";
 import { createRef } from "src/utils/ssr/ref";
+import window from "src/plugins/browser/window";
 
 const i18n = I18n();
 
@@ -40,74 +41,120 @@ const cancel = () => (ideaState.value = !ideaState.value);
 const shareText = function (title: string, keywords: string) {
   return `${title}\n${keywords}`;
 };
+const scrollTop = ref<number>(0); // 记录当前的滚动距离
+const topShow = ref<boolean>(false);
+const handleScroll = () => {
+  window.addEventListener("scroll", () => {
+    scrollTop.value = window.scrollY;
+  });
+  if (scrollTop.value >= window.innerHeight * 2) {
+    topShow.value = true;
+  } else {
+    topShow.value = false;
+  }
+};
+onMounted(() => {
+  handleScroll();
+});
+watch(scrollTop, () => {
+  handleScroll();
+});
 </script>
 <template>
   <div>
     <div class="xshidden relative">
-      <div v-if="!show" class="w-12 fixed right-5 bottom-5 lg:bottom-20 z-1999">
+      <div v-if="!show" class="w-11 fixed right-5 bottom-5 lg:bottom-20 z-1999">
         <div class="hidden lg:block">
-          <v-router v-if="applyUrl" :href="applyUrl" class="w-full block text-center rounded-kd4px py-3 tagShadow hand" target="_blank">
-            <IconFont class="text-global-highTitle text-opacity-65" size="20" type="icon-shangchuan" />
-            <div :class="current === 'cn' ? ' w-6 ' : ''" class="text-12-14 text-global-highTitle text-opacity-65 mx-auto">
-              {{ i18n.common.apply }}
-            </div>
+          <v-router v-if="applyUrl" :href="applyUrl" class="w-full h-9 block" target="_blank">
+            <ui-hover class="tool-hover w-full h-full flex items-center justify-center rounded-kd24px tagShadow hand" :append-to-body="false" :offset="32" placement="left">
+              <template #label>
+                <IconFont class="flex items-center justify-center text-global-highTitle text-opacity-65" size="20" type="icon-shangchuan" />
+              </template>
+              <template #content>
+                <div class="text-kd14px18px text-global-white font-medium font-kdInter">
+                  {{ i18n.common.apply }}
+                </div>
+              </template>
+            </ui-hover>
           </v-router>
-          <div v-if="isIdea" class="w-full rounded-kd4px py-3 mt-3 tagShadow hand">
+          <div v-if="isIdea" class="w-full h-9 mt-3.5 hand">
+            <ui-hover class="tool-hover w-full h-full flex items-center justify-center rounded-kd24px tagShadow hand" :append-to-body="false" :offset="32" placement="left" @click="cancel()">
+              <template #label>
+                <IconFont class="flex items-center justify-center text-global-highTitle text-opacity-65" size="20" type="icon-editFix" />
+              </template>
+              <template #content>
+                <div class="text-kd14px18px text-global-white font-medium font-kdInter">{{ i18n.common.idea }}</div>
+              </template>
+            </ui-hover>
             <div v-if="ideaState" class="fixed z-1005 w-90 right-17 bottom-20 transform -translate-x-4">
               <client-only>
                 <UiFeedback class="w-full" @cancel="cancel" />
               </client-only>
             </div>
-            <div class="text-center" @click="cancel()">
-              <IconFont class="text-global-highTitle text-opacity-65" size="20" type="icon-editFix" />
-              <div :class="current === 'cn' ? ' w-6 ' : ''" class="text-12-14 text-global-highTitle text-opacity-65 mx-auto">
-                {{ i18n.common.idea }}
-              </div>
-            </div>
           </div>
           <!-- 分享 -->
-          <div class="w-full rounded-kd4px py-3 mt-3 tagShadow hand">
-            <ui-share :value="shareText(title, description)" class="w-full block text-center rounded-kd4px hand">
-              <IconFont class="text-global-highTitle text-opacity-65" size="20" type="icon-fenxiang1" />
-              <div class="text-12-14 text-global-highTitle text-opacity-65">{{ i18n.dapp.share.label }}</div>
+          <div class="w-full h-9 rounded-kd24px mt-3.5 tagShadow hand">
+            <ui-share :value="shareText(title, description)" class="w-full h-full block flex items-center justify-center">
+              <ui-hover class="tool-hover w-full h-full flex items-center justify-center rounded-kd24px tagShadow hand" :append-to-body="false" :offset="32" placement="left">
+                <template #label>
+                  <IconFont class="text-global-highTitle text-opacity-65 flex items-center" size="20" type="icon-fenxiang1" />
+                </template>
+                <template #content>
+                  <div class="text-kd14px18px text-global-white font-medium font-kdInter">{{ i18n.dapp.share.label }}</div>
+                </template>
+              </ui-hover>
             </ui-share>
           </div>
-          <div class="w-full block rounded-kd4px flex flex-col items-center justify-between py-3 mt-3 tagShadow hand">
-            <v-router :href="i18n.chat.medium" target="_blank">
-              <IconFont class="text-global-primary" size="26" type="medium" />
-            </v-router>
-            <v-router :href="i18n.chat.discord" target="_blank">
-              <IconFont class="text-global-primary" size="28" type="discord" />
-            </v-router>
-            <el-popover placement="left" :width="50" trigger="hover" :append-to-body="false">
-              <template #reference>
-                <v-router :href="i18n.chat.telegram" target="_blank">
-                  <IconFont class="text-global-primary" size="24" type="icon-telegram" />
+          <div class="w-full h-35 block rounded-kd24px flex flex-col items-center justify-between py-3.5 mt-3.5 tagShadow hand">
+            <ui-hover class="telegram-hover w-full h-5 flex items-center justify-center" placement="left" :append-to-body="false" :offset="32">
+              <template #label>
+                <v-router class="h-5" :href="i18n.chat.telegram" target="_blank">
+                  <IconFont class="flex items-center justify-center text-global-primary" size="20" type="icon-telegram" />
                 </v-router>
               </template>
-              <div class="w-20 w-fit text-center">
-                <UiQrcode width="80" height="80" href :value="i18n.chat.telegram" />
-              </div>
-            </el-popover>
-            <v-router key="1" :href="i18n.chat.twitter" target="_blank">
-              <IconFont class="text-global-primary" size="24" type="icon-twitter" />
+              <template #content>
+                <div class="w-20 w-fit text-center">
+                  <UiQrcode width="80" height="80" href :value="i18n.chat.telegram" />
+                </div>
+              </template>
+            </ui-hover>
+            <v-router key="1" class="h-5" :href="i18n.chat.twitter" target="_blank">
+              <IconFont class="text-global-primary" size="20" type="icon-twitter" />
+            </v-router>
+            <v-router class="h-5" :href="i18n.chat.discord" target="_blank">
+              <IconFont class="text-global-darkblue" size="20" type="icon-discord3" />
+            </v-router>
+            <v-router class="h-5" :href="i18n.chat.medium" target="_blank">
+              <IconFont class="text-global-darkblue" size="20" type="icon-Group" />
             </v-router>
           </div>
         </div>
-        <div class="w-full block border-1 text-center rounded-kd4px pt-3 pb-1 mt-3 tagShadow hand" @click="back">
-          <IconFont class="text-global-highTitle text-opacity-65" size="24" type="icon-fixedBackTop" />
+        <div v-if="topShow" class="w-full h-9 block flex items-center justify-center rounded-kd24px mt-3.5 tagShadow hand" @click="back">
+          <IconFont class="h-full flex items-center justify-center text-global-highTitle text-opacity-65" size="20" type="icon-fixedBackTop" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
-::v-deep(.el-popover.el-popper.is-light) {
-  min-width: 105px !important;
+.tool-hover {
+  ::v-deep(.el-popper) {
+    background-color: #111316;
+    word-break: keep-all;
+    @apply min-w-14 border-0 rounded-kd6px flex items-center justify-center p-2;
+    .el-popper__arrow::before {
+      background-color: #111316;
+      @apply border-0;
+    }
+  }
+}
+.telegram-hover {
+  ::v-deep(.el-popper) {
+    @apply min-w-23 p-1.5;
+  }
 }
 .tagShadow {
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06), 0px 1px 2px rgba(0, 0, 0, 0.1);
   @apply bg-white;
 }
 </style>

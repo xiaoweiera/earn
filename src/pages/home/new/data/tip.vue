@@ -6,7 +6,9 @@ import I18n from "src/utils/i18n";
 defineProps({
   data: {
     type: Object,
-    required: true,
+    default() {
+      return {};
+    },
   },
 });
 </script>

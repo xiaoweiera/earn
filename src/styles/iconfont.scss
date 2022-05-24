@@ -45,9 +45,10 @@ i {
     &:not(.icon-vip1) {
       /*
        width: $number;
-       max-width: $number;
       */
+      max-width: $number;
       min-width: $number;
+      max-width: $number;
       height: $number;
       max-height: $number;
       min-height: $number;

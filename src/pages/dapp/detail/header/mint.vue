@@ -36,7 +36,7 @@ const isFooterEmpty = function (data: DAppData): boolean {
 <template>
   <div>
     <div class="flex items-center justify-between">
-      <Price :progress="data.nft.mint_status" label="Status" value="Mind" />
+      <Price :progress="data.nft.mint_status" label="Status" value="Mint" />
       <div>
         <div v-if="isAfter(data.nft.mint_start_at)" class="p-1">
           <ui-time-blue :value="data.nft.mint_start_at" />

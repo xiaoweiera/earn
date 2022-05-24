@@ -20,6 +20,7 @@ export enum TabName {
   igo = "igo",
   airdrop = "airdrops",
   mint = "mint",
+  holder = "holder",
 }
 
 export enum DataType {
@@ -193,6 +194,7 @@ export interface DAppData {
   preferred_module: string;
   preferred_activity?: Activity; // 目前阶段
   latest_investment?: Investment; // 项目最新融资轮次
+  current_price: number; //项目代币当前价格
 }
 
 export interface blogDAppData extends DAppData {
