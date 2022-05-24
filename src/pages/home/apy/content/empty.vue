@@ -29,11 +29,11 @@ const i18n = I18n();
               </Hover>
             </div>
             <v-router :href="i18n.chat.discord" class="flex ml-6" target="_blank">
-              <IconFont class="flex text-global-primary" size="24" type="discord" />
+              <IconFont class="flex text-global-primary" size="24" type="icon-discord3" />
             </v-router>
 
             <v-router :href="i18n.chat.medium" class="flex ml-6" target="_blank">
-              <IconFont class="flex text-global-primary" size="24" type="medium" />
+              <IconFont class="flex text-global-primary" size="24" type="icon-Group" />
             </v-router>
           </div>
         </div>
