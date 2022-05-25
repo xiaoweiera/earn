@@ -51,7 +51,7 @@ const getCopyValue = function (value?: string) {
   <client-only class="ui-lock relative">
     <div class="virtual-shadow h-20 absolute left-0 right-0 bottom-full"></div>
     <div class="text-center">
-      <div>
+      <div style="color: #f0bf13">
         <IconFont size="24" type="icon-lock" />
       </div>
       <p class="lock-tips mt-2">

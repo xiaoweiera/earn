@@ -38,6 +38,8 @@ export interface Chart {
   desc: string; // 描述
   follow_count?: number; // 关注
   view_count?: number; // 查看人数
+  chart_type?: string; // vip 类型
+  unlocked?: boolean; // 是否已解锁
 }
 
 export interface Data {

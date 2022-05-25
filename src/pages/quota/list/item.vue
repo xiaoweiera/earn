@@ -41,14 +41,14 @@ const link = computed<string>(function () {
     <div v-if="isList && data.chart" class="mb-2 flex justify-between items-center">
       <!-- 标题 -->
       <v-router class="block mr-2 md:mr-0" :disable="!isList" :href="link" target="_blank">
-        <h3 class="text-16-24 text-global-highTitle">{{ data.chart.name }}</h3>
+        <h3 class="text-16-24 text-global-black-title">{{ data.chart.name }}</h3>
       </v-router>
       <div>
         <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />
       </div>
     </div>
 
-    <div class="text-global-highTitle text-opacity-65">
+    <div class="text-global-black-desc">
       <div class="text-14-20">
         <!-- 文案描述 -->
         <v-router :disable="!isList" :href="link" class="block" name="div" target="_blank">

@@ -13,7 +13,7 @@ const iconFont = [
   "//at.alicdn.com/t/font_2596648_z6gkytzcaf.js",
 
   // 通用
-  "//at.alicdn.com/t/font_2596380_3jn7w4aspmy.js"
+  "//at.alicdn.com/t/font_2596380_0jlb63g84gp.js"
 ];
 
 module.exports = iconFont;
