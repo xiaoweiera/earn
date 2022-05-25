@@ -122,10 +122,10 @@ watch(scrollTop, () => {
               <IconFont class="text-global-primary" size="20" type="icon-twitter" />
             </v-router>
             <v-router class="h-5" :href="i18n.chat.discord" target="_blank">
-              <IconFont class="text-global-darkblue" size="20" type="icon-discord3" />
+              <IconFont class="text-global-darkblue" size="20" type="icon-discord2" />
             </v-router>
             <v-router class="h-5" :href="i18n.chat.medium" target="_blank">
-              <IconFont class="text-global-darkblue" size="20" type="icon-Group" />
+              <IconFont class="text-global-darkblue" size="20" type="icon-medium1" />
             </v-router>
           </div>
         </div>
