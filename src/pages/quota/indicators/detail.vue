@@ -6,6 +6,7 @@
 import API from "src/api/";
 import I18n from "src/utils/i18n/";
 import { onMounted, ref } from "vue";
+import OnFollow from "../follow/on.vue";
 import { getValue } from "src/utils/root/data";
 import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { Data, IndicatorDetail, DataMap } from "src/types/quota/";
@@ -50,14 +51,15 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="py-6 px-4 bg-global-topBg min-h-150">
+  <div class="py-6 px-4 min-h-150">
     <div v-if="detail && detail.id" class="max-w-full w-250 mx-auto">
-      <div class="shadow p-4 rounded-md">
-        <div class="text-global-black-title">
+      <div class="shadow-base p-4 rounded-md">
+        <div class="text-global-black-title flex items-center justify-between">
           <h3 class="text-18-24 font-m">{{ detail.name }}</h3>
+          <OnFollow :id="detail.id" v-model:status="detail.followed" />
         </div>
         <div class="mt-2.5">
-          <ui-description :line="3" line-height="20px" view-all-bg="bg-global-topBg">
+          <ui-description :line="3" line-height="20px">
             <p class="text-12-20 text-global-black-desc">{{ detail.desc }}</p>
           </ui-description>
         </div>
@@ -72,7 +74,7 @@ onMounted(function () {
       <div class="pt-9">
         <h5 class="text-18-24 mb-5">{{ i18n.news.signals }}</h5>
         <ui-pagination :limit="20" :request="onUpdateList" @change="onChange">
-          <div>
+          <div class="indicators-quota-list">
             <Calendar v-for="data in quotaList" :key="data.date" :data="data">
               <template #default="{ data }">
                 <ui-ad v-if="data && data.type" :data="data" />
