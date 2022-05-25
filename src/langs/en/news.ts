@@ -28,4 +28,6 @@ export default {
     follow: "Follow",
     caption: "Caption",
   },
+  signals: "Signals",
+  unlock: "Download KingData App Unlock Indicator",
 };

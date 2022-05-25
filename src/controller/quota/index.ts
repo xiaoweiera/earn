@@ -31,6 +31,7 @@ export const indicators = async function (req: Request, res: Response) {
 };
 
 export const indicatorsDetail = async function (req: Request, res: Response) {
+  res.locals.menuActive = names.quota.indicators;
   res.send({});
 };
 
@@ -63,7 +64,7 @@ export const detail = async function (req: Request, res: Response) {
     const api = new API(req);
     const [data, recommend] = await Promise.all([
       api.quota.getDetail<Data>(id), // 详情数据
-      api.quota.getRecommend<Data[]>(id), // 相关推荐
+      api.quota.getRecommend<Data[]>(), // 相关推荐
     ]);
     res.locals.menuActive = names.quota.signals;
     let title: string = i18n.news.meta.title.alert;

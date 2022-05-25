@@ -9,6 +9,7 @@ export interface MenuItem {
   label?: string;
   href?: string; // 链接地址
   icon?: string; // 图标
+  font?: string; // 标题后面的图标
   // 是否在大屏模式下展示
   header?: boolean;
   // 导航末尾展示组件名称

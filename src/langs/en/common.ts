@@ -31,6 +31,7 @@ export default {
     about: { name: "About", href: "https://kingdata.medium.com/about-kingdata-growthpad-36907c18440c" },
     download: "Download KingData APP",
     download2: "Download APP",
+    download3: "Download",
   },
   time: {
     date: "Date",

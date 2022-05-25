@@ -28,4 +28,6 @@ export default {
     follow: "人关注",
     caption: "指标解释",
   },
+  signals: "异动播报",
+  unlock: "下载 KingData App 解锁指标",
 };
