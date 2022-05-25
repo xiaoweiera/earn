@@ -46,7 +46,7 @@ onMounted(function () {
         </span>
       </v-router>
     </div>
-    <ul class="pt-4 grid grid-cols-2 gap-6">
+    <ul class="pt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
       <template v-for="(data, index) in list" :key="index">
         <li :class="{ hidden: !!(pid && data.id === pid) }">
           <v-router class="block" :href="`${routerConfig.quota}/${data.id}`" target="_blank" name="a">
