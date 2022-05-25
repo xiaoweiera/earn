@@ -24,7 +24,7 @@ export default {
     keywords: "NFT,DApp,CoinMarketCap,CoinGecko,pancakeswap,交易所,binance,defi,crypto,airdrop,空投,加密货币,巨鲸,山寨币,token",
   },
   detail: {
-    recommend: "相关推荐",
+    recommend: "相关推荐指标",
     follow: "人关注",
     caption: "指标解释",
   },

@@ -5,12 +5,15 @@
  */
 import API from "src/api/";
 import { onMounted } from "vue";
+import { dateDiff } from "src/utils/";
 import Item from "../list/item.vue";
 import Chart from "./chart.vue";
 import Recommend from "./recommend.vue";
+import Vague from "../vague.vue";
 import safeGet from "@fengqiaogang/safe-get";
 import type { Data } from "src/types/quota/";
 import { getValue } from "src/utils/root/data";
+import { isLocked } from "src/logic/quota/";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 
 const getDetail = function () {
@@ -38,16 +41,29 @@ onMounted(function () {
         <template #default>
           <div class="pl-4 lg:pl-0 pt-4 lg:pt-6 pr-4 lg:pr-6">
             <template v-if="detail && detail.id">
-              <Chart :data="detail" />
-              <Item class="mt-8" :data="detail" :is-list="false" />
+              <div>
+                <h3 class="text-32 text-global-black-title">{{ detail.title || detail.chart.name }}</h3>
+              </div>
+              <p class="text-global-text-grey mt-6">
+                <span class="text-14-18">{{ dateDiff(detail.published_at) }}</span>
+              </p>
+              <Vague :data="detail">
+                <Item class="mt-6" :data="detail" :is-list="false" />
+              </Vague>
+              <div class="py-8">
+                <Chart :data="detail" />
+              </div>
             </template>
+            <!--推荐-->
+            <div>
+              <Recommend :pid="safeGet(detail, 'chart.id')" />
+            </div>
           </div>
         </template>
         <!--右侧 App 下载-->
         <template #right>
           <div class="pt-6">
-            <Recommend class="mb-3" />
-            <ui-app-download direction="horizontal" />
+            <ui-app-download />
           </div>
         </template>
       </ui-box>
@@ -57,6 +73,6 @@ onMounted(function () {
 
 <style lang="scss" scoped>
 .ui-box {
-  --ui-box-right: 224px;
+  --ui-box-right: 184px;
 }
 </style>

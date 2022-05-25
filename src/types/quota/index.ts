@@ -43,6 +43,7 @@ export interface Chart {
 }
 
 export interface Data {
+  title?: string; // 标题
   id: string | number; // 数据ID
   pid: string | number; // 父ID(取 published_at 中的年月日做分类)
   post_type: PostType; // 数据类型
@@ -110,7 +111,9 @@ export interface IndicatorItem {
   followed: boolean; // 是否关注
   name: string; // 标题
   trends: TrendData | undefined; // 图表数据
-  [key: string]: any;
+  follow_count: number; // 已关注人数
+  follows_avatar_url: string; // 关注人数图片
+  view_count: number; // 已查看人数
 }
 
 export interface IndicatorResult {
@@ -128,11 +131,6 @@ export enum indicatorTypes {
   news = "news",
 }
 
-export interface IndicatorDetail {
-  id: string | number;
-  name: string; // 标题
-  desc: string; // 描述
-  follow_count: number; // 已关注人数
-  follows_avatar_url: string; // 关注人数图片
-  view_count: number; // 已查看人数
+export interface IndicatorDetail extends IndicatorItem {
+  [key: string]: any;
 }

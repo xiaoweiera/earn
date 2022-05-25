@@ -55,8 +55,8 @@ onMounted(function () {
           <h3 class="text-18-24 font-m">{{ detail.name }}</h3>
         </div>
         <div class="mt-2.5">
-          <ui-description :line="3" :line-height="20">
-            <p class="text-12-20 text-global-black-desc text-opacity-65">{{ detail.desc }}</p>
+          <ui-description :line="3" line-height="20px" view-all-bg="bg-global-topBg">
+            <p class="text-12-20 text-global-black-desc">{{ detail.desc }}</p>
           </ui-description>
         </div>
         <div class="mt-2 flex items-center text-global-text-grey text-opacity-65">
