@@ -23,7 +23,11 @@ const isShowSub = function (data: MenuItem) {
             <IconFont size="8" type="redTip" />
           </div>
           <slot name="label">
-            <span>{{ data.name }}</span>
+            <span v-if="data.font" class="flex items-center">
+              <span>{{ data.name }}</span>
+              <icon-font class="ml-1.5" :type="data.font" size="24" />
+            </span>
+            <span v-else>{{ data.name }}</span>
           </slot>
         </div>
       </div>

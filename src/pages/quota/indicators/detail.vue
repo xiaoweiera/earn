@@ -4,6 +4,7 @@
  * @auth svon.me@gmail.com
  */
 import API from "src/api/";
+import I18n from "src/utils/i18n/";
 import { onMounted, ref } from "vue";
 import { getValue } from "src/utils/root/data";
 import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
@@ -13,6 +14,7 @@ import { Classify } from "src/utils/convert/classify";
 import Item from "../list/item.vue";
 import Calendar from "../calendar/index.vue";
 
+const i18n = I18n();
 const classify = Classify("published_at", "date");
 const quotaList = ref<DataMap[]>([]);
 const detail = createReactive<IndicatorDetail>("quota.detail", {} as IndicatorDetail);
@@ -68,7 +70,7 @@ onMounted(function () {
       </div>
       <!--快讯列表-->
       <div class="pt-9">
-        <h5 class="text-18-24 mb-5">异动播报</h5>
+        <h5 class="text-18-24 mb-5">{{ i18n.news.signals }}</h5>
         <ui-pagination :limit="20" :request="onUpdateList" @change="onChange">
           <div>
             <Calendar v-for="data in quotaList" :key="data.date" :data="data">

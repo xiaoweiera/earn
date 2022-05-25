@@ -30,6 +30,7 @@ export default {
     about: { name: "产品介绍", href: "https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c" },
     download: "下载 KingData APP",
     download2: "下载 APP",
+    download3: "立即下载",
   },
   time: {
     date: "日期",

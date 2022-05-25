@@ -3,7 +3,7 @@
  * @file 判断 vip 状态，模糊文案
  * @auth svon.me@gmail.com
  */
-
+import I18n from "src/utils/i18n/";
 import { getEnv } from "src/config";
 import { isLocked } from "src/logic/quota/";
 
@@ -17,6 +17,7 @@ defineProps({
   },
 });
 
+const i18n = I18n();
 const env = getEnv();
 </script>
 
@@ -29,11 +30,11 @@ const env = getEnv();
       <template v-if="isLocked(data)">
         <client-only class="hidden vip-lock">
           <v-router :href="env.appDownload" class="block text-center p-2" target="_blank">
-            <p class="mb-2 text-14-18">下载 KingData App 解锁指标</p>
+            <p class="mb-2 text-14-18">{{ i18n.news.unlock }}</p>
             <div class="inline-block button">
               <span class="flex items-center">
                 <icon-font type="icon-lock" size="14" />
-                <span class="ml-0.5 text-12-16 font-m">立即下载</span>
+                <span class="ml-0.5 text-12-16 font-m">{{ i18n.common.nav.download3 }}</span>
               </span>
             </div>
           </v-router>
@@ -58,7 +59,7 @@ const env = getEnv();
 }
 
 .vague {
-  @apply relative;
+  @apply relative select-none;
   .new-content {
     @apply min-h-20;
     text-transform: capitalize !important;

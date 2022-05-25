@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import NewsQuotaTrends from "./trends.vue";
 import { indicatorTypes } from "src/types/quota/";
 import OnFollow from "src/pages/quota/follow/on.vue";
-// import NewsQuotaTrends from "src/pages/quota/indicators/trends.vue";
 
 defineProps({
   data: {
