@@ -197,11 +197,11 @@
   &:not([class~=text-number]) {
     /* 英文字体格式 */
     @at-root [lang=en] & {
-      @apply font-kdInter;
+      @apply font-kdInter; // Inter 字体
     }
     /* 中文字体格式 */
     @at-root [lang=cn] & {
-      @apply font-kdFang;
+      @apply font-kdFang; // PingFang 字体
     }
   }
 

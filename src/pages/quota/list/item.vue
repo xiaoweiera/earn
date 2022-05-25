@@ -43,7 +43,7 @@ const link = computed<string>(function () {
       <v-router class="block mr-2 md:mr-0" :disable="!isList" :href="link" target="_blank">
         <h3 class="text-16-24 text-global-black-title">{{ data.chart.name }}</h3>
       </v-router>
-      <div>
+      <div class="quota-follow">
         <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />
       </div>
     </div>
@@ -67,3 +67,11 @@ const link = computed<string>(function () {
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.quota-follow {
+  @at-root .vague & {
+    @apply invisible opacity-0;
+  }
+}
+</style>

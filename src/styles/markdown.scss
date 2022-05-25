@@ -67,16 +67,14 @@
     border-left: 4px solid #ddd;
     padding-left: 20px;
     margin-left: 0;
-    font-size: 16px;
     display: flex;
   }
 
   p {
-    margin-bottom: 16px;
     padding: 2px 3px;
     vertical-align: middle;
     font-weight: normal;
-    font-size: 16px;
+    @apply mb-4 last:mb-0;
   }
 
   table {

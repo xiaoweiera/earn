@@ -18,6 +18,10 @@ defineProps({
     type: String,
     default: "20px",
   },
+  viewAllBg: {
+    type: String,
+    default: "bg-white",
+  },
   // 更多内容是否以弹窗方式展示
   dialog: {
     type: Boolean,
@@ -38,7 +42,7 @@ const id = ref<string>(`desc-${uuid()}`);
       <div>
         <slot></slot>
       </div>
-      <div class="view-all absolute left-0 right-0 flex items-center bg-white z-2">
+      <div class="view-all absolute left-0 right-0 flex items-center z-2" :class="viewAllBg">
         <!--弹窗形式展开更多内容-->
         <dialog-more v-if="dialog">
           <template #content>

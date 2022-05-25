@@ -6,10 +6,10 @@
 
 import API from "src/api";
 import { onMounted } from "vue";
-import IndicatorItem from "./item.vue";
+import Item from "./item.vue";
 import safeGet from "@fengqiaogang/safe-get";
 import { getValue } from "src/utils/root/data";
-import { IndicatorResult } from "src/types/quota/";
+import type { IndicatorItem } from "src/types/quota/";
 import { alias } from "src/utils/ssr/ref";
 import * as track from "src/logic/track";
 import { config as routerConfig } from "src/router/config";
@@ -18,14 +18,14 @@ let initValue = true;
 const getInitValue = function () {
   if (initValue) {
     initValue = false;
-    return getValue<IndicatorResult[]>(alias.quota.indicator, []);
+    return getValue<IndicatorItem[]>(alias.quota.indicator, []);
   }
 };
 
-// 获取 融资 列表
+// 获取列表
 const requestList = function (data: object) {
   const api = new API();
-  return api.quota.getIndicator(data);
+  return api.quota.getIndicator<IndicatorItem>(data);
 };
 
 const getClass = function (data: object): object {
@@ -56,7 +56,7 @@ onMounted(function () {
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <template v-for="(item, index) in scope.list" :key="index">
               <v-router class="block" :class="getClass(item)" :href="getHref(item)">
-                <IndicatorItem :data="item" />
+                <Item :data="item" />
               </v-router>
             </template>
           </div>
