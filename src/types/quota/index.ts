@@ -105,15 +105,18 @@ export interface TrendData extends DataExt {
   [key: string]: any;
 }
 
-export interface IndicatorItem {
-  id: number | string;
+export interface IndicatorItem extends Chart {
+  id: string | number;
+  name: string; // 图表标题
+  followed: boolean; // 是否关注,
+  default_chart: seriesType; // 图表类型
   desc: string; // 描述
-  followed: boolean; // 是否关注
-  name: string; // 标题
+  follow_count?: number; // 关注
+  view_count?: number; // 查看人数
+  chart_type?: string; // vip 类型
+  unlocked?: boolean; // 是否已解锁
   trends: TrendData | undefined; // 图表数据
-  follow_count: number; // 已关注人数
   follows_avatar_url: string; // 关注人数图片
-  view_count: number; // 已查看人数
 }
 
 export interface IndicatorResult {

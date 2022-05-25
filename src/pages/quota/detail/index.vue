@@ -8,12 +8,13 @@ import { onMounted } from "vue";
 import { dateDiff } from "src/utils/";
 import Item from "../list/item.vue";
 import Chart from "./chart.vue";
-import Recommend from "./recommend.vue";
 import Vague from "../vague.vue";
+import I18n from "src/utils/i18n/";
+import Recommend from "./recommend.vue";
 import safeGet from "@fengqiaogang/safe-get";
 import type { Data } from "src/types/quota/";
 import { getValue } from "src/utils/root/data";
-import { isLocked } from "src/logic/quota/";
+
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 
 const getDetail = function () {
@@ -26,6 +27,11 @@ const getDetail = function () {
   }
 };
 
+const getTitle = function (data: Data) {
+  return data.title || data.chart.name;
+};
+
+const i18n = I18n();
 const detail = createReactive<Data>(alias.quota.detail, {} as Data);
 
 onMounted(function () {
@@ -34,7 +40,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="bg-global-topBg pb-4 md:pb-12">
+  <div class="pb-4 md:pb-12">
     <div class="md:max-w-235 mx-auto">
       <ui-box>
         <!--左侧详情-->
@@ -42,11 +48,17 @@ onMounted(function () {
           <div class="pl-4 lg:pl-0 pt-4 lg:pt-6 pr-4 lg:pr-6">
             <template v-if="detail && detail.id">
               <div>
-                <h3 class="text-32 text-global-black-title">{{ detail.title || detail.chart.name }}</h3>
+                <h3 class="text-32 text-global-black-title">{{ getTitle(detail) }}</h3>
               </div>
-              <p class="text-global-text-grey mt-6">
-                <span class="text-14-18">{{ dateDiff(detail.published_at) }}</span>
-              </p>
+              <div class="mt-6 flex items-center justify-between">
+                <span class="text-14-18 text-global-text-grey">{{ dateDiff(detail.published_at) }}</span>
+                <ui-share :value="getTitle(detail)">
+                  <span class="text-global-text-grey flex items-center">
+                    <IconFont class="mr-1" size="16" type="icon-fenxiang1" />
+                    <span class="font-m text-14-18">{{ i18n.dapp.share.label }}</span>
+                  </span>
+                </ui-share>
+              </div>
               <Vague :data="detail">
                 <Item class="mt-6" :data="detail" :is-list="false" />
               </Vague>
@@ -62,7 +74,7 @@ onMounted(function () {
         </template>
         <!--右侧 App 下载-->
         <template #right>
-          <div class="pt-6">
+          <div class="pt-4 md:pt-6">
             <ui-app-download />
           </div>
         </template>

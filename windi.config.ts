@@ -61,6 +61,9 @@ export default defineConfig({
   ],
   theme: {
     extend: {
+      boxShadow: {
+        base: "0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.1)"
+      },
       borderRadius: {
         "kd2px": "2px",
         "kd4px": "4px",

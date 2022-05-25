@@ -9,7 +9,6 @@ import { computed } from "vue";
 import { config as routerConfig } from "src/router/config";
 import type { Data } from "src/types/quota/";
 import type { PropType } from "vue";
-import AtTime from "./time.vue";
 import OnFollow from "../follow/on.vue";
 import { asyncLoad } from "src/plugins/lazyload/";
 
@@ -41,7 +40,7 @@ const link = computed<string>(function () {
     <div v-if="isList && data.chart" class="mb-2 flex justify-between items-center">
       <!-- 标题 -->
       <v-router class="block mr-2 md:mr-0" :disable="!isList" :href="link" target="_blank">
-        <h3 class="text-16-24 text-global-black-title">{{ data.chart.name }}</h3>
+        <h3 class="text-16-24 text-global-black-title font-m">{{ data.chart.name }}</h3>
       </v-router>
       <div class="quota-follow">
         <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />
@@ -69,9 +68,15 @@ const link = computed<string>(function () {
 </template>
 
 <style scoped lang="scss">
+%hidden {
+  @apply invisible opacity-0;
+}
 .quota-follow {
   @at-root .vague & {
-    @apply invisible opacity-0;
+    @extend %hidden;
+  }
+  @at-root .indicators-quota-list & {
+    @extend %hidden;
   }
 }
 </style>

@@ -49,7 +49,7 @@ const getWeek = function (value: number | string) {
 <template>
   <div class="calendar" :class="{ small: small }">
     <ui-sticky v-if="!small" active-class="calendar-active" class="z-900 box-calendar transform -translate-y-px">
-      <div class="text-14-18 flex items-center py-1 calendar-content">
+      <div class="text-14-18 flex items-center py-1 calendar-content text-global-black-desc">
         <icon-font type="icon-rili" size="16" class="mr-2" />
         <span>{{ getMonth(data.date) }}</span>
         <span>{{ getDay(data.date) }}</span>
@@ -85,8 +85,7 @@ const getWeek = function (value: number | string) {
     content: attr(data-time);
     @apply block text-sm text-global-text-grey;
     @screen lg {
-      transform: translateX(-100%);
-      @apply absolute left-0 top-0 pr-2.5;
+      @apply absolute left-0 top-0.5 pr-2.5 transform -translate-x-full;
     }
   }
 

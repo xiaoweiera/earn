@@ -1,5 +1,5 @@
 export default {
-  tips: "Download App, manage followed indicators, and unlock the other 200+ indicators to help you be the first to get wealth!",
+  tips: "Catch any opportunity in crypto. The latest, most comprehensive and timely monitoring of movements.",
   news: "There are {count} news, click to load",
   comment: {
     reply: {

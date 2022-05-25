@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from "vue";
-import { ElPopover } from "element-plus";
-import document from "src/plugins/browser/document";
+import { uuid } from "src/utils/";
+import { ref, onMounted } from "vue";
 import I18n from "src/utils/i18n";
 import { createRef } from "src/utils/ssr/ref";
-import window from "src/plugins/browser/window";
+import { setScrollTop, scrollTop, bodyHeight, viewHeight, bind } from "src/plugins/browser/scroll";
 
 const i18n = I18n();
 
@@ -22,42 +21,28 @@ defineProps({
 const title = createRef<string>("title", {} as any);
 const description = createRef<string>("description", {} as any);
 
-const current = computed(() => {
-  return i18n.getLang();
-});
-
 const show = ref(false);
 const ideaState = ref(false);
-const back = () => {
-  if (document.body) {
-    document.body.scrollTop = 0;
-  }
-  if (document.documentElement) {
-    document.documentElement.scrollTop = 0;
-  }
-};
+
 const cancel = () => (ideaState.value = !ideaState.value);
 
 const shareText = function (title: string, keywords: string) {
   return `${title}\n${keywords}`;
 };
-const scrollTop = ref<number>(0); // 记录当前的滚动距离
+
+const uid = uuid();
 const topShow = ref<boolean>(false);
-const handleScroll = () => {
-  window.addEventListener("scroll", () => {
-    scrollTop.value = window.scrollY;
-  });
-  if (scrollTop.value >= window.innerHeight * 2) {
-    topShow.value = true;
-  } else {
-    topShow.value = false;
-  }
+
+const onScrollTop = function () {
+  const height = bodyHeight();
+  const top = scrollTop();
+  const value = height - top - 400;
+  topShow.value = value <= viewHeight();
 };
+
 onMounted(() => {
-  handleScroll();
-});
-watch(scrollTop, () => {
-  handleScroll();
+  bind(uid, onScrollTop);
+  onScrollTop();
 });
 </script>
 <template>
@@ -122,14 +107,14 @@ watch(scrollTop, () => {
               <IconFont class="text-global-primary" size="20" type="icon-twitter" />
             </v-router>
             <v-router class="h-5" :href="i18n.chat.discord" target="_blank">
-              <IconFont class="text-global-darkblue" size="20" type="icon-discord3" />
+              <IconFont class="text-global-darkblue" size="20" type="icon-discord2" />
             </v-router>
             <v-router class="h-5" :href="i18n.chat.medium" target="_blank">
-              <IconFont class="text-global-darkblue" size="20" type="icon-Group" />
+              <IconFont class="text-global-darkblue" size="20" type="icon-medium1" />
             </v-router>
           </div>
         </div>
-        <div v-if="topShow" class="w-full h-9 block flex items-center justify-center rounded-kd24px mt-3.5 tagShadow hand" @click="back">
+        <div :class="{ invisible: !topShow }" class="w-full h-9 block flex items-center justify-center rounded-kd24px mt-3.5 tagShadow hand" @click="setScrollTop">
           <IconFont class="h-full flex items-center justify-center text-global-highTitle text-opacity-65" size="20" type="icon-fixedBackTop" />
         </div>
       </div>
@@ -148,11 +133,13 @@ watch(scrollTop, () => {
     }
   }
 }
+
 .telegram-hover {
   ::v-deep(.el-popper) {
     @apply min-w-23 p-1.5;
   }
 }
+
 .tagShadow {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06), 0px 1px 2px rgba(0, 0, 0, 0.1);
   @apply bg-white;
