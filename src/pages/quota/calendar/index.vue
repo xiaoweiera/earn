@@ -4,11 +4,15 @@
  * @auth svon.me@gmail.com
  */
 
+import safeGet from "@fengqiaogang/safe-get";
+import VRouter from "src/components/v/router.vue";
+import { getEnv } from "src/config";
+import { ElButton } from "element-plus";
 import { dateDayFormat, dateMonthFormat, dateTime, toInteger } from "src/utils/";
 import I18n from "src/utils/i18n/";
 import { dateDiff } from "src/utils/";
 import type { PropType } from "vue";
-import type { DataMap } from "src/types/quota/";
+import type { DataMap, Data } from "src/types/quota/";
 
 defineProps({
   data: {
@@ -21,6 +25,7 @@ defineProps({
   },
 });
 
+const env = getEnv();
 const i18n = I18n();
 
 const getDate = function (value: number | string) {
@@ -43,6 +48,17 @@ const getWeek = function (value: number | string) {
   const date = new Date(getDate(value));
   return i18n.part(i18n.common.time.week, date.getDay(), {});
 };
+
+const isLocked = function (data: Data): boolean {
+  const type = safeGet<string>(data, "chart.chart_type");
+  const unlocked = safeGet<boolean>(data, "chart.unlocked");
+  if (type && /^vip/i.test(type)) {
+    if (!unlocked) {
+      return true;
+    }
+  }
+  return false;
+};
 </script>
 
 <template>
@@ -57,9 +73,26 @@ const getWeek = function (value: number | string) {
     </ui-sticky>
     <div class="clearfix pt-2">
       <template v-for="item in data.list" :key="item.id">
-        <div class="quota-item" :time="dateDiff(item.published_at)">
+        <div class="quota-item" :data-time="dateDiff(item.published_at)">
           <div class="lg:pl-4">
-            <slot :data="item"></slot>
+            <div :class="{ vague: isLocked(item) }">
+              <div class="new-content">
+                <slot :data="item"></slot>
+              </div>
+              <client-only class="hidden vip-lock">
+                <v-router :href="env.appDownload" class="block text-center p-2" target="_blank">
+                  <p class="mb-2 text-14-18">下载 KingData App 解锁指标</p>
+                  <div>
+                    <el-button type="warning" round>
+                      <span class="flex items-center">
+                        <icon-font type="icon-lock" size="14" />
+                        <span class="ml-0.5 text-12-16">立即下载</span>
+                      </span>
+                    </el-button>
+                  </div>
+                </v-router>
+              </client-only>
+            </div>
           </div>
           <span class="hidden lg:block line"></span>
         </div>
@@ -74,12 +107,13 @@ const getWeek = function (value: number | string) {
     @apply bg-global-topBg;
   }
 }
+
 .quota-item {
   @apply relative lg:pl-3 pb-10;
 
   &:before {
-    content: attr(time);
-    @apply block text-sm text-gray-400;
+    content: attr(data-time);
+    @apply block text-sm text-global-text-grey;
     @screen lg {
       transform: translateX(-100%);
       @apply absolute left-0 top-0 pr-2.5;
@@ -106,6 +140,30 @@ const getWeek = function (value: number | string) {
       background: rgba(248, 137, 35, 0.12);
     }
   }
+
+  .vip-lock {
+    @apply absolute left-0 top-0 right-0 bottom-0 z-2;
+    p {
+      color: #924005;
+    }
+
+    .el-button {
+      color: #976e27;
+    }
+  }
+
+  .vague {
+    @apply relative;
+    .new-content {
+      @apply min-h-20;
+      text-transform: capitalize !important;
+      filter: blur(8px);
+    }
+
+    .vip-lock {
+      @apply flex items-center justify-center;
+    }
+  }
 }
 
 .calendar {
@@ -113,6 +171,7 @@ const getWeek = function (value: number | string) {
     &:not(.small) {
       @apply pb-10;
     }
+
     .quota-item {
       &:last-child {
         @apply pb-0;
