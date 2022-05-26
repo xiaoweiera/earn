@@ -106,6 +106,7 @@ export default {
     checkValue: "Please slide to verify",
     codeDialog: "Slide to get the verification code",
     loginError: "Incorrect account or password input!",
+    searchEmpty: "No match results, try different keywords.",
   },
   placeholder: {
     login: "Automatic log-in",

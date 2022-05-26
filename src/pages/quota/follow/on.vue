@@ -69,7 +69,7 @@ const onClick = async function () {
 </script>
 
 <template>
-  <client-only>
+  <client-only @click.prevent>
     <v-login v-if="!toBoolean(status)" class="inline-block">
       <div class="cursor-pointer text-xs" @click="onClick">
         <slot>

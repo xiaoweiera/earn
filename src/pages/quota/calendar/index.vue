@@ -90,7 +90,7 @@ const getUrl = function (data: Data): string {
     <div class="clearfix pt-2">
       <template v-for="item in data.list" :key="item.id">
         <div class="quota-item" :data-time="dateDiff(item.published_at)">
-          <div class="lg:pl-4 pr-6 relative">
+          <div class="lg:pl-4 pr-8 relative">
             <Vague :data="item" :text="unlockText">
               <slot :data="item"></slot>
             </Vague>
