@@ -62,7 +62,7 @@ onMounted(function () {
           <icon-font type="icon-more1" size="20" />
         </div>
       </div>
-      <div class="share-content absolute right-full bottom-0 shadow-base py-2 px-3" :class="{ active: status }">
+      <div class="share-content shadow-base rounded-sm bg-white absolute right-full bottom-0 shadow-base py-2 px-3" :class="{ active: status }">
         <client-only class="flex items-center flex-nowrap whitespace-nowrap">
           <template v-if="share">
             <ui-share :url="link" :value="share">
