@@ -45,7 +45,7 @@ const isShow = function (index: number): boolean {
     <div v-if="name" class="px-3 pb-2">
       <h5 class="text-14-18 font-m text-global-highTitle text-opacity-45" v-text="name"></h5>
     </div>
-    <ul v-if="list.length > 0">
+    <ul>
       <template v-for="(data, index) in list" :key="index">
         <li v-if="isShow(index)" :class="{ active: data.id === active }" :data-id="data.id">
           <v-router class="px-3 block" :href="data.url" target="_blank">
@@ -71,14 +71,6 @@ const isShow = function (index: number): boolean {
         </div>
       </li>
     </ul>
-    <div v-else class="py-4">
-      <div class="w-25 h-30 mx-auto">
-        <ui-image class="w-full h-full" :oss="true" src="/static/images/search-empty.png" fit="contain" />
-      </div>
-      <p class="mt-4 text-global-highTitle text-opacity-45 text-center">
-        <span class="text-14-18">暂无搜索内容，换个关键词吧~</span>
-      </p>
-    </div>
   </div>
 </template>
 
