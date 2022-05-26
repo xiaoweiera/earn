@@ -37,7 +37,7 @@ const filter = function (list: IndicatorItem[]): IndicatorItem[] {
     }
     array.push(item);
   }
-  return array;
+  return array.slice(0, 4);
 };
 
 onMounted(function () {

@@ -107,7 +107,7 @@ export interface TrendData extends DataExt {
 
 export interface IndicatorItem extends Chart {
   id: string | number;
-  name: string; // 图表标题
+  name: string; // 标题
   followed: boolean; // 是否关注,
   default_chart: seriesType; // 图表类型
   desc: string; // 描述

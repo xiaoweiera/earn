@@ -7,8 +7,9 @@ import API from "src/api/";
 import I18n from "src/utils/i18n/";
 import { onMounted, ref } from "vue";
 import OnFollow from "../follow/on.vue";
+import safeGet from "@fengqiaogang/safe-get";
 import { getValue } from "src/utils/root/data";
-import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
+import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { Data, IndicatorDetail, DataMap } from "src/types/quota/";
 import { Classify } from "src/utils/convert/classify";
 
@@ -16,16 +17,30 @@ import Item from "../list/item.vue";
 import Calendar from "../calendar/index.vue";
 
 const i18n = I18n();
+const limit = ref<number>(20);
 const classify = Classify("published_at", "date");
 const quotaList = ref<DataMap[]>([]);
-const detail = createReactive<IndicatorDetail>("quota.detail", {} as IndicatorDetail);
+const detail = createReactive<IndicatorDetail>(alias.quota.indicatorDetail, {} as IndicatorDetail);
+
+let initStatus = true;
+const initValue = function () {
+  if (initStatus) {
+    initStatus = false;
+    const value = getValue(alias.quota.signals, []);
+    if (value && value.length > 0) {
+      return value;
+    }
+  }
+  return null;
+};
 
 // 获取指标对应的快讯数据
-const onUpdateList = function () {
+const onUpdateList = function (query: object) {
   const id = getValue<string>("query.id");
   if (id) {
     const api = new API();
-    return api.quota.indicatorNewList<Data>(id);
+    const page = safeGet<number>(query, "page");
+    return api.quota.indicatorNewList<Data>(id, page, limit.value);
   }
   return [];
 };
@@ -73,7 +88,7 @@ onMounted(function () {
       <!--快讯列表-->
       <div class="pt-9">
         <h5 class="text-18-24 mb-5">{{ i18n.news.signals }}</h5>
-        <ui-pagination :limit="20" :request="onUpdateList" @change="onChange">
+        <ui-pagination :limit="limit" :init-value="initValue()" :request="onUpdateList" @change="onChange">
           <div class="indicators-quota-list">
             <Calendar v-for="data in quotaList" :key="data.date" :data="data">
               <template #default="{ data }">
