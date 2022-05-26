@@ -7,8 +7,12 @@
 import I18n from "src/utils/i18n/";
 import { dateDiff } from "src/utils/";
 import type { PropType } from "vue";
-import type { DataMap } from "src/types/quota/";
+import type { DataMap, Data } from "src/types/quota/";
 import Vague from "../vague.vue";
+import window from "src/plugins/browser/window";
+import parse from "src/utils/url/parse";
+import { isLocked } from "src/logic/quota/";
+import { config as routerConfig } from "src/router/config";
 import { dateDayFormat, dateMonthFormat, dateTime, toInteger } from "src/utils/";
 
 defineProps({
@@ -48,6 +52,28 @@ const getWeek = function (value: number | string) {
   const date = new Date(getDate(value));
   return i18n.part(i18n.common.time.week, date.getDay(), {});
 };
+
+// 获取分享文案
+const getShareText = function (data: Data): string {
+  if (data.title) {
+    return data.title;
+  }
+  return data.chart.name;
+};
+
+// 获取复制文案
+const getCopyText = function (data: Data): string {
+  // 判断是否解锁
+  if (isLocked(data)) {
+    return "";
+  }
+  return `${data.content || ""}\r\n${data.chart.desc || ""}`;
+};
+
+const getUrl = function (data: Data): string {
+  const url = parse(window.location.href);
+  return `${url.protocol}//${url.host}${routerConfig.news}/${data.id}?lang=${i18n.getLang()}`;
+};
 </script>
 
 <template>
@@ -63,10 +89,13 @@ const getWeek = function (value: number | string) {
     <div class="clearfix pt-2">
       <template v-for="item in data.list" :key="item.id">
         <div class="quota-item" :data-time="dateDiff(item.published_at)">
-          <div class="lg:pl-4">
+          <div class="lg:pl-4 pr-6 relative">
             <Vague :data="item" :text="unlockText">
               <slot :data="item"></slot>
             </Vague>
+            <client-only>
+              <ui-share-more :url="getUrl(item)" :copy="getCopyText(item)" :share="getShareText(item)" />
+            </client-only>
           </div>
           <span class="hidden lg:block line"></span>
         </div>

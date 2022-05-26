@@ -48,7 +48,7 @@ const getRouterName = function (text: string): Name {
     <div v-if="isList && data.chart" class="mb-1 flex justify-between items-center">
       <!-- 标题 -->
       <v-router class="block mr-2 md:mr-0 quota-title text-global-black-title" :disable="!isList" :href="link" target="_blank">
-        <h3 class="text-16-24 font-m">{{ data.chart.name }}</h3>
+        <h3 class="text-16-24 font-b">{{ data.chart.name }}</h3>
       </v-router>
       <div class="quota-follow">
         <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />
@@ -67,7 +67,7 @@ const getRouterName = function (text: string): Name {
       </div>
       <div v-else class="text-16-24">
         <!--在详情页中样式-->
-        <div class="whitespace-pre-wrap" v-html="data.content"></div>
+        <div class="whitespace-pre-wrap text-global-black-desc" v-html="data.content"></div>
       </div>
       <!-- 原文链接 -->
       <div v-if="data.origin_url" class="mt-2 text-14-22">

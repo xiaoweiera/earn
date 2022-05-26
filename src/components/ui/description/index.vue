@@ -5,7 +5,10 @@
  */
 import { ref } from "vue";
 import { uuid } from "src/utils/";
+import I18n from "src/utils/i18n/";
 import { asyncLoad } from "src/plugins/lazyload/";
+
+const i18n = I18n();
 
 defineProps({
   // 显示几行，默认三行
@@ -17,10 +20,6 @@ defineProps({
   lineHeight: {
     type: String,
     default: "20px",
-  },
-  viewAllBg: {
-    type: String,
-    default: "bg-white",
   },
   // 更多内容是否以弹窗方式展示
   dialog: {
@@ -42,7 +41,7 @@ const id = ref<string>(`desc-${uuid()}`);
       <div>
         <slot></slot>
       </div>
-      <div class="view-all absolute left-0 right-0 flex items-center z-2" :class="viewAllBg" @click.stop>
+      <div class="view-all absolute left-0 right-0 flex items-center justify-center z-2" @click.stop>
         <!--弹窗形式展开更多内容-->
         <dialog-more v-if="dialog">
           <template #content>
@@ -50,14 +49,20 @@ const id = ref<string>(`desc-${uuid()}`);
           </template>
           <div>
             <slot name="button">
-              <span class="text-global-darkblue cursor-pointer text-14-18">View all</span>
+              <span class="text-global-darkblue cursor-pointer flex items-center">
+                <span class="text-14-18 mr-1">{{ i18n.part(i18n.common.button.expandMore, 0) }}</span>
+                <icon-font type="icon-xiajiantou" size="12" />
+              </span>
             </slot>
           </div>
         </dialog-more>
         <!--直接展开更多内容-->
         <label v-else :for="id">
           <slot name="button">
-            <span class="text-global-darkblue cursor-pointer text-14-18">View all</span>
+            <span class="text-global-darkblue cursor-pointer flex items-center">
+              <span class="text-14-18 mr-1">{{ i18n.part(i18n.common.button.expandMore, 0) }}</span>
+              <icon-font type="icon-xiajiantou" size="12" />
+            </span>
           </slot>
         </label>
       </div>
@@ -66,11 +71,6 @@ const id = ref<string>(`desc-${uuid()}`);
 </template>
 
 <style lang="scss" scoped>
-%virtual-shadow {
-  @apply z-100;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.0716618) 0%, rgba(255, 255, 255, 0) 12.78%, #ffffff 100%);
-}
-
 .content {
   max-height: calc((var(--desc-line) + 1) * var(--desc-line-height));
   line-height: var(--desc-line-height);
@@ -78,6 +78,8 @@ const id = ref<string>(`desc-${uuid()}`);
   .view-all {
     top: calc(var(--desc-line) * var(--desc-line-height));
     height: var(--desc-line-height);
+    //background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.0716618) 0%, rgba(255, 255, 255, 0) 12.78%, #ffffff 100%);
   }
 }
 

@@ -98,7 +98,7 @@ onMounted(function () {
         </div>
         <ui-pagination :limit="limit" :init-value="initValue()" :request="onUpdateList" @change="onChange">
           <div class="signal-quota-list indicators-quota-list">
-            <Calendar v-for="data in quotaList" :key="data.date" :data="data" :unlock-text="i18n.news.unlock">
+            <Calendar v-for="data in quotaList" :key="data.date" :data="data">
               <template #default="{ data }">
                 <ui-ad v-if="data && data.type" :data="data" />
                 <Item v-else-if="data" :data="data" />
