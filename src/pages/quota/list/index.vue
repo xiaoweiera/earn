@@ -144,7 +144,7 @@ onMounted(function () {
       <Tips />
       <ui-pagination :key="contentId" :init-value="initValue()" :limit="100" :request="getList" @change="onChange">
         <template #default>
-          <div>
+          <div class="signal-quota-list">
             <Calendar v-for="data in quotaList" :key="data.date" :data="data">
               <template #default="{ data }">
                 <div v-if="data && data.type" class="md:w-1/2">

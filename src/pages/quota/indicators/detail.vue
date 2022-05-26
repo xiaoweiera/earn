@@ -68,7 +68,7 @@ onMounted(function () {
 <template>
   <div class="py-6 px-4 min-h-150">
     <div v-if="detail && detail.id" class="max-w-full w-250 mx-auto">
-      <div class="shadow-base p-4 rounded-md">
+      <div class="shadow-base-small p-4 rounded-md">
         <div class="text-global-black-title flex items-center justify-between">
           <h3 class="text-18-24 font-m">{{ detail.name }}</h3>
           <OnFollow :id="detail.id" v-model:status="detail.followed" />
@@ -87,10 +87,18 @@ onMounted(function () {
       </div>
       <!--快讯列表-->
       <div class="pt-9">
-        <h5 class="text-18-24 mb-5">{{ i18n.news.signals }}</h5>
+        <div class="flex items-center justify-between mb-5">
+          <h5 class="text-18-24">{{ i18n.news.signals }}</h5>
+          <ui-share :value="detail.name">
+            <span class="text-global-text-grey flex items-center">
+              <IconFont class="mr-1" size="16" type="icon-fenxiang1" />
+              <span class="font-m text-14-18">{{ i18n.dapp.share.label }}</span>
+            </span>
+          </ui-share>
+        </div>
         <ui-pagination :limit="limit" :init-value="initValue()" :request="onUpdateList" @change="onChange">
-          <div class="indicators-quota-list">
-            <Calendar v-for="data in quotaList" :key="data.date" :data="data">
+          <div class="signal-quota-list indicators-quota-list">
+            <Calendar v-for="data in quotaList" :key="data.date" :data="data" :unlock-text="i18n.news.unlock">
               <template #default="{ data }">
                 <ui-ad v-if="data && data.type" :data="data" />
                 <Item v-else-if="data" :data="data" />

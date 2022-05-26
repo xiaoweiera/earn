@@ -30,4 +30,9 @@ export default {
   },
   signals: "异动播报",
   unlock: "下载 KingData App 解锁指标",
+  unlockArticle: "下载 KingData App 解锁本条内容",
+  download: {
+    pc: "/static/images/quota/pc_cn.jpg",
+    mobile: "/static/images/quota/mobile_cn.jpg",
+  },
 };

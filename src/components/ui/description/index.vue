@@ -42,7 +42,7 @@ const id = ref<string>(`desc-${uuid()}`);
       <div>
         <slot></slot>
       </div>
-      <div class="view-all absolute left-0 right-0 flex items-center z-2" :class="viewAllBg">
+      <div class="view-all absolute left-0 right-0 flex items-center z-2" :class="viewAllBg" @click.stop>
         <!--弹窗形式展开更多内容-->
         <dialog-more v-if="dialog">
           <template #content>
@@ -70,16 +70,6 @@ const id = ref<string>(`desc-${uuid()}`);
   @apply z-100;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.0716618) 0%, rgba(255, 255, 255, 0) 12.78%, #ffffff 100%);
 }
-
-/*
-.view-all {
-  &:before {
-    content: "";
-    @extend %virtual-shadow;
-    @apply block absolute left-0 right-0 bottom-full h-3;
-  }
-}
-*/
 
 .content {
   max-height: calc((var(--desc-line) + 1) * var(--desc-line-height));
