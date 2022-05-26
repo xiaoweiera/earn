@@ -5,6 +5,7 @@
 
 import _ from "lodash";
 import API from "src/api/";
+import { IndicatorDetail } from "src/types/quota/";
 import I18n from "src/utils/i18n/";
 import safeGet from "@fengqiaogang/safe-get";
 import { names } from "src/config/header";
@@ -31,8 +32,26 @@ export const indicators = async function (req: Request, res: Response) {
 };
 
 export const indicatorsDetail = async function (req: Request, res: Response) {
+  const i18n = I18n(req);
   res.locals.menuActive = names.quota.indicators;
-  res.send({});
+  const id = safeGet<string>(req.params, "id");
+  if (id) {
+    const api = new API(req);
+    const [detail, signals] = await Promise.all([api.quota.getIndicatorDetail<IndicatorDetail>(id), api.quota.indicatorNewList<Data>(id, 1, 20)]);
+    res.send({
+      title: detail.name ? `${detail.name} - KingData` : i18n.news.meta.title.quota,
+      description: detail.desc ? detail.desc : i18n.news.meta.description,
+      keywords: i18n.news.meta.keywords,
+      [alias.quota.indicatorDetail]: detail, // 详情数据
+      [alias.quota.signals]: signals, // 相关快讯列表
+    });
+  } else {
+    res.send({
+      title: i18n.news.meta.title.quota,
+      description: i18n.news.meta.description,
+      keywords: i18n.news.meta.keywords,
+    });
+  }
 };
 
 // 指标异动 - 列表
@@ -72,7 +91,9 @@ export const detail = async function (req: Request, res: Response) {
     let keywords: string = i18n.news.meta.keywords;
     const content = _.trim(safeGet<string>(data, "content") || "");
     if (content) {
-      if (content.length > 50) {
+      if (data.title) {
+        title = `${data.title} - KingData`;
+      } else if (content.length > 50) {
         title = `${content.slice(0, 47)}... - KingData`;
       } else {
         title = `${content.slice(0, 50)} - KingData`;

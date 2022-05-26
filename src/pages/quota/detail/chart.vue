@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { config as routerConfig } from "src/router/config";
 import I18n from "src/utils/i18n";
 import { PropType } from "vue";
 import type { Data } from "src/types/quota/";
@@ -18,9 +19,9 @@ const i18n = I18n();
   <div class="shadow-base py-4 px-3 rounded-md">
     <div class="flex justify-between items-center">
       <!-- 标题 -->
-      <div>
+      <v-router :href="`${routerConfig.quota}/${data.chart.id}`" target="_blank" class="block">
         <h3 class="text-14-18 text-global-black-title font-m">{{ data.chart.name }}</h3>
-      </div>
+      </v-router>
       <div>
         <OnFollow v-if="data.chart" :id="data.chart.id" v-model:status="data.chart.followed" />
       </div>

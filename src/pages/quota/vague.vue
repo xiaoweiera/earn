@@ -62,12 +62,22 @@ const env = getEnv();
   @apply relative select-none;
   .new-content {
     @apply min-h-20;
-    text-transform: capitalize !important;
-    filter: blur(8px);
+    ::v-deep(.quota-content) {
+      text-transform: capitalize !important;
+      filter: blur(8px);
+    }
   }
 
   .vip-lock {
     @apply flex items-center justify-center;
+  }
+  @at-root .indicators-quota-list & {
+    .new-content {
+      @apply min-h-28;
+    }
+    .vip-lock {
+      @apply top-8;
+    }
   }
 }
 </style>

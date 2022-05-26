@@ -39,7 +39,7 @@ const link = computed<string>(function () {
   <div class="quota-detail">
     <div v-if="isList && data.chart" class="mb-2 flex justify-between items-center">
       <!-- 标题 -->
-      <v-router class="block mr-2 md:mr-0" :disable="!isList" :href="link" target="_blank">
+      <v-router class="block mr-2 md:mr-0 quota-title" :disable="!isList" :href="link" target="_blank">
         <h3 class="text-16-24 text-global-black-title font-m">{{ data.chart.name }}</h3>
       </v-router>
       <div class="quota-follow">
@@ -47,22 +47,24 @@ const link = computed<string>(function () {
       </div>
     </div>
 
-    <div class="text-global-black-desc">
-      <div class="text-14-20">
-        <!-- 文案描述 -->
-        <v-router :disable="!isList" :href="link" class="block" name="div" target="_blank">
-          <div class="whitespace-pre-wrap" v-html="data.content"></div>
-        </v-router>
-        <!-- 原文链接 -->
-        <div v-if="data.origin_url" class="mt-2">
-          <v-router :href="data.origin_url" class="link" target="_blank">{{ i18n.news.link }}</v-router>
+    <div class="quota-content">
+      <div class="text-global-black-desc">
+        <div class="text-14-20">
+          <!-- 文案描述 -->
+          <v-router :disable="!isList" :href="link" class="block" name="div" target="_blank">
+            <div class="whitespace-pre-wrap" v-html="data.content"></div>
+          </v-router>
+          <!-- 原文链接 -->
+          <div v-if="data.origin_url" class="mt-2">
+            <v-router :href="data.origin_url" class="link" target="_blank">{{ i18n.news.link }}</v-router>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 图片集合 -->
-    <div v-if="data.image_urls && data.image_urls.length > 0" class="mt-4">
-      <Image :list="data.image_urls" />
+      <!-- 图片集合 -->
+      <div v-if="data.image_urls && data.image_urls.length > 0" class="mt-4">
+        <Image :list="data.image_urls" />
+      </div>
     </div>
   </div>
 </template>
