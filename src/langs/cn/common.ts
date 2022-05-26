@@ -86,6 +86,7 @@ export default {
     next: "下一页",
     shut: "关闭",
     expandMore: "展开更多 | 展开更多 ({size})",
+    detail: "详情",
   },
   message: {
     verification: "获取验证码",

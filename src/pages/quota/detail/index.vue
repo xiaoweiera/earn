@@ -48,7 +48,7 @@ onMounted(function () {
           <div class="pl-4 lg:pl-0 pt-4 lg:pt-6 pr-4 lg:pr-6">
             <template v-if="detail && detail.id">
               <div>
-                <h3 class="text-32 text-global-black-title font-m">{{ getTitle(detail) }}</h3>
+                <h3 class="text-32 text-global-black-title font-b">{{ getTitle(detail) }}</h3>
               </div>
               <div class="mt-6 flex items-center justify-between">
                 <span class="text-14-18 text-global-text-grey">{{ dateDiff(detail.published_at) }}</span>
