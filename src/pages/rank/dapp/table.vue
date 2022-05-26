@@ -128,7 +128,7 @@ onMounted(() => {
                       <Header v-else :header-data="dappHeaderMobile" :param="param" @on-sort="onSort" />
                       <!--        list-->
                       <div v-for="(item, i) in scope.list" :key="i">
-                        <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" />
+                        <Item :z-index="scope.list.length - 1 - i" :is-compare="isCompare" :sort-name="param.sort_field" :header-data="isPc ? dappHeader : dappHeaderMobile" :i="i" :item="item" :category="category" />
                       </div>
                     </div>
                   </div>

@@ -20,6 +20,7 @@ export const Quota = function (lang?: Lang): MenuItem {
     newTip: false,
     header: true,
     icon: "icon-zhibiaojiankong",
+    font: "icon-VIP",
     children: [
       {
         id: name.indicators,

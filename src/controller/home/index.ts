@@ -43,12 +43,14 @@ export const detail = async function (req: Request, res: Response) {
   const chain = req.query.chain as string;
   const category = req.query.category as string;
   const search = req.query.search as string;
+  const platform = req.query.platform as string;
   const params = { page: 1, page_size: 10 };
   // 项目列表
   const projectParams = {
     id,
     page: 1,
     page_size: 30,
+    platform: platform || "",
     chain: chain || "",
     category: category || "",
     keyword: search || "",

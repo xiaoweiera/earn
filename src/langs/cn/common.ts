@@ -32,6 +32,7 @@ export default {
     about: { name: "产品介绍", href: "https://www.yuque.com/kingdata_growthpad/tlll4r/blz39c" },
     download: "下载 KingData APP",
     download2: "下载 APP",
+    download3: "立即下载",
   },
   time: {
     date: "日期",
@@ -47,7 +48,7 @@ export default {
     },
     // 星期几
     week: "星期一 | 星期二 | 星期三 | 星期四 | 星期五 | 星期六 | 星期日",
-    month: "一月 | 二月 | 三月 | 四月 | 五月 | 六月 | 七月 | 八月 | 九月 | 十月 | 十一月 | 十二月",
+    month: "1月 | 2月 | 3月 | 4月 | 5月 | 6月 | 7月 | 8月 | 9月 | 10月 | 11月 | 12月",
     startTime: "开始时间",
     endedTime: "剩余时间",
     // 倒计时
@@ -87,6 +88,7 @@ export default {
     next: "下一页",
     shut: "关闭",
     expandMore: "展开更多 | 展开更多 ({size})",
+    detail: "详情",
   },
   message: {
     verification: "获取验证码",

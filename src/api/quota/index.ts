@@ -54,13 +54,12 @@ export default class extends ApiTemplate {
   }
 
   // 推荐
-  @tryError(DefaultValue([]))
-  @get(api.quota.recommend, expire.min30)
-  @userToken()
-  @validate
-  getRecommend<T>(@required id: number | string): Promise<T> {
-    const query = { id };
-    return [query] as any;
+  // @tryError(DefaultValue([]))
+  // @get(api.quota.recommend, expire.min30)
+  // @userToken()
+  getRecommend<T>() {
+    const query = { page: 1, page_size: 5 };
+    return this.getIndicator<T>(query);
   }
 
   // 关注
@@ -83,7 +82,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue([]))
   @get(api.quota.indicator)
   @validate
-  getIndicator<T>(@required query: object): Promise<T> {
+  getIndicator<T>(@required query: object): Promise<T[]> {
     const callback = function (data: object): T[] {
       const list = safeGet<T[]>(data, "results");
       if (list) {

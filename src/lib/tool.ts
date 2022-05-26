@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import * as R from "ramda";
+import { $ } from "src/plugins/browser/event";
 import { getEnv } from "src/config";
 import I18n from "src/utils/i18n/";
 import { BigNumber } from "bignumber.js";
@@ -182,13 +183,17 @@ export const messageSuccess = function (text: string): void {
 // copy
 export const copyTxt = (text: string, alert?: boolean, msg?: string) => {
   const i18n = I18n();
-  const dom = document.createElement("input");
-  if (dom) {
-    dom.setAttribute("value", text);
-    document.body.appendChild(dom);
-    dom.select();
-    document.execCommand("copy");
-    document.body.removeChild(dom);
+  const input = document.createElement("textarea");
+  if (input) {
+    input.value = text;
+    input.style.width = "1px";
+    input.style.height = "1px";
+    $("body").append(input);
+    setTimeout(() => {
+      input.select();
+      document.execCommand("copy");
+      $(input).remove();
+    });
     if (alert) {
       // messageSuccess(i18n.common.message.copy)
       message.copy(

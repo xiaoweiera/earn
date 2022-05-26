@@ -140,38 +140,27 @@ onMounted(function () {
         <el-alert :closable="false" :title="newText(newCount)" center type="error" />
       </div>
     </div>
-    <ui-box>
-      <!--左侧列表-->
-      <div class="lg:pr-4 pt-4">
-        <Tips />
-        <ui-pagination :key="contentId" :init-value="initValue()" :limit="100" :request="getList" @change="onChange">
-          <template #default>
-            <div>
-              <Calendar v-for="data in quotaList" :key="data.date" :data="data">
-                <template #default="{ data }">
-                  <ui-ad v-if="data && data.type" :data="data" />
-                  <Item v-else-if="data" :data="data" />
-                </template>
-              </Calendar>
-            </div>
-          </template>
-        </ui-pagination>
-      </div>
-      <!--右侧 App 下载-->
-      <template #right>
-        <div class="pt-4">
-          <ui-app-download />
-        </div>
-      </template>
-    </ui-box>
+    <div class="pt-6">
+      <Tips />
+      <ui-pagination :key="contentId" :init-value="initValue()" :limit="100" :request="getList" @change="onChange">
+        <template #default>
+          <div class="signal-quota-list">
+            <Calendar v-for="data in quotaList" :key="data.date" :data="data">
+              <template #default="{ data }">
+                <div v-if="data && data.type" class="md:w-1/2">
+                  <ui-ad :data="data" />
+                </div>
+                <Item v-else-if="data" :data="data" />
+              </template>
+            </Calendar>
+          </div>
+        </template>
+      </ui-pagination>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.ui-box {
-  --ui-box-right: 184px;
-}
-
 .new-tips {
   @apply fixed z-10020 left-0;
   .tips-content {

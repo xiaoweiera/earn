@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref, reactive, watch } from "vue";
+import { config } from "src/router/config";
 import { createReactive, onLoadReactive, onUpdateReactive } from "src/utils/ssr/ref";
 import { Model } from "src/logic/home";
 import Table from "src/pages/home/topic/table.vue";
 import safeGet from "@fengqiaogang/safe-get";
-
+import I18n from "src/utils/i18n";
+const i18n = I18n();
 const param = reactive({
   category: "NFT",
   page: 1,
@@ -62,11 +64,23 @@ onMounted(() => {
         </div>
       </template>
     </div>
-    <Table v-if="topicId !== 0" :id="topicId" :key="topicId" />
+    <Table v-if="topicId !== 0" :id="topicId" :key="topicId" :isFilter="false" :isMore="false" />
+    <div class="flex justify-center">
+      <v-router :href="`${config.homeDetail}/${topicId}`" target="_blank" class="btn-more">
+        <span class="more cursor-pointer">{{ i18n.common.button.more }}</span>
+      </v-router>
+    </div>
     <UiLoading v-if="isLoad" class="fixed top-0 bottom-0 left-0 right-0" />
   </div>
 </template>
 <style scoped lang="scss">
+.more {
+  @apply text-kd12px16px text-global-primary;
+}
+.btn-more {
+  @apply bg-global-primary bg-opacity-6 w-max px-8 rounded-kd4px;
+  @apply flex h-8 items-center hand mt-1.5;
+}
 .tab-item {
   @apply w-1/2  md:w-35 h-full flex items-center justify-center text-global-highTitle text-kd18px24px font-medium font-kdFang;
 }

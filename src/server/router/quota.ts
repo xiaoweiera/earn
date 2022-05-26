@@ -1,5 +1,5 @@
 /**
- * @file 指标
+ * @file 指标、快讯
  * @author svon.me@gmail.com
  */
 import * as quota from "src/controller/quota/";
@@ -10,13 +10,10 @@ import { config as routerConfig } from "src/router/config";
 
 const Router = function () {
   const router = ExpressRouter();
-
   // 推荐指标
   router.get(routerConfig.quota, quota.indicators);
-  router.get(`${routerConfig.quota}/:id`, quota.indicators);
-
-  // 指标异动 - 详情
-  router.get(`${routerConfig.news}/:id`, quota.indicatorsDetail);
+  // 指标详情
+  router.get(`${routerConfig.quota}/:id`, quota.indicatorsDetail);
 
   // 指标异动
   // 旧路由，兼容处理
@@ -25,6 +22,9 @@ const Router = function () {
     redirect(req, res, routerConfig.news);
   });
   router.get(routerConfig.news, quota.signals);
+  // 快讯 - 详情
+  router.get(`${routerConfig.news}/:id`, quota.detail);
+
   return router;
 };
 

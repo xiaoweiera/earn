@@ -1,5 +1,5 @@
 export default {
-  tips: "下载 App，管理你的关注，解锁其他 200+ 指标，助您快人一步，遇见财富！",
+  tips: "不错过任何一次行业机会，全网最新最全，最及时的异动监控。",
   news: "有 {count} 条新播报，点击加载",
   comment: {
     reply: {
@@ -24,8 +24,15 @@ export default {
     keywords: "NFT,DApp,CoinMarketCap,CoinGecko,pancakeswap,交易所,binance,defi,crypto,airdrop,空投,加密货币,巨鲸,山寨币,token",
   },
   detail: {
-    recommend: "相关推荐",
+    recommend: "相关推荐指标",
     follow: "人关注",
     caption: "指标解释",
+  },
+  signals: "异动播报",
+  unlock: "下载 KingData App 解锁指标",
+  unlockArticle: "下载 KingData App 解锁本条内容",
+  download: {
+    pc: "/static/images/quota/pc_cn.jpg",
+    mobile: "/static/images/quota/mobile_cn.jpg",
   },
 };

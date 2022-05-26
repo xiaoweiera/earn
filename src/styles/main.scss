@@ -44,6 +44,9 @@ a {
 }
 .v-router {
   @extend %disable;
+  &:hover {
+    @apply text-global-darkblue;
+  }
 }
 
 

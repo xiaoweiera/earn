@@ -4,11 +4,16 @@
  * @auth svon.me@gmail.com
  */
 
-import { dateDayFormat, dateMonthFormat, dateTime, toInteger } from "src/utils/";
 import I18n from "src/utils/i18n/";
 import { dateDiff } from "src/utils/";
 import type { PropType } from "vue";
-import type { DataMap } from "src/types/quota/";
+import type { DataMap, Data } from "src/types/quota/";
+import Vague from "../vague.vue";
+import window from "src/plugins/browser/window";
+import parse from "src/utils/url/parse";
+import { isLocked } from "src/logic/quota/";
+import { config as routerConfig } from "src/router/config";
+import { dateDayFormat, dateMonthFormat, dateTime, toInteger } from "src/utils/";
 
 defineProps({
   data: {
@@ -18,6 +23,10 @@ defineProps({
   small: {
     type: Boolean,
     default: () => false,
+  },
+  unlockText: {
+    type: String,
+    default: "",
   },
 });
 
@@ -43,12 +52,35 @@ const getWeek = function (value: number | string) {
   const date = new Date(getDate(value));
   return i18n.part(i18n.common.time.week, date.getDay(), {});
 };
+
+// 获取分享文案
+const getShareText = function (data: Data): string {
+  if (data.title) {
+    return data.title;
+  }
+  return data.chart.name;
+};
+
+// 获取复制文案
+const getCopyText = function (data: Data): string {
+  // 判断是否解锁
+  if (isLocked(data)) {
+    return "";
+  }
+  return `${data.content || ""}
+${data.chart.desc || ""}`;
+};
+
+const getUrl = function (data: Data): string {
+  const url = parse(window.location.href);
+  return `${url.protocol}//${url.host}${routerConfig.news}/${data.id}?lang=${i18n.getLang()}`;
+};
 </script>
 
 <template>
   <div class="calendar" :class="{ small: small }">
     <ui-sticky v-if="!small" active-class="calendar-active" class="z-900 box-calendar transform -translate-y-px">
-      <div class="text-14-18 flex items-center py-1 calendar-content">
+      <div class="text-14-18 flex items-center py-1 calendar-content text-global-black-desc">
         <icon-font type="icon-rili" size="16" class="mr-2" />
         <span>{{ getMonth(data.date) }}</span>
         <span>{{ getDay(data.date) }}</span>
@@ -57,9 +89,14 @@ const getWeek = function (value: number | string) {
     </ui-sticky>
     <div class="clearfix pt-2">
       <template v-for="item in data.list" :key="item.id">
-        <div class="quota-item" :time="dateDiff(item.published_at)">
-          <div class="lg:pl-4">
-            <slot :data="item"></slot>
+        <div class="quota-item" :data-time="dateDiff(item.published_at)">
+          <div class="lg:pl-4 pr-6 relative">
+            <Vague :data="item" :text="unlockText">
+              <slot :data="item"></slot>
+            </Vague>
+            <template v-if="item && item.chart">
+              <ui-share-more :url="getUrl(item)" :copy="getCopyText(item)" :share="getShareText(item)" />
+            </template>
           </div>
           <span class="hidden lg:block line"></span>
         </div>
@@ -71,18 +108,17 @@ const getWeek = function (value: number | string) {
 <style lang="scss" scoped>
 .calendar-active {
   .calendar-content {
-    @apply bg-global-topBg;
+    @apply bg-white;
   }
 }
-.quota-item {
-  @apply relative lg:pl-3 pb-10;
 
+.quota-item {
+  @apply relative lg:pl-3 pb-6;
   &:before {
-    content: attr(time);
-    @apply block text-sm text-gray-400;
+    content: attr(data-time);
+    @apply block text-sm text-global-text-grey;
     @screen lg {
-      transform: translateX(-100%);
-      @apply absolute left-0 top-0 pr-2.5;
+      @apply absolute left-0 top-0.5 pr-2.5 transform -translate-x-full;
     }
   }
 
@@ -113,6 +149,7 @@ const getWeek = function (value: number | string) {
     &:not(.small) {
       @apply pb-10;
     }
+
     .quota-item {
       &:last-child {
         @apply pb-0;

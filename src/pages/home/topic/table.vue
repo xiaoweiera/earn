@@ -23,7 +23,11 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  showFilter: {
+  isFilter: {
+    type: Boolean,
+    default: true,
+  },
+  isMore: {
     type: Boolean,
     default: true,
   },
@@ -80,7 +84,7 @@ const toProject = () => {
   window.open(createHref(url));
 };
 // 是否有筛选
-const isFilter = computed(() => {
+const showFilter = computed(() => {
   if (safeGet(detail, "chain_filter_supported") || safeGet(detail, "platform_filter_supported") || safeGet(detail, "category_filter_supported") || safeGet(detail, "keyword_filter_supported")) {
     return true;
   }
@@ -111,8 +115,8 @@ onMounted(() => {
 </script>
 <template>
   <div class="overflow-hidden md:mb-0 mb-4">
-    <div v-if="showFilter" class="flex xshidden flex-wrap justify-between items-baseline">
-      <HomeFilter v-if="safeGet(detail, 'id') && isFilter" :key="key" :info="detail" class="mb-4" />
+    <div v-if="isFilter" class="flex xshidden flex-wrap justify-between items-baseline">
+      <HomeFilter v-if="safeGet(detail, 'id') && showFilter" :key="key" :info="detail" class="mb-4" />
       <client-only>
         <div v-if="isSearch" class="relative flex flex-wrap items-center search">
           <IconFont class="absolute text-global-highTitle text-opacity-45 z-22 left-3" size="16" type="icon-sousuo-da1" />
@@ -121,7 +125,7 @@ onMounted(() => {
       </client-only>
     </div>
     <div :key="key">
-      <ui-pagination :limit="10" :init-value="initValue()" :request="requestList">
+      <ui-pagination :limit="10" :isMore="isMore" :init-value="initValue()" :request="requestList">
         <template #default="{ list }">
           <div v-if="isLoad">
             <el-table :data="list" class="w-full" :row-style="rowClass(height)" :header-cell-style="headerCellClass" :cell-style="cellClass" @row-click="toProject">

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import NewsQuotaTrends from "./trends.vue";
 import { indicatorTypes } from "src/types/quota/";
 import OnFollow from "src/pages/quota/follow/on.vue";
 
@@ -14,9 +13,9 @@ defineProps({
 <template>
   <div class="quota-content relative rounded-lg bg-white">
     <!-- 显示趋势图 -->
-    <client-only v-if="data.trends" class="absolute left-0 top-0 right-0 bottom-0">
-      <NewsQuotaTrends :data="data" />
-    </client-only>
+    <div v-if="data.trends" class="absolute left-0 top-0 right-0 bottom-0">
+      <!--      <NewsQuotaTrends :data="data" />-->
+    </div>
     <div class="h-40 relative z-2">
       <div class="absolute left-0 top-4 right-0 px-4">
         <h3 class="text-16-24 font-m text-global-highTitle">{{ data.name }}</h3>
