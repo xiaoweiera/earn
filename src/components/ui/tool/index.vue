@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from "vue";
-import { ElPopover } from "element-plus";
 import document from "src/plugins/browser/document";
 import I18n from "src/utils/i18n";
 import { createRef } from "src/utils/ssr/ref";
@@ -21,10 +20,6 @@ defineProps({
 
 const title = createRef<string>("title", {} as any);
 const description = createRef<string>("description", {} as any);
-
-const current = computed(() => {
-  return i18n.getLang();
-});
 
 const show = ref(false);
 const ideaState = ref(false);

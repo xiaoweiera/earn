@@ -27,7 +27,8 @@ export default {
   loadingMore: "加载更多",
   projectApply: "申请收录",
   share: "分享",
-  category: "Category",
+  category: "类别",
+  platform: "平台",
   chain: "公链",
   idoIgoProject: {
     title: "聚合 14 条公链，68 个IDO平台最新优质 Dapp 项目",

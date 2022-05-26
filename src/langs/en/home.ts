@@ -28,6 +28,7 @@ export default {
   projectApply: "Apply",
   share: "Share",
   category: "Category",
+  platform: "Platform",
   chain: "Chain",
   idoIgoProject: {
     title: "Data supported by 14 public chain and 65 platforms",

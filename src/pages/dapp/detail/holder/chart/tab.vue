@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import type { HolderTab } from "src/types/dapp/holder";
 
 defineProps({
   data: {

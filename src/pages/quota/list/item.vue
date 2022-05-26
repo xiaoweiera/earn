@@ -9,7 +9,6 @@ import { computed } from "vue";
 import { config as routerConfig } from "src/router/config";
 import type { Data } from "src/types/quota/";
 import type { PropType } from "vue";
-import AtTime from "./time.vue";
 import OnFollow from "../follow/on.vue";
 import { asyncLoad } from "src/plugins/lazyload/";
 

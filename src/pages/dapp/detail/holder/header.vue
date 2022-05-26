@@ -8,7 +8,7 @@ import API from "src/api";
 import { formatCash, valueFormat, toFixed } from "src/utils";
 import I18n from "src/utils/i18n/";
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object,
     default: () => {

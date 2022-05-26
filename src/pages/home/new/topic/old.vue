@@ -1,68 +1,50 @@
 <script setup lang="ts">
-import { onMounted, ref, reactive, watch } from "vue";
-import { createReactive, onLoadReactive, onUpdateReactive } from "src/utils/ssr/ref";
+import { onMounted, ref } from "vue";
+import { createRef, onLoadRef } from "src/utils/ssr/ref";
 import { Model } from "src/logic/home";
-import Table from "src/pages/home/topic/table.vue";
-import safeGet from "@fengqiaogang/safe-get";
-
-const param = reactive({
-  category: "NFT",
-  page: 1,
-  page_size: 10,
-});
+import Table from "src/pages/home/new/table/index.vue";
+const category = ref("NFT");
+const topicIndex = ref(0);
 const isLoad = ref(false);
 const api = new Model();
 const list = [
   { id: 1, name: "NFT", value: "NFT", icon: "icon-paihang" },
   { id: 2, name: "DApp", value: "DAPP", icon: "icon-NFTs" },
 ];
-const topicId = ref(0);
-let rank: any = createReactive("API.home.getTopicRank", {});
-const initTopic = () => {
-  const items: any = safeGet(rank, "items");
-  if (items && items.length > 0) {
-    topicId.value = items[0].id;
-  }
-};
-initTopic();
-const update = onUpdateReactive(rank, function () {
-  return api.getRankTopic(param);
-});
-watch(rank, () => initTopic());
+const rank: any = createRef("API.home.getTopicRank", []);
 const tabClick = async (value: string) => {
-  if (isLoad.value || value === param.category) return;
+  if (isLoad.value || value === category.value) return;
   isLoad.value = true;
-  param.category = value;
-  update();
+  category.value = value;
+  topicIndex.value = 0;
+  rank.value = await api.getTopicRank(category.value);
   isLoad.value = false;
 };
-const titleClick = (id: number) => (topicId.value = id);
+const titleClick = (value: number) => (topicIndex.value = value);
+// const i18n = I18n();
 onMounted(() => {
   // 得到数据汇总
-  onLoadReactive(rank, () => api.getRankTopic(param));
-  initTopic();
+  onLoadRef(rank, () => api.getTopicRank(category.value));
 });
 </script>
 <template>
   <div>
     <div class="flex items-center justify-center">
       <div class="h-11 w-full md:w-auto md:min-h-9.5 bg-global-highTitle bg-opacity-6 rounded-md p-1 flex items-center hand">
-        <div v-for="(item, index) in list" :key="index" :class="item.value === param.category ? 'tab-item tab-item-active' : 'tab-item'" @click="tabClick(item.value)">
+        <div v-for="(item, index) in list" :key="index" :class="item.value === category ? 'tab-item tab-item-active' : 'tab-item'" @click="tabClick(item.value)">
           <IconFont :type="item.icon" size="20" />
           <span class="ml-1.5 md:ml-3.5">{{ item.name }}</span>
         </div>
       </div>
     </div>
     <div class="flex items-center mt-4 showX md:justify-center">
-      <template v-for="item in safeGet(rank, 'items')" :key="item.id">
+      <template v-for="(item, i) in rank" :key="item.id">
         <div class="relative two-tag max-h-8">
-          <div :class="topicId === item.id ? 'two-tag-active' : 'two-tag-default'" class="whitespace-nowrap" @click="titleClick(item.id)">
-            {{ item.title }}
-          </div>
+          <div :class="topicIndex === i ? 'two-tag-active' : 'two-tag-default'" class="whitespace-nowrap" @click="titleClick(i)">{{ item.name }}</div>
         </div>
       </template>
     </div>
-    <Table v-if="topicId !== 0" :id="topicId" :key="topicId" />
+    <Table :key="topicIndex" :topic-index="topicIndex" :data="rank" />
     <UiLoading v-if="isLoad" class="fixed top-0 bottom-0 left-0 right-0" />
   </div>
 </template>
@@ -70,23 +52,18 @@ onMounted(() => {
 .tab-item {
   @apply w-1/2  md:w-35 h-full flex items-center justify-center text-global-highTitle text-kd18px24px font-medium font-kdFang;
 }
-
 .tab-item-active {
   @apply bg-global-darkblue text-global-white rounded-md;
 }
-
 .two-tag {
   @apply cursor-pointer pb-4;
 }
-
 .two-tag-default {
   @apply text-kd16px22px text-global-highTitle font-medium;
 }
-
 .two-tag-active {
   @apply text-kd16px22px text-global-primary font-medium;
 }
-
 .two-tag-active::after {
   border: 1px solid #006ff7;
   content: "";

@@ -2,7 +2,8 @@ import API from "src/api";
 import type { projectParams, recommendModel, summaryModel, tutorialParams, tutorialData } from "src/types/home";
 import I18n from "src/utils/i18n";
 import { ApyQuery } from "src/types/home/apy";
-import { FundsQuery, infoModel, lineModel } from "src/types/dapp/invest";
+import { FundsQuery, infoModel, lineModel, rankTopicModel } from "src/types/dapp/invest";
+import { newProjectParams } from "src/types/home";
 
 // 得到header数据 headerName,headerCss
 export const getHeader = (key: string) => {
@@ -406,7 +407,9 @@ export class Model extends API {
   getProjects(params: projectParams) {
     return this.home.getProjects(params);
   }
-
+  getTopicDetail(params: newProjectParams) {
+    return this.home.getTopicDetail(params);
+  }
   // TGE平台列表
   getPlatform() {
     return this.home.getPlatform();
@@ -442,5 +445,9 @@ export class Model extends API {
   //大户历史交易
   getHistory(query: infoModel) {
     return this.home.getHistory(query);
+  }
+  //榜单列表
+  getRankTopic(query: rankTopicModel) {
+    return this.home.getRankTopic(query);
   }
 }

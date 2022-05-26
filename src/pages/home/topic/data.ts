@@ -4,13 +4,10 @@
 
 import safeGet from "@fengqiaogang/safe-get";
 import API from "src/api/";
-import window from "src/plugins/browser/window";
-import { createHref } from "src/plugins/router/pack";
 import I18n from "src/utils/i18n";
 import { toUpper } from "ramda";
-
+import _ from "lodash";
 const i18n = I18n();
-
 // 展示效果
 export enum HeaderType {
   number = "number", // 数字
@@ -51,7 +48,7 @@ export const getTitle = (field: string) => {
   const baseTitle = i18n.table[base];
   const time = ["24h", "7d", "30d"];
   //如果是图表 或者 基础字段 title为baseTitle
-  if (field.includes("chart") || !field.includes("_")) return baseTitle ? baseTitle : "--";
+  if (field.includes("chart") || !field.includes("_")) return baseTitle ? baseTitle : _.camelCase(field);
   //变化率和变化量都是xxxChg+颗粒度
   time.forEach((t) => {
     if (field.includes(t)) {
@@ -60,78 +57,78 @@ export const getTitle = (field: string) => {
       return false;
     }
   });
-  return title ? title : "--";
+  return title ? title : _.camelCase(field);
 };
-const header: Header[] = [
-  {
-    title: "users",
-    fields: ["logo", "name"],
-    type: [HeaderType.logo, HeaderType.text],
-  },
-  {
-    sort: true,
-    active: true,
-    title: "users_24h_radio", // 表格名称
-    fields: ["chains", "floor_price"],
-    type: [HeaderType.chain, HeaderType.text],
-  },
-  {
-    sort: true,
-    sort_field: "users_24h",
-    title: "users_24h",
-    center: true,
-    fields: [["chains", "volume_24h"], "volume_change_percent_24h"],
-    type: [[HeaderType.chain, HeaderType.number], HeaderType.radio],
-  },
-  {
-    title: "users_24h_chart",
-    fields: "volume_change_percent_24h",
-    type: HeaderType.radio,
-  },
-  {
-    title: "巨鲸Holders",
-    fields: ["whales_num"],
-    type: [HeaderType.text],
-  },
-  {
-    title: "巨鲸Holders涨幅",
-    sort: true,
-    sort_field: "whale_num_change_24h",
-    active: true,
-    fields: "whale_num_change_24h",
-    type: HeaderType.radio,
-  },
-  {
-    title: "巨鲸Holders%",
-    fields: "whales_ratio",
-    type: HeaderType.radio,
-  },
-  {
-    title: "巨鲸持仓",
-    fields: "whales_holding",
-    type: HeaderType.number,
-  },
-  {
-    title: "巨鲸Holding%",
-    fields: "whale_holding_ratio",
-    type: HeaderType.radio,
-  },
-  {
-    title: "巨鲸占比",
-    fields: "whales_num",
-    type: HeaderType.progress,
-  },
-  {
-    title: "走势图1",
-    fields: "id",
-    type: HeaderType.chartBar,
-  },
-  {
-    title: "走势图2",
-    fields: "id",
-    type: HeaderType.chartLine,
-  },
-];
+// const header: Header[] = [
+//   {
+//     title: "users",
+//     fields: ["logo", "name"],
+//     type: [HeaderType.logo, HeaderType.text],
+//   },
+//   {
+//     sort: true,
+//     active: true,
+//     title: "users_24h_radio", // 表格名称
+//     fields: ["chains", "floor_price"],
+//     type: [HeaderType.chain, HeaderType.text],
+//   },
+//   {
+//     sort: true,
+//     sort_field: "users_24h",
+//     title: "users_24h",
+//     center: true,
+//     fields: [["chains", "volume_24h"], "volume_change_percent_24h"],
+//     type: [[HeaderType.chain, HeaderType.number], HeaderType.radio],
+//   },
+//   {
+//     title: "users_24h_chart",
+//     fields: "volume_change_percent_24h",
+//     type: HeaderType.radio,
+//   },
+//   {
+//     title: "巨鲸Holders",
+//     fields: ["whales_num"],
+//     type: [HeaderType.text],
+//   },
+//   {
+//     title: "abc_dsd_a",
+//     sort: true,
+//     sort_field: "whale_num_change_24h",
+//     active: true,
+//     fields: "whale_num_change_24h",
+//     type: HeaderType.radio,
+//   },
+//   {
+//     title: "巨鲸Holders%",
+//     fields: "whales_ratio",
+//     type: HeaderType.radio,
+//   },
+//   {
+//     title: "巨鲸持仓",
+//     fields: "whales_holding",
+//     type: HeaderType.number,
+//   },
+//   {
+//     title: "巨鲸Holding%",
+//     fields: "whale_holding_ratio",
+//     type: HeaderType.radio,
+//   },
+//   {
+//     title: "巨鲸占比",
+//     fields: "whales_num",
+//     type: HeaderType.progress,
+//   },
+//   {
+//     title: "走势图1",
+//     fields: "id",
+//     type: HeaderType.chartBar,
+//   },
+//   {
+//     title: "走势图2",
+//     fields: "id",
+//     type: HeaderType.chartLine,
+//   },
+// ];
 
 export const rowClass = (height = 60) => {
   const styleJson = {
@@ -151,24 +148,14 @@ export const headerCellClass = () => {
   };
   return styleJson;
 };
-// row跳转
-export const toProject = (row: any) => {
-  if (!row.category) return "";
-  let url = "";
-  if (row.category === "NFT") {
-    url = `/rank/nft/${row.id}`;
-  } else {
-    url = `/rank/dapp/${row.id}`;
-  }
-  window.open(createHref(url));
-};
+
 export const cellClass = () => ({ border: "none" });
-export const getList = async function (query: any): Promise<Table> {
+export const getTopicDetail = async function (query: any): Promise<Table> {
   const api = new API();
-  const result = await api.home.getProjects<object>(query);
+  const result: any = await api.home.getTopicDetail<object>(query);
 
   return {
-    header,
-    items: safeGet<object[]>(result, "items"),
+    header: safeGet<Header[]>(result, "header"),
+    items: safeGet<object[]>(result, "body.items"),
   };
 };
