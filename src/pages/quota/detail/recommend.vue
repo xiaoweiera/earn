@@ -59,39 +59,37 @@ onMounted(function () {
     </div>
     <ul class="pt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
       <template v-for="(data, index) in filter(list)" :key="index">
-        <li>
-          <v-router class="block" :href="`${routerConfig.quota}/${data.id}`" target="_blank" name="a">
-            <div class="flex justify-between items-center">
-              <div class="text-global-black-title flex items-center flex-1 w-1 mr-2">
-                <h4 class="truncate font-m text-14-18">{{ data.name }}</h4>
-                <template v-if="Equals(data.chart_type, 'vip')">
-                  <div class="vip-icon w-6.5">
-                    <icon-font class="icon-content" type="icon-VIP" size="26" />
-                  </div>
-                </template>
-                <template v-else-if="Equals(data.chart_type, 'vip_pro')">
-                  <div class="vip-icon w-10">
-                    <icon-font class="icon-content" type="icon-a-VIPPro" size="40" />
-                  </div>
-                </template>
-              </div>
-              <on-follow :id="data.id" v-model:status="data.followed">
-                <span class="flex items-center text-global-darkblue">
-                  <IconFont type="icon-plus" size="16"></IconFont>
-                  <span>{{ i18n.common.follow }}</span>
-                </span>
-              </on-follow>
-            </div>
-            <div class="mt-1.5 text-12-16 h-8">
-              <p class="text-global-black-desc text-opacity-65 line-clamp-2" v-text="data.desc"></p>
-            </div>
-            <div class="mt-2 flex items-center text-global-text-grey">
-              <IconFont type="icon-users" size="16" />
-              <span class="ml-1 text-12-16">{{ toNumberCash(data.follow_count) }}{{ i18n.news.detail.follow }}</span>
-              <IconFont class="ml-3" type="icon-view" size="16" />
-              <span class="ml-1 text-12-16">{{ toNumberCash(data.view_count) }}</span>
-            </div>
+        <li class="block text-global-black-title">
+          <div class="flex justify-between items-center">
+            <v-router :href="`${routerConfig.quota}/${data.id}`" target="_blank" class="flex items-center flex-1 w-1 mr-2">
+              <h4 class="truncate font-m text-14-18">{{ data.name }}</h4>
+              <template v-if="Equals(data.chart_type, 'vip')">
+                <div class="vip-icon w-6.5">
+                  <icon-font class="icon-content" type="icon-VIP" size="26" />
+                </div>
+              </template>
+              <template v-else-if="Equals(data.chart_type, 'vip_pro')">
+                <div class="vip-icon w-10">
+                  <icon-font class="icon-content" type="icon-a-VIPPro" size="40" />
+                </div>
+              </template>
+            </v-router>
+            <on-follow :id="data.id" v-model:status="data.followed">
+              <span class="flex items-center text-global-darkblue">
+                <IconFont type="icon-plus" size="16"></IconFont>
+                <span>{{ i18n.common.follow }}</span>
+              </span>
+            </on-follow>
+          </div>
+          <v-router :href="`${routerConfig.quota}/${data.id}`" target="_blank" class="block mt-1.5 text-12-16 h-8 text-global-black-desc">
+            <p class="text-opacity-65 line-clamp-2" v-text="data.desc"></p>
           </v-router>
+          <div class="mt-2 flex items-center text-global-text-grey">
+            <IconFont type="icon-users" size="16" />
+            <span class="ml-1 text-12-16">{{ toNumberCash(data.follow_count) }}{{ i18n.news.detail.follow }}</span>
+            <IconFont class="ml-3" type="icon-view" size="16" />
+            <span class="ml-1 text-12-16">{{ toNumberCash(data.view_count) }}</span>
+          </div>
         </li>
       </template>
     </ul>

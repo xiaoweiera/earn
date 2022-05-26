@@ -15,6 +15,10 @@ defineProps({
     required: true,
     type: Object as PropType<Data>,
   },
+  text: {
+    type: String,
+    default: "",
+  },
 });
 
 const i18n = I18n();
@@ -30,7 +34,7 @@ const env = getEnv();
       <template v-if="isLocked(data)">
         <client-only class="hidden vip-lock">
           <v-router :href="env.appDownload" class="block text-center p-2" target="_blank">
-            <p class="mb-2 text-14-18">{{ i18n.news.unlock }}</p>
+            <p class="mb-2 text-14-18">{{ text || i18n.news.unlockArticle }}</p>
             <div class="inline-block button">
               <span class="flex items-center">
                 <icon-font type="icon-lock" size="14" />
@@ -61,17 +65,16 @@ const env = getEnv();
 .vague {
   @apply relative select-none;
   .new-content {
-    @apply min-h-20;
+    @apply min-h-48;
     ::v-deep(.quota-content) {
-      text-transform: capitalize !important;
-      filter: blur(8px);
+      filter: blur(3px);
     }
   }
 
   .vip-lock {
     @apply flex items-center justify-center;
   }
-  @at-root .indicators-quota-list & {
+  @at-root .signal-quota-list & {
     .new-content {
       @apply min-h-28;
     }

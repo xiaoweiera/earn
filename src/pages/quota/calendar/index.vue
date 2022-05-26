@@ -20,6 +20,10 @@ defineProps({
     type: Boolean,
     default: () => false,
   },
+  unlockText: {
+    type: String,
+    default: "",
+  },
 });
 
 const i18n = I18n();
@@ -60,7 +64,7 @@ const getWeek = function (value: number | string) {
       <template v-for="item in data.list" :key="item.id">
         <div class="quota-item" :data-time="dateDiff(item.published_at)">
           <div class="lg:pl-4">
-            <Vague :data="item">
+            <Vague :data="item" :text="unlockText">
               <slot :data="item"></slot>
             </Vague>
           </div>
@@ -74,13 +78,12 @@ const getWeek = function (value: number | string) {
 <style lang="scss" scoped>
 .calendar-active {
   .calendar-content {
-    @apply bg-global-topBg;
+    @apply bg-white;
   }
 }
 
 .quota-item {
-  @apply relative lg:pl-3 pb-10;
-
+  @apply relative lg:pl-3 pb-6;
   &:before {
     content: attr(data-time);
     @apply block text-sm text-global-text-grey;

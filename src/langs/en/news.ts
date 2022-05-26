@@ -30,4 +30,9 @@ export default {
   },
   signals: "Signals",
   unlock: "Download KingData App Unlock Indicator",
+  unlockArticle: "Download KingData App to unlock this article.",
+  download: {
+    pc: "/static/images/quota/pc_en.jpg",
+    mobile: "/static/images/quota/mobile_en.jpg",
+  },
 };
