@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Title</title>
+  <script>
+    function onCopy() {
+      const text = `aa
+bb
+cc
+dd`;
+      const input = document.createElement("textarea");
+      input.setAttribute("class", "hidden");
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+    }
+  </script>
 </head>
 <body>
-$END$
+  <div>
+    <button onclick="onCopy()">copy</button>
+  </div>
 </body>
 </html>
