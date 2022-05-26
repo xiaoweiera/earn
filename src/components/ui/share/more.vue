@@ -3,6 +3,7 @@
  * @file 分享
  * @auth svon.me@gmail.com
  */
+import _ from "lodash";
 import { onMounted, ref, computed } from "vue";
 import I18n from "src/utils/i18n/";
 import window from "src/plugins/browser/window";
@@ -29,7 +30,12 @@ const link = ref<string>("");
 const status = ref<boolean>(false);
 
 const copyValue = computed<string>(function () {
-  return `${props.copy}\r\n${link.value}`;
+  const text = _.trim(props.copy);
+  if (text) {
+    return `${text}
+${link.value}`;
+  }
+  return link.value;
 });
 
 let timeout: any;
