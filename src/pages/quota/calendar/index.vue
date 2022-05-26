@@ -67,7 +67,8 @@ const getCopyText = function (data: Data): string {
   if (isLocked(data)) {
     return "";
   }
-  return `${data.content || ""}\r\n${data.chart.desc || ""}`;
+  return `${data.content || ""}
+${data.chart.desc || ""}`;
 };
 
 const getUrl = function (data: Data): string {

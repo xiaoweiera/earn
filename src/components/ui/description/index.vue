@@ -72,14 +72,16 @@ const id = ref<string>(`desc-${uuid()}`);
 
 <style lang="scss" scoped>
 .content {
-  max-height: calc((var(--desc-line) + 1) * var(--desc-line-height));
+  max-height: calc(var(--desc-line) * var(--desc-line-height));
   line-height: var(--desc-line-height);
 
   .view-all {
-    top: calc(var(--desc-line) * var(--desc-line-height));
+    top: calc((var(--desc-line) - 1) * var(--desc-line-height));
     height: var(--desc-line-height);
-    //background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.0716618) 0%, rgba(255, 255, 255, 0) 12.78%, #ffffff 100%);
+    label {
+      @apply px-1.5 bg-white bg-opacity-90;
+    }
   }
 }
 
