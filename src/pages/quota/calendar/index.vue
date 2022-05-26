@@ -94,9 +94,9 @@ const getUrl = function (data: Data): string {
             <Vague :data="item" :text="unlockText">
               <slot :data="item"></slot>
             </Vague>
-            <client-only>
+            <template v-if="item && item.chart">
               <ui-share-more :url="getUrl(item)" :copy="getCopyText(item)" :share="getShareText(item)" />
-            </client-only>
+            </template>
           </div>
           <span class="hidden lg:block line"></span>
         </div>

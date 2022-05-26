@@ -18,10 +18,20 @@ defineProps({
 
 <template>
   <div>
-    <div class="grid grid-cols-2 gap-3">
+    <div class="grid grid-cols-1 gap-3" :class="{ 'grid-layout': list.length > 2 }">
       <div v-for="(value, index) in list" :key="index" class="rounded-md flex overflow-hidden">
         <el-image :lazy="true" :preview-src-list="list" :src="value" class="w-full flex" fit="contain" />
       </div>
     </div>
   </div>
 </template>
+<style scoped lang="scss">
+.grid {
+  @screen md {
+    @apply grid-cols-2;
+    &.grid-layout {
+      @apply grid-cols-3;
+    }
+  }
+}
+</style>
