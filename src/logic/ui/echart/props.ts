@@ -77,5 +77,10 @@ export const chartProps = function () {
       type: String,
       default: () => "h-full",
     },
+    // 是否显示 loading 效果
+    showLoading: {
+      type: Boolean,
+      default: () => true,
+    },
   };
 };

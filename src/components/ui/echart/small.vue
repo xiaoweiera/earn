@@ -11,9 +11,15 @@ import safeSet from "@fengqiaogang/safe-set";
 import { Position, triggerType, LegendDirection } from "src/types/echarts/type";
 import type { PropType } from "vue";
 import type { Callback } from "src/types/common";
-import type { EchartData } from "src/types/echarts/type";
+import type { EchartData, SeriesType } from "src/types/echarts/type";
 
 const props = defineProps({
+  // 设置固定的图表类型
+  // 为空时取数据中的 type 值
+  type: {
+    type: String as PropType<SeriesType>,
+    default: "",
+  },
   data: {
     required: true,
     type: Object as PropType<EchartData>,
@@ -56,7 +62,7 @@ const onCustom = function (data: object): object {
 
 <template>
   <div>
-    <ui-echart :area="true" :custom="onCustom" class="h-full" :legend="LegendDirection.custom" :grid="grid">
+    <ui-echart bg-color="rgba(255, 255, 255, 0)" :area="true" :custom="onCustom" class="h-full" :legend="LegendDirection.custom" :grid="grid" :show-loading="false">
       <!--提示框-->
       <ui-echart-tooltip :trigger="triggerType.none" />
       <!--x轴数据-->
@@ -66,7 +72,7 @@ const onCustom = function (data: object): object {
       <ui-echart-yaxis :index="1" :unit="data.yAxis.right" :position="Position.right" />
       <!--图表数据-->
       <template v-for="(legend, index) in data.legends" :key="index">
-        <ui-echart-legend :index="index" :position="legend.kline ? Position.right : Position.left" :value="legend.name" :type="legend.type" :color="legend.color" />
+        <ui-echart-legend :index="index" :position="legend.kline ? Position.right : Position.left" :value="legend.name" :type="type ? type : legend.type" :color="legend.color" />
         <ui-echart-series :index="index" :value="data.series[index]" />
       </template>
     </ui-echart>

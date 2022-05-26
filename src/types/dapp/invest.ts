@@ -67,3 +67,8 @@ export interface infoModel {
   address?: string;
   chain: string;
 }
+export interface rankTopicModel {
+  category: string;
+  page: number;
+  page_size: number;
+}

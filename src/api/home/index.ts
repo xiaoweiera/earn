@@ -5,9 +5,10 @@
 import * as api from "src/config/api";
 import { DefaultValue, expire, get, tryError, userToken } from "src/plugins/dao/http";
 import type { projectParams, recommendModel, tutorialParams } from "src/types/home";
-import { lineModel, infoModel } from "src/types/dapp/invest";
+import { lineModel, infoModel, rankTopicModel } from "src/types/dapp/invest";
 import ApiTemplate from "../template";
 import type { ApyQuery } from "src/types/home/apy";
+import { newProjectParams } from "src/types/home";
 
 export default class extends ApiTemplate {
   // 数据汇总
@@ -64,10 +65,18 @@ export default class extends ApiTemplate {
   }
 
   // 话题项目列表
-  @tryError(DefaultValue([])) // 处理默认值
+  @tryError(DefaultValue({})) // 处理默认值
   @get(api.home.projects, expire.min10) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getProjects<T>(query: projectParams): Promise<T> {
+    // 返回参数
+    return [query] as any;
+  }
+  // 新的-话题项目列表
+  @tryError(DefaultValue({})) // 处理默认值
+  @get(api.home.getTopicDetail) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getTopicDetail<T>(query: newProjectParams): Promise<T> {
     // 返回参数
     return [query] as any;
   }
@@ -126,6 +135,14 @@ export default class extends ApiTemplate {
   @get(api.home.addressInfo) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getHistory<T>(query: infoModel): Promise<T> {
+    // 返回参数
+    return [query] as any;
+  }
+  //榜单列表
+  @tryError(DefaultValue({})) // 处理默认值
+  @get(api.home.getRankTopic) // 定义一个 get 请求
+  @userToken() // 不需要用户信息
+  getRankTopic<T>(query: rankTopicModel): Promise<T> {
     // 返回参数
     return [query] as any;
   }

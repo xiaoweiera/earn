@@ -4,6 +4,9 @@ import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
 import window from "src/plugins/browser/window";
 import { createHref } from "src/plugins/router/pack";
+// import HomeTableHeader from "./header.vue";
+// import HomeTableTd from "./td.vue";
+
 import HomeTableHeader from "./header.vue";
 import HomeTableTd from "./td.vue";
 const i18n = I18n();
