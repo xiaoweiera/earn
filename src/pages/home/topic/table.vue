@@ -121,7 +121,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="overflow-hidden md:mb-0 mb-4" :class="`${bgClass}`">
-    <div v-if="isFilter" class="flex xshidden flex-wrap justify-between items-baseline">
+    <div class="flex xshidden flex-wrap justify-between items-baseline">
       <HomeFilter v-if="safeGet(detail, 'id') && showFilter" :key="key" :info="detail" class="mb-4" />
       <client-only>
         <div v-if="isSearch" class="relative flex flex-wrap items-center search">
