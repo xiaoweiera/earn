@@ -22,60 +22,68 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="data" class="p-3 md:p-4 h-36 md:h-full flex flex-col bg-global-white rounded-kd6px font-kdFang">
-    <div class="flex flex-1 justify-between relative">
-      <div class="flex-1 md:absolute">
-        <div class="text-kd14px18px w-full font-medium text-global-highTitle text-opacity-85">{{ i18n.home.new.fund }}</div>
-        <div class="mt-2 flex w-full items-center">
-          <span class="mr-1 text-kd14px18px font-medium text-global-highTitle text-opacity-65">≈</span>
-          <span class="text-kd20px20px md:text-kd26px26px text-global-highTitle text-opacity-85 text-number whitespace-pre-wrap">{{ toNumberCashFormat(data.fund, "$") }}</span>
+  <div class="w-ful h-36 md:h-full">
+    <div v-if="data && data['fund'] > 0" class="p-3 md:p-4 h-full flex flex-col bg-global-white rounded-kd6px font-kdFang">
+      <div class="flex flex-1 justify-between relative">
+        <div class="flex-1 md:absolute">
+          <div class="text-kd14px18px w-full font-medium text-global-highTitle text-opacity-85">{{ i18n.home.new.fund }}</div>
+          <div class="mt-2 flex w-full items-center">
+            <span class="mr-1 text-kd14px18px font-medium text-global-highTitle text-opacity-65">≈</span>
+            <span class="text-kd20px20px md:text-kd26px26px text-global-highTitle text-opacity-85 text-number whitespace-pre-wrap">{{ toNumberCashFormat(data.fund, "$") }}</span>
+          </div>
+          <div class="flex w-full items-center mt-2">
+            <div v-if="data['earning_rate']">
+              <IconFont v-if="data['earning_rate'] >= 0" class="mr-1" size="12" type="icon-zheng" />
+              <IconFont v-else class="mr-1" size="10" type="icon-fu" />
+            </div>
+            <span v-if="data['earning_rate']" class="mr-1 text-kd16px18px text-number" :class="getNumberColor(data['earning_rate'])">{{ toNumberCashFormat(data.earning_rate) }}%</span>
+          </div>
         </div>
-        <div class="flex w-full items-center mt-2">
-          <IconFont v-if="data['earning_rate'] >= 0" class="mr-1" size="12" type="icon-zheng" />
-          <IconFont v-else class="mr-1" size="10" type="icon-fu" />
-          <span v-if="data['earning_rate']" class="mr-1 text-kd16px18px text-number" :class="getNumberColor(data['earning_rate'])">{{ toNumberCashFormat(data.earning_rate) }}%</span>
+        <Chart class="w-54 md:flex-1 md:w-full" />
+      </div>
+      <div class="mt-2 h-10 md:h-11.5 pt-2 flex items-center justify-between fen">
+        <div class="he">
+          <div class="name">{{ i18n.address.money.deposit }}</div>
+          <div class="flex items-center md:mt-0.5">
+            <span class="yue mr-0.5">≈</span>
+            <span class="zhi text-number">{{ toNumberCashFormat(data["stacked_usd_value"], "$") }}</span>
+          </div>
+        </div>
+        <div class="gang"></div>
+        <div class="he">
+          <div class="name">{{ i18n.address.money.liabilities }}</div>
+          <div class="flex items-center md:mt-0.5">
+            <span class="yue mr-0.5">≈</span>
+            <span class="zhi text-number">{{ toNumberCashFormat(data["debt_usd_value"], "$") }}</span>
+          </div>
+        </div>
+        <div class="gang"></div>
+        <div class="he">
+          <div class="flex items-center">
+            <div class="name mr-1">{{ i18n.address.money.earnings }}</div>
+            <Tip :data="data" />
+          </div>
+          <div class="flex items-center md:mt-0.5">
+            <span class="yue mr-0.5">≈</span>
+            <span class="zhi text-number">{{ toNumberCashFormat(data["earn_usd_value"], "$") }}</span>
+          </div>
+        </div>
+        <div class="gang"></div>
+        <div class="he">
+          <div class="flex items-center">
+            <div class="name mr-1">APY</div>
+            <Tip :data="data" />
+          </div>
+          <div class="flex items-center md:mt-0.5">
+            <span class="yue mr-0.5">≈</span>
+            <span class="zhi text-number">{{ toNumberCashFormat(data["apy"], "%") }}</span>
+          </div>
         </div>
       </div>
-      <Chart class="w-54 md:flex-1 md:w-full" />
     </div>
-    <div class="mt-2 h-10 md:h-11.5 pt-2 flex items-center justify-between fen">
-      <div class="he">
-        <div class="name">{{ i18n.address.money.deposit }}</div>
-        <div class="flex items-center md:mt-0.5">
-          <span class="yue mr-0.5">≈</span>
-          <span class="zhi text-number">{{ toNumberCashFormat(data["stacked_usd_value"], "$") }}</span>
-        </div>
-      </div>
-      <div class="gang"></div>
-      <div class="he">
-        <div class="name">{{ i18n.address.money.liabilities }}</div>
-        <div class="flex items-center md:mt-0.5">
-          <span class="yue mr-0.5">≈</span>
-          <span class="zhi text-number">{{ toNumberCashFormat(data["debt_usd_value"], "$") }}</span>
-        </div>
-      </div>
-      <div class="gang"></div>
-      <div class="he">
-        <div class="flex items-center">
-          <div class="name mr-1">{{ i18n.address.money.earnings }}</div>
-          <Tip :data="data" />
-        </div>
-        <div class="flex items-center md:mt-0.5">
-          <span class="yue mr-0.5">≈</span>
-          <span class="zhi text-number">{{ toNumberCashFormat(data["earn_usd_value"], "$") }}</span>
-        </div>
-      </div>
-      <div class="gang"></div>
-      <div class="he">
-        <div class="flex items-center">
-          <div class="name mr-1">APY</div>
-          <Tip :data="data" />
-        </div>
-        <div class="flex items-center md:mt-0.5">
-          <span class="yue mr-0.5">≈</span>
-          <span class="zhi text-number">{{ toNumberCashFormat(data["apy"], "%") }}</span>
-        </div>
-      </div>
+    <div v-else class="top w-full h-full border-1 flex flex-col items-center justify-center rounded-kd6px">
+      <IconFont type="loading" size="44" />
+      <div class="text-kd14px18px text-global-highTitle mt-4">{{ i18n.home.loadData }}</div>
     </div>
   </div>
 </template>
@@ -98,5 +106,17 @@ onMounted(() => {
 }
 .zhi {
   @apply text-kd12px14px md:text-kd14px16px text-global-highTitle text-opacity-85;
+}
+.top {
+  background-image: url("https://res.kingdata.xyz/common/mobileNoData.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+@screen md {
+  .top {
+    background-image: url("https://res.kingdata.xyz/common/pcNoData.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
 }
 </style>
