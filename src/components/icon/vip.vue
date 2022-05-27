@@ -15,7 +15,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="inline-block">
+  <div v-show="type" class="inline-block">
     <template v-if="Equals(type, 'vip')">
       <div class="vip-icon w-6.5">
         <icon-font class="icon-content" type="icon-VIP" size="26" />
