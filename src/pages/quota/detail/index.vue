@@ -5,7 +5,7 @@
  */
 import API from "src/api/";
 import I18n from "src/utils/i18n/";
-import { dateDiff } from "src/utils/";
+import { dateDiff, isObject } from "src/utils/";
 import { onMounted, computed } from "vue";
 import Recommend from "./recommend.vue";
 import safeGet from "@fengqiaogang/safe-get";
@@ -75,8 +75,8 @@ onMounted(function () {
                 <Item :data="detail" :is-list="false" />
               </Vague>
               <!--指标详情-->
-              <div class="py-8">
-                <Chart :data="detail" />
+              <div v-if="detail.chart && isObject(detail.chart)" class="py-8">
+                <Chart :data="detail.chart" />
               </div>
             </template>
             <!--推荐-->
