@@ -150,7 +150,7 @@ onMounted(() => {
               <template v-for="(header, index) in headerList" :key="index">
                 <el-table-column :fixed="index === 0" :width="header.width ? header.width : 150">
                   <template #header>
-                    <ui-sort class="header-name" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :name="getTitle(header.title)" @change="sort" />
+                    <ui-sort class="header-name" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :field="header.title" :name="getTitle(header.title)" @change="sort" />
                   </template>
                   <template #default="scope">
                     <div :class="{ 'text-center': isBoolean(header.center) }">
