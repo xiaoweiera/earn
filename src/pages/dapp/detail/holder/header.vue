@@ -5,6 +5,7 @@ import { HolderInfo } from "src/types/dapp/holder";
 import { useRoute } from "vue-router";
 import safeGet from "@fengqiaogang/safe-get";
 import { formatCash, valueFormat, toFixed } from "src/utils";
+import { formatRulesNumber } from "src/lib/tool";
 import I18n from "src/utils/i18n/";
 
 defineProps({
@@ -17,6 +18,8 @@ defineProps({
 });
 
 const i18n = I18n();
+// 高亮显示
+const getClassColor = (v: any) => (v === undefined || v >= 0 ? "text-global-numGreen" : "text-global-numRed");
 </script>
 
 <template>
@@ -28,7 +31,7 @@ const i18n = I18n();
         <div class="h-8 flex justify-between items-center">
           <div class="text-18-24 font-b text-global-highTitle font-kdFang">{{ i18n.dapp.detail.holder.whale }}</div>
           <div v-if="data.whalesRank" class="rank">
-            <span class="rank-tips">{{ data.whalesRank }}</span>
+            <span class="rank-tips">#{{ data.whalesRank }}</span>
           </div>
           <!--          <ui-hover class="rank-hover cursor-pointer flex rounded-kd6px" placement="top" :append-to-body="false">-->
           <!--            <template #label>-->
@@ -61,7 +64,7 @@ const i18n = I18n();
               <span class="text-kd20px24px text-global-highTitle font-kdInter font-semibold">{{ formatCash(data.whales) }}</span>
               <span class="h-5 ml-1.5 bg-global-darkblue bg-opacity-6 rounded-kd4px px-1 py-0.5 text-kd12px16px font-medium text-global-darkblue font-kdFang">{{ valueFormat(toFixed(data.whalesRatio, 2), "%") }}</span>
             </div>
-            <div class="mt-1 text-kd12px16px text-global-numGreen font-medium font-kdFang">+12</div>
+            <div class="mt-1 text-kd12px16px font-medium font-kdFang" :class="getClassColor(data.whales_24h)">{{ formatRulesNumber(data.whales_24h) }}</div>
           </div>
           <div class="w-1/2 h-full pl-4 border-l-1 border-global-highTitle border-opacity-6">
             <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdInter font-medium flex items-center">
@@ -81,7 +84,7 @@ const i18n = I18n();
               <span class="text-kd20px24px text-global-highTitle font-kdInter font-semibold">{{ formatCash(data.volumeWithWhales) }}</span>
               <span class="h-5 ml-1.5 bg-global-darkblue bg-opacity-6 rounded-kd4px px-1 py-0.5 text-kd12px16px font-medium text-global-darkblue font-kdFang">{{ valueFormat(toFixed(data.volumeWithWhalesRatio, 2), "%") }}</span>
             </div>
-            <div class="mt-1 text-kd12px16px text-global-numGreen font-medium font-kdFang">+421</div>
+            <div class="mt-1 text-kd12px16px font-medium font-kdFang" :class="getClassColor(data.volumeWithWhales_24h)">{{ formatRulesNumber(data.volumeWithWhales_24h) }}</div>
           </div>
         </div>
       </div>
@@ -124,7 +127,7 @@ const i18n = I18n();
               <span class="text-kd20px24px text-global-highTitle font-kdInter font-semibold">{{ formatCash(data.holdersFromBlueChip) }}</span>
               <span class="h-5 ml-1.5 bg-global-darkblue bg-opacity-6 rounded-kd4px px-1 py-0.5 text-kd12px16px font-medium text-global-darkblue font-kdFang">{{ valueFormat(toFixed(data.holdersFromBlueChipRatio, 2), "%") }}</span>
             </div>
-            <div class="mt-1 text-kd12px16px text-global-numGreen font-medium font-kdFang">+12</div>
+            <div class="mt-1 text-kd12px16px font-medium font-kdFang" :class="getClassColor(data.holdersFromBlueChip_24h)">{{ formatRulesNumber(data.holdersFromBlueChip_24h) }}</div>
           </div>
           <div class="w-1/2 h-full pl-4 border-l-1 border-global-highTitle border-opacity-6">
             <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdInter font-medium flex items-center">
@@ -144,7 +147,7 @@ const i18n = I18n();
               <span class="text-kd20px24px text-global-highTitle font-kdInter font-semibold">{{ formatCash(data.volumeWithBlueChipHolder) }}</span>
               <span class="h-5 ml-1.5 bg-global-darkblue bg-opacity-6 rounded-kd4px px-1 py-0.5 text-kd12px16px font-medium text-global-darkblue font-kdFang">{{ valueFormat(toFixed(data.volumeWithBlueChipHolderRatio, 2), "%") }}</span>
             </div>
-            <div class="mt-1 text-kd12px16px text-global-numGreen font-medium font-kdFang">+193</div>
+            <div class="mt-1 text-kd12px16px font-medium font-kdFang" :class="getClassColor(data.volumeWithBlueChipHolder_24h)">{{ formatRulesNumber(data.volumeWithBlueChipHolder_24h) }}</div>
           </div>
         </div>
       </div>

@@ -66,11 +66,15 @@ export interface ProjectItem {
   volumeWithWhales: number; //巨鲸持仓总量
   volumeWithWhalesRatio: number; //巨鲸持仓占比
   whalesRank: number; //巨鲸排名
+  whales_24h: number; //巨鲸24增长
+  volumeWithWhales_24h: number; //巨鲸持仓24新增
   holdersFromBlueChip: number; //蓝筹持有者数量
   holdersFromBlueChipRatio: number; //蓝筹持有者占比
   volumeWithBlueChipHolder: number; //蓝筹持仓数量
   volumeWithBlueChipHolderRatio: number; //蓝筹持仓数量占比
   holdersFromBlueChipRank: number; //蓝筹Holders排名
+  holdersFromBlueChip_24h: number; //蓝筹Holders24新增
+  volumeWithBlueChipHolder_24h: number; //蓝筹持仓24新增
   tradeCount: number; //NFT被交易总次数
   avgProfiting: number; //NFT平均盈利
   profitTradeRatio: number; //NFT盈利订单占比
