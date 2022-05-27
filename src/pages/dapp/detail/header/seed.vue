@@ -4,7 +4,7 @@
  * @auth svon.me@gmail.com
  */
 import I18n from "src/utils/i18n";
-import type { DAppData, DAppProject } from "src/types/dapp/data";
+import type { ProjectItem, DAppProject } from "src/types/dapp/detail";
 import type { PropType } from "vue";
 import { toNumberFormat, dateYMDFormat } from "src/utils/";
 import { ElButton } from "element-plus";
@@ -22,12 +22,12 @@ defineProps({
   },
   data: {
     required: true,
-    type: Object as PropType<DAppData>,
+    type: Object as PropType<ProjectItem>,
   },
 });
 
-const isFooterEmpty = function (data: DAppData): boolean {
-  return !data.latest_investment;
+const isFooterEmpty = function (data: ProjectItem): boolean {
+  return !data.investments;
 };
 
 /*
@@ -62,17 +62,17 @@ Valuation 估值
       </Td>
       <template v-else>
         <!--Amount 筹款目标-->
-        <Td v-if="data.latest_investment.amount">
+        <Td v-if="data.investments.length > 0">
           <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.address.money.number }}</label>
           <p class="text-14-18 text-global-highTitle">
-            <b class="font-m">{{ toNumberFormat(data.latest_investment.amount, "$") }}</b>
+            <b class="font-m">{{ toNumberFormat(data.investments.pop().amount, "$") }}</b>
           </p>
         </Td>
         <!--Date-->
-        <Td v-if="data.latest_investment.invested_at">
+        <Td v-if="data.investments.length > 0">
           <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.common.time.date }}</label>
           <p class="text-14-18 text-global-highTitle">
-            <b class="font-m">{{ dateYMDFormat(data.latest_investment.invested_at) }}</b>
+            <b class="font-m">{{ dateYMDFormat(data.investments.pop().invested_at) }}</b>
           </p>
         </Td>
       </template>

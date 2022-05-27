@@ -5,7 +5,7 @@
 
 import API from "src/api";
 import type { DAppProject, DataQuery, TokenDataQuery, TokenQuery } from "src/types/dapp/data";
-import { DAppData, Progress, ProjectType, TabName } from "src/types/dapp/data";
+import { ProjectItem, Progress, ProjectType, TabName } from "src/types/dapp/detail";
 import I18n from "src/utils/i18n";
 import { HolderQuery } from "src/types/dapp/holder";
 
@@ -63,7 +63,7 @@ const makeUrl = function (project: DAppProject, tab: TabName): string {
   return app();
 };
 
-export const getTabList = function (project: DAppProject, data: DAppData) {
+export const getTabList = function (project: DAppProject, data: ProjectItem) {
   const i18n = I18n();
   const list: object[] = [
     {
@@ -83,31 +83,31 @@ export const getTabList = function (project: DAppProject, data: DAppData) {
     },
   ];
   // 空投
-  if (project.type === ProjectType.airdrop && data.airdrop.airdrop_status !== Progress.no) {
+  if (project.type === ProjectType.airdrop && data.airdrop_status !== Progress.no) {
     list.push({
       tab: TabName.airdrop,
       label: i18n.dapp.project.airdrop,
       href: makeUrl(project, TabName.airdrop),
     });
-  } else if (project.type === ProjectType.nft && data.nft.mint_status !== Progress.no) {
+  } else if (project.type === ProjectType.nft && data.mint_status !== Progress.no) {
     list.push({
       tab: TabName.nft,
       label: "Mint",
       href: makeUrl(project, TabName.nft),
     });
-  } else if (project.type === ProjectType.dapp && data.ido.ido_status !== Progress.no) {
+  } else if (project.type === ProjectType.dapp && data.ido_status !== Progress.no) {
     list.push({
       tab: project.type,
       label: "IDO",
       href: makeUrl(project, project.type as any),
     });
-  } else if (project.type === ProjectType.igo && data.ido.ido_status !== Progress.no) {
+  } else if (project.type === ProjectType.igo && data.ido_status !== Progress.no) {
     list.push({
       tab: project.type,
       label: "IGO",
       href: makeUrl(project, project.type as any),
     });
-  } else if (data.latest_investment !== null) {
+  } else if (data.investments !== null && data.investments.length > 0) {
     list.splice(1, 0, {
       tab: TabName.project,
       label: i18n.dapp.project.projectInfo,
