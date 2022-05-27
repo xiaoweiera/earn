@@ -278,12 +278,4 @@ export default class extends ApiTemplate {
   onSubmit<T>(@required data: FormData): Promise<T> {
     return [data] as any;
   }
-  // NFT持有人信息
-  @tryError(DefaultValue({}))
-  @get(api.dapp.holder, expire.min30)
-  @userToken()
-  @validate
-  getHolderInfo<T>(@required query: HolderQuery): Promise<T> {
-    return [query] as any;
-  }
 }

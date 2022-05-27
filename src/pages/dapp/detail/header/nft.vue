@@ -101,12 +101,12 @@ const isAllEmpty = function (data: ProjectItem) {
             <ui-percent class="invisible" />
           </Td>
           <!--Market 市值-->
-          <Td v-if="data.increment.mcapWithCirculationSupply_24h">
+          <Td v-if="data.increment.mcapWithMaxSupply_24h">
             <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.mcap }}</label>
             <p class="text-14-18 text-global-highTitle">
-              <b class="font-m">{{ formatCash(data.increment.mcapWithCirculationSupply_24h) }}</b>
+              <b class="font-m">{{ formatCash(data.increment.mcapWithMaxSupply_24h) }}</b>
             </p>
-            <ui-percent :value="data.increment.mcapWithMaxSupplyTvl_7d_radio" />
+            <ui-percent :value="data.increment.mcapWithMaxSupply_24h_ratio" />
           </Td>
           <!--Volume 发行总量-->
           <Td v-if="data.increment.volume_24h">

@@ -46,7 +46,7 @@ onMounted(function () {
     <!-- holder trends图表 -->
     <div class="w-full mt-7">
       <div class="w-full flex justify-between">
-        <div class="text-kd16px22px text-global-highTitle font-kdFang font-medium">{{ i18n.dapp.project.floorPrice }} & {{ i18n.dapp.rank.table.volume }}</div>
+        <div class="text-kd16px22px text-global-highTitle font-kdFang font-semibold">{{ i18n.dapp.project.floorPrice }} & {{ i18n.dapp.rank.table.volume }}</div>
         <div>
           <HolderTab :data="holderDateList()" @change="tabChange" />
         </div>

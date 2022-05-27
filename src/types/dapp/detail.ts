@@ -19,6 +19,7 @@ export enum TabName {
   igo = "igo",
   airdrop = "airdrops",
   mint = "mint",
+  holder = "holder",
 }
 
 export enum ProjectType {
@@ -64,10 +65,16 @@ export interface ProjectItem {
   whalesRatio: number; //巨鲸占比
   volumeWithWhales: number; //巨鲸持仓总量
   volumeWithWhalesRatio: number; //巨鲸持仓占比
+  whalesRank: number; //巨鲸排名
+  whales_24h: number; //巨鲸24增长
+  volumeWithWhales_24h: number; //巨鲸持仓24新增
   holdersFromBlueChip: number; //蓝筹持有者数量
   holdersFromBlueChipRatio: number; //蓝筹持有者占比
   volumeWithBlueChipHolder: number; //蓝筹持仓数量
   volumeWithBlueChipHolderRatio: number; //蓝筹持仓数量占比
+  holdersFromBlueChipRank: number; //蓝筹Holders排名
+  holdersFromBlueChip_24h: number; //蓝筹Holders24新增
+  volumeWithBlueChipHolder_24h: number; //蓝筹持仓24新增
   tradeCount: number; //NFT被交易总次数
   avgProfiting: number; //NFT平均盈利
   profitTradeRatio: number; //NFT盈利订单占比
@@ -178,9 +185,12 @@ export interface Increment {
   mcapWithMaxSupplyTvl_7d_radio: number; //变化率
   mcapWithMaxSupplyTvl_30d_radio: number; //变化率
   //流通市值
-  mcapWithCirculationSupply_24h: number; //变化量
-  mcapWithCirculationSupply_7d: number; //变化量
-  mcapWithCirculationSupply_30d: number; //变化量
+  mcapWithMaxSupply_24h: number; //变化量
+  mcapWithMaxSupply_7d: number; //变化量
+  mcapWithMaxSupply_30d: number; //变化量
+  mcapWithMaxSupply_24h_ratio: number; //变化率
+  mcapWithMaxSupply_7d_ratio: number; //变化率
+  mcapWithMaxSupply_30d_ratio: number; //变化率
   //TVL
   tvl_24h: number; //变化量
   tvl_7d: number; //变化量

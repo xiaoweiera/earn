@@ -89,11 +89,18 @@ export const getTabList = function (project: DAppProject, data: ProjectItem) {
       label: i18n.dapp.project.airdrop,
       href: makeUrl(project, TabName.airdrop),
     });
-  } else if (project.type === ProjectType.nft && data.mint_status !== Progress.no) {
+  } else if (project.type === ProjectType.nft) {
+    if (data.mint_status !== Progress.no) {
+      list.push({
+        tab: TabName.nft,
+        label: "Mint",
+        href: makeUrl(project, TabName.nft),
+      });
+    }
     list.push({
-      tab: TabName.nft,
-      label: "Mint",
-      href: makeUrl(project, TabName.nft),
+      tab: TabName.holder,
+      label: "🐳 Holders",
+      href: makeUrl(project, TabName.holder),
     });
   } else if (project.type === ProjectType.dapp && data.ido_status !== Progress.no) {
     list.push({
@@ -112,12 +119,6 @@ export const getTabList = function (project: DAppProject, data: ProjectItem) {
       tab: TabName.project,
       label: i18n.dapp.project.projectInfo,
       href: makeUrl(project, TabName.project),
-    });
-  } else if (project.type === ProjectType.nft) {
-    list.push({
-      tab: TabName.holder,
-      label: "🐳 Holders",
-      href: makeUrl(project, TabName.holder),
     });
   }
   return list;
