@@ -4,7 +4,7 @@ export default {
   chainVolume: "Transactions",
   mcapWithMaxSupplyTvl: "",
   tvl: "TVL",
-  price: "price",
+  price: "price_ad",
   currentRoi: "CurrentRoi",
   athPrice: "ATH",
   athRoi: "ATH_ROI",

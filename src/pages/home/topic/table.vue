@@ -154,7 +154,7 @@ onMounted(() => {
                   </template>
                   <template #default="scope">
                     <div :class="{ 'text-center': isBoolean(header.center) }">
-                      <Content :fields="header.fields" :type="header.type" :data="scope.row" />
+                      <Content :width="header.width" :fields="header.fields" :type="header.type" :data="scope.row" />
                     </div>
                   </template>
                 </el-table-column>

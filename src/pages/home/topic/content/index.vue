@@ -15,7 +15,7 @@ import Text from "./text.vue";
 import _Number from "./number.vue";
 import Ratio from "./ratio.vue";
 import Progress from "./progress.vue";
-import Line from "./line.vue";
+import Chartline from "./line.vue";
 import Money from "./money.vue";
 import Time from "./time.vue";
 import Desc from "./desc.vue";
@@ -29,9 +29,9 @@ export default defineComponent({
     Number: _Number,
     Ratio,
     Progress,
-    Line,
-    Bar: {
-      extends: Line,
+    Chartline,
+    Chartbar: {
+      extends: Chartline,
       data() {
         return {
           type: SeriesType.bar,
@@ -57,7 +57,7 @@ export default defineComponent({
     },
     width: {
       type: Number,
-      default: () => 0,
+      default: () => 150,
     },
   },
   methods: {
@@ -77,16 +77,23 @@ export default defineComponent({
       }
       return status;
     },
+    getStyle: function (type: string) {
+      const wfull = ["chartLine", "chartBar", "progress"];
+      if (wfull.includes(type)) {
+        return "width:100%";
+      }
+      return "";
+    },
   },
 });
 </script>
 
 <template>
-  <div>
+  <div class="w-full">
     <template v-if="isArray(type)">
-      <div class="flex item-list w-full" :class="{ column: isColumn(type) }">
+      <div class="flex item-list" :class="{ column: isColumn(type) }">
         <template v-for="(value, index) in type" :key="index">
-          <TableTD class="flex table-item" :fields="fields[index]" :type="value" :data="data" />
+          <TableTD class="flex table-item short" :style="getStyle(value)" :fields="fields[index]" :type="value" :data="data" />
         </template>
       </div>
     </template>
@@ -101,7 +108,7 @@ export default defineComponent({
   &:not(.column) {
     @apply items-center;
     & > .table-item {
-      @apply mr-1.5 last:mr-0 flex-1 w-1;
+      @apply mr-1.5 last:mr-0 flex-1;
       &:first-child {
         width: auto;
         @apply flex-none;

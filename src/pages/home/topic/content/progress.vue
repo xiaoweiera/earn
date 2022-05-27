@@ -28,7 +28,7 @@ const value = computed<number>(function () {
 </script>
 
 <template>
-  <client-only>
-    <el-progress :percentage="value" :show-text="false" />
+  <client-only class="w-full">
+    <el-progress class="w-full" :percentage="value" :show-text="false" />
   </client-only>
 </template>
