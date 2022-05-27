@@ -65,6 +65,10 @@ onMounted(function () {
                   </span>
                 </ui-share>
               </div>
+              <!--信息流内容-->
+              <Vague class="mt-6" :data="detail">
+                <Item :data="detail" :is-list="false" />
+              </Vague>
             </template>
             <!--推荐-->
             <div v-if="detailId" :data-id="detailId" :data-pid="detail.chart.id">
