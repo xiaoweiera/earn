@@ -1,5 +1,5 @@
 export default {
-  tips: "Download App, manage followed indicators, and unlock the other 200+ indicators to help you be the first to get wealth!",
+  tips: "Catch any opportunity in crypto. The latest, most comprehensive and timely monitoring of movements.",
   news: "There are {count} news, click to load",
   comment: {
     reply: {
@@ -11,8 +11,8 @@ export default {
   },
   link: "Translation Link",
   share: {
-    success: "Follow success",
-    download: "please download the app to receive changes",
+    success: "Follow success!",
+    download: "please download the app to receive changes.",
   },
   meta: {
     title: {
@@ -27,5 +27,12 @@ export default {
     recommend: "Recommend",
     follow: "Follow",
     caption: "Caption",
+  },
+  signals: "Signals",
+  unlock: "Download KingData App Unlock Indicator",
+  unlockArticle: "Download KingData App to unlock this article.",
+  download: {
+    pc: "/static/images/quota/pc_en.jpg",
+    mobile: "/static/images/quota/mobile_en.jpg",
   },
 };

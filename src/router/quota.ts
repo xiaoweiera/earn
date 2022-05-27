@@ -12,6 +12,11 @@ const routes = [
     component: () => import("src/pages/quota/indicators/index.vue"),
   },
   {
+    // 指标详情
+    path: `${routerConfig.quota}/:id`,
+    component: () => import("src/pages/quota/indicators/detail.vue"),
+  },
+  {
     // 指标异动 - 列表
     path: routerConfig.news,
     component: () => import("src/pages/quota/signals.vue"),

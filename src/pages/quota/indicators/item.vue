@@ -1,7 +1,6 @@
 <script lang="ts" setup>
+import { indicatorTypes } from "src/types/quota/";
 import OnFollow from "src/pages/quota/follow/on.vue";
-import { indicatorTypes } from "src/types/quota/index";
-import NewsQuotaTrends from "src/pages/quota/indicators/trends.vue";
 
 defineProps({
   data: {
@@ -12,10 +11,10 @@ defineProps({
 </script>
 
 <template>
-  <div class="quota-content">
+  <div class="quota-content relative rounded-lg bg-white">
     <!-- 显示趋势图 -->
     <div v-if="data.trends" class="absolute left-0 top-0 right-0 bottom-0">
-      <NewsQuotaTrends :data="data" />
+      <!--      <NewsQuotaTrends :data="data" />-->
     </div>
     <div class="h-40 relative z-2">
       <div class="absolute left-0 top-4 right-0 px-4">
@@ -31,9 +30,6 @@ defineProps({
 
 <style lang="scss" scoped>
 .quota-content {
-  @apply relative;
-  @apply rounded-lg;
-  @apply bg-white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.1);
 }
 </style>

@@ -135,20 +135,27 @@ export default class extends ApiTemplate {
     const value = _.trim(`${keyword || ""}`);
     const callback = (result: object): SearchItem[] => {
       if (value && value.length >= minCharLength) {
-        return [
-          {
-            name: "DApp",
-            children: createUrl(safeGet<SearchItem[]>(result, "dapps"), true),
-          },
-          {
-            name: "NFT",
-            children: createUrl(safeGet<SearchItem[]>(result, "nfts"), false),
-          },
-        ];
+        const list1 = createUrl(safeGet<SearchItem[]>(result, "dapps"), true);
+        const list2 = createUrl(safeGet<SearchItem[]>(result, "nfts"), false);
+        if (list1.length > 0 || list2.length > 0) {
+          return [
+            {
+              name: "DApp",
+              key: "dapp",
+              children: list1,
+            },
+            {
+              name: "NFT",
+              key: "nft",
+              children: list2,
+            },
+          ];
+        }
       }
       const i18n = I18n(this.lang);
       return [
         {
+          key: "hot",
           name: i18n.liquidity.select.hot + " 🔥",
           children: createUrl(safeGet<SearchItem[]>(result, "hots") || [], true),
         },

@@ -24,6 +24,7 @@ export const DApp = function (lang?: Lang): MenuItem {
     expand: "HeaderSubDApp", // 二级导航末尾自定义组件名称
     newTip: true,
     icon: "icon-xinxiangmufaxian",
+    header: true,
     children: [
       {
         id: name.dapp, // id

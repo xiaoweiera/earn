@@ -23,12 +23,12 @@ export const get = function <T>(name?: string): T {
   return { ...cache } as T;
 };
 
-export const getValue = function <T>(key: string, auto?: T): T | undefined {
+export const getValue = function <T>(key: string, auto?: T): T {
   const data = get<T>(key);
   if (data) {
     return data;
   }
-  return auto;
+  return auto as T;
 };
 
 // 获取当前环境中的语言类型
