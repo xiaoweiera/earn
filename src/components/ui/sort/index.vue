@@ -25,8 +25,12 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  field: {
+    type: String,
+    default: "",
+  },
 });
-const sortKey = computed<string>(() => (props.keyName ? props.keyName : props.name));
+const sortKey = computed<string>(() => (props.keyName ? props.keyName : props.field));
 
 const emit = defineEmits(["change"]);
 const sortIcon: any = {
