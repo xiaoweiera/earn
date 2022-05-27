@@ -70,7 +70,10 @@ onMounted(function () {
     <div v-if="detail && detail.id" class="max-w-full w-250 mx-auto">
       <div class="shadow-base-small p-4 rounded-md">
         <div class="text-global-black-title flex items-center justify-between">
-          <h3 class="text-18-24 font-m">{{ detail.name }}</h3>
+          <div class="flex items-center w-1 flex-1">
+            <h3 class="text-18-24 font-m truncate">{{ detail.name }}</h3>
+            <icon-vip class="ml-1" :type="detail.chart_type" />
+          </div>
           <OnFollow :id="detail.id" v-model:status="detail.followed" />
         </div>
         <div class="mt-2.5">

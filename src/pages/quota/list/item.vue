@@ -56,17 +56,18 @@ const getRouterName = function (text: string): Name {
       <!-- 标题 -->
       <template v-if="data.title">
         <!--显示快讯标题-->
-        <v-router class="block mr-2 md:mr-0 quota-title text-global-black-title" :href="getLink(data)" target="_blank">
-          <h3 class="text-16-24 font-b">{{ data.title }}</h3>
+        <v-router class="block quota-title text-global-black-title" :href="getLink(data)" target="_blank">
+          <h3 class="text-16-24 font-b truncate">{{ data.title }}</h3>
         </v-router>
       </template>
       <template v-else>
         <!--显示指标标题-->
-        <v-router class="block mr-2 md:mr-0 quota-title text-global-black-title" :href="getIndicator(data)" target="_blank">
-          <h3 class="text-16-24 font-b">{{ data.chart.name }}</h3>
+        <v-router class="quota-title text-global-black-title flex-1 w-1 flex items-center" :href="getIndicator(data)" target="_blank">
+          <h3 class="text-16-24 font-b truncate">{{ data.chart.name }}</h3>
+          <icon-vip class="ml-1" :type="data.chart.chart_type" />
         </v-router>
       </template>
-      <div class="quota-follow">
+      <div class="quota-follow ml-2">
         <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />
       </div>
     </div>
@@ -99,7 +100,7 @@ const getRouterName = function (text: string): Name {
 
 <style scoped lang="scss">
 %hidden {
-  @apply invisible opacity-0;
+  @apply hidden;
 }
 
 .quota-follow {
