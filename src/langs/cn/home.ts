@@ -1,6 +1,7 @@
 export default {
   title: "Web3 一站式投资平台",
   twoTitle: "发现、跟踪、投资 DeFi、NFT、游戏，数据驱动投资",
+  loadData: "数据加载中，请稍后查看",
   platData: {
     avgAth: "平均收益",
     desc: {

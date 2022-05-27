@@ -1,6 +1,7 @@
 export default {
   title: "One-stop investment platform on Web3",
   twoTitle: "Discover, Track, Invest DeFi, NFT, Gaming, Data-driven investing",
+  loadData: "Data is loading, please check it later",
   platData: {
     avgAth: "Avg Revenue",
     desc: {
