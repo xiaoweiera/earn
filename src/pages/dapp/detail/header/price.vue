@@ -5,7 +5,7 @@
  */
 import I18n from "src/utils/i18n";
 import { toUpper } from "ramda";
-import { Progress as ProjectProgress } from "src/types/dapp/data";
+import { Progress as ProjectProgress } from "src/types/dapp/detail";
 import { toNumberCashFormat, isString } from "src/utils/";
 import { PropType } from "vue";
 

@@ -5,7 +5,7 @@
  */
 import I18n from "src/utils/i18n";
 import { Progress } from "src/types/dapp/data";
-import type { DAppData, DAppProject } from "src/types/dapp/data";
+import type { ProjectItem, DAppProject } from "src/types/dapp/detail";
 import type { PropType } from "vue";
 import { toNumberFormat, dateYMDFormat, isAfter } from "src/utils/";
 import { ElButton } from "element-plus";
@@ -23,12 +23,12 @@ defineProps({
   },
   data: {
     required: true,
-    type: Object as PropType<DAppData>,
+    type: Object as PropType<ProjectItem>,
   },
 });
 
-const isFooterEmpty = function (data: DAppData) {
-  if (!data.airdrop.airdrop_status || data.airdrop.airdrop_status === Progress.no) {
+const isFooterEmpty = function (data: ProjectItem) {
+  if (!data.airdrop_status || data.airdrop_status === Progress.no) {
     return true;
   }
 };
@@ -37,13 +37,13 @@ const isFooterEmpty = function (data: DAppData) {
 <template>
   <div>
     <div class="flex items-center justify-between">
-      <Price :value="i18n.dapp.detail.airdrop" :label="i18n.dapp.detail.status" :progress="data.airdrop.airdrop_status" />
+      <Price :value="i18n.dapp.detail.airdrop" :label="i18n.dapp.detail.status" :progress="data.airdrop_status" />
       <div>
-        <div v-if="isAfter(data.airdrop.airdrop_start_at)" class="p-1">
-          <ui-time-blue :value="data.airdrop.airdrop_start_at" />
+        <div v-if="isAfter(data.airdrop_start_at)" class="p-1">
+          <ui-time-blue :value="data.airdrop_start_at" />
         </div>
-        <div v-else-if="isAfter(data.airdrop.airdrop_end_at)" class="p-1">
-          <ui-time-blue :value="data.airdrop.airdrop_end_at" />
+        <div v-else-if="isAfter(data.airdrop_end_at)" class="p-1">
+          <ui-time-blue :value="data.airdrop_end_at" />
         </div>
         <v-router v-if="data.website" :href="data.website" class="block mt-2" target="_blank">
           <client-only>
@@ -61,30 +61,30 @@ const isFooterEmpty = function (data: DAppData) {
       </Td>
       <template v-else>
         <!--Number of Winners 获奖人数-->
-        <Td v-if="data.airdrop.airdrop_winner_count">
+        <Td v-if="data.airdrop_winner_count">
           <label class="text-12-18 text-global-highTitle text-opacity-65">
             <span>{{ i18n.dapp.detail.winNumber }}</span>
           </label>
           <p class="text-14-18 text-global-highTitle">
-            <b class="font-m">{{ toNumberFormat(data.airdrop.airdrop_winner_count) }}</b>
+            <b class="font-m">{{ toNumberFormat(data.airdrop_winner_count) }}</b>
           </p>
         </Td>
         <!--Total Airdrop Amount-->
-        <Td v-if="data.airdrop.airdrop_amount">
+        <Td v-if="data.airdrop_amount">
           <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.airdropAmount }}</label>
           <p class="text-14-18 text-global-highTitle">
-            <b class="font-m">{{ toNumberFormat(data.airdrop.airdrop_amount) }}</b>
+            <b class="font-m">{{ toNumberFormat(data.airdrop_amount) }}</b>
           </p>
         </Td>
         <!--Airdrop Time-->
-        <Td v-if="data.airdrop.airdrop_start_at || data.airdrop.airdrop_end_at">
+        <Td v-if="data.airdrop_start_at || data.airdrop_end_at">
           <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.airdropTime }}</label>
           <p class="text-14-18 text-global-highTitle">
-            <b v-if="isAfter(data.airdrop.airdrop_start_at)" class="font-m">
-              <span>{{ dateYMDFormat(data.airdrop.airdrop_start_at) }}</span>
+            <b v-if="isAfter(data.airdrop_start_at)" class="font-m">
+              <span>{{ dateYMDFormat(data.airdrop_start_at) }}</span>
             </b>
             <b v-else class="font-m">
-              <span>{{ dateYMDFormat(data.airdrop.airdrop_end_at) }}</span>
+              <span>{{ dateYMDFormat(data.airdrop_end_at) }}</span>
             </b>
           </p>
         </Td>

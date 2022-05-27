@@ -6,8 +6,8 @@
 import I18n from "src/utils/i18n/";
 import type { PropType } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
-import { ProjectType } from "src/types/dapp/data";
-import type { DAppProject, DAppData, ProjectMedias, ProjectMediaItem } from "src/types/dapp/data";
+import type { DAppProject, ProjectItem, ProjectMediaItem, ProjectMedias } from "src/types/dapp/detail";
+import { ProjectType } from "src/types/dapp/detail";
 import { getChainLogo } from "src/utils/";
 import Risk from "src/pages/dapp/risk/index.vue";
 import Progress from "src/pages/dapp/progress/index.vue";
@@ -22,13 +22,13 @@ defineProps({
   },
   data: {
     required: true,
-    type: Object as PropType<DAppData>,
+    type: Object as PropType<ProjectItem>,
   },
 });
 const title = createRef<string>("title", {} as any);
 const description = createRef<string>("description", {} as any);
 
-const getMediaUrl = function (data: DAppData, name: string) {
+const getMediaUrl = function (data: ProjectItem, name: string) {
   const medias: ProjectMedias = data?.medias || {};
   const item = safeGet<ProjectMediaItem>(medias, name);
   if (item) {
@@ -37,9 +37,13 @@ const getMediaUrl = function (data: DAppData, name: string) {
   return void 0;
 };
 
-const getAirdropStatus = function (project: DAppProject, data: DAppData) {
+const getAirdropStatus = function (project: DAppProject, data: ProjectItem) {
   if (project.type === ProjectType.airdrop) {
-    return safeGet<string>(data, "airdrop.airdrop_status");
+    return safeGet<string>(data, "airdrop_status");
+  } else if (project.type === ProjectType.nft) {
+    return safeGet<string>(data, "mint_status");
+  } else if (project.type === ProjectType.ido) {
+    return safeGet<string>(data, "ido_status");
   }
 };
 const shareText = function (title: string, keywords: string) {
@@ -125,7 +129,7 @@ const shareText = function (title: string, keywords: string) {
             </template>
           </ui-hover>
         </v-router>
-        <template v-for="(item, index) in data.audit_reports" :key="index">
+        <template v-for="(item, index) in data.safety" :key="index">
           <v-router v-if="item && item.report" :href="item.report" target="_blank">
             <!--审计公司-->
             <ui-hover class="flex-popover" rounded>

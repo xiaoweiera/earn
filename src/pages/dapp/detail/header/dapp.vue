@@ -4,7 +4,7 @@
  * @auth svon.me@gmail.com
  */
 import I18n from "src/utils/i18n";
-import type { DAppData, DAppProject } from "src/types/dapp/data";
+import type { ProjectItem, DAppProject } from "src/types/dapp/detail";
 import type { PropType } from "vue";
 import { toNumberFormat, getNotEmptySize } from "src/utils/";
 import { ElButton } from "element-plus";
@@ -22,20 +22,20 @@ defineProps({
   },
   data: {
     required: true,
-    type: Object as PropType<DAppData>,
+    type: Object as PropType<ProjectItem>,
   },
 });
 
-const isHeaderEmpty = function (data: DAppData): boolean {
-  return getNotEmptySize(data.current_price) <= 0;
+const isHeaderEmpty = function (data: ProjectItem): boolean {
+  return getNotEmptySize(data.price) <= 0;
 };
 
-const isFooterEmpty = function (data: DAppData): boolean {
-  const list = [data.ticker.mcap_tvl, data.ticker.tvl, data.ticker.h24volume, data.ticker.users];
+const isFooterEmpty = function (data: ProjectItem): boolean {
+  const list = [data.increment.mcapWithMaxSupplyTvl_7d, data.increment.tvl_24h, data.increment.volume_24h, data.increment.users_24h];
   return getNotEmptySize(list) <= 0;
 };
 
-const showTable = function (data: DAppData) {
+const showTable = function (data: ProjectItem) {
   if (isHeaderEmpty(data) && isFooterEmpty(data)) {
     if (getNotEmptySize(data.website) > 0) {
       return false;
@@ -44,7 +44,7 @@ const showTable = function (data: DAppData) {
   return true;
 };
 
-const isAllEmpty = function (data: DAppData) {
+const isAllEmpty = function (data: ProjectItem) {
   if (getNotEmptySize(data.website) > 0) {
     return false;
   }
@@ -66,7 +66,7 @@ const isAllEmpty = function (data: DAppData) {
           <Not />
         </template>
         <template v-else>
-          <Price :value="data.current_price" :label="i18n.dapp.detail.price" :symbol="data.ido.ido_symbol" unit="$" />
+          <Price :value="data.price" :label="i18n.dapp.detail.price" :symbol="data.ido_symbol" unit="$" />
         </template>
         <div>
           <v-router v-if="data.website" :href="data.website" class="block" target="_blank">
@@ -87,37 +87,39 @@ const isAllEmpty = function (data: DAppData) {
         </template>
         <template v-else>
           <!--TVL/MCap-->
-          <Td v-if="data.ticker.mcap_tvl">
+          <Td v-if="data.increment.mcapWithMaxSupplyTvl_7d">
             <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.mcapTvl }}</label>
             <p class="text-14-18 text-global-highTitle">
-              <b class="font-m">{{ toNumberFormat(data.ticker.mcap_tvl) }}</b>
+              <b class="font-m">{{ toNumberFormat(data.increment.mcapWithMaxSupplyTvl_7d) }}</b>
             </p>
             <!--占位-->
             <ui-percent class="invisible" />
           </Td>
           <!--TVL-->
-          <Td v-if="data.ticker.tvl">
+          <Td v-if="data.increment.tvl_24h">
             <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.detail.tvl }}</label>
             <p class="text-14-18 text-global-highTitle">
-              <b class="font-m">{{ toNumberFormat(data.ticker.tvl, "$") }}</b>
+              <b class="font-m">{{ toNumberFormat(data.increment.tvl_24h, "$") }}</b>
             </p>
-            <ui-percent :value="data.ticker.tvl_change_percent" />
+            <ui-percent :value="data.increment.tvl_24h_radio" />
           </Td>
           <!--Volume 发行总量-->
-          <Td v-if="data.ticker.h24volume">
+          <Td v-if="data.increment.volume_24h">
             <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.priceData.count }}</label>
             <p class="text-14-18 text-global-highTitle">
-              <b class="font-m">{{ toNumberFormat(data.ticker.h24volume) }}</b>
+              <b class="font-m">{{ toNumberFormat(data.increment.volume_24h) }}</b>
             </p>
-            <ui-percent :value="data.ticker.h24volume_change_percent" />
+            <!--占位-->
+            <ui-percent class="invisible" />
+            <!--            <ui-percent :value="data.increment.h24volume_change_percent" />-->
           </Td>
           <!--Users 发行总量-->
-          <Td v-if="data.ticker.users">
+          <Td v-if="data.increment.users_24h">
             <label class="text-12-18 text-global-highTitle text-opacity-65">{{ i18n.dapp.rank.table.user }}</label>
             <p class="text-14-18 text-global-highTitle">
-              <b class="font-m">{{ toNumberFormat(data.ticker.users) }}</b>
+              <b class="font-m">{{ toNumberFormat(data.increment.users_24h) }}</b>
             </p>
-            <ui-percent :value="data.ticker.user_change_percent" />
+            <ui-percent :value="data.increment.users_24h_radio" />
           </Td>
         </template>
       </Table>

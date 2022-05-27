@@ -5,8 +5,7 @@ import type { PropType } from "vue";
  * @auth svon.me@gmail.com
  */
 import { defineComponent } from "vue";
-import type { DAppData, DAppProject } from "src/types/dapp/data";
-import { Progress, ProjectType } from "src/types/dapp/data";
+import { ProjectItem, DAppProject, ProjectType } from "src/types/dapp/detail";
 
 import InfoView from "./info.vue";
 
@@ -35,27 +34,28 @@ export default defineComponent({
     },
     data: {
       required: true,
-      type: Object as PropType<DAppData>,
+      type: Object as PropType<ProjectItem>,
     },
   },
   computed: {
     name: function () {
-      const data = this.data;
+      // const data = this.data;
       const type: ProjectType = this.project.type;
+      const rank = this.project.rank;
       if (type && (type === ProjectType.dapp || type === ProjectType.igo)) {
-        if (data.current_price > 0) {
+        if (rank) {
           return "DApp";
         } else {
           return "IDO";
         }
       } else if (type && type === ProjectType.airdrop) {
-        if (data.current_price > 0) {
+        if (rank) {
           return "DApp";
         } else {
           return "AirDrop";
         }
       } else if (type && type === ProjectType.nft) {
-        if (data.nft.floor_price > 0) {
+        if (rank) {
           return "NFT";
         } else {
           return "Mint";

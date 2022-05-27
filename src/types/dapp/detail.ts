@@ -2,6 +2,46 @@
  * @file DApp详情数据
  * @author zhangkun@163.com
  */
+export enum Progress {
+  oncoming = "oncoming", // 即将开始
+  ongoing = "ongoing", // 进行中
+  finished = "finished", // 已结束
+  no = "no", //无状态
+}
+
+export enum TabName {
+  dashboard = "dashboard",
+  project = "project",
+  reviews = "reviews",
+  twitter = "twitter",
+  nft = "nft",
+  dapp = "dapp",
+  igo = "igo",
+  airdrop = "airdrops",
+  mint = "mint",
+}
+
+export enum ProjectType {
+  dapp = "dapp",
+  ido = "ido",
+  igo = "igo",
+  nft = "nft",
+  game = "game",
+  defi = "defi",
+  airdrop = "airdrops",
+  mint = "mint",
+  airdrops = "airdrop",
+  funds = "funds",
+}
+
+export interface DAppProject {
+  type: ProjectType; // 项目类型
+  rank: boolean; // 是否为排行榜
+  id: string | number; // 项目id
+  tab: TabName; // tab 名称
+  [key: string]: any;
+}
+
 export interface ProjectItem {
   //链上数据
   mcapWithMaxSupplyTvl: number | string; //完整稀释市值/锁仓
@@ -43,6 +83,7 @@ export interface ProjectItem {
   airdrop_start_at: number | string; //空投开始时间
   airdrop_end_at: number | string; //空投结束时间
   airdrop_url: string; //空投地址
+  airdrop_status?: Progress; // airdrop项目进度状态
   //IDO发行信息
   ido_sale_amount: number; //IDO代币出售数量
   ido_symbol: string; //IDO代币名称
@@ -50,12 +91,14 @@ export interface ProjectItem {
   ido_fundraising_goal: number; //IDO筹款目标
   ido_start_at: number | string; //IDO开始时间
   ido_end_at: number | string; //IDO结束时间
+  ido_status?: Progress; // IDO项目进度状态
   //NFT发行信息
   issue_volume: number; //NFT发行量
   price_unit: string; //NFT计价单位
   mint_price: number; //NFT铸造价格
   mint_start_at: number | string; //NFT铸造开始时间
   mint_end_at: number | string; //NFT铸造结束时间
+  mint_status?: Progress; // Mint项目进度状态
   //项目分类字段
   is_dapp: boolean; //是否为DApp
   is_nft: boolean; //是否为NFT
@@ -90,8 +133,10 @@ export interface ProjectItem {
   contracts: string[]; //合约地址
   community: Community; //社区信息
   cover: string; //封面
-  tge_platform: string; //发行平台
+  tge_platform: string[]; //发行平台
   increment: Increment; //变化量变化率信息
+  investments: Investments[]; //投融资信息
+  tutorial_blog_url: string; //参与教程地址
 }
 
 // 社交媒体数据
@@ -132,6 +177,10 @@ export interface Increment {
   mcapWithMaxSupplyTvl_30d: number; //变化量
   mcapWithMaxSupplyTvl_7d_radio: number; //变化率
   mcapWithMaxSupplyTvl_30d_radio: number; //变化率
+  //流通市值
+  mcapWithCirculationSupply_24h: number; //变化量
+  mcapWithCirculationSupply_7d: number; //变化量
+  mcapWithCirculationSupply_30d: number; //变化量
   //TVL
   tvl_24h: number; //变化量
   tvl_7d: number; //变化量
@@ -142,4 +191,20 @@ export interface Increment {
   //交易量
   volume_24h: number; //变化量
   volume_7d: number; //变化量
+  //nft所有者数量
+  owners_24h: number; //变化量
+  owners_7d: number; //变化量
+  owners_30d: number; //变化量
+  owners_24h_ratio: number; //变化率
+  owners_7d_ratio: number; //变化率
+  owners_30d_ratio: number; //变化率
+}
+
+export interface Investments {
+  id: number | string; //项目ID
+  third_id: number | string; // 轮次ID
+  stage_name: string; //轮次
+  amount: number; // 投资总额 美元
+  valuation?: number; // 估值
+  invested_at: string | number; // 投资日期
 }
