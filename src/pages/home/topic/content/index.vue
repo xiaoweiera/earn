@@ -13,7 +13,7 @@ import Chain from "./chain.vue";
 import Logo from "./logo.vue";
 import Text from "./text.vue";
 import _Number from "./number.vue";
-import Radio from "./radio.vue";
+import Ratio from "./ratio.vue";
 import Progress from "./progress.vue";
 import Line from "./line.vue";
 import Money from "./money.vue";
@@ -27,7 +27,7 @@ export default defineComponent({
     Logo,
     Text,
     Number: _Number,
-    Radio,
+    Ratio,
     Progress,
     Line,
     Bar: {
