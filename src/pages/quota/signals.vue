@@ -7,8 +7,8 @@ import List from "./list/index.vue";
 </script>
 
 <template>
-  <div class="px-4 lg:px-0 bg-global-topBg">
-    <div class="md:max-w-235 mx-auto pb-15">
+  <div class="px-4 lg:px-0">
+    <div class="md:max-w-250 mx-auto pb-15">
       <List />
     </div>
   </div>

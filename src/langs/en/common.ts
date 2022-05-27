@@ -31,6 +31,7 @@ export default {
     about: { name: "About", href: "https://kingdata.medium.com/about-kingdata-growthpad-36907c18440c" },
     download: "Download KingData APP",
     download2: "Download APP",
+    download3: "Download",
   },
   time: {
     date: "Date",
@@ -86,6 +87,7 @@ export default {
     next: "Next",
     shut: "Close",
     expandMore: "More | More ({size})",
+    detail: "Details",
   },
   message: {
     verification: "Send",
@@ -104,6 +106,7 @@ export default {
     checkValue: "Please slide to verify",
     codeDialog: "Slide to get the verification code",
     loginError: "Incorrect account or password input!",
+    searchEmpty: "No match results, try different keywords.",
   },
   placeholder: {
     login: "Automatic log-in",

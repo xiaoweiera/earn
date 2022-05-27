@@ -4,6 +4,7 @@
  * @auth svon.me@gmail.com
  */
 
+import DBList from "@fengqiaogang/dblist";
 import _ from "lodash";
 import API from "src/api/";
 import Result from "./result.vue";
@@ -16,8 +17,9 @@ import { selectItem } from "src/logic/common/search";
 import type { SearchItem } from "src/types/search/";
 import { onUpdateRef } from "src/utils/ssr/ref";
 import { cache } from "src/plugins/cache";
-import { uuid, toBoolean } from "src/utils/";
+import { uuid, toBoolean, size } from "src/utils/";
 import { createHref } from "src/plugins/router/pack";
+import Empty from "./empty.vue";
 
 const i18n = I18n();
 
@@ -124,6 +126,20 @@ const onSubmit = function () {
   onUpdate(keyword);
 };
 
+const showEmpty = function (list: SearchItem[]) {
+  const db = new DBList([], "key");
+  db.insert(list);
+  const dapp = db.select({ key: "dapp" });
+  const nft = db.select({ key: "nft" });
+  if (dapp.length < 1 && nft.length < 1) {
+    const text = _.trim(inputValue.value);
+    if (text.length >= 2) {
+      return true;
+    }
+  }
+  return false;
+};
+
 onMounted(function () {
   // 获取默认的搜索数据
   setTimeout(onUpdate);
@@ -166,8 +182,11 @@ onMounted(function () {
     </span>
     <div class="result-list absolute top-full right-0">
       <div class="result-wrap">
+        <Empty v-if="showEmpty(searchList)"></Empty>
         <template v-for="(item, index) in searchList" :key="`${index}-${item.key}`">
-          <Result v-if="item.children" :name="item.name" :list="item.children" :active="active" />
+          <template v-if="size(item.children) > 0">
+            <Result :name="item.name" :list="item.children" :active="active" />
+          </template>
         </template>
       </div>
     </div>
@@ -185,9 +204,11 @@ onMounted(function () {
   & ~ .search-icon {
     @apply right-full h-10.5;
   }
+
   & ~ .clear-search {
     @apply h-10.5;
   }
+
   & ~ .result-list {
     @apply w-full;
   }
@@ -198,6 +219,7 @@ onMounted(function () {
     @extend %transition;
     @apply absolute top-0 cursor-pointer transform translate-x-full;
   }
+
   .clear-search {
     @extend %transition;
     @apply flex hidden items-center justify-center;
@@ -213,6 +235,7 @@ onMounted(function () {
     & ~ .search-icon {
       @apply w-8.5 right-56;
     }
+
     & ~ .result-list {
       @apply w-56;
     }
@@ -244,9 +267,11 @@ onMounted(function () {
     input {
       @extend %animation;
     }
+
     .clear-search {
       @apply flex;
     }
+
     .result-list {
       @apply block shadow-md visible z-10012;
       .result-wrap {

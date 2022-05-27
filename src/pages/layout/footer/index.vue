@@ -68,11 +68,11 @@ const list = createRef<MenuItem[]>(alias.common.layout.footer, []);
         </div>
         <div class="flex items-center mt-5 lg:mt-0">
           <v-router :href="i18n.chat.medium" class="flex" target="_blank">
-            <IconFont class="flex text-global-primary" type="medium" />
+            <IconFont class="flex text-global-primary" type="icon-medium1" />
           </v-router>
 
           <v-router :href="i18n.chat.discord" class="flex ml-6" target="_blank">
-            <IconFont class="flex text-global-primary" type="discord" />
+            <IconFont class="flex text-global-primary" type="icon-discord2" />
           </v-router>
 
           <div class="flex ml-6">

@@ -22,7 +22,7 @@ const qrCodeSize = computed<number>(function () {
   if (props.direction === "horizontal") {
     return 64;
   }
-  return 136;
+  return 152;
 });
 </script>
 
@@ -41,10 +41,8 @@ const qrCodeSize = computed<number>(function () {
         </v-router>
       </div>
       <div class="mt-3">
-        <div class="qr-code border border-solid rounded p-2">
-          <div class="flex">
-            <ui-qrcode :value="env.appDownload" :href="true" :width="qrCodeSize" :height="qrCodeSize" />
-          </div>
+        <div class="flex">
+          <ui-qrcode :value="env.appDownload" :href="true" :width="qrCodeSize" :height="qrCodeSize" />
         </div>
       </div>
     </div>
@@ -79,9 +77,5 @@ const qrCodeSize = computed<number>(function () {
   @apply mt-3;
   @extend %download-link;
   background-color: #21c863;
-}
-
-.qr-code {
-  border-color: #dadada;
 }
 </style>

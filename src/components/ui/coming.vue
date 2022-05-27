@@ -34,11 +34,11 @@ const i18n = I18n();
         </div>
 
         <v-router :href="i18n.chat.discord" class="flex ml-4" target="_blank">
-          <IconFont class="flex text-global-primary" type="discord" />
+          <IconFont class="flex text-global-primary" type="icon-discord2" />
         </v-router>
 
         <v-router :href="i18n.chat.medium" class="flex ml-4" target="_blank">
-          <IconFont class="flex text-global-primary" type="medium" />
+          <IconFont class="flex text-global-primary" type="icon-medium1" />
         </v-router>
       </div>
     </div>

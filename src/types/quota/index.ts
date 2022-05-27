@@ -38,9 +38,12 @@ export interface Chart {
   desc: string; // 描述
   follow_count?: number; // 关注
   view_count?: number; // 查看人数
+  chart_type?: string; // vip 类型
+  unlocked?: boolean; // 是否已解锁
 }
 
 export interface Data {
+  title?: string; // 标题
   id: string | number; // 数据ID
   pid: string | number; // 父ID(取 published_at 中的年月日做分类)
   post_type: PostType; // 数据类型
@@ -102,13 +105,18 @@ export interface TrendData extends DataExt {
   [key: string]: any;
 }
 
-export interface IndicatorItem {
-  id: number | string;
-  desc: string; // 描述
-  followed: boolean; // 是否关注
+export interface IndicatorItem extends Chart {
+  id: string | number;
   name: string; // 标题
+  followed: boolean; // 是否关注,
+  default_chart: seriesType; // 图表类型
+  desc: string; // 描述
+  follow_count?: number; // 关注
+  view_count?: number; // 查看人数
+  chart_type?: string; // vip 类型
+  unlocked?: boolean; // 是否已解锁
   trends: TrendData | undefined; // 图表数据
-  [key: string]: any;
+  follows_avatar_url: string; // 关注人数图片
 }
 
 export interface IndicatorResult {
@@ -124,4 +132,8 @@ export interface IndicatorQuery {
 
 export enum indicatorTypes {
   news = "news",
+}
+
+export interface IndicatorDetail extends IndicatorItem {
+  [key: string]: any;
 }
