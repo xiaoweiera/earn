@@ -64,7 +64,7 @@ onMounted(() => {
         </div>
       </template>
     </div>
-    <Table v-if="topicId !== 0" :id="topicId" :key="topicId" :isFilter="false" :isMore="false" />
+    <Table v-if="topicId !== 0" :id="topicId" :key="topicId" :isFilter="false" :isMore="false" bgClass="huiClass" />
     <div class="flex justify-center">
       <v-router :href="`${config.homeDetail}/${topicId}`" target="_blank" class="btn-more">
         <span class="more cursor-pointer">{{ i18n.common.button.more }}</span>
