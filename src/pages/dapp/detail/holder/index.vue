@@ -15,7 +15,7 @@ defineProps({
 <template>
   <div>
     <HolderHeader :data="data" />
-    <HolderChart :data="data" />
+    <!--    <HolderChart :data="data" />-->
   </div>
 </template>
 
