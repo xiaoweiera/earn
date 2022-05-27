@@ -11,6 +11,10 @@ import Recommend from "./recommend.vue";
 import safeGet from "@fengqiaogang/safe-get";
 import type { Data } from "src/types/quota/";
 import { getValue } from "src/utils/root/data";
+
+import Vague from "../vague.vue";
+import Item from "../list/item.vue";
+
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 
 const i18n = I18n();
