@@ -19,10 +19,11 @@ const i18n = I18n();
   <div class="shadow-base py-4 px-3 rounded-md">
     <div class="flex justify-between items-center">
       <!-- 标题 -->
-      <v-router :href="`${routerConfig.quota}/${data.chart.id}`" target="_blank" class="block text-global-black-title">
-        <h3 class="text-14-18 font-m">{{ data.chart.name }}</h3>
+      <v-router :href="`${routerConfig.quota}/${data.chart.id}`" target="_blank" class="flex flex-1 w-1 items-center text-global-black-title">
+        <h3 class="text-14-18 font-m truncate">{{ data.chart.name }}</h3>
+        <icon-vip class="ml-1" :type="data.chart.chart_type" />
       </v-router>
-      <div>
+      <div class="ml-2">
         <OnFollow v-if="data.chart" :id="data.chart.id" v-model:status="data.chart.followed" />
       </div>
     </div>

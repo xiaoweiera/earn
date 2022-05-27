@@ -63,18 +63,9 @@ onMounted(function () {
           <div class="flex justify-between items-center">
             <v-router :href="`${routerConfig.quota}/${data.id}`" target="_blank" class="flex items-center flex-1 w-1 mr-2">
               <h4 class="truncate font-m text-14-18">{{ data.name }}</h4>
-              <template v-if="Equals(data.chart_type, 'vip')">
-                <div class="vip-icon w-6.5">
-                  <icon-font class="icon-content" type="icon-VIP" size="26" />
-                </div>
-              </template>
-              <template v-else-if="Equals(data.chart_type, 'vip_pro')">
-                <div class="vip-icon w-10">
-                  <icon-font class="icon-content" type="icon-a-VIPPro" size="40" />
-                </div>
-              </template>
+              <icon-vip class="ml-1" :type="data.chart_type" />
             </v-router>
-            <on-follow :id="data.id" v-model:status="data.followed">
+            <on-follow :id="data.id" v-model:status="data.followed" class="flex">
               <span class="flex items-center text-global-darkblue">
                 <IconFont type="icon-plus" size="16"></IconFont>
                 <span>{{ i18n.common.follow }}</span>
@@ -95,13 +86,3 @@ onMounted(function () {
     </ul>
   </div>
 </template>
-
-<style scoped lang="scss">
-.vip-icon {
-  height: 18px;
-  @apply flex ml-1 relative overflow-hidden;
-  .icon-content {
-    @apply absolute left-0 top-1/2 transform -translate-y-1/2;
-  }
-}
-</style>

@@ -29,19 +29,25 @@ export const config = {
   // reports: `https://kingdata.com/reports/`, // 研究报告
   blog: "/blog", // 研究报告 (博客)
   // news: 'https://kingdata.com/news/', // 7x24小时监控
-  news: "/signals", // 7x24小时监控, 指标异动
 
-  dapp: "/dapp",
-  dappList: "/dapp/discover",
-  dappApply: "/dapp/apply",
+  // 排行榜
   rankDapp: "/rank/dapp",
   rankGame: "/rank/game",
   rankDefi: "/rank/defi",
   rankNft: "/rank/nft",
-  nft: "/nft",
-  nftList: "/nft/discover",
-  quota: "/indicators", // 指标监控
-  airdrop: "/airdrops", // 最新空投
+
+  // 新项目
+  dappApply: "/dapp/apply",
+
+  dapp: "/dapp/ido",
+  dappList: "/dapp/ido",
+  ido: "/dapp/ido",
+  igo: "/dapp/igo",
+  nft: "/dapp/nft",
+  nftList: "/dapp/nft",
+  airdrop: "/dapp/airdrops", // 最新空投
+
+  // 大户地址
   address: "/whaleaddress",
   addressAlerts: "/whaleaddress/alerts",
   addressFind: "/whaleaddress/find",
@@ -51,6 +57,10 @@ export const config = {
   investDetail: "/invest/detail", //投融资详情
   funds: "/funds",
   agreement: "/agreement",
+
+  news: "/signals", // 7x24小时监控, 指标异动
+  quota: "/indicators", // 指标监控
+
   instructions: "/instructions",
   policy: "/policy",
   E404: "/404",
