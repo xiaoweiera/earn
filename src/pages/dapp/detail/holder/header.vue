@@ -21,7 +21,7 @@ const i18n = I18n();
 
 <template>
   <div>
-    <div v-if="holderInfo" class="w-full h-full md:h-31.75 flex flex-col md:flex-row justify-between">
+    <div v-if="data" class="w-full h-full md:h-31.75 flex flex-col md:flex-row justify-between">
       <!-- 左侧部分 -->
       <div class="whale">
         <!-- 标题  -->
@@ -58,7 +58,7 @@ const i18n = I18n();
               </ui-hover>
             </div>
             <div class="mt-1 flex items-center">
-              <span class="text-kd20px24px text-global-highTitle font-kdInter font-semibold">{{ data.whales }}</span>
+              <span class="text-kd20px24px text-global-highTitle font-kdInter font-semibold">{{ formatCash(data.whales) }}</span>
               <span class="h-5 ml-1.5 bg-global-darkblue bg-opacity-6 rounded-kd4px px-1 py-0.5 text-kd12px16px font-medium text-global-darkblue font-kdFang">{{ valueFormat(toFixed(data.whalesRatio, 2), "%") }}</span>
             </div>
             <div class="mt-1 text-kd12px16px text-global-numGreen font-medium font-kdFang">+12</div>
@@ -121,7 +121,7 @@ const i18n = I18n();
               </ui-hover>
             </div>
             <div class="mt-1 flex items-center">
-              <span class="text-kd20px24px text-global-highTitle font-kdInter font-semibold">{{ data.holdersFromBlueChip }}</span>
+              <span class="text-kd20px24px text-global-highTitle font-kdInter font-semibold">{{ formatCash(data.holdersFromBlueChip) }}</span>
               <span class="h-5 ml-1.5 bg-global-darkblue bg-opacity-6 rounded-kd4px px-1 py-0.5 text-kd12px16px font-medium text-global-darkblue font-kdFang">{{ valueFormat(toFixed(data.holdersFromBlueChipRatio, 2), "%") }}</span>
             </div>
             <div class="mt-1 text-kd12px16px text-global-numGreen font-medium font-kdFang">+12</div>
