@@ -7,6 +7,7 @@ import API from "src/api";
 import type { DAppProject, DataQuery, TokenDataQuery, TokenQuery } from "src/types/dapp/data";
 import { ProjectItem, Progress, ProjectType, TabName } from "src/types/dapp/detail";
 import I18n from "src/utils/i18n";
+import { HolderQuery } from "src/types/dapp/holder";
 
 export class Model extends API {
   // 用户资产图表
@@ -41,6 +42,10 @@ export class Model extends API {
   //项目信息
   getProjectInfo(query: object) {
     return this.dApp.getProjectInfo(query);
+  }
+  //NFT持有人信息
+  getHolderInfo(query: HolderQuery) {
+    return this.dApp.getHolderInfo(query);
   }
 }
 
@@ -84,11 +89,18 @@ export const getTabList = function (project: DAppProject, data: ProjectItem) {
       label: i18n.dapp.project.airdrop,
       href: makeUrl(project, TabName.airdrop),
     });
-  } else if (project.type === ProjectType.nft && data.mint_status !== Progress.no) {
+  } else if (project.type === ProjectType.nft) {
+    if (data.mint_status !== Progress.no) {
+      list.push({
+        tab: TabName.nft,
+        label: "Mint",
+        href: makeUrl(project, TabName.nft),
+      });
+    }
     list.push({
-      tab: TabName.nft,
-      label: "Mint",
-      href: makeUrl(project, TabName.nft),
+      tab: TabName.holder,
+      label: "🐳 Holders",
+      href: makeUrl(project, TabName.holder),
     });
   } else if (project.type === ProjectType.dapp && data.ido_status !== Progress.no) {
     list.push({
@@ -126,3 +138,11 @@ export const dateList = function () {
   ];
 };
 export const tokenUrl = "https://forms.gle/tC6umJmLDJ5ouTiW6";
+
+export const holderDateList = function () {
+  const i18n = I18n();
+  return [
+    { id: "30d", name: i18n.dapp.detail.holder.day },
+    { id: "all", name: i18n.dapp.detail.holder.all },
+  ];
+};

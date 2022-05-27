@@ -19,6 +19,7 @@ export enum TabName {
   igo = "igo",
   airdrop = "airdrops",
   mint = "mint",
+  holder = "holder",
 }
 
 export enum ProjectType {
