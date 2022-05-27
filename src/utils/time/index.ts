@@ -152,7 +152,7 @@ export const getDateMDY = (t: number | string) => {
     // @ts-ignore
     return `${monthEnName[dateMonthFormat(t)]} ${dateDayFormat(t)},${dateYearFormat(t)}`;
   } else {
-    return dateFormat(t, "YYYY年MM月DD日");
+    return dateFormat(t, "YYYY-MM-DD");
   }
 };
 

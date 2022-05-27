@@ -9,6 +9,7 @@ import { defineComponent } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import { SeriesType } from "src/types/echarts/type";
 import { echartTransform } from "src/logic/ui/echart/decorate";
+import { toFixed } from "src/utils";
 
 export default defineComponent({
   props: {
@@ -54,9 +55,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <div class="w-full h-full">
     <client-only class="w-full h-10">
-      <ui-echart-small :type="type" :data="chartData(field, data)" class="h-full" />
+      <ui-echart-small :type="type" :data="chartData(field, data)" class="w-full h-full" />
     </client-only>
   </div>
 </template>

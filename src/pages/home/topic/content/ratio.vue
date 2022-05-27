@@ -8,6 +8,7 @@ import { computed } from "vue";
 import { toNumber } from "src/utils";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import safeGet from "@fengqiaogang/safe-get";
+import { getUpDownColor } from "src/lib/tool";
 
 const props = defineProps({
   field: {
@@ -32,9 +33,9 @@ const value = computed<string>(function () {
 </script>
 
 <template>
-  <span class="text-14-16 text-number">
+  <span class="text-12-16 text-number">
     <template v-if="value">
-      <span :class="{ 'text-global-numRed': toNumber(value) > 0, 'text-global-numGreen': toNumber(value) <= 0 }">
+      <span :class="getUpDownColor(toNumber(value))">
         <span>{{ toNumberCashFormat(value, "%") }}</span>
       </span>
     </template>
