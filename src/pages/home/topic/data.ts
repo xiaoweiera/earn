@@ -12,7 +12,7 @@ const i18n = I18n();
 export enum HeaderType {
   number = "number", // 数字
   text = "text", // 纯文字
-  radio = "radio", // 数字 + 百分号
+  ratio = "ratio", // 数字 + 百分号
   progress = "progress", // 进度条
   chain = "chain", // 小图标
   logo = "logo", // 大图标
