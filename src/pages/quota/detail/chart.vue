@@ -28,9 +28,9 @@ const i18n = I18n();
       </div>
     </div>
     <div v-if="data.desc" class="mt-1">
-      <!--      <ui-description :line="3" line-height="20px">-->
-      <!--        <ui-markdown class="text-12-20" :value="data.desc" />-->
-      <!--      </ui-description>-->
+      <ui-description :line="3" line-height="20px">
+        <div class="text-12-20 whitespace-pre-wrap" v-html="data.desc" />
+      </ui-description>
     </div>
     <div class="mt-1.5 flex items-center text-global-text-grey">
       <IconFont type="icon-users" size="16" />
@@ -40,11 +40,3 @@ const i18n = I18n();
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.markdown-container {
-  ::v-deep(p) {
-    @apply p-0;
-  }
-}
-</style>
