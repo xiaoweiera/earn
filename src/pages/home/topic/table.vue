@@ -31,6 +31,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  bgClass: {
+    type: String,
+    default: "",
+  },
 });
 const height = document.body.clientWidth > 375 ? 60 : 50;
 const route = useRoute();
@@ -95,15 +99,17 @@ const initValue = function () {
   return [];
 };
 const requestList = async function (query: any) {
-  isLoad.value = false;
+  if (query.page === 1) {
+    isLoad.value = false;
+  }
   const newParam = Object.assign(params, query);
   const { header, items } = await getTopicDetail(newParam);
+  isLoad.value = true;
   // 如果 header 数据已存在，则直接返回列表
   if (headerList.value.length > 0) {
     return items;
   }
   headerList.value = header;
-  isLoad.value = true;
   return items;
 };
 onMounted(() => {
@@ -114,7 +120,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="overflow-hidden md:mb-0 mb-4">
+  <div class="overflow-hidden md:mb-0 mb-4" :class="`${bgClass}`">
     <div v-if="isFilter" class="flex xshidden flex-wrap justify-between items-baseline">
       <HomeFilter v-if="safeGet(detail, 'id') && showFilter" :key="key" :info="detail" class="mb-4" />
       <client-only>
@@ -127,7 +133,7 @@ onMounted(() => {
     <div :key="key">
       <ui-pagination :limit="10" :isMore="isMore" :init-value="initValue()" :request="requestList">
         <template #default="{ list }">
-          <div v-if="isLoad">
+          <div v-show="isLoad">
             <el-table :data="list" class="w-full" :row-style="rowClass(height)" :header-cell-style="headerCellClass" :cell-style="cellClass" @row-click="toProject">
               <el-table-column class-name="lie" fixed :width="50">
                 <template #header>
@@ -191,15 +197,17 @@ onMounted(() => {
   @apply text-kd12px16px font-medium text-global-highTitle;
 }
 
-::v-deep(td) {
-  background-color: #ff000000 !important;
-}
+.huiClass {
+  ::v-deep(td) {
+    background-color: rgba(248, 250, 250, 1) !important;
+  }
 
-::v-deep(tr) {
-  background-color: #ff000000 !important;
-}
+  ::v-deep(tr) {
+    background-color: rgba(248, 250, 250, 1) !important;
+  }
 
-::v-deep(th) {
-  background-color: #ff000000 !important;
+  ::v-deep(th) {
+    background-color: rgba(248, 250, 250, 1) !important;
+  }
 }
 </style>
