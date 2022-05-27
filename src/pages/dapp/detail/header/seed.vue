@@ -29,16 +29,6 @@ defineProps({
 const isFooterEmpty = function (data: ProjectItem): boolean {
   return !data.investments;
 };
-
-/*
-Valuation 估值
-<Td v-if="data.latest_investment.valuation">
-  <label class="text-12-18 text-global-highTitle text-opacity-65">Valuation</label>
-  <p class="text-14-18 text-global-highTitle">
-    <b class="font-m">{{ toNumberFormat(data.latest_investment.valuation, "$") }}</b>
-  </p>
-</Td>
- */
 </script>
 
 <template>
