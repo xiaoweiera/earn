@@ -12,6 +12,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import type { Data } from "src/types/quota/";
 import { getValue } from "src/utils/root/data";
 
+import Chart from "./chart.vue";
 import Vague from "../vague.vue";
 import Item from "../list/item.vue";
 
@@ -73,6 +74,10 @@ onMounted(function () {
               <Vague class="mt-6" :data="detail">
                 <Item :data="detail" :is-list="false" />
               </Vague>
+              <!--指标详情-->
+              <div class="py-8">
+                <Chart :data="detail" />
+              </div>
             </template>
             <!--推荐-->
             <div v-if="detailId" :data-id="detailId" :data-pid="detail.chart.id">
