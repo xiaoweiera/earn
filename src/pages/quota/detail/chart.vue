@@ -24,7 +24,7 @@ const i18n = I18n();
         <icon-vip class="ml-1" :type="data.chart_type" />
       </v-router>
       <div class="ml-2">
-        <OnFollow :id="data.id" v-model:status="data.followed" />
+        <!--        <OnFollow :id="data.id" v-model:status="data.followed" />-->
       </div>
     </div>
     <div v-if="data.desc" class="mt-1">

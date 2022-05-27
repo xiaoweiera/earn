@@ -75,8 +75,10 @@ onMounted(function () {
                 <Item :data="detail" :is-list="false" />
               </Vague>
               <!--指标详情-->
-              <div v-if="detail.chart && isObject(detail.chart)" class="py-8">
-                <Chart :data="detail.chart" />
+              <div v-if="detail.chart && isObject(detail.chart)">
+                <div class="py-8">
+                  <Chart :data="detail.chart" />
+                </div>
               </div>
             </template>
             <!--推荐-->
