@@ -6,6 +6,8 @@
 import API from "src/api";
 import type { DAppProject, DataQuery, TokenDataQuery, TokenQuery } from "src/types/dapp/data";
 import { ProjectItem, Progress, ProjectType, TabName } from "src/types/dapp/detail";
+import { dateTime } from "src/utils";
+import dayjs from "dayjs";
 import I18n from "src/utils/i18n";
 
 export class Model extends API {
@@ -140,4 +142,20 @@ export const holderDateList = function () {
     { id: "30d", name: i18n.dapp.detail.holder.day },
     { id: "all", name: i18n.dapp.detail.holder.all },
   ];
+};
+
+export const getData = function (val: any) {
+  if (val === "30d") {
+    return dateTime(dayjs().subtract(30, "day"));
+  } else {
+    return "";
+  }
+};
+
+export const doHandMonth = function (month: any) {
+  let m = month;
+  if (month.toString().length == 1) {
+    m = "0" + month;
+  }
+  return m;
 };

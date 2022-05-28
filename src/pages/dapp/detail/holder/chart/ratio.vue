@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import HolderTab from "./tab.vue";
 import { LegendDirection } from "src/types/echarts/type";
-import { onMounted, reactive, ref } from "vue";
+import { ref } from "vue";
 import { uuid } from "src/utils";
 import I18n from "src/utils/i18n";
-import { Model, holderDateList } from "src/logic/dapp/detail";
+import { Model, holderDateList, getData } from "src/logic/dapp/detail";
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object,
     default: () => {
@@ -14,28 +14,17 @@ const props = defineProps({
     },
   },
 });
+
 const dataKey = ref<string>(uuid());
 const i18n = I18n();
-const chartData: any = ref({});
 
-const params = reactive({
-  id: props.data.id,
-  range: "30d",
-});
-const getData = async () => {
-  const api = new Model();
-  const data: any = await api.getUserData(params);
-  chartData.value = data;
+const range = ref("30d");
+
+const tabChange = function (value: any) {
+  if (range.value === value.id) return false;
+  range.value = value.id;
   dataKey.value = uuid();
 };
-
-const tabChange = function (value: HolderTab) {
-  params.range = value.id;
-  getData();
-};
-onMounted(function () {
-  getData();
-});
 </script>
 
 <template>
@@ -51,8 +40,8 @@ onMounted(function () {
         </div>
       </div>
       <!-- 渲染图表 -->
-      <div v-if="chartData.legends" :key="dataKey" class="w-full h-114.5 mt-2.5">
-        <ui-echart-content custom-class="h-100" :legend="LegendDirection.custom" :data="chartData">
+      <div :key="dataKey" class="w-full h-114.5 mt-2.5">
+        <ui-echart-dapp :id="data.id" :legend="LegendDirection.custom" custom-class="h-110" :start="getData(range)" unit="DAY" :fields="['price', 'tradeCount']">
           <!--展示自定义图列-->
           <template #legend="scope">
             <div class="mr-7 cursor-pointer" :style="scope.style">
@@ -70,7 +59,7 @@ onMounted(function () {
               </div>
             </div>
           </template>
-        </ui-echart-content>
+        </ui-echart-dapp>
       </div>
     </div>
   </div>

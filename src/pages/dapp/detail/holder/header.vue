@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n/";
+import { formatCash, valueFormat, toFixed } from "src/utils";
+import { formatRulesNumber } from "src/lib/tool";
 
 defineProps({
   data: {
