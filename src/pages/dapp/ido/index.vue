@@ -1,7 +1,6 @@
 <script setup lang="ts">
 /**
- * @file
- * @auth svon.me@gmail.com
+ * @file IDO / IGO list
  */
 import _ from "lodash";
 import API from "src/api/";
@@ -12,12 +11,13 @@ import safeGet from "@fengqiaogang/safe-get";
 import { alias, createRef } from "src/utils/ssr/ref";
 import { getUiTabList, getTabList, TabTypes } from "src/logic/dapp/dapp";
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
+import { DAppType } from "src/types/dapp/dapp";
 
 import DAppDiscoversItem from "../discovers/list.vue";
 import DAppDiscoversEndList from "../discovers/endlist.vue";
+import DAppDiscoversHeader from "../discovers/header.vue";
 
 import type { PropType } from "vue";
-import type { DAppType } from "src/types/dapp/dapp";
 import type { Result } from "src/types/dapp/detail";
 
 import { ElInput } from "element-plus";
@@ -87,7 +87,17 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="max-w-full w-250 mx-auto py-6">
+  <div class="max-w-full w-250 mx-auto py-6 px-4">
+    <!-- 头部 -->
+    <div class="header mb-6">
+      <template v-if="name === DAppType.ido">
+        <DAppDiscoversHeader :title="i18n.home.IdoIgo.title" :tips="i18n.home.IdoIgo.desc" />
+      </template>
+      <template v-else>
+        <DAppDiscoversHeader :title="i18n.home.IdoIgo.igotitle" :tips="i18n.home.IdoIgo.desc" />
+      </template>
+    </div>
+
     <!-- 分类 -->
     <ui-sticky active-class="table-box-title" class="z-900 is-tab bg-white">
       <div :key="tabKey">
@@ -95,24 +105,32 @@ onMounted(function () {
       </div>
     </ui-sticky>
 
-    <div :key="tabKey" class="pt-5">
-      <div class="flex items-center">
-        <div class="flex items-center flex-1 mr-2">
-          <div class="flex items-center w-1/2">
-            <span class="whitespace-nowrap">{{ i18n.home.topList.category }}</span>
-            <div class="ml-2 flex-1 w-1">
-              <ui-tab :list="getUiTabList(Categories, 'category')" active-name="category" :split="2" />
+    <div :key="tabKey" class="pt-5 select-wrap">
+      <div class="flex items-center justify-between">
+        <!--分类-->
+        <div class="flex items-center flex-1">
+          <div v-if="size(Categories) > 0" class="category-content pr-2">
+            <!-- pc 端样式-->
+            <div class="items-center hidden lg:flex">
+              <div class="w-22 text-14-18 text-global-highTitle mr-4">
+                <span class="whitespace-nowrap">{{ i18n.home.topList.category }}</span>
+              </div>
+              <div class="flex">
+                <ui-tab :list="getUiTabList(Categories, 'category')" active-name="category" :split="2" />
+              </div>
             </div>
+            <!--移动端样式-->
+            <client-only class="block lg:hidden">
+              <ui-tab-select :label="i18n.home.topList.category" :list="getUiTabList(Categories, 'category')" active-name="category" />
+            </client-only>
           </div>
-          <div class="flex items-center w-1/2">
-            <span class="whitespace-nowrap">{{ i18n.home.idoIgoProject.chain }}</span>
-            <div class="ml-2 flex-1 w-1">
-              <ui-tab :list="getUiTabList(Chains, 'chain')" active-name="chain" :split="1" />
-            </div>
-          </div>
+          <!--公链-->
+          <client-only v-if="size(Chains) > 0" class="chain-content">
+            <ui-tab-select :label="i18n.home.idoIgoProject.chain" :list="getUiTabList(Chains, 'chain')" active-name="chain" />
+          </client-only>
         </div>
         <!-- 搜索框 -->
-        <client-only class="w-50 input-style">
+        <client-only class="ml-4 w-50 hidden lg:block">
           <el-input v-model="keyword" class="w-full" :placeholder="i18n.common.placeholder.search" @change="onSearch">
             <template #prefix>
               <IconFont type="icon-sousuo-da" class="text-global-highTitle" size="16" @click="onSearch" />
@@ -120,11 +138,31 @@ onMounted(function () {
           </el-input>
         </client-only>
       </div>
-      <div class="flex items-center mt-4">
-        <span class="whitespace-nowrap">{{ i18n.home.topList.plat }}</span>
-        <div class="ml-2 flex-1 w-1">
-          <ui-tab :list="getUiTabList(Platforms, 'platform')" active-name="platform" :split="6" />
+      <!--平台-->
+      <div class="mt-4 flex items-center">
+        <div class="flex items-center flex-1 lg:w-full pr-2 lg:mr-0">
+          <!--pc端样式-->
+          <div class="hidden lg:flex items-center w-full">
+            <div class="w-22 text-14-18 text-global-highTitle mr-2">
+              <span class="whitespace-nowrap">{{ i18n.home.topList.plat }}</span>
+            </div>
+            <div v-if="size(Platforms) > 0" class="ml-2 flex-1 w-1">
+              <ui-tab :list="getUiTabList(Platforms, 'platform')" active-name="platform" :split="6" />
+            </div>
+          </div>
+          <client-only class="block lg:hidden w-full">
+            <ui-tab-select :label="i18n.home.topList.plat" :list="getUiTabList(Platforms, 'platform')" active-name="platform" />
+          </client-only>
         </div>
+
+        <!-- 移动端展示搜索框 -->
+        <client-only class="block lg:hidden w-1/2">
+          <el-input v-model="keyword" class="w-full" :placeholder="i18n.common.placeholder.search" @change="onSearch">
+            <template #prefix>
+              <IconFont type="icon-sousuo-da" class="text-global-highTitle" size="16" @click="onSearch" />
+            </template>
+          </el-input>
+        </client-only>
       </div>
     </div>
     <div :key="listKey" class="py-8">
@@ -143,3 +181,17 @@ onMounted(function () {
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.select-wrap {
+  .chain-content,
+  .category-content {
+    @apply w-1/2;
+  }
+  @screen lg {
+    .chain-content {
+      @apply w-35;
+    }
+  }
+}
+</style>
