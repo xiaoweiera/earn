@@ -13,6 +13,7 @@ import Comment from "./comment";
 import Invest from "./invest";
 import Activity from "./activity";
 import Upload from "./upload";
+import Chart from "./chart/";
 
 export default class API extends ApiTemplate {
   public home: Home;
@@ -27,6 +28,7 @@ export default class API extends ApiTemplate {
   public invest: Invest;
   public activity: Activity;
   public upload: Upload;
+  public chart: Chart;
   constructor(value?: Lang) {
     super(value);
     this.home = new Home(value);
@@ -41,5 +43,6 @@ export default class API extends ApiTemplate {
     this.invest = new Invest(value);
     this.activity = new Activity(value);
     this.upload = new Upload(value);
+    this.chart = new Chart(value);
   }
 }
