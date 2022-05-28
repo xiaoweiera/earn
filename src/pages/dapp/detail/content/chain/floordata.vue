@@ -2,7 +2,7 @@
 import I18n from "src/utils/i18n";
 import { reactive, ref } from "vue";
 import { Model, dateList, getData } from "src/logic/dapp/detail";
-import { uuid } from "src/utils";
+import { uuid, toNumberCashFormat } from "src/utils";
 import { LegendDirection } from "src/types/echarts/type";
 
 const props = defineProps({
@@ -52,7 +52,7 @@ const tabClick = function (value: any) {
                 <IconFont type="icon-round" size="8" />
                 <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ scope.value }}</span>
               </p>
-              <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">728,849</p>
+              <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ toNumberCashFormat(scope.data.last) }}</p>
             </div>
           </div>
         </template>
