@@ -14,6 +14,7 @@ import { LegendDirection } from "src/types/echarts/type";
           <span class="flex items-center mr-2" :style="scope.style">
             <span class="mr-1" v-html="scope.icon"></span>
             <span>{{ scope.value }}</span>
+            <span class="ml-1">last = {{ scope.data.last }}</span>
           </span>
         </template>
       </ui-echart-dapp>

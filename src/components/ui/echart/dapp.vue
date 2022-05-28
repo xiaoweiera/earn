@@ -4,6 +4,8 @@
  * @auth svon.me@gmail.com
  */
 
+import DBList from "@fengqiaogang/dblist";
+import safeGet from "@fengqiaogang/safe-get";
 import API from "src/api";
 import { LegendDirection } from "src/types/echarts/type";
 import { onMounted, reactive, watch } from "vue";
@@ -103,6 +105,16 @@ onMounted(() => {
       },
   );
 });
+
+const getData = function (scope: object): object {
+  const value = safeGet<string>(scope, "value");
+  const data = safeGet<object>(scope, "data");
+  const db = new DBList([], "id");
+  db.insert(chart.legends);
+  const item = db.selectOne<object>({ id: value });
+  const last = safeGet<number | string>(item, "last");
+  return { ...data, last };
+};
 </script>
 
 <template>
@@ -110,7 +122,7 @@ onMounted(() => {
     <div v-if="chart.key" class="" :class="{ 'h-full': !customClass }">
       <ui-echart-content :class="{ 'h-full': !customClass }" :custom-class="customClass" :legend="legend" :custom="custom" :data="chart">
         <template #legend="scope">
-          <slot name="legend" :icon="scope.icon" :style="scope.style" :value="scope.value" :disabled="scope.disabled" :data="scope.data"></slot>
+          <slot name="legend" :icon="scope.icon" :style="scope.style" :value="scope.value" :disabled="scope.disabled" :data="getData(scope)"></slot>
         </template>
       </ui-echart-content>
     </div>

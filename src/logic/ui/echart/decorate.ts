@@ -2,14 +2,14 @@
  * @file 数据处理
  * @author svon.me@gmail.com
  */
+import _ from "lodash";
 import DBList from "@fengqiaogang/dblist";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
-import _ from "lodash";
 import { ProjectType } from "src/types/echarts/data";
 import type { LegendItem, YAxis } from "src/types/echarts/type";
 import { EchartData, SeriesType } from "src/types/echarts/type";
-import { AnyEquals, convertInterval, dateFormat, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, uuid, toArray } from "src/utils/";
+import { isEmpty, AnyEquals, convertInterval, dateFormat, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, uuid, toArray } from "src/utils/";
 
 // 对 API 返回的 echart 数据进行二次处理
 export const echartTransform = function (trends?: EchartData): EchartData | undefined {
@@ -98,8 +98,19 @@ export const echartTransform = function (trends?: EchartData): EchartData | unde
       yAxis,
       xAxis,
       series,
-      legends,
       key: uuid(),
+      legends: _.map(legends, function (item: object, index: number) {
+        const list: object[] = series[index] as any;
+        for (let i = list.length - 1; i >= 0; i--) {
+          const value = safeGet(list, `[${i}].value`);
+          if (isEmpty(value)) {
+            continue;
+          }
+          safeSet(item, "last", value);
+          break;
+        }
+        return item;
+      }),
     };
     return Object.assign(result, _.omit(trends, ["xAxis", "series", "legends"])) as any;
   }

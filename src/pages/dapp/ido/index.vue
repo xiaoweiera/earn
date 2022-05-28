@@ -5,7 +5,8 @@
  */
 import _ from "lodash";
 import API from "src/api/";
-import { size } from "src/utils/";
+import { ref } from "vue";
+import { size, uuid } from "src/utils/";
 import { alias, createRef } from "src/utils/ssr/ref";
 import type { Result } from "src/types/dapp/detail";
 import { getTabList } from "src/logic/dapp/dapp";
@@ -18,6 +19,8 @@ const props = defineProps({
     required: true,
   },
 });
+
+const tabKey = ref<string>(uuid());
 
 // 公链
 const Chains = createRef<string[]>(alias.dApp.chains, []);
@@ -68,38 +71,44 @@ const getUiTabList = (list: string[], key: string) => {
     return array;
   };
 };
+
+const onChange = function () {
+  tabKey.value = uuid();
+};
 </script>
 
 <template>
   <div class="max-w-full w-250 mx-auto py-6">
     <!-- 分类 -->
     <ui-sticky active-class="table-box-title" class="z-900 is-tab bg-white">
-      <ui-tab :list="tabs()" active-name="activity_stage" />
+      <div :key="tabKey">
+        <ui-tab :list="tabs()" active-name="activity_stage" @change="onChange" />
+      </div>
     </ui-sticky>
 
     <div class="pt-5">
       <div class="flex items-center">
         <div class="flex items-center w-1/2">
           <span class="whitespace-nowrap">Type</span>
-          <div class="ml-2 flex-1 w-1">
-            <ui-tab :list="getUiTabList(Categories, 'category')" active-name="category" :split="2" />
+          <div :key="tabKey" class="ml-2 flex-1 w-1">
+            <ui-tab :list="getUiTabList(Categories, 'category')" active-name="category" :split="2" @change="onChange" />
           </div>
         </div>
         <div class="flex items-center w-1/2">
           <span class="whitespace-nowrap">公链</span>
-          <div class="ml-2 flex-1 w-1">
-            <ui-tab :list="getUiTabList(Chains, 'chain')" active-name="chain" :split="0" />
+          <div :key="tabKey" class="ml-2 flex-1 w-1">
+            <ui-tab :list="getUiTabList(Chains, 'chain')" active-name="chain" :split="1" @change="onChange" />
           </div>
         </div>
       </div>
       <div class="flex items-center mt-4">
         <span class="whitespace-nowrap">来源平台</span>
-        <div class="ml-2 flex-1 w-1">
-          <ui-tab :list="getUiTabList(Platforms, 'platform')" active-name="platform" :split="6" />
+        <div :key="tabKey" class="ml-2 flex-1 w-1">
+          <ui-tab :list="getUiTabList(Platforms, 'platform')" active-name="platform" :split="6" @change="onChange" />
         </div>
       </div>
     </div>
-    <div class="py-8">
+    <div :key="tabKey" class="py-8">
       <ui-pagination :request="onGetList">
         <template #default="scope">
           <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
