@@ -45,7 +45,7 @@ const timeValue = function (data: DataItem) {
 
 const detailLink = function (data: DataItem) {
   if (isAfter(data.airdrop_start_at) || isAfter(data.airdrop_end_at)) {
-    return `${config.airdrop}/${data.id}/airdrops`;
+    return `${config.airdrop}/${data.id}`;
   } else {
     return `${config.airdrop}/${data.id}`;
   }

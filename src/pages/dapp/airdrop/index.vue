@@ -19,7 +19,7 @@ import { AnyEquals } from "src/utils";
 import { uuid } from "src/utils";
 
 const i18n = I18n();
-const activeName = ref<string>("name");
+const activeName = ref<string>("activity_stage");
 const active = ref<string>(getValue("query.name", TabTypes.all));
 const listKey = ref(uuid());
 const onChange = function (data: object) {
@@ -53,15 +53,7 @@ onMounted(() => {
       <HomeAd :position="24" class="w-full h-full mb-6" />
       <!-- 分类 -->
       <ui-sticky active-class="table-box-title" class="z-900 shadow-border-b bg-global-topBg">
-        <ui-tab :active-name="activeName" :list="tabs()" trigger="router" @change="onChange">
-          <template #default="{ data }">
-            <div v-if="data.logo" class="flex items-center">
-              <IconFont :type="data.logo" class="mr-1.5" size="24" />
-              <span class="text-18-24 font-m">{{ data.label }}</span>
-            </div>
-            <span v-else class="text-18-24 font-m">{{ data.label }}</span>
-          </template>
-        </ui-tab>
+        <ui-tab :list="tabs()" active-name="activity_stage" @change="onChange" />
       </ui-sticky>
       <div :key="active">
         <!-- 广告 -->

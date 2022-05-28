@@ -100,7 +100,10 @@ const Router = function () {
   router.get(routerConfig.dapp.airdropListPattern(), function (req: Request, res: Response) {
     return DAppList(DAppType.airdrop, req, res);
   });
-
+  // 投融资 列表
+  router.get(routerConfig.dapp.investListPattern(), function (req: Request, res: Response) {
+    return DAppList(DAppType.invest, req, res);
+  });
   // igo 详情
   router.get(routerConfig.dapp.igoDetailPattern(), function (req: Request, res: Response) {
     res.send({});

@@ -20,5 +20,8 @@ export const list = function (name: DAppType, req: Request, res: Response) {
   if (name === DAppType.airdrop) {
     res.locals.menuActive = names.dapp.airdrop;
   }
+  if (name === DAppType.invest) {
+    res.locals.menuActive = names.dapp.invest;
+  }
   res.send({});
 };

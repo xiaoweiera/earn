@@ -154,6 +154,26 @@ class RouterDapp {
   airdropDetailPattern() {
     return `${this.airdropListPattern()}/:id`;
   }
+
+  // 投融资 相关
+  investList() {
+    return config.invest;
+  }
+
+  investDetail(id: string | number, query?: object) {
+    return {
+      path: `${this.investList()}/${id}`,
+      query,
+    };
+  }
+
+  investListPattern() {
+    return this.investList();
+  }
+
+  investDetailPattern() {
+    return `${this.investListPattern()}/:id`;
+  }
 }
 
 export const routerConfig = {
