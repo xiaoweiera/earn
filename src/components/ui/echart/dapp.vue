@@ -21,20 +21,19 @@ const props = defineProps({
     type: [String, Number] as PropType<string | number>,
   },
   /**
-   * 开始时间
+   * 开始时间 为空时查询所有数据
    * @param 2020-01-01 或者 时间戳
    */
   start: {
-    required: true,
+    required: false,
     type: [String, Number] as PropType<string | number>,
+    default: "",
   },
   // 结束时间
+  // 为空时默认为当前时间
   end: {
     type: [String, Number] as PropType<string | number>,
-    default() {
-      // 默认当前时间
-      return Date.now();
-    },
+    default: "",
   },
   // 时间颗粒度
   unit: {
