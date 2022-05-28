@@ -155,7 +155,7 @@ onMounted(() => {
                       <el-popover :disabled="!getTitleDes(header)" placement="top" trigger="hover">
                         <div>{{ getTitleDes(header) }}</div>
                         <template #reference>
-                          <div v-if="getTitleDes(header)" class="h-full flex items-center"><IconFont class="text-global-highTitle text-opacity-35 ml-1" type="icon-weizhi" size="16" /></div>
+                          <div v-if="getTitleDes(header)" class="h-full flex items-center hand"><IconFont class="text-global-highTitle text-opacity-35 ml-1" type="icon-weizhi" size="16" /></div>
                         </template>
                       </el-popover>
                     </div>
