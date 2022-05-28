@@ -2,11 +2,11 @@ import { config as router } from "src/router/config";
 
 const routes = [
   {
-    path: router.dappList,
+    path: `${router.dappList}/discover`,
     component: () => import("src/pages/dapp/discover.vue"),
   },
   {
-    path: router.nftList,
+    path: `${router.nftList}/discover`,
     component: () => import("src/pages/dapp/nft.vue"),
   },
   {

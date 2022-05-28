@@ -5,6 +5,7 @@ import DAppDiscoversContentDec from "./dec.vue";
 import DAppDiscoversContentPrice from "./price.vue";
 import DAppDiscoversContentTime from "./time.vue";
 import { getParam } from "src/utils/router";
+import { config } from "src/router/config";
 
 defineProps({
   data: {
@@ -23,16 +24,16 @@ const igo = getParam<boolean>("igo");
 
 const getUrl = function (data: any) {
   if (igo) {
-    return `${data.path}/igo?igo=${data.query.igo}`;
+    return `${config.igo}/${data.id}?igo=${data.query.igo}`;
   } else {
-    return `${data}/dapp`;
+    return `${config.dapp}/${data.id}`;
   }
 };
 </script>
 
 <template>
   <div>
-    <v-router target="_blank" :href="getUrl(data.url)">
+    <v-router target="_blank" :href="getUrl(data)">
       <!-- 项目图片和tip角标 -->
       <div class="relative h-40">
         <DAppDiscoversContentHeader :data="data" />

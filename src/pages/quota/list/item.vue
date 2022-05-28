@@ -5,7 +5,6 @@
  */
 
 import I18n from "src/utils/i18n/";
-import { computed } from "vue";
 import { config as routerConfig } from "src/router/config";
 import type { Data } from "src/types/quota/";
 import type { PropType } from "vue";
@@ -16,7 +15,7 @@ import { Name } from "src/plugins/ui/router/props";
 const i18n = I18n();
 const Image = asyncLoad(() => import("../list/image.vue"));
 
-const props = defineProps({
+defineProps({
   data: {
     required: true,
     type: Object as PropType<Data>,

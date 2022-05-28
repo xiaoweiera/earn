@@ -218,3 +218,14 @@ export interface Investments {
   valuation?: number; // 估值
   invested_at: string | number; // 投资日期
 }
+
+//筛选类型
+export interface summaryItem {
+  available_chains: string[];
+  available_platforms: string[];
+  available_categories: string[];
+}
+export interface nftItem {
+  extra: summaryItem[];
+  items: ProjectItem[];
+}

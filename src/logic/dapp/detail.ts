@@ -7,7 +7,6 @@ import API from "src/api";
 import type { DAppProject, DataQuery, TokenDataQuery, TokenQuery } from "src/types/dapp/data";
 import { ProjectItem, Progress, ProjectType, TabName } from "src/types/dapp/detail";
 import I18n from "src/utils/i18n";
-import { HolderQuery } from "src/types/dapp/holder";
 
 export class Model extends API {
   // 用户资产图表
@@ -42,10 +41,6 @@ export class Model extends API {
   //项目信息
   getProjectInfo(query: object) {
     return this.dApp.getProjectInfo(query);
-  }
-  //NFT持有人信息
-  getHolderInfo(query: HolderQuery) {
-    return this.dApp.getHolderInfo(query);
   }
 }
 

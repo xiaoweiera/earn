@@ -9,7 +9,7 @@ import { dateTime } from "src/utils/time/";
 import safeGet from "@fengqiaogang/safe-get";
 import * as api from "src/config/api";
 import { toInteger } from "src/utils/";
-import { DefaultValue, expire, get, post, required, tryError, userToken, validate } from "src/plugins/dao/http";
+import { DefaultValue, get, post, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
 
 export default class extends ApiTemplate {

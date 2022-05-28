@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
 // import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
-import { Model } from "src/logic/dapp";
+import { getAirdropList } from "src/logic/dapp";
 import { scrollGoToDom } from "src/plugins/browser/scroll";
 import { alias } from "src/utils/ssr/ref";
 import { useRoute } from "vue-router";
@@ -23,10 +23,13 @@ const initValue = function () {
   }
   return [];
 };
-const potential = false;
-const request = function (query: object) {
-  const model = new Model();
-  return model.getHotPotentialList({ potential, ...query });
+const params = {
+  activity_type: "AIRDROP",
+  recommended: false,
+};
+const request = async function (query: object) {
+  const { items } = await getAirdropList({ ...params, ...query });
+  return items;
 };
 const changeView = function () {
   scrollGoToDom(".j-potential-title", 40);

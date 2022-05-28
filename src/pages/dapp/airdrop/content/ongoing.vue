@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import DAppAirdropItem from "./item.vue";
-import { Model } from "src/logic/dapp";
+import { getAirdropList } from "src/logic/dapp";
 import { alias } from "src/utils/ssr/ref";
-import { TabTypes } from "src/types/dapp/airdrop";
+import { ActivityStage } from "src/types/dapp/airdrop";
 import { getCacheList } from "src/logic/dapp/airdrop";
 import { useRoute } from "vue-router";
+import { reactive } from "vue";
 
 defineProps({
   limit: {
@@ -14,7 +15,10 @@ defineProps({
 });
 
 const $route = useRoute();
-const status = TabTypes.ongoing;
+const params = reactive({
+  activity_type: "AIRDROP",
+  activity_stage: ActivityStage.ongoing,
+});
 let initStatus = true;
 const initValue = function () {
   if (initStatus) {
@@ -23,9 +27,9 @@ const initValue = function () {
   }
   return [];
 };
-const request = function (query: object) {
-  const model = new Model();
-  return model.getOngoingList({ status, ...query });
+const request = async function (query: object) {
+  const { items } = await getAirdropList({ ...params, ...query });
+  return items;
 };
 </script>
 

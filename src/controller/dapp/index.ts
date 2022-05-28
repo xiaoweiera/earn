@@ -11,7 +11,7 @@ import { toArray, compact, forEach } from "src/utils";
 import * as alias from "src/utils/root/alias";
 import { names } from "src/config/header";
 import I18n from "src/utils/i18n";
-import { TabTypes } from "src/types/dapp/airdrop";
+import { TabTypes, ActivityStage } from "src/types/dapp/airdrop";
 
 export const list = async function (req: Request, res: Response) {
   const api = new Model(req);
@@ -28,7 +28,6 @@ export const list = async function (req: Request, res: Response) {
   const status = req.query.type as string;
   const sort_field = req.query.sort_field as string;
   const sort_type = req.query.sort_type as string;
-  const paginate = true;
   const search = req.query.search as string;
   const params = {
     page: 1,
@@ -37,25 +36,23 @@ export const list = async function (req: Request, res: Response) {
   const projectParams = {
     page: params.page,
     page_size: params.page_size,
-    status: status || "upcoming",
+    activity_type: "IDO",
+    activity_stage: status || "UPCOMING",
     chain: chain || "",
     platform: platform || "",
     category: category || "",
     sort_field: sort_field || "",
     sort_type: sort_type || "",
-    paginate,
-    is_igo: !!is_igo,
-    query: search || "",
+    keyword: search || "",
   };
   const i18n = I18n(req);
-  const [list, summary] = await Promise.all([api.getList(projectParams), api.home.getSummary()]);
+  const [list] = await Promise.all([api.getList(projectParams)]);
   const result = {
     "title": is_igo ? i18n.home.webIgo.title : i18n.home.webIdo.title,
     "keywords": i18n.home.webIdo.key,
     "description": i18n.home.webIdo.des,
 
     "API.dapp.list": list, // IDO数据
-    [alias.dApp.summary.list]: summary,
   };
   res.send(result);
 };
@@ -67,19 +64,17 @@ export const nftList = async function (req: Request, res: Response) {
   res.locals.menuActive = names.dapp.nft;
   const query: any = {
     ...req.query,
-    paginate: true,
   };
   if (!query.status) {
-    query.status = "upcoming";
+    query.status = "UPCOMING";
   }
-  const [list, summary] = await Promise.all([api.getNftList(query), api.home.getSummary()]);
+  const [list] = await Promise.all([api.getNftList(query)]);
   const result = {
     "title": i18n.home.webNft.title,
     "keywords": i18n.home.webNft.key,
     "description": i18n.home.webNft.des,
 
     "API.nft.list": list, // nft数据
-    [alias.dApp.summary.list]: summary,
   };
   res.send(result);
 };
@@ -90,41 +85,47 @@ const airdrop = {
     const api = new Model(req);
     const query = req.query;
     const [ongoingList, potentialList, upcomingList, endedList, operationList, hotList] = await Promise.all([
-      api.getOngoingList({
+      api.getAirdropList({
         ...query,
         page: 1,
         page_size: 4,
-        status: TabTypes.ongoing,
+        activity_type: "AIRDROP",
+        activity_stage: ActivityStage.ongoing,
       }),
-      api.getPotentialList({
+      api.getAirdropList({
         ...query,
         page: 1,
         page_size: 4,
-        status: TabTypes.potential,
-      }),
-      api.getUpcomingList({
-        ...query,
-        page: 1,
-        page_size: 4,
-        status: TabTypes.upcoming,
-      }),
-      api.getEndedList({
-        ...query,
-        page: 1,
-        page_size: 4,
-        status: TabTypes.ended,
-      }),
-      api.getOperationList({
-        ...query,
-        page: 1,
-        page_size: 4,
+        activity_type: "AIRDROP",
         potential: true,
       }),
-      api.getHotPotentialList({
+      api.getAirdropList({
         ...query,
         page: 1,
         page_size: 4,
-        potential: false,
+        activity_type: "AIRDROP",
+        activity_stage: ActivityStage.upcoming,
+      }),
+      api.getAirdropList({
+        ...query,
+        page: 1,
+        page_size: 4,
+        activity_type: "AIRDROP",
+        activity_stage: ActivityStage.ended,
+      }),
+      api.getAirdropList({
+        ...query,
+        page: 1,
+        page_size: 4,
+        activity_type: "AIRDROP",
+        recommended: true,
+      }),
+      api.getAirdropList({
+        ...query,
+        page: 1,
+        page_size: 4,
+        activity_type: "AIRDROP",
+        recommended: false,
       }),
     ]);
     return {
@@ -138,10 +139,11 @@ const airdrop = {
   },
   [TabTypes.ongoing]: async function (req: Request) {
     const api = new Model(req);
-    const ongoingList = await api.getOngoingList({
+    const ongoingList = await api.getAirdropList({
       page: 1,
       page_size: 20,
-      status: TabTypes.ongoing,
+      activity_type: "AIRDROP",
+      activity_stage: ActivityStage.ongoing,
     });
     return {
       [alias.airdrop.ongoing]: ongoingList, // airdrop进行中数据
@@ -149,10 +151,11 @@ const airdrop = {
   },
   [TabTypes.potential]: async function (req: Request) {
     const api = new Model(req);
-    const potentialList = await api.getPotentialList({
+    const potentialList = await api.getAirdropList({
       page: 1,
       page_size: 20,
-      status: TabTypes.potential,
+      activity_type: "AIRDROP",
+      potential: true,
     });
     return {
       [alias.airdrop.potential]: potentialList, // airdrop优质空投数据
@@ -160,10 +163,11 @@ const airdrop = {
   },
   [TabTypes.upcoming]: async function (req: Request) {
     const api = new Model(req);
-    const upcomingList = await api.getPotentialList({
+    const upcomingList = await api.getAirdropList({
       page: 1,
       page_size: 20,
-      status: TabTypes.upcoming,
+      activity_type: "ActivityStage",
+      activity_stage: TabTypes.upcoming,
     });
     return {
       [alias.airdrop.upcoming]: upcomingList, // airdrop即将开始数据
@@ -171,10 +175,11 @@ const airdrop = {
   },
   [TabTypes.ended]: async function (req: Request) {
     const api = new Model(req);
-    const endedList = await api.getEndedList({
+    const endedList = await api.getAirdropList({
       page: 1,
       page_size: 20,
-      status: TabTypes.ended,
+      activity_type: "AIRDROP",
+      activity_stage: ActivityStage.ended,
     });
     return {
       [alias.airdrop.ended]: endedList, // airdrop已结束数据
@@ -182,15 +187,17 @@ const airdrop = {
   },
   [TabTypes.hot]: async function (req: Request) {
     const api = new Model(req);
-    const operationList = await api.getOperationList({
+    const operationList = await api.getAirdropList({
       page: 1,
       page_size: 6,
-      potential: true,
+      activity_type: "AIRDROP",
+      recommended: true,
     });
-    const hotList = await api.getHotPotentialList({
+    const hotList = await api.getAirdropList({
       page: 1,
       page_size: 6,
-      potential: false,
+      activity_type: "AIRDROP",
+      recommended: false,
     });
     return {
       [alias.airdrop.operation]: operationList, // airdrop运营精选数据

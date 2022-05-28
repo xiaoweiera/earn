@@ -2,12 +2,11 @@
 import * as track from "src/logic/track";
 import { onMounted, ref, toRaw, reactive } from "vue";
 import I18n from "src/utils/i18n";
-import { Model, nftTabs, transformNftList } from "src/logic/dapp";
+import { getNftsList, Model, nftTabs, transformNftList } from "src/logic/dapp";
 import { NftTabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
-import type { summaryModel } from "src/types/home";
 import { getValue } from "src/utils/root/data";
-import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
+import { alias, onLoadReactive } from "src/utils/ssr/ref";
 
 // 引入 use state
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
@@ -31,15 +30,17 @@ const sort = reactive({
 
 const [query] = useReactiveProvide<object>(stateAlias.ui.tab, {});
 
-// 获取 nft 列表
-const requestList = function (data: object) {
-  const model = new Model();
-  const params = toRaw(query);
-  return model.getNftList({ ...params, ...data, ...sort });
-};
-
 // 获取类型
-const summary = createReactive<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
+const summary = ref({} as any);
+
+// 获取 nft 列表
+const requestList = async function (data: object) {
+  // const model = new Model();
+  const params = toRaw(query);
+  const { extra, items } = await getNftsList({ ...params, ...data, ...sort });
+  summary.value = extra;
+  return items;
+};
 
 const initValue = function () {
   if (initStatus) {
@@ -76,16 +77,16 @@ const changeSort = function (val: any) {
   // 重新渲染列表
   sortKey.value = uuid();
 };
-const getFilter = function (data: any) {
-  const status = getParam<string>("status");
-  if (data && (data.nft_upcoming || data.nft_ended)) {
-    if (status === NftTabTypes.history) {
-      return data.nft_ended;
-    } else {
-      return data.nft_upcoming;
-    }
-  }
-};
+// const getFilter = function (data: any) {
+//   const status = getParam<string>("status");
+//   if (data && (data.nft_upcoming || data.nft_ended)) {
+//     if (status === NftTabTypes.history) {
+//       return data.nft_ended;
+//     } else {
+//       return data.nft_upcoming;
+//     }
+//   }
+// };
 </script>
 <template>
   <div class="pb-15 bg-global-topBg px-3 md:px-22.5">
@@ -104,7 +105,7 @@ const getFilter = function (data: any) {
       </ui-sticky>
       <!-- 搜索条件 -->
       <div v-if="summary">
-        <DAppNftSearch :data="getFilter(summary)" />
+        <DAppNftSearch :data="summary" />
       </div>
 
       <div :key="sortKey" class="mt-4">

@@ -18,9 +18,6 @@ const dataKey = ref<string>(uuid());
 const i18n = I18n();
 const chartData: any = ref({});
 
-const onCustom = function (data: object) {
-  return data;
-};
 const params = reactive({
   id: props.data.id,
   range: "30d",

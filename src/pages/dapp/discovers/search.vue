@@ -4,7 +4,7 @@ import { onMounted, ref } from "vue";
 import { ElInput } from "element-plus";
 import I18n from "src/utils/i18n";
 
-import type { summaryItem } from "src/types/home";
+import type { summaryItem } from "src/types/dapp/detail";
 import { getClassWidth, tabCage, tabPlat } from "src/logic/dapp/";
 
 import { config } from "src/router/config";
@@ -55,13 +55,13 @@ onMounted(() => {
       <div class="flex justify-between items-center">
         <div class="flex items-center flex-1">
           <!-- 项目类型 -->
-          <div>
-            <DappDiscoversContentType :key="keys" :list="tabCage(data.category, 'group', config.dappList)" name="group" :split="4" :title="i18n.home.topList.category" :title-width="getClassWidth()" />
+          <div v-if="data.available_categories && data.available_categories.length > 0">
+            <DappDiscoversContentType :key="keys" :list="tabCage(data.available_categories, 'group', `${config.dappList}/discover`)" name="group" :split="4" :title="i18n.home.topList.category" :title-width="getClassWidth()" />
           </div>
           <div class="flex items-center">
             <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4" />
             <!-- 公链 -->
-            <DappDiscoversContentChain :key="keys" :chain-data="data.chain" :href="config.dappList" name="chain" :title="i18n.home.idoIgoProject.chain" />
+            <DappDiscoversContentChain :key="keys" :chain-data="data.available_chains" :href="`${config.dappList}/discover`" name="chain" :title="i18n.home.idoIgoProject.chain" />
           </div>
         </div>
         <!-- 搜索框 -->
@@ -74,17 +74,19 @@ onMounted(() => {
         </client-only>
       </div>
       <!-- platform -->
-      <DappDiscoversContentType :key="keys" :list="tabPlat(data.platform, 'platform', config.dappList)" class="mt-4" name="platform" :split="5" :title="i18n.home.topList.plat" :title-width="getClassWidth()" />
+      <div v-if="data.available_platforms && data.available_platforms.length > 0">
+        <DappDiscoversContentType :key="keys" :list="tabPlat(data.available_platforms, 'platform', `${config.dappList}/discover`)" class="mt-4" name="platform" :split="5" :title="i18n.home.topList.plat" :title-width="getClassWidth()" />
+      </div>
     </div>
     <div class="block lg:hidden">
       <div>
         <div class="flex items-center">
-          <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.chain" :href="config.dappList" name="chain" :title="i18n.home.idoIgoProject.chain" />
+          <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.available_chains" :href="`${config.dappList}/discover`" name="chain" :title="i18n.home.idoIgoProject.chain" />
           <IconFont v-if="data.chain && data.category" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5 h-full" type="icon-gang" />
-          <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.category" :href="config.dappList" name="group" :title="i18n.home.topList.category" />
+          <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.available_categories" :href="`${config.dappList}/discover`" name="group" :title="i18n.home.topList.category" />
         </div>
         <div class="flex items-center mt-4">
-          <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.platform" :href="config.dappList" name="platform" :title="i18n.home.topList.plat" />
+          <DappDiscoversContentChain :key="keyID" class="w-1/2" :chain-data="data.available_platforms" :href="`${config.dappList}/discover`" name="platform" :title="i18n.home.topList.plat" />
           <IconFont v-if="data.chain && data.category" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative top-0.5 h-full" type="icon-gang" />
           <!-- 搜索框 -->
           <client-only class="w-1/2 input-style">

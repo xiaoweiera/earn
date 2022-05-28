@@ -2,11 +2,12 @@
 import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
 import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
 import I18n from "src/utils/i18n";
-import { Model } from "src/logic/dapp";
+import { getAirdropList } from "src/logic/dapp";
 import { TabTypes } from "src/types/dapp/airdrop";
 import { alias } from "src/utils/ssr/ref";
 import { getCacheList } from "src/logic/dapp/airdrop";
 import { useRoute } from "vue-router";
+import { reactive } from "vue";
 
 defineProps({
   limit: {
@@ -15,8 +16,10 @@ defineProps({
   },
 });
 const $route = useRoute();
-const status = TabTypes.potential;
-
+const params = reactive({
+  activity_type: "AIRDROP",
+  potential: true,
+});
 const i18n = I18n();
 
 let initStatus = true;
@@ -28,9 +31,9 @@ const initValue = function () {
   return [];
 };
 
-const request = function (query: object) {
-  const model = new Model();
-  return model.getPotentialList({ status, ...query });
+const request = async function (query: object) {
+  const { items } = await getAirdropList({ ...params, ...query });
+  return items;
 };
 </script>
 
