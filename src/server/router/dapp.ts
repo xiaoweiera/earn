@@ -8,6 +8,9 @@ import { Router as ExpressRouter } from "express";
 import { TabTypes } from "src/types/dapp/airdrop";
 import { ProjectType } from "src/types/dapp/data";
 
+import { DAppType } from "src/types/dapp/dapp";
+import { list as DAppList } from "src/controller/dapp/dapp";
+
 /*
 const Router = function () {
   const router = ExpressRouter();
@@ -84,7 +87,7 @@ const Router = function () {
 
   // ido 列表
   router.get(routerConfig.dapp.idoListPattern(), function (req: Request, res: Response) {
-    res.send({});
+    return DAppList(DAppType.ido, req, res);
   });
   // ido 详情
   router.get(routerConfig.dapp.idoDetailPattern(), function (req: Request, res: Response) {
@@ -92,7 +95,7 @@ const Router = function () {
   });
   // igo 列表
   router.get(routerConfig.dapp.igoListPattern(), function (req: Request, res: Response) {
-    res.send({});
+    return DAppList(DAppType.igo, req, res);
   });
   // igo 详情
   router.get(routerConfig.dapp.igoDetailPattern(), function (req: Request, res: Response) {

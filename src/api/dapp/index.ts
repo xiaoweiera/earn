@@ -3,16 +3,16 @@
  */
 
 import * as api from "src/config/api";
-import { DefaultValue, expire, get, required, tryError, userToken, validate, post } from "src/plugins/dao/http";
+import ApiTemplate from "../template";
 import type { Query } from "src/types/dapp/ixo";
 import type { nftQuery } from "src/types/dapp/nft";
 import type { AirdropQuery } from "src/types/dapp/airdrop";
-import ApiTemplate from "../template";
-import type { DAppData, DataQuery, newsModel, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
 import { echart } from "src/logic/ui/echart/decorate";
 import type { EchartData } from "src/types/echarts/type";
 import { FundsQuery } from "src/types/dapp/invest";
 import { FormData } from "src/types/dapp/apply";
+import type { DAppData, DataQuery, newsModel, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
+import { DefaultValue, expire, get, required, tryError, userToken, validate, post } from "src/plugins/dao/http";
 
 export default class extends ApiTemplate {
   // 项目库列表
@@ -25,11 +25,14 @@ export default class extends ApiTemplate {
       page: 1,
       page_size: 20,
       keyword: "",
-      chain: "all",
-      platform: "all",
-      category: "all",
     };
-    const param = { ...data, ...query };
+    const param: any = { ...data, ...query };
+    // 下列参数如果为空，默认设置为 all
+    for (const key of ["chain", "platform", "category"]) {
+      if (!param[key]) {
+        param[key] = "all";
+      }
+    }
     return [param] as any;
   }
 

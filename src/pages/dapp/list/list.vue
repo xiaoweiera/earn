@@ -10,6 +10,9 @@ import Ido from "../ido/index.vue";
 import Mint from "../nft.vue";
 import Airdrop from "../airdrop/index.vue";
 
+import type { PropType } from "vue";
+import type { DAppType } from "src/types/dapp/dapp";
+
 export default defineComponent({
   name: "DAppList",
   components: {
@@ -21,7 +24,7 @@ export default defineComponent({
   props: {
     // dapp 类型
     name: {
-      type: String,
+      type: String as PropType<DAppType>,
       required: true,
     },
   },

@@ -8,9 +8,12 @@ import DAppDiscoversContentPrice from "./price.vue";
 import DAppDiscoversContentTime from "./time.vue";
 import { routerConfig } from "src/router/config";
 
+import { DAppType } from "src/types/dapp/dapp";
+import type { PropType } from "vue";
+
 const props = defineProps({
   name: {
-    type: String,
+    type: String as PropType<DAppType>,
     required: true,
   },
   data: {
@@ -27,7 +30,7 @@ const props = defineProps({
 
 const getUrl = function (data: object) {
   const id = safeGet<string>(data, "id");
-  if (AnyEquals(props.name, "igo")) {
+  if (AnyEquals(props.name, DAppType.igo)) {
     return routerConfig.dapp.igoDetail(id);
   }
   return routerConfig.dapp.idoDetail(id);

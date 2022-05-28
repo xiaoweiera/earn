@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { PropType } from "vue";
 import type { ProjectItem } from "src/types/dapp/detail";
-// import { ProjectType } from "src/types/dapp/ixo";
-// import DappDiscoversContentAd from "./content/ad.vue";
 import DappDiscoversContent from "./content/index.vue";
+
+import type { PropType } from "vue";
+import type { DAppType } from "src/types/dapp/dapp";
 
 defineProps({
   name: {
-    type: String,
+    type: String as PropType<DAppType>,
     required: true,
   },
   data: {

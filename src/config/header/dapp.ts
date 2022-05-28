@@ -4,7 +4,7 @@
 
 import I18n from "src/utils/i18n";
 import { MenuItem } from "src/types/menu";
-import { config } from "src/router/config";
+import { config, routerConfig } from "src/router/config";
 import { Lang } from "src/types/language";
 import { TabTypes } from "src/types/dapp/airdrop";
 
@@ -20,7 +20,7 @@ export const DApp = function (lang?: Lang): MenuItem {
   const i18n = I18n(lang);
   return {
     name: i18n.menu.dapp.title, // dApp
-    href: `${config.dapp}/discover`,
+    href: routerConfig.dapp.idoList(),
     expand: "HeaderSubDApp", // 二级导航末尾自定义组件名称
     newTip: true,
     icon: "icon-xinxiangmufaxian",
@@ -29,7 +29,7 @@ export const DApp = function (lang?: Lang): MenuItem {
       {
         id: name.dapp, // id
         name: i18n.menu.dapp.discover,
-        href: `${config.dapp}/discover`,
+        href: routerConfig.dapp.idoList(),
         header: true,
         icon: "icon-xinxiangmufaxian",
       },
@@ -38,21 +38,21 @@ export const DApp = function (lang?: Lang): MenuItem {
         name: i18n.menu.dapp.gamefi,
         header: true,
         icon: "icon-IGO",
-        href: `${config.dapp}/discover?igo=true`,
+        href: routerConfig.dapp.igoList(),
       },
       {
         id: name.nft,
         name: i18n.menu.nft.discover,
         icon: "icon-a-NFTxinxiangmu1",
         header: true,
-        href: `${config.nft}/discover`,
+        href: routerConfig.dapp.nftList(),
       },
       {
         id: name.airdrop,
         name: i18n.menu.airdrop.title, // 最新空投
         icon: "icon-airdrops",
         header: true,
-        href: `${config.airdrop}/list/${TabTypes.all}`,
+        href: routerConfig.dapp.airdropList(),
       },
       {
         id: name.invest,
