@@ -3,7 +3,7 @@
  * @author svon.me@gmail.com
  */
 
-import { dateTime, toArray } from "src/utils/";
+import { dateTime, toArray, toInteger } from "src/utils/";
 import * as api from "src/config/api";
 import { DefaultValue, expire, get, required, tryError, userToken, validate } from "src/plugins/dao/http";
 import type { SearchQuery, ProjectType } from "src/types/echarts/data";
@@ -22,17 +22,17 @@ export default class extends ApiTemplate {
   @get(api.chart.dapp, expire.min5)
   @userToken()
   @validate
-  dapp<T>(@required query: SearchQuery, projectType?: ProjectType | string, chains?: string[]): Promise<T> {
-    const legends = toArray(query.type);
+  dapp<T>(@required query: SearchQuery, projectType?: ProjectType | string, chains?: string | string[]): Promise<T> {
+    const fields = toArray(query.fields);
     const param = {
       id: query.id,
       timeunit: query.timeUnit,
-      from_timestamp: dateTime(query.start) / 1000,
-      to_timestamp: dateTime(query.end) / 1000,
-      indicators: legends.join(","),
+      from_timestamp: toInteger(dateTime(query.start) / 1000),
+      to_timestamp: toInteger(dateTime(query.end) / 1000),
+      indicators: fields.join(","),
     };
     const callback = function (list: object[]) {
-      return dataTransform(legends, list, projectType, chains);
+      return dataTransform(fields, list, projectType, chains);
     };
     return [param, callback] as any;
   }

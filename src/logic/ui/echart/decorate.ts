@@ -9,7 +9,7 @@ import _ from "lodash";
 import { ProjectType } from "src/types/echarts/data";
 import type { LegendItem, YAxis } from "src/types/echarts/type";
 import { EchartData, SeriesType } from "src/types/echarts/type";
-import { AnyEquals, convertInterval, dateFormat, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, uuid } from "src/utils/";
+import { AnyEquals, convertInterval, dateFormat, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, uuid, toArray } from "src/utils/";
 
 // 对 API 返回的 echart 数据进行二次处理
 export const echartTransform = function (trends?: EchartData): EchartData | undefined {
@@ -145,11 +145,11 @@ const getUnit = function (name: string, projectType?: ProjectType, chains?: stri
     }
     if (chains && chains.length > 0) {
       for (const chain of chains) {
-        if (AnyEquals(chain, "ETH")) {
+        if (chain && AnyEquals(chain, "ETH")) {
           value = "eth";
           break;
         }
-        if (AnyEquals(chain, "SOLANA")) {
+        if (chain && AnyEquals(chain, "SOLANA")) {
           value = "sol";
           break;
         }
@@ -170,7 +170,7 @@ const getUnit = function (name: string, projectType?: ProjectType, chains?: stri
  * @param projectType 项目类型
  * @param chains  项目公链
  */
-export const dataTransform = function (legends: string[], list: object[], projectType?: ProjectType | string, chains?: string[]) {
+export const dataTransform = function (legends: string[], list: object[], projectType?: ProjectType | string, chains?: string | string[]) {
   const time = "timestamp";
   const xAxis: Array<string | number> = [];
   const series = {};
@@ -193,7 +193,7 @@ export const dataTransform = function (legends: string[], list: object[], projec
         name,
         id: name,
         kline,
-        unit: getUnit(name, projectType as any, chains),
+        unit: getUnit(name, projectType as any, _.compact(toArray(chains))),
         type: kline ? "line" : null, // 如果是价格线，则为曲线
       };
     }),

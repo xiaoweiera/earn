@@ -40,5 +40,5 @@ export interface SearchQuery {
   timeUnit: TimeUnit; // 时间颗粒度
   start: number | string; // 开始时间
   end: number | string; // 结束时间
-  type: string | string[];
+  fields: string | string[]; // 查询的字段
 }
