@@ -341,7 +341,7 @@ export const nftTabs = function (): NftTabItem[] {
       icon: "",
       name: i18n.airdrop.tabs.upcoming,
       href: {
-        path: `${config.nft}/discover`,
+        path: config.nft,
         query: {
           ...query,
           status: NftTabTypes.upcoming,
@@ -353,7 +353,7 @@ export const nftTabs = function (): NftTabItem[] {
       icon: "",
       name: i18n.dapp.sort.history,
       href: {
-        path: `${config.nft}/discover`,
+        path: config.nft,
         query: {
           ...query,
           status: NftTabTypes.history,

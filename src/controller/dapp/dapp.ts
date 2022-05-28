@@ -14,5 +14,11 @@ export const list = function (name: DAppType, req: Request, res: Response) {
   if (name === DAppType.ido) {
     res.locals.menuActive = names.dapp.dapp;
   }
+  if (name === DAppType.mint) {
+    res.locals.menuActive = names.dapp.nft;
+  }
+  if (name === DAppType.airdrop) {
+    res.locals.menuActive = names.dapp.airdrop;
+  }
   res.send({});
 };

@@ -7,7 +7,7 @@ import { defineComponent } from "vue";
 import { upperFirst } from "src/utils/";
 
 import Ido from "../ido/index.vue";
-import Mint from "../nft.vue";
+import Mint from "../mint/index.vue";
 import Airdrop from "../airdrop/index.vue";
 
 import type { PropType } from "vue";
