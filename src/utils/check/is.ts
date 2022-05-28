@@ -7,6 +7,7 @@ import _ from "lodash";
 import type { Request } from "express";
 import { IsNode } from "src/config/ssr";
 import { isEmpty as _isEmpty, is, isNil } from "ramda";
+
 /**
  * 判断对象是否为空
  * @param value
@@ -165,25 +166,33 @@ export const isElement = function (value: any) {
 };
 
 export const Equals = function (...args: Array<string | number>): boolean {
-  const len = args.length;
-  let status = false;
-  for (let i = 1; i < len; i++) {
-    const value1 = _.trim(`${args[i - 1]}`);
-    const value2 = _.trim(`${args[i]}`);
-    if (value1 === value2) {
-      status = true;
-    } else {
-      status = false;
-      break;
+  try {
+    const len = args.length;
+    let status = false;
+    for (let i = 1; i < len; i++) {
+      const value1 = _.trim(`${args[i - 1]}`);
+      const value2 = _.trim(`${args[i]}`);
+      if (value1 === value2) {
+        status = true;
+      } else {
+        status = false;
+        break;
+      }
     }
+    return status;
+  } catch (e) {
+    return false;
   }
-  return status;
 };
 // 不区分大小写比较
 export const AnyEquals = function (...args: Array<string | number>): boolean {
-  const arr: string[] = _.map(args, function (value: string | number) {
-    const text = _.trim(`${value}`);
-    return _.toLower(text);
-  });
-  return Equals(...arr);
+  try {
+    const arr: string[] = _.map(args, function (value: string | number) {
+      const text = _.trim(`${value}`);
+      return _.toLower(text);
+    });
+    return Equals(...arr);
+  } catch (e) {
+    return false;
+  }
 };
