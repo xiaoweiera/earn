@@ -49,6 +49,10 @@ export const dApp = {
     holder: "API.DApp.holder",
   },
   apply: "api.dApp.apply",
+  list: "API.dapp.list",
+  chains: "dapp.common.chains",
+  platforms: "dapp.common.chains",
+  categories: "dapp.common.chains",
 };
 
 export const nft = {

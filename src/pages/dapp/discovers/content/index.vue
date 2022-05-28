@@ -1,13 +1,18 @@
 <script setup lang="ts">
+import safeGet from "@fengqiaogang/safe-get";
+import { AnyEquals } from "src/utils/";
 import DAppDiscoversContentHeader from "./header.vue";
 import DAppDiscoversContentTitle from "./title.vue";
 import DAppDiscoversContentDec from "./dec.vue";
 import DAppDiscoversContentPrice from "./price.vue";
 import DAppDiscoversContentTime from "./time.vue";
-import { getParam } from "src/utils/router";
-import { config } from "src/router/config";
+import { routerConfig } from "src/router/config";
 
-defineProps({
+const props = defineProps({
+  name: {
+    type: String,
+    required: true,
+  },
   data: {
     type: Object,
     default: () => {
@@ -20,20 +25,18 @@ defineProps({
   },
 });
 
-const igo = getParam<boolean>("igo");
-
-const getUrl = function (data: any) {
-  if (igo) {
-    return `${config.igo}/${data.id}?igo=${data.query.igo}`;
-  } else {
-    return `${config.dapp}/${data.id}`;
+const getUrl = function (data: object) {
+  const id = safeGet<string>(data, "id");
+  if (AnyEquals(props.name, "igo")) {
+    return routerConfig.dapp.igoDetail(id);
   }
+  return routerConfig.dapp.idoDetail(id);
 };
 </script>
 
 <template>
   <div>
-    <v-router target="_blank" :href="getUrl(data)">
+    <v-router class="block" target="_blank" :href="getUrl(data)">
       <!-- 项目图片和tip角标 -->
       <div class="relative h-40">
         <DAppDiscoversContentHeader :data="data" />

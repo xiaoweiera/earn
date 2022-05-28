@@ -19,8 +19,18 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue([]))
   @get(api.dapp.list, expire.min5)
   @userToken()
-  getList<T>(query: object = {}): Promise<T> {
-    return [query] as any;
+  @validate
+  getList<T>(@required query: object): Promise<T> {
+    const data = {
+      page: 1,
+      page_size: 20,
+      keyword: "",
+      chain: "all",
+      platform: "all",
+      category: "all",
+    };
+    const param = { ...data, ...query };
+    return [param] as any;
   }
 
   //	获取nft列表
@@ -164,6 +174,7 @@ export default class extends ApiTemplate {
   getFundsList<T>(@required query: FundsQuery): Promise<T> {
     return [query] as any;
   }
+
   // 投融资的轮次数据
   @tryError(DefaultValue([]))
   @get(api.dapp.roundList, expire.min30)
@@ -172,6 +183,7 @@ export default class extends ApiTemplate {
   getRoundList<T>(): Promise<T> {
     return [] as any;
   }
+
   // 项目库详情
   @tryError(DefaultValue({}))
   @get(api.dapp.detail, expire.min5)
@@ -262,6 +274,7 @@ export default class extends ApiTemplate {
   getProjectInfo<T>(@required query: any): Promise<T> {
     return [query] as any;
   }
+
   //项目类型和公链
   @tryError(DefaultValue([]))
   @get(api.dapp.options, expire.min5)

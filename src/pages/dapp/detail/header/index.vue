@@ -1,12 +1,11 @@
 <script lang="ts">
-import type { PropType } from "vue";
 /**
  * @file 项目详情数据
  * @auth svon.me@gmail.com
  */
 import { defineComponent } from "vue";
 import { ProjectItem, DAppProject, ProjectType } from "src/types/dapp/detail";
-
+import type { PropType } from "vue";
 import InfoView from "./info.vue";
 
 import NFT from "./nft.vue";

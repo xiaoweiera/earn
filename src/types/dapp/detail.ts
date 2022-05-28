@@ -220,12 +220,20 @@ export interface Investments {
 }
 
 //筛选类型
-export interface summaryItem {
+export interface SummaryItem {
   available_chains: string[];
   available_platforms: string[];
   available_categories: string[];
 }
-export interface nftItem {
-  extra: summaryItem[];
+export interface Result {
+  extra: SummaryItem;
   items: ProjectItem[];
+}
+
+// 废弃类型
+export interface summaryItem extends SummaryItem {
+  [key: string]: any;
+}
+export interface nftItem extends Result {
+  [key: string]: any;
 }
