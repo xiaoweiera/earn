@@ -99,13 +99,13 @@ onMounted(function () {
       <div class="flex items-center">
         <div class="flex items-center flex-1 mr-2">
           <div class="flex items-center w-1/2">
-            <span class="whitespace-nowrap">Type</span>
+            <span class="whitespace-nowrap">{{ i18n.home.topList.category }}</span>
             <div class="ml-2 flex-1 w-1">
               <ui-tab :list="getUiTabList(Categories, 'category')" active-name="category" :split="2" />
             </div>
           </div>
           <div class="flex items-center w-1/2">
-            <span class="whitespace-nowrap">公链</span>
+            <span class="whitespace-nowrap">{{ i18n.home.idoIgoProject.chain }}</span>
             <div class="ml-2 flex-1 w-1">
               <ui-tab :list="getUiTabList(Chains, 'chain')" active-name="chain" :split="1" />
             </div>
@@ -121,7 +121,7 @@ onMounted(function () {
         </client-only>
       </div>
       <div class="flex items-center mt-4">
-        <span class="whitespace-nowrap">来源平台</span>
+        <span class="whitespace-nowrap">{{ i18n.home.topList.plat }}</span>
         <div class="ml-2 flex-1 w-1">
           <ui-tab :list="getUiTabList(Platforms, 'platform')" active-name="platform" :split="6" />
         </div>
