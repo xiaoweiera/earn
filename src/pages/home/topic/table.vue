@@ -120,7 +120,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="overflow-hidden md:mb-0 mb-4" :class="`${bgClass}`">
+  <div class="showX md:mb-0 mb-4" :class="`${bgClass}`">
     <div class="flex xshidden flex-wrap justify-between items-baseline">
       <HomeFilter v-if="safeGet(detail, 'id') && showFilter" :key="key" :info="detail" class="mb-4" />
       <client-only>
@@ -181,10 +181,11 @@ onMounted(() => {
 ::v-deep(.cell) {
   height: 100%;
 }
-
-.el-table__body-wrapper::-webkit-scrollbar-thumb:vertical {
-  background: rgba(0, 0, 0, 0);
+::v-deep(.el-scrollbar) {
+  --el-scrollbar-bg-color: none !important;
+  --el-scrollbar-hover-bg-color: none !important;
 }
+
 .more {
   @apply w-30 h-8 flex items-center justify-center mx-auto w-fit cursor-pointer rounded-kd6px;
   @apply text-kd14px18px font-medium font-kdFang text-global-primary;
