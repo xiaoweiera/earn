@@ -1,7 +1,6 @@
 <script setup lang="ts">
 /**
- * @file
- * @auth svon.me@gmail.com
+ * @file IDO / IGO list
  */
 import _ from "lodash";
 import API from "src/api/";
