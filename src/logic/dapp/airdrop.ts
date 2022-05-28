@@ -5,53 +5,89 @@
 
 import { TabTypes } from "src/types/dapp/airdrop";
 import I18n from "src/utils/i18n";
-import { config } from "src/router/config";
+import { config, routerConfig } from "src/router/config";
 import { toLower, toUpper } from "ramda";
 import { isString } from "src/utils/check/is";
 import { AnyEquals } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";
 import { RouteLocationNormalizedLoaded } from "vue-router";
 import { getValue } from "src/utils/root/data";
+import { getParam } from "src/utils/router";
 
 export const tabs = function () {
-  const i18n = I18n();
-  return [
-    {
-      name: TabTypes.all,
-      label: i18n.common.button.all,
-      href: `${config.airdrop}/${TabTypes.all}`,
-    },
-    {
-      name: TabTypes.hot,
-      logo: "",
-      label: i18n.airdrop.tabs.hot,
-      href: `${config.airdrop}/${TabTypes.hot}`,
-    },
-    {
-      name: TabTypes.ongoing,
-      logo: "",
-      label: i18n.airdrop.tabs.ongoing,
-      href: `${config.airdrop}/list/${TabTypes.ongoing}`,
-    },
-    {
-      name: TabTypes.potential,
-      logo: "icon-hot",
-      label: i18n.airdrop.tabs.potential,
-      href: `${config.airdrop}/${TabTypes.potential}`,
-    },
-    {
-      name: TabTypes.upcoming,
-      logo: "",
-      label: i18n.airdrop.tabs.upcoming,
-      href: `${config.airdrop}/${TabTypes.upcoming}`,
-    },
-    {
-      name: TabTypes.ended,
-      logo: "",
-      label: i18n.growthpad.status.closure,
-      href: `${config.airdrop}/${TabTypes.ended}`,
-    },
-  ];
+  return function () {
+    const i18n = I18n();
+    const query = getParam<object>();
+    return [
+      {
+        activity_stage: TabTypes.all,
+        name: i18n.common.button.all,
+        href: {
+          path: routerConfig.dapp.airdropList(),
+          query: {
+            ...query,
+            activity_stage: TabTypes.all,
+          },
+        },
+      },
+      {
+        activity_stage: TabTypes.hot,
+        name: i18n.airdrop.tabs.hot,
+        href: {
+          path: routerConfig.dapp.airdropList(),
+          query: {
+            ...query,
+            activity_stage: TabTypes.hot,
+          },
+        },
+      },
+      {
+        activity_stage: TabTypes.ongoing,
+        name: i18n.airdrop.tabs.ongoing,
+        href: {
+          path: routerConfig.dapp.airdropList(),
+          query: {
+            ...query,
+            activity_stage: TabTypes.ongoing,
+          },
+        },
+      },
+      {
+        activity_stage: TabTypes.potential,
+        name: i18n.airdrop.tabs.potential,
+        logo: "icon-hot",
+        href: {
+          path: routerConfig.dapp.airdropList(),
+          query: {
+            ...query,
+            activity_stage: TabTypes.potential,
+          },
+        },
+      },
+      {
+        activity_stage: TabTypes.upcoming,
+        name: i18n.airdrop.tabs.upcoming,
+        href: {
+          path: routerConfig.dapp.airdropList(),
+          query: {
+            ...query,
+            activity_stage: TabTypes.upcoming,
+          },
+        },
+      },
+      {
+        activity_stage: TabTypes.ended,
+        name: i18n.growthpad.status.closure,
+        href: {
+          path: routerConfig.dapp.airdropList(),
+          query: {
+            ...query,
+            activity_stage: TabTypes.ended,
+          },
+        },
+      },
+    ];
+  };
 };
 
 // 首字母大写
