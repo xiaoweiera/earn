@@ -1,17 +1,16 @@
 import safeGet from "@fengqiaogang/safe-get";
-import safeSet from "@fengqiaogang/safe-set";
-import API from "src/api";
 import type { Request, Response, Router } from "express";
-import type { Callback } from "src/types/common/";
+import API from "src/api";
+import { names } from "src/config/header";
 import { Model } from "src/logic/dapp";
 import { Model as InvestModel } from "src/logic/dapp/invest";
+import type { Callback } from "src/types/common/";
+import { ActivityStage, TabTypes } from "src/types/dapp/airdrop";
 import type { DAppProject } from "src/types/dapp/data";
 import { ProjectType, TabName } from "src/types/dapp/data";
-import { toArray, compact, forEach } from "src/utils";
-import * as alias from "src/utils/root/alias";
-import { names } from "src/config/header";
+import { compact, forEach, toArray } from "src/utils";
 import I18n from "src/utils/i18n";
-import { TabTypes, ActivityStage } from "src/types/dapp/airdrop";
+import * as alias from "src/utils/root/alias";
 
 export const list = async function (req: Request, res: Response) {
   const api = new Model(req);
@@ -273,6 +272,7 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
       tab: TabName.dashboard,
     } as DAppProject;
     if (rank) {
+      // 排行榜（分析）详情
       switch (type) {
       case ProjectType.nft:
         res.locals.menuActive = names.rank.nft;
@@ -288,20 +288,19 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
         break;
       }
     } else {
+      // 新项目详情
       switch (type) {
-      case ProjectType.nft:
+      case ProjectType.mint:
         res.locals.menuActive = names.dapp.nft;
         break;
       case ProjectType.airdrop:
         res.locals.menuActive = names.dapp.airdrop;
         break;
-      case ProjectType.dapp:
-        if (safeGet(req.query, ProjectType.igo)) {
-          safeSet(project, "type", ProjectType.igo);
-          res.locals.menuActive = names.dapp.igo;
-        } else {
-          res.locals.menuActive = names.dapp.dapp;
-        }
+      case ProjectType.igo:
+        res.locals.menuActive = names.dapp.igo;
+        break;
+      case ProjectType.ido:
+        res.locals.menuActive = names.dapp.dapp;
         break;
       case ProjectType.funds:
         res.locals.menuActive = names.dapp.invest;
@@ -309,7 +308,7 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
       }
     }
 
-    req.params = Object.assign(project, req.params || {});
+    req.params = Object.assign(project, req.params || {}, req.query);
 
     const result: object = {};
     const id = safeGet<string | number>(req.params, "id");
@@ -354,6 +353,9 @@ export const dAppDetail = function (router: Router, path: string, type: ProjectT
     }
     res.send(result);
   };
-  router.get(`${path}/:id`, detail);
-  router.get(`${path}/:id/:tab`, detail);
+  if (path.includes("/:")) {
+    router.get(path, detail);
+  } else {
+    router.get(`${path}/:id`, detail);
+  }
 };

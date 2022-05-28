@@ -17,7 +17,7 @@ export enum TabName {
   nft = "nft",
   dapp = "dapp",
   igo = "igo",
-  airdrop = "airdrops",
+  airdrop = "airdrop",
   mint = "mint",
   holder = "holder",
 }
@@ -29,7 +29,7 @@ export enum ProjectType {
   nft = "nft",
   game = "game",
   defi = "defi",
-  airdrop = "airdrops",
+  airdrop = "airdrop",
   mint = "mint",
   airdrops = "airdrop",
   funds = "funds",

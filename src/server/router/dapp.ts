@@ -104,22 +104,14 @@ const Router = function () {
   router.get(routerConfig.dapp.investListPattern(), function (req: Request, res: Response) {
     return DAppList(DAppType.invest, req, res);
   });
-  // igo 详情
-  router.get(routerConfig.dapp.igoDetailPattern(), function (req: Request, res: Response) {
-    res.send({});
-  });
-  // nft 详情
-  router.get(routerConfig.dapp.nftDetailPattern(), function (req: Request, res: Response) {
-    res.send({});
-  });
   // ido 详情
-  router.get(routerConfig.dapp.idoDetailPattern(), function (req: Request, res: Response) {
-    res.send({});
-  });
+  dApp.dAppDetail(router, routerConfig.dapp.idoDetailPattern(), ProjectType.ido);
+  // igo 详情
+  dApp.dAppDetail(router, routerConfig.dapp.igoDetailPattern(), ProjectType.igo);
+  // nft 详情
+  dApp.dAppDetail(router, routerConfig.dapp.nftDetailPattern(), ProjectType.mint);
   // airdrop 详情
-  router.get(routerConfig.dapp.airdropDetailPattern(), function (req: Request, res: Response) {
-    res.send({});
-  });
+  dApp.dAppDetail(router, routerConfig.dapp.airdropDetailPattern(), ProjectType.airdrop);
   return router;
 };
 export default Router;
