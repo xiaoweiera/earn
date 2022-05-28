@@ -1,5 +1,5 @@
 /**
- * @file 博客
+ * @file APY
  */
 
 import safeGet from "@fengqiaogang/safe-get";

@@ -3,31 +3,42 @@
  */
 
 import * as api from "src/config/api";
-import { DefaultValue, expire, get, required, tryError, userToken, validate, post } from "src/plugins/dao/http";
+import ApiTemplate from "../template";
 import type { Query } from "src/types/dapp/ixo";
 import type { nftQuery } from "src/types/dapp/nft";
 import type { AirdropQuery } from "src/types/dapp/airdrop";
-import { nftStatus } from "src/types/dapp/nft";
-import ApiTemplate from "../template";
-import type { DAppData, DataQuery, newsModel, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
 import { echart } from "src/logic/ui/echart/decorate";
 import type { EchartData } from "src/types/echarts/type";
 import { FundsQuery } from "src/types/dapp/invest";
 import { FormData } from "src/types/dapp/apply";
-import { HolderQuery } from "src/types/dapp/holder";
+import type { DAppData, DataQuery, newsModel, TokenQuery, TokenDataQuery } from "src/types/dapp/data";
+import { DefaultValue, expire, get, required, tryError, userToken, validate, post } from "src/plugins/dao/http";
 
 export default class extends ApiTemplate {
   // 项目库列表
   @tryError(DefaultValue([]))
   @get(api.dapp.list, expire.min5)
   @userToken()
-  getList<T>(query: object = {}): Promise<T> {
-    return [query] as any;
+  @validate
+  getList<T>(@required query: object): Promise<T> {
+    const data = {
+      page: 1,
+      page_size: 20,
+      keyword: "",
+    };
+    const param: any = { ...data, ...query };
+    // 下列参数如果为空，默认设置为 all
+    for (const key of ["chain", "platform", "category"]) {
+      if (!param[key]) {
+        param[key] = "all";
+      }
+    }
+    return [param] as any;
   }
 
   //	获取nft列表
   @tryError(DefaultValue([]))
-  @get(api.dapp.nftList, expire.min5)
+  @get(api.dapp.list, expire.min5)
   @userToken()
   @validate
   getNftList<T>(@required query: nftQuery): Promise<T> {
@@ -35,10 +46,11 @@ export default class extends ApiTemplate {
       {
         page: 1,
         page_size: 20,
+        activity_type: "MINT",
         category: "All",
         chain: "All",
-        status: nftStatus.upcoming, // 默认状态
-        query: "", // 默认搜索为空
+        activity_stage: "UPCOMING", // 默认状态
+        keyword: "", // 默认搜索为空
       },
       query,
     );
@@ -87,7 +99,7 @@ export default class extends ApiTemplate {
 
   // airdrop首页 数据
   @tryError(DefaultValue([]))
-  @get(api.dapp.airdropList, expire.min30)
+  @get(api.dapp.list, expire.min30)
   @userToken()
   @validate
   getAirdropList<T>(@required query: AirdropQuery): Promise<T> {
@@ -96,7 +108,7 @@ export default class extends ApiTemplate {
 
   // airdrop 进行中数据
   @tryError(DefaultValue([]))
-  @get(api.dapp.airdropList)
+  @get(api.dapp.list)
   @userToken()
   @validate
   getOngoingList<T>(@required query: AirdropQuery): Promise<T> {
@@ -105,7 +117,7 @@ export default class extends ApiTemplate {
 
   // airdrop 潜在优质数据
   @tryError(DefaultValue([]))
-  @get(api.dapp.airdropList)
+  @get(api.dapp.list)
   @userToken()
   @validate
   getPotentialList<T>(@required query: AirdropQuery): Promise<T> {
@@ -114,7 +126,7 @@ export default class extends ApiTemplate {
 
   // airdrop 即将开始数据
   @tryError(DefaultValue([]))
-  @get(api.dapp.airdropList)
+  @get(api.dapp.list)
   @userToken()
   @validate
   getUpcomingList<T>(@required query: AirdropQuery): Promise<T> {
@@ -123,7 +135,7 @@ export default class extends ApiTemplate {
 
   // airdrop 结束数据
   @tryError(DefaultValue([]))
-  @get(api.dapp.airdropList)
+  @get(api.dapp.list)
   @userToken()
   @validate
   getEndedList<T>(@required query: AirdropQuery): Promise<T> {
@@ -132,7 +144,7 @@ export default class extends ApiTemplate {
 
   // airdrop运营推荐 数据
   @tryError(DefaultValue([]))
-  @get(api.dapp.operation, expire.min30)
+  @get(api.dapp.list, expire.min30)
   @userToken()
   @validate
   getOperationList<T>(@required query: AirdropQuery): Promise<T> {
@@ -141,7 +153,7 @@ export default class extends ApiTemplate {
 
   // airdrop运营推荐 数据
   @tryError(DefaultValue([]))
-  @get(api.dapp.operation, expire.min30)
+  @get(api.dapp.list, expire.min30)
   @userToken()
   @validate
   getHotPotentialList<T>(@required query: AirdropQuery): Promise<T> {
@@ -165,6 +177,7 @@ export default class extends ApiTemplate {
   getFundsList<T>(@required query: FundsQuery): Promise<T> {
     return [query] as any;
   }
+
   // 投融资的轮次数据
   @tryError(DefaultValue([]))
   @get(api.dapp.roundList, expire.min30)
@@ -173,6 +186,7 @@ export default class extends ApiTemplate {
   getRoundList<T>(): Promise<T> {
     return [] as any;
   }
+
   // 项目库详情
   @tryError(DefaultValue({}))
   @get(api.dapp.detail, expire.min5)
@@ -263,6 +277,7 @@ export default class extends ApiTemplate {
   getProjectInfo<T>(@required query: any): Promise<T> {
     return [query] as any;
   }
+
   //项目类型和公链
   @tryError(DefaultValue([]))
   @get(api.dapp.options, expire.min5)

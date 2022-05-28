@@ -8,10 +8,8 @@ import VRouter from "src/components/v/router.vue";
 const emit = defineEmits(["changeSort"]);
 const props = defineProps({
   list: {
-    type: Array,
-    default: () => {
-      return [];
-    },
+    required: true,
+    type: Array as any,
   },
   params: {
     type: Object,
@@ -54,7 +52,7 @@ const getIcon = (item: string) => {
       </thead>
       <tbody>
         <template v-for="(item, index) in list" :key="index">
-          <v-router v-if="item.data_type !== 'ad'" class="h-14 hand" :href="item.url" target="_blank" name="tr">
+          <v-router v-if="item.data_type !== 'ad'" class="w-full h-14 hand" :href="item.website" target="_blank" name="tr">
             <td>
               <div class="flex-center">
                 <ui-image class="w-8 h-8 text-12-12 font-kdInter" rounded :src="item.logo" :title="item.name" />

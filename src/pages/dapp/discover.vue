@@ -2,14 +2,12 @@
 import safeGet from "@fengqiaogang/safe-get";
 import I18n from "src/utils/i18n";
 import * as track from "src/logic/track";
-import * as alias from "src/utils/root/alias";
 import { onMounted, reactive, ref } from "vue";
 import * as logic from "src/logic/dapp/";
 import { TabTypes } from "src/types/dapp";
 import { uuid } from "src/utils";
 import { Model } from "src/logic/dapp";
 import { createRef, onLoadRef } from "src/utils/ssr/ref";
-import type { summaryModel } from "src/types/home";
 // 引入 use state
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
 import { getParam } from "src/utils/router";
@@ -29,23 +27,26 @@ const igo = ref(getParam<boolean>("igo"));
 const chain = ref(getParam<string>("chain"));
 const category = ref(getParam<string>("group"));
 const platform = ref(getParam<string>("platform"));
-const type = ref(getParam<string>("type"));
 const search = ref(getParam<string>("search"));
 
-const list: any = createRef("API.dapp.list", {} as any);
+const list = createRef("API.dapp.list", {} as any);
+
+// 获取类型
+const summary = createRef("API.dapp.list", {} as any);
 
 const params = reactive({
   page: 1,
   page_size: 16,
-  is_igo: igo.value ? igo : false,
+  activity_type: "IDO",
+  activity_stage: "ONGOING",
+  keyword: search.value ? search.value : "",
+  // is_igo: igo.value ? igo : false,
   chain: chain.value || "All",
   category: category.value || "All",
   platform: platform.value || "All",
-  status: type.value ? type.value : "upcoming",
-  query: search.value ? search.value : "",
   sort_field: "",
   sort_type: "", // desc asc
-  paginate: true,
+  // paginate: true,
 });
 const resultNumber = ref(params.page_size);
 const loading = ref(false);
@@ -55,10 +56,12 @@ const getData = async (clear?: boolean) => {
   if (clear) {
     params.page = 1;
     list.value = [];
+    summary.value = {};
   }
   const res: any = await api.getList(params);
-  resultNumber.value = res?.length;
-  list.value = list.value.concat(res);
+  resultNumber.value = res?.items?.length;
+  list.value = list.value.concat(res.items);
+  summary.value = res.extra;
   loading.value = false;
 };
 
@@ -68,8 +71,8 @@ useWatch(route, () => {
   params.chain = querys.chain || "All";
   params.category = querys.group || "All";
   params.platform = querys.platform || "All";
-  params.status = querys.type ? querys.type : "upcoming";
-  params.query = querys.search ? querys.search : "";
+  params.activity_stage = "ONGOING";
+  params.keyword = querys.search ? querys.search : "";
   getData(true);
   // todo 可以在此处更新某些数据
 });
@@ -89,9 +92,6 @@ interface Query {
 }
 
 const key = ref<string>(uuid());
-
-// 获取类型
-const summary = createRef<summaryModel>(alias.dApp.summary.list, {} as summaryModel);
 onMounted(() => {
   // 上报数据
   if (getParam<boolean>("igo")) {
@@ -99,14 +99,9 @@ onMounted(() => {
   } else {
     track.push(track.Origin.gio, track.event.dApp.ido);
   }
-
+  // getData(true);
   // 得到数据汇总
   onLoadRef(list, () => api.getList(params));
-
-  // 得到数据汇总
-  onLoadRef(summary, () => {
-    return api.home.getSummary();
-  });
 });
 
 // 排序方法
@@ -130,27 +125,27 @@ const getName = function () {
   }
 };
 // 获取筛选条件
-const getFilter = function (data: any) {
-  const igo = getParam<boolean>("igo");
-  const status = getParam<string>("type");
-  if (igo) {
-    if (status === TabTypes.ended) {
-      return data.igo_ended;
-    } else if (status === TabTypes.ongoing) {
-      return data.igo_ongoing;
-    } else {
-      return data.igo_upcoming;
-    }
-  } else {
-    if (status === TabTypes.ended) {
-      return data.ido_ended;
-    } else if (status === TabTypes.ongoing) {
-      return data.ido_ongoing;
-    } else {
-      return data.ido_upcoming;
-    }
-  }
-};
+// const getFilter = function (data: any) {
+//   const igo = getParam<boolean>("igo");
+//   const status = getParam<string>("type");
+//   if (igo) {
+//     if (status === TabTypes.ended) {
+//       return data.igo_ended;
+//     } else if (status === TabTypes.ongoing) {
+//       return data.igo_ongoing;
+//     } else {
+//       return data.igo_upcoming;
+//     }
+//   } else {
+//     if (status === TabTypes.ended) {
+//       return data.ido_ended;
+//     } else if (status === TabTypes.ongoing) {
+//       return data.ido_ongoing;
+//     } else {
+//       return data.ido_upcoming;
+//     }
+//   }
+// };
 
 const itemTransform = function (list: object[]): object[] {
   if (list && igo.value) {
@@ -191,7 +186,7 @@ const itemTransform = function (list: object[]): object[] {
       <!-- 搜索条件 -->
 
       <div v-if="summary">
-        <DAppDiscoversSearch :data="getFilter(summary)" :keys="key" />
+        <DAppDiscoversSearch :data="summary" :keys="key" />
       </div>
       <!-- 列表内容 -->
       <div v-if="list.length > 0" class="py-8">

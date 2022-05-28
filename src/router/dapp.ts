@@ -1,12 +1,12 @@
-import { config as router } from "src/router/config";
-
+import { routerConfig } from "src/router/config";
+/*
 const routes = [
   {
-    path: router.dappList,
+    path: `${router.dappList}/discover`,
     component: () => import("src/pages/dapp/discover.vue"),
   },
   {
-    path: router.nftList,
+    path: `${router.nftList}/discover`,
     component: () => import("src/pages/dapp/nft.vue"),
   },
   {
@@ -57,6 +57,47 @@ const routes = [
   {
     path: router.dappApply,
     component: () => import("src/pages/dapp/apply/index.vue"),
+  },
+];
+ */
+
+const routes = [
+  // ido 列表
+  {
+    path: routerConfig.dapp.idoListPattern(),
+    component: () => import("src/pages/dapp/list/ido.vue"),
+  },
+  // igo
+  {
+    path: routerConfig.dapp.igoListPattern(),
+    component: () => import("src/pages/dapp/list/igo.vue"),
+  },
+  // nft
+  {
+    path: routerConfig.dapp.nftListPattern(),
+    component: () => import("src/pages/dapp/list/mint.vue"),
+  },
+  // airdrop
+  {
+    path: routerConfig.dapp.airdropListPattern(),
+    component: () => import("src/pages/dapp/list/airdrop.vue"),
+  },
+  // 详情
+  {
+    path: routerConfig.dapp.idoDetailPattern(),
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: routerConfig.dapp.igoDetailPattern(),
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: routerConfig.dapp.nftDetailPattern(),
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: routerConfig.dapp.airdropDetailPattern(),
+    component: () => import("src/pages/dapp/detail/index.vue"),
   },
 ];
 

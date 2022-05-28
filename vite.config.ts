@@ -42,7 +42,7 @@ const getBuildConfig = function(config: ImportMetaEnv) {
       target: "modules",
       manifest: true,
       chunkSizeWarningLimit: 500,
-      sourcemap: true, // 是否生成 source map
+      sourcemap: false, // 是否生成 source map
       rollupOptions: {
         output: {
           inlineDynamicImports: false,

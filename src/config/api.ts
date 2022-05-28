@@ -23,7 +23,8 @@ export const home = {
 export const dapp = {
   // detail: "/api/v1/dapps/detail", // 项目库详情
   detail: "/api/v1/bff/dapp/projects/{id}", // 项目库详情
-  list: "/api/v1/dapps/ido", // IDO项目列表
+  // list: "/api/v1/dapps/ido", // IDO项目列表
+  list: "/api/v1/bff/dapp/projects", // IDO项目列表
   igoList: "/api/v1/dapps/igo", // IGO项目列表
   nftList: "/api/v1/dapps/nft", // nft项目列表
   tabs: "/api/v1/site/config", // 项目类型搜索条件
@@ -120,4 +121,8 @@ export const activity = {
 
 export const upload = {
   policy: "/api/storage/s3_presigned", // 获取亚马逊 s3 签名
+};
+
+export const chart = {
+  dapp: "/api/v1/bff/dapp/projects/{id}/charts",
 };

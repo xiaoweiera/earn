@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import type { PropType } from "vue";
-import type { AdItem, ProjectItem } from "src/types/dapp/ixo";
-import { ProjectType } from "src/types/dapp/ixo";
-import DappDiscoversContentAd from "./content/ad.vue";
+import type { ProjectItem } from "src/types/dapp/detail";
 import DappDiscoversContent from "./content/index.vue";
 
+import type { PropType } from "vue";
+import type { DAppType } from "src/types/dapp/dapp";
+
 defineProps({
+  name: {
+    type: String as PropType<DAppType>,
+    required: true,
+  },
   data: {
-    type: Object as PropType<ProjectItem | AdItem>,
-    default: () => {
-      return {};
-    },
+    required: true,
+    type: Object as PropType<ProjectItem>,
   },
   status: {
     type: String,
@@ -20,14 +22,8 @@ defineProps({
 </script>
 <template>
   <div class="discover-item">
-    <div>
-      <!--遍历展示项目列表信息-->
-      <div
-        class="discover-list relative h-87.5 border border-global-highTitle border-opacity-6 rounded-md cursor-pointer"
-      >
-        <DappDiscoversContentAd v-if="data.data_type === ProjectType.ad" :data="data" />
-        <DappDiscoversContent v-else :status="status" :data="data" />
-      </div>
+    <div class="discover-list relative h-87.5 border border-global-highTitle border-opacity-6 rounded-md cursor-pointer">
+      <DappDiscoversContent :status="status" :data="data" :name="name" />
     </div>
   </div>
 </template>
@@ -35,7 +31,7 @@ defineProps({
 .discover-item {
   &:hover {
     .discover-list {
-      box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     }
   }
 }

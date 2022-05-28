@@ -1,12 +1,7 @@
 <script lang="ts" setup>
-import { onMounted } from "vue";
-import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
-import { HolderInfo } from "src/types/dapp/holder";
-import { useRoute } from "vue-router";
-import safeGet from "@fengqiaogang/safe-get";
+import I18n from "src/utils/i18n/";
 import { formatCash, valueFormat, toFixed } from "src/utils";
 import { formatRulesNumber } from "src/lib/tool";
-import I18n from "src/utils/i18n/";
 
 defineProps({
   data: {

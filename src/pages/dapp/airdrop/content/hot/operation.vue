@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
 // import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
-import { Model } from "src/logic/dapp";
+import { getAirdropList } from "src/logic/dapp";
 import { scrollGoToDom } from "src/plugins/browser/scroll";
 import { alias } from "src/utils/ssr/ref";
 import { useRoute } from "vue-router";
@@ -15,9 +15,11 @@ defineProps({
 });
 
 const $route = useRoute();
-const potential = true;
 let initStatus = true;
-
+const params = {
+  activity_type: "AIRDROP",
+  recommended: true,
+};
 const initValue = function () {
   if (initStatus) {
     initStatus = false;
@@ -25,9 +27,9 @@ const initValue = function () {
   }
   return [];
 };
-const request = function (query: object) {
-  const model = new Model();
-  return model.getOperationList({ potential, ...query });
+const request = async function (query: object) {
+  const { items } = await getAirdropList({ ...params, ...query });
+  return items;
 };
 const changeView = function () {
   scrollGoToDom(".j-operation-title", 40);

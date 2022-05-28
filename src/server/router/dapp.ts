@@ -1,6 +1,6 @@
 import _ from "lodash";
 import safeGet from "@fengqiaogang/safe-get";
-import { config } from "src/router/config";
+import { routerConfig } from "src/router/config";
 import * as dApp from "src/controller/dapp";
 import { redirect } from "src/controller/common/redirect";
 import type { Request, Response, NextFunction } from "express";
@@ -8,6 +8,10 @@ import { Router as ExpressRouter } from "express";
 import { TabTypes } from "src/types/dapp/airdrop";
 import { ProjectType } from "src/types/dapp/data";
 
+import { DAppType } from "src/types/dapp/dapp";
+import { list as DAppList } from "src/controller/dapp/dapp";
+
+/*
 const Router = function () {
   const router = ExpressRouter();
   router.get(config.dapp, function (req: Request, res: Response) {
@@ -74,6 +78,45 @@ const Router = function () {
   dApp.dAppDetail(router, config.nft, ProjectType.nft);
   dApp.dAppDetail(router, config.airdrop, ProjectType.airdrop);
   dApp.dAppDetail(router, config.funds, ProjectType.funds);
+  return router;
+};
+ */
+
+const Router = function () {
+  const router = ExpressRouter();
+
+  // ido 列表
+  router.get(routerConfig.dapp.idoListPattern(), function (req: Request, res: Response) {
+    return DAppList(DAppType.ido, req, res);
+  });
+  // ido 详情
+  router.get(routerConfig.dapp.idoDetailPattern(), function (req: Request, res: Response) {
+    res.send({});
+  });
+  // igo 列表
+  router.get(routerConfig.dapp.igoListPattern(), function (req: Request, res: Response) {
+    return DAppList(DAppType.igo, req, res);
+  });
+  // igo 详情
+  router.get(routerConfig.dapp.igoDetailPattern(), function (req: Request, res: Response) {
+    res.send({});
+  });
+  // nft 列表
+  router.get(routerConfig.dapp.nftListPattern(), function (req: Request, res: Response) {
+    res.send({});
+  });
+  // nft 详情
+  router.get(routerConfig.dapp.nftDetailPattern(), function (req: Request, res: Response) {
+    res.send({});
+  });
+  // airdrop 列表
+  router.get(routerConfig.dapp.airdropListPattern(), function (req: Request, res: Response) {
+    res.send({});
+  });
+  // airdrop 详情
+  router.get(routerConfig.dapp.airdropDetailPattern(), function (req: Request, res: Response) {
+    res.send({});
+  });
   return router;
 };
 export default Router;

@@ -11,10 +11,17 @@ export enum TabTypes {
   ended = "ended", // 已结束
   potential = "potential", // 优质空投
 }
+export enum ActivityStage {
+  upcoming = "UPCOMING", //即将开始
+  ongoing = "ONGOING", //进行中
+  ended = "ENDED", //已结束
+}
 export interface AirdropQuery {
   page?: number;
   page_size?: number;
-  status?: TabTypes;
+  activity_type: string;
+  activity_stage?: string;
+  recommended?: boolean;
   potential?: boolean;
 }
 export interface Chain {

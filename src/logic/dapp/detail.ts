@@ -6,8 +6,9 @@
 import API from "src/api";
 import type { DAppProject, DataQuery, TokenDataQuery, TokenQuery } from "src/types/dapp/data";
 import { ProjectItem, Progress, ProjectType, TabName } from "src/types/dapp/detail";
+import { dateTime } from "src/utils";
+import dayjs from "dayjs";
 import I18n from "src/utils/i18n";
-import { HolderQuery } from "src/types/dapp/holder";
 
 export class Model extends API {
   // 用户资产图表
@@ -42,10 +43,6 @@ export class Model extends API {
   //项目信息
   getProjectInfo(query: object) {
     return this.dApp.getProjectInfo(query);
-  }
-  //NFT持有人信息
-  getHolderInfo(query: HolderQuery) {
-    return this.dApp.getHolderInfo(query);
   }
 }
 
@@ -145,4 +142,20 @@ export const holderDateList = function () {
     { id: "30d", name: i18n.dapp.detail.holder.day },
     { id: "all", name: i18n.dapp.detail.holder.all },
   ];
+};
+
+export const getData = function (val: any) {
+  if (val === "30d") {
+    return dateTime(dayjs().subtract(30, "day"));
+  } else {
+    return "";
+  }
+};
+
+export const doHandMonth = function (month: any) {
+  let m = month;
+  if (month.toString().length == 1) {
+    m = "0" + month;
+  }
+  return m;
 };

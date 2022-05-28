@@ -1,6 +1,6 @@
 import _ from "lodash";
 import API from "src/api/index";
-import type { AdItem, ProjectItem, Query } from "src/types/dapp/ixo";
+import type { AdItem, Query } from "src/types/dapp/ixo";
 import { Status } from "src/types/dapp/ixo";
 import type { ProjectNftItem } from "src/types/dapp/nft";
 import { config } from "src/router/config";
@@ -18,7 +18,8 @@ import dayjs from "dayjs";
 import { createHref } from "src/plugins/router/pack";
 import { Language } from "src/types/language";
 import { NftTabItem, NftTabTypes, TabItem, TabTypes } from "src/types/dapp";
-import { AirdropQuery, DataItem } from "src/types/dapp/airdrop";
+import { AirdropQuery } from "src/types/dapp/airdrop";
+import { nftItem, ProjectItem, summaryItem } from "src/types/dapp/detail";
 
 const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = "All";
@@ -144,34 +145,34 @@ export class Model extends API {
   }
 
   getEndedProjects(query: object) {
-    return this.dApp.ixoEnd<ProjectItem | AdItem>(query);
+    return this.dApp.ixoEnd<ProjectItem>(query);
   }
   //空投项目数据
-  getAirdropList(query: object) {
-    return this.dApp.getAirdropList<DataItem>(query);
+  getAirdropList(query: AirdropQuery) {
+    return this.dApp.getAirdropList<ProjectItem>(query);
   }
   //空投进行中项目
   getOngoingList(query: AirdropQuery) {
-    return this.dApp.getOngoingList<DataItem>(query);
+    return this.dApp.getOngoingList<ProjectItem>(query);
   }
   //空投潜在优质项目
-  getPotentialList(query: object = {}) {
-    return this.dApp.getPotentialList<DataItem>(query);
+  getPotentialList(query: AirdropQuery) {
+    return this.dApp.getPotentialList<ProjectItem>(query);
   }
   //空投即将开始项目
   getUpcomingList(query: AirdropQuery) {
-    return this.dApp.getUpcomingList<DataItem>(query);
+    return this.dApp.getUpcomingList<ProjectItem>(query);
   }
   //空投即将开始项目
   getEndedList(query: AirdropQuery) {
-    return this.dApp.getEndedList<DataItem>(query);
+    return this.dApp.getEndedList<ProjectItem>(query);
   }
   //空投运营精选
   getOperationList(query: AirdropQuery) {
-    return this.dApp.getOperationList<DataItem>(query);
+    return this.dApp.getOperationList<ProjectItem>(query);
   }
   getHotPotentialList(query: AirdropQuery) {
-    return this.dApp.getHotPotentialList<DataItem>(query);
+    return this.dApp.getHotPotentialList<ProjectItem>(query);
   }
 }
 
@@ -296,7 +297,7 @@ export const tabs = function (): TabItem[] {
       icon: "",
       name: i18n.airdrop.tabs.upcoming,
       href: {
-        path: config.dappList,
+        path: `${config.dappList}/discover`,
         query: {
           ...query,
           type: TabTypes.upcoming,
@@ -308,7 +309,7 @@ export const tabs = function (): TabItem[] {
       icon: "",
       name: i18n.airdrop.tabs.ongoing,
       href: {
-        path: config.dappList,
+        path: `${config.dappList}/discover`,
         query: {
           ...query,
           type: TabTypes.ongoing,
@@ -320,7 +321,7 @@ export const tabs = function (): TabItem[] {
       icon: "",
       name: i18n.growthpad.status.closure,
       href: {
-        path: config.dappList,
+        path: `${config.dappList}/discover`,
         query: {
           ...query,
           type: TabTypes.ended,
@@ -529,4 +530,23 @@ export const timeFormat = function (startTime?: string | number, endTime?: strin
     }
     return end;
   }
+};
+export const getNftsList = async function (query: any): Promise<nftItem> {
+  const api = new Model();
+  const result: any = await api.getNftList(query);
+
+  return {
+    extra: safeGet<summaryItem>(result, "extra"),
+    items: safeGet<ProjectItem[]>(result, "items"),
+  };
+};
+
+export const getAirdropList = async function (query: any): Promise<nftItem> {
+  const api = new Model();
+  const result: any = await api.getAirdropList(query);
+
+  return {
+    extra: safeGet<summaryItem>(result, "extra"),
+    items: safeGet<ProjectItem[]>(result, "items"),
+  };
 };

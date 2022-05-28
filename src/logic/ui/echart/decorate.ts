@@ -4,10 +4,12 @@
  */
 import _ from "lodash";
 import DBList from "@fengqiaogang/dblist";
+import safeGet from "@fengqiaogang/safe-get";
+import safeSet from "@fengqiaogang/safe-set";
+import { ProjectType } from "src/types/echarts/data";
 import type { LegendItem, YAxis } from "src/types/echarts/type";
 import { EchartData, SeriesType } from "src/types/echarts/type";
-import { convertInterval, dateTime, dateYMDHmFormat, dateFormat, dateYMDFormat, isObject, uuid } from "src/utils/";
-import safeGet from "@fengqiaogang/safe-get";
+import { isEmpty, AnyEquals, convertInterval, dateFormat, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, uuid, toArray } from "src/utils/";
 
 // 对 API 返回的 echart 数据进行二次处理
 export const echartTransform = function (trends?: EchartData): EchartData | undefined {
@@ -96,8 +98,19 @@ export const echartTransform = function (trends?: EchartData): EchartData | unde
       yAxis,
       xAxis,
       series,
-      legends,
       key: uuid(),
+      legends: _.map(legends, function (item: object, index: number) {
+        const list: object[] = series[index] as any;
+        for (let i = list.length - 1; i >= 0; i--) {
+          const value = safeGet(list, `[${i}].value`);
+          if (isEmpty(value)) {
+            continue;
+          }
+          safeSet(item, "last", value);
+          break;
+        }
+        return item;
+      }),
     };
     return Object.assign(result, _.omit(trends, ["xAxis", "series", "legends"])) as any;
   }
@@ -109,5 +122,91 @@ export const echart = function (target: any, propertyName: string, descriptor: P
   descriptor.value = async function (...args: any[]) {
     const value = await fun.apply(this, args);
     return echartTransform(value);
+  };
+};
+
+// - avgProfiting 平均盈利 =??
+// - price: 当前价格 = ??
+// - avgPrice 平均价格 = ??
+
+const isKline = function (name: string): boolean {
+  const keys = ["avgProfiting", "price", "avgPrice"];
+  return _.includes(keys, name);
+};
+
+const getUnit = function (name: string, projectType?: ProjectType, chains?: string[]): string {
+  const unit = {
+    tvl: "$",
+    mcapWithCirculationSupply: "$",
+    whalesRatio: "%",
+    volumeWithWhalesRatio: "%",
+    holdersFromBlueChipRatio: "%",
+    volumeWithBlueChipHolderRatio: "%",
+    profitTradeRatio: "%",
+  };
+  let value: string = safeGet<string>(unit, name) || "";
+  if (value) {
+    return value;
+  }
+  const kline = isKline(name);
+  if (kline) {
+    // dapp 类型项目默认返回 $
+    if (projectType === ProjectType.dapp) {
+      return "$";
+    }
+    if (chains && chains.length > 0) {
+      for (const chain of chains) {
+        if (chain && AnyEquals(chain, "ETH")) {
+          value = "eth";
+          break;
+        }
+        if (chain && AnyEquals(chain, "SOLANA")) {
+          value = "sol";
+          break;
+        }
+      }
+    }
+    // nft 默认为 eth
+    if (!value && projectType === ProjectType.nft) {
+      value = "eth";
+    }
+  }
+  return value;
+};
+
+/**
+ * chart 数据转换
+ * @param legends 查询数据指标
+ * @param list    数据列表
+ * @param projectType 项目类型
+ * @param chains  项目公链
+ */
+export const dataTransform = function (legends: string[], list: object[], projectType?: ProjectType | string, chains?: string | string[]) {
+  const time = "timestamp";
+  const xAxis: Array<string | number> = [];
+  const series = {};
+  _.forEach(legends, function (key: string) {
+    safeSet(series, key, []);
+  });
+  _.forEach(_.sortBy(list, time), function (data: object, index: number) {
+    xAxis.push(safeGet(data, time));
+    _.forEach(legends, function (key: string) {
+      const value = safeGet<number>(data, key);
+      safeSet(series, `${key}[${index}]`, value);
+    });
+  });
+  return {
+    xAxis,
+    series,
+    legends: _.map(legends, (name: string) => {
+      const kline = isKline(name);
+      return {
+        name,
+        id: name,
+        kline,
+        unit: getUnit(name, projectType as any, _.compact(toArray(chains))),
+        type: kline ? "line" : null, // 如果是价格线，则为曲线
+      };
+    }),
   };
 };
