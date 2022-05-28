@@ -122,7 +122,7 @@ const changeSort = function (val: any) {
                   <div class="w-22 text-14-18 text-global-highTitle mr-4">
                     <span class="whitespace-nowrap">{{ i18n.home.topList.category }}</span>
                   </div>
-                  <div class="flex">
+                  <div class="flex chain-tab">
                     <ui-tab :list="getUiTabList(Categories, 'category')" active-name="category" :split="2" />
                   </div>
                 </div>
@@ -235,6 +235,42 @@ const changeSort = function (val: any) {
     }
     ::v-deep(.el-select-dropdown__item) {
       @apply text-kd14px18px w-25 text-left text-global-highTitle;
+    }
+  }
+}
+%first-ml0 {
+  &:first-child {
+    @apply ml-0;
+  }
+}
+.chain-tab {
+  @apply flex items-center;
+  ::v-deep(.tab-wrap) {
+    @apply items-center flex;
+    .tab-item {
+      @apply flex px-3 py-2   rounded-md;
+      &:after {
+        @apply h-0;
+      }
+
+      &:not(a) {
+        &:not([href]) {
+          @apply cursor-pointer ml-4;
+          @extend %first-ml0;
+        }
+      }
+
+      &:not(:first-child) {
+        @apply ml-4;
+      }
+    }
+
+    span {
+      @apply text-kd14px18px font-medium font-kdFang;
+    }
+
+    .active {
+      @apply flex max-h-8 bg-global-darkblue bg-opacity-6 rounded-md;
     }
   }
 }
