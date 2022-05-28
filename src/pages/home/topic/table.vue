@@ -182,11 +182,9 @@ onMounted(() => {
   height: 100%;
 }
 
-::v-deep(.el-table) {
-  --el-table-border-color: none !important;
-  background-color: #ff000000 !important;
+.el-table__body-wrapper::-webkit-scrollbar-thumb:vertical {
+  background: rgba(0, 0, 0, 0);
 }
-
 .more {
   @apply w-30 h-8 flex items-center justify-center mx-auto w-fit cursor-pointer rounded-kd6px;
   @apply text-kd14px18px font-medium font-kdFang text-global-primary;
