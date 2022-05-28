@@ -34,10 +34,10 @@ export enum ProjectType {
   ido = "ido",
   igo = "igo",
   nft = "nft",
+  mint = "mint",
   game = "game",
   defi = "defi",
-  airdrop = "airdrops",
-  mint = "mint",
+  airdrop = "airdrop",
   airdrops = "airdrop",
   funds = "funds",
 }

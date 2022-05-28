@@ -188,7 +188,7 @@ const correctYaxisIndex = function (legends: LegendItem[]): any {
   return function (index: number) {
     const item = legends[index];
     let yAxisIndex = 0;
-    if (item.position === Position.right) {
+    if (item.position === Position.right && legends.length > 1) {
       yAxisIndex = 1;
     }
     return Object.assign({}, item, { yAxisIndex });

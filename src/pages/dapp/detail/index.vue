@@ -11,7 +11,8 @@ import { TabName } from "src/types/dapp/data";
 import { getTabList } from "src/logic/dapp/detail";
 import { ProjectType } from "src/types/dapp/data";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
-import type { DAppProject, DAppData } from "src/types/dapp/data";
+import type { DAppProject } from "src/types/dapp/data";
+import type { ProjectItem } from "src/types/dapp/detail";
 import { useReactiveProvide } from "src/utils/use/state";
 import { asyncLoad } from "src/plugins/lazyload/";
 import { AnyEquals } from "src/utils/";
@@ -32,7 +33,7 @@ const i18n = I18n();
 // 项目信息
 const project = createReactive<DAppProject>("query", {} as DAppProject);
 // 项目数据
-const detail = createReactive<DAppData>(alias.dApp.detail, {} as DAppData);
+const detail = createReactive<ProjectItem>(alias.dApp.detail, {} as ProjectItem);
 useReactiveProvide("detailState", detail);
 
 // 上报数据
@@ -73,14 +74,14 @@ const onChangeTab = function (data: object) {
   }
 };
 
-const getTwitterName = function (data: DAppData) {
+const getTwitterName = function (data: ProjectItem) {
   const name = data?.community?.twitter?.name;
   if (name) {
     return name;
   }
 };
 
-const getTabData = function (info: DAppProject, data: DAppData) {
+const getTabData = function (info: DAppProject, data: ProjectItem) {
   const array: object[] = [];
   const twitterName = getTwitterName(data);
   for (const item of getTabList(info, data)) {
