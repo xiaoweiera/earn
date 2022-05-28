@@ -23,6 +23,8 @@ const props = defineProps({
 const Chains = createRef<string[]>(alias.dApp.chains, []);
 // 平台
 const Platforms = createRef<string[]>(alias.dApp.platforms, []);
+// 分类
+const Categories = createRef<string[]>(alias.dApp.categories, []);
 
 const onGetList = async function (query: object) {
   const api = new API();
@@ -37,7 +39,10 @@ const onGetList = async function (query: object) {
     Chains.value = extra.available_chains;
   }
   if (size(Platforms.value) < 1) {
-    Chains.value = extra.available_platforms;
+    Platforms.value = extra.available_platforms;
+  }
+  if (size(Categories.value) < 1) {
+    Categories.value = extra.available_categories;
   }
   return data.items;
 };
@@ -72,26 +77,36 @@ const getUiTabList = (list: string[], key: string) => {
       <ui-tab :list="tabs()" active-name="activity_stage" />
     </ui-sticky>
 
-    <div>
+    <div class="pt-5">
       <div class="flex items-center">
-        <span class="whitespace-nowrap">类型</span>
-        <div class="ml-2 flex-1 w-1">
-          <ui-tab :list="getUiTabList(Chains, 'chain')" active-name="chain" :split="2" />
+        <div class="flex items-center w-1/2">
+          <span class="whitespace-nowrap">Type</span>
+          <div class="ml-2 flex-1 w-1">
+            <ui-tab :list="getUiTabList(Categories, 'category')" active-name="category" :split="2" />
+          </div>
+        </div>
+        <div class="flex items-center w-1/2">
+          <span class="whitespace-nowrap">公链</span>
+          <div class="ml-2 flex-1 w-1">
+            <ui-tab :list="getUiTabList(Chains, 'chain')" active-name="chain" :split="0" />
+          </div>
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center mt-4">
         <span class="whitespace-nowrap">来源平台</span>
         <div class="ml-2 flex-1 w-1">
-          <ui-tab :list="getUiTabList(Platforms, 'platform')" active-name="platform" />
+          <ui-tab :list="getUiTabList(Platforms, 'platform')" active-name="platform" :split="6" />
         </div>
       </div>
     </div>
-    <ui-pagination :request="onGetList">
-      <template #default="scope">
-        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          <DAppDiscoversItem v-for="(data, index) in scope.list" :key="index" :data="data" :name="name" />
-        </div>
-      </template>
-    </ui-pagination>
+    <div class="py-8">
+      <ui-pagination :request="onGetList">
+        <template #default="scope">
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <DAppDiscoversItem v-for="(data, index) in scope.list" :key="index" :data="data" :name="name" />
+          </div>
+        </template>
+      </ui-pagination>
+    </div>
   </div>
 </template>
