@@ -7,13 +7,11 @@ import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router";
 import { routerConfig } from "src/router/config";
 import { getValue } from "src/utils/root/data";
+import { TabTypes } from "./dapp";
 
-export enum TabTypes {
-  upcoming = "upcoming", // 即将开始
-  ended = "ended", // 已结束
-}
+export { TabTypes } from "./dapp";
 
-export const getTabList = function (name: string) {
+export const getTabList = function () {
   return function () {
     const i18n = I18n();
     const query = getParam<object>();
