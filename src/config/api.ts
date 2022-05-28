@@ -120,3 +120,7 @@ export const activity = {
 export const upload = {
   policy: "/api/storage/s3_presigned", // 获取亚马逊 s3 签名
 };
+
+export const chart = {
+  dapp: "/api/v1/bff/dapp/projects/{id}/charts",
+};
