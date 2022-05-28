@@ -7,7 +7,9 @@ import API from "src/api/";
 import I18n from "src/utils/i18n";
 import { toUpper } from "ramda";
 import _ from "lodash";
+
 const i18n = I18n();
+
 // 展示效果
 export enum HeaderType {
   number = "number", // 数字
@@ -24,12 +26,16 @@ export enum HeaderType {
 }
 
 export interface Header {
+  title: string; // 表格名称
+  titleCn: string; //中文title
+  titleEn: string; //英文title
+  titleDesCn: string; //title中文描述
+  titleDesEn: string; //title英文描述
   sort?: boolean; // 是否支持排序
   sort_field?: string; // 排序字段
   center?: boolean; // 是否居中
   width?: number; //宽度
   active?: boolean; // 是否为激活状态
-  title: string; // 表格名称
   fields: string | string[] | Array<string[] | string>; // 对应数据的键名
   type: HeaderType | HeaderType[] | Array<Array<HeaderType> | HeaderType>; // 展示效果
 }
@@ -58,6 +64,20 @@ export const getTitle = (field: string) => {
     }
   });
   return title ? title : _.upperFirst(_.camelCase(field));
+};
+export const getTitleCnEn = (header: Header) => {
+  if (i18n.getLang() === "cn") {
+    return header.titleCn ? header.titleCn : getTitle(header.title);
+  } else {
+    return header.titleEn ? header.titleEn : getTitle(header.title);
+  }
+};
+export const getTitleDes = (header: Header) => {
+  if (i18n.getLang() === "cn") {
+    return header.titleDesCn;
+  } else {
+    return header.titleDesEn;
+  }
 };
 // const header: Header[] = [
 //   {

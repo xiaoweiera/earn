@@ -35,8 +35,7 @@ const value = computed<string>(function () {
 <template>
   <span class="text-12-16 text-number flex items-center">
     <template v-if="value">
-      <IconFont v-if="toNumber(value)" size="8" :type="toNumber(value) > 0 ? 'icon-zheng' : 'icon-fu'" />
-      <span :class="getUpDownColor(toNumber(value))">{{ toNumberCashFormat(value, "%") }}</span>
+      <span class="text-global-highTitle">{{ toNumberCashFormat(value, "%") }}</span>
     </template>
     <template v-else>
       <span class="text-global-highTitle">--</span>
