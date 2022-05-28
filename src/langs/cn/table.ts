@@ -23,10 +23,10 @@ export default {
   whalesRadio: "巨鲸人数比", //巨鲸人数占总holders的比例
   volumeWithWhales: "巨鲸持仓总量", //所有巨鲸持仓量总量
   volumeWithWhalesRadio: "巨鲸持仓占比", //所有巨鲸持仓量总量占总供应量
-  holdersFromBuleChip: "蓝筹持有人", //蓝筹Holders
-  holdersFromBuleChipRatio: "蓝筹持有人占比", //蓝筹占比
-  volumeWithBuleChipHolder: "蓝筹持仓", //蓝筹持仓
-  volumeWithBuleChipHolderRadio: "蓝筹持仓占比", //蓝筹持仓占比
+  holdersFromBlueChip: "蓝筹持有人", //蓝筹Holders
+  holdersFromBlueChipRatio: "蓝筹持有人占比", //蓝筹占比
+  volumeWithBlueChipHolder: "蓝筹持仓", //蓝筹持仓
+  volumeWithBlueChipHolderRadio: "蓝筹持仓占比", //蓝筹持仓占比
   tradeCount: "交易次数", //本nft被交易总次数
   avgProfiting: "订单平均盈利金额", //平均盈利
   profitTradeRadio: "盈利订单占比", //盈利订单占比

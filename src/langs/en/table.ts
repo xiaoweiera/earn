@@ -23,10 +23,10 @@ export default {
   whalesRadio: "Whales Ratio", //巨鲸人数占总holders的比例
   volumeWithWhales: "Whales Holding", //所有巨鲸持仓量总量
   volumeWithWhalesRadio: "Whales Holding Ratio", //所有巨鲸持仓量总量占总供应量
-  holdersFromBuleChip: "BC Holders", //蓝筹Holders
-  holdersFromBuleChipRatio: "BC Holders Ratio", //蓝筹占比
-  volumeWithBuleChipHolder: "BC Holding", //蓝筹持仓
-  volumeWithBuleChipHolderRadio: "BC Holding Ratio", //蓝筹持仓占比
+  holdersFromBlueChip: "BC Holders", //蓝筹Holders
+  holdersFromBlueChipRatio: "BC Holders Ratio", //蓝筹占比
+  volumeWithBlueChipHolder: "BC Holding", //蓝筹持仓
+  volumeWithBlueChipHolderRadio: "BC Holding Ratio", //蓝筹持仓占比
   tradeCount: "TradeCount", //本nft被交易总次数
   avgProfiting: "Avg_Profit", //平均盈利
   profitTradeRadio: "Profit Orders Ratio", //盈利订单占比

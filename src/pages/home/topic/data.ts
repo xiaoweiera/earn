@@ -45,7 +45,7 @@ export const getTitle = (field: string) => {
   //获取基础字段
   const base = field.includes("_") ? field.split("_")[0] : field;
   //@ts-ignore 基础字段title
-  const baseTitle = i18n.table[base] ? i18n.table[base] : _.upperFirst(_.camelCase(field));
+  const baseTitle = i18n.table[base] ? i18n.table[base] : _.upperFirst(_.camelCase(base));
   const time = ["24h", "7d", "30d"];
   //如果是图表 或者 基础字段 title为baseTitle
   if (field.includes("chart") || !field.includes("_")) return baseTitle;
