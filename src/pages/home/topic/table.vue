@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { isBoolean } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
-import { ElTable, ElTableColumn, ElInput } from "element-plus";
+import { ElTable, ElTableColumn, ElInput, ElPopover } from "element-plus";
 import HomeFilter from "src/pages/home/filter.vue";
-import { rowClass, headerCellClass, cellClass, getTitle } from "src/pages/home/topic/data";
+import { rowClass, headerCellClass, cellClass, getTitleCnEn, getTitleDes } from "src/pages/home/topic/data";
 import { config as routerConfig } from "src/router/config";
 import { getParam } from "src/utils/router";
 import { computed, reactive, ref, watch, onMounted } from "vue";
@@ -150,7 +150,15 @@ onMounted(() => {
               <template v-for="(header, index) in headerList" :key="index">
                 <el-table-column :fixed="index === 0" :width="header.width ? header.width : 150">
                   <template #header>
-                    <ui-sort class="header-name" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :field="header.title" :name="getTitle(header.title)" @change="sort" />
+                    <div class="relative h-full flex items-center">
+                      <ui-sort class="header-name fit" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :field="header.title" :name="getTitleCnEn(header)" @change="sort" />
+                      <el-popover :disabled="getTitleDes(header)" placement="top" trigger="hover">
+                        <div>{{ getTitleDes(header) }}</div>
+                        <template #reference>
+                          <div v-if="getTitleDes(header)" class="h-full flex items-center"><IconFont class="text-global-highTitle text-opacity-35 ml-1" type="icon-weizhi" size="16" /></div>
+                        </template>
+                      </el-popover>
+                    </div>
                   </template>
                   <template #default="scope">
                     <div :class="{ 'text-center': isBoolean(header.center) }">
@@ -167,6 +175,17 @@ onMounted(() => {
   </div>
 </template>
 <style lang="scss" scoped>
+.fit {
+  width: fit-content !important;
+}
+::v-deep(.el-popover.el-popper) {
+  min-width: fit-content !important;
+  width: fit-content !important;
+  padding: 0px 0px 0px 0px !important;
+  border-radius: 100px;
+  transform: translate(100%, 100%);
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+}
 .search {
   ::v-deep(.el-input__inner) {
     border: none !important;
@@ -182,8 +201,8 @@ onMounted(() => {
   height: 100%;
 }
 ::v-deep(.el-scrollbar) {
-  --el-scrollbar-bg-color: none !important;
-  --el-scrollbar-hover-bg-color: none !important;
+  --el-scrollbar-bg-color: rgba(0, 0, 0, 0.2) !important;
+  --el-scrollbar-hover-bg-color: rgba(0, 0, 0, 0.2) !important;
 }
 
 .more {

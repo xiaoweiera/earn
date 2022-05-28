@@ -19,6 +19,7 @@ import Chartline from "./line.vue";
 import Money from "./money.vue";
 import Time from "./time.vue";
 import Desc from "./desc.vue";
+import Percent from "./percent.vue";
 
 export default defineComponent({
   name: "TableTD",
@@ -41,6 +42,7 @@ export default defineComponent({
     Money,
     Time,
     Desc,
+    Percent,
   },
   props: {
     fields: {
