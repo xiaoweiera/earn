@@ -7,4 +7,5 @@ export enum DAppType {
   igo = "igo",
   mint = "mint",
   airdrop = "airdrop",
+  invest = "invest",
 }

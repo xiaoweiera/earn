@@ -99,6 +99,14 @@ const routes = [
     path: routerConfig.dapp.airdropDetailPattern(),
     component: () => import("src/pages/dapp/detail/index.vue"),
   },
+  {
+    path: routerConfig.dapp.investListPattern(),
+    component: () => import("src/pages/dapp/investment/index.vue"),
+  },
+  {
+    path: routerConfig.dapp.investDetailPattern(),
+    component: () => import("src/pages/dapp/investment/detail/index.vue"),
+  },
 ];
 
 export default routes;
