@@ -152,10 +152,10 @@ onMounted(() => {
                   <template #header>
                     <div class="relative h-full flex items-center">
                       <ui-sort class="header-name fit" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :field="header.title" :name="getTitleCnEn(header)" @change="sort" />
-                      <el-popover :disabled="getTitleDes(header)" placement="top" trigger="hover">
+                      <el-popover :disabled="!getTitleDes(header)" placement="top" trigger="hover">
                         <div>{{ getTitleDes(header) }}</div>
                         <template #reference>
-                          <div v-if="getTitleDes(header)" class="h-full flex items-center"><IconFont class="text-global-highTitle text-opacity-35 ml-1" type="icon-weizhi" size="16" /></div>
+                          <div v-if="getTitleDes(header)" class="h-full flex items-center hand"><IconFont class="text-global-highTitle text-opacity-35 ml-1" type="icon-weizhi" size="16" /></div>
                         </template>
                       </el-popover>
                     </div>

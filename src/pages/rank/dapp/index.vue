@@ -19,7 +19,7 @@ onMounted(() => {
         <CommonTopics class="mb-4 md:mb-6" :is-show-title="false" />
         <client-only>
           <Ad :position="24" class="my-4 md:my-6" />
-          <!--            <Table :id="1"  />-->
+          <Table :id="133" />
         </client-only>
       </div>
     </div>
