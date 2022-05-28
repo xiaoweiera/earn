@@ -536,7 +536,7 @@ export const getNftsList = async function (query: any): Promise<nftItem> {
   const result: any = await api.getNftList(query);
 
   return {
-    extra: safeGet<summaryItem[]>(result, "extra"),
+    extra: safeGet<summaryItem>(result, "extra"),
     items: safeGet<ProjectItem[]>(result, "items"),
   };
 };
@@ -546,7 +546,7 @@ export const getAirdropList = async function (query: any): Promise<nftItem> {
   const result: any = await api.getAirdropList(query);
 
   return {
-    extra: safeGet<summaryItem[]>(result, "extra"),
+    extra: safeGet<summaryItem>(result, "extra"),
     items: safeGet<ProjectItem[]>(result, "items"),
   };
 };

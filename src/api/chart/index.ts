@@ -27,8 +27,8 @@ export default class extends ApiTemplate {
     const param = {
       id: query.id,
       timeunit: query.timeUnit,
-      from_timestamp: toInteger(dateTime(query.start) / 1000),
-      to_timestamp: toInteger(dateTime(query.end) / 1000),
+      from_timestamp: query.start ? toInteger(dateTime(query.start) / 1000) : 0,
+      to_timestamp: toInteger(dateTime(query.end || Date.now()) / 1000),
       indicators: fields.join(","),
     };
     const callback = function (list: object[]) {
