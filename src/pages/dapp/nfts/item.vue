@@ -3,6 +3,7 @@ import { toFixed } from "src/utils";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getLog } from "src/logic/dapp";
 import I18n from "src/utils/i18n";
+import { config } from "src/router/config";
 
 import DAppNftsTime from "./time.vue";
 
@@ -17,13 +18,13 @@ defineProps({
 });
 const getUrl = function (data: any) {
   if (data) {
-    return `${data}/nft`;
+    return `${config.nft}/${data.id}`;
   }
 };
 </script>
 <template>
   <div v-if="data" class="w-full h-full">
-    <v-router :href="getUrl(data.url)" target="_blank" class="block w-full h-full">
+    <v-router :href="getUrl(data)" target="_blank" class="block w-full h-full">
       <div v-if="data" class="w-full h-full relative">
         <div v-if="data.gallery.length > 0" class="w-full h-full">
           <div v-for="(item, index) in data.gallery" :key="index" class="w-full h-full rounded-md">

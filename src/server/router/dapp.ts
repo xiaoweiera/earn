@@ -103,7 +103,7 @@ const Router = function () {
   });
   // nft 列表
   router.get(routerConfig.dapp.nftListPattern(), function (req: Request, res: Response) {
-    res.send({});
+    return DAppList(DAppType.mint, req, res);
   });
   // nft 详情
   router.get(routerConfig.dapp.nftDetailPattern(), function (req: Request, res: Response) {
@@ -111,7 +111,7 @@ const Router = function () {
   });
   // airdrop 列表
   router.get(routerConfig.dapp.airdropListPattern(), function (req: Request, res: Response) {
-    res.send({});
+    return DAppList(DAppType.airdrop, req, res);
   });
   // airdrop 详情
   router.get(routerConfig.dapp.airdropDetailPattern(), function (req: Request, res: Response) {

@@ -2,11 +2,11 @@
 import HolderTab from "./tab.vue";
 import { LegendDirection } from "src/types/echarts/type";
 import { onMounted, reactive, ref } from "vue";
-import { uuid } from "src/utils";
+import { uuid, toNumberCashFormat, valueFormat } from "src/utils";
 import I18n from "src/utils/i18n";
 import { Model, holderDateList, getData } from "src/logic/dapp/detail";
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object,
     default: () => {
@@ -38,7 +38,7 @@ const tabChange = function (value: any) {
       </div>
       <!-- 渲染图表 -->
       <div :key="dataKey" class="w-full h-114.5 mt-2.5">
-        <ui-echart-dapp :id="data.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['price', 'tradeCount']">
+        <ui-echart-dapp :id="data.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['price', 'volume_24h']">
           <!--展示自定义图列-->
           <template #legend="scope">
             <div class="mr-7 cursor-pointer" :style="scope.style">
@@ -46,9 +46,9 @@ const tabChange = function (value: any) {
                 <p class="flex items-center">
                   <IconFont type="icon-round" size="8" />
                   <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ scope.value }}</span>
-                  <IconFont v-if="scope.data.index !== 0" class="text-global-highTitle text-opacity-25 ml-1.5" type="icon-info" size="14" />
+                  <!--                  <IconFont v-if="scope.data.index !== 0" class="text-global-highTitle text-opacity-25 ml-1.5" type="icon-info" size="14" />-->
                 </p>
-                <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">728,849</p>
+                <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ scope.data.index === 0 ? toNumberCashFormat(scope.data.last) : valueFormat(scope.data.last, "", "$") }}</p>
                 <p class="pl-4 mt-0.5 flex items-center text-kd12px18px text-global-numGreen font-medium font-kdInter">
                   <IconFont type="icon-zheng" size="6" />
                   <span>+24</span>

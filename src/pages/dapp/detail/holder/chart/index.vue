@@ -18,7 +18,7 @@ defineProps({
   <div>
     <HolderTrends :data="data" />
     <HolderRatio :data="data" />
-    <HolderNft :data="data" />
+    <HolderNft class="mt-7" :data="data" />
     <HolderNftRatio :data="data" />
   </div>
 </template>

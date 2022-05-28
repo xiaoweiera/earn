@@ -57,10 +57,10 @@ onMounted(() => {
       <div class="flex justify-between items-center">
         <div class="flex items-center">
           <!-- 项目类型 -->
-          <DAppDiscoversContentType v-if="data.available_categories" :key="key" :list="tabCage(data.available_categories, 'category', `${config.nft}/discover`)" :split="3" :title="i18n.home.topList.category" name="category" />
+          <DAppDiscoversContentType v-if="data.available_categories" :key="key" :list="tabCage(data.available_categories, 'category', config.nft)" :split="3" :title="i18n.home.topList.category" name="category" />
           <span class="h-6 border-l-1 border-global-highTitle border-opacity-10 mx-4" />
           <!-- 公链 -->
-          <DAppDiscoversContentChain :title="i18n.home.idoIgoProject.chain" :chain-data="data.available_chains" :href="`${config.nft}/discover`" name="chain" />
+          <DAppDiscoversContentChain :title="i18n.home.idoIgoProject.chain" :chain-data="data.available_chains" :href="config.nft" name="chain" />
         </div>
         <!-- 搜索框 -->
         <client-only class="w-50 input-style">
@@ -74,7 +74,7 @@ onMounted(() => {
     </div>
     <div class="block lg:hidden">
       <div class="flex items-center">
-        <DAppDiscoversContentChain :key="keys" :title="i18n.home.idoIgoProject.chain" :chain-data="data.available_chains" :href="`${config.nft}/discover`" name="chain" />
+        <DAppDiscoversContentChain :key="keys" :title="i18n.home.idoIgoProject.chain" :chain-data="data.available_chains" :href="config.nft" name="chain" />
         <IconFont v-if="data.chain" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative h-full" type="icon-gang" />
         <client-only class="w-1/2 input-style">
           <ElInput v-model="search" class="w-full" :placeholder="i18n.common.placeholder.search" @change="onSearch">

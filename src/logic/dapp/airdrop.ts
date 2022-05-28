@@ -19,13 +19,13 @@ export const tabs = function () {
     {
       name: TabTypes.all,
       label: i18n.common.button.all,
-      href: `${config.airdrop}/list/${TabTypes.all}`,
+      href: `${config.airdrop}/${TabTypes.all}`,
     },
     {
       name: TabTypes.hot,
       logo: "",
       label: i18n.airdrop.tabs.hot,
-      href: `${config.airdrop}/list/${TabTypes.hot}`,
+      href: `${config.airdrop}/${TabTypes.hot}`,
     },
     {
       name: TabTypes.ongoing,
@@ -37,19 +37,19 @@ export const tabs = function () {
       name: TabTypes.potential,
       logo: "icon-hot",
       label: i18n.airdrop.tabs.potential,
-      href: `${config.airdrop}/list/${TabTypes.potential}`,
+      href: `${config.airdrop}/${TabTypes.potential}`,
     },
     {
       name: TabTypes.upcoming,
       logo: "",
       label: i18n.airdrop.tabs.upcoming,
-      href: `${config.airdrop}/list/${TabTypes.upcoming}`,
+      href: `${config.airdrop}/${TabTypes.upcoming}`,
     },
     {
       name: TabTypes.ended,
       logo: "",
       label: i18n.growthpad.status.closure,
-      href: `${config.airdrop}/list/${TabTypes.ended}`,
+      href: `${config.airdrop}/${TabTypes.ended}`,
     },
   ];
 };
