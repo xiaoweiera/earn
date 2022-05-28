@@ -2,9 +2,9 @@
 import HolderTab from "./tab.vue";
 import { LegendDirection } from "src/types/echarts/type";
 import { ref } from "vue";
-import { uuid, toNumberCashFormat } from "src/utils";
+import { uuid, valueFormat } from "src/utils";
 import I18n from "src/utils/i18n";
-import { Model, holderDateList, getData } from "src/logic/dapp/detail";
+import { holderDateList, getData } from "src/logic/dapp/detail";
 
 const props = defineProps({
   data: {
@@ -50,7 +50,7 @@ const tabChange = function (value: any) {
                   <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ scope.value }}</span>
                   <IconFont v-if="scope.data.index !== 0" class="text-global-highTitle text-opacity-25 ml-1.5" type="icon-info" size="14" />
                 </p>
-                <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ toNumberCashFormat(scope.data.last) }}</p>
+                <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ valueFormat(scope.data.last, "%") }}</p>
                 <p class="pl-4 mt-0.5 flex items-center text-kd12px18px text-global-numGreen font-medium font-kdInter">
                   <IconFont type="icon-zheng" size="6" />
                   <span>+24</span>
