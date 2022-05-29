@@ -1,17 +1,23 @@
 <script lang="ts" setup>
 import HolderTab from "./tab.vue";
 import { LegendDirection } from "src/types/echarts/type";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, PropType, reactive, ref } from "vue";
 import { uuid, toNumberCashFormat } from "src/utils";
 import I18n from "src/utils/i18n";
 import { Model, holderDateList, getData } from "src/logic/dapp/detail";
+import { ProjectItem } from "src/types/dapp/detail";
+import { DAppProject } from "src/types/dapp/data";
+import { getTitle } from "src/pages/home/topic/data";
+import { getClassColor, getIcon } from "src/logic/dapp";
 
 defineProps({
   data: {
-    type: Object,
-    default: () => {
-      return {};
-    },
+    required: true,
+    type: Object as PropType<ProjectItem>,
+  },
+  project: {
+    required: true,
+    type: Object as PropType<DAppProject>,
   },
 });
 const dataKey = ref<string>(uuid());
@@ -40,20 +46,20 @@ const tabChange = function (value: any) {
       </div>
       <!-- 渲染图表 -->
       <div :key="dataKey" class="w-full h-114.5 mt-2.5">
-        <ui-echart-dapp :id="data.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['owners', 'whales', 'holdersFromBlueChip']">
+        <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['owners', 'whales', 'holdersFromBlueChip']">
           <!--展示自定义图列-->
           <template #legend="scope">
             <div class="mr-7 cursor-pointer" :style="scope.style">
               <div class="legend-item">
                 <p class="flex items-center">
                   <IconFont type="icon-round" size="8" />
-                  <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ scope.value }}</span>
-                  <IconFont v-if="scope.data.index !== 0" class="text-global-highTitle text-opacity-25 ml-1.5" type="icon-info" size="14" />
+                  <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ getTitle(scope.value) }}</span>
+                  <!--                  <IconFont v-if="scope.data.index !== 0" class="text-global-highTitle text-opacity-25 ml-1.5" type="icon-info" size="14" />-->
                 </p>
                 <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ toNumberCashFormat(scope.data.last) }}</p>
-                <p class="pl-4 mt-0.5 flex items-center text-kd12px18px text-global-numGreen font-medium font-kdInter">
-                  <IconFont type="icon-zheng" size="6" />
-                  <span>+24</span>
+                <p class="pl-4 mt-0.5 flex items-center text-kd12px18px font-medium font-kdInter" :class="scope.data.index === 0 ? getClassColor(data.increment.owners_24h) : scope.data.index === 1 ? getClassColor(data.whales_24h) : getClassColor(data.holdersFromBlueChip_24h)">
+                  <IconFont :type="scope.data.index === 0 ? getIcon(data.increment.owners_24h) : scope.data.index === 1 ? getIcon(data.whales_24h) : getIcon(data.holdersFromBlueChip_24h)" size="6" />
+                  <span>{{ scope.data.index === 0 ? toNumberCashFormat(data.increment.owners_24h) : scope.data.index === 1 ? toNumberCashFormat(data.whales_24h) : toNumberCashFormat(data.holdersFromBlueChip_24h) }}</span>
                 </p>
               </div>
             </div>

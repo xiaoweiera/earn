@@ -4,23 +4,30 @@ import News from "src/pages/dapp/detail/dashboard/news.vue";
 import Token from "src/pages/dapp/detail/token/index.vue";
 import Information from "src/pages/dapp/detail/content/chain/index.vue";
 import Statistics from "src/pages/dapp/detail/holder/chart/floor.vue";
-import { ProjectType } from "src/types/dapp/data";
+import HolderChart from "src/pages/dapp/detail/holder/chart/trends.vue";
+import { DAppProject, ProjectType } from "src/types/dapp/data";
+import { PropType } from "vue";
+import { ProjectItem } from "src/types/dapp/detail";
+
 defineProps({
   data: {
-    type: Object,
-    default: () => {
-      return {};
-    },
+    required: true,
+    type: Object as PropType<ProjectItem>,
+  },
+  project: {
+    required: true,
+    type: Object as PropType<DAppProject>,
   },
 });
 </script>
 <template>
   <div>
     <div>
-      <Token :data="data" />
+      <Token :data="project" />
     </div>
-    <Statistics v-if="data.type === ProjectType.nft" :data="data" />
-    <Information :data="data" />
+    <Statistics v-if="project.type === ProjectType.nft || project.type === ProjectType.mint" :project="project" :data="data" />
+    <HolderChart v-if="project.type === ProjectType.nft || project.type === ProjectType.mint" :project="project" :data="data" />
+    <Information :project="project" />
     <Introduction />
     <News />
   </div>

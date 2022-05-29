@@ -276,7 +276,7 @@ export const transformNftList = function (list: ProjectNftItem[]) {
 };
 // 高亮显示
 export const getClassColor = (v: any) => (v > 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle");
-
+export const getIcon = (v: any) => (v > 0 ? "icon-zheng" : v < 0 ? "icon-fu" : "");
 // 根据语言获取宽度
 export const getClassWidth = function () {
   const lang = getParam<string>("lang", "") as string;

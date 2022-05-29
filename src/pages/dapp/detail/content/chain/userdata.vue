@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, PropType, reactive, ref } from "vue";
 import { Model, dateList, getData } from "src/logic/dapp/detail";
 import { toNumberCashFormat } from "src/utils";
 import { uuid } from "src/utils";
 import { LegendDirection } from "src/types/echarts/type";
+import { DAppProject, ProjectType } from "src/types/dapp/data";
+import { getTitle } from "src/pages/home/topic/data";
 
 const props = defineProps({
-  data: {
-    type: Object,
-    default: () => {
-      return {};
-    },
+  project: {
+    required: true,
+    type: Object as PropType<DAppProject>,
   },
 });
 
@@ -31,7 +31,7 @@ const tabClick = function (value: any) {
     <div>
       <div class="w-full flex flex-row justify-between">
         <p class="text-global-highTitle text-kd16px24px">
-          <span>{{ data.type === "nft" && data.rank ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
+          <span>{{ project.type === ProjectType.nft || project.type === ProjectType.mint ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
           <span class="m-x-2">&</span>
           <span>{{ i18n.dapp.project.balance }}</span>
         </p>
@@ -59,13 +59,13 @@ const tabClick = function (value: any) {
       <!--        </div>-->
       <!--      </div>-->
       <div :key="dataKey" class="w-full h-114.5 mx-auto md:mt-2">
-        <ui-echart-dapp :id="data.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['owners', 'price']">
+        <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['owners', 'price']">
           <template #legend="scope">
             <div class="mr-7 cursor-pointer" :style="scope.style">
               <div class="legend-item">
                 <p class="flex items-center">
                   <IconFont type="icon-round" size="8" />
-                  <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ scope.value }}</span>
+                  <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ getTitle(scope.value) }}</span>
                 </p>
                 <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ toNumberCashFormat(scope.data.last) }}</p>
               </div>

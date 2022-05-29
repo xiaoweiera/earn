@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n";
-import { reactive, ref } from "vue";
+import { PropType, reactive, ref } from "vue";
 import { Model, dateList, getData } from "src/logic/dapp/detail";
 import { uuid, toNumberCashFormat } from "src/utils";
 import { LegendDirection } from "src/types/echarts/type";
+import { DAppProject } from "src/types/dapp/data";
+import { getTitle } from "src/pages/home/topic/data";
 
 const props = defineProps({
-  data: {
-    type: Object,
-    default: () => {
-      return {};
-    },
+  project: {
+    required: true,
+    type: Object as PropType<DAppProject>,
   },
 });
 const dataKey = ref<string>(uuid());
@@ -44,13 +44,13 @@ const tabClick = function (value: any) {
     <!--      </div>-->
     <!--    </div>-->
     <div :key="dataKey" class="w-full h-114.5 mx-auto md:mt-2">
-      <ui-echart-dapp :id="data.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['price']">
+      <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['price']">
         <template #legend="scope">
           <div class="mr-7 cursor-pointer" :style="scope.style">
             <div class="legend-item">
               <p class="flex items-center">
                 <IconFont type="icon-round" size="8" />
-                <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ scope.value }}</span>
+                <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ getTitle(scope.value) }}</span>
               </p>
               <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ toNumberCashFormat(scope.data.last) }}</p>
             </div>

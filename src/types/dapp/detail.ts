@@ -209,6 +209,14 @@ export interface Increment {
   owners_24h_ratio: number; //变化率
   owners_7d_ratio: number; //变化率
   owners_30d_ratio: number; //变化率
+  price_24h_ratio: number; //价格24小时变化率
+  whales_24h: number;
+  holdersFromBlueChip_24h: number;
+  whalesRatio_24h: number;
+  holdersFromBlueChipRatio_24h: number;
+  volumeWithWhales_24h: number;
+  volumeWithWhalesRatio_24h: number;
+  volumeWithBlueChipHolderRatio_24h: number;
 }
 
 export interface Investments {
