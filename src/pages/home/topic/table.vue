@@ -17,6 +17,7 @@ import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import window from "src/plugins/browser/window";
 import { createHref } from "src/plugins/router/pack";
 import { Model } from "src/logic/home";
+import I18n from "src/utils/i18n";
 
 const props = defineProps({
   id: {
@@ -87,12 +88,13 @@ const sort = () => {
   key.value++;
 };
 // row跳转
-const toProject = () => {
+const toProject = (row: any) => {
+  if (!row.id) return;
   let url = "";
   if (detail.category === "NFT") {
-    url = `/rank/nft/${detail.id}`;
+    url = `/rank/nft/${row.id}`;
   } else {
-    url = `/rank/dapp/${detail.id}`;
+    url = `/rank/dapp/${row.id}`;
   }
   window.open(createHref(url));
 };
@@ -192,6 +194,8 @@ onMounted(() => {
   width: fit-content !important;
   padding: 0px 0px 0px 0px !important;
   border-radius: 100px;
+  word-break: break-word;
+  max-width: 400px;
   transform: translate(100%, 100%);
   box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
 }
