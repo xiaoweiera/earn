@@ -15,6 +15,8 @@ import type { TidingList } from "src/types/common/tiding";
 import ApiTemplate from "../template";
 import window from "src/plugins/browser/window";
 import type { SearchItem } from "src/types/search/";
+import { routerConfig } from "src/router/config";
+import { createHref } from "src/plugins/router/pack";
 
 // 国际区号默认数据
 const areaCodeDefault = DefaultValue([
@@ -124,7 +126,10 @@ export default class extends ApiTemplate {
     const createUrl = function (list?: SearchItem[], isDapp?: boolean): SearchItem[] {
       if (list) {
         return _.map(list, function (data: SearchItem) {
-          data.url = isDapp ? `/dapp/${data.id}` : `/nft/${data.id}`;
+          if (data.id) {
+            const url = isDapp ? routerConfig.dapp.idoDetail(data.id) : routerConfig.dapp.nftDetail(data.id);
+            data.url = createHref(url as any);
+          }
           return data;
         });
       }
