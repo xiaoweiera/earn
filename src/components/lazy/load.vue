@@ -31,22 +31,28 @@ const getCurlRect = function () {
   }
 };
 
+const unbind = function () {
+  // 删除事件
+  scroll.unbind(id);
+};
+const app = function () {
+  const rect = getCurlRect();
+  if (rect) {
+    const height = document.documentElement.clientHeight;
+    const top = rect.y - 100;
+    if (top < height) {
+      load.value = true;
+      unbind();
+    }
+  } else {
+    unbind();
+  }
+};
+
 onMounted(function () {
   // 绑定事件
-  scroll.bind(id, function () {
-    const rect = getCurlRect();
-    if (rect) {
-      const height = document.documentElement.clientHeight;
-      const top = rect.y - 100;
-      if (top < height) {
-        load.value = true;
-        // 删除事件
-        scroll.unbind(id);
-      }
-    } else {
-      scroll.unbind(id);
-    }
-  });
+  scroll.bind(id, app);
+  setTimeout(app);
 });
 </script>
 

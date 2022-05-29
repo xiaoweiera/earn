@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { PropType, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import I18n from "src/utils/i18n/index";
 import { ElOption, ElSelect } from "element-plus";
 import { getParam } from "src/utils/router";
 import { config as routerConfig } from "src/router/config";
 import safeGet from "@fengqiaogang/safe-get";
+import { topicDetail } from "src/types/home";
 
 const props = defineProps({
   filters: {
@@ -15,7 +16,7 @@ const props = defineProps({
     },
   },
   info: {
-    type: Object,
+    type: Object as PropType<topicDetail>,
     default: () => {
       return {};
     },
@@ -23,18 +24,19 @@ const props = defineProps({
 });
 const router = useRouter();
 const route = useRoute();
+const id = props.info.id ? props.info.id : safeGet(route, "params.id");
 const query = getParam<object>();
 const i18n = I18n();
 const chain = ref(getParam<object>("chain") ? getParam<object>("chain") : "All");
+const platform = ref(getParam<object>("platform") ? getParam<object>("platform") : "All");
 const chainData: any = ref([]);
 const categoryData: any = ref([]);
+const platformData: any = ref([]);
 // 重组数据
-const mergeData = (key: string, data: any) => {
+const mergeData = (key: string, data: any, origin: string[]) => {
   const list = ["All"];
-  const filters = props.filters || {};
-  if (safeGet(filters, `${key}.options`)) {
-    const value: string[] = [].concat([], safeGet(filters, `${key}.options`));
-    list.push(...value);
+  if (origin.length > 0) {
+    list.push(...origin);
   }
   list.forEach((item: string) => {
     const param: any = { ...query, [key]: item };
@@ -42,48 +44,49 @@ const mergeData = (key: string, data: any) => {
     data.value.push({
       ...prop,
       href: {
-        path: `${routerConfig.homeDetail}/${safeGet(route, "params.id")}`,
+        path: `${routerConfig.homeDetail}/${id}`,
         query: param,
       },
     });
   });
 };
-mergeData("chain", chainData);
-mergeData("category", categoryData);
-const change = (name: any) => {
+mergeData("chain", chainData, props.info?.extra.available_chains);
+mergeData("category", categoryData, props.info?.extra.available_categories);
+mergeData("platform", platformData, props.info?.extra.available_platforms);
+
+const changeChain = (name: string) => {
   const item = chainData.value.find((item: any) => item.name === name);
   router.push(item.href);
 };
-const isChain = computed<boolean>(() => {
-  const info = props.info || {};
-  const show = safeGet(info, "filters.chain.show");
-  const options = safeGet<string[]>(info, "filters.chain.options");
-  return !!(show && options && options.length > 0);
-});
-const isCategory = computed<boolean>(() => {
-  const info = props.info || {};
-  const show = safeGet(info, "filters.category.show");
-  const options = safeGet<string[]>(info, "filters.category.options");
-  return !!(show && options && options.length > 0);
-});
+const changePlatform = (name: string) => {
+  const item = platformData.value.find((item: any) => item.name === name);
+  router.push(item.href);
+};
 </script>
 <template>
   <div>
-    <div class="flex items-center">
-      <div class="flex items-center justify-between w-full">
+    <div class="flex items-center flex-wrap">
+      <div class="flex items-center flex-wrap justify-between w-full">
         <div class="flex items-center w-full">
-          <div v-if="isCategory" class="is-tab relative">
+          <div v-if="info.category_filter_supported" class="is-tab relative mr-2">
             <div class="text-kd14px18px text-global-highTitle text-opacity-65 font-kdFang whitespace-nowrap mr-4">
               {{ i18n.home.category }}
             </div>
             <ui-tab class="relative z-22" :list="categoryData" :split="3" active-name="category" />
           </div>
-          <IconFont v-if="isCategory && isChain" class="text-global-highTitle text-opacity-10 mx-4 relative top-0.5 h-full" type="icon-gang" />
-          <div v-if="isChain" class="flex items-center">
+          <div v-if="info.chain_filter_supported" class="flex items-center mr-4 flex-wrap">
             <span class="mr-4 text-kd14px18px text-global-highTitle text-opacity-65">{{ i18n.home.chain }}</span>
             <client-only class="flex items-center justify-between">
-              <el-select v-model="chain" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="change">
+              <el-select v-model="chain" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="changeChain">
                 <el-option v-for="item in chainData" :key="item.name" :label="item.name" :value="item.name" />
+              </el-select>
+            </client-only>
+          </div>
+          <div v-if="info.platform_filter_supported" class="flex items-center">
+            <span class="mr-4 text-kd14px18px text-global-highTitle text-opacity-65">{{ i18n.home.platform }}</span>
+            <client-only class="flex items-center justify-between">
+              <el-select v-model="platform" :popper-append-to-body="false" class="projectMining flex-1 select" size="small" @change="changePlatform">
+                <el-option v-for="item in platformData" :key="item.name" :label="item.name" :value="item.name" />
               </el-select>
             </client-only>
           </div>

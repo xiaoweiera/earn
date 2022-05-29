@@ -10,7 +10,6 @@ const HotProject = asyncLoad(() => import("src/pages/home/new/hot.vue"));
 const NewTopic = asyncLoad(() => import("src/pages/home/new/topic/index.vue"));
 const Apy = asyncLoad(() => import("src/pages/home/apy/index.vue"));
 const Quota = asyncLoad(() => import("./quota/index.vue"));
-
 useReactiveProvide(stateAlias.ui.tab);
 
 onMounted(() => {

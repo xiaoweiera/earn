@@ -13,8 +13,12 @@ import safeGet from "@fengqiaogang/safe-get";
 export const begin = async function (req: Request, res: Response) {
   const i18n = I18n(req);
   const api = new Model(req);
-  const category = "NFT";
-  const [ads, topicRank, trend] = await Promise.all([api.getAdList(25), api.getTopicRank(category), api.getTrend()]);
+  const topicParam = {
+    category: "NFT",
+    page: 1,
+    page_size: 10,
+  };
+  const [ads, topicRank, trend] = await Promise.all([api.getAdList(25), api.getRankTopic(topicParam), api.getTrend()]);
   const result = {
     "title": i18n.home.webInfo.home.title,
     "keywords": i18n.home.webInfo.home.key,
@@ -39,19 +43,21 @@ export const detail = async function (req: Request, res: Response) {
   const chain = req.query.chain as string;
   const category = req.query.category as string;
   const search = req.query.search as string;
+  const platform = req.query.platform as string;
   const params = { page: 1, page_size: 10 };
   // 项目列表
   const projectParams = {
     id,
     page: 1,
     page_size: 30,
+    platform: platform || "",
     chain: chain || "",
     category: category || "",
-    query: search || "",
+    keyword: search || "",
   };
 
   try {
-    const [detail, projects, recommend, top3] = await Promise.all([api.getDetail(id), api.getProjects(projectParams), api.getRecommend(params), api.getTop3(id)]);
+    const [detail, recommend, top3] = await Promise.all([api.getTopicDetail(projectParams), api.getRecommend(params), api.getTop3(id)]);
     const result = {
       // @ts-ignore
       "title": detail && detail.id ? detail.name : i18n.home.webInfo.homeDetail.title,
@@ -60,7 +66,6 @@ export const detail = async function (req: Request, res: Response) {
       "description": detail && detail.id ? detail.desc : i18n.home.webInfo.homeDetail.des,
 
       "API.home.getDetail": detail, // 话题详情
-      "API.home.getProjects": projects, // 话题项目
       "API.home.getRecommend": recommend, // 推荐话题
       "API.home.getTop3": top3, // 话题项目top3
     };

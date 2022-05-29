@@ -16,6 +16,8 @@ export const home = {
   hotProject: "/api/dapps/v1/recommendations", //热门项目列表
   lineChart: "/api/apy/whale/address_fund_trending", //大户地址图表
   addressInfo: "/api/apy/whale/address", //大户历史交易
+  getTopicDetail: "/api/v1/bff/dapp/topics/{id}", //新的-话题项目详情
+  getRankTopic: "/api/v1/bff/dapp/topics", //榜单列表 首页
 };
 
 export const dapp = {

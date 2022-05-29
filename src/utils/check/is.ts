@@ -75,6 +75,13 @@ export const isHttp = function (value?: string): boolean {
   return false;
 };
 
+export const isBoolean = function (value: any): boolean {
+  if (_.isBoolean(value)) {
+    return true;
+  }
+  return value === 0;
+};
+
 /**
  * 判断对象是否是数组
  * @param value

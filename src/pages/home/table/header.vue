@@ -20,10 +20,6 @@ const props = defineProps({
     type: String,
     default: () => "h-10.5",
   },
-  name: {
-    type: String,
-    default: "",
-  },
   params: {
     type: Object,
     default: () => {
@@ -38,7 +34,7 @@ const props = defineProps({
 // [headerName,headerCss]
 const cssData: any = ref([]);
 onMounted(() => {
-  cssData.value = getHeader(safeGet(props.item, "key"));
+  cssData.value = getHeader(safeGet(props.item, "title"));
 });
 const sortIcon: any = {
   "desc": "icon-shuangxiangjiantou-down",
@@ -52,24 +48,25 @@ const getIcon = (item: any) => {
   const params = props.params || {};
   const type = safeGet<string>(params, "sort_type");
   const sort_field = safeGet<string>(params, "sort_field");
-  if (type && sort_field && sort_field === safeGet(props.item, "key")) {
+  if (type && sort_field && sort_field === safeGet(props.item, "title")) {
     return sortIcon[type];
   }
   return "icon-shuangxiangjiantou";
 };
 </script>
 <template>
-  <div class="flex items-center" :class="`${cssData[1]} ${height}`">
+  <div class="flex items-center">
+    -{{ item.sort }}|
     <div class="relative h-full flex items-center" :class="item.sort && sort ? 'hand' : ''">
       <div v-if="shortIcon">
         <img v-if="item.active" class="w-2 h-1 mr-1 relative -top-0.6" :src="`${oss}/common/sortDown.png`" />
       </div>
       <div v-else class="h-full flex items-center">
         <IconFont v-if="(item.sort && params && sort) || (!params.sort_field && item.active)" class="relative mr-1" size="14" :type="getIcon(item)" />
-        <div :class="item.key === params?.sort_field || (!params.sort_field && item.active) ? 'sort-border' : ''" />
+        <div :class="item.title === params?.sort_field || (!params.sort_field && item.active) ? 'sort-border' : ''" />
       </div>
-      <span :class="item.key === params?.sort_field || (item.active && shortIcon) ? 'text-global-primary' : ''">
-        <span :class="page === 'home' ? 'font-kdBarlow' : 'text-global-highTitle'">{{ cssData[0] }}</span>
+      <span :class="item.title === params?.sort_field || (item.active && shortIcon) ? 'text-global-primary' : ''">
+        <span class="text-global-highTitle text-kd12px16px font-medium font-kdFang">{{ item.title }}d</span>
       </span>
     </div>
   </div>

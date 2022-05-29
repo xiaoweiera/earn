@@ -48,7 +48,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="w-full font-kdFang">
-    <div class="header h-10.5">
+    <div class="header h-10">
       <span class="text-kd14px18px text-global-highTitle font-medium">{{ i18n.home.hotTopic }}</span>
       <div class="flex items-center">
         <IconFont class="mr-6" :class="lastPage > 1 ? 'fan' : 'fan-no'" size="10" type="icon-leftNo" @click="last()" />
