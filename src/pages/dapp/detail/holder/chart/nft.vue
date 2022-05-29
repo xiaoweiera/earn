@@ -46,7 +46,7 @@ const tabChange = function (value: any) {
       </div>
       <!-- 渲染图表 -->
       <div :key="dataKey" class="w-full h-114.5 mt-2.5">
-        <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['volumeWithWhales', 'volumeWithBlueChipHolder']">
+        <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="HOUR" :fields="['volumeWithWhales', 'volumeWithBlueChipHolder']">
           <!--展示自定义图列-->
           <template #legend="scope">
             <div class="mr-7 cursor-pointer" :style="scope.style">

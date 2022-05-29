@@ -40,7 +40,7 @@ const tabClick = function (value: any) {
         </p>
       </div>
       <div :key="dataKey" class="w-full h-114.5 mx-auto md:mt-2">
-        <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['users', 'price']">
+        <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="HOUR" :fields="['users', 'balance']">
           <template #legend="scope">
             <div class="mr-7 cursor-pointer" :style="scope.style">
               <div class="legend-item">
