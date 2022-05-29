@@ -61,6 +61,10 @@ export default defineComponent({
       type: Number,
       default: () => 150,
     },
+    center: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     isArray,
@@ -93,9 +97,9 @@ export default defineComponent({
 <template>
   <div class="w-full">
     <template v-if="isArray(type)">
-      <div class="flex item-list" :class="{ column: isColumn(type) }">
+      <div class="flex item-list" :class="{ column: isColumn(type), center: center }">
         <template v-for="(value, index) in type" :key="index">
-          <TableTD class="flex table-item short" :style="getStyle(value)" :fields="fields[index]" :type="value" :data="data" />
+          <TableTD class="flex table-item short" :class="{ center: center }" :style="getStyle(value)" :fields="fields[index]" :type="value" :data="data" />
         </template>
       </div>
     </template>
@@ -106,11 +110,15 @@ export default defineComponent({
 </template>
 
 <style scoped lang="scss">
+.center {
+  @apply flex justify-center;
+}
 .item-list {
   &:not(.column) {
     @apply items-center;
     & > .table-item {
-      @apply mr-1.5 last:mr-0 flex-1;
+      width: fit-content;
+      @apply mr-1.5 last:mr-0;
       &:first-child {
         width: auto;
         @apply flex-none;

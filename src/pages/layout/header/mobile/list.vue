@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
 import type { MenuItem } from "src/types/menu/";
-
+import Sub from "./sub.vue";
 defineProps({
   list: {
     type: Array as PropType<MenuItem[]>,
@@ -24,8 +24,21 @@ defineProps({
             </span>
           </template>
           <template v-for="item in data.children" :key="item.name">
-            <v-router v-if="!item.group" :href="item.href" class="flex items-center py-2 min-h-10">
-              <IconFont v-if="item.icon" size="24" class="mr-2" :type="item.icon" />
+            <template v-if="item.children && item.children.length > 0">
+              <ui-visible title-class="h-14" :arrow-size="16" :checked="item.active">
+                <template #label>
+                  <span class="flex items-center py-2 min-h-10">
+                    <IconFont v-if="item.icon" size="24" class="mr-2" :type="item.icon" />
+                    <span class="item-name sub-title">{{ item.name }}</span>
+                  </span>
+                </template>
+                <div class="pl-8">
+                  <Sub :list="item.children" />
+                </div>
+              </ui-visible>
+            </template>
+            <v-router v-else-if="!item.group" :href="item.href" class="flex items-center py-2 min-h-10">
+              <IconFont v-if="item.icon" size="16" class="mr-2" :type="item.icon" />
               <span class="item-name">{{ item.name }}</span>
             </v-router>
           </template>
@@ -62,6 +75,9 @@ defineProps({
   }
 }
 .item-name {
-  @apply text-kd14px18px text-global-highTitle font-medium font-kdFang;
+  @apply text-kd14px18px text-global-highTitle font-medium font-kdFang text-opacity-65;
+  &.sub-title {
+    @apply text-opacity-100;
+  }
 }
 </style>
