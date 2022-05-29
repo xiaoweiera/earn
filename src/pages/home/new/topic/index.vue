@@ -11,6 +11,7 @@ const param = reactive({
   category: "NFT",
   page: 1,
   page_size: 10,
+  is_carousel: true,
 });
 const isLoad = ref(false);
 const api = new Model();

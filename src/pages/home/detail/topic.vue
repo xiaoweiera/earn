@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { createRef, onLoadRef } from "src/utils/ssr/ref";
+import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import { onMounted, reactive, ref } from "vue";
-import { Model } from "src/logic/home";
 import I18n from "src/utils/i18n";
+import { Model } from "src/logic/home";
 import { config } from "src/router/config";
+import safeGet from "@fengqiaogang/safe-get";
 const i18n = I18n();
+const api = new Model();
 const params = reactive({
   page: 1,
   page_size: 10,
+  is_recommendation: true,
 });
+
 const loading = ref(false);
-const api = new Model();
-const recommend: any = createRef("API.home.getRecommend", []);
+const recommend: any = ref([]);
+let rank: any = createReactive("API.home.getTopicRank", {});
+// recommend.value=safeGet(rank,'items')
 const lastPage = ref(1);
 const resultNumber = ref(0); // 返回结果数
 // 上一页
@@ -20,9 +25,9 @@ const last = async () => {
   params.page--;
   lastPage.value--;
   loading.value = true;
-  const res: any = await api.getRecommend(params);
-  recommend.value = res;
-  resultNumber.value = res ? res.length : 0;
+  const res: any = await api.getRankTopic(params);
+  recommend.value = res.items;
+  resultNumber.value = res.items ? res.items.length : 0;
   loading.value = false;
 };
 // 下一页
@@ -30,19 +35,20 @@ const next = async () => {
   if (loading.value) return;
   params.page++;
   loading.value = true;
-  const res: any = await api.getRecommend(params);
-  resultNumber.value = res ? res.length : 0;
-  if (res.length > 0) {
-    recommend.value = res;
+  const res: any = await api.getRankTopic(params);
+  resultNumber.value = res.items ? res.items.length : 0;
+  if (res.items.length > 0) {
+    recommend.value = res.items;
     lastPage.value++;
   } else {
     params.page--;
   }
   loading.value = false;
 };
-onMounted(() => {
+onMounted(async () => {
   // 得到数据汇总
-  onLoadRef(recommend, () => api.getRecommend(params));
+  onLoadReactive(rank, () => api.getRankTopic(params));
+  recommend.value = safeGet(rank, "items");
   resultNumber.value = recommend.value ? recommend.value.length : 0;
 });
 </script>
@@ -56,10 +62,10 @@ onMounted(() => {
       </div>
     </div>
     <template v-for="(item, index) in recommend" :key="index">
-      <v-router class="text-kdFang flex items-center mt-3 cursor-pointer" :href="`${config.homeDetail}/${item.id}`">
-        <ui-image class="w-8 min-w-8 h-8 rounded-full overflow-hidden" :src="item['cover']" fit="cover" />
+      <v-router class="text-kdFang flex items-center mt-3 cursor-pointer" target="_blank" :href="`${config.homeDetail}/${item.id}`">
+        <ui-image class="w-8 min-w-8 h-8 rounded-full overflow-hidden" :src="item['cover_url']" fit="cover" />
         <span class="ml-2 text-global-primary txt">#</span>
-        <span class="txt ml-0.5 text-global-highTitle text-opacity-85 short">{{ item["name"] }}</span>
+        <span class="txt ml-0.5 text-global-highTitle text-opacity-85 short">{{ item["title"] }}</span>
       </v-router>
     </template>
   </div>
