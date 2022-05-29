@@ -34,15 +34,6 @@ const tabClick = function (value: any) {
         <span v-for="item in dateList()" :key="item.id" :class="range === item.id ? 'active' : ''" class="change-tab" @click="tabClick(item)">{{ item.name }}</span>
       </p>
     </div>
-    <!--    <div v-if="chartData.current" class="h-9 flex">-->
-    <!--      <div class="flex flex-col justify-between">-->
-    <!--        <p class="flex items-center">-->
-    <!--          <span class="inline-block w-2 h-2 bg-global-darkblue rounded mr-1.5"></span>-->
-    <!--          <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ i18n.dapp.project.floorPrice }}</span>-->
-    <!--        </p>-->
-    <!--        <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(chartData.current.floor_price, chartData.legends[0].unit) }}</p>-->
-    <!--      </div>-->
-    <!--    </div>-->
     <div :key="dataKey" class="w-full h-114.5 mx-auto md:mt-2">
       <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['price']">
         <template #legend="scope">
@@ -58,9 +49,6 @@ const tabClick = function (value: any) {
         </template>
       </ui-echart-dapp>
     </div>
-    <!--    <div v-if="chartData.legends" :key="dataKey" class="w-full h-48 mx-auto md:mt-2">-->
-    <!--      <ui-echart-content :custom="onCustom" :data="chartData" class="h-full" />-->
-    <!--    </div>-->
     <div class="w-full h-0.25 bg-global-highTitle bg-opacity-6 my-6"></div>
   </div>
 </template>

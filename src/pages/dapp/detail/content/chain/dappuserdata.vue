@@ -31,7 +31,7 @@ const tabClick = function (value: any) {
     <div>
       <div class="w-full flex flex-row justify-between">
         <p class="text-global-highTitle text-kd16px24px">
-          <span>{{ project.type === ProjectType.nft || project.type === ProjectType.mint ? i18n.dapp.project.owners : i18n.dapp.rank.table.user }}</span>
+          <span>{{ i18n.dapp.rank.table.user }}</span>
           <span class="m-x-2">&</span>
           <span>{{ i18n.dapp.project.balance }}</span>
         </p>
@@ -40,7 +40,7 @@ const tabClick = function (value: any) {
         </p>
       </div>
       <div :key="dataKey" class="w-full h-114.5 mx-auto md:mt-2">
-        <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['owners', 'price']">
+        <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['users', 'price']">
           <template #legend="scope">
             <div class="mr-7 cursor-pointer" :style="scope.style">
               <div class="legend-item">

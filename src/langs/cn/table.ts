@@ -1,7 +1,7 @@
 export default {
   users: "用户数", //用户数
   balance: "合约资产", //合约资产
-  mcapWithMaxSupplyTvl: "", //完整稀释市值/额定TVL
+  mcapWithMaxSupplyTvl: "完整稀释市值/额定TVL", //完整稀释市值/额定TVL
   tvl: "TVL", //TVL
   price: "价格", //当前价格
   currentRoi: "实时收益率", //当前收益率%(都是x100后的数字)对比IDO价格
@@ -116,4 +116,7 @@ export default {
   award_reason: "", //获奖理由
   final_score: "", //年度榜单活动截止时刻的项目综合得分
   final_clout: "", //年度榜单活动截止时刻的总打分人数
+  whalesRatio: "巨鲸人数占总holders的比例", // 巨鲸人数占总holders的比例
+  volumeWithWhalesRatio: "所有巨鲸持仓量总量占总供应量", //所有巨鲸持仓量总量占总供应量
+  VolumeWithBlueChipHolderRatio: "蓝筹持仓占比", //蓝筹持仓占比
 };
