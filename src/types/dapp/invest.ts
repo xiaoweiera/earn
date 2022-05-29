@@ -68,7 +68,9 @@ export interface infoModel {
   chain: string;
 }
 export interface rankTopicModel {
-  category: string;
+  category?: string;
   page: number;
   page_size: number;
+  is_recommendation?: boolean;
+  is_carousel?: boolean;
 }

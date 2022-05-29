@@ -76,7 +76,12 @@ watch(search, (n: any) => {
 });
 
 // 排序
-const sort = () => key.value++;
+const sort = () => {
+  if (!params.sort_type) {
+    params.sort_field = "";
+  }
+  key.value++;
+};
 // row跳转
 const toProject = () => {
   let url = "";
@@ -150,7 +155,7 @@ onMounted(() => {
               <template v-for="(header, index) in headerList" :key="index">
                 <el-table-column :fixed="index === 0" :width="header.width ? header.width : 150">
                   <template #header>
-                    <div class="relative h-full flex items-center">
+                    <div class="relative h-full flex items-center" :class="{ 'justify-center': header.center }">
                       <ui-sort class="header-name fit" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.sort_field" :field="header.title" :name="getTitleCnEn(header)" @change="sort" />
                       <el-popover :disabled="!getTitleDes(header)" placement="top" trigger="hover">
                         <div>{{ getTitleDes(header) }}</div>
@@ -161,8 +166,8 @@ onMounted(() => {
                     </div>
                   </template>
                   <template #default="scope">
-                    <div :class="{ 'text-center': isBoolean(header.center) }">
-                      <Content :width="header.width" :fields="header.fields" :type="header.type" :data="scope.row" />
+                    <div>
+                      <Content :center="header.center" :width="header.width" :fields="header.fields" :type="header.type" :data="scope.row" />
                     </div>
                   </template>
                 </el-table-column>

@@ -17,6 +17,7 @@ export const begin = async function (req: Request, res: Response) {
     category: "NFT",
     page: 1,
     page_size: 10,
+    recommended: true,
   };
   const [ads, topicRank, trend] = await Promise.all([api.getAdList(25), api.getRankTopic(topicParam), api.getTrend()]);
   const result = {
@@ -45,6 +46,11 @@ export const detail = async function (req: Request, res: Response) {
   const search = req.query.search as string;
   const platform = req.query.platform as string;
   const params = { page: 1, page_size: 10 };
+  const topicParam = {
+    page: 1,
+    page_size: 10,
+    is_recommendation: true,
+  };
   // 项目列表
   const projectParams = {
     id,
@@ -57,7 +63,7 @@ export const detail = async function (req: Request, res: Response) {
   };
 
   try {
-    const [detail, recommend, top3] = await Promise.all([api.getTopicDetail(projectParams), api.getRecommend(params), api.getTop3(id)]);
+    const [topicRank, detail, recommend, top3] = await Promise.all([api.getRankTopic(topicParam), api.getTopicDetail(projectParams), api.getRecommend(params), api.getTop3(id)]);
     const result = {
       // @ts-ignore
       "title": detail && detail.id ? detail.name : i18n.home.webInfo.homeDetail.title,
@@ -65,6 +71,7 @@ export const detail = async function (req: Request, res: Response) {
       // @ts-ignore
       "description": detail && detail.id ? detail.desc : i18n.home.webInfo.homeDetail.des,
 
+      "API.home.getTopicRank": topicRank, //右侧topic栏
       "API.home.getDetail": detail, // 话题详情
       "API.home.getRecommend": recommend, // 推荐话题
       "API.home.getTop3": top3, // 话题项目top3
