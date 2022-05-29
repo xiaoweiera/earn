@@ -189,7 +189,7 @@ onMounted(function () {
         <template #default="scope">
           <div v-if="query.activity_stage === TabTypes.ended" class="overflow-x-scroll showX">
             <div class="w-315">
-              <DAppDiscoversEndList :params="sort" class="px-4" :list="scope.list" @change-sort="changeSort" />
+              <DAppDiscoversEndList :params="sort" class="px-4" :list="scope.list" :name="name" @change-sort="changeSort" />
             </div>
           </div>
           <div v-else class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">

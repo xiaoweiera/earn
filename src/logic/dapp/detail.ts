@@ -106,45 +106,45 @@ export const getTabList = function (project: DAppProject, data: ProjectItem) {
       href: makeUrl(project, TabName.twitter),
     },
   ];
-  // // 空投
-  // if (project.type === ProjectType.airdrop && data.airdrop_status !== Progress.no) {
-  //   list.push({
-  //     tab: TabName.airdrop,
-  //     label: i18n.dapp.project.airdrop,
-  //     href: makeUrl(project, TabName.airdrop),
-  //   });
-  // } else if (project.type === ProjectType.nft) {
-  //   if (data.mint_status !== Progress.no) {
-  //     list.push({
-  //       tab: TabName.nft,
-  //       label: "Mint",
-  //       href: makeUrl(project, TabName.nft),
-  //     });
-  //   }
-  //   list.push({
-  //     tab: TabName.holder,
-  //     label: "🐳 Holders",
-  //     href: makeUrl(project, TabName.holder),
-  //   });
-  // } else if (project.type === ProjectType.dapp && data.ido_status !== Progress.no) {
-  //   list.push({
-  //     tab: project.type,
-  //     label: "IDO",
-  //     href: makeUrl(project, project.type as any),
-  //   });
-  // } else if (project.type === ProjectType.igo && data.ido_status !== Progress.no) {
-  //   list.push({
-  //     tab: project.type,
-  //     label: "IGO",
-  //     href: makeUrl(project, project.type as any),
-  //   });
-  // } else if (data.investments !== null && data.investments.length > 0) {
-  //   list.splice(1, 0, {
-  //     tab: TabName.project,
-  //     label: i18n.dapp.project.projectInfo,
-  //     href: makeUrl(project, TabName.project),
-  //   });
-  // }
+  // 空投
+  if (project.type === ProjectType.airdrop && data.airdrop_status !== Progress.no) {
+    list.push({
+      tab: TabName.airdrop,
+      label: i18n.dapp.project.airdrop,
+      href: makeUrl(project, TabName.airdrop),
+    });
+  } else if (project.type === ProjectType.nft || project.type === ProjectType.mint) {
+    if (data.mint_status !== Progress.no) {
+      list.push({
+        tab: TabName.nft,
+        label: "Mint",
+        href: makeUrl(project, TabName.nft),
+      });
+    }
+    list.push({
+      tab: TabName.holder,
+      label: "🐳 Holders",
+      href: makeUrl(project, TabName.holder),
+    });
+  } else if (project.type === ProjectType.ido && data.ido_status !== Progress.no) {
+    list.push({
+      tab: project.type,
+      label: "IDO",
+      href: makeUrl(project, project.type as any),
+    });
+  } else if (project.type === ProjectType.igo && data.ido_status !== Progress.no) {
+    list.push({
+      tab: project.type,
+      label: "IGO",
+      href: makeUrl(project, project.type as any),
+    });
+  } else if (data.investments !== null && data.investments.length > 0) {
+    list.splice(1, 0, {
+      tab: TabName.project,
+      label: i18n.dapp.project.projectInfo,
+      href: makeUrl(project, TabName.project),
+    });
+  }
   return list;
 };
 

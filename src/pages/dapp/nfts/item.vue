@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { toFixed } from "src/utils";
+import { AnyEquals, toFixed } from "src/utils";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getLog } from "src/logic/dapp";
 import I18n from "src/utils/i18n";
-import { config } from "src/router/config";
+import { config, routerConfig } from "src/router/config";
 
 import DAppNftsTime from "./time.vue";
+import safeGet from "@fengqiaogang/safe-get";
+import { DAppType } from "src/types/dapp/dapp";
+import { TabName } from "src/types/dapp/detail";
 
 const i18n = I18n();
 defineProps({
@@ -16,10 +19,9 @@ defineProps({
     },
   },
 });
-const getUrl = function (data: any) {
-  if (data) {
-    return `${config.nft}/${data.id}`;
-  }
+const getUrl = function (data: object) {
+  const id = safeGet<string>(data, "id");
+  return routerConfig.dapp.nftDetail(id, { tab: TabName.nft });
 };
 </script>
 <template>

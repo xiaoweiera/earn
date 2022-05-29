@@ -7,12 +7,11 @@
 import { onMounted } from "vue";
 import * as track from "src/logic/track";
 import safeGet from "@fengqiaogang/safe-get";
-import { TabName } from "src/types/dapp/data";
 import { getTabList } from "src/logic/dapp/detail";
 import { ProjectType } from "src/types/dapp/data";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { DAppProject } from "src/types/dapp/data";
-import type { ProjectItem } from "src/types/dapp/detail";
+import { ProjectItem, TabName } from "src/types/dapp/detail";
 import { useReactiveProvide } from "src/utils/use/state";
 import { asyncLoad } from "src/plugins/lazyload/";
 import { AnyEquals } from "src/utils/";
@@ -130,7 +129,7 @@ const getTabData = function (info: DAppProject, data: ProjectItem) {
           <template v-else-if="AnyEquals(project.tab, TabName.holder)">
             <Holder :data="detail" />
           </template>
-          <template v-else-if="AnyEquals(project.tab, TabName.dapp) || AnyEquals(project.tab, TabName.igo)">
+          <template v-else-if="AnyEquals(project.tab, TabName.dapp) || AnyEquals(project.tab, TabName.igo) || AnyEquals(project.tab, TabName.ido)">
             <IDO :data="detail" :project="project" />
           </template>
           <template v-else>

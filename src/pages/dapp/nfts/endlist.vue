@@ -3,6 +3,9 @@ import { getLog, getNextUrl } from "src/logic/dapp";
 import { toFixed } from "src/utils";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { nftHeader } from "src/logic/dapp/config";
+import VRouter from "src/components/v/router.vue";
+import { routerConfig } from "src/router/config";
+import safeGet from "@fengqiaogang/safe-get";
 
 const props = defineProps({
   list: {
@@ -33,6 +36,10 @@ const getIcon = (item: string) => {
   }
   return "icon-shuangxiangjiantou";
 };
+const getUrl = function (data: object) {
+  const id = safeGet<string>(data, "id");
+  return routerConfig.dapp.nftDetail(id);
+};
 </script>
 <template>
   <div class="table-box">
@@ -51,7 +58,7 @@ const getIcon = (item: string) => {
       </thead>
       <tbody>
         <template v-for="(item, index) in list" :key="index">
-          <tr v-if="item.data_type !== 'ad'" class="h-14 hand" @click="getNextUrl(item)">
+          <v-router class="w-full h-14 hand" :href="getUrl(item)" target="_blank" name="tr">
             <td>
               <div class="flex-center">
                 <ui-image :src="item.logo" class="w-8 h-8 text-12-12 font-kdInter" rounded :title="item.name" />
@@ -101,7 +108,7 @@ const getIcon = (item: string) => {
                 <span class="star-txt">{{ toFixed(item.overall_score, 1) }}</span>
               </div>
             </td>
-          </tr>
+          </v-router>
         </template>
       </tbody>
     </table>
