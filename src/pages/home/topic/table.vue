@@ -35,6 +35,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  limit: {
+    type: Number,
+    default: 10,
+  },
 });
 const height = document.body.clientWidth > 375 ? 60 : 50;
 const route = useRoute();
@@ -136,7 +140,7 @@ onMounted(() => {
       </client-only>
     </div>
     <div :key="key">
-      <ui-pagination :limit="10" :isMore="isMore" :init-value="initValue()" :request="requestList">
+      <ui-pagination :limit="limit" :isMore="isMore" :init-value="initValue()" :request="requestList">
         <template #default="{ list }">
           <div v-show="isLoad">
             <el-table :data="list" class="w-full" :row-style="rowClass(height)" :header-cell-style="headerCellClass" :cell-style="cellClass" @row-click="toProject">
