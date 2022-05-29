@@ -4,8 +4,10 @@
  */
 import _ from "lodash";
 import API from "src/api/";
+import { BlogData } from "src/types/blog";
 import I18n from "src/utils/i18n/";
 import * as track from "src/logic/track";
+import { getValue } from "src/utils/root/data";
 import { ref, onMounted, reactive } from "vue";
 import { size, uuid, AnyEquals } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
@@ -47,6 +49,15 @@ const Chains = createRef<string[]>(alias.dApp.chains, []);
 const Platforms = createRef<string[]>(alias.dApp.platforms, []);
 // 分类
 const Categories = createRef<string[]>(alias.dApp.categories, []);
+
+let initValue = true;
+const getInitValue = (): object[] => {
+  if (initValue) {
+    initValue = false;
+    return getValue<BlogData[]>(alias.dApp.list, []);
+  }
+  return [];
+};
 
 const onGetList = async function (param: object) {
   const api = new API();
@@ -192,7 +203,7 @@ onMounted(function () {
       </div>
     </div>
     <div :key="listKey" class="py-8">
-      <ui-pagination :request="onGetList">
+      <ui-pagination :request="onGetList" :init-value="getInitValue()">
         <template #default="scope">
           <div v-if="query.activity_stage === TabTypes.ended" class="overflow-x-scroll showX">
             <div class="w-315">
@@ -214,6 +225,7 @@ onMounted(function () {
   .category-content {
     @apply w-1/2;
   }
+
   @screen lg {
     .chain-content {
       @apply w-35;
@@ -224,6 +236,7 @@ onMounted(function () {
 .is-tab {
   box-shadow: 0px 1px 0px rgba(3, 54, 102, 0.06);
 }
+
 .input-style {
   ::v-deep(.el-input__inner) {
     padding-left: 31px !important;
@@ -260,23 +273,28 @@ onMounted(function () {
     @apply border-1 border-global-highTitle border-opacity-4 bg-global-white h-8 rounded-md;
     @apply text-kd14px18px w-full text-left text-global-highTitle flex items-center;
   }
+
   ::v-deep(.el-select-dropdown__item) {
     @apply text-kd14px18px w-full text-left text-global-highTitle;
   }
+
   @screen lg {
     ::v-deep(.el-input__inner) {
       @apply border-1 border-global-highTitle border-opacity-4 text-kd14px18px w-25 h-8 pl-3 bg-global-topBg text-left text-global-highTitle flex items-center;
     }
+
     ::v-deep(.el-select-dropdown__item) {
       @apply text-kd14px18px w-25 text-left text-global-highTitle;
     }
   }
 }
+
 %first-ml0 {
   &:first-child {
     @apply ml-0;
   }
 }
+
 .chain-tab {
   @apply flex items-center;
   ::v-deep(.tab-wrap) {

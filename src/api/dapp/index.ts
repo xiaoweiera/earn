@@ -16,7 +16,7 @@ import { DefaultValue, expire, get, required, tryError, userToken, validate, pos
 
 export default class extends ApiTemplate {
   // 项目库列表
-  @tryError(DefaultValue([]))
+  @tryError(DefaultValue(null))
   @get(api.dapp.list, expire.min5)
   @userToken()
   @validate
