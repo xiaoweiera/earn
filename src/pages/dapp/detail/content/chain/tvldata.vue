@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n";
-import { reactive, ref } from "vue";
+import { PropType, reactive, ref } from "vue";
 import { dateList, getData } from "src/logic/dapp/detail";
 import { toNumberCashFormat } from "src/utils";
 import { uuid } from "src/utils";
 import { LegendDirection } from "src/types/echarts/type";
+import { DAppProject } from "src/types/dapp/data";
+import { getTitle } from "src/pages/home/topic/data";
 
 const props = defineProps({
-  data: {
-    type: Object,
-    default: () => {
-      return {};
-    },
+  project: {
+    required: true,
+    type: Object as PropType<DAppProject>,
   },
 });
 
@@ -30,43 +30,24 @@ const tabClick = function (value: any) {
   <div>
     <div class="w-full flex flex-row justify-between">
       <p class="text-global-highTitle text-kd16px24px">
-        <span>{{ i18n.dapp.project.tvl }}</span>
-        <span class="m-x-2">&</span>
         <span>{{ i18n.dapp.rank.table.mcap }}</span>
+        <span class="m-x-2">&</span>
+        <span>{{ i18n.dapp.project.tvl }}</span>
       </p>
       <p class="inline-flex items-center p-1 rounded-md bg-global-highTitle bg-opacity-4 cursor-pointer">
         <span v-for="item in dateList()" :key="item.id" :class="range === item.id ? 'active' : ''" class="change-tab" @click="tabClick(item)">{{ item.name }}</span>
       </p>
     </div>
-    <!--    <div class="h-9 flex">-->
-    <!--      <div class="flex flex-col justify-between">-->
-    <!--        <p class="flex items-center">-->
-    <!--          <span class="inline-block w-2 h-2 bg-global-darkblue rounded mr-1.5"></span>-->
-    <!--          <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ i18n.dapp.project.tvl }}</span>-->
-    <!--        </p>-->
-    <!--        <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(chartData.current.tvl, "$") }}</p>-->
-    <!--      </div>-->
-    <!--      <div class="ml-7 mr-8 flex items-center">-->
-    <!--        <span class="inline-block h-2/3 w-0.25 bg-global-highTitle bg-opacity-10"></span>-->
-    <!--      </div>-->
-    <!--      <div class="flex flex-col justify-between">-->
-    <!--        <p class="flex items-center">-->
-    <!--          <span class="inline-block w-2 h-2 bg-global-money rounded mr-1.5"></span>-->
-    <!--          <span class="text-kd12px16px text-global-highTitle text-opacity-65">{{ i18n.dapp.rank.table.mcap }}</span>-->
-    <!--        </p>-->
-    <!--        <p class="text-kd18px18px text-global-highTitle">{{ toNumberCashFormat(chartData.current.mcap_tvl) }}</p>-->
-    <!--      </div>-->
-    <!--    </div>-->
     <div :key="dataKey" class="w-full h-114.5 mx-auto md:mt-2">
-      <ui-echart-dapp :id="data.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['mcapWithMaxSupplyTvl', 'tvl']">
+      <ui-echart-dapp :id="project.id" :legend="LegendDirection.custom" custom-class="h-100" :start="getData(range)" unit="DAY" :fields="['mcapWithMaxSupplyTvl', 'tvl']">
         <template #legend="scope">
           <div class="mr-7 cursor-pointer" :style="scope.style">
             <div class="legend-item">
               <p class="flex items-center">
                 <IconFont type="icon-round" size="8" />
-                <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ scope.value }}</span>
+                <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ getTitle(scope.value) }}</span>
               </p>
-              <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ toNumberCashFormat(scope.data.last) }}</p>
+              <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ scope.data.index === 0 ? toNumberCashFormat(scope.data.last) : toNumberCashFormat(scope.data.last, "", "$") }}</p>
             </div>
           </div>
         </template>

@@ -1,11 +1,11 @@
 <script lang="ts">
+import type { PropType } from "vue";
 /**
  * @file 项目详情数据
  * @auth svon.me@gmail.com
  */
 import { defineComponent } from "vue";
-import { ProjectItem, DAppProject, ProjectType } from "src/types/dapp/detail";
-import type { PropType } from "vue";
+import { DAppProject, ProjectItem, ProjectType } from "src/types/dapp/detail";
 import InfoView from "./info.vue";
 
 import NFT from "./nft.vue";
@@ -41,7 +41,7 @@ export default defineComponent({
       // const data = this.data;
       const type: ProjectType = this.project.type;
       const rank = this.project.rank;
-      if (type && (type === ProjectType.ido || type === ProjectType.igo)) {
+      if (type && (type === ProjectType.ido || type === ProjectType.igo || type === ProjectType.dapp)) {
         if (rank) {
           return "DApp";
         } else {
@@ -53,7 +53,7 @@ export default defineComponent({
         } else {
           return "AirDrop";
         }
-      } else if (type && type === ProjectType.mint) {
+      } else if (type && (type === ProjectType.mint || type === ProjectType.nft)) {
         if (rank) {
           return "NFT";
         } else {
