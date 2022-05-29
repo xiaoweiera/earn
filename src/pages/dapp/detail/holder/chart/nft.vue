@@ -4,7 +4,7 @@ import { LegendDirection } from "src/types/echarts/type";
 import { PropType, ref } from "vue";
 import { uuid, toNumberCashFormat } from "src/utils";
 import I18n from "src/utils/i18n";
-import { Model, holderDateList, getData } from "src/logic/dapp/detail";
+import { holderDateList, getData } from "src/logic/dapp/detail";
 import { ProjectItem } from "src/types/dapp/detail";
 import { DAppProject } from "src/types/dapp/data";
 import { getTitle } from "src/pages/home/topic/data";

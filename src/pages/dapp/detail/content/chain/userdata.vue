@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n";
-import { onMounted, PropType, reactive, ref } from "vue";
-import { Model, dateList, getData } from "src/logic/dapp/detail";
+import { PropType, ref } from "vue";
+import { dateList, getData } from "src/logic/dapp/detail";
 import { toNumberCashFormat } from "src/utils";
 import { uuid } from "src/utils";
 import { LegendDirection } from "src/types/echarts/type";
