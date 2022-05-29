@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import I18n from "src/utils/i18n";
-import { PropType, reactive, ref } from "vue";
+import { PropType, ref } from "vue";
 import { dateList, getData } from "src/logic/dapp/detail";
 import { toNumberCashFormat } from "src/utils";
 import { uuid } from "src/utils";
