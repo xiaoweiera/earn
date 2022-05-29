@@ -5,8 +5,9 @@
 import _ from "lodash";
 import API from "src/api/";
 import I18n from "src/utils/i18n/";
+import * as track from "src/logic/track";
 import { ref, onMounted, reactive } from "vue";
-import { size, uuid } from "src/utils/";
+import { size, uuid, AnyEquals } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
 import { alias, createRef } from "src/utils/ssr/ref";
 import { getUiTabList, getTabList, TabTypes } from "src/logic/dapp/dapp";
@@ -98,6 +99,12 @@ const changeSort = (val: string) => {
 };
 
 onMounted(function () {
+  // 上报数据
+  if (AnyEquals(props.name, DAppType.igo)) {
+    track.push(track.Origin.gio, track.event.dApp.igo);
+  } else {
+    track.push(track.Origin.gio, track.event.dApp.ido);
+  }
   useWatch(query, () => {
     tabKey.value = uuid();
     listKey.value = uuid();

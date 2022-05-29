@@ -5,6 +5,7 @@
 import _ from "lodash";
 import API from "src/api/";
 import I18n from "src/utils/i18n/";
+import * as track from "src/logic/track";
 import { ref, onMounted, reactive } from "vue";
 import { size, uuid } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
@@ -78,6 +79,7 @@ const onSearch = _.debounce(async () => {
 }, 300);
 
 onMounted(function () {
+  track.push(track.Origin.gio, track.event.dApp.nft);
   useWatch(query, () => {
     tabKey.value = uuid();
     listKey.value = uuid();
