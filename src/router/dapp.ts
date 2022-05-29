@@ -107,6 +107,10 @@ const routes = [
     path: routerConfig.dapp.fundsDetailPattern(),
     component: () => import("src/pages/dapp/detail/index.vue"),
   },
+  {
+    path: routerConfig.dapp.applyPattern(),
+    component: () => import("src/pages/dapp/apply/index.vue"),
+  },
 ];
 
 export default routes;

@@ -111,4 +111,11 @@ export class Router {
       query,
     };
   }
+  //  申请页面
+  apply() {
+    return config.dappApply;
+  }
+  applyPattern() {
+    return this.apply();
+  }
 }
