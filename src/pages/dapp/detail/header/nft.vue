@@ -30,7 +30,7 @@ defineProps({
 });
 
 const isHeaderEmpty = function (data: ProjectItem): boolean {
-  const price = safeGet<number>(data, "floor_price");
+  const price = safeGet<number>(data, "price");
   return getNotEmptySize(price) <= 0;
 };
 
