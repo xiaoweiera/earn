@@ -17,7 +17,7 @@ const Router = function () {
   const patch = ExpressRouter();
 
   // 旧快讯列表
-  patch.get("/news", function (req: Request, res: Response) {
+  patch.get("/news", (req: Request, res: Response) => {
     // 跳转到新路由
     redirect(req, res, routerConfig.quota.signalsList());
   });
@@ -36,7 +36,10 @@ const Router = function () {
     }
   });
 
-  patch.get("/dapp/discover", function (req: Request, res: Response) {
+  patch.get("/dapp", (req: Request, res: Response) => {
+    redirect(req, res, routerConfig.dapp.idoList());
+  });
+  patch.get("/dapp/discover", (req: Request, res: Response) => {
     const igo = safeGet<boolean>(req.query, "igo");
     if (igo) {
       redirect(req, res, routerConfig.dapp.igoList());
@@ -44,7 +47,7 @@ const Router = function () {
       redirect(req, res, routerConfig.dapp.idoList());
     }
   });
-  patch.get("/nft/discover", function (req: Request, res: Response) {
+  patch.get("/nft/discover", (req: Request, res: Response) => {
     redirect(req, res, routerConfig.dapp.nftList());
   });
 

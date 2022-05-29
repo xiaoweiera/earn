@@ -83,7 +83,7 @@ const isLayout2 = function (path: string) {
           </div>
         </ui-sticky>
         <div class="router-view">
-          <div v-if="isLayout2($route.path)">
+          <div v-if="isLayout2($route.path)" class="hidden md:block">
             <MenuSub :header="currMenu()" />
           </div>
           <router-view />
