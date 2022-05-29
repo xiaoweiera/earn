@@ -33,7 +33,7 @@ export class Router {
 
   // game 相关
   gameList() {
-    return config.igo;
+    return config.rankGame;
   }
 
   gameDetail(id: string | number, query?: object) {
@@ -53,7 +53,7 @@ export class Router {
 
   // defi 相关
   defiList() {
-    return config.nft;
+    return config.rankDefi;
   }
 
   defiDetail(id: string | number, query?: object) {
@@ -73,7 +73,7 @@ export class Router {
 
   // nft 相关
   nftList() {
-    return config.airdrop;
+    return config.rankNft;
   }
 
   nftDetail(id: string | number, query?: object) {

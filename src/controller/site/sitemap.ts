@@ -9,7 +9,7 @@ import type { Env } from "src/config";
 import { languageKey } from "src/config";
 import { Language } from "src/types/language";
 import { createHref } from "src/plugins/router/pack";
-import { config as routerConfig } from "src/router/config";
+import { config as routerOption, routerConfig } from "src/router/config";
 
 enum Change {
   always = "always", // 随时更新
@@ -33,107 +33,107 @@ export const sitemap = function (env: Env): Site[] {
   const list: Site[] = [
     {
       // 首页
-      loc: routerConfig.home,
+      loc: routerOption.home,
       lastmod: today,
       changefreq: Change.daily,
       priority: 0.3,
     },
     {
       // 数据报表
-      loc: routerConfig.topic,
+      loc: routerOption.topic,
       changefreq: Change.weekly,
       priority: 1,
     },
     {
       // growthpad
-      loc: routerConfig.growthpad,
+      loc: routerOption.growthpad,
       priority: 1,
     },
     {
       // 博客
-      loc: routerConfig.blog,
+      loc: routerOption.blog,
       lastmod: today,
       changefreq: Change.daily,
       priority: 0.7,
     },
     {
       // 指标异动
-      loc: routerConfig.news,
+      loc: routerOption.news,
       lastmod: today,
       changefreq: Change.hourly,
       priority: 0.3,
     },
     {
       // 推荐指标
-      loc: routerConfig.quota,
+      loc: routerOption.quota,
       changefreq: Change.weekly,
       priority: 1,
     },
     {
       // 投融资
-      loc: routerConfig.invest,
+      loc: routerOption.invest,
       changefreq: Change.daily,
       lastmod: today,
       priority: 0.5,
     },
     {
       // 空投
-      loc: routerConfig.airdrop,
+      loc: routerConfig.dapp.airdropList(),
       changefreq: Change.daily,
       lastmod: today,
       priority: 0.5,
     },
     {
       // DApp 列表
-      loc: routerConfig.dappList,
+      loc: routerConfig.dapp.idoList(),
       changefreq: Change.daily,
       lastmod: today,
       priority: 0.5,
     },
     {
       // IGO 列表
-      loc: `${routerConfig.dappList}?igo=true`,
+      loc: routerConfig.dapp.igoList(),
       changefreq: Change.daily,
       lastmod: today,
       priority: 0.5,
     },
     {
       // NFT 列表
-      loc: routerConfig.nftList,
+      loc: routerConfig.dapp.nftList(),
       changefreq: Change.daily,
       lastmod: today,
       priority: 0.5,
     },
     {
       // 大户地址
-      loc: routerConfig.address,
+      loc: routerOption.address,
       changefreq: Change.weekly,
       priority: 1,
     },
     {
       // DApp 排行榜
-      loc: `/rank${routerConfig.dapp}`,
+      loc: routerConfig.rank.dappList(),
       changefreq: Change.daily,
       lastmod: today,
       priority: 0.7,
     },
     {
       // NFT 排行榜
-      loc: "/rank/nft",
+      loc: routerConfig.rank.nftList(),
       changefreq: Change.daily,
       lastmod: today,
       priority: 0.7,
     },
     {
       // game 排行榜
-      loc: "/rank/game",
+      loc: routerConfig.rank.gameList(),
       changefreq: Change.daily,
       lastmod: today,
       priority: 0.7,
     },
     {
       // defi 排行榜
-      loc: "/rank/defi",
+      loc: routerConfig.rank.defiList(),
       changefreq: Change.daily,
       lastmod: today,
       priority: 0.7,
