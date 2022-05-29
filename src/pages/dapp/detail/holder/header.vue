@@ -89,7 +89,7 @@ const getClassColor = (v: any) => (v === undefined || v >= 0 ? "text-global-numG
         <div class="h-8 flex justify-between items-center">
           <div class="text-18-24 font-b text-global-highTitle font-kdFang">{{ i18n.dapp.detail.holder.blueChip }}</div>
           <div v-if="data.holdersFromBlueChipRank" class="rank">
-            <span class="rank-tips">{{ data.holdersFromBlueChipRank }}</span>
+            <span class="rank-tips">#{{ data.holdersFromBlueChipRank }}</span>
           </div>
           <!--          <ui-hover class="rank-hover cursor-pointer flex rounded-kd6px" placement="top" :append-to-body="false">-->
           <!--            <template #label>-->
