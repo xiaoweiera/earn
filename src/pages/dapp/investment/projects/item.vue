@@ -2,10 +2,12 @@
 import { PropType } from "vue";
 import I18n from "src/utils/i18n";
 import { ProjectItem } from "src/types/dapp/invest";
-import { toNumberCashFormat, getEnDateMDY } from "src/utils/";
-import { config } from "src/router/config";
+import { toNumberCashFormat, getEnDateMDY, AnyEquals } from "src/utils/";
+import { config, routerConfig } from "src/router/config";
 import document from "src/plugins/browser/document";
 import { ElButton } from "element-plus";
+import safeGet from "@fengqiaogang/safe-get";
+import { DAppType } from "src/types/dapp/dapp";
 
 defineProps({
   data: {
@@ -27,11 +29,15 @@ const getCount = function (data: number) {
     }
   }
 };
+const getUrl = function (data: object) {
+  const id = safeGet<string>(data, "project.id");
+  return routerConfig.dapp.fundsDetail(id);
+};
 </script>
 
 <template>
   <div class="min-h-94.5 p-1.5 bg-global-white border-1 border-global-highTitle border-opacity-6 rounded-md">
-    <v-router :href="`${config.funds}/${data.project.id}`" target="_blank" name="div">
+    <v-router :href="getUrl(data)" target="_blank" name="div">
       <!-- 头部 -->
       <div>
         <p class="h-11.25 rounded-md bg-global-numGreen bg-opacity-12 flex items-center justify-center">
@@ -103,7 +109,7 @@ const getCount = function (data: number) {
       </div>
       <!-- 更多 -->
       <div class="w-full mt-2">
-        <v-router class="block" :href="`${config.funds}/${data.project.id}`" target="_blank">
+        <v-router class="block" :href="getUrl(data)" target="_blank">
           <client-only>
             <el-button class="w-full" type="primary" size="large">
               <span class="text-kd16px22px font-medium font-kdFang">{{ i18n.invest.project.learnMore }}</span>

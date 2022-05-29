@@ -112,6 +112,8 @@ const Router = function () {
   dApp.dAppDetail(router, routerConfig.dapp.nftDetailPattern(), ProjectType.mint);
   // airdrop 详情
   dApp.dAppDetail(router, routerConfig.dapp.airdropDetailPattern(), ProjectType.airdrop);
+  // 投资动向 详情
+  dApp.dAppDetail(router, routerConfig.dapp.fundsDetailPattern(), ProjectType.funds);
   return router;
 };
 export default Router;

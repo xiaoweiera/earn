@@ -95,19 +95,20 @@ export class Router {
   investList() {
     return config.invest;
   }
-
-  investDetail(id: string | number, query?: object) {
-    return {
-      path: `${this.investList()}/${id}`,
-      query,
-    };
-  }
-
   investListPattern() {
     return this.investList();
   }
-
-  investDetailPattern() {
-    return `${this.investListPattern()}/:id`;
+  //投资动向详情
+  fundsList() {
+    return config.funds;
+  }
+  fundsDetailPattern() {
+    return `${this.fundsList()}/:id`;
+  }
+  fundsDetail(id: string | number, query?: object) {
+    return {
+      path: `${this.fundsList()}/${id}`,
+      query,
+    };
   }
 }
