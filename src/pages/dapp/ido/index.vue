@@ -113,7 +113,7 @@ onMounted(function () {
 </script>
 
 <template>
-  <div class="max-w-full w-250 mx-auto py-6 px-4">
+  <div class="max-w-315 mx-auto py-6 px-3 md:px-22.5">
     <!-- 头部 -->
     <div class="header mb-6">
       <template v-if="name === DAppType.ido">
@@ -196,7 +196,7 @@ onMounted(function () {
         <template #default="scope">
           <div v-if="query.activity_stage === TabTypes.ended" class="overflow-x-scroll showX">
             <div class="w-315">
-              <DAppDiscoversEndList :params="sort" class="px-4" :list="scope.list" :name="name" @change-sort="changeSort" />
+              <DAppDiscoversEndList :params="sort" :list="scope.list" :name="name" @change-sort="changeSort" />
             </div>
           </div>
           <div v-else class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
