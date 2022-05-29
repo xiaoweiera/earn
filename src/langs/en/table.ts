@@ -118,5 +118,5 @@ export default {
   final_clout: "", //年度榜单活动截止时刻的总打分人数
   whalesRatio: "WhalesRatio", // 巨鲸人数占总holders的比例
   volumeWithWhalesRatio: "volumeWithWhalesRatio", //所有巨鲸持仓量总量占总供应量
-  VolumeWithBlueChipHolderRatio: "VolumeWithBlueChipHolderRatio", //蓝筹持仓占比
+  volumeWithBlueChipHolderRatio: "VolumeWithBlueChipHolderRatio", //蓝筹持仓占比
 };
