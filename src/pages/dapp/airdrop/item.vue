@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { PropType } from "vue";
 import { DataItem } from "src/types/dapp/airdrop";
-import { config } from "src/router/config";
+import { config, routerConfig } from "src/router/config";
 import I18n from "src/utils/i18n";
 import { size, toNumberCash, toInteger, dateNow, dateYMDFormat, isBefore, isAfter, dateDiffData, toFixed } from "src/utils";
+import safeGet from "@fengqiaogang/safe-get";
+import { TabName } from "src/types/dapp/detail";
 
 defineProps({
   data: {
@@ -42,8 +44,11 @@ const timeValue = function (data: DataItem) {
   return `${dateYMDFormat(data.airdrop_start_at)} - ${dateYMDFormat(data.airdrop_end_at)}`;
 };
 const detailLink = function (data: DataItem) {
-  if (data.id) {
-    return `${config.airdrop}/${data.id}`;
+  const id = safeGet<string>(data, "id");
+  if (isAfter(data.airdrop_start_at) || isAfter(data.airdrop_end_at)) {
+    return routerConfig.dapp.airdropDetail(id, { tab: TabName.airdrop });
+  } else {
+    return routerConfig.dapp.airdropDetail(id);
   }
   return null;
 };

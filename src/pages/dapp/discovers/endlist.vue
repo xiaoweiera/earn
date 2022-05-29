@@ -2,8 +2,13 @@
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getClassColor, getTegLog, getTegUrl } from "src/logic/dapp";
 import { IdoHeader } from "src/logic/dapp/config";
-import { toFixed } from "src/utils";
+import { AnyEquals, toFixed } from "src/utils";
 import VRouter from "src/components/v/router.vue";
+import safeGet from "@fengqiaogang/safe-get";
+import { DAppType } from "src/types/dapp/dapp";
+import { routerConfig } from "src/router/config";
+import { TabName } from "src/types/dapp/detail";
+import { PropType } from "vue";
 
 const emit = defineEmits(["changeSort"]);
 const props = defineProps({
@@ -16,6 +21,10 @@ const props = defineProps({
     default: () => {
       return {};
     },
+  },
+  name: {
+    type: String as PropType<DAppType>,
+    required: true,
   },
 });
 // 排序
@@ -33,6 +42,14 @@ const getIcon = (item: string) => {
     return sortIcon[props?.params?.sort_type];
   }
   return "icon-shuangxiangjiantou";
+};
+
+const getUrl = function (data: object) {
+  const id = safeGet<string>(data, "id");
+  if (AnyEquals(props.name, DAppType.igo)) {
+    return routerConfig.dapp.igoDetail(id);
+  }
+  return routerConfig.dapp.idoDetail(id);
 };
 </script>
 <template>
@@ -52,7 +69,7 @@ const getIcon = (item: string) => {
       </thead>
       <tbody>
         <template v-for="(item, index) in list" :key="index">
-          <v-router v-if="item.data_type !== 'ad'" class="w-full h-14 hand" :href="item.website" target="_blank" name="tr">
+          <v-router v-if="item.data_type !== 'ad'" class="w-full h-14 hand" :href="getUrl(item)" target="_blank" name="tr">
             <td>
               <div class="flex-center">
                 <ui-image class="w-8 h-8 text-12-12 font-kdInter" rounded :src="item.logo" :title="item.name" />

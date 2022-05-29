@@ -41,7 +41,7 @@ export default defineComponent({
       // const data = this.data;
       const type: ProjectType = this.project.type;
       const rank = this.project.rank;
-      if (type && (type === ProjectType.dapp || type === ProjectType.igo)) {
+      if (type && (type === ProjectType.ido || type === ProjectType.igo)) {
         if (rank) {
           return "DApp";
         } else {
@@ -53,7 +53,7 @@ export default defineComponent({
         } else {
           return "AirDrop";
         }
-      } else if (type && type === ProjectType.nft) {
+      } else if (type && type === ProjectType.mint) {
         if (rank) {
           return "NFT";
         } else {

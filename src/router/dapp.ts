@@ -104,8 +104,12 @@ const routes = [
     component: () => import("src/pages/dapp/investment/index.vue"),
   },
   {
-    path: routerConfig.dapp.investDetailPattern(),
-    component: () => import("src/pages/dapp/investment/detail/index.vue"),
+    path: routerConfig.dapp.fundsDetailPattern(),
+    component: () => import("src/pages/dapp/detail/index.vue"),
+  },
+  {
+    path: routerConfig.dapp.applyPattern(),
+    component: () => import("src/pages/dapp/apply/index.vue"),
   },
 ];
 

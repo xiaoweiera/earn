@@ -9,6 +9,7 @@ import DAppDiscoversContentTime from "./time.vue";
 import { routerConfig } from "src/router/config";
 
 import { DAppType } from "src/types/dapp/dapp";
+import { TabName } from "src/types/dapp/detail";
 import type { PropType } from "vue";
 
 const props = defineProps({
@@ -31,9 +32,9 @@ const props = defineProps({
 const getUrl = function (data: object) {
   const id = safeGet<string>(data, "id");
   if (AnyEquals(props.name, DAppType.igo)) {
-    return routerConfig.dapp.igoDetail(id);
+    return routerConfig.dapp.igoDetail(id, { tab: TabName.igo });
   }
-  return routerConfig.dapp.idoDetail(id);
+  return routerConfig.dapp.idoDetail(id, { tab: TabName.ido });
 };
 </script>
 

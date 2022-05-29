@@ -1,11 +1,7 @@
-import _ from "lodash";
-import safeGet from "@fengqiaogang/safe-get";
 import { routerConfig } from "src/router/config";
 import * as dApp from "src/controller/dapp";
-import { redirect } from "src/controller/common/redirect";
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response } from "express";
 import { Router as ExpressRouter } from "express";
-import { TabTypes } from "src/types/dapp/airdrop";
 import { ProjectType } from "src/types/dapp/data";
 
 import { DAppType } from "src/types/dapp/dapp";
@@ -104,6 +100,7 @@ const Router = function () {
   router.get(routerConfig.dapp.investListPattern(), function (req: Request, res: Response) {
     return DAppList(DAppType.invest, req, res);
   });
+
   // ido 详情
   dApp.dAppDetail(router, routerConfig.dapp.idoDetailPattern(), ProjectType.ido);
   // igo 详情
@@ -112,6 +109,8 @@ const Router = function () {
   dApp.dAppDetail(router, routerConfig.dapp.nftDetailPattern(), ProjectType.mint);
   // airdrop 详情
   dApp.dAppDetail(router, routerConfig.dapp.airdropDetailPattern(), ProjectType.airdrop);
+  // 投资动向 详情
+  dApp.dAppDetail(router, routerConfig.dapp.fundsDetailPattern(), ProjectType.funds);
   return router;
 };
 export default Router;

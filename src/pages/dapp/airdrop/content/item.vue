@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { PropType } from "vue";
 import { DataItem } from "src/types/dapp/airdrop";
-import { config } from "src/router/config";
+import { config, routerConfig } from "src/router/config";
 import I18n from "src/utils/i18n";
 import { size, toNumberCashPre, toInteger, dateNow, dateYMDFormat, isBefore, isAfter, dateDiffData, toFixed } from "src/utils";
 import { decorate } from "src/logic/dapp/airdrop";
+import safeGet from "@fengqiaogang/safe-get";
+import { TabName } from "src/types/dapp/detail";
 
 defineProps({
   data: {
@@ -44,10 +46,11 @@ const timeValue = function (data: DataItem) {
 };
 
 const detailLink = function (data: DataItem) {
+  const id = safeGet<string>(data, "id");
   if (isAfter(data.airdrop_start_at) || isAfter(data.airdrop_end_at)) {
-    return `${config.airdrop}/${data.id}`;
+    return routerConfig.dapp.airdropDetail(id, { tab: TabName.airdrop });
   } else {
-    return `${config.airdrop}/${data.id}`;
+    return routerConfig.dapp.airdropDetail(id);
   }
   return null;
 };

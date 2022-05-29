@@ -3,9 +3,10 @@ import { PropType, ref } from "vue";
 import I18n from "src/utils/i18n";
 import VRouter from "src/components/v/router.vue";
 import { InvestItem } from "src/types/dapp/invest";
-import { config } from "src/router/config";
+import { config, routerConfig } from "src/router/config";
 import document from "src/plugins/browser/document";
 import { ElButton } from "element-plus";
+import safeGet from "@fengqiaogang/safe-get";
 
 const list = ref<any[]>([]);
 list.value = new Array(19).fill("");
@@ -29,6 +30,10 @@ const getCount = function (data: number) {
       return `+${data - 14}`;
     }
   }
+};
+const getUrl = function (data: object) {
+  const id = safeGet<string>(data, "id");
+  return routerConfig.dapp.fundsDetail(id);
 };
 </script>
 
@@ -61,7 +66,7 @@ const getCount = function (data: number) {
         <div :class="{ overlap: data.top_projects.length > 9 }" class="w-full mt-2 px-1.5 group-list">
           <div class="w-full min-h-11.5 py-2 pl-1.5 border-t-1 border-b-1 border-global-highTitle border-opacity-6 flex justify-center items-center">
             <template v-for="(item, index) in data.top_projects" :key="item.id">
-              <v-router class="block p-0.5 group-item bg-global-white rounded-1/2" :style="`z-index:${index}`" :href="`${config.funds}/${item.id}`" target="_blank">
+              <v-router class="block p-0.5 group-item bg-global-white rounded-1/2" :style="`z-index:${index}`" :href="getUrl(item)" target="_blank">
                 <ui-image class="w-6 h-6 font-kdInter text-12-12 text-global-white" rounded fit="cover" :src="item.logo" :title="item.name" />
               </v-router>
             </template>

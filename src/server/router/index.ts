@@ -10,6 +10,7 @@ import redirect from "src/controller/common/redirect";
 import { config as routerConfig } from "src/router/config";
 import type { Request, Response } from "express";
 import { Router as ExpressRouter } from "express";
+import patch from "./patch";
 import user from "./user";
 import dApp from "./dapp";
 import home from "./home";
@@ -42,6 +43,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(instructions());
   //用户需知
   router.use(policys());
+  // 路由兼容
+  router.use(patch());
   // 榜单
   router.use(rank());
   // 装载 DApp 相关路由
