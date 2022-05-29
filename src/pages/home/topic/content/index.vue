@@ -84,7 +84,7 @@ export default defineComponent({
       return status;
     },
     getStyle: function (type: string) {
-      const wfull = ["chartLine", "chartBar", "progress"];
+      const wfull = ["chartLine", "chartBar", "progress", "text", "desc"];
       if (wfull.includes(type)) {
         return "width:100%";
       }

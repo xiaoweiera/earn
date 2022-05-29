@@ -16,5 +16,5 @@ defineProps({
 </script>
 
 <template>
-  <ui-image class="w-8 h-8" :src="data[field]" rounded />
+  <ui-image class="w-8 h-8" :src="data[field]" :title="data['name']" rounded />
 </template>

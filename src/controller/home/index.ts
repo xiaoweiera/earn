@@ -17,7 +17,7 @@ export const begin = async function (req: Request, res: Response) {
     category: "NFT",
     page: 1,
     page_size: 10,
-    recommended: true,
+    is_carousel: true,
   };
   const [ads, topicRank, trend] = await Promise.all([api.getAdList(25), api.getRankTopic(topicParam), api.getTrend()]);
   const result = {
