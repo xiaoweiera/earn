@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import document from "src/plugins/browser/document";
 import { oss } from "src/config";
 // 引入 swiper vue 组件
@@ -9,10 +9,13 @@ import SwiperCore, { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import { createRef, onLoadRef } from "src/utils/ssr/ref";
+import { onLoadReactive } from "src/utils/ssr/ref";
 import { Model } from "src/logic/home";
 import I18n from "src/utils/i18n";
 import { config } from "src/router/config";
+import safeGet from "@fengqiaogang/safe-get";
+import window from "src/plugins/browser/window";
+import { createHref } from "src/plugins/router/pack";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
 defineProps({
@@ -21,12 +24,13 @@ defineProps({
     default: () => true,
   },
 });
+const api = new Model();
 const i18n = I18n();
-const params = {
+const params = reactive({
   page: 1,
-  page_size: 100,
-  show_commercial: true,
-};
+  page_size: 50,
+  is_recommendation: true,
+});
 const isBegin = ref(true);
 const isEnd = ref(false);
 // 下一页
@@ -43,28 +47,30 @@ const init = (swiper: any) => {
     isEnd.value = swiper.isEnd;
   });
 };
-
-const recommend = createRef("API.home.getRecommend", []);
-const getImg = (type: string, item: any) => {
-  if (type === "topic") {
-    return item.cover;
+const rank = reactive({});
+const recommend = ref([]);
+// row跳转
+const toProject = (row: any) => {
+  if (!row.id) return;
+  let url = "";
+  if (row.category === "NFT") {
+    url = `/rank/nft/${row.id}`;
+  } else {
+    url = `/rank/dapp/${row.id}`;
   }
-  return item.image;
+  return createHref(url);
 };
-const getHref = (type: string, item: any) => {
-  if (type === "topic") {
-    return `${config.homeDetail}/${item.id}`;
-  }
-  return item.url;
+const getData = async () => {
+  const res: any = await api.getRankTopic(params);
+  recommend.value = safeGet(res, "items");
 };
 onMounted(() => {
-  const api = new Model();
   // 得到数据汇总
-  onLoadRef(recommend, () => api.getRecommend(params));
+  getData();
 });
 </script>
 <template>
-  <div v-if="recommend.length > 0">
+  <div v-if="recommend && recommend.length > 0">
     <div v-if="isShowTitle" class="mb-3 com-container font-kdSemiBold font-semibold">{{ i18n.home.hotTopic }}</div>
     <div class="relative">
       <div class="w-full">
@@ -74,13 +80,13 @@ onMounted(() => {
         <Swiper v-if="recommend.length > 0" class="h-full swiper-recom" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="getHref(item['data_type'], item)" target="_blank" class="item-card rounded-kd6px overflow-hidden">
+              <v-router :href="toProject(item)" target="_blank" class="item-card rounded-kd6px overflow-hidden">
                 <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute z-5" />
                 <div class="info relative z-10 pt-8">
-                  <div class="name font-kdSemiBold">{{ item.name }}</div>
+                  <div class="name font-kdSemiBold">{{ item["title"] }}</div>
                   <div class="bottom-bg"></div>
                 </div>
-                <ui-image class="rounded-kd6px w-full h-full" :src="getImg(item['data_type'], item)" fit="cover" />
+                <ui-image class="rounded-kd6px w-full h-full" :src="item['cover_url']" fit="cover" />
               </v-router>
             </SwiperSlide>
           </template>

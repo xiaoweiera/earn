@@ -16,10 +16,10 @@ onMounted(() => {
   <div class="py-4">
     <div class="md:max-w-360 mx-auto px-4 md:px-20">
       <div class="max-w-315 mx-auto">
-        <CommonTopics class="mb-4 md:mb-6" :is-show-title="false" />
         <client-only>
+          <CommonTopics class="mb-4 md:mb-6" :is-show-title="false" />
           <Ad :position="24" class="my-4 md:my-6" />
-          <Table :id="133" :limit="50" />
+          <Table :id="2" :limit="50" />
         </client-only>
       </div>
     </div>
