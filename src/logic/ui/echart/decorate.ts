@@ -2,14 +2,15 @@
  * @file 数据处理
  * @author svon.me@gmail.com
  */
-import _ from "lodash";
 import DBList from "@fengqiaogang/dblist";
 import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
-import { ProjectType } from "src/types/echarts/data";
+import _ from "lodash";
+import { ProjectType, TimeUnit } from "src/types/echarts/data";
 import type { LegendItem, YAxis } from "src/types/echarts/type";
 import { EchartData, SeriesType } from "src/types/echarts/type";
-import { isEmpty, AnyEquals, convertInterval, dateFormat, dateTime, dateYMDFormat, dateYMDHmFormat, isObject, uuid, toArray } from "src/utils/";
+
+import { AnyEquals, convertInterval, dateFormat, dateTime, dateYMDFormat, dateYMDHmFormat, isEmpty, isObject, toArray, uuid } from "src/utils/";
 
 // 对 API 返回的 echart 数据进行二次处理
 export const echartTransform = function (trends?: EchartData): EchartData | undefined {
@@ -40,7 +41,7 @@ export const echartTransform = function (trends?: EchartData): EchartData | unde
 
     const xAxis = _.map(trends.xAxis, function (date: number) {
       const time = dateTime(date);
-      if (interval.type === "h") {
+      if (trends.timeUnit === TimeUnit.hour || interval.type === "h") {
         const date = dateYMDHmFormat(time);
         return {
           time,
@@ -99,6 +100,7 @@ export const echartTransform = function (trends?: EchartData): EchartData | unde
       xAxis,
       series,
       key: uuid(),
+      timeUnit: trends.timeUnit || TimeUnit.day,
       legends: _.map(legends, function (item: object, index: number) {
         const list: object[] = series[index] as any;
         for (let i = list.length - 1; i >= 0; i--) {
