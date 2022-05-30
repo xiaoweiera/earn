@@ -52,20 +52,11 @@ const getRouterName = function (text: string): Name {
 <template>
   <div class="quota-detail">
     <div v-if="isList && data.chart" class="mb-1 flex justify-between items-center">
-      <!-- 标题 -->
-      <template v-if="data.title">
-        <!--显示快讯标题-->
-        <v-router class="block quota-title text-global-black-title" :href="getLink(data)" target="_blank">
-          <h3 class="text-16-24 font-b truncate">{{ data.title }}</h3>
-        </v-router>
-      </template>
-      <template v-else>
-        <!--显示指标标题-->
-        <v-router class="quota-title text-global-black-title flex-1 w-1 flex items-center" :href="getIndicator(data)" target="_blank">
-          <h3 class="text-16-24 font-b truncate">{{ data.chart.name }}</h3>
-          <icon-vip class="ml-1" :type="data.chart.chart_type" />
-        </v-router>
-      </template>
+      <!--显示指标标题-->
+      <v-router class="quota-title text-global-black-title flex-1 w-1 flex items-center" :href="getIndicator(data)" target="_blank">
+        <h3 class="text-16-24 font-b truncate">{{ data.chart.name }}</h3>
+        <icon-vip class="ml-1" :type="data.chart.chart_type" />
+      </v-router>
       <div class="quota-follow ml-2">
         <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />
       </div>
