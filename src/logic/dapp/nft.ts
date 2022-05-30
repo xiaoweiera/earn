@@ -84,34 +84,3 @@ export const getUiTabList = (list: string[], key: string, name: string) => {
     }, arr);
   };
 };
-
-export const getOptionList = (list: string[], key: string) => {
-  const query = getParam<object>();
-  const array: object[] = [
-    {
-      name: "All",
-      [key]: "all",
-      href: {
-        path: getValue("url"),
-        query: {
-          ...query,
-          [key]: "all",
-        },
-      },
-    },
-  ];
-  for (const value of list) {
-    array.push({
-      name: value,
-      [key]: value,
-      href: {
-        path: getValue("url"),
-        query: {
-          ...query,
-          [key]: value,
-        },
-      },
-    });
-  }
-  return array;
-};
