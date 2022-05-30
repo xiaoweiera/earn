@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getLog, getNextUrl } from "src/logic/dapp";
+import { getLog } from "src/logic/dapp";
 import { toFixed } from "src/utils";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { nftHeader } from "src/logic/dapp/config";

@@ -126,3 +126,7 @@ export const upload = {
 export const chart = {
   dapp: "/api/v1/bff/dapp/projects/{id}/charts",
 };
+
+export const wx = {
+  info: "/api/v1/wechat/sign", //微信签名
+};

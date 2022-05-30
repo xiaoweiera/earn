@@ -1,32 +1,32 @@
 <script lang="ts" setup>
-import _ from "lodash";
-import { computed, toRaw } from "vue";
-import * as quota from "src/types/quota/";
-import safeGet from "@fengqiaogang/safe-get";
+// import _ from "lodash";
+// import { computed, toRaw } from "vue";
+// import * as quota from "src/types/quota/";
+// import safeGet from "@fengqiaogang/safe-get";
 import { toNumberCash, toNumberCashFormat } from "src/utils/";
 
-const props = defineProps({
+defineProps({
   value: {
     type: Object,
     required: true,
   },
 });
 
-const onCustom = function (data: object) {
-  return data;
-};
+// const onCustom = function (data: object) {
+//   return data;
+// };
 
-const chartData = computed(function () {
-  const data = safeGet<quota.TrendData>(props.value, "trends.data");
-  const name: Array<any> = [];
-  const list: Array<any> = [];
-  _.forEach(toRaw(data), function (item: number[]) {
-    const [time, value] = item;
-    name.push(time);
-    list.push(value);
-  });
-  return { name, list };
-});
+// const chartData = computed(function () {
+//   const data = safeGet<quota.TrendData>(props.value, "trends.data");
+//   const name: Array<any> = [];
+//   const list: Array<any> = [];
+//   _.forEach(toRaw(data), function (item: number[]) {
+//     const [time, value] = item;
+//     name.push(time);
+//     list.push(value);
+//   });
+//   return { name, list };
+// });
 </script>
 
 <template>

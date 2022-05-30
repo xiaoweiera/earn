@@ -10,7 +10,7 @@ import { DAppProject } from "src/types/dapp/data";
 import { getTitle } from "src/pages/home/topic/data";
 import { getClassColor, getIcon } from "src/logic/dapp";
 
-const props = defineProps({
+defineProps({
   data: {
     required: true,
     type: Object as PropType<ProjectItem>,
