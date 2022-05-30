@@ -17,6 +17,7 @@ import I18n from "src/utils/i18n";
 import type { SiteConfig } from "src/types/common/chain";
 import window from "src/plugins/browser/window";
 import { createHref } from "src/plugins/router/pack";
+
 const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const i18n = I18n();
 const env = getEnv();
@@ -106,7 +107,9 @@ onMounted(() => {
                         </div>
                       </div>
                       <div class="relative z-30">
-                        <div class="max-w-30.5 text-kd14px14px text-global-white font-kdBarlow whitespace-nowrap short">{{ safeGet(item, "payload.project.name") }}</div>
+                        <div class="max-w-30.5 text-kd14px14px text-global-white font-kdBarlow whitespace-nowrap short">
+                          {{ safeGet(item, "payload.project.name") }}
+                        </div>
                         <div class="relative mt-2 flex">
                           <span :class="isDapp(item) ? 'bg-global-primary' : 'bg-global-money'" class="chain-coin mr-2">{{ isDapp(item) ? "DAPP" : "NFT" }}</span>
                           <span v-if="getChain(item).id" class="chain-tip">{{ safeGet(getChain(item), "name") }}</span>
