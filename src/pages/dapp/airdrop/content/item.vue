@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropType } from "vue";
 import { DataItem } from "src/types/dapp/airdrop";
-import { config, routerConfig } from "src/router/config";
+import { routerConfig } from "src/router/config";
 import I18n from "src/utils/i18n";
 import { size, toNumberCashPre, toInteger, dateNow, dateYMDFormat, isBefore, isAfter, dateDiffData, toFixed } from "src/utils";
 import { decorate } from "src/logic/dapp/airdrop";

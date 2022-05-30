@@ -8,14 +8,9 @@ import { getParam } from "src/utils/router";
 import { routerConfig } from "src/router/config";
 import { getValue } from "src/utils/root/data";
 import { TabTypes } from "./dapp";
-import * as R from "ramda";
-import safeGet from "@fengqiaogang/safe-get";
-import { SiteConfig } from "src/types/common/chain";
-import * as alias from "src/utils/root/alias";
 
 export { TabTypes } from "./dapp";
 
-const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = "All";
 
 export const getAll = function () {
@@ -59,7 +54,7 @@ export const getTabList = function () {
   };
 };
 
-export const getUiTabList = (list: string[], key: string, name: string) => {
+export const getUiTabList = (list: string[], key: string) => {
   return function () {
     const query = getParam<object>();
     const array: object[] = [

@@ -3,7 +3,6 @@ import DAppAirdropItem from "src/pages/dapp/airdrop/content/item.vue";
 import DAppAirdropEmpty from "src/pages/dapp/airdrop/content/empty.vue";
 import I18n from "src/utils/i18n";
 import { getAirdropList } from "src/logic/dapp";
-import { TabTypes } from "src/types/dapp/airdrop";
 import { alias } from "src/utils/ssr/ref";
 import { getCacheList } from "src/logic/dapp/airdrop";
 import { useRoute } from "vue-router";

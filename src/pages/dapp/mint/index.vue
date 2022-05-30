@@ -136,13 +136,13 @@ const changeSort = function (val: any) {
                     <span class="whitespace-nowrap">{{ i18n.home.topList.category }}</span>
                   </div>
                   <div class="flex chain-tab">
-                    <ui-tab :list="getUiTabList(Categories, 'category', 'category')" active-name="category" :split="2" />
+                    <ui-tab :list="getUiTabList(Categories, 'category')" active-name="category" :split="2" />
                   </div>
                 </div>
               </div>
               <!--公链-->
               <client-only v-if="size(Chains) > 0" class="chain-content select">
-                <ui-tab-select :label="i18n.home.idoIgoProject.chain" :list="getUiTabList(Chains, 'chain', 'chain')" active-name="chain" />
+                <ui-tab-select :label="i18n.home.idoIgoProject.chain" :list="getUiTabList(Chains, 'chain')" active-name="chain" />
               </client-only>
             </div>
             <!-- 搜索框 -->
@@ -159,7 +159,7 @@ const changeSort = function (val: any) {
         <div class="block lg:hidden flex items-center">
           <!--公链-->
           <client-only v-if="size(Chains) > 0" class="chain-content w-1/2 select">
-            <ui-tab-select :label="i18n.home.idoIgoProject.chain" :list="getUiTabList(Chains, 'chain', 'chain')" active-name="chain" />
+            <ui-tab-select :label="i18n.home.idoIgoProject.chain" :list="getUiTabList(Chains, 'chain')" active-name="chain" />
           </client-only>
           <IconFont v-if="Chains" size="24" class="text-global-highTitle text-opacity-10 mx-2 relative h-full" type="icon-gang" />
           <client-only class="w-1/2 input-style">

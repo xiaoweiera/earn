@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Table from "src/pages/home/topic/table.vue";
+// import Table from "src/pages/home/topic/table.vue";
 import Ad from "src/pages/home/ad.vue";
 import CommonTopics from "src/pages/home/recommend.vue";
 import { onMounted } from "vue";

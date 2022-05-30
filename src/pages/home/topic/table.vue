@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { isBoolean } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
 import { ElTable, ElTableColumn, ElInput, ElPopover } from "element-plus";
 import HomeFilter from "src/pages/home/filter.vue";
@@ -17,7 +16,6 @@ import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import window from "src/plugins/browser/window";
 import { createHref } from "src/plugins/router/pack";
 import { Model } from "src/logic/home";
-import I18n from "src/utils/i18n";
 
 const props = defineProps({
   id: {

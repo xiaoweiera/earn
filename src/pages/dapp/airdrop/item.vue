@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { PropType } from "vue";
 import { DataItem } from "src/types/dapp/airdrop";
-import { config, routerConfig } from "src/router/config";
+import { routerConfig } from "src/router/config";
 import I18n from "src/utils/i18n";
 import { size, toNumberCash, toInteger, dateNow, dateYMDFormat, isBefore, isAfter, dateDiffData, toFixed } from "src/utils";
 import safeGet from "@fengqiaogang/safe-get";

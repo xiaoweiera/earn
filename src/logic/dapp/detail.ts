@@ -4,7 +4,6 @@
  */
 
 import API from "src/api";
-import { names } from "src/config/header";
 import { routerConfig } from "src/router/config";
 import type { DAppProject, DataQuery, TokenDataQuery, TokenQuery } from "src/types/dapp/data";
 import { ProjectItem, Progress, ProjectType, TabName } from "src/types/dapp/detail";

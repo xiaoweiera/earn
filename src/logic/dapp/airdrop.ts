@@ -5,7 +5,7 @@
 
 import { TabTypes } from "src/types/dapp/airdrop";
 import I18n from "src/utils/i18n";
-import { config, routerConfig } from "src/router/config";
+import { routerConfig } from "src/router/config";
 import { toLower, toUpper } from "ramda";
 import { isString } from "src/utils/check/is";
 import { AnyEquals } from "src/utils";

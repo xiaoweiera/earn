@@ -7,7 +7,7 @@ import { LegendDirection } from "src/types/echarts/type";
 import { DAppProject } from "src/types/dapp/data";
 import { getTitle } from "src/pages/home/topic/data";
 
-const props = defineProps({
+defineProps({
   project: {
     required: true,
     type: Object as PropType<DAppProject>,

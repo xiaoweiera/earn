@@ -2,12 +2,11 @@
 import { PropType } from "vue";
 import I18n from "src/utils/i18n";
 import { ProjectItem } from "src/types/dapp/invest";
-import { toNumberCashFormat, getEnDateMDY, AnyEquals } from "src/utils/";
+import { toNumberCashFormat, getEnDateMDY } from "src/utils/";
 import { config, routerConfig } from "src/router/config";
 import document from "src/plugins/browser/document";
 import { ElButton } from "element-plus";
 import safeGet from "@fengqiaogang/safe-get";
-import { DAppType } from "src/types/dapp/dapp";
 
 defineProps({
   data: {
