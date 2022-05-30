@@ -3,17 +3,16 @@
  * @author zhangkun@163.com
  */
 
-import * as api from "src/config/api";
-import { DefaultValue, get, required, tryError, userToken } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
-import type { WxQuery } from "src/types/wxchat";
+import * as api from "src/config/api";
+import type { WxConfig } from "src/types/wxchat";
+import { DefaultValue, get, required, tryError, userToken } from "src/plugins/dao/http";
 
 export default class extends ApiTemplate {
-  // 广告 banner 数据
-  @tryError(DefaultValue([])) // 处理默认值
-  @get(api.wx.info) // 定义一个 get 请求
+  @tryError(DefaultValue(null)) // 处理默认值
+  @get(api.wx.info)
   @userToken() // 不需要用户信息
-  getWxConfig<T>(@required query: WxQuery): Promise<T> {
+  getWxConfig(@required query: object): Promise<WxConfig> {
     // 返回参数
     return [query] as any;
   }

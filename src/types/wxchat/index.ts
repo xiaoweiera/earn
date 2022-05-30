@@ -13,11 +13,7 @@ export interface WxConfig {
 
 export interface ShareInfo {
   title: string; //分享标题
-  link?: string; //分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
-  imgUrl: string; //分享图标
+  link: string; //分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
   desc: string; //分享描述
-}
-
-export interface WxQuery {
-  url: string;
+  imgUrl?: string; //分享图标
 }
