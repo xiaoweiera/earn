@@ -8,7 +8,7 @@ import { AnyEquals } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
 import redirect from "src/controller/common/redirect";
 import { routerConfig } from "src/router/config";
-import type { Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 import { Router as ExpressRouter } from "express";
 import { createHref } from "src/plugins/router/pack";
 import { TabTypes as AirdropType } from "src/types/dapp/airdrop";
@@ -47,8 +47,29 @@ const Router = function () {
       redirect(req, res, routerConfig.dapp.idoList());
     }
   });
+  patch.get("/dapp/:id", (req: Request, res: Response, next: NextFunction) => {
+    const id = safeGet<string>(req.params, "id");
+    const igo = safeGet<boolean>(req.query, "igo");
+    if (/^\d+$/.test(id)) {
+      if (igo) {
+        redirect(req, res, routerConfig.dapp.igoDetail(id));
+        return;
+      }
+      redirect(req, res, routerConfig.dapp.idoDetail(id));
+      return;
+    }
+    next();
+  });
   patch.get("/nft/discover", (req: Request, res: Response) => {
     redirect(req, res, routerConfig.dapp.nftList());
+  });
+  patch.get("/nft/:id", (req: Request, res: Response, next: NextFunction) => {
+    const id = safeGet<string>(req.params, "id");
+    if (/^\d+$/.test(id)) {
+      redirect(req, res, routerConfig.dapp.nftDetail(id));
+    } else {
+      next();
+    }
   });
 
   const airdrop = function (req: Request, res: Response, type?: AirdropType) {

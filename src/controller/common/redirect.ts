@@ -11,7 +11,7 @@ import type { Query } from "src/types/browser/location";
 import { createHref } from "src/plugins/router/pack";
 import { config as routerConfig } from "src/router/config";
 
-export const redirect = function (req: Request, res: Response, url: string, query: object = {}, status = 302) {
+export const redirect = function (req: Request, res: Response, url: string | object, query: object = {}, status = 302) {
   // 重定向到指定 url 中
   if (url) {
     const lang = safeGet<string>(req.query, languageKey) || Language.auto;

@@ -203,7 +203,7 @@ onMounted(function () {
       </div>
     </div>
     <div :key="listKey" class="py-8">
-      <ui-pagination :request="onGetList" :init-value="getInitValue()">
+      <ui-pagination :limit="20" :request="onGetList" :init-value="getInitValue()">
         <template #default="scope">
           <div v-if="query.activity_stage === TabTypes.ended" class="overflow-x-scroll showX">
             <div class="w-315">
