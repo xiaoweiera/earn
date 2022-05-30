@@ -4,8 +4,10 @@
  */
 import _ from "lodash";
 import API from "src/api/";
+import { BlogData } from "src/types/blog";
 import I18n from "src/utils/i18n/";
 import * as track from "src/logic/track";
+import { getValue } from "src/utils/root/data";
 import { ref, onMounted, reactive } from "vue";
 import { size, uuid } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
@@ -46,6 +48,15 @@ const [query] = useReactiveProvide<object>(stateAlias.ui.tab, {});
 const Chains = createRef<string[]>(alias.dApp.chains, []);
 // 分类
 const Categories = createRef<string[]>(alias.dApp.categories, []);
+
+let initValue = true;
+const getInitValue = (): object[] => {
+  if (initValue) {
+    initValue = false;
+    return getValue<BlogData[]>(alias.dApp.list, []);
+  }
+  return [];
+};
 
 const requestList = async function (param: object) {
   const api = new API();
@@ -162,7 +173,7 @@ const changeSort = function (val: any) {
       </div>
 
       <div :key="listKey" class="mt-4">
-        <ui-pagination :limit="20" :request="requestList">
+        <ui-pagination :limit="20" :request="requestList" :init-value="getInitValue()">
           <template #default="scope">
             <!--历史项目-->
             <div v-if="query.activity_stage === TabTypes.ended" class="showX">

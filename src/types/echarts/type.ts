@@ -2,6 +2,8 @@
  * @file 定义 echarts 中常用的数据格式
  */
 
+import type { TimeUnit } from "src/types/echarts/data";
+
 // 方向
 export enum Direction {
   horizontal = "horizontal", // 水平
@@ -105,6 +107,7 @@ export interface SeriesMap {
 // 图表数据结构
 export class EchartData {
   key?: string;
+  timeUnit?: TimeUnit;
   legends: Array<LegendItem> = [];
   yAxis: YAxis = {
     left: "",

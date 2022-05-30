@@ -10,7 +10,7 @@ import { LegendDirection } from "src/types/echarts/type";
 // import { LegendDirection } from "src/types/echarts/type";
 // import type { EchartData } from "src/types/echarts/type";
 
-import Table from "./table.vue";
+// import Table from "./table.vue";
 
 // const chart = reactive<EchartData>({} as EchartData);
 //
@@ -26,7 +26,7 @@ import Table from "./table.vue";
 <template>
   <div class="p-4 md:p-10">
     <div class="w-200">
-      <ui-echart-dapp id="3321" :legend="LegendDirection.custom" custom-class="h-150" :fields="['tvl', 'price']">
+      <ui-echart-dapp id="656254" :legend="LegendDirection.custom" custom-class="h-150" :fields="['tvl', 'price']">
         <template #legend="scope">
           <span class="flex items-center mr-2" :style="scope.style">
             <span class="mr-1" v-html="scope.icon"></span>

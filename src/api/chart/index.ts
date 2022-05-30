@@ -32,7 +32,8 @@ export default class extends ApiTemplate {
       indicators: fields.join(","),
     };
     const callback = function (list: object[]) {
-      return dataTransform(fields, list, projectType, chains);
+      const data = dataTransform(fields, list, projectType, chains);
+      return Object.assign({ timeUnit: param.timeunit }, data);
     };
     return [param, callback] as any;
   }
