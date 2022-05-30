@@ -11,8 +11,8 @@ export default {
   },
   link: "Translation Link",
   share: {
-    success: "Follow success",
-    download: "please download the app to receive changes",
+    success: "Follow success!",
+    download: "please download the app to receive changes.",
   },
   meta: {
     title: {

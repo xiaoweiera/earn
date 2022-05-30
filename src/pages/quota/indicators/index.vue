@@ -60,7 +60,7 @@ onMounted(function () {
         <template #default="scope">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <template v-for="(item, index) in scope.list" :key="index">
-              <v-router class="block" :class="getClass(item)" :href="getHref(item)">
+              <v-router class="block" :class="getClass(item)" :href="getHref(item)" target="_blank">
                 <Item :data="item" />
               </v-router>
             </template>

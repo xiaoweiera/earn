@@ -107,6 +107,7 @@ export default {
     checkValue: "请按住滑块，拖动到最右边",
     codeDialog: "滑动获取验证码",
     loginError: "账号或者密码输入有误！",
+    searchEmpty: "暂无搜索内容，换个关键词吧~",
   },
   placeholder: {
     login: "自动登录",

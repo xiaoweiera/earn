@@ -28,12 +28,19 @@ const props = defineProps({
   },
 });
 
-const link = computed<string>(function () {
-  if (props.data) {
-    return `${routerConfig.news}/${props.data.id}`;
+const getLink = function (data: Data) {
+  if (data && data.id) {
+    return `${routerConfig.news}/${data.id}`;
   }
   return routerConfig.news;
-});
+};
+
+const getIndicator = function (data: Data) {
+  if (data && data.chart) {
+    return `${routerConfig.quota}/${data.chart.id}`;
+  }
+  return routerConfig.quota;
+};
 
 const getRouterName = function (text: string): Name {
   if (/<a/.test(text)) {
@@ -47,10 +54,20 @@ const getRouterName = function (text: string): Name {
   <div class="quota-detail">
     <div v-if="isList && data.chart" class="mb-1 flex justify-between items-center">
       <!-- 标题 -->
-      <v-router class="block mr-2 md:mr-0 quota-title text-global-black-title" :disable="!isList" :href="link" target="_blank">
-        <h3 class="text-16-24 font-b">{{ data.chart.name }}</h3>
-      </v-router>
-      <div class="quota-follow">
+      <template v-if="data.title">
+        <!--显示快讯标题-->
+        <v-router class="block quota-title text-global-black-title" :href="getLink(data)" target="_blank">
+          <h3 class="text-16-24 font-b truncate">{{ data.title }}</h3>
+        </v-router>
+      </template>
+      <template v-else>
+        <!--显示指标标题-->
+        <v-router class="quota-title text-global-black-title flex-1 w-1 flex items-center" :href="getIndicator(data)" target="_blank">
+          <h3 class="text-16-24 font-b truncate">{{ data.chart.name }}</h3>
+          <icon-vip class="ml-1" :type="data.chart.chart_type" />
+        </v-router>
+      </template>
+      <div class="quota-follow ml-2">
         <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />
       </div>
     </div>
@@ -60,7 +77,7 @@ const getRouterName = function (text: string): Name {
       <div v-if="isList" class="text-14-22">
         <!--在列表中样式-->
         <ui-description :line="10" line-height="22px">
-          <v-router :href="link" class="block text-global-black-desc" :name="getRouterName(data.content)" target="_blank">
+          <v-router :href="getLink(data)" class="block text-global-black-desc" :name="getRouterName(data.content)" target="_blank">
             <div class="whitespace-pre-wrap" v-html="data.content"></div>
           </v-router>
         </ui-description>
@@ -83,7 +100,7 @@ const getRouterName = function (text: string): Name {
 
 <style scoped lang="scss">
 %hidden {
-  @apply invisible opacity-0;
+  @apply hidden;
 }
 
 .quota-follow {
