@@ -53,24 +53,24 @@ const getChain = (item: any) => {
   }
   return {};
 };
-const getCategory = (item: any) => {
-  const categorys: any = safeGet(item, "payload.project.categorys");
-  if (categorys && categorys.length > 0) {
-    return categorys[0];
-  }
-  return "";
-};
 const trend = createRef("API.home.getTrend", []);
+const isDapp = (item: any) => {
+  const isDapp: any = safeGet(item, "payload.project.is_dapp");
+  const isNft: any = safeGet(item, "payload.project.is_nft");
+  if (isDapp || (!isDapp && !isNft)) {
+    return true;
+  }
+  return false;
+};
 const getUrl = (item: any) => {
   if (item.type === "ADVERTISEMENT") {
     return createHref(safeGet(item, "payload.url"));
   }
   let url = "";
-  const categorys: any = safeGet(item, "payload.project.categorys");
-  if (categorys && categorys.includes("NFT")) {
-    url = `/rank/nft/${safeGet(item, "payload.project.id")}`;
-  } else {
+  if (isDapp(item)) {
     url = `/rank/dapp/${safeGet(item, "payload.project.id")}`;
+  } else {
+    url = `/rank/nft/${safeGet(item, "payload.project.id")}`;
   }
   return createHref(url);
 };
@@ -106,9 +106,9 @@ onMounted(() => {
                         </div>
                       </div>
                       <div class="relative z-30">
-                        <div class="max-w-30.5 text-kd14px14px text-global-white text-center font-kdBarlow whitespace-nowrap short">{{ safeGet(item, "payload.project.name") }}</div>
+                        <div class="max-w-30.5 text-kd14px14px text-global-white font-kdBarlow whitespace-nowrap short">{{ safeGet(item, "payload.project.name") }}</div>
                         <div class="relative mt-2 flex">
-                          <span v-if="getCategory(item)" :class="getCategory(item) === 'NFT' ? 'bg-global-money' : 'bg-global-primary'" class="chain-coin mr-2">{{ getCategory(item) }}</span>
+                          <span :class="isDapp(item) ? 'bg-global-primary' : 'bg-global-money'" class="chain-coin mr-2">{{ isDapp(item) ? "DAPP" : "NFT" }}</span>
                           <span v-if="getChain(item).id" class="chain-tip">{{ safeGet(getChain(item), "name") }}</span>
                         </div>
                       </div>
