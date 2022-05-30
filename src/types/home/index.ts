@@ -1,4 +1,5 @@
 import { HeaderType } from "src/pages/home/topic/data";
+import { getParam } from "src/utils/router";
 
 export interface summaryItem {
   total: number;
@@ -55,7 +56,7 @@ export interface projectParams {
   sort_type?: string;
 }
 export interface newProjectParams {
-  id: number | string;
+  id?: number | string;
   keyword?: string;
   chain?: string;
   platform?: string;

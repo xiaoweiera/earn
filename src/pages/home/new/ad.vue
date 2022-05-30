@@ -32,6 +32,10 @@ const change = (swiper: any) => {
   isEnd.value = swiper.isEnd;
 };
 const init = (swiper: any) => {
+  swiper.el.onmouseleave = function () {
+    swiper.autoplay.start();
+  };
+
   setTimeout(() => {
     isBegin.value = swiper.isBeginning;
     isEnd.value = swiper.isEnd;
@@ -56,7 +60,7 @@ onMounted(() => {
       <div v-if="!isBegin && adsList.length > 0" class="yuan top-14 md:top-28 left-4" @click="last()">
         <IconFont class="text-global-white" size="20" type="icon-leftNo" />
       </div>
-      <Swiper class="h-full rounded-kd6px swiper-recom" :initial-slide="0" :loop="false" :autoplay="{ delay: 3000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true, paginationShow: true }" @init="init" @set-translate="change">
+      <Swiper class="h-full rounded-kd6px swiper-recom" :initial-slide="0" :loop="adsList.length >= 2" :autoplay="{ delay: 5000, stopOnLastSlide: false, disableOnInteraction: true, pauseOnMouseEnter: true }" slides-per-view="auto" :resize-observer="true" :pagination="{ clickable: true, paginationShow: true }" @init="init" @set-translate="change">
         <template v-for="(item, index) in adsList" :key="index">
           <SwiperSlide>
             <v-router :href="item['url']" target="_blank" class="w-full h-33.75 md:h-70 hand">

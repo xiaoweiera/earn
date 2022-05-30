@@ -15,7 +15,7 @@ onMounted(() => {
         <client-only>
           <CommonTopics class="mb-4 md:mb-6" :is-show-title="false" />
           <Ad :position="24" class="my-4 md:my-6" />
-          <Table :id="3" :limit="50" />
+          <Table :id="3" :limit="50" origin="game" />
         </client-only>
       </div>
     </div>
