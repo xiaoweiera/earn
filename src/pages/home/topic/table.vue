@@ -17,7 +17,6 @@ import { createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import window from "src/plugins/browser/window";
 import { createHref } from "src/plugins/router/pack";
 import { Model } from "src/logic/home";
-import I18n from "src/utils/i18n";
 
 const props = defineProps({
   id: {
