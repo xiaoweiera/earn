@@ -153,17 +153,17 @@ onMounted(function () {
                 <span class="whitespace-nowrap">{{ i18n.home.topList.category }}</span>
               </div>
               <div class="flex chain-tab">
-                <ui-tab :list="getUiTabList(Categories, 'category')" active-name="category" :split="1" />
+                <ui-tab :list="getUiTabList(Categories, 'category', 'category')" active-name="category" :split="1" />
               </div>
             </div>
             <!--移动端样式-->
             <client-only class="block lg:hidden select">
-              <ui-tab-select :label="i18n.home.topList.category" :list="getUiTabList(Categories, 'category')" active-name="category" />
+              <ui-tab-select :label="i18n.home.topList.category" :list="getUiTabList(Categories, 'category', 'category')" active-name="category" />
             </client-only>
           </div>
           <!--公链-->
           <client-only v-if="size(Chains) > 0" class="chain-content select">
-            <ui-tab-select :label="i18n.home.idoIgoProject.chain" :list="getUiTabList(Chains, 'chain')" active-name="chain" />
+            <ui-tab-select :label="i18n.home.idoIgoProject.chain" :list="getUiTabList(Chains, 'chain', 'chain')" active-name="chain" />
           </client-only>
         </div>
         <!-- 搜索框 -->
@@ -184,11 +184,11 @@ onMounted(function () {
               <span class="whitespace-nowrap">{{ i18n.home.topList.plat }}</span>
             </div>
             <div v-if="size(Platforms) > 0" class="ml-2 flex-1 w-1 chain-tab">
-              <ui-tab :list="getUiTabList(Platforms, 'platform')" active-name="platform" :split="4" />
+              <ui-tab :list="getUiTabList(Platforms, 'platform', 'tge_platform')" active-name="platform" :split="4" />
             </div>
           </div>
           <client-only class="block lg:hidden w-full select">
-            <ui-tab-select :label="i18n.home.topList.plat" :list="getUiTabList(Platforms, 'platform')" active-name="platform" />
+            <ui-tab-select :label="i18n.home.topList.plat" :list="getUiTabList(Platforms, 'platform', 'tge_platform')" active-name="platform" />
           </client-only>
         </div>
 
