@@ -61,26 +61,34 @@ export const getTabList = function () {
 
 export const getUiTabList = (list: string[], key: string, name: string) => {
   return function () {
-    const arr: any = [getAll()];
-    R.forEach((item: any) => {
-      const value = safeGet(configs, `${name}.${item}`);
-      if (value) {
-        arr.push(value);
-      }
-    }, list);
     const query = getParam<object>();
-    return R.map((item: any) => {
-      return {
-        ...item,
-        [key]: item.slug,
+    const array: object[] = [
+      {
+        name: "All",
+        [key]: "all",
+        logo: "icon-quanbu",
         href: {
           path: getValue("url"),
           query: {
             ...query,
-            [key]: item.slug,
+            [key]: "all",
           },
         },
-      };
-    }, arr);
+      },
+    ];
+    for (const value of list) {
+      array.push({
+        name: value,
+        [key]: value,
+        href: {
+          path: getValue("url"),
+          query: {
+            ...query,
+            [key]: value,
+          },
+        },
+      });
+    }
+    return array;
   };
 };
