@@ -47,7 +47,7 @@ const id = ref<string>(`desc-${uuid()}`);
           <template #content>
             <slot></slot>
           </template>
-          <div>
+          <div class="label-content inline-block">
             <slot name="button">
               <span class="text-global-darkblue cursor-pointer flex items-center">
                 <span class="text-14-18 mr-1">{{ i18n.part(i18n.common.button.expandMore, 0) }}</span>
@@ -57,7 +57,7 @@ const id = ref<string>(`desc-${uuid()}`);
           </div>
         </dialog-more>
         <!--直接展开更多内容-->
-        <label v-else :for="id">
+        <label v-else :for="id" class="label-content">
           <slot name="button">
             <span class="text-global-darkblue cursor-pointer flex items-center">
               <span class="text-14-18 mr-1">{{ i18n.part(i18n.common.button.expandMore, 0) }}</span>
@@ -79,7 +79,7 @@ const id = ref<string>(`desc-${uuid()}`);
     top: calc((var(--desc-line) - 1) * var(--desc-line-height));
     height: var(--desc-line-height);
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.0716618) 0%, rgba(255, 255, 255, 0) 12.78%, #ffffff 100%);
-    label {
+    .label-content {
       @apply px-1.5 bg-white bg-opacity-90;
     }
   }
