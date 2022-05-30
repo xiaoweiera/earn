@@ -2,7 +2,7 @@
 import Introduction from "src/pages/dapp/detail/dashboard/introduction.vue";
 import News from "src/pages/dapp/detail/dashboard/news.vue";
 import Token from "src/pages/dapp/detail/token/index.vue";
-import Information from "src/pages/dapp/detail/content/chain/index.vue";
+// import Information from "src/pages/dapp/detail/content/chain/index.vue";
 import Statistics from "src/pages/dapp/detail/holder/chart/floor.vue";
 import HolderChart from "src/pages/dapp/detail/holder/chart/trends.vue";
 import { DAppProject, ProjectType } from "src/types/dapp/data";
@@ -27,7 +27,7 @@ defineProps({
     </div>
     <Statistics v-if="project.type === ProjectType.nft || project.type === ProjectType.mint" :project="project" :data="data" />
     <HolderChart v-if="project.type === ProjectType.nft || project.type === ProjectType.mint" :project="project" :data="data" />
-    <Information :project="project" />
+    <!--    <Information :project="project" />-->
     <Introduction />
     <News />
   </div>

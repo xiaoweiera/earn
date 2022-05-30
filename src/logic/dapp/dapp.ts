@@ -2,6 +2,10 @@ import I18n from "src/utils/i18n";
 import { routerConfig } from "src/router/config";
 import { getValue } from "src/utils/root/data";
 import { getParam } from "src/utils/router";
+import { SiteConfig } from "src/types/common/chain";
+import * as alias from "src/utils/root/alias";
+import * as R from "ramda";
+import safeGet from "@fengqiaogang/safe-get";
 
 // tab 切换
 export enum TabTypes {
@@ -9,6 +13,18 @@ export enum TabTypes {
   ongoing = "ongoing", // 进行中
   ended = "ended", // 已结束
 }
+
+const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
+export const tabAll = "All";
+
+export const getAll = function () {
+  return {
+    id: tabAll,
+    name: "All",
+    slug: "All",
+    logo: "icon-quanbu",
+  };
+};
 
 export const getTabList = function (name: string) {
   return function () {
@@ -54,35 +70,34 @@ export const getTabList = function (name: string) {
   };
 };
 
-export const getUiTabList = (list: string[], key: string) => {
+export const getUiTabList = (list: string[], key: string, name: string) => {
   return function () {
     const query = getParam<object>();
-    const array: object[] = [
-      {
-        name: "All",
-        [key]: "all",
+    const arr: any = [getAll()];
+    R.forEach((item: any) => {
+      const value = safeGet(configs, `${name}.${item}`);
+      if (value) {
+        arr.push(value);
+      } else {
+        arr.push({
+          name: item,
+          slug: item,
+          logo: "",
+        });
+      }
+    }, list);
+    return R.map((item: any) => {
+      return {
+        ...item,
+        [key]: item.slug,
         href: {
           path: getValue("url"),
           query: {
             ...query,
-            [key]: "all",
+            [key]: item.slug,
           },
         },
-      },
-    ];
-    for (const value of list) {
-      array.push({
-        name: value,
-        [key]: value,
-        href: {
-          path: getValue("url"),
-          query: {
-            ...query,
-            [key]: value,
-          },
-        },
-      });
-    }
-    return array;
+      };
+    }, arr);
   };
 };

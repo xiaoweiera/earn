@@ -8,8 +8,24 @@ import { getParam } from "src/utils/router";
 import { routerConfig } from "src/router/config";
 import { getValue } from "src/utils/root/data";
 import { TabTypes } from "./dapp";
+import * as R from "ramda";
+import safeGet from "@fengqiaogang/safe-get";
+import { SiteConfig } from "src/types/common/chain";
+import * as alias from "src/utils/root/alias";
 
 export { TabTypes } from "./dapp";
+
+const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
+export const tabAll = "All";
+
+export const getAll = function () {
+  return {
+    id: tabAll,
+    name: "All",
+    slug: "All",
+    logo: "icon-quanbu",
+  };
+};
 
 export const getTabList = function () {
   return function () {
@@ -43,13 +59,14 @@ export const getTabList = function () {
   };
 };
 
-export const getUiTabList = (list: string[], key: string) => {
+export const getUiTabList = (list: string[], key: string, name: string) => {
   return function () {
     const query = getParam<object>();
     const array: object[] = [
       {
         name: "All",
         [key]: "all",
+        logo: "icon-quanbu",
         href: {
           path: getValue("url"),
           query: {
@@ -74,35 +91,4 @@ export const getUiTabList = (list: string[], key: string) => {
     }
     return array;
   };
-};
-
-export const getOptionList = (list: string[], key: string) => {
-  const query = getParam<object>();
-  const array: object[] = [
-    {
-      name: "All",
-      [key]: "all",
-      href: {
-        path: getValue("url"),
-        query: {
-          ...query,
-          [key]: "all",
-        },
-      },
-    },
-  ];
-  for (const value of list) {
-    array.push({
-      name: value,
-      [key]: value,
-      href: {
-        path: getValue("url"),
-        query: {
-          ...query,
-          [key]: value,
-        },
-      },
-    });
-  }
-  return array;
 };
