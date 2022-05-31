@@ -52,7 +52,6 @@ const tabChange = function (value: any) {
                 <p class="flex items-center">
                   <IconFont type="icon-round" size="8" />
                   <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ getTitle(scope.value) }}</span>
-                  <!--                  <IconFont v-if="scope.data.index !== 0" class="text-global-highTitle text-opacity-25 ml-1.5" type="icon-info" size="14" />-->
                 </p>
                 <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-semibold font-kdFang">
                   <IconFont v-if="scope.data.index === 0" type="icon-ETH" size="12" />
