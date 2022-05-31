@@ -149,7 +149,7 @@ onMounted(() => {
       <ui-pagination :limit="limit" :isMore="isMore" :init-value="initValue()" :request="requestList">
         <template #default="{ list }">
           <div v-show="isLoad">
-            <el-table :data="list" class="w-full" :row-style="rowClass(height)" :header-cell-style="headerCellClass" :cell-style="cellClass" @row-click="toProject">
+            <el-table :data="list" class="w-full table-fixed" :row-style="rowClass(height)" :header-cell-style="headerCellClass" :cell-style="cellClass" @row-click="toProject">
               <el-table-column class-name="lie" fixed :width="50">
                 <template #header>
                   <div class="header-name items-center flex h-full">#</div>
@@ -170,7 +170,9 @@ onMounted(() => {
                       <el-popover :disabled="!getTitleDes(header)" placement="top" trigger="hover">
                         <div>{{ getTitleDes(header) }}</div>
                         <template #reference>
-                          <div v-if="getTitleDes(header)" class="h-full flex items-center hand"><IconFont class="text-global-highTitle text-opacity-35 ml-1" type="icon-weizhi" size="16" /></div>
+                          <div v-if="getTitleDes(header)" class="h-full flex items-center hand">
+                            <IconFont class="text-global-highTitle text-opacity-35 ml-1" type="icon-info" size="16" />
+                          </div>
                         </template>
                       </el-popover>
                     </div>
@@ -193,6 +195,15 @@ onMounted(() => {
 .fit {
   width: fit-content !important;
 }
+
+::v-deep(.el-table__fixed-left) {
+  height: 100% !important;
+}
+
+::v-deep(.el-table__fixed) {
+  height: 100% !important;
+}
+
 ::v-deep(.el-popover.el-popper) {
   min-width: fit-content !important;
   width: fit-content !important;
@@ -203,6 +214,7 @@ onMounted(() => {
   transform: translate(100%, 100%);
   box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
 }
+
 .search {
   ::v-deep(.el-input__inner) {
     border: none !important;
@@ -217,6 +229,7 @@ onMounted(() => {
 ::v-deep(.cell) {
   height: 100%;
 }
+
 ::v-deep(.el-scrollbar) {
   --el-scrollbar-bg-color: rgba(0, 0, 0, 0.2) !important;
   --el-scrollbar-hover-bg-color: rgba(0, 0, 0, 0.2) !important;
@@ -231,7 +244,9 @@ onMounted(() => {
 .header-name {
   @apply text-kd12px16px font-medium text-global-highTitle;
 }
-
+::v-deep(.el-table__body) {
+  border: 1px solid white !important;
+}
 .huiClass {
   ::v-deep(td) {
     background-color: rgba(248, 250, 250, 1) !important;
@@ -243,6 +258,9 @@ onMounted(() => {
 
   ::v-deep(th) {
     background-color: rgba(248, 250, 250, 1) !important;
+  }
+  ::v-deep(.el-table__body) {
+    border: 1px solid rgba(248, 250, 250, 1) !important;
   }
 }
 </style>

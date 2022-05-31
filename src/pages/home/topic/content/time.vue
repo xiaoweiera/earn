@@ -14,5 +14,5 @@ defineProps({
 </script>
 
 <template>
-  <div class="numberDefault text-number text-center">{{ data[field] ? getDateMDY(dataToTimestamp(data[field])) : "TBA" }}</div>
+  <div class="text-kd12px16px md:text-kd14px16px text-global-highTitle text-number">{{ data[field] ? getDateMDY(dataToTimestamp(data[field])) : "TBA" }}</div>
 </template>
