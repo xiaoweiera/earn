@@ -138,11 +138,8 @@ const getTabData = function (info: DAppProject, data: ProjectItem) {
         </div>
       </div>
       <div>
-        <div class="text-24-28 text-global-highTitle font-medium">
-          <p class="title">{{ i18n.home.hotRecommend }}</p>
-        </div>
         <div class="mt-3">
-          <CommonTopics :isShowTitle="false" />
+          <CommonTopics :title="i18n.home.hotRecommend" :isShowTitle="false" />
         </div>
       </div>
     </div>
