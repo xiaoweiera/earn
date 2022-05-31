@@ -5,10 +5,8 @@
  */
 
 import { computed } from "vue";
-import { toNumber } from "src/utils";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import safeGet from "@fengqiaogang/safe-get";
-import { getUpDownColor } from "src/lib/tool";
 
 const props = defineProps({
   field: {
@@ -35,7 +33,7 @@ const value = computed<string>(function () {
 <template>
   <span class="text-12-16 text-number flex items-center">
     <template v-if="value">
-      <span class="text-global-highTitle">{{ toNumberCashFormat(value, "%") }}</span>
+      <span class="text-global-highTitle text-opacity-65">{{ toNumberCashFormat(value, "%") }}</span>
     </template>
     <template v-else>
       <span class="text-global-highTitle">--</span>
