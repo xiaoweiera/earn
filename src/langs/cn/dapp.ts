@@ -247,7 +247,7 @@ export default {
       all: "全部",
     },
     header: {
-      items: "个作品",
+      items: "Items",
     },
   },
   not: {

@@ -8,7 +8,7 @@ import type { PropType } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import type { DAppProject, ProjectItem, ProjectMediaItem, ProjectMedias } from "src/types/dapp/detail";
 import { ProjectType } from "src/types/dapp/detail";
-import { getChainLogo } from "src/utils/";
+import { getChainLogo, toNumberCash } from "src/utils/";
 import Risk from "src/pages/dapp/risk/index.vue";
 import Progress from "src/pages/dapp/progress/index.vue";
 import { createRef } from "src/utils/ssr/ref";
@@ -78,8 +78,8 @@ const shareText = function (title: string, keywords: string) {
           </span>
         </template>
       </ui-label>
-      <div v-if="data.gallery && data.gallery.length > 0" class="mt-4 rounded bg-global-highTitle bg-opacity-6">
-        <p class="text-kd12px18px text-global-highTitle text-opacity-65 py-1 px-2 whitespace-nowrap">{{ data.gallery.length }}{{ i18n.dapp.detail.header.items }}</p>
+      <div v-if="data.maxSupply" class="mt-4 rounded bg-global-highTitle bg-opacity-6">
+        <p class="text-kd12px18px text-global-highTitle text-opacity-65 py-1 px-2 whitespace-nowrap">{{ toNumberCash(data.maxSupply) }} {{ i18n.dapp.detail.header.items }}</p>
       </div>
     </div>
     <!--项目描述-->

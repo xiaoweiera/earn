@@ -15,14 +15,18 @@ import safeGet from "@fengqiaogang/safe-get";
 import { createHref } from "src/plugins/router/pack";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
+const i18n = I18n();
 defineProps({
   isShowTitle: {
     type: Boolean,
     default: () => true,
   },
+  title: {
+    type: String,
+    default: "",
+  },
 });
 const api = new Model();
-const i18n = I18n();
 const params = reactive({
   page: 1,
   page_size: 50,
@@ -67,7 +71,7 @@ onMounted(() => {
 </script>
 <template>
   <div v-if="recommend && recommend.length > 0">
-    <div v-if="isShowTitle" class="mb-3 com-container font-kdSemiBold font-semibold">{{ i18n.home.hotTopic }}</div>
+    <div v-if="isShowTitle" class="mb-3 com-container font-kdSemiBold font-medium">{{ title ? title : i18n.home.hotTopic }}</div>
     <div class="relative">
       <div class="w-full">
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
