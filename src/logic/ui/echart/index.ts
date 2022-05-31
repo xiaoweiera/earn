@@ -257,11 +257,11 @@ const getSeriesList = function (legends: LegendItem[], yAxisOption: object[], se
       }
     } else {
       if (props.area && data.index !== 1) {
-        let areaColor = "rgba(43, 141, 255, 0.2)";
+        // let areaColor = "rgba(43, 141, 255, 0.2)";
         const color = safeGet<string>(option, "itemStyle.color");
-        if (color) {
-          areaColor = color;
-        }
+        // if (color) {
+        //   areaColor = color;
+        // }
         safeSet(option, "areaStyle.normal.color", {
           type: "linear",
           x: 0,
@@ -272,7 +272,7 @@ const getSeriesList = function (legends: LegendItem[], yAxisOption: object[], se
           colorStops: [
             {
               offset: 0,
-              color: areaColor,
+              color: "rgba(43, 141, 255, 0.02)", //之前是 areaColor
             },
             {
               offset: 1,
