@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import safeGet from "@fengqiaogang/safe-get";
-
 /**
  * @file 邮箱密码找回
  * @author svon.me@gmail.com
@@ -9,14 +7,24 @@ import API from "src/api/index";
 import I18n from "src/utils/i18n";
 import { computed, ref, toRaw } from "vue";
 import { messageError } from "src/lib/tool";
+import safeGet from "@fengqiaogang/safe-get";
 import * as Common from "src/logic/account/register";
 import { ValidateType } from "src/components/ui/validate/config";
 import { ElButton, ElForm, ElFormItem, ElInput } from "element-plus";
 
+const props = defineProps({
+  email: {
+    type: String,
+    default: "",
+  },
+});
+
 const i18n = I18n();
 const domForm = ref<any>(null);
 
-const formData = Common.createFormData();
+const formData = Common.createFormData({
+  email: props.email,
+} as any);
 
 const rules = computed(Common.rules);
 
@@ -67,7 +75,12 @@ const submit = async function () {
     <el-form ref="domForm" size="large" :rules="rules" :model="formData" autocomplete="off" @submit.stop.prevent="submit">
       <!-- 邮箱地址 -->
       <el-form-item prop="email">
-        <el-input v-model="formData.email" name="email" type="email" :placeholder="i18n.common.placeholder.email" autocomplete="off" />
+        <template v-if="email">
+          <el-input :model-value="email" name="email" type="email" disabled />
+        </template>
+        <template v-else>
+          <el-input v-model="formData.email" name="email" type="email" :placeholder="i18n.common.placeholder.email" autocomplete="off" />
+        </template>
       </el-form-item>
 
       <!-- 验证码 -->

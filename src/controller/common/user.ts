@@ -3,7 +3,11 @@
  * @author svon.me@gmail.com
  */
 
+import { isObject } from "src/utils/";
+import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
+import { routerConfig } from "src/router/config";
+import { redirect } from "src/controller/common/redirect";
 import type { NextFunction, Request, Response } from "express";
 import API from "src/api/index";
 import Cookie from "src/plugins/browser/cookie";
@@ -40,9 +44,18 @@ export const userLogout = function (req: Request, res: Response) {
   res.redirect("back");
 };
 
-// 前置，如果用户已登录，则跳转走
+// 前置，如果用户未登录，则跳转走
 export const prepend = function (req: Request, res: Response, next: NextFunction) {
-  next();
+  // 判断是否已登录
+  const user = safeGet<object>(res.locals, alias.common.user);
+  if (isObject(user)) {
+    return next();
+  }
+  // 跳转到登录
+  const url = req.originalUrl;
+  redirect(req, res, routerConfig.user.login(), {
+    redirect: url,
+  });
 };
 
 // 用户找回密码
@@ -72,5 +85,17 @@ export const updateEmail = function (req: Request, res: Response) {
   const i18n = I18n(req);
   res.send({
     title: i18n.common.emailUpdate,
+  });
+};
+
+export const webHook = function (req: Request, res: Response) {
+  res.send({
+    title: "Web Hook",
+  });
+};
+
+export const account = function (req: Request, res: Response) {
+  res.send({
+    title: "个人设置",
   });
 };
