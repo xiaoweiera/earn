@@ -48,10 +48,12 @@ i {
       */
       max-width: $number;
       min-width: $number;
-      max-width: $number;
       height: $number;
       max-height: $number;
       min-height: $number;
+      @at-root .kd-web3 & {
+        max-width: initial;
+      }
     }
   }
   &.rounded {
