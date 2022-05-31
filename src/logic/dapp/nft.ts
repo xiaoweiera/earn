@@ -7,7 +7,7 @@ import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router";
 import { routerConfig } from "src/router/config";
 import { getValue } from "src/utils/root/data";
-export { TabTypes } from "./dapp";
+import { TabTypes } from "./dapp";
 
 export const tabAll = "All";
 
