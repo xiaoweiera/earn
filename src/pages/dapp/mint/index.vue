@@ -12,13 +12,14 @@ import { ref, onMounted, reactive } from "vue";
 import { size, uuid } from "src/utils/";
 import safeGet from "@fengqiaogang/safe-get";
 import { alias, createRef } from "src/utils/ssr/ref";
-import { getTabList, TabTypes, getUiTabList } from "src/logic/dapp/nft";
+import { getTabList, getUiTabList } from "src/logic/dapp/nft";
 import { transformNftList } from "src/logic/dapp";
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
 
 import type { PropType } from "vue";
 import type { DAppType } from "src/types/dapp/dapp";
 import type { Result } from "src/types/dapp/detail";
+import { TabTypes } from "src/logic/dapp/dapp";
 import { ElInput } from "element-plus";
 
 import DAppDiscoversHeader from "src/pages/dapp/discovers/header.vue";
