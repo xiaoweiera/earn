@@ -7,7 +7,6 @@ import VRouter from "src/components/v/router.vue";
 import safeGet from "@fengqiaogang/safe-get";
 import { DAppType } from "src/types/dapp/dapp";
 import { routerConfig } from "src/router/config";
-import { TabName } from "src/types/dapp/detail";
 import { PropType } from "vue";
 
 const emit = defineEmits(["changeSort"]);

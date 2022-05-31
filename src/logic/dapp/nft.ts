@@ -7,15 +7,8 @@ import I18n from "src/utils/i18n";
 import { getParam } from "src/utils/router";
 import { routerConfig } from "src/router/config";
 import { getValue } from "src/utils/root/data";
-import { TabTypes } from "./dapp";
-import * as R from "ramda";
-import safeGet from "@fengqiaogang/safe-get";
-import { SiteConfig } from "src/types/common/chain";
-import * as alias from "src/utils/root/alias";
-
 export { TabTypes } from "./dapp";
 
-const configs = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 export const tabAll = "All";
 
 export const getAll = function () {

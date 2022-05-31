@@ -9,12 +9,9 @@ import SwiperCore, { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import { onLoadReactive } from "src/utils/ssr/ref";
 import { Model } from "src/logic/home";
 import I18n from "src/utils/i18n";
-import { config } from "src/router/config";
 import safeGet from "@fengqiaogang/safe-get";
-import window from "src/plugins/browser/window";
 import { createHref } from "src/plugins/router/pack";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
@@ -47,7 +44,6 @@ const init = (swiper: any) => {
     isEnd.value = swiper.isEnd;
   });
 };
-const rank = reactive({});
 const recommend = ref([]);
 // row跳转
 const toProject = (row: any) => {

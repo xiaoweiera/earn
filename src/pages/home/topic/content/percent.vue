@@ -5,10 +5,8 @@
  */
 
 import { computed } from "vue";
-import { toNumber } from "src/utils";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import safeGet from "@fengqiaogang/safe-get";
-import { getUpDownColor } from "src/lib/tool";
 
 const props = defineProps({
   field: {

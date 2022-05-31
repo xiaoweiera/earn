@@ -246,6 +246,9 @@ export default {
       day: "30D",
       all: "All",
     },
+    header: {
+      items: "Items",
+    },
   },
   not: {
     text1: "Market data is untracked",

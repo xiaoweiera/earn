@@ -9,7 +9,6 @@ import { defineComponent } from "vue";
 import safeGet from "@fengqiaogang/safe-get";
 import { SeriesType } from "src/types/echarts/type";
 import { echartTransform } from "src/logic/ui/echart/decorate";
-import { toFixed } from "src/utils";
 
 export default defineComponent({
   props: {

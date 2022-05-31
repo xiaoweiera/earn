@@ -1,5 +1,4 @@
 import { HeaderType } from "src/pages/home/topic/data";
-import { getParam } from "src/utils/router";
 
 export interface summaryItem {
   total: number;

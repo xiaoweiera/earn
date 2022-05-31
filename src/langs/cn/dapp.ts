@@ -246,6 +246,9 @@ export default {
       day: "近1月",
       all: "全部",
     },
+    header: {
+      items: "个作品",
+    },
   },
   not: {
     text1: "市场数据未经追踪",

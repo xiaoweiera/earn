@@ -5,10 +5,10 @@ import { dateList, getData } from "src/logic/dapp/detail";
 import { toNumberCashFormat } from "src/utils";
 import { uuid } from "src/utils";
 import { LegendDirection } from "src/types/echarts/type";
-import { DAppProject, ProjectType } from "src/types/dapp/data";
+import { DAppProject } from "src/types/dapp/data";
 import { getTitle } from "src/pages/home/topic/data";
 
-const props = defineProps({
+defineProps({
   project: {
     required: true,
     type: Object as PropType<DAppProject>,
