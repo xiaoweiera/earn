@@ -497,7 +497,7 @@ export const getUpDownColor = (v: number | string | null) => {
   } else if (v && v < 0) {
     return "text-global-numRed";
   }
-  return "text-global-highTitle";
+  return "text-global-highTitle text-opacity-65";
 };
 export const getRedGreen = (v: any) => (v >= 0 ? "text-global-numGreen" : v < 0 ? "text-global-numRed" : "text-global-highTitle text-opacity-65");
 
