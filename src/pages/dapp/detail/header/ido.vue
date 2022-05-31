@@ -6,6 +6,7 @@
 import I18n from "src/utils/i18n";
 import type { ProjectItem, DAppProject, Progress as ProjectProgress } from "src/types/dapp/detail";
 import type { PropType } from "vue";
+import { ProjectType } from "src/types/dapp/detail";
 import { toNumberFormat, dateYMDFormat, isAfter, getNotEmptySize } from "src/utils/";
 import { ElButton } from "element-plus";
 import Price from "./price.vue";
@@ -34,17 +35,20 @@ const isFooterEmpty = function (data: ProjectItem) {
   const list = [data.ido_price, data.ido_fundraising_goal, data.ido_start_at, data.ido_end_at];
   return getNotEmptySize(list) <= 0;
 };
+
+const getType = (data: DAppProject) => {
+  if (data && data.type === ProjectType.igo) {
+    return "IGO";
+  } else {
+    return "IDO";
+  }
+};
 </script>
 
 <template>
   <div>
     <div class="flex items-center justify-between">
-      <Price label="Status" value="IDO" :progress="data.ido_status">
-        <!--        <p class="text-global-numGreen flex items-center mt-2">-->
-        <!--          <IconFont class="mr-1" type="icon-time" />-->
-        <!--          <span class="text-14-18 font-m">{{ i18n.dapp.detail.upcoming }}</span>-->
-        <!--        </p>-->
-      </Price>
+      <Price label="Status" :value="getType(project)" :progress="data.ido_status"></Price>
       <div>
         <div v-if="isAfter(data.ido_start_at)" class="p-1">
           <ui-time-blue :value="data.ido_start_at" />

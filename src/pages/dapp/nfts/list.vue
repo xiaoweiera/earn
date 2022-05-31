@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// import { ProjectType } from "src/types/dapp/ixo";
 // import DAppNftsAd from "./ad.vue";
 import DAppNftsItem from "./item.vue";
 

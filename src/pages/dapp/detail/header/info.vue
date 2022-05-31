@@ -40,9 +40,9 @@ const getMediaUrl = function (data: ProjectItem, name: string) {
 const getAirdropStatus = function (project: DAppProject, data: ProjectItem) {
   if (project.type === ProjectType.airdrop) {
     return safeGet<string>(data, "airdrop_status");
-  } else if (project.type === ProjectType.nft) {
+  } else if (project.type === ProjectType.nft || project.type === ProjectType.mint) {
     return safeGet<string>(data, "mint_status");
-  } else if (project.type === ProjectType.ido) {
+  } else if (project.type === ProjectType.ido || project.type === ProjectType.dapp || project.type === ProjectType.igo) {
     return safeGet<string>(data, "ido_status");
   }
 };
@@ -62,7 +62,7 @@ const shareText = function (title: string, keywords: string) {
     <div class="flex flex-wrap empty:hidden">
       <!--项目进度-->
       <template v-if="getAirdropStatus(project, data)">
-        <Progress :value="getAirdropStatus(project, data)" class="mt-4" />
+        <Progress :value="getAirdropStatus(project, data)" :project="project" class="mt-4" />
       </template>
       <!--风险等级-->
       <Risk :value="data.risk" />
@@ -78,6 +78,9 @@ const shareText = function (title: string, keywords: string) {
           </span>
         </template>
       </ui-label>
+      <div v-if="data.gallery" class="mt-4 rounded bg-global-highTitle bg-opacity-6">
+        <p class="text-kd12px18px text-global-highTitle text-opacity-65 py-1 px-2 whitespace-nowrap">{{ data.gallery.length }}{{ i18n.dapp.detail.header.items }}</p>
+      </div>
     </div>
     <!--项目描述-->
     <ui-description v-if="data.description" :line="2" class="mt-5" dialog>

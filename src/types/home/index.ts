@@ -55,7 +55,7 @@ export interface projectParams {
   sort_type?: string;
 }
 export interface newProjectParams {
-  id: number | string;
+  id?: number | string;
   keyword?: string;
   chain?: string;
   platform?: string;

@@ -10,13 +10,11 @@ import SwiperCore, { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 // 引入 swiper 样式
 import "swiper/swiper-bundle.css";
-import { getValue } from "src/utils/root/data";
-import { alias, createRef, onLoadRef } from "src/utils/ssr/ref";
+import { createRef, onLoadRef } from "src/utils/ssr/ref";
 import { Model } from "src/logic/home";
 import I18n from "src/utils/i18n";
-import type { SiteConfig } from "src/types/common/chain";
+import { createHref } from "src/plugins/router/pack";
 
-const config = getValue<SiteConfig>(alias.common.chain.site, {} as SiteConfig);
 const i18n = I18n();
 const env = getEnv();
 // 装载 swiper 组件
@@ -39,12 +37,40 @@ const init = (swiper: any) => {
 };
 // 得到图片
 const getImg = (data: any) => {
-  if (data.data_type === "ad") {
-    return data.image;
+  if (data.cover_url) return data.cover_url;
+  if (data.type === "ADVERTISEMENT") {
+    return safeGet(data, "payload.image");
   }
-  return data.cover;
+  return safeGet(data, "payload.project.logo");
+};
+const getChain = (item: any) => {
+  const chains: any = safeGet(item, "payload.project.chains");
+  if (chains && chains.length > 0) {
+    return chains[0];
+  }
+  return {};
 };
 const trend = createRef("API.home.getTrend", []);
+const isDapp = (item: any) => {
+  const isDapp: any = safeGet(item, "payload.project.is_dapp");
+  const isNft: any = safeGet(item, "payload.project.is_nft");
+  if (isDapp || (!isDapp && !isNft)) {
+    return true;
+  }
+  return false;
+};
+const getUrl = (item: any) => {
+  if (item.type === "ADVERTISEMENT") {
+    return createHref(safeGet(item, "payload.url"));
+  }
+  let url = "";
+  if (isDapp(item)) {
+    url = `/rank/dapp/${safeGet(item, "payload.project.id")}`;
+  } else {
+    url = `/rank/nft/${safeGet(item, "payload.project.id")}`;
+  }
+  return createHref(url);
+};
 
 onMounted(() => {
   const api = new Model();
@@ -63,32 +89,32 @@ onMounted(() => {
           <img class="left shadow" :src="`${env.VITE_oss}/dapp/zuojian.png`" alt="" @click="last" />
         </div>
         <Swiper v-if="trend.length > 1" class="h-full swiper-topic w-full" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
-          <template v-for="(item, index) in trend.slice(1)" :key="index">
+          <template v-for="(item, index) in trend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="item['url']" target="_blank" class="rounded-kd6px relative cursor-pointer">
+              <v-router :href="getUrl(item)" target="_blank" class="rounded-kd6px relative cursor-pointer">
                 <div class="h-23 w-47.5 relative overflow-hidden rounded-kd6px">
-                  <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute" />
-                  <ui-image class="rounded-kd6px h-23 w-47.5" :class="getImg(item) ? '' : 'mohu'" :src="getImg(item) ? getImg(item) : item['logo']" />
-                  <div v-if="item['data_type'] !== 'ad'" class="top-0 absolute w-full h-full p-3">
+                  <ui-image class="rounded-kd6px h-23 w-47.5" :class="{ mohu: item['type'] === 'ADVERTISEMENT' }" :src="getImg(item)" />
+                  <div v-if="item['type'] !== 'ADVERTISEMENT'" class="top-0 absolute w-full h-full p-3">
                     <div class="flex">
                       <div class="relative mr-3 min-w-9 min-h-9 max-w-9 max-w-9 h-9">
-                        <ui-image v-if="item['data_type'] === 'dapp'" class="cover-logo min-w-9 min-h-9 max-w-9 max-w-9 h-9" :src="item['logo']" fit="cover" />
+                        <ui-image class="cover-logo min-w-9 min-h-9 max-w-9 max-w-9 h-9" :src="getImg(item)" fit="cover" />
                         <div class="chain-logo absolute bottom-2">
-                          <ui-image class="w-3.5 h-3.5" :src="safeGet(config, `chain.${item.chain}.logo`)" fit="cover" />
+                          <ui-image class="w-3.5 h-3.5" :src="safeGet(getChain(item), 'logo')" fit="cover" />
                         </div>
                       </div>
                       <div class="relative z-30">
-                        <div class="max-w-30.5 text-kd14px14px text-global-white text-center font-kdBarlow whitespace-nowrap short">{{ item.name }}</div>
+                        <div class="max-w-30.5 text-kd14px14px text-global-white font-kdBarlow whitespace-nowrap short">
+                          {{ safeGet(item, "payload.project.name") }}
+                        </div>
                         <div class="relative mt-2 flex">
-                          <span v-if="safeGet(item, `category`)" :class="safeGet(item, `category`) === 'NFT' ? 'bg-global-money' : 'bg-global-primary'" class="chain-coin mr-2">{{ safeGet(item, `category`) }}</span>
-                          <span v-if="safeGet(item, `chain`)" class="chain-tip">{{ safeGet(item, `chain`) }}</span>
+                          <span :class="isDapp(item) ? 'bg-global-primary' : 'bg-global-money'" class="chain-coin mr-2">{{ isDapp(item) ? "DAPP" : "NFT" }}</span>
+                          <span v-if="getChain(item).id" class="chain-tip">{{ safeGet(getChain(item), "name") }}</span>
                         </div>
                       </div>
                     </div>
-                    <span class="relative z-30 top-1 text-global-white text-kd12px16px font-kdBarlow">{{ safeGet(item, `recommendation_reason`) }}</span>
+                    <span class="relative z-30 top-1 text-global-white text-kd12px16px font-kdBarlow">{{ safeGet(item, `payload.reason`) }}</span>
                   </div>
-
-                  <div class="w-47.5 h-23 absolute top-0 left-0 rounded-kd6px z-2" :class="item['data_type'] === 'ad' ? '' : 'jian'" />
+                  <div class="w-47.5 h-23 absolute top-0 left-0 rounded-kd6px z-2" :class="item['type'] === 'ADVERTISEMENT' ? '' : 'jian'" />
                 </div>
               </v-router>
             </SwiperSlide>

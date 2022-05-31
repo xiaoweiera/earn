@@ -36,7 +36,11 @@ const props = defineProps({
   },
   limit: {
     type: Number,
-    default: 10,
+    default: 30,
+  },
+  origin: {
+    type: String,
+    default: "",
   },
 });
 const height = document.body.clientWidth > 375 ? 60 : 50;
@@ -89,7 +93,9 @@ const sort = () => {
 const toProject = (row: any) => {
   if (!row.id) return;
   let url = "";
-  if (detail.category === "NFT") {
+  if (props.origin) {
+    url = `/rank/${props.origin}/${row.id}`;
+  } else if (detail.category === "NFT") {
     url = `/rank/nft/${row.id}`;
   } else {
     url = `/rank/dapp/${row.id}`;

@@ -9,8 +9,6 @@ import { routerConfig } from "src/router/config";
 import { getValue } from "src/utils/root/data";
 import { TabTypes } from "./dapp";
 
-export { TabTypes } from "./dapp";
-
 export const tabAll = "All";
 
 export const getAll = function () {

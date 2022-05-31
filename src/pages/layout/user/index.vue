@@ -62,10 +62,10 @@ onMounted(function () {
 
 <template>
   <div>
-    <div class="flex items-center text-white">
+    <div class="flex items-center">
       <!--中英文切换-->
       <v-router :href="url" :query="getLangValue()" class="flex items-center cursor-pointer">
-        <span class="inline-block whitespace-nowrap text-14-18">{{ i18n.common.lang }}</span>
+        <span class="text-white inline-block whitespace-nowrap text-14-18">{{ i18n.common.lang }}</span>
       </v-router>
 
       <span class="mx-4 text-white text-opacity-65 hidden lg:inline-block">|</span>
@@ -73,7 +73,7 @@ onMounted(function () {
       <ui-hover popper-class="header-user" class="flex" trigger="hover">
         <template #label>
           <v-router :href="env.appDownload" class="hidden lg:flex" target="_blank">
-            <span class="inline-block whitespace-nowrap text-14-18">APP</span>
+            <span class="text-white inline-block whitespace-nowrap text-14-18">APP</span>
           </v-router>
         </template>
         <template #content>
@@ -89,7 +89,7 @@ onMounted(function () {
       <div v-if="user && user.id">
         <ui-hover popper-class="header-user" class="flex" placement="bottom-end" trigger="hover">
           <template #label>
-            <div class="relative">
+            <div class="relative text-white">
               <span class="flex">
                 <IconFont class="cursor-pointer" size="22" type="icon-yonghu1" />
               </span>
@@ -107,7 +107,7 @@ onMounted(function () {
 
       <!--未登录-->
       <div v-else>
-        <div class="flex items-center">
+        <div class="flex items-center text-white">
           <span class="whitespace-nowrap cursor-pointer" @click.stop.prevent="showLogin">{{ i18n.common.login }}</span>
           <img :src="`${env.VITE_oss}/nav/dian.png`" alt="" class="w-0.5 h-0.5 ml-1 mr-1 Z hidden md:inline-block" />
           <span class="whitespace-nowrap cursor-pointer hidden md:inline-block" @click.stop.prevent="showRegister">{{ i18n.common.register }}</span>

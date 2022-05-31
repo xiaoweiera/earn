@@ -56,7 +56,7 @@ const tabChange = function (value: any) {
                   <span class="text-kd12px18px text-global-highTitle text-opacity-65 ml-1">{{ getTitle(scope.value) }}</span>
                   <!--                  <IconFont v-if="scope.data.index !== 0" class="text-global-highTitle text-opacity-25 ml-1.5" type="icon-info" size="14" />-->
                 </p>
-                <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-medium font-kdFang">{{ toNumberCashFormat(scope.data.last, "%") }}</p>
+                <p class="pl-4 mt-0.5 text-kd14px18px text-global-highTitle font-semibold font-kdFang">{{ toNumberCashFormat(scope.data.last, "%") }}</p>
                 <p class="pl-4 mt-0.5 flex items-center text-kd12px18px font-medium font-kdInter" :class="scope.data.index === 0 ? getClassColor(data.increment.volumeWithWhalesRatio_24h) : getClassColor(data.increment.volumeWithBlueChipHolderRatio_24h)">
                   <IconFont :type="scope.data.index === 0 ? getIcon(data.increment.volumeWithWhalesRatio_24h) : getIcon(data.increment.volumeWithBlueChipHolderRatio_24h)" size="6" />
                   <span>{{ scope.data.index === 0 ? toNumberCashFormat(data.increment.volumeWithWhalesRatio_24h, "%") : toNumberCashFormat(data.increment.volumeWithBlueChipHolderRatio_24h, "%") }}</span>
