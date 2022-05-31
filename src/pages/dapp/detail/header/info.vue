@@ -78,7 +78,7 @@ const shareText = function (title: string, keywords: string) {
           </span>
         </template>
       </ui-label>
-      <div v-if="data.gallery" class="mt-4 rounded bg-global-highTitle bg-opacity-6">
+      <div v-if="data.gallery && data.gallery.length > 0" class="mt-4 rounded bg-global-highTitle bg-opacity-6">
         <p class="text-kd12px18px text-global-highTitle text-opacity-65 py-1 px-2 whitespace-nowrap">{{ data.gallery.length }}{{ i18n.dapp.detail.header.items }}</p>
       </div>
     </div>

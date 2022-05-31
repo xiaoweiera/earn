@@ -90,7 +90,7 @@ const isFooterEmpty = function (data: ProjectItem): boolean {
       </template>
     </Table>
     <!--图集-->
-    <div v-if="data.gallery.length > 0" class="clearfix">
+    <div v-if="data.gallery" class="clearfix">
       <div class="flex flex-wrap justify-end">
         <template v-for="(value, index) in data.gallery" :key="index">
           <div class="pt-4 ml-3 first:ml-0">

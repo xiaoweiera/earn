@@ -34,7 +34,16 @@ const getProjectName = (data: DAppProject) => {
 </script>
 
 <template>
-  <ui-label v-if="value && value === Progress.oncoming" :value="`🔥 ${getProjectName(project)} ${i18n.dapp.detail.upcoming}`" />
-  <ui-label v-else-if="value && value === Progress.ongoing" :value="`${getProjectName(project)} ${i18n.dapp.detail.ongoing}`" />
-  <ui-label v-else-if="value && value === Progress.finished" :value="`${getProjectName(project)} ${i18n.dapp.detail.ended}`" />
+  <ui-label v-if="value && value === Progress.oncoming" class="progress" :value="`🔥 ${getProjectName(project)} ${i18n.dapp.detail.upcoming}`" />
+  <ui-label v-else-if="value && value === Progress.ongoing" class="progress" :value="`${getProjectName(project)} ${i18n.dapp.detail.ongoing}`" />
+  <ui-label v-else-if="value && value === Progress.finished" class="progress" :value="`${getProjectName(project)} ${i18n.dapp.detail.ended}`" />
 </template>
+
+<style lang="scss" scoped>
+.progress {
+  @apply bg-global-darkblue bg-opacity-100;
+  ::v-deep(label) {
+    @apply text-global-white text-opacity-100;
+  }
+}
+</style>
