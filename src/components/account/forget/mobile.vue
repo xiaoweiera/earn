@@ -6,6 +6,8 @@ import safeGet from "@fengqiaogang/safe-get";
  * @author svon.me@gmail.com
  */
 import API from "src/api/index";
+import type { Callback } from "src/types/common";
+import type { PropType } from "vue";
 import I18n from "src/utils/i18n";
 import { messageError } from "src/lib/tool";
 import type { AreaCode } from "src/types/common/area";
@@ -22,6 +24,10 @@ const props = defineProps({
   areaCode: {
     type: String,
     default: "",
+  },
+  callback: {
+    type: Function as PropType<Callback>,
+    default: () => null,
   },
 });
 
@@ -61,8 +67,12 @@ const submit = async function () {
     const data: Common.FormData = toRaw(formData);
     // 找回密码
     await api.user.resetMobilePassword(data);
-    // 返回登录页面
-    selfGoBack();
+    if (props.callback) {
+      props.callback(data);
+    } else {
+      // 返回登录页面
+      selfGoBack();
+    }
   } catch (e: any) {
     // 提升异常信息
     const { message } = e || {};
@@ -136,7 +146,7 @@ onMounted(async () => {
         </div>
       </el-form-item>
 
-      <div>
+      <div v-show="!mobile">
         <slot>
           <!-- 返回登录 -->
           <div class="text-center pt-4.5 pb-2.5">
