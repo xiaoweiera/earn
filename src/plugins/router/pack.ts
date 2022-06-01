@@ -58,14 +58,16 @@ export const query = function (...data: Query[]): string {
   return array.join("&");
 };
 
-export const createHref = function (value: string | Href | Location = "/", param?: Query) {
+export const createHref = function (value: string | object | Href | Location = "/", param?: Query) {
   const i18n = I18n();
   if (value) {
     // 判断是否是 Href 类型
-    if (_.isObject(value) && value.path) {
-      const temp = Url.urlParse(value.path);
-      if (value.query) {
-        temp.query = Object.assign({}, temp.query, value.query);
+    const path = safeGet<string>(value, "path");
+    if (_.isObject(value) && path) {
+      const temp = Url.urlParse(path);
+      const query = safeGet<object>(value, "query");
+      if (query) {
+        temp.query = Object.assign({}, temp.query, query);
       }
       value = temp;
     }
@@ -80,7 +82,8 @@ export const createHref = function (value: string | Href | Location = "/", param
   }
   // 设置查询参数
   if (param) {
-    Object.assign(value.query, param);
+    const query = safeGet<object>(value, "query") || {};
+    Object.assign(query, param);
   }
   return Url.urlFormat(value);
 };
