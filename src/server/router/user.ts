@@ -5,22 +5,28 @@
 
 import { Router as ExpressRouter } from "express";
 import * as user from "src/controller/common/user";
-import { config as routerConfig } from "src/router/config";
+import { routerConfig } from "src/router/config";
 
 const User = function () {
   const router = ExpressRouter();
 
   // 找回密码
-  router.all(routerConfig.user.forget, user.prepend, user.userForget);
+  router.get(routerConfig.user.forgetPattern(), user.userForget);
 
   // 邮箱注册
-  router.all(routerConfig.user.register, user.prepend, user.register);
+  router.get(routerConfig.user.registerPattern(), user.register);
 
   // 邮箱登录
-  router.all(routerConfig.user.login, user.prepend, user.login);
+  router.get(routerConfig.user.loginPattern(), user.login);
 
   // 邮箱登录
-  router.all(routerConfig.user.updateEmail, user.prepend, user.updateEmail);
+  router.get(routerConfig.user.updateEmailPattern(), user.updateEmail);
+
+  // web hook
+  router.get(routerConfig.user.webHookPattern(), user.prepend, user.webHook);
+
+  // 个人设置
+  router.get(routerConfig.user.accountPattern(), user.prepend, user.account);
 
   return router;
 };

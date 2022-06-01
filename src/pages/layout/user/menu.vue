@@ -7,7 +7,7 @@ import type { PropType } from "vue";
 import I18n from "src/utils/i18n";
 import type { User } from "src/types/common/user";
 import { isConnect } from "src/logic/common/wallet";
-import { config as routerConfig } from "src/router/config";
+import { routerConfig } from "src/router/config";
 import { asyncLoad } from "src/plugins/lazyload/";
 
 defineProps({
@@ -33,6 +33,18 @@ const getUserName = function (data: User): string | number {
       <IconFont v-if="user.is_vip" class="ml-2" type="vip1" />
     </div>
     <div class="border-t border-solid border-gray-300">
+      <v-router :href="routerConfig.user.account()" class="px-4 py-2 flex items-center cursor-pointer">
+        <IconFont class="text-global-primary" size="20" type="icon-setting" />
+        <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">个人设置</span>
+      </v-router>
+      <div class="px-4 py-2 flex items-center cursor-pointer">
+        <IconFont class="text-global-primary" size="20" type="icon-users" />
+        <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">邀请好友</span>
+      </div>
+      <v-router :href="routerConfig.user.webHook()" class="px-4 py-2 flex items-center cursor-pointer">
+        <IconFont class="text-global-primary" size="20" type="icon-jiqiren" />
+        <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">Webhook</span>
+      </v-router>
       <client-only v-if="!user.email" class="px-4 py-2 cursor-pointer">
         <!--绑定邮箱-->
         <Email>
@@ -49,7 +61,7 @@ const getUserName = function (data: User): string | number {
           <ui-wallet-portfolio class="px-4 py-1" />
         </client-only>
       </div>
-      <v-router :href="routerConfig.user.logout" class="px-4 py-2 flex items-center cursor-pointer">
+      <v-router :href="routerConfig.user.logout()" class="px-4 py-2 flex items-center cursor-pointer">
         <IconFont class="text-global-primary" size="20" type="icon-tuichu" />
         <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.nav.outLogin }}</span>
       </v-router>
