@@ -6,7 +6,7 @@ import type { User } from "src/types/common/user";
 import { alias, createReactive } from "src/utils/ssr/ref";
 import { routerConfig } from "src/router/config";
 import { asyncLoad } from "src/plugins/lazyload/";
-import { Encryption } from "src/utils/";
+import { Encryption, upperFirst } from "src/utils/";
 import { ElDialog } from "element-plus";
 import { messageSuccess } from "src/lib/tool";
 import { ref } from "vue";
@@ -136,9 +136,9 @@ const onCallback = (data: object) => {
         <div class="p-4 rounded-md bg-white mt-3">
           <h5 class="text-14-18 text-global-text-grey">Webhook</h5>
           <div class="flex items-center justify-between mt-3">
-            <h5 v-if="user.web_hook" class="text-14-18 text-global-black-title">
+            <h5 v-if="user.web_hook" class="max-w-5/6 text-14-18 text-global-black-title flex break-words">
               <span>{{ i18n.user.info.alreadyBind }}</span>
-              <span v-for="(item, index) in user.web_hook.telegram" :key="index" class="ml-2">{{ item.token }} {{ item > 1 ? "、" : "" }}</span>
+              <span v-for="(item, index) in Object.keys(user.web_hook)" :key="index" class="ml-2">{{ upperFirst(item) }}</span>
             </h5>
             <h5 v-else class="text-14-18 text-global-red">{{ i18n.user.info.noBind }}</h5>
             <v-router class="block cursor-pointer whitespace-nowrap" :href="routerConfig.user.webHook()">
