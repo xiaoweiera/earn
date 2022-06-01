@@ -3,6 +3,12 @@ export enum Type {
   mobile = "mobile", // 手机号登录
 }
 
+export enum VipType {
+  vip = "vip",
+  vip_pro = "vip_pro",
+  vip_perp = "vip_perp",
+  common = "common",
+}
 export interface User {
   area_code: number;
   avatar_url: string; // 头像地址
