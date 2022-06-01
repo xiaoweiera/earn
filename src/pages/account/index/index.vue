@@ -3,6 +3,7 @@
  * @file 个人设置
  */
 import type { User } from "src/types/common/user";
+import { VipType } from "src/types/common/user";
 import { alias, createReactive } from "src/utils/ssr/ref";
 import { routerConfig } from "src/router/config";
 import { asyncLoad } from "src/plugins/lazyload/";
@@ -42,6 +43,15 @@ const onCallback = (data: object) => {
   }
   // todo
 };
+const getVipIcon = (data: string) => {
+  if (data === VipType.vip || data === VipType.vip_perp) {
+    return "vip";
+  } else if (data === VipType.vip_pro) {
+    return "vip_pro";
+  } else {
+    return "";
+  }
+};
 </script>
 
 <template>
@@ -55,7 +65,7 @@ const onCallback = (data: object) => {
           <div class="ml-3">
             <div class="flex items-center">
               <span class="text-16-22 font-m text-global-black-title">{{ getUserName(user) }}</span>
-              <icon-vip class="ml-1.5" :type="user.vip_level"></icon-vip>
+              <icon-vip class="ml-1.5" :type="getVipIcon(user.vip_level)"></icon-vip>
             </div>
             <p class="mt-0.5 text-global-text-grey text-14-18">ID: {{ user.username }}</p>
           </div>
@@ -101,7 +111,7 @@ const onCallback = (data: object) => {
           <h5 class="text-14-18 text-global-text-grey">{{ i18n.user.info.phone }}</h5>
           <div class="mt-3">
             <h5 v-if="user.mobile" class="text-14-18 text-global-black-title">{{ encryptionMobile(user.mobile) }}</h5>
-            <h5 class="text-14-18 text-global-red">{{ i18n.user.info.noBind }}</h5>
+            <h5 v-else class="text-14-18 text-global-red">{{ i18n.user.info.noBind }}</h5>
           </div>
         </div>
         <!--邮箱-->
@@ -141,7 +151,7 @@ const onCallback = (data: object) => {
               <span v-for="(item, index) in Object.keys(user.web_hook)" :key="index" class="ml-2">{{ upperFirst(item) }}</span>
             </h5>
             <h5 v-else class="text-14-18 text-global-red">{{ i18n.user.info.noBind }}</h5>
-            <v-router class="block cursor-pointer whitespace-nowrap" :href="routerConfig.user.webHook()">
+            <v-router class="block cursor-pointer whitespace-nowrap" target="_blank" :href="routerConfig.user.webHook()">
               <span class="v-router text-global-darkblue text-14-18">{{ i18n.user.info.goBind }}</span>
             </v-router>
           </div>
