@@ -30,4 +30,5 @@ export interface User {
   vip_effective_date: string;
   vip_expiration_date: string;
   vip_level: string; // vip 等级
+  web_hook: string; // 绑定webhook
 }

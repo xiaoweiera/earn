@@ -14,13 +14,13 @@ const onBeforeUpload = async (file: File) => {
   });
   const api = new API();
   const fileName = getFileName(file);
-  const data = {
-    avatar: fileName,
-  };
-  const option: any = await api.user.updateName(data);
+  // const data = {
+  //   avatar: fileName,
+  // };
+  // const option: any = await api.user.updateName(data);
 };
-const handleChange = (data: any) => {
-  // console.log(data);
+const handleChange = () => {
+  // todo
 };
 </script>
 

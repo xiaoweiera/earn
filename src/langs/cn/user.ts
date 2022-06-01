@@ -5,13 +5,15 @@
 export default {
   share: {
     title: "邀请好友",
-    dec: "有用才分享，好用才推荐。\n" + "区块链数据监控分析必备平台，快来和我一起快人一步，遇见财富吧！",
+    dec: "有用才分享，好用才推荐。区块链数据监控分析必备平台，快来和我一起快人一步，遇见财富吧！",
+    submit: "复制分享链接",
   },
   info: {
     vip: "VIP剩余天数",
     balance: "金币余额",
     set: "个人设置",
     avatar: "头像",
+    uploadAvatar: "上传头像",
     nickname: "昵称",
     edit: "修改",
     phone: "手机",
