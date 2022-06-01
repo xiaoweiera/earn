@@ -73,7 +73,7 @@ const getTxt = (value: string, defaultValue: string) => (value ? value : default
             <span class="text-16-24 font-medium text-global-highTitle">{{ getTxt(tip, i18n.common.dialogData.tip) }}</span>
             <IconFont size="20" class="text-global-highTitle absolute right-4 top-4.5 hand text-opacity-65" type="icon-xClose" @click="oepnDialog = false" />
           </div>
-          <div class="mt-4">{{ content }}</div>
+          <div class="mt-4 text-center text-global-highTitle text-opacity-85">{{ content }}</div>
           <div v-if="type === 'confirm'" class="flex items-center mt-4">
             <div class="cancel" @click="close()">{{ getTxt(cancelText, i18n.common.dialogData.close) }}</div>
             <div class="confirm" @click="submit()">{{ getTxt(confirmText, i18n.common.dialogData.ok) }}</div>

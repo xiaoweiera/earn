@@ -52,7 +52,7 @@ export const getTabList = function () {
   };
 };
 
-export const getUiTabList = (list: string[], key: string, name: string) => {
+export const getUiTabList = (list: string[], key: string) => {
   return function () {
     const query = getParam<object>();
     const array: object[] = [

@@ -258,7 +258,7 @@ const getSeriesList = function (legends: LegendItem[], yAxisOption: object[], se
     } else {
       if (props.area && data.index !== 1) {
         // let areaColor = "rgba(43, 141, 255, 0.2)";
-        const color = safeGet<string>(option, "itemStyle.color");
+        // const color = safeGet<string>(option, "itemStyle.color");
         // if (color) {
         //   areaColor = color;
         // }

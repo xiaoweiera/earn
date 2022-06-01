@@ -10,7 +10,6 @@ import { alias, onLoadReactive } from "src/utils/ssr/ref";
 
 // 引入 use state
 import { stateAlias, useReactiveProvide, useWatch } from "src/utils/use/state";
-import { getParam } from "src/utils/router";
 import DAppNftSearch from "./nfts/search.vue";
 import DAppDiscoversHeader from "./discovers/header.vue";
 import DAppNftEndList from "./nfts/endlist.vue";

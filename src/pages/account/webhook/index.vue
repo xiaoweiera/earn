@@ -1,7 +1,5 @@
 <script setup lang="ts">
-/**
- * @file Web Hook
- */
+import Form from "src/pages/account/webhook/form.vue";
 </script>
 
 <template>
@@ -25,7 +23,7 @@
           </div>
 
           <div class="mt-12">
-            <p>表单</p>
+            <Form />
           </div>
 
           <div class="mt-12">

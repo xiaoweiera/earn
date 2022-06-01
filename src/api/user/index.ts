@@ -167,4 +167,18 @@ export default class extends ApiTemplate {
     };
     return [value, callback] as any;
   }
+  // 添加webhook
+  @post(api.user.addWebhook)
+  @userToken(true)
+  @validate
+  addWebhook<T>(@required query: any): Promise<T> {
+    return [query] as any;
+  }
+  // 删除webhook
+  @post(api.user.delWebhook)
+  @userToken(true)
+  @validate
+  delWebhook<T>(@required query: any): Promise<T> {
+    return [query] as any;
+  }
 }
