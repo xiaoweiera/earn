@@ -7,7 +7,7 @@ import { alias, createReactive } from "src/utils/ssr/ref";
 import { routerConfig } from "src/router/config";
 import { asyncLoad } from "src/plugins/lazyload/";
 import { Encryption } from "src/utils/";
-import { ElDialog, ElUpload } from "element-plus";
+import { ElDialog } from "element-plus";
 import { ref } from "vue";
 
 const BindEmail = asyncLoad(() => import("src/pages/layout/user/email.vue"));
@@ -74,7 +74,9 @@ const onCallback = (data: object) => {
             <ui-image class="w-12 h-12 ml-6" :src="user.avatar_url" :rounded="true" />
           </div>
           <div class="cursor-pointer">
-            <upload-img />
+            <UploadImg>
+              <span class="v-router text-global-darkblue text-14-18">上传头像</span>
+            </UploadImg>
           </div>
         </div>
         <!--昵称-->
@@ -167,7 +169,7 @@ const onCallback = (data: object) => {
           <span class="text-16-22 font-m text-global-highTitle">修改昵称</span>
         </template>
         <div>
-          <update-name />
+          <UpdateName />
         </div>
       </el-dialog>
     </div>
