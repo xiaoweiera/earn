@@ -13,7 +13,10 @@ import { ref } from "vue";
 const BindEmail = asyncLoad(() => import("src/pages/layout/user/email.vue"));
 const user = createReactive<User>(alias.common.user, {} as User);
 
+// 修改密码
 const passwordVisible = ref<boolean>(false);
+// 修改邮箱
+const emailVisible = ref<boolean>(false);
 
 const encryptionMobile = (value: string | number): string => {
   const encryption = new Encryption(value as string);
@@ -88,7 +91,7 @@ const getUserName = (data: User): string => {
           <h5 class="text-14-18 text-global-text-grey">邮箱</h5>
           <div v-if="user.email" class="flex items-center justify-between mt-3">
             <h5 class="text-14-18 text-global-black-title">{{ user.email }}</h5>
-            <div class="cursor-pointer whitespace-nowrap">
+            <div class="cursor-pointer whitespace-nowrap" @click="emailVisible = true">
               <span class="v-router text-global-darkblue text-14-18">修改</span>
             </div>
           </div>
@@ -137,6 +140,16 @@ const getUserName = (data: User): string => {
         <account-forget-mobile v-else :mobile="user.mobile" :area-code="user.area_code">
           <div></div>
         </account-forget-mobile>
+      </div>
+    </el-dialog>
+
+    <el-dialog v-model="emailVisible" :append-to-body="true" custom-class="dialog-user-wrap">
+      <template #title>
+        <span class="text-16-22 font-m text-global-highTitle">修改邮箱</span>
+      </template>
+      <div>
+        <!--如果有邮箱，则使用邮箱进行修改密码-->
+        <account-update-email />
       </div>
     </el-dialog>
   </div>
