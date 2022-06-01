@@ -22,7 +22,7 @@ defineProps({
         <p v-if="!data.trends" class="text-14-18 text-global-highTitle text-opacity-45 line-clamp-2 mt-2">{{ data.desc }}</p>
       </div>
       <div class="absolute bottom-4 right-4">
-        <OnFollow :id="data.id" v-model:status="data.followed" :type="indicatorTypes.news" />
+        <OnFollow :id="data.id" v-model:status="data.followed" :title="data.name" :type="indicatorTypes.news" />
       </div>
     </div>
   </div>

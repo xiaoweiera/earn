@@ -11,6 +11,7 @@ import { ref } from "vue";
 import { toBoolean } from "src/utils";
 import { ElMessageBox } from "element-plus";
 import I18n from "src/utils/i18n/";
+import * as track from "src/logic/track";
 
 const props = defineProps({
   id: {
@@ -21,6 +22,10 @@ const props = defineProps({
   status: {
     type: Boolean,
     default: () => false,
+  },
+  title: {
+    type: String,
+    default: "",
   },
 });
 
@@ -33,6 +38,12 @@ const onClick = async function () {
   const id: string | number = props.id;
   // 未关注时
   if (!toBoolean(props.status)) {
+    // 上报数据
+    track.push(track.Origin.gio, track.event.quota.followIndicators, {
+      indicator_title: props.title,
+      indicator_ID: props.id,
+    });
+
     // 关注
     try {
       const api = new API();

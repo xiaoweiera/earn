@@ -18,6 +18,9 @@ export const event = {
   quota: {
     indicator: "show_indicator", // 指标推荐
     signals: "show_signal", // 指标列表
+    signalsDetail: "flash_show", // 快讯详情
+    indicatorDetail: "indicator_show", // 指标详情
+    followIndicators: "follow_indicators", // 关注指标
   },
   // 项目库
   dApp: {
