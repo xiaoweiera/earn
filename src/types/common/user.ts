@@ -14,7 +14,7 @@ export interface User {
   follow_topics_count: number;
   growthpad_invited_count: number;
   id: number; // 用户id
-  invited_count: number; // 邀请人事
+  invited_count: number; // 邀请人数
   is_evaluator: boolean;
   is_vip: boolean;
   is_whale_address_beta_user: boolean;
