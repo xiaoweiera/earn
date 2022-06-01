@@ -68,3 +68,11 @@ export const onUpdateEmailCallback = async function (form?: any) {
   // 刷新当前页面
   window.location.reload();
 };
+
+// 昵称修改成功
+export const onUpdateAvatarCallback = async function () {
+  // 更新用户 token
+  await refresh(true);
+  // 刷新当前页面
+  window.location.reload();
+};
