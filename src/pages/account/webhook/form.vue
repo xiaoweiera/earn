@@ -103,7 +103,7 @@ onMounted(() => {
           </div>
         </template>
       </div>
-      <div v-if="list.length === 0 && !isLoad" class="text-center mt-9 flex flex-col items-center">
+      <div v-if="!isLoad && list && list.length === 0" class="text-center mt-9 flex flex-col items-center">
         <ui-image class="w-34.1 h-30" fit="contain" :oss="true" src="/common/hookNull.png" />
         <div class="mt-4 text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang text-center">{{ i18n.user.hook.noData }}</div>
       </div>
