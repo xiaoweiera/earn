@@ -30,5 +30,13 @@ export interface User {
   vip_effective_date: string;
   vip_expiration_date: string;
   vip_level: string; // vip 等级
-  web_hook: string; // 绑定webhook
+  web_hook: WebHook; // 绑定webhook
+}
+
+export interface WebHook {
+  telegram: Telegram; //推特
+}
+export interface Telegram {
+  language: string; // 语言
+  token: string; // 地址
 }

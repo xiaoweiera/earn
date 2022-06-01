@@ -138,7 +138,7 @@ const onCallback = (data: object) => {
           <div class="flex items-center justify-between mt-3">
             <h5 v-if="user.web_hook" class="text-14-18 text-global-black-title">
               <span>{{ i18n.user.info.alreadyBind }}</span>
-              <span v-for="(item, index) in user.web_hook" :key="index">{{ item }}</span>
+              <span v-for="(item, index) in user.web_hook.telegram" :key="index" class="ml-2">{{ item.token }} {{ item > 1 ? "、" : "" }}</span>
             </h5>
             <h5 v-else class="text-14-18 text-global-red">{{ i18n.user.info.noBind }}</h5>
             <v-router class="block cursor-pointer whitespace-nowrap" :href="routerConfig.user.webHook()">
