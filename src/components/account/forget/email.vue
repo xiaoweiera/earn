@@ -5,7 +5,7 @@
  */
 import API from "src/api/index";
 import I18n from "src/utils/i18n";
-import { computed, ref, toRaw } from "vue";
+import { computed, onMounted, ref, toRaw } from "vue";
 import { messageError } from "src/lib/tool";
 import safeGet from "@fengqiaogang/safe-get";
 import * as Common from "src/logic/account/register";
@@ -68,6 +68,11 @@ const submit = async function () {
     }
   }
 };
+onMounted(async () => {
+  if (props.email) {
+    formData.email = props.email;
+  }
+});
 </script>
 
 <template>
@@ -94,12 +99,12 @@ const submit = async function () {
 
       <!-- 密码 -->
       <el-form-item prop="password">
-        <el-input v-model="formData.password" name="password" type="password" :placeholder="i18n.common.placeholder.password" show-password autocomplete="off" />
+        <el-input v-model="formData.password" name="password" type="password" :placeholder="i18n.common.placeholder.password" show-password autocomplete="new-password" />
       </el-form-item>
 
       <!-- 确认密码 -->
       <el-form-item prop="new_password" :rules="Common.checkedNewPassword(formData)">
-        <el-input v-model="formData.new_password" name="password" type="password" :placeholder="i18n.common.placeholder.new_password" show-password autocomplete="off" />
+        <el-input v-model="formData.new_password" name="password" type="password" :placeholder="i18n.common.placeholder.new_password" show-password autocomplete="new-password" />
       </el-form-item>
 
       <!-- 确定按钮 -->

@@ -125,8 +125,18 @@ const getUserName = (data: User): string => {
     </div>
 
     <el-dialog v-model="passwordVisible" :append-to-body="true" custom-class="dialog-user-wrap">
+      <template #title>
+        <span class="text-16-22 font-m text-global-highTitle">修改密码</span>
+      </template>
       <div>
-        <account-forget-email :email="user.email"></account-forget-email>
+        <!--如果有邮箱，则使用邮箱进行修改密码-->
+        <account-forget-email v-if="user.email" :email="user.email">
+          <div></div>
+        </account-forget-email>
+        <!--否则使用电话找回-->
+        <account-forget-mobile v-else :mobile="user.mobile" :area-code="user.area_code">
+          <div></div>
+        </account-forget-mobile>
       </div>
     </el-dialog>
   </div>
