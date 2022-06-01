@@ -27,6 +27,10 @@ const encryptionMobile = (value: string | number): string => {
 const getUserName = (data: User): string => {
   return data.nickname || data.email;
 };
+
+const onCallback = (data: object) => {
+  // todo
+};
 </script>
 
 <template>
@@ -134,13 +138,9 @@ const getUserName = (data: User): string => {
         </template>
         <div>
           <!--如果有邮箱，则使用邮箱进行修改密码-->
-          <account-forget-email v-if="user.email" :email="user.email">
-            <div></div>
-          </account-forget-email>
+          <account-forget-email v-if="user.email" :email="user.email" :callback="onCallback" />
           <!--电话修改密码-->
-          <account-forget-mobile v-else :mobile="user.mobile" :area-code="user.area_code">
-            <div></div>
-          </account-forget-mobile>
+          <account-forget-mobile v-else :mobile="user.mobile" :area-code="user.area_code" :callback="onCallback" />
         </div>
       </el-dialog>
     </div>
@@ -152,7 +152,7 @@ const getUserName = (data: User): string => {
         </template>
         <div>
           <!--如果有邮箱，则使用邮箱进行修改密码-->
-          <account-update-email />
+          <account-update-email :callback="onCallback" />
         </div>
       </el-dialog>
     </div>

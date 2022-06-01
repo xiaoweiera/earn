@@ -11,20 +11,24 @@ import safeGet from "@fengqiaogang/safe-get";
 import * as Common from "src/logic/account/register";
 import { ValidateType } from "src/components/ui/validate/config";
 import { ElButton, ElForm, ElFormItem, ElInput } from "element-plus";
+import type { Callback } from "src/types/common/";
+import type { PropType } from "vue";
 
 const props = defineProps({
   email: {
     type: String,
     default: "",
   },
+  callback: {
+    type: Function as PropType<Callback>,
+    default: () => null,
+  },
 });
 
 const i18n = I18n();
 const domForm = ref<any>(null);
 
-const formData = Common.createFormData({
-  email: props.email,
-} as any);
+const formData = Common.createFormData();
 
 const rules = computed(Common.rules);
 
@@ -56,8 +60,12 @@ const submit = async function () {
     const data: Common.FormData = toRaw(formData);
     // 找回密码
     await api.user.resetEmailPassword(data);
-    // 返回登录页面
-    selfGoBack();
+    if (props.callback) {
+      props.callback(data);
+    } else {
+      // 返回登录页面
+      selfGoBack();
+    }
   } catch (e: any) {
     // 提升异常信息
     const { message } = e || {};
@@ -117,7 +125,7 @@ onMounted(async () => {
         </div>
       </el-form-item>
 
-      <div>
+      <div v-show="!email">
         <slot>
           <!-- 返回登录 -->
           <div class="text-center pt-4.5 pb-2.5">
