@@ -8,6 +8,7 @@ import { routerConfig } from "src/router/config";
 import { asyncLoad } from "src/plugins/lazyload/";
 import { Encryption } from "src/utils/";
 import { ElDialog } from "element-plus";
+import { messageSuccess } from "src/lib/tool";
 import { ref } from "vue";
 import I18n from "src/utils/i18n";
 
@@ -35,7 +36,10 @@ const getUserName = (data: User): string => {
   return data.nickname || data.email;
 };
 
-const onCallback = () => {
+const onCallback = (data: object) => {
+  if (data) {
+    messageSuccess(`${i18n.user.info.success}`);
+  }
   // todo
 };
 </script>
