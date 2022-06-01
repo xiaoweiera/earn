@@ -181,4 +181,16 @@ export default class extends ApiTemplate {
   delWebhook<T>(@required query: any): Promise<T> {
     return [query] as any;
   }
+  // 修改昵称和头像
+  @post(api.user.updateName) // 接口地址
+  @userToken(true) // 必须为登录状态
+  @validate
+  async updateName(@required data: object) {
+    const value = _.pick(data, ["nickname", "code"]);
+    const callback = function (result?: object) {
+      // 成功时接口返回的值为空
+      return !result;
+    };
+    return [value, callback] as any;
+  }
 }

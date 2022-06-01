@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { ElInput, ElSelect, ElOption } from "element-plus";
 import api from "src/api/user";
+import { toUpper } from "ramda";
 import safeGet from "@fengqiaogang/safe-get";
 import { ref, onMounted } from "vue";
-// import I18n from "src/utils/i18n";
-// const i18n = I18n();
+import I18n from "src/utils/i18n";
+import { messageSuccess } from "src/lib/tool";
+const i18n = I18n();
 const API = new api();
 
 const isLoad = ref(true); //是否加载中
@@ -13,12 +15,12 @@ const isErr = ref(false); //是否报错
 const token = ref(""); //token输入框
 const lang = ref("en"); //语言
 const langList = [
-  { key: "cn", name: "CN Push" },
-  { key: "en", name: "EN Push" },
+  { key: "cn", name: i18n.user.hook.cnPush },
+  { key: "en", name: i18n.user.hook.enPush },
 ];
 //查询列表
 const getList = async () => {
-  const res = await API.getInfo();
+  const res: any = await API.getInfo();
   list.value = safeGet(res, "web_hook.telegram");
   isLoad.value = false;
 };
@@ -41,6 +43,7 @@ const addToken = async () => {
   };
   isLoad.value = true;
   await API.addWebhook(param);
+  messageSuccess(i18n.common.success);
   token.value = "";
   getList();
 };
@@ -59,12 +62,12 @@ onMounted(() => {
 <template>
   <div>
     <div class="flex items-center title">
-      <p>Telegram token</p>
+      <p>{{ i18n.user.hook.tgToken }}</p>
       <p class="red ml-1.5">*</p>
     </div>
     <!--form-->
     <div class="mt-1.5 flex items-center h-8">
-      <el-input v-model="token" class="flex-1 mr-3" placeholder="Search" />
+      <el-input v-model="token" class="flex-1 mr-3" />
       <client-only class="flex w-24 mr-3 items-center justify-between">
         <el-select v-model="lang" :popper-append-to-body="false" class="flex-1 select" size="small">
           <el-option v-for="item in langList" :key="item.key" :label="item.name" :value="item.key" />
@@ -72,17 +75,17 @@ onMounted(() => {
       </client-only>
       <div class="add" @click="addToken">add</div>
     </div>
-    <div v-if="isErr" class="err-text red">请填写Token后添加</div>
+    <div v-if="isErr" class="err-text red">{{ i18n.user.hook.dialogHolder }}</div>
     <!--list-->
     <div class="mt-12">
-      <p>Message Hook List</p>
+      <p>{{ i18n.user.hook.messageHookList }}</p>
       <div class="mt-3">
         <!-- header-->
         <div class="header font-medium">
-          <div class="default platform">平台</div>
+          <div class="default platform">{{ i18n.user.hook.platform }}</div>
           <div class="default token">Token</div>
-          <div class="default">Language</div>
-          <div class="default">Operation</div>
+          <div class="default">{{ i18n.user.hook.language }}</div>
+          <div class="default">{{ i18n.user.hook.operation }}</div>
         </div>
         <!-- item-->
         <template v-for="item in list" :key="item['token']">
@@ -91,10 +94,10 @@ onMounted(() => {
             <div class="default token">
               <div class="short">{{ item["token"] }}</div>
             </div>
-            <div class="default">{{ item["language"] }}</div>
-            <UiDialogConfirmTip v-if="true" custom-class="340px" type="confirm" content="确定要删除该绑定链接吗？" @submit="deleteToken(item['token'])">
+            <div class="default">{{ toUpper(item["language"]) }}</div>
+            <UiDialogConfirmTip v-if="true" custom-class="340px" type="confirm" :content="i18n.user.hook.dialogTitle" @submit="deleteToken(item['token'])">
               <template #title>
-                <span class="default del">Delete</span>
+                <span class="default del">{{ i18n.user.hook.del }}</span>
               </template>
             </UiDialogConfirmTip>
           </div>
@@ -102,7 +105,7 @@ onMounted(() => {
       </div>
       <div v-if="list.length === 0 && !isLoad" class="text-center mt-9 flex flex-col items-center">
         <ui-image class="w-34.1 h-30" fit="contain" :oss="true" src="/common/hookNull.png" />
-        <div class="mt-4 text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang text-center">暂无信息</div>
+        <div class="mt-4 text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang text-center">{{ i18n.user.hook.noData }}</div>
       </div>
     </div>
     <UiLoading v-if="isLoad" class="fixed top-0 bottom-0 left-0 right-0" />
@@ -112,7 +115,6 @@ onMounted(() => {
 .red {
   color: #dd4415;
 }
-
 .err-text {
   @apply mt-1.5 text-kd13px18px font-kdFang;
 }

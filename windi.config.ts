@@ -50,6 +50,7 @@ const cssGlobal = {
   "black-desc": "#50555C",
   "text-grey": "#989898",
   "bg-grey": "#F8FAFA",
+  red: "#DD4415",
 };
 
 export default defineConfig({
