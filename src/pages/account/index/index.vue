@@ -43,6 +43,11 @@ const onCallback = (data: object) => {
   }
   // todo
 };
+const onCallbackPassword = (data: object) => {
+  if (data) {
+    messageSuccess(`${i18n.user.info.passwordSuccess}`);
+  }
+};
 const getVipIcon = (data: string) => {
   if (data === VipType.vip || data === VipType.vip_perp) {
     return "vip";
@@ -166,9 +171,9 @@ const getVipIcon = (data: string) => {
         </template>
         <div>
           <!--如果有邮箱，则使用邮箱进行修改密码-->
-          <account-forget-email v-if="user.email" :email="user.email" :callback="onCallback" />
+          <account-forget-email v-if="user.email" :email="user.email" :callback="onCallbackPassword" />
           <!--电话修改密码-->
-          <account-forget-mobile v-else :mobile="user.mobile" :area-code="user.area_code" :callback="onCallback" />
+          <account-forget-mobile v-else :mobile="user.mobile" :area-code="user.area_code" :callback="onCallbackPassword" />
         </div>
       </el-dialog>
     </div>
