@@ -35,7 +35,7 @@ const platformData: any = ref([]);
 // 重组数据
 const mergeData = (key: string, data: any, origin: string[]) => {
   const list = ["All"];
-  if (origin.length > 0) {
+  if (origin && origin.length > 0) {
     list.push(...origin);
   }
   list.forEach((item: string) => {
