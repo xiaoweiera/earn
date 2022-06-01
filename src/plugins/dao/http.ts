@@ -4,6 +4,7 @@
  * @description 根据某些场景做一些处理
  */
 
+import _ from "lodash";
 import type { AxiosRequestConfig } from "axios";
 import safeGet from "@fengqiaogang/safe-get";
 import { isFunction, isObject } from "src/utils/";
@@ -79,7 +80,7 @@ export const post = function (url: string, expire = 0, config: AxiosRequestConfi
       const [data = {}, callback]: [object, (value?: any) => void] = await Promise.resolve(app.apply(self, args));
       const _user = safeGet<string>(data, "_user");
 
-      const result = await self.post(url, data, {
+      const result = await self.post(url, _.omit(data, ["_user"]), {
         ...config,
         params: { expire, _user },
       });

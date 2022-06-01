@@ -9,6 +9,7 @@ import { onMounted, ref } from "vue";
 import OnFollow from "../follow/on.vue";
 import safeGet from "@fengqiaogang/safe-get";
 import { getValue } from "src/utils/root/data";
+import * as track from "src/logic/track";
 import { alias, createReactive, onLoadReactive } from "src/utils/ssr/ref";
 import type { Data, IndicatorDetail, DataMap } from "src/types/quota/";
 import { Classify } from "src/utils/convert/classify";
@@ -21,6 +22,13 @@ const limit = ref<number>(20);
 const classify = Classify("published_at", "date");
 const quotaList = ref<DataMap[]>([]);
 const detail = createReactive<IndicatorDetail>(alias.quota.indicatorDetail, {} as IndicatorDetail);
+
+const trackPush = (data: IndicatorDetail) => {
+  track.push(track.Origin.gio, track.event.quota.indicatorDetail, {
+    indicator_title: data.name,
+    indicator_ID: data.id,
+  });
+};
 
 let initStatus = true;
 const initValue = function () {
@@ -54,12 +62,17 @@ const onChange = function (result: Data[][]) {
 };
 
 onMounted(function () {
+  const id = getValue<string>("query.id");
+  if (id && detail && detail.id) {
+    trackPush(detail);
+  }
   // 判断 detail 是否为空，如果为空时则进行数据重新获取
-  onLoadReactive(detail, () => {
-    const id = getValue<string>("query.id");
+  onLoadReactive(detail, async () => {
     if (id) {
       const api = new API();
-      return api.quota.getIndicatorDetail<IndicatorDetail>(id);
+      const data = await api.quota.getIndicatorDetail<IndicatorDetail>(id);
+      trackPush(data);
+      return data;
     }
   });
 });
@@ -74,7 +87,7 @@ onMounted(function () {
             <h3 class="text-18-24 font-m truncate">{{ detail.name }}</h3>
             <icon-vip class="ml-1" :type="detail.chart_type" />
           </div>
-          <OnFollow :id="detail.id" v-model:status="detail.followed" />
+          <OnFollow :id="detail.id" v-model:status="detail.followed" :title="detail.name" />
         </div>
         <div class="mt-2.5">
           <ui-description :line="3" line-height="20px">

@@ -58,7 +58,7 @@ const getRouterName = function (text: string): Name {
         <icon-vip class="ml-1" :type="data.chart.chart_type" />
       </v-router>
       <div class="quota-follow ml-2">
-        <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" />
+        <OnFollow v-if="isList" :id="data.chart.id" v-model:status="data.chart.followed" :title="data.chart.name" />
       </div>
     </div>
 
@@ -68,6 +68,7 @@ const getRouterName = function (text: string): Name {
         <!--在列表中样式-->
         <ui-description :line="10" line-height="22px">
           <v-router :href="getLink(data)" class="block text-global-black-desc" :name="getRouterName(data.content)" target="_blank">
+            <div v-if="data.title">{{ data.title }}</div>
             <div class="whitespace-pre-wrap" v-html="data.content"></div>
           </v-router>
         </ui-description>
