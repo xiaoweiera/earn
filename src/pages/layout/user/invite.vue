@@ -20,11 +20,12 @@ const visible = ref<boolean>(false);
 
 const getShareText = () => {
   const text1 = `${i18n.user.share.dec}`;
-  const text2 = props.code
-    ? routerConfig.common.download({
+  let text2 = routerConfig.common.download();
+  if (props.code) {
+    text2 = routerConfig.common.download({
       code: props.code,
-    })
-    : routerConfig.common.download();
+    });
+  }
   return `${text1}
 ${createHref(text2)}`;
 };
@@ -54,7 +55,7 @@ const onHidden = () => {
         </div>
         <client-only class="mt-5">
           <v-copy class="w-full" :value="getShareText()">
-            <el-button class="w-full" type="primary" size="large" @click="onHidden">复制分享链接</el-button>
+            <el-button class="w-full" type="primary" size="large" @click="onHidden">{{ i18n.user.share.submit }}</el-button>
           </v-copy>
         </client-only>
       </div>
