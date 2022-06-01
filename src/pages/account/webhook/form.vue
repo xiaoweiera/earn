@@ -77,8 +77,8 @@ onMounted(() => {
     </div>
     <div v-if="isErr" class="err-text red">{{ i18n.user.hook.dialogHolder }}</div>
     <!--list-->
-    <div class="mt-12">
-      <p>{{ i18n.user.hook.messageHookList }}</p>
+    <div v-if="!isLoad && safeGet(list, 'length') > 0" class="mt-12">
+      <p class="title">{{ i18n.user.hook.messageHookList }}</p>
       <div class="mt-3">
         <!-- header-->
         <div class="header font-medium">
@@ -103,10 +103,10 @@ onMounted(() => {
           </div>
         </template>
       </div>
-      <div v-if="!isLoad && list && list.length === 0" class="text-center mt-9 flex flex-col items-center">
-        <ui-image class="w-34.1 h-30" fit="contain" :oss="true" src="/common/hookNull.png" />
-        <div class="mt-4 text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang text-center">{{ i18n.user.hook.noData }}</div>
-      </div>
+      <!--      <div v-if="!isLoad && list && list.length === 0" class="text-center mt-9 flex flex-col items-center">-->
+      <!--        <ui-image class="w-34.1 h-30" fit="contain" :oss="true" src="/common/hookNull.png" />-->
+      <!--        <div class="mt-4 text-kd12px16px text-global-highTitle text-opacity-45 font-kdFang text-center">{{ i18n.user.hook.noData }}</div>-->
+      <!--      </div>-->
     </div>
     <UiLoading v-if="isLoad" class="fixed top-0 bottom-0 left-0 right-0" />
   </div>

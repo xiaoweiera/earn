@@ -11,7 +11,7 @@ const i18n = I18n();
       <div class="p-4 rounded-md bg-white mt-3">
         <!--平台列表-->
         <div>
-          <h5 class="text-12-16 text-global-black-title font-m">{{ i18n.user.hook.bindPlatform }}</h5>
+          <p class="title font-medium">{{ i18n.user.hook.bindPlatform }}</p>
           <div class="flex items-center mt-3">
             <label class="platform">
               <icon-font type="icon-telegram" size="32" />
@@ -41,7 +41,7 @@ const i18n = I18n();
             <Form />
           </div>
           <div class="mt-12">
-            <h5 class="text-12-16 text-global-black-title font-m">{{ i18n.user.hook.bind }}</h5>
+            <h5 class="title font-medium">{{ i18n.user.hook.bind }}</h5>
             <div class="bg-global-bg-grey p-4 mt-3 text-12-20 text-global-black-desc">
               <p class="text-14-20 font-m">{{ i18n.user.hook.use }}</p>
               <p class="mt-1.5">{{ i18n.user.hook.useDec }}</p>
@@ -73,6 +73,9 @@ const i18n = I18n();
   </div>
 </template>
 <style scoped lang="scss">
+.title {
+  @apply text-kd13px18px text-global-black-desc font-kdFang;
+}
 ::v-deep(.el-popover.el-popper) {
   min-width: fit-content !important;
   width: fit-content !important;
