@@ -148,7 +148,7 @@ const onCallback = (data: object) => {
         </div>
       </div>
     </div>
-
+    <!-- 修改密码弹框 -->
     <div v-if="passwordVisible">
       <el-dialog v-model="passwordVisible" :append-to-body="true" custom-class="dialog-user-wrap">
         <template #title>
@@ -162,7 +162,7 @@ const onCallback = (data: object) => {
         </div>
       </el-dialog>
     </div>
-
+    <!-- 修改邮箱-->
     <div v-if="emailVisible">
       <el-dialog v-model="emailVisible" :append-to-body="true" custom-class="dialog-user-wrap">
         <template #title>
@@ -174,6 +174,7 @@ const onCallback = (data: object) => {
         </div>
       </el-dialog>
     </div>
+    <!-- 修改昵称 -->
     <div v-if="nameVisible">
       <el-dialog v-model="nameVisible" :append-to-body="true" custom-class="dialog-user-wrap">
         <template #title>
