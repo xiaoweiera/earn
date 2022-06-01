@@ -13,6 +13,16 @@ import * as Common from "src/logic/account/register";
 import I18n from "src/utils/i18n";
 import { computed, ref, toRaw } from "vue";
 
+import type { Callback } from "src/types/common";
+import type { PropType } from "vue";
+
+const props = defineProps({
+  callback: {
+    type: Function as PropType<Callback>,
+    default: () => null,
+  },
+});
+
 const i18n = I18n();
 const domForm = ref<any>(null);
 
@@ -50,8 +60,13 @@ const submit = async function () {
     // 提交数据
     const status = await api.user.updateEmail(data);
     if (status) {
-      // 执行返回逻辑
       selfGoBack();
+      if (props.callback) {
+        props.callback(data);
+      } else {
+        // 执行返回逻辑
+        selfGoBack();
+      }
     }
   } catch (e: any) {
     // 提升异常信息

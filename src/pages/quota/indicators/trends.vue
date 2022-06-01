@@ -5,7 +5,7 @@
 // import safeGet from "@fengqiaogang/safe-get";
 import { toNumberCash, toNumberCashFormat } from "src/utils/";
 
-const props = defineProps({
+defineProps({
   value: {
     type: Object,
     required: true,
