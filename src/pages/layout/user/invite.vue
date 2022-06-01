@@ -7,6 +7,7 @@ import { ref } from "vue";
 import { routerConfig } from "src/router/config";
 import { ElDialog, ElButton } from "element-plus";
 import { createHref } from "src/plugins/router/pack";
+import I18n from "src/utils/i18n";
 
 const props = defineProps({
   code: {
@@ -14,11 +15,11 @@ const props = defineProps({
     default: "",
   },
 });
-
+const i18n = I18n();
 const visible = ref<boolean>(false);
 
 const getShareText = () => {
-  const text1 = "有用才分享，好用才推荐。区块链数据监控分析必备平台，快来和我一起快人一步，遇见财富吧！";
+  const text1 = `${i18n.user.share.dec}`;
   const text2 = props.code
     ? routerConfig.common.download({
       code: props.code,
@@ -43,7 +44,7 @@ const onHidden = () => {
     </div>
     <el-dialog v-model="visible" :append-to-body="true" custom-class="dialog-user-wrap">
       <template #title>
-        <span class="text-16-22 font-m text-global-highTitle">邀请好友</span>
+        <span class="text-16-22 font-m text-global-highTitle">{{ i18n.user.share.title }}</span>
       </template>
       <div class="pt-2.5">
         <div class="bg-global-bg-grey px-4 rounded border border-solid border-global-highTitle border-opacity-4">

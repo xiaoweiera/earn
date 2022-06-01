@@ -71,27 +71,27 @@ const onCallback = () => {
       <div class="mt-6">
         <p class="text-14-18 font-m text-global-black-title">{{ i18n.user.info.set }}</p>
         <!--头像-->
-        <div class="flex items-center justify-between p-4 rounded-md bg-white mt-3">
-          <div class="flex items-center">
-            <h5 class="text-14-18 text-global-text-grey">{{ i18n.user.info.avatar }}</h5>
-            <ui-image class="w-12 h-12 ml-6" :src="user.avatar_url" :rounded="true" />
-          </div>
-          <div class="cursor-pointer">
-            <UploadImg>
-              <span class="v-router text-global-darkblue text-14-18">{{ i18n.user.info.uploadAvatar }}</span>
-            </UploadImg>
-          </div>
-        </div>
-        <!--昵称-->
-        <div class="p-4 rounded-md bg-white mt-3">
-          <h5 class="text-14-18 text-global-text-grey">{{ i18n.user.info.nickname }}</h5>
-          <div class="flex items-center justify-between mt-3">
-            <h5 class="text-14-18 text-global-black-title">{{ getUserName(user) }}</h5>
-            <div class="cursor-pointer" @click="nameVisible = true">
-              <span class="v-router text-global-darkblue text-14-18">{{ i18n.user.info.edit }}</span>
-            </div>
-          </div>
-        </div>
+        <!--        <div class="flex items-center justify-between p-4 rounded-md bg-white mt-3">-->
+        <!--          <div class="flex items-center">-->
+        <!--            <h5 class="text-14-18 text-global-text-grey">{{ i18n.user.info.avatar }}</h5>-->
+        <!--            <ui-image class="w-12 h-12 ml-6" :src="user.avatar_url" :rounded="true" />-->
+        <!--          </div>-->
+        <!--          <div class="cursor-pointer">-->
+        <!--            <UploadImg>-->
+        <!--              <span class="v-router text-global-darkblue text-14-18">{{ i18n.user.info.uploadAvatar }}</span>-->
+        <!--            </UploadImg>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        &lt;!&ndash;昵称&ndash;&gt;-->
+        <!--        <div class="p-4 rounded-md bg-white mt-3">-->
+        <!--          <h5 class="text-14-18 text-global-text-grey">{{ i18n.user.info.nickname }}</h5>-->
+        <!--          <div class="flex items-center justify-between mt-3">-->
+        <!--            <h5 class="text-14-18 text-global-black-title">{{ getUserName(user) }}</h5>-->
+        <!--            <div class="cursor-pointer" @click="nameVisible = true">-->
+        <!--              <span class="v-router text-global-darkblue text-14-18">{{ i18n.user.info.edit }}</span>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
         <!--手机-->
         <div class="p-4 rounded-md bg-white mt-3">
           <h5 class="text-14-18 text-global-text-grey">{{ i18n.user.info.phone }}</h5>
@@ -165,7 +165,7 @@ const onCallback = () => {
           <span class="text-16-22 font-m text-global-highTitle">{{ i18n.user.info.emailVerify }}</span>
         </template>
         <div>
-          <!--如果有邮箱，则使用邮箱进行修改密码-->
+          <!-- 切换邮箱 -->
           <account-update-email :callback="onCallback" />
         </div>
       </el-dialog>

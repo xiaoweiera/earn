@@ -59,12 +59,15 @@ const submit = async function () {
     // 获取表单数据
     const data: Common.FormData = toRaw(formData);
     // 找回密码
-    await api.user.resetEmailPassword(data);
-    if (props.callback) {
-      props.callback(data);
-    } else {
-      // 返回登录页面
+    const status = await api.user.resetEmailPassword(data);
+    if (status) {
       selfGoBack();
+      if (props.callback) {
+        props.callback(data);
+      } else {
+        // 执行返回逻辑
+        selfGoBack();
+      }
     }
   } catch (e: any) {
     // 提升异常信息

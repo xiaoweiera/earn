@@ -6,6 +6,7 @@ export default {
   share: {
     title: "Invite Friends",
     dec: "有用才分享，好用才推荐。区块链数据监控分析必备平台，快来和我一起快人一步，遇见财富吧！",
+    submit: "复制分享链接",
   },
   info: {
     vip: "VIP剩余天数",
