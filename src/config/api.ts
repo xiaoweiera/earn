@@ -80,6 +80,7 @@ export const user = {
   emailLogin: "/api/v1/users/email_login", // 邮箱登录
   mobileLogin: "/api/v1/users/login", // 手机号登录
   updateEmail: "/api/v1/users/bind_email", // 修改邮箱
+  updateName: "/api/v2/users/my/update", //修改昵称
 };
 
 export const common = {

@@ -7,16 +7,20 @@ import { alias, createReactive } from "src/utils/ssr/ref";
 import { routerConfig } from "src/router/config";
 import { asyncLoad } from "src/plugins/lazyload/";
 import { Encryption } from "src/utils/";
-import { ElDialog } from "element-plus";
+import { ElDialog, ElUpload } from "element-plus";
 import { ref } from "vue";
 
 const BindEmail = asyncLoad(() => import("src/pages/layout/user/email.vue"));
+const UpdateName = asyncLoad(() => import("src/pages/account/update/name.vue"));
+const UploadImg = asyncLoad(() => import("src/pages/account/update/upload.vue"));
 const user = createReactive<User>(alias.common.user, {} as User);
 
 // 修改密码
 const passwordVisible = ref<boolean>(false);
 // 修改邮箱
 const emailVisible = ref<boolean>(false);
+// 修改昵称
+const nameVisible = ref<boolean>(false);
 
 const encryptionMobile = (value: string | number): string => {
   const encryption = new Encryption(value as string);
@@ -32,7 +36,7 @@ const getUserName = (data: User): string => {
 <template>
   <div class="bg-global-bg-grey p-4">
     <div class="max-w-full w-150 mx-auto">
-      <div class="shadow-base p-4 sm:flex sm:items-center sm:justify-between">
+      <div class="shadow-base p-4 sm:flex sm:items-center sm:justify-between rounded-kd6px bg-global-white">
         <div class="flex items-center justify-center">
           <div class="flex">
             <ui-image class="w-12 h-12" :src="user.avatar_url" :rounded="true" />
@@ -45,14 +49,14 @@ const getUserName = (data: User): string => {
             <p class="mt-0.5 text-global-text-grey text-14-18">ID: {{ user.username }}</p>
           </div>
         </div>
-        <div class="flex items-center justify-center mt-4 md:mt-0">
+        <div class="flex items-center justify-around mt-4 md:mt-0">
           <div class="text-center">
             <span class="block text-18-24 font-m text-global-black-title">{{ user.left_days }}</span>
             <span class="block text-12-16 text-global-text-grey">VIP剩余天数</span>
           </div>
           <div class="w-px h-6 bg-global-highTitle bg-opacity-10 mx-10"></div>
           <div class="text-center">
-            <span class="block text-18-24 font-m text-global-black-title">{{ user.follow_posts_count }}</span>
+            <span class="block text-18-24 font-m text-global-black-title">{{ user.points }}</span>
             <span class="block text-12-16 text-global-text-grey">金币余额</span>
           </div>
         </div>
@@ -66,7 +70,7 @@ const getUserName = (data: User): string => {
             <ui-image class="w-12 h-12 ml-6" :src="user.avatar_url" :rounded="true" />
           </div>
           <div class="cursor-pointer">
-            <span class="v-router text-global-darkblue text-14-18">上传头像</span>
+            <upload-img />
           </div>
         </div>
         <!--昵称-->
@@ -74,16 +78,17 @@ const getUserName = (data: User): string => {
           <h5 class="text-14-18 text-global-text-grey">昵称</h5>
           <div class="flex items-center justify-between mt-3">
             <h5 class="text-14-18 text-global-black-title">{{ getUserName(user) }}</h5>
-            <div class="cursor-pointer">
+            <div class="cursor-pointer" @click="nameVisible = true">
               <span class="v-router text-global-darkblue text-14-18">修改</span>
             </div>
           </div>
         </div>
         <!--手机-->
-        <div v-if="user.mobile" class="p-4 rounded-md bg-white mt-3">
+        <div class="p-4 rounded-md bg-white mt-3">
           <h5 class="text-14-18 text-global-text-grey">手机</h5>
           <div class="mt-3">
-            <h5 class="text-14-18 text-global-black-title">{{ encryptionMobile(user.mobile) }}</h5>
+            <h5 v-if="user.mobile" class="text-14-18 text-global-black-title">{{ encryptionMobile(user.mobile) }}</h5>
+            <h5 class="text-14-18 text-global-red">未绑定</h5>
           </div>
         </div>
         <!--邮箱-->
@@ -96,7 +101,7 @@ const getUserName = (data: User): string => {
             </div>
           </div>
           <div v-else class="flex items-center justify-between mt-3">
-            <h5 class="text-14-18 text-global-black-title">未绑定</h5>
+            <h5 class="text-14-18 text-global-red">未绑定</h5>
             <BindEmail>
               <div class="cursor-pointer whitespace-nowrap">
                 <span class="v-router text-global-darkblue text-14-18">去绑定</span>
@@ -153,6 +158,16 @@ const getUserName = (data: User): string => {
         <div>
           <!--如果有邮箱，则使用邮箱进行修改密码-->
           <account-update-email />
+        </div>
+      </el-dialog>
+    </div>
+    <div v-if="nameVisible">
+      <el-dialog v-model="nameVisible" :append-to-body="true" custom-class="dialog-user-wrap">
+        <template #title>
+          <span class="text-16-22 font-m text-global-highTitle">修改昵称</span>
+        </template>
+        <div>
+          <update-name />
         </div>
       </el-dialog>
     </div>
