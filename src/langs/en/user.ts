@@ -12,6 +12,7 @@ export default {
     balance: "金币余额",
     set: "个人设置",
     avatar: "头像",
+    uploadAvatar: "上传头像",
     nickname: "昵称",
     edit: "修改",
     phone: "手机",
