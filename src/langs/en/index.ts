@@ -25,6 +25,7 @@ import invest from "./invest";
 import downLoad from "./download";
 import activity from "./activity";
 import table from "./table";
+import user from "./user";
 
 export default {
   home,
@@ -54,4 +55,5 @@ export default {
   downLoad,
   activity,
   table,
+  user,
 };
