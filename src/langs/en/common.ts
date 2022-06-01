@@ -114,7 +114,7 @@ export default {
     login: "Automatic log-in",
     tel: "Please enter your phone number",
     email: "Please enter your email",
-    verification: "Please enter verification code",
+    verification: "Verification code",
     password: "Please enter the password",
     new_password: "Please enter your password again",
     search: "Search",
@@ -127,7 +127,7 @@ export default {
   andRepost: "And Retweet",
   activity: "Activity",
   user: {
-    invite: "Please enter the invitation code (optional)",
+    invite: "Invitation code (optional)",
     read: "I have read and agree to the ",
     agreement: "《Service agreement》",
     terms: "《Terms of service》",
