@@ -19,6 +19,7 @@ defineProps({
 
 const i18n = I18n();
 const Email = asyncLoad(() => import("./email.vue"));
+const Invite = asyncLoad(() => import("./invite.vue"));
 
 // 获取昵称
 const getUserName = function (data: User): string | number {
@@ -37,10 +38,14 @@ const getUserName = function (data: User): string | number {
         <IconFont class="text-global-primary" size="20" type="icon-setting" />
         <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">个人设置</span>
       </v-router>
-      <div class="px-4 py-2 flex items-center cursor-pointer">
-        <IconFont class="text-global-primary" size="20" type="icon-users" />
-        <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">邀请好友</span>
-      </div>
+      <client-only>
+        <Invite :code="user.my_invitation_code">
+          <div class="px-4 py-2 flex items-center cursor-pointer">
+            <IconFont class="text-global-primary" size="20" type="icon-users" />
+            <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">邀请好友</span>
+          </div>
+        </Invite>
+      </client-only>
       <v-router :href="routerConfig.user.webHook()" class="px-4 py-2 flex items-center cursor-pointer">
         <IconFont class="text-global-primary" size="20" type="icon-jiqiren" />
         <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">Webhook</span>
