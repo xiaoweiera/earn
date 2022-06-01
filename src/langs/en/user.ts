@@ -27,6 +27,7 @@ export default {
     emailVerify: "Email Verification",
     message: "To protect your account security, please verify your identity",
     success: "Bind Successfully",
+    passwordSuccess: "Successfully Modified",
     error: "Binding failed, please try again later",
     tips: "The email has been bound, please change the email address",
     bindEmail: "Binding Email Address",

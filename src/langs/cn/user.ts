@@ -27,6 +27,7 @@ export default {
     emailVerify: "邮箱验证",
     message: "为了保护你的帐号安全，请验证身份",
     success: "绑定成功",
+    passwordSuccess: "修改成功",
     error: "绑定失败，请稍后重试",
     tips: "该邮箱已被绑定，请换个邮箱",
     bindEmail: "绑定邮箱",
