@@ -36,13 +36,13 @@ const getUserName = function (data: User): string | number {
     <div class="border-t border-solid border-gray-300">
       <v-router :href="routerConfig.user.account()" class="px-4 py-2 flex items-center cursor-pointer">
         <IconFont class="text-global-primary" size="20" type="icon-setting" />
-        <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">个人设置</span>
+        <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.user.info.set }}</span>
       </v-router>
       <client-only>
         <Invite :code="user.my_invitation_code">
           <div class="px-4 py-2 flex items-center cursor-pointer">
             <IconFont class="text-global-primary" size="20" type="icon-users" />
-            <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">邀请好友</span>
+            <span class="ml-2 text-14-18 flex whitespace-nowrap text-global-grey">{{ i18n.user.share.title }}</span>
           </div>
         </Invite>
       </client-only>
