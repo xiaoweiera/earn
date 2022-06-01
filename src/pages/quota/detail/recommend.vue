@@ -65,7 +65,7 @@ onMounted(function () {
               <h4 class="truncate font-m text-14-18">{{ data.name }}</h4>
               <icon-vip class="ml-1" :type="data.chart_type" />
             </v-router>
-            <on-follow :id="data.id" v-model:status="data.followed" class="flex">
+            <on-follow :id="data.id" v-model:status="data.followed" :title="data.name" class="flex">
               <span class="flex items-center text-global-darkblue">
                 <IconFont type="icon-plus" size="16"></IconFont>
                 <span>{{ i18n.common.follow }}</span>
