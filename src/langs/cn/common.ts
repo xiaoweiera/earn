@@ -20,6 +20,7 @@ export default {
   loginOut: "退出",
   reviews: "kingData 运营测评",
   copyOk: "Copy success",
+  success: "成功",
   account: {
     email: {
       tips: "您暂未绑定邮箱，请尽快绑定",
