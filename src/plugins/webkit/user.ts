@@ -5,8 +5,8 @@
 
 import window from "src/plugins/browser/window";
 
+// ios 登录
 export const IosLogin = function (): boolean {
-  // alert('尝试调用 ios')
   try {
     // @ts-ignore
     window.webkit.messageHandlers.userLogin.postMessage(true);
@@ -15,8 +15,8 @@ export const IosLogin = function (): boolean {
     return false;
   }
 };
+// android 登录
 export const AndroidLogin = function (): boolean {
-  // alert('尝试调用 android')
   try {
     // @ts-ignore
     window.kingdata.userLogin(true);
@@ -25,12 +25,40 @@ export const AndroidLogin = function (): boolean {
     return false;
   }
 };
-
+// 调用 app 登录
 export const Login = function () {
   if (IosLogin()) {
     return true;
   }
   return AndroidLogin();
+};
+
+// ios 返回
+export const IosGoBack = function (): boolean {
+  try {
+    // @ts-ignore
+    window.webkit.messageHandlers.goBack.postMessage(true);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+// android 返回
+export const AndroidGoBack = function (): boolean {
+  try {
+    // @ts-ignore
+    window.kingdata.goBack(true);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+// 调用 app 返回功能
+export const goBack = function () {
+  if (IosGoBack()) {
+    return true;
+  }
+  return AndroidGoBack();
 };
 
 // 调用 ios 邮箱修改方法
