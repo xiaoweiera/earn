@@ -17,7 +17,7 @@ const i18n = I18n();
 
 const BindEmail = asyncLoad(() => import("src/pages/layout/user/email.vue"));
 const UpdateName = asyncLoad(() => import("src/pages/account/update/name.vue"));
-const UploadImg = asyncLoad(() => import("src/pages/account/update/upload.vue"));
+// const UploadImg = asyncLoad(() => import("src/pages/account/update/upload.vue"));
 const user = createReactive<User>(alias.common.user, {} as User);
 
 // 修改密码
@@ -39,12 +39,14 @@ const getUserName = (data: User): string => {
 
 const onCallback = (data: object) => {
   if (data) {
+    emailVisible.value = false;
     messageSuccess(`${i18n.user.info.success}`);
   }
   // todo
 };
 const onCallbackPassword = (data: object) => {
   if (data) {
+    passwordVisible.value = false;
     messageSuccess(`${i18n.user.info.passwordSuccess}`);
   }
 };
@@ -184,7 +186,6 @@ const getVipIcon = (data: string) => {
           <span class="text-16-22 font-m text-global-highTitle">{{ i18n.user.info.emailVerify }}</span>
         </template>
         <div>
-          <!-- 切换邮箱 -->
           <account-update-email :callback="onCallback" />
         </div>
       </el-dialog>
