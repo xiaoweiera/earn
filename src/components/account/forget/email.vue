@@ -4,7 +4,7 @@
  * @author svon.me@gmail.com
  */
 import API from "src/api/index";
-import { isFunction } from "src/utils";
+import { isFunction, isBoolean } from "src/utils";
 import I18n from "src/utils/i18n";
 import { computed, onMounted, ref, toRaw } from "vue";
 import { messageError } from "src/lib/tool";
@@ -45,7 +45,7 @@ const onSeadCode = function (data: object) {
 
 const selfGoBack = function () {
   // 返回登录页面
-  Common.onGoBack(domForm);
+  Common.onGoBack(domForm, isBoolean(props.email));
 };
 
 // 确定，表单提交

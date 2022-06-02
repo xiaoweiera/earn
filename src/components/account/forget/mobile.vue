@@ -9,7 +9,7 @@ import type { PropType } from "vue";
 import I18n from "src/utils/i18n";
 import safeGet from "@fengqiaogang/safe-get";
 import { messageError } from "src/lib/tool";
-import { isFunction } from "src/utils/";
+import { isFunction, isBoolean } from "src/utils/";
 import type { AreaCode } from "src/types/common/area";
 import * as Common from "src/logic/account/register";
 import { computed, onMounted, ref, toRaw } from "vue";
@@ -51,7 +51,7 @@ const onSeadCode = function (data: object) {
 
 const selfGoBack = function () {
   // 返回登录页面
-  Common.onGoBack(domForm);
+  Common.onGoBack(domForm, isBoolean(props.mobile));
 };
 
 // 确定，表单提交

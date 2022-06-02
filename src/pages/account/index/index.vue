@@ -46,14 +46,14 @@ const onCallback = (data: object) => {
     if (value) {
       user.email = value;
     }
-    messageSuccess(`${i18n.user.info.success}`);
+    messageSuccess(i18n.user.info.success);
   }
 };
 // 密码修改
 const onCallbackPassword = (data: object) => {
   if (data) {
     passwordVisible.value = false;
-    messageSuccess(`${i18n.user.info.passwordSuccess}`);
+    messageSuccess(i18n.user.info.passwordSuccess);
   }
 };
 const getVipIcon = (data: string) => {
