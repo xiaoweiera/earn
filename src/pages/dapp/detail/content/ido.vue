@@ -27,9 +27,9 @@ const showClick = function () {
 };
 const getDescribe = (data: ProjectItem) => {
   if (data.platform_tutorial_text && data.platform_tutorial_link) {
-    return `${data.participation}\n${data.platform_tutorial_text}\n${i18n.dapp.project.platformTutorial}${data.platform_tutorial_link}`;
+    return `${data.platform_tutorial_text}\n${data.participation}\n${i18n.dapp.project.platformTutorial}${data.platform_tutorial_link}`;
   } else if (data.platform_tutorial_text && !data.platform_tutorial_link) {
-    return `${data.participation}\n${data.platform_tutorial_text}`;
+    return `${data.platform_tutorial_text}\n${data.participation}`;
   } else if (!data.platform_tutorial_text && data.platform_tutorial_link) {
     return `${data.participation}\n${i18n.dapp.project.platformTutorial}${data.platform_tutorial_link}`;
   } else {
@@ -69,7 +69,7 @@ const getDescribe = (data: ProjectItem) => {
           </ui-description>
         </div>
         <!-- 倒计时/数据/按钮 -->
-        <div class="flex flex-col md:flex-row" :class="isAfter(data.ido_start_at) || isAfter(data.ido_end_at) ? 'md:h-88' : 'md:h-60'">
+        <div class="flex flex-col md:flex-row" :class="isAfter(data.ido_start_at) || isAfter(data.ido_end_at) ? 'md:h-88' : 'md:h-50'">
           <div class="my-4 md:my-0 mx-0 md:mx-8 h-0 md:h-full w-full md:w-0 border-t md:border-l border-sold border-global-highTitle border-opacity-6"></div>
           <div>
             <!-- 倒计时 -->
@@ -138,6 +138,7 @@ const getDescribe = (data: ProjectItem) => {
 }
 .airdrop-des {
   ::v-deep(.view-all) {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.0716618) 0%, rgba(255, 255, 255, 0) 12.78%, #fafbfc 100%);
     @apply bg-global-topBg;
   }
 }
