@@ -260,21 +260,17 @@ export const onUpdateEmailCallback = async function (form?: any) {
 };
 
 // 返回登录
-export const onGoBack = function (form?: any, goBack = false) {
+export const onGoBack = function (form?: any) {
   resetFields(form);
-  const query = {
-    [languageKey]: getLang(),
-  };
-  const href = createHref(routerConfig.user.login, query);
-  // 唤起移动端返回功能
-  if (goBack && webkit.goBack()) {
-    return true;
-  } else if (webkit.Login()) {
-    // 唤起移动端登录功能
+  // 唤起移动端登录功能
+  if (webkit.Login()) {
     return true;
   } else {
+    const query = {
+      [languageKey]: getLang(),
+    };
     // 进入登录页面
-    window.location.href = href;
+    window.location.href = createHref(routerConfig.user.login, query);
   }
 };
 
