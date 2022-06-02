@@ -7,7 +7,7 @@ export const home = {
   topicRank: "/api/v1/dapps/topic/rank", // home页topic table切换
   recommend: "/api/v1/dapps/topic/recommend", // 推荐话题
   trend: "/api/dapps/v1/recommendations_and_advertisements", // 趋势
-  top3: "/api/v1/dapps/topic/projects/top3", // 话题项目top3
+  top3: "/api/v1/bff/dapp/topics/{id}/recommendations", // 话题项目top3
   detail: "/api/v1/dapps/topic/detail", // 话题详情
   projects: "/api/v1/dapps/topic/projects", // 话题项目列表
   platforms: "/api/v1/dapps/platforms", // TGE平台列表

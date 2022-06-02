@@ -2,6 +2,7 @@
 import { onMounted, reactive, ref } from "vue";
 import document from "src/plugins/browser/document";
 import { oss } from "src/config";
+import { config } from "src/router/config";
 // 引入 swiper vue 组件
 // @ts-ignore
 import SwiperCore, { Autoplay, Pagination } from "swiper";
@@ -49,17 +50,7 @@ const init = (swiper: any) => {
   });
 };
 const recommend = ref([]);
-// row跳转
-const toProject = (row: any) => {
-  if (!row.id) return;
-  let url = "";
-  if (row.category === "NFT") {
-    url = `/rank/nft/${row.id}`;
-  } else {
-    url = `/rank/dapp/${row.id}`;
-  }
-  return createHref(url);
-};
+
 const getData = async () => {
   const res: any = await api.getRankTopic(params);
   recommend.value = safeGet(res, "items");
@@ -80,7 +71,7 @@ onMounted(() => {
         <Swiper v-if="recommend.length > 0" class="h-full swiper-recom" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
           <template v-for="(item, index) in recommend" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="toProject(item)" target="_blank" class="item-card rounded-kd6px overflow-hidden">
+              <v-router :href="`${config.homeDetail}/${item.id}`" target="_blank" class="item-card rounded-kd6px overflow-hidden">
                 <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute z-5" />
                 <div class="info relative z-10 pt-8">
                   <div class="name font-kdSemiBold">{{ item["title"] }}</div>

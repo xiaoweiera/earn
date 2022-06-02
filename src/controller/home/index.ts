@@ -66,10 +66,10 @@ export const detail = async function (req: Request, res: Response) {
     const [topicRank, detail, recommend, top3] = await Promise.all([api.getRankTopic(topicParam), api.getTopicDetail(projectParams), api.getRecommend(params), api.getTop3(id)]);
     const result = {
       // @ts-ignore
-      "title": detail && detail.id ? detail.name : i18n.home.webInfo.homeDetail.title,
+      "title": detail && detail.id ? detail.title : i18n.home.webInfo.homeDetail.title,
       "keywords": i18n.home.webInfo.homeDetail.key,
       // @ts-ignore
-      "description": detail && detail.id ? detail.desc : i18n.home.webInfo.homeDetail.des,
+      "description": detail && detail.id ? detail.description : i18n.home.webInfo.homeDetail.des,
 
       "API.home.getTopicRank": topicRank, //右侧topic栏
       "API.home.getDetail": detail, // 话题详情

@@ -46,7 +46,7 @@ export default class extends ApiTemplate {
 
   // 话题项目 top3
   @tryError(DefaultValue([])) // 处理默认值
-  @get(api.home.top3, expire.min5) // 定义一个 get 请求
+  @get(api.home.top3) // 定义一个 get 请求
   @userToken() // 不需要用户信息
   getTop3<T>(id: string | number): Promise<T> {
     const query = { id };

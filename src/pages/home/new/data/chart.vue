@@ -7,6 +7,7 @@ import { getagoTimeStamp, getTip } from "src/lib/tool";
 import { address } from "src/logic/common/wallet";
 import * as echarts from "echarts";
 import { chartConfig } from "src/logic/rank/chartConfig";
+import * as R from "ramda";
 const api = new Model();
 const param: any = reactive({
   address: address.value ? address.value : "0x6cf9aa65ebad7028536e353393630e2340ca6049",
@@ -22,9 +23,16 @@ const getData = async () => {
   chartData.value = data;
   draw(data.fund_trending.xAxis, data.fund_trending.series);
 };
+const format = (series: any) => {
+  const list: any = R.map((item: any) => item.value, series);
+  let max = Math.max.apply(null, list);
+  let min = Math.min.apply(null, list);
+  return [max ? max : 0, min ? min : 0];
+};
 const draw = (xData: Array<string>, series: any) => {
+  const [max, min] = format(series);
   // @ts-ignore
-  const chartOption = chartConfig(xData, series, getTip);
+  const chartOption = chartConfig(xData, series, getTip, true, max, min);
   myChart.setOption(chartOption);
   // @ts-ignore
   window.addEventListener("resize", myChart.resize);
