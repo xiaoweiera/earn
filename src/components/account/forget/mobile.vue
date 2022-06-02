@@ -27,7 +27,7 @@ const props = defineProps({
   },
   callback: {
     type: Function as PropType<Callback>,
-    default: () => null,
+    default: null,
   },
 });
 
