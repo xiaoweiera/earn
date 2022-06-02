@@ -14,6 +14,12 @@ onMounted(() => {
     return api.getTop3<object[]>(id);
   });
 });
+const getScore = (item: any) => {
+  if (item["overall_score"]) {
+    return getSaveNumber(item.score, 1);
+  }
+  return item.score ? getSaveNumber(item.score, 1) : 0;
+};
 </script>
 <template>
   <div v-if="top3 && top3.length > 0" class="max-fit bg-global-topBg h-37.5 p-3 md:ml-12 font-kdFang rounded-kd8px">
@@ -30,7 +36,7 @@ onMounted(() => {
         </div>
         <div class="flex items-center">
           <IconFont size="16" type="icon-star" />
-          <span class="ml-1 text-kd14px16px text-number text-global-highTitle">{{ item.score ? getSaveNumber(item.score, 1) : 0 }}</span>
+          <span class="ml-1 text-kd14px16px text-number text-global-highTitle">{{ getScore(item) }}</span>
         </div>
       </div>
     </template>
