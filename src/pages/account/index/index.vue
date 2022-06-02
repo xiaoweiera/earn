@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import safeGet from "@fengqiaogang/safe-get";
+
 /**
  * @file 个人设置
  */
@@ -36,14 +38,18 @@ const encryptionMobile = (value: string | number): string => {
 const getUserName = (data: User): string => {
   return data.nickname || data.email;
 };
-
+// 修改邮箱
 const onCallback = (data: object) => {
   if (data) {
     emailVisible.value = false;
+    const value = safeGet<string>(data, "email");
+    if (value) {
+      user.email = value;
+    }
     messageSuccess(`${i18n.user.info.success}`);
   }
-  // todo
 };
+// 密码修改
 const onCallbackPassword = (data: object) => {
   if (data) {
     passwordVisible.value = false;
