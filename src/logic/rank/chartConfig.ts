@@ -41,7 +41,7 @@ const xAxis = (xdata: any) => {
 };
 
 //y轴左侧配置
-export const yAxisModel = () => {
+export const yAxisModel = (max: number | undefined, min: number | undefined) => {
   return {
     show: false,
     axisLine: {
@@ -54,6 +54,8 @@ export const yAxisModel = () => {
       show: false,
     },
     type: "value",
+    max: max ? max + max * 0.1 : max,
+    min: min ? min - Math.abs(min) * 0.1 : min,
   };
 };
 const seriesModel = (series: any, isArea: boolean) => {
@@ -93,12 +95,12 @@ const seriesModel = (series: any, isArea: boolean) => {
   ];
 };
 
-export const chartConfig = (xData: Array<string>, series: any, getTip: any, isArea = true) => {
+export const chartConfig = (xData: Array<string>, series: any, getTip: any, isArea = true, max?: number | undefined, min?: number | undefined) => {
   return {
     grid: grid(),
     tooltip: getTip ? tooltips(getTip) : null,
     xAxis: xAxis(xData),
-    yAxis: yAxisModel(),
+    yAxis: yAxisModel(max, min),
     series: seriesModel(series, isArea),
   };
 };
