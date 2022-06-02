@@ -85,15 +85,21 @@ const submit = async function () {
 };
 
 onMounted(async () => {
-  if (props.mobile) {
-    formData.mobile = props.mobile;
-  }
-  if (props.areaCode) {
-    const value = props.areaCode.replace(/\D/gi, "");
-    formData.area_code = `+${value}`;
-  }
   const api = new API();
   areaCode.value = await api.common.getAreaCodeList();
+
+  if (props.mobile) {
+    formData.mobile = props.mobile;
+    if (props.areaCode) {
+      const text = `${props.areaCode || ""}`;
+      const value = text.replace(/\D/gi, "");
+      if (value) {
+        formData.area_code = `+${value}`;
+        return;
+      }
+    }
+    formData.area_code = "+86"; // 默认
+  }
 });
 </script>
 
