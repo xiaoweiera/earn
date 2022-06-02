@@ -25,6 +25,17 @@ const show_content = ref(false);
 const showClick = function () {
   show_content.value = !show_content.value;
 };
+const getDescribe = (data: ProjectItem) => {
+  if (data.platform_tutorial_text && data.platform_tutorial_link) {
+    return `${data.participation}\n${data.platform_tutorial_text}\n${i18n.dapp.project.platformTutorial}${data.platform_tutorial_link}`;
+  } else if (data.platform_tutorial_text && !data.platform_tutorial_link) {
+    return `${data.participation}\n${data.platform_tutorial_text}`;
+  } else if (!data.platform_tutorial_text && data.platform_tutorial_link) {
+    return `${data.participation}\n${i18n.dapp.project.platformTutorial}${data.platform_tutorial_link}`;
+  } else {
+    return `${data.participation}`;
+  }
+};
 </script>
 
 <template>
@@ -54,7 +65,7 @@ const showClick = function () {
         <!-- 描述 -->
         <div class="text-global-highTitle text-kd14px24px font-normal">
           <ui-description class="airdrop-des" :line="isAfter(data.ido_start_at) || isAfter(data.ido_end_at) ? 18 : 10">
-            <ui-markdown :value="data.participation" />
+            <ui-markdown :value="getDescribe(data)" />
           </ui-description>
         </div>
         <!-- 倒计时/数据/按钮 -->

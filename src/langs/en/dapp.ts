@@ -165,6 +165,7 @@ export default {
     submit: "Submit Token Info",
     nodata: "No Data",
     projectInfo: "Project Info",
+    platformTutorial: "Detailed Tutorial:",
   },
   activity: {
     headLine: "🔥 KingData 2021",
