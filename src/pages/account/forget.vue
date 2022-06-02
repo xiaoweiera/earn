@@ -6,7 +6,6 @@
 
 import I18n from "src/utils/i18n";
 import { createRef } from "src/utils/ssr/ref";
-import { getValue } from "src/utils/root/data";
 import { Type } from "src/types/common/user";
 
 const i18n = I18n();
