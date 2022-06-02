@@ -77,7 +77,7 @@ onMounted(() => {
     </div>
     <div v-if="isErr" class="err-text red">{{ i18n.user.hook.dialogHolder }}</div>
     <!--list-->
-    <div v-if="!isLoad && safeGet(list, 'length') > 0" class="mt-12">
+    <div v-if="list && safeGet(list, 'length') > 0" class="mt-12">
       <p class="title">{{ i18n.user.hook.messageHookList }}</p>
       <div class="mt-3">
         <!-- header-->
