@@ -165,6 +165,7 @@ export default {
     submit: "提交代币信息",
     nodata: "暂无信息",
     projectInfo: "项目信息",
+    platformTutorial: "详细教程：",
   },
   activity: {
     headLine: "🔥 KingData 2021",
