@@ -65,20 +65,6 @@ const getVipIcon = (data: string) => {
     return "";
   }
 };
-const onCallbackPassword = (data: object) => {
-  if (data) {
-    messageSuccess(`${i18n.user.info.passwordSuccess}`);
-  }
-};
-const getVipIcon = (data: string) => {
-  if (data === VipType.vip || data === VipType.vip_perp) {
-    return "vip";
-  } else if (data === VipType.vip_pro) {
-    return "vip_pro";
-  } else {
-    return "";
-  }
-};
 </script>
 
 <template>
