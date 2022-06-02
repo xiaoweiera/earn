@@ -54,7 +54,7 @@ const i18n = I18n();
               <span class="mt-1.5">
                 <span class="flex items-center">
                   {{ i18n.user.hook.desc.desc1 }}
-                  <v-router class="text-global-primary mr-1 hand" href="https://www.baidu.com" target="_blank">{{ i18n.user.hook.click }}</v-router>
+                  <v-router class="text-global-primary mr-1 hand" href="https://telegram.me/BotFather" target="_blank">{{ i18n.user.hook.click }}</v-router>
                   {{ i18n.user.hook.desc.desc2 }}
                 </span>
                 {{ i18n.user.hook.desc.desc3 }}
