@@ -45,7 +45,7 @@ const onSeadCode = function (data: object) {
 
 const selfGoBack = function () {
   // 返回登录页面
-  Common.onGoBack(domForm, isBoolean(props.email));
+  Common.onGoBack(domForm);
 };
 
 // 确定，表单提交
