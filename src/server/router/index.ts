@@ -73,10 +73,15 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
     res.locals.menuActive = names.analysis.token;
     res.send({});
   });
+  // 中间键，主要用于与 ios / android 交互
+  router.get("/middle/:type", (req: Request, res: Response) => {
+    res.send({});
+  });
   // 404
   router.get(routerConfig.E404, (req: Request, res: Response) => {
     res.send({});
   });
+
   router.get("*", (req: Request, res: Response) => {
     const reg = /^.+(\.js|\.css|\.jpg|.jpeg|\.gif|\.svg|\.ttf)$/i;
     if (reg.test(req.url)) {

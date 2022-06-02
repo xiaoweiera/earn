@@ -6,21 +6,13 @@
 
 import I18n from "src/utils/i18n";
 import { createRef } from "src/utils/ssr/ref";
-import { getValue } from "src/utils/root/data";
 import { Type } from "src/types/common/user";
 
 const i18n = I18n();
 const type = createRef<Type>("query.type", Type.email); // 登录类型，默认邮件
 const email = createRef<string>("query.email", "");
 const mobile = createRef<string>("query.mobile", "");
-
-const getArea = function () {
-  const area = getValue<string>("query.area", "");
-  if (/^\d+$/.test(area)) {
-    return `+${area}`;
-  }
-  return area;
-};
+const area = createRef<string>("query.area", "");
 </script>
 
 <template>
@@ -30,7 +22,7 @@ const getArea = function () {
     </div>
     <!-- 引用公共的密码找回功能 -->
     <template v-if="type === Type.mobile">
-      <account-forget-mobile :mobile="mobile" :area-code="getArea()" />
+      <account-forget-mobile :mobile="mobile" :area-code="area" />
     </template>
     <template v-else>
       <account-forget-email :email="email" />

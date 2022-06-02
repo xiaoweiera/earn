@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import safeGet from "@fengqiaogang/safe-get";
+
 /**
  * @file 个人设置
  */
@@ -17,7 +19,7 @@ const i18n = I18n();
 
 const BindEmail = asyncLoad(() => import("src/pages/layout/user/email.vue"));
 const UpdateName = asyncLoad(() => import("src/pages/account/update/name.vue"));
-const UploadImg = asyncLoad(() => import("src/pages/account/update/upload.vue"));
+// const UploadImg = asyncLoad(() => import("src/pages/account/update/upload.vue"));
 const user = createReactive<User>(alias.common.user, {} as User);
 
 // 修改密码
@@ -36,12 +38,32 @@ const encryptionMobile = (value: string | number): string => {
 const getUserName = (data: User): string => {
   return data.nickname || data.email;
 };
-
+// 修改邮箱
 const onCallback = (data: object) => {
   if (data) {
-    messageSuccess(`${i18n.user.info.success}`);
+    emailVisible.value = false;
+    const value = safeGet<string>(data, "email");
+    if (value) {
+      user.email = value;
+    }
+    messageSuccess(i18n.user.info.success);
   }
-  // todo
+};
+// 密码修改
+const onCallbackPassword = (data: object) => {
+  if (data) {
+    passwordVisible.value = false;
+    messageSuccess(i18n.user.info.passwordSuccess);
+  }
+};
+const getVipIcon = (data: string) => {
+  if (data === VipType.vip || data === VipType.vip_perp) {
+    return "vip";
+  } else if (data === VipType.vip_pro) {
+    return "vip_pro";
+  } else {
+    return "";
+  }
 };
 const onCallbackPassword = (data: object) => {
   if (data) {
@@ -184,7 +206,6 @@ const getVipIcon = (data: string) => {
           <span class="text-16-22 font-m text-global-highTitle">{{ i18n.user.info.emailVerify }}</span>
         </template>
         <div>
-          <!-- 切换邮箱 -->
           <account-update-email :callback="onCallback" />
         </div>
       </el-dialog>

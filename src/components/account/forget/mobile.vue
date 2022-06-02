@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import safeGet from "@fengqiaogang/safe-get";
-
 /**
  * @file 手机密码找回
  * @author svon.me@gmail.com
@@ -9,7 +7,9 @@ import API from "src/api/index";
 import type { Callback } from "src/types/common";
 import type { PropType } from "vue";
 import I18n from "src/utils/i18n";
+import safeGet from "@fengqiaogang/safe-get";
 import { messageError } from "src/lib/tool";
+import { isFunction, isBoolean } from "src/utils/";
 import type { AreaCode } from "src/types/common/area";
 import * as Common from "src/logic/account/register";
 import { computed, onMounted, ref, toRaw } from "vue";
@@ -51,7 +51,7 @@ const onSeadCode = function (data: object) {
 
 const selfGoBack = function () {
   // 返回登录页面
-  Common.onGoBack(domForm);
+  Common.onGoBack(domForm, isBoolean(props.mobile));
 };
 
 // 确定，表单提交
@@ -67,7 +67,7 @@ const submit = async function () {
     const data: Common.FormData = toRaw(formData);
     // 找回密码
     await api.user.resetMobilePassword(data);
-    if (props.callback) {
+    if (props.callback && isFunction(props.callback)) {
       props.callback(data);
     } else {
       // 返回登录页面
@@ -85,14 +85,21 @@ const submit = async function () {
 };
 
 onMounted(async () => {
-  if (props.mobile) {
-    formData.mobile = props.mobile;
-  }
-  if (props.areaCode) {
-    formData.area_code = props.areaCode;
-  }
   const api = new API();
   areaCode.value = await api.common.getAreaCodeList();
+
+  if (props.mobile) {
+    formData.mobile = props.mobile;
+    if (props.areaCode) {
+      const text = `${props.areaCode || ""}`;
+      const value = text.replace(/\D/gi, "");
+      if (value) {
+        formData.area_code = `+${value}`;
+        return;
+      }
+    }
+    formData.area_code = "+86"; // 默认
+  }
 });
 </script>
 

@@ -20,6 +20,7 @@ export default {
   loginOut: "Log Out",
   reviews: "kingData operate reviews",
   copyOk: "Copy success",
+  success: "Success",
   account: {
     email: {
       tips: "Please connect your email",

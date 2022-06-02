@@ -167,6 +167,20 @@ export default class extends ApiTemplate {
     };
     return [value, callback] as any;
   }
+  // 添加webhook
+  @post(api.user.addWebhook)
+  @userToken(true)
+  @validate
+  addWebhook<T>(@required query: any): Promise<T> {
+    return [query] as any;
+  }
+  // 删除webhook
+  @post(api.user.delWebhook)
+  @userToken(true)
+  @validate
+  delWebhook<T>(@required query: any): Promise<T> {
+    return [query] as any;
+  }
   // 修改昵称和头像
   @post(api.user.updateName) // 接口地址
   @userToken(true) // 必须为登录状态

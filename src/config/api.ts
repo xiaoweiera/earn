@@ -80,6 +80,8 @@ export const user = {
   emailLogin: "/api/v1/users/email_login", // 邮箱登录
   mobileLogin: "/api/v1/users/login", // 手机号登录
   updateEmail: "/api/v1/users/bind_email", // 修改邮箱
+  addWebhook: "/api/v2/users/my/add_webhook", //添加webhook
+  delWebhook: "/api/v2/users/my/del_webhook", //删除webhook
   updateName: "/api/v2/users/my/update", //修改昵称
 };
 
@@ -126,4 +128,8 @@ export const upload = {
 
 export const chart = {
   dapp: "/api/v1/bff/dapp/projects/{id}/charts",
+};
+
+export const wx = {
+  info: "/api/v1/wechat/sign", //微信签名
 };

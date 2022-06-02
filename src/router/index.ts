@@ -77,6 +77,10 @@ const routes = [
         component: () => import("src/pages/api/index.vue"),
       },
       {
+        path: "/middle/forward",
+        component: () => import("src/pages/middle/forward.vue"),
+      },
+      {
         path: config.E404,
         component: () => import("src/pages/e404/index.vue"),
       },

@@ -54,7 +54,7 @@ const onHidden = () => {
           </div>
         </div>
         <client-only class="mt-5">
-          <v-copy class="w-full" :value="getShareText()">
+          <v-copy class="w-full" message :value="getShareText()">
             <el-button class="w-full" type="primary" size="large" @click="onHidden">{{ i18n.user.share.submit }}</el-button>
           </v-copy>
         </client-only>

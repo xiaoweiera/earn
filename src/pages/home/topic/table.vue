@@ -63,11 +63,12 @@ const params = reactive({
   page: 1,
   page_size: 20,
 });
-const isSearch = ref(false);
+const isSearch = computed(() => safeGet(detail, "keyword_filter_supported"));
 watch(route, () => {
   params.chain = getParam<string>("chain");
   params.category = getParam<string>("category");
   params.platform = getParam<string>("platform");
+  params.keyword = getParam<string>("search");
   key.value++;
 });
 // 搜索

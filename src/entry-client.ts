@@ -30,6 +30,21 @@ import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormali
 import { createApp } from "./bootstrap/main";
 import { refresh } from "src/logic/user/login";
 import { onload as lockInit } from "src/logic/ui/lock";
+// import { waChatShare } from "src/plugins/wechat/wxchat";
+// import window from "src/plugins/browser/window";
+
+// const waChatInit = (data: object) => {
+//   const wx = safeGet<object>(window, "wx");
+//   if (wx) {
+//     const title = safeGet<string>(data, "title");
+//     const description = safeGet<string>(data, "description");
+//     return waChatShare(wx, {
+//       title,
+//       desc: description,
+//       link: window.location.href,
+//     });
+//   }
+// };
 
 const getCache = async function (): Promise<object> {
   // 从 script 标签中获取数据
@@ -119,6 +134,9 @@ const main = async function () {
   // 延迟处理用户数据
   setTimeout(refresh);
   setTimeout(lockInit);
+  // setTimeout(() => {
+  //   return waChatInit(data);
+  // });
 };
 
 setTimeout(main);

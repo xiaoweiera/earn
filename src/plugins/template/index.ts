@@ -5,7 +5,7 @@
 
 import _ from "lodash";
 import htmlEncode from "js-htmlencode";
-import { languageKey, rootData } from "src/config";
+import { Command, languageKey, rootData } from "src/config";
 import { getEnv } from "src/config/";
 import Icons from "src/config/iconfont";
 import Crypto from "src/plugins/encryption/crypto";
@@ -47,6 +47,10 @@ const makeScript = async function (data: Result): Promise<string> {
   // 缓存数据
   const text = await Crypto(value);
   const html: string[] = [];
+  // 线上模式引入 wechat js sdk
+  // if (env.VITE_command === Command.build) {
+  //   html.push("<script src=\"//res.wx.qq.com/open/js/jweixin-1.6.0.js\"></script>");
+  // }
   _.each(scriptLibs, (src: string) => {
     html.push(`<script src="${src}" async="async"></script>`);
   });
