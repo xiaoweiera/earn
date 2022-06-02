@@ -145,6 +145,9 @@ export interface ProjectItem {
   increment: Increment; //变化量变化率信息
   investments: Investments[]; //投融资信息
   tutorial_blog_url: string; //参与教程地址
+  platform_tutorial_text: string; // 平台教程文本
+  platform_tutorial_link: string; // 平台教程链接
+  overall_score: number; //项目评分
 }
 
 // 社交媒体数据
