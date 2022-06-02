@@ -4,6 +4,7 @@
  * @author svon.me@gmail.com
  */
 import API from "src/api/index";
+import { isFunction } from "src/utils";
 import I18n from "src/utils/i18n";
 import { computed, onMounted, ref, toRaw } from "vue";
 import { messageError } from "src/lib/tool";
@@ -59,15 +60,12 @@ const submit = async function () {
     // 获取表单数据
     const data: Common.FormData = toRaw(formData);
     // 找回密码
-    const status = await api.user.resetEmailPassword(data);
-    if (status) {
+    await api.user.resetEmailPassword(data);
+    if (props.callback && isFunction(props.callback)) {
+      props.callback(data);
+    } else {
+      // 执行返回逻辑
       selfGoBack();
-      if (props.callback) {
-        props.callback(data);
-      } else {
-        // 执行返回逻辑
-        selfGoBack();
-      }
     }
   } catch (e: any) {
     // 提升异常信息
