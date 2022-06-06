@@ -42,10 +42,15 @@ const addToken = async () => {
     ]),
   };
   isLoad.value = true;
-  await API.addWebhook(param);
-  messageSuccess(i18n.common.success);
-  token.value = "";
-  getList();
+  try {
+    await API.addWebhook(param);
+    messageSuccess(i18n.common.success);
+  } catch (err) {
+    // todo
+  } finally {
+    token.value = "";
+    await getList();
+  }
 };
 //删除
 const deleteToken = async (token: string) => {
