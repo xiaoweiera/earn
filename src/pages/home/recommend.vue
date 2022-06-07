@@ -13,7 +13,6 @@ import "swiper/swiper-bundle.css";
 import { Model } from "src/logic/home";
 import I18n from "src/utils/i18n";
 import safeGet from "@fengqiaogang/safe-get";
-import { createHref } from "src/plugins/router/pack";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
 const i18n = I18n();
