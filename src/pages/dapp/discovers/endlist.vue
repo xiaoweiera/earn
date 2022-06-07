@@ -79,7 +79,7 @@ const getUrl = function (data: object) {
               </div>
             </td>
             <td>
-              <div class="numberDefault text-number">{{ item.category ? item.category : "--" }}</div>
+              <div class="numberDefault text-number">{{ item.categories[0] ? item.categories[0] : "--" }}</div>
             </td>
             <td>
               <div class="numberDefault text-number">
@@ -91,17 +91,17 @@ const getUrl = function (data: object) {
             </td>
             <td>
               <div class="numberDefault text-number">
-                {{ toNumberCashFormat(item.current_price, "$", "", "--") }}
+                {{ toNumberCashFormat(item.price, "$", "", "--") }}
               </div>
             </td>
             <td>
-              <div class="text-kd14px16px text-number" :class="getClassColor(item.current_roi_usd)">
-                {{ toNumberCashFormat(item.current_roi_usd, "x", "", "N/A") }}
+              <div class="text-kd14px16px text-number" :class="getClassColor(item.currentRoi)">
+                {{ toNumberCashFormat(item.currentRoi, "x", "", "N/A") }}
               </div>
             </td>
             <td>
-              <div class="text-kd14px16px text-number" :class="getClassColor(item.ath_since_ido)">
-                {{ toNumberCashFormat(item.ath_since_ido, "x", "", "N/A") }}
+              <div class="text-kd14px16px text-number" :class="getClassColor(item.athRoi)">
+                {{ toNumberCashFormat(item.athRoi, "x", "", "N/A") }}
               </div>
             </td>
             <!--            <td>-->
