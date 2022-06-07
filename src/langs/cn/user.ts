@@ -52,7 +52,7 @@ export default {
     cnPush: "中文推送",
     enPush: "英文推送",
     desc: {
-      desc1: "1. 添加 BotFatheri 为好友，",
+      desc1: "1. 添加 BotFather 为好友，",
       desc2: " 添加 Botfather",
       desc3: "2. 打开和 Botfather 的对话框发送 “/newbot” 这一步过后Botfather会提示你输入你要创建的机器人的名字，这个名字可以随意，是我们称呼它的名字",
       desc4: "3. 设置自定义机器人的名字（这个名字不同于上一步的名字，这个名字是唯一的）结尾必须是  “_bot” 或者 “Bot” 不能包含中文，标点符号",
