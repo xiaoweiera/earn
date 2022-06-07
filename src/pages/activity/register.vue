@@ -18,7 +18,7 @@ import { toInteger, toBoolean } from "src/utils/";
 import * as Common from "src/logic/account/register";
 import { ValidateType } from "src/components/ui/validate/config";
 import { ElButton, ElForm, ElFormItem, ElInput, ElDialog } from "element-plus";
-import { isAfter } from "src/utils/";
+import { isAfter, isBefore } from "src/utils/";
 
 // 活动时间已到
 import TipsEnded from "./tips/ended.vue";
@@ -166,7 +166,7 @@ const submit = async function () {
         </client-only>
       </el-form-item>
 
-      <client-only v-else-if="detail.status === ActivityStatus.ENDED || isAfter(detail.end_time)">
+      <client-only v-else-if="detail.status === ActivityStatus.ENDED || isBefore(detail.end_time)">
         <!--活动结束，时间到期-->
         <TipsEnded :lang="detail.language" />
       </client-only>
