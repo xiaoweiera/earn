@@ -29,12 +29,6 @@ export default defineComponent({
   methods: {
     chartData(field: string, data: object) {
       let result = safeGet<number[][]>(data, field);
-      if (!result) {
-        result = [];
-        for (let i = 0; i < 30; i++) {
-          result.push([_.random(10, 200), Date.now()]);
-        }
-      }
       const series: number[] = [];
       const xAxis: number[] = [];
       _.forEach(result, function (item: number[]) {
