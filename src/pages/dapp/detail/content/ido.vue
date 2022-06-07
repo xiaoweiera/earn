@@ -46,7 +46,7 @@ const getDescribe = (data: ProjectItem) => {
         <div class="flex flex-col md:flex-row">
           <div class="flex items-center">
             <DAppDetailState :start="data.ido_start_at" :ended="data.ido_end_at" />
-            <p class="text-kd16px22px text-global-highTitle font-medium font-kdFang ml-3">{{ project.tab === ProjectType.dapp ? "IDO" : "IGO" }}</p>
+            <p class="text-kd16px22px text-global-highTitle font-medium font-kdFang ml-3">{{ project.tab === ProjectType.ido ? "IDO" : "IGO" }}</p>
           </div>
           <div class="flex items-center mt-1.5 md:mt-0">
             <p v-if="data.ido_start_at || data.ido_end_at" class="hidden md:block h-4 mx-3 border-l border-sold border-global-highTitle border-opacity-6"></p>
@@ -86,7 +86,7 @@ const getDescribe = (data: ProjectItem) => {
               <!-- 自IDO以来收益 -->
               <li v-if="data.currentRoi" class="flex justify-between mt-3">
                 <label class="airdrop-title">{{ i18n.home.topList.idoAth }}</label>
-                <p class="text-kd14px18px text-global-highTitle font-kdFang font-medium" :class="getClassColor(data.currentRoi)">{{ toNumberCashFormat(data.currentRoi, "x", "", "N/A") }}</p>
+                <p class="text-kd14px18px text-global-highTitle font-kdFang font-medium" :class="getClassColor(data.athRoi)">{{ toNumberCashFormat(data.athRoi, "x", "", "N/A") }}</p>
               </li>
               <!-- 筹款目标 -->
               <li class="flex justify-between mt-3">
