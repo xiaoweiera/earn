@@ -4,7 +4,6 @@ import { useRoute, useRouter } from "vue-router";
 import I18n from "src/utils/i18n/index";
 import { ElOption, ElSelect } from "element-plus";
 import { getParam } from "src/utils/router";
-import { config as routerConfig } from "src/router/config";
 import safeGet from "@fengqiaogang/safe-get";
 import { topicDetail } from "src/types/home";
 
@@ -44,7 +43,7 @@ const mergeData = (key: string, data: any, origin: string[]) => {
     data.value.push({
       ...prop,
       href: {
-        path: `${routerConfig.homeDetail}/${id}`,
+        path: `${route.path}`,
         query: param,
       },
     });
