@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper-bundle.css";
 import { Model } from "src/logic/home";
 import I18n from "src/utils/i18n";
+import * as R from "ramda";
 import safeGet from "@fengqiaogang/safe-get";
 // 装载 swiper 组件
 SwiperCore.use([Pagination, Autoplay]);
@@ -49,14 +50,31 @@ const init = (swiper: any) => {
   });
 };
 const recommend = ref([]);
-
+const ad = ref([]);
+const cardList: any = ref([]);
+const getAd = async () => {
+  const adRes: any = await api.getAdList(17);
+  ad.value = adRes;
+};
 const getData = async () => {
   const res: any = await api.getRankTopic(params);
   recommend.value = safeGet(res, "items");
 };
-onMounted(() => {
+const mergeData = () => {
+  if (cardList.value.length === 0) {
+    cardList.value = ad.value;
+  } else {
+    cardList.value = recommend.value;
+    R.map((item: any) => {
+      cardList.value.splice(item.display_location, 0, item);
+    }, ad.value);
+  }
+};
+onMounted(async () => {
   // 得到数据汇总
-  getData();
+  await getData();
+  await getAd();
+  mergeData();
 });
 </script>
 <template>
@@ -67,16 +85,18 @@ onMounted(() => {
         <div :class="isBegin ? 'hidden' : 'jian-left'" class="xshidden">
           <ui-image class="left shadow" :src="`${oss}/dapp/zuojian.png`" :lazy="false" fit="cover" @click="last" />
         </div>
-        <Swiper v-if="recommend.length > 0" class="h-full swiper-recom" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
-          <template v-for="(item, index) in recommend" :key="index">
+        <Swiper v-if="cardList.length > 0" class="h-full swiper-recom" :initial-slide="0" slides-per-view="auto" :space-between="24" :resize-observer="true" @init="init" @set-translate="change">
+          <template v-for="(item, index) in cardList" :key="index">
             <SwiperSlide class="rounded-kd6px">
-              <v-router :href="`${config.homeDetail}/${item.id}`" target="_blank" class="item-card rounded-kd6px overflow-hidden">
-                <UiAd v-if="item['data_type'] === 'ad'" class="top-3 left-3 absolute z-5" />
+              <v-router v-if="item['type'] != 1" :href="`${config.homeDetail}/${item.id}`" target="_blank" class="item-card rounded-kd6px overflow-hidden">
                 <div class="info relative z-10 pt-8">
                   <div class="name font-kdSemiBold">{{ item["title"] }}</div>
                   <div class="bottom-bg"></div>
                 </div>
                 <ui-image class="rounded-kd6px w-full h-full" :src="item['cover_url']" fit="cover" />
+              </v-router>
+              <v-router v-else :href="item['url']" target="_blank" class="item-card rounded-kd6px overflow-hidden">
+                <ui-image class="rounded-kd6px w-full h-full" :src="item['image']" fit="cover" />
               </v-router>
             </SwiperSlide>
           </template>
