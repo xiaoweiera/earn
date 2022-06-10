@@ -89,7 +89,7 @@ export const common = {
   areaCodeList: "/api/v1/area_codes/", // 电话区号
   chainSiteConfig: "/api/v1/site/config", // 公链信息
   tidingTime: "/api/generic/alert/web/new_add", // 新数据消息
-  adList: "/api/v2/commercial", // 广告
+  adList: "/api/v2/commercial", // 广告2
   system: "/api/v1/system", //下载链接
   ipValidate: "/api/v1/ip/validate", // 判断 Ip 来源
   visit: "/api/v1/statistic/do_visit_statistic", // pv/uv 统计

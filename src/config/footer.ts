@@ -16,19 +16,19 @@ export const footers = function (lang?: Lang): MenuItem[] {
       children: [
         {
           name: i18n.menu.dapp.ranking,
-          href: `${config.dapp}/rank`,
+          href: config.rankDapp,
         },
         {
           name: i18n.menu.nft.ranking,
-          href: `${config.nft}/rank`,
+          href: config.rankNft,
         },
         {
           name: i18n.menu.dapp.discover,
-          href: `${config.dapp}/discover`,
+          href: config.dapp,
         },
         {
           name: i18n.menu.nft.discover,
-          href: `${config.nft}/discover`,
+          href: config.nft,
         },
         {
           name: i18n.menu.airdrop.title,

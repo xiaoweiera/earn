@@ -14,7 +14,7 @@ onMounted(() => {
       <div class="max-w-315 mx-auto">
         <client-only>
           <CommonTopics class="mb-4 md:mb-6" :is-show-title="false" />
-          <Ad :position="24" class="my-4 md:my-6" />
+          <Ad :position="23" class="my-4 md:my-6" />
           <Table :id="2" :limit="50" />
         </client-only>
       </div>

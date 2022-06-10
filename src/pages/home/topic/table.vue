@@ -3,7 +3,6 @@ import safeGet from "@fengqiaogang/safe-get";
 import { ElTable, ElTableColumn, ElInput, ElPopover } from "element-plus";
 import HomeFilter from "src/pages/home/filter.vue";
 import { rowClass, headerCellClass, cellClass, getTitleCnEn, getTitleDes } from "src/pages/home/topic/data";
-import { config as routerConfig } from "src/router/config";
 import { getParam } from "src/utils/router";
 import { computed, reactive, ref, watch, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -76,7 +75,7 @@ const search = ref(getParam<string>("search"));
 watch(search, (n: any) => {
   const value = getParam<object>();
   router.push({
-    path: `${routerConfig.homeDetail}/${id}`,
+    path: `${route.path}`,
     query: Object.assign({}, value, {
       search: n,
     }),

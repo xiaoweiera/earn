@@ -2,7 +2,7 @@
 import { ElUpload, ElLoading } from "element-plus";
 import API from "src/api/index";
 import * as User from "src/logic/account/name";
-import { PropType, toRaw } from "vue";
+import { PropType } from "vue";
 import { messageError } from "src/lib/tool";
 import { Callback } from "src/types/common";
 import I18n from "src/utils/i18n";

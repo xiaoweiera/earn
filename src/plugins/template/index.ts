@@ -5,7 +5,7 @@
 
 import _ from "lodash";
 import htmlEncode from "js-htmlencode";
-import { Command, languageKey, rootData } from "src/config";
+import { languageKey, rootData } from "src/config";
 import { getEnv } from "src/config/";
 import Icons from "src/config/iconfont";
 import Crypto from "src/plugins/encryption/crypto";
