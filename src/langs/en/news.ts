@@ -9,7 +9,7 @@ export default {
       info: "View project info",
     },
   },
-  link: "Translation Link",
+  link: "Original URL",
   share: {
     success: "Follow success!",
     download: "please download the app to receive changes.",
