@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, computed } from "vue";
 import document from "src/plugins/browser/document";
 import { oss } from "src/config";
 import { config } from "src/router/config";
@@ -61,7 +61,7 @@ const getData = async () => {
   recommend.value = safeGet(res, "items");
 };
 const mergeData = () => {
-  if (cardList.value.length === 0) {
+  if (recommend.value.length === 0) {
     cardList.value = ad.value;
   } else {
     cardList.value = recommend.value;
@@ -70,6 +70,7 @@ const mergeData = () => {
     }, ad.value);
   }
 };
+
 onMounted(async () => {
   // 得到数据汇总
   await getData();
@@ -78,7 +79,7 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div v-if="recommend && recommend.length > 0">
+  <div v-if="cardList && cardList.length > 0">
     <div v-if="isShowTitle" class="mb-3 com-container font-kdSemiBold font-medium">{{ title ? title : i18n.home.hotTopic }}</div>
     <div class="relative">
       <div class="w-full">
