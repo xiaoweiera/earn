@@ -77,6 +77,13 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.get("/middle/:type", (req: Request, res: Response) => {
     res.send({});
   });
+
+  // freemint
+  router.get("/freemint", (req: Request, res: Response) => {
+    res.send({});
+  });
+
+
   // 404
   router.get(routerConfig.E404, (req: Request, res: Response) => {
     res.send({});
