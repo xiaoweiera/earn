@@ -1,0 +1,148 @@
+<script setup lang="ts">
+import { ElInput, ElSwitch } from "element-plus";
+import { ref } from "vue";
+
+const maxGas = ref(0);
+const GasPrice = ref(0);
+const GasLimit = ref(0);
+const tip = ref(0);
+const spendLimit = ref(0);
+const mintNumber = ref(0); //mint 数量
+const mintValue = ref(0); //mint value
+const inputData = ref("");
+const isSwitch = ref(false);
+</script>
+<template>
+  <div class="w-full border-css">
+    <!--  Gas-->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <ui-image class="mr-2 w-5 h-5" oss src="/mint/gas.png" />
+        <div class="title">
+          <span>Gas 预估花费 =</span>
+          <span>0.005 ETH</span>
+          <span>($4.21)</span>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <span class="mr-2 text-kd14px18px text-global-black-title">1599</span>
+        <el-switch v-model="isSwitch" width="34"></el-switch>
+      </div>
+    </div>
+    <div class="flex mt-4">
+      <div class="gasItem">
+        <div class="des">Max Gas (GWei)</div>
+        <el-input v-model="maxGas" placeholder="0" autocomplete="off" />
+      </div>
+      <div class="gasItem">
+        <div class="des">Gas Price (GWei)</div>
+        <el-input v-model="GasPrice" placeholder="0" autocomplete="off" />
+      </div>
+      <div class="gasItem">
+        <div class="des">Gas Limit</div>
+        <el-input v-model="GasLimit" placeholder="0" autocomplete="off" />
+      </div>
+      <div class="gasItem no-show">
+        <div class="des">矿工消费</div>
+        <el-input v-model="tip" placeholder="0" autocomplete="off" />
+      </div>
+      <div class="gasItem no-show">
+        <div class="des">消费上限</div>
+        <el-input v-model="spendLimit" placeholder="0" autocomplete="off" />
+      </div>
+    </div>
+    <!-- -------------------------------------------------- -->
+    <div class="mt-6 flex items-center">
+      <!--  Mint数量-->
+      <div class="flex-1 mr-6">
+        <div class="flex items-center">
+          <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
+          <div class="title">Mint 数量</div>
+        </div>
+        <el-input v-model="mintNumber" class="mt-4" placeholder="0" autocomplete="off" />
+      </div>
+      <!--  Value-->
+      <div class="flex-1">
+        <div class="flex items-center">
+          <ui-image class="mr-2 w-5 h-5" oss src="/mint/walletNo.png" />
+          <div class="title">Value</div>
+        </div>
+        <el-input v-model="mintValue" class="mt-4" placeholder="0" autocomplete="off" />
+      </div>
+    </div>
+    <!--  input data-->
+    <div class="mt-6 input-data">
+      <div class="flex items-center">
+        <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
+        <div class="title mr-1.5">Input Data</div>
+        <span class="tips">如无法读懂，请不要修改</span>
+      </div>
+      <el-input v-model="inputData" class="mt-4" :rows="3" type="textarea" placeholder="请输入" />
+    </div>
+  </div>
+</template>
+<style scoped lang="scss">
+::v-deep(.el-input__inner) {
+  border: 1px solid rgba(3, 54, 102, 0.04) !important;
+  box-shadow: none;
+  background: #fafbfc;
+  height: 32px !important;
+  padding-left: 8px !important;
+  border-radius: 4px !important;
+  color: #111316 !important;
+  @apply text-kd12px16px;
+}
+.input-data {
+  ::v-deep(.el-textarea__inner) {
+    border: 1px solid rgba(3, 54, 102, 0.04) !important;
+    box-shadow: none;
+    background: #fafbfc;
+    padding: 8px !important;
+    border-radius: 6px !important;
+    color: #111316 !important;
+    @apply text-kd12px16px;
+  }
+}
+.title {
+  @apply text-kd14px18px font-medium text-global-black-title;
+}
+
+.gasItem {
+  @apply text-center;
+  .des {
+    @apply mb-1.5;
+  }
+
+  ::v-deep(.el-input__inner) {
+    border: 1px solid rgba(3, 54, 102, 0.04) !important;
+    box-shadow: none;
+    background: #fafbfc;
+    height: 32px !important;
+    padding-left: 8px !important;
+    border-radius: 4px !important;
+    color: #111316 !important;
+    text-align: center !important;
+    @apply text-kd12px16px;
+  }
+}
+
+.gasItem:not(:last-child) {
+  @apply mr-6;
+}
+
+.des {
+  @apply text-kd13px18px text-global-text-grey whitespace-nowrap;
+}
+
+.des-no {
+  color: #d3d6db;
+  @apply text-kd13px18px;
+}
+.no-show {
+  @apply opacity-50;
+}
+.tips {
+  color: #989898;
+  @apply text-kd12px16px;
+}
+</style>

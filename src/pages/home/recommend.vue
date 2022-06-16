@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, computed } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import document from "src/plugins/browser/document";
 import { oss } from "src/config";
 import { config } from "src/router/config";
