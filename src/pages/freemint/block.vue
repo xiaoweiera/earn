@@ -1,33 +1,24 @@
 <script setup lang="ts">
-import Card from "./card/index.vue";
-import Address from "./address.vue";
-import Gas from "./gas.vue";
-import Key from "./key.vue";
-import Log from "./log/index.vue";
-import Node from "./node.vue";
-import Button from "./button.vue";
-import BaseInfo from "./baseinfo/index.vue";
-import Keyword from "./keyword.vue";
-import Timer from "./timer/index.vue";
+import Card from "./tool/card/index.vue";
+import Key from "./tool/key.vue";
+import Log from "./tool/log/index.vue";
+import Node from "./tool/node.vue";
+import Button from "./tool/button.vue";
+import BaseInfo from "./tool/baseinfo/index.vue";
+import Keyword from "./tool/keyword.vue";
 </script>
 <template>
   <div class="container-mint">
-    <!--    定时 Mint-->
-    <Timer />
-    <!--    NFT 关键词搜索-->
-    <Keyword />
-    <!--    基础信息-->
-    <BaseInfo />
     <!--    卡片-->
     <Card />
     <!--    节点选择-->
     <Node class="mt-4" />
-    <!--    hash 或者 合约地址-->
-    <Address class="mt-4" />
     <!--    私钥-->
     <Key class="mt-4" />
-    <!--    gas-->
-    <Gas class="mt-4" />
+    <!--    基础信息-->
+    <BaseInfo class="mt-4" />
+    <!--    NFT 关键词搜索-->
+    <Keyword class="mt-4" />
     <!--    Mint日志-->
     <Log class="mt-4" />
     <!--    首页 info 和 Mint按钮-->
@@ -45,7 +36,7 @@ import Timer from "./timer/index.vue";
       </div>
     </div>
     <!--Mint-->
-    <Button type="ok" />
+    <Button type="auto" />
   </div>
 </template>
 <style lang="scss">
@@ -66,6 +57,7 @@ import Timer from "./timer/index.vue";
 .border-css {
   @apply p-4 border-1 border-global-highTitle border-opacity-10 rounded-kd6px;
 }
+
 .kd-input {
   .el-input__inner {
     border: 1px solid rgba(3, 54, 102, 0.04) !important;
@@ -77,10 +69,12 @@ import Timer from "./timer/index.vue";
     color: #111316 !important;
     @apply text-kd12px16px;
   }
+
   .input-info {
     @apply w-50 min-w-50;
   }
 }
+
 .button-mint {
   @apply bg-global-primary bg-opacity-6 rounded-kd4px;
   @apply h-8 px-3 text-kd14px18px font-medium;

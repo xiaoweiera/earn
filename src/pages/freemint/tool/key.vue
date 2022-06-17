@@ -34,8 +34,8 @@ const key = ref("");
         </div>
         <div class="des mt-1.5">{{ des }}</div>
       </div>
-      <div class="flex items-center">
-        <div class="button-mint">
+      <div v-if="isWallet" class="flex items-center">
+        <div class="button-mint ml-4">
           <ui-image class="mr-1 w-4 h-4" oss src="/mint/walletOk.png" />
           <span>Connect Wallet</span>
         </div>
@@ -43,7 +43,7 @@ const key = ref("");
     </div>
     <client-only class="flex mt-3 items-center">
       <el-input v-model="key" placeholder="请输入私钥地址" autocomplete="off" />
-      <div class="button-mint">Add</div>
+      <div class="button-mint ml-4">Add</div>
     </client-only>
     <!--私钥列表-->
     <div class="mt-3">
@@ -69,11 +69,6 @@ const key = ref("");
 }
 .title {
   @apply text-kd14px18px font-medium text-global-black-title;
-}
-.button-mint {
-  @apply bg-global-primary bg-opacity-6 rounded-kd4px;
-  @apply ml-4 h-8 px-3 text-kd14px18px font-medium;
-  @apply flex items-center text-global-primary flex-nowrap justify-center whitespace-nowrap cursor-pointer;
 }
 .des {
   @apply text-kd12px16px text-global-text-grey;

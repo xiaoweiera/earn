@@ -6,24 +6,26 @@ import { ElButton } from "element-plus";
 defineProps({
   type: {
     type: String,
-    default: "ok", // ok-no-stop
+    default: "ok", // ok-no-stop-auto
   },
 });
 const txt = {
   ok: "Mint",
   no: "Mint",
   stop: "STOP",
+  auto: "Auto Mint",
 };
 </script>
 <template>
   <div>
     <div class="mt-4 text-center" :class="type">
-      <el-button native-type="submit">{{ txt[type] }}</el-button>
+      <el-button native-type="submit">{{ txt[type] ? txt[type] : "Mint" }}</el-button>
     </div>
   </div>
 </template>
 <style lang="scss">
-.ok {
+.ok,
+.auto {
   .el-button {
     border: none !important;
     background: #006ff7 !important;
