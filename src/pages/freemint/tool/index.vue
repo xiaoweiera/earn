@@ -6,9 +6,15 @@ import Key from "./key.vue";
 import Log from "./log/index.vue";
 import Node from "./node.vue";
 import Button from "./button.vue";
+import Baseinfo from "./baseinfo/index.vue";
+import Keyword from "./keyword.vue";
 </script>
 <template>
   <div class="container-mint">
+    <!--    NFT 关键词搜索-->
+    <Keyword />
+    <!--    基础信息-->
+    <Baseinfo />
     <!--    卡片-->
     <Card />
     <!--    节点选择-->
@@ -56,5 +62,20 @@ import Button from "./button.vue";
 
 .border-css {
   @apply p-4 border-1 border-global-highTitle border-opacity-10 rounded-kd6px;
+}
+.kd-input {
+  .el-input__inner {
+    border: 1px solid rgba(3, 54, 102, 0.04) !important;
+    box-shadow: none;
+    background: #fafbfc;
+    height: 32px !important;
+    padding-left: 8px !important;
+    border-radius: 4px !important;
+    color: #111316 !important;
+    @apply text-kd12px16px;
+  }
+  .input-info {
+    @apply w-50 min-w-50;
+  }
 }
 </style>

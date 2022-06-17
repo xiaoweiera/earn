@@ -3,6 +3,24 @@
  * 私钥
  */
 import { ElInput } from "element-plus";
+defineProps({
+  icon: {
+    type: String,
+    default: "yaoshi",
+  },
+  title: {
+    type: String,
+    default: "填入私钥",
+  },
+  des: {
+    type: String,
+    default: "本地操作，服务器不会获取你的私钥。为了安全考虑，建议用小号；多个私钥请点击 Add 后添加。",
+  },
+  isWallet: {
+    type: Boolean,
+    default: true,
+  },
+});
 import { ref } from "vue";
 const key = ref("");
 </script>
@@ -11,10 +29,10 @@ const key = ref("");
     <div class="flex items-center justify-between">
       <div>
         <div class="flex items-center">
-          <ui-image class="mr-2 w-5 h-5" oss src="/mint/yaoshi.png" />
-          <span class="title">填入私钥匙</span>
+          <ui-image class="mr-2 w-5 h-5" oss :src="`/mint/${icon}.png`" />
+          <span class="title">{{ title }}</span>
         </div>
-        <div class="des mt-1.5">本地操作，服务器不会获取你的私钥。为了安全考虑，建议用小号；多个私钥请点击 Add 后添加。</div>
+        <div class="des mt-1.5">{{ des }}</div>
       </div>
       <div class="flex items-center">
         <div class="button-mint">
@@ -24,7 +42,7 @@ const key = ref("");
       </div>
     </div>
     <client-only class="flex mt-3 items-center">
-      <el-input v-model="key" placeholder="输入 ERC721 合约地址或者输入别人的 Mint Hash" autocomplete="off" />
+      <el-input v-model="key" placeholder="请输入私钥地址" autocomplete="off" />
       <div class="button-mint">Add</div>
     </client-only>
     <!--私钥列表-->
