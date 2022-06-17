@@ -17,6 +17,10 @@ import WindCSS from "vite-plugin-windicss";
 import {getConfig} from "./src/config/env";
 import {Command, development, ImportMetaEnv, oss, production} from "./src/types/env";
 
+import GlobalsPolyfills from '@esbuild-plugins/node-globals-polyfill'
+import NodeModulesPolyfills from '@esbuild-plugins/node-modules-polyfill'
+
+
 const getSassData = function(env: ImportMetaEnv & ConfigEnv) {
   const root = "./";
   const staticUrl: string = env.mode === Command.serve ? root : env.VITE_staticDomain;
@@ -70,7 +74,8 @@ export default defineConfig(async function() {
       "process.env": {
         ...config,
         command: config.VITE_command,
-      }
+      },
+      global: 'globalThis'
     },
     build: buildConfig,
     css: {
@@ -99,6 +104,12 @@ export default defineConfig(async function() {
           importStyle: "sass"
         })],
       }),
+      NodeModulesPolyfills(),
+      GlobalsPolyfills({
+        process: true,
+        buffer: true,
+      }),
+
       Components({
         dts: true,
         include: [/\.vue$/],
