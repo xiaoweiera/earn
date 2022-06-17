@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * 状态卡片
+ */
 import Item from "./item.vue";
 </script>
 <template>

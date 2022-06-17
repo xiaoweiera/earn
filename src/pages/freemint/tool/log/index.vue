@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * Mint日志
+ */
 import Tip from "./tip.vue";
 import Info from "./info.vue";
 import { ref } from "vue";

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * Mint Hash 或者 合约地址 可自动识别
+ */
 import { ElInput } from "element-plus";
 import { ref } from "vue";
 const address = ref("");

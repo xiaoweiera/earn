@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * 私钥
+ */
 import { ElInput } from "element-plus";
 import { ref } from "vue";
 const key = ref("");

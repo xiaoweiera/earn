@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * 节点选择
+ */
 import { ElSelect, ElOption } from "element-plus";
 import { ref } from "vue";
 const selectNode = ref(""); //选定的节点值

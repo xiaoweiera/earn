@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * 状态小方块提示
+ */
 defineProps({
   type: {
     type: String,

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * 状态卡片元素
+ */
 import _ from "lodash";
 defineProps({
   state: {

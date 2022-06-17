@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * Gas预估花费
+ */
 import { ElInput, ElSwitch } from "element-plus";
 import { ref } from "vue";
 

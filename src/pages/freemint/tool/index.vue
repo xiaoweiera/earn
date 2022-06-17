@@ -9,13 +9,19 @@ import Button from "./button.vue";
 </script>
 <template>
   <div class="container-mint">
+    <!--    卡片-->
     <Card />
+    <!--    节点选择-->
     <Node class="mt-4" />
+    <!--    hash 或者 合约地址-->
     <Address class="mt-4" />
+    <!--    私钥-->
     <Key class="mt-4" />
+    <!--    gas-->
     <Gas class="mt-4" />
+    <!--    Mint日志-->
     <Log class="mt-4" />
-    <!--info-->
+    <!--    首页 info 和 Mint按钮-->
     <div class="flex items-center mt-4 mint-infos justify-center">
       <div class="flex items-center mr-12 des">
         <span>本次已 Mint：</span>
@@ -37,10 +43,12 @@ import Button from "./button.vue";
 .container-mint {
   @apply max-w-200 mx-auto pt-6;
 }
+
 .mint-infos {
   .des {
     @apply text-kd12px16px text-global-black-desc;
   }
+
   .number {
     @apply text-kd14px18px font-medium text-global-primary;
   }

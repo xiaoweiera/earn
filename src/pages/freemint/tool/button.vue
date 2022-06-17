@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * 首页Mint提交按钮
+ */
 import { ElButton } from "element-plus";
 defineProps({
   type: {

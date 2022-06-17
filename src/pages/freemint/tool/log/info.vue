@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/**
+ * Mint日志的文字提示
+ */
 defineProps({
   type: {
     type: String,
