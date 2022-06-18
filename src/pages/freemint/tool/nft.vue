@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Card from "./tool/ui/card/index.vue";
-import Key from "./tool/ui/key.vue";
-import Log from "./tool/ui/log/index.vue";
-import Node from "./tool/ui/node.vue";
-import Button from "./tool/ui/button.vue";
-import BaseInfo from "./tool/ui/baseinfo/index.vue";
-import Keyword from "./tool/ui/keyword.vue";
+import Card from "./ui/card/index.vue";
+import Key from "./ui/key.vue";
+import Log from "./ui/log/index.vue";
+import Node from "./ui/node.vue";
+import Button from "./ui/button.vue";
+import BaseInfo from "./ui/baseinfo/index.vue";
+import Keyword from "./ui/keyword.vue";
 </script>
 <template>
   <div class="container-mint">
