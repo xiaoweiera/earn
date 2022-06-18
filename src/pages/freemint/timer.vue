@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Card from "./tool/card/index.vue";
-import Address from "./tool/address.vue";
-import Gas from "./tool/gas.vue";
-import Key from "./tool/key.vue";
-import Log from "./tool/log/index.vue";
-import Node from "./tool/node.vue";
-import Button from "./tool/button.vue";
-import Timer from "./tool/timer/index.vue";
+import Card from "./tool/ui/card/index.vue";
+import Address from "./tool/ui/address.vue";
+import Gas from "./tool/ui/gas.vue";
+import Key from "./tool/ui/key.vue";
+import Log from "./tool/ui/log/index.vue";
+import Node from "./tool/ui/node.vue";
+import Button from "./tool/ui/button.vue";
+import Timer from "./tool/ui/timer/index.vue";
 </script>
 <template>
   <div class="container-mint">
