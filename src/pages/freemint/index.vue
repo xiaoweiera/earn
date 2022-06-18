@@ -1,13 +1,15 @@
 <script setup lang="ts">
 // import Tool from "./tool/nft.vue";
-import Tool from "./tool/block.vue";
+// import Tool from "./tool/block.vue";
 // import Tool from "./tool/address.vue";
 // import Tool from "./tool/timer.vue";
+import Feed from "./feed/live/index.vue";
 </script>
 <template>
   <div>
     <div>
-      <Tool />
+      <!--      <Tool />-->
+      <Feed />
     </div>
   </div>
 </template>

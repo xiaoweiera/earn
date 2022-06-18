@@ -2,17 +2,30 @@
 /**
  * tag切换
  */
-import { ref } from "vue";
-const list = [
-  { name: "ETH", value: "eth" },
-  { name: "USD", value: "usd" },
-];
-const tag = ref("eth");
+import { ref, onMounted } from "vue";
+const props = defineProps({
+  data: {
+    type: Array(Object),
+    default: () => [
+      { name: "ETH", value: "eth" },
+      { name: "USD", value: "usd" },
+    ],
+  },
+});
+const tag = ref("");
+const init = () => {
+  if (props.data.length > 0) {
+    tag.value = props.data[0].value;
+  }
+};
 const selectTag = (value: string) => (tag.value = value);
+onMounted(() => {
+  init();
+});
 </script>
 <template>
   <div class="tag-container">
-    <template v-for="item in list" :key="item.value">
+    <template v-for="item in data" :key="item.value">
       <div class="tag" :class="item.value === tag ? 'tag-ok' : 'tag-no'" @click="selectTag(item.value)">{{ item.name }}</div>
     </template>
   </div>
