@@ -16,6 +16,7 @@ import DownLoad from "./download";
 import quota from "./quota";
 import rank from "./rank";
 import invest from "./invest";
+import freemint from "./freemint";
 
 const routes = [
   // 活动
@@ -52,6 +53,7 @@ const routes = [
       ...quota,
       ...rank,
       ...invest,
+      ...freemint,
       {
         path: `${config.apy}/:name*`,
         component: () => import("src/pages/apy/index.vue"),
@@ -67,6 +69,10 @@ const routes = [
       {
         path: `${config.address}/:name*`,
         component: () => import("src/pages/address/index.vue"),
+      },
+      {
+        path: "/freemint",
+        component: () => import("src/pages/freemint/index.vue"),
       },
       {
         path: config.api,
