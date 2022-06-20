@@ -8,9 +8,9 @@ const list = [
 ];
 </script>
 <template>
-  <div class="bg-global-primary state rounded-kd4px h-7 px-2 justify-center">
+  <div class="bg-global-primary flex items-center rounded-kd4px h-7 px-2 justify-center">
     <ui-image class="w-3.5 h-3.5 mr-1" oss src="/mint/eth.png" />
-    <client-only class="w-23 state">
+    <client-only class="w-23 flex items-center">
       <el-select v-model="chain" :popper-append-to-body="false" class="flex-1 select" size="small">
         <el-option v-for="item in list" :key="item.key" :label="item.name" :value="item.key" />
       </el-select>
