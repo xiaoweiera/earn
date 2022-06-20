@@ -36,6 +36,14 @@ export const config = {
   rankDefi: "/rank/defi",
   rankNft: "/rank/nft",
 
+  //freemint
+  freemintLive: "/freemint/live",
+  freemintTop: "/freemint/top",
+  freemintNFT: "/freemint/nft",
+  freemintBlock: "/freemint/block",
+  freemintAddress: "/freemint/address",
+  freemintTimer: "/freemint/timer",
+
   // 新项目
   dappApply: "/dapp/apply",
 
