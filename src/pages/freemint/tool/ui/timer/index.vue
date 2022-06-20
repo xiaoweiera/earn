@@ -28,13 +28,15 @@ const isBegin = ref(false); //定时启动
         <div class="txt mr-2">狂暴模式</div>
         <el-switch v-model="isHot" width="34"></el-switch>
       </div>
-      <div class="state mr-6">
-        <div class="item-des mr-1.5">发送数量</div>
-        <el-input v-model="sendNumber" class="timer-info" placeholder="" autocomplete="off" />
-      </div>
-      <div class="state mr-6">
-        <div class="item-des mr-1.5">发送间隔</div>
-        <el-input v-model="sendInterval" class="timer-info" placeholder="" autocomplete="off" />
+      <div class="content">
+        <div class="state mr-3 md:mr-6 flex-1">
+          <div class="item-des mr-1.5">发送数量</div>
+          <el-input v-model="sendNumber" class="timer-info" placeholder="" autocomplete="off" />
+        </div>
+        <div class="state mr-3 md:mr-6 flex-1">
+          <div class="item-des mr-1.5">发送间隔</div>
+          <el-input v-model="sendInterval" class="timer-info" placeholder="" autocomplete="off" />
+        </div>
       </div>
     </div>
     <!--    烧块定时-->
@@ -43,13 +45,15 @@ const isBegin = ref(false); //定时启动
         <div class="txt mr-2">烧块定时</div>
         <el-switch v-model="isBurning" width="34"></el-switch>
       </div>
-      <div class="state mr-6">
-        <div class="item-des mr-1.5">开始时间</div>
-        <el-date-picker v-model="beginTime" class="timer-info" type="datetime" placeholder="选择开始时间"></el-date-picker>
-      </div>
-      <div class="state mr-6">
-        <div class="item-des mr-1.5">结束时间</div>
-        <el-date-picker v-model="endTime" class="timer-info" type="datetime" placeholder="选择结束时间"></el-date-picker>
+      <div class="mt-2 md:mt-0">
+        <div class="state mr-3 md:mr-6 flex-1">
+          <div class="item-des mr-1.5">开始时间</div>
+          <el-date-picker v-model="beginTime" class="timer-info" type="datetime" placeholder="选择开始时间"></el-date-picker>
+        </div>
+        <div class="state mr-3 md:mr-6 flex-1 mt-4 md:mt-0">
+          <div class="item-des mr-1.5">结束时间</div>
+          <el-date-picker v-model="endTime" class="timer-info" type="datetime" placeholder="选择结束时间"></el-date-picker>
+        </div>
       </div>
     </div>
     <!--    定时启动-->
@@ -77,10 +81,10 @@ const isBegin = ref(false); //定时启动
   @apply flex items-center;
 }
 ::v-deep(.el-date-editor) {
-  @apply w-63.25;
+  @apply md:w-63.25;
 }
 .timer-info {
-  @apply w-63.25;
+  @apply md:w-63.25;
 }
 .title {
   @apply text-kd14px18px font-medium text-global-black-title;
@@ -95,7 +99,10 @@ const isBegin = ref(false); //定时启动
   @apply text-kd12px16px text-global-black-title whitespace-nowrap;
 }
 .item {
-  @apply flex items-center mt-4;
+  @apply flex md:flex-row flex-col md:items-center mt-4;
+  .content {
+    @apply flex items-center mt-2 md:mt-0;
+  }
 }
 ::v-deep(.el-switch__core) {
   @apply h-4.5;
@@ -110,6 +117,7 @@ const isBegin = ref(false); //定时启动
 .ok {
   @extend .button-css;
   @apply bg-global-primary bg-opacity-6 text-global-primary;
+  @apply mt-4 md:mt-0;
 }
 .no {
   @extend .button-css;

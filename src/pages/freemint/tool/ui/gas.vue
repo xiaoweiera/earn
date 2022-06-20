@@ -18,7 +18,7 @@ const isSwitch = ref(false);
 <template>
   <div class="w-full border-css">
     <!--  Gas-->
-    <div class="flex items-center justify-between">
+    <div class="md:flex items-center justify-between">
       <div class="flex items-center">
         <ui-image class="mr-2 w-5 h-5" oss src="/mint/gas.png" />
         <div class="title">
@@ -27,31 +27,35 @@ const isSwitch = ref(false);
           <span>($4.21)</span>
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center md:mt-3 mt-0">
         <span class="mr-2 text-kd14px18px text-global-black-title">1599</span>
         <el-switch v-model="isSwitch" width="34"></el-switch>
       </div>
     </div>
-    <div class="flex mt-4">
-      <div class="gasItem">
-        <div class="des">Max Gas (GWei)</div>
-        <el-input v-model="maxGas" placeholder="0" autocomplete="off" />
+    <div class="md:flex mt-4">
+      <div class="state md:mr-6">
+        <div class="gasItem">
+          <div class="des">Max Gas (GWei)</div>
+          <el-input v-model="maxGas" placeholder="0" autocomplete="off" />
+        </div>
+        <div class="gasItem">
+          <div class="des">Gas Price (GWei)</div>
+          <el-input v-model="GasPrice" placeholder="0" autocomplete="off" />
+        </div>
+        <div class="gasItem">
+          <div class="des">Gas Limit</div>
+          <el-input v-model="GasLimit" placeholder="0" autocomplete="off" />
+        </div>
       </div>
-      <div class="gasItem">
-        <div class="des">Gas Price (GWei)</div>
-        <el-input v-model="GasPrice" placeholder="0" autocomplete="off" />
-      </div>
-      <div class="gasItem">
-        <div class="des">Gas Limit</div>
-        <el-input v-model="GasLimit" placeholder="0" autocomplete="off" />
-      </div>
-      <div class="gasItem no-show">
-        <div class="des">矿工消费</div>
-        <el-input v-model="tip" placeholder="0" autocomplete="off" />
-      </div>
-      <div class="gasItem no-show">
-        <div class="des">消费上限</div>
-        <el-input v-model="spendLimit" placeholder="0" autocomplete="off" />
+      <div class="state md:mt-0 mt-4">
+        <div class="gasItem no-show">
+          <div class="des">矿工消费</div>
+          <el-input v-model="tip" placeholder="0" autocomplete="off" />
+        </div>
+        <div class="gasItem no-show">
+          <div class="des">消费上限</div>
+          <el-input v-model="spendLimit" placeholder="0" autocomplete="off" />
+        </div>
       </div>
     </div>
     <!-- -------------------------------------------------- -->
@@ -95,6 +99,12 @@ const isSwitch = ref(false);
   color: #111316 !important;
   @apply text-kd12px16px;
 }
+::v-deep(.el-switch__core) {
+  @apply h-4.5;
+}
+::v-deep(.el-switch__action) {
+  @apply w-3.5 h-3.5;
+}
 .input-data {
   ::v-deep(.el-textarea__inner) {
     border: 1px solid rgba(3, 54, 102, 0.04) !important;
@@ -115,7 +125,6 @@ const isSwitch = ref(false);
   .des {
     @apply mb-1.5;
   }
-
   ::v-deep(.el-input__inner) {
     border: 1px solid rgba(3, 54, 102, 0.04) !important;
     box-shadow: none;
@@ -128,21 +137,25 @@ const isSwitch = ref(false);
     @apply text-kd12px16px;
   }
 }
-
 .gasItem:not(:last-child) {
-  @apply mr-6;
+  @apply mr-3;
+}
+@screen md {
+  .gasItem:not(:last-child) {
+    @apply mr-6;
+  }
 }
 
 .des {
-  @apply text-kd13px18px text-global-text-grey whitespace-nowrap;
+  @apply text-kd12px16px md:text-kd13px18px text-global-text-grey whitespace-nowrap;
 }
 
 .des-no {
   color: #d3d6db;
-  @apply text-kd13px18px;
+  @apply text-kd12px16px  md:text-kd13px18px;
 }
 .no-show {
-  @apply opacity-50;
+  @apply opacity-40;
 }
 .tips {
   color: #989898;

@@ -18,17 +18,23 @@ const selectWord = ref(""); //关键词筛选
     </div>
     <div class="item">
       <div class="txt">关键词屏蔽(选填)</div>
-      <el-input v-model="screenWord" class="input-info mx-3" placeholder="" autocomplete="off" />
-      <div class="des">名字包含关键词的 NFT将被过滤，多个词请用[,]分隔</div>
+      <el-input v-model="screenWord" class="input-info value-input" placeholder="" autocomplete="off" />
+      <div class="des value-des">名字包含关键词的 NFT将被过滤，多个词请用[,]分隔</div>
     </div>
     <div class="item">
       <div class="txt">关键词筛选(选填)</div>
-      <el-input v-model="selectWord" class="input-info mx-3" placeholder="" autocomplete="off" />
-      <div class="des">只 Mint 包含关键词的 NFT，多个词请用[,]分隔</div>
+      <el-input v-model="selectWord" class="input-info value-input" placeholder="" autocomplete="off" />
+      <div class="des value-des">只 Mint 包含关键词的 NFT，多个词请用[,]分隔</div>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
+.value-input {
+  @apply md:mx-3 mt-1 md:mt-0 order-1 md:order-0;
+}
+.value-des {
+  @apply mt-1 md:mt-0 order-0 md:order-1;
+}
 .title {
   @apply text-kd14px18px font-medium text-global-black-title;
 }
@@ -39,6 +45,6 @@ const selectWord = ref(""); //关键词筛选
   @apply text-kd12px16px text-global-black-title;
 }
 .item {
-  @apply flex items-center mt-4;
+  @apply flex md:flex-row flex-col md:items-center mt-4;
 }
 </style>

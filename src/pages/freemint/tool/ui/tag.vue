@@ -24,7 +24,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="tag-container">
+  <div class="tag-container max-w-max">
     <template v-for="item in data" :key="item.value">
       <div class="tag" :class="item.value === tag ? 'tag-ok' : 'tag-no'" @click="selectTag(item.value)">{{ item.name }}</div>
     </template>

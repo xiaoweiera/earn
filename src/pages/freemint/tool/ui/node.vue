@@ -14,9 +14,12 @@ const getColor = (value: number) => (value < 1000 ? "green" : "red");
 </script>
 <template>
   <div class="w-full border-css">
-    <div class="flex items-center">
-      <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
-      <span class="text-kd14px18px font-medium text-global-black-title">节点选择</span>
+    <div class="state justify-between">
+      <div class="state">
+        <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
+        <span class="text-kd14px18px font-medium text-global-black-title">节点选择</span>
+      </div>
+      <div class="button-mint">Ping</div>
     </div>
     <client-only class="mt-3 relative">
       <el-select v-model="selectNode" class="w-full" placeholder="请选择">

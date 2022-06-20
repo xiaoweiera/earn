@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Chain from "../feed/chain.vue";
 import Card from "./ui/card/index.vue";
 import Key from "./ui/key.vue";
 import Log from "./ui/log/index.vue";
@@ -6,11 +7,18 @@ import Node from "./ui/node.vue";
 import Button from "./ui/button.vue";
 import BaseInfo from "./ui/baseinfo/index.vue";
 import Keyword from "./ui/keyword.vue";
+import Info from "./ui/info.vue";
 </script>
 <template>
   <div class="container-mint">
+    <div class="state justify-between">
+      <div class="text-kd16px22px font-medium text-global-highTitle">根据区块自动 Mint</div>
+      <div>
+        <Chain />
+      </div>
+    </div>
     <!--    卡片-->
-    <Card />
+    <Card class="mt-4" />
     <!--    节点选择-->
     <Node class="mt-4" />
     <!--    私钥-->
@@ -22,36 +30,14 @@ import Keyword from "./ui/keyword.vue";
     <!--    Mint日志-->
     <Log class="mt-4" />
     <!--    首页 info 和 Mint按钮-->
-    <div class="flex items-center mt-4 mint-infos justify-center">
-      <div class="flex items-center mr-12 des">
-        <span>本次已 Mint：</span>
-        <span class="number mr-1">1</span>
-        <span class="mr-2">个合约</span>
-        <span class="number mr-1">2</span>
-        <span>个NFT</span>
-      </div>
-      <div class="flex items-center des">
-        <span class="number mr-1">0.007</span>
-        <span>ETH≈$4.21</span>
-      </div>
-    </div>
+    <Info class="mt-4" />
     <!--Mint-->
     <Button type="auto" />
   </div>
 </template>
 <style lang="scss">
 .container-mint {
-  @apply max-w-200 mx-auto pt-6;
-}
-
-.mint-infos {
-  .des {
-    @apply text-kd12px16px text-global-black-desc;
-  }
-
-  .number {
-    @apply text-kd14px18px font-medium text-global-primary;
-  }
+  @apply max-w-200 mx-auto p-4 md:pt-6 md:px-0;
 }
 
 .border-css {
@@ -77,7 +63,7 @@ import Keyword from "./ui/keyword.vue";
 
 .button-mint {
   @apply bg-global-primary bg-opacity-6 rounded-kd4px;
-  @apply h-8 px-3 text-kd14px18px font-medium;
+  @apply h-8  px-2 md:px-3 text-kd14px18px   font-medium;
   @apply flex items-center text-global-primary flex-nowrap justify-center whitespace-nowrap cursor-pointer;
 }
 </style>

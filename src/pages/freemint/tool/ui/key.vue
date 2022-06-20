@@ -26,7 +26,7 @@ const key = ref("");
 </script>
 <template>
   <div class="w-full border-css">
-    <div class="flex items-center justify-between">
+    <div class="md:flex items-center justify-between">
       <div>
         <div class="flex items-center">
           <ui-image class="mr-2 w-5 h-5" oss :src="`/mint/${icon}.png`" />
@@ -34,8 +34,8 @@ const key = ref("");
         </div>
         <div class="des mt-1.5">{{ des }}</div>
       </div>
-      <div v-if="isWallet" class="flex items-center">
-        <div class="button-mint ml-4">
+      <div v-if="isWallet" class="flex items-center mt-3 md:mt-0 md:ml-4">
+        <div class="button-mint">
           <ui-image class="mr-1 w-4 h-4" oss src="/mint/walletOk.png" />
           <span>Connect Wallet</span>
         </div>
@@ -49,7 +49,7 @@ const key = ref("");
     <div class="mt-3">
       <template v-for="item in 4" :key="item">
         <div class="flex items-center justify-between hand keyItem">
-          <div class="text-kd12px16px text-global-black-title">A6Gt6xw8ygwrKS4QDVYzgw7nG9b5t2VScnsJqE22H3Fb{{ item }}</div>
+          <div class="text-kd12px16px text-global-black-title">A6Gt6x........ScnsJqE22H3Fb{{ item }}</div>
           <IconFont class="text-global-numRed" size="16" type="shan" />
         </div>
       </template>
