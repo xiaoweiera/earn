@@ -7,11 +7,11 @@ const filter = [
   { name: "All", value: "all" },
 ];
 const dataTime = ["5M", "30M", "1H", "1", "all"];
-let testTime = 0;
-const changeTime = (time: any) => {
-  // todo
-  testTime = time;
-};
+// let testTime = 0;
+// const changeTime = (time: any) => {
+//   // todo
+//   testTime = time;
+// };
 </script>
 <template>
   <div class="top-page">
@@ -19,7 +19,7 @@ const changeTime = (time: any) => {
       <div class="text-kd16px22px font-medium text-global-highTitle">Top Mint list</div>
       <div class="state">
         <Tag class="mr-6" :data="filter" />
-        <ui-date-day class="mr-6" :shortcuts="dataTime" @change="changeTime" />
+        <ui-date-day class="mr-6" :shortcuts="dataTime" />
         <Chain />
       </div>
     </div>

@@ -43,9 +43,7 @@ const sort = () => {
 const initValue = function () {
   return [];
 };
-let queryTest = "";
-const requestList = async function (query: any) {
-  queryTest = query;
+const requestList = async function () {
   // const newParam = Object.assign({}, query);
   return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 };

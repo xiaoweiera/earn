@@ -3,16 +3,27 @@
  * Mint Hash 或者 合约地址 可自动识别
  */
 import { ElInput } from "element-plus";
-import { ref } from "vue";
-const address = ref("");
+import { ref, PropType } from "vue";
+import { toolMode } from "src/types/freemint";
+const emit = defineEmits(["addressCall"]);
+defineProps({
+  toolModel: {
+    type: Object as PropType<toolMode>,
+    required: true,
+  },
+});
 const isGet = ref(false);
-const getMint = () => (isGet.value = true);
+//赋值或回调
+const getMint = (value: object) => {
+  isGet.value = true;
+  emit("addressCall", value);
+};
 </script>
 <template>
   <div class="w-full border-css">
     <div class="title">填入 Mint Hash 或 合约地址 可自动识别</div>
     <div class="flex items-center">
-      <el-input v-model="address" placeholder="输入 ERC721 合约地址或者输入别人的 Mint Hash" autocomplete="off" />
+      <el-input v-model="toolModel.address" placeholder="输入 ERC721 合约地址或者输入别人的 Mint Hash" autocomplete="off" />
       <div class="get-mint min-w-20.5" @click="getMint()">
         <span v-if="!isGet">Get Mint</span>
         <IconFont v-else size="14" type="loading" />

@@ -2,14 +2,45 @@
 /**
  * 节点选择
  */
-import { ElSelect, ElOption } from "element-plus";
-import { ref } from "vue";
-const selectNode = ref(""); //选定的节点值
+import { ElSelect, ElOption, ElInput } from "element-plus";
+import { ref, PropType, computed } from "vue";
+import { toolMode } from "src/types/freemint";
+const props = defineProps({
+  toolModel: {
+    type: Object as PropType<toolMode>,
+    required: true,
+  },
+});
 const nodeList = ref([
   { url: "https://aaaaaaaaa", value: 700 },
   { url: "https://bbbbbbbbb", value: 1100 },
   { url: "https://ccccccccc", value: 300 },
 ]);
+const nodeUrl = ref("");
+const isShowSpeed = ref(true);
+const selectNode = ref(""); //选定的节点值
+const nodeNumber = computed(() => {
+  let value = 0;
+  nodeList.value.forEach((item) => {
+    if (item.url === selectNode.value) {
+      value = item.value;
+    }
+  });
+  return value;
+});
+// const getList=async ()=>{
+//   nodeList.value=result
+// }
+//更改地址
+const selectChange = (address: string) => {
+  isShowSpeed.value = true;
+  selectNode.value = "";
+  nodeUrl.value = address;
+  props.toolModel.address = address;
+};
+const inputChange = () => {
+  isShowSpeed.value = false;
+};
 const getColor = (value: number) => (value < 1000 ? "green" : "red");
 </script>
 <template>
@@ -21,9 +52,9 @@ const getColor = (value: number) => (value < 1000 ? "green" : "red");
       </div>
       <div class="button-mint">Ping</div>
     </div>
-    <client-only class="mt-3 relative">
-      <el-select v-model="selectNode" class="w-full" placeholder="请选择">
-        <el-option v-for="item in nodeList" :key="item.value" :label="item.url" :value="item.value">
+    <client-only class="mt-3 relative state">
+      <el-select v-model="selectNode" class="w-30 mr-4" placeholder="请选择" @change="selectChange">
+        <el-option v-for="item in nodeList" :key="item.value" :value="item.url">
           <div class="w-full h-full">
             <div class="flex h-full items-center justify-between">
               <span class="text-kd12px16px text-global-black-desc">{{ item.url }}</span>
@@ -32,7 +63,8 @@ const getColor = (value: number) => (value < 1000 ? "green" : "red");
           </div>
         </el-option>
       </el-select>
-      <div v-if="selectNode" class="selectNode" :class="getColor(selectNode)">{{ selectNode }} ms</div>
+      <el-input v-model="nodeUrl" class="input-info value-input" placeholder="" autocomplete="off" @change="inputChange" />
+      <div v-if="nodeUrl && isShowSpeed" class="selectNode" :class="getColor(nodeNumber)">{{ nodeNumber }} ms</div>
     </client-only>
   </div>
 </template>
@@ -48,6 +80,7 @@ const getColor = (value: number) => (value < 1000 ? "green" : "red");
   @apply text-kd12px16px;
 }
 .el-select-dropdown__item {
+  width: 300px !important;
   padding: 12px 12px 12px 12px !important;
 }
 .green {
