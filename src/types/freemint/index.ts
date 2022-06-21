@@ -21,5 +21,5 @@ export interface toolMode {
   logs?: object[];
   shieldWord?: string; //屏蔽词搜索
   keyWord?: string; //关键词搜索
-  baseInfo: baseModel;
+  baseInfo?: baseModel;
 }
