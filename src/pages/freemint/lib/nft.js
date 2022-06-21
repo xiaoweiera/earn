@@ -121,40 +121,53 @@ export class Nft {
       value: 0
     }  
   */  
+
   async auto_parse_mint(hash) {
     const hash_obj = this._parse_hash_type(hash)
+    const error_msg = "输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !"
 
-    switch hash_obj.type {
-      case 'NFT_CONTRACT_HASH' {
+    switch(hash_obj.type) {
+      case 'NFT_CONTRACT_HASH': {
         // 获取合约的最新一条 mint 记录
-        const lastBlock = this.api_web3.eth.getBlockNumber()
+        const lastBlock = await this.api_web3.eth.getBlockNumber()
         // 获取 alchemy nft 的交易记录
-        last_mint_tx = await this.fetch_nft_mint_transactions(0，lastBlock, 1)
-        if (last_mint_tx.result.transfers.length = 0) {
-          return alert("输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !")
+        const last_mint_tx = await this.fetch_nft_mint_transactions(0, lastBlock, 1, [hash])
+        console.log("last_mint_tx: ", last_mint_tx)
+
+        if (last_mint_tx.transfers.length == 0) {
+          alert(error_msg)
+          console.log(error_msg)
+          return false
+          break;
         }
         // 再拉取真正的 链上 tx, 获取 input data
-        tx = await this.api_web3.eth.getTransactionByHash({ data: last_mint_tx.result.transfers[0].hash })
+        const tx = await this.api_web3.eth.getTransaction(last_mint_tx.transfers[0].hash)
+        console.log("the lastest tx: ", tx)
+
         return {
-          input_data: tx.result.input,
-          value: tx.result.value
+          input_data: tx.input,
+          value: tx.value
         }          
       }
-      case "NFT_MINT_TX_HASH" {
+      case "NFT_MINT_TX_HASH": {
         // 再拉取真正的 链上 tx, 获取 input data
-        tx = await this.api_web3.eth.getTransactionByHash({ data: hash })
+        const tx = await this.api_web3.eth.getTransaction(hash)
+        console.log("get tx: ", tx)
+
         return {
-          input_data: tx.result.input,
-          value: tx.result.value
+          input_data: tx.input,
+          value: tx.value
         }              
       } 
-      default {
-        return alert("输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !")
+      default: {
+          // console.log(error_msg)        
+         // alert("输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !")
+         return false
       }
     }
   }
 
-  _parse_hash_type(hash) {
+  _parse_hash_type(hash = "") {
     if ([42, 66].includes(hash.length) && this.api_web3.utils.isHex(hash)) {
       return { status: true, type: hash.length == 42 ? "NFT_CONTRACT_HASH" : "NFT_MINT_TX_HASH" }
     } else {
@@ -178,7 +191,7 @@ export class Nft {
     })
   }
 
-  async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000) {
+  async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000, contract = null) {
     return await this.api_web3.alchemy.getAssetTransfers({
       fromBlock: from_block,
       fromAddress: "0x0000000000000000000000000000000000000000",
@@ -186,8 +199,7 @@ export class Nft {
       toBlock: to_block,
       // toAddress: "0xf7996b18ef0fd8838b577021a54e49f276fd5789",
 
-      // contractAddresses: ["0x67d9417c9c3c250f61a83c7e8658dac487b56b09"],
-
+      contractAddresses: contract,
       excludeZeroValue:false,
       category: ["erc721","erc1155"],
       maxCount
