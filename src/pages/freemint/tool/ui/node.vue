@@ -14,24 +14,28 @@ const props = defineProps({
   },
 });
 const NFT = ref();
+const isping = ref(false)
 const nodeList = ref([
-  { url: "https://mainnet-eth.compound.finance/", speed: 0 },
-  { url: "https://mainnet-eth.compound.finance/", speed: 0 },
-  { url: "https://geth.mytokenpocket.vip", speed: 0 },
-  { url: "https://cloudflare-eth.com", speed: 0 },
-  { url: "https://api.mycryptoapi.com/eth", speed: 0 },
-  { url: "https://rpc.ankr.com/eth", speed: 0 },
-  { url: "https://mainnet-eth.compound.finance/", speed: 0 },
+  { url: "https://mainnet-eth.compound.finance/", speed: '~' },
+  { url: "https://geth.mytokenpocket.vip", speed: '~' },
+  { url: "https://cloudflare-eth.com", speed: '~' },
+  { url: "https://api.mycryptoapi.com/eth", speed: '~' },
+  { url: "https://rpc.ankr.com/eth", speed: '~' },
+  { url: "https://rpc.flashbots.net", speed: '~' }
 ]);
-let currentRpc = reactive({ value: { url: "", speed: 0, isShow: false } });
+let currentRpc = reactive({ value: { url: "", speed: '~', isShow: false } });
 const selectNode = ref(""); //选定的节点值
+
 const ping = async () => {
+  isping.value = true
   const urlList = nodeList.value.map((item) => item.url);
   const res = await NFT.value.test_rpc_list(urlList);
   const currentRes = await NFT.value._testSpeed(currentRpc.value.url);
   nodeList.value = res;
   currentRpc.value = { ...currentRes, isShow: true };
+  isping.value = false
 };
+
 //更改地址
 const selectChange = (item: any) => {
   selectNode.value = "";
@@ -42,14 +46,17 @@ const selectChange = (item: any) => {
     isShow: true,
   };
 };
+
 const inputChange = () => (currentRpc.value.isShow = false);
 const getColor = (value: number) => (value < 1000 ? "green" : "red");
+
 onMounted(async () => {
   //@ts-ignore
   NFT.value = new Nft(window["AlchemyWeb3"]);
   await ping();
   currentRpc.value = { ...nodeList.value[0], isShow: true };
 });
+
 </script>
 <template>
   <div class="w-full border-css">
@@ -58,7 +65,8 @@ onMounted(async () => {
         <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
         <span class="text-kd14px18px font-medium text-global-black-title">节点选择</span>
       </div>
-      <div class="button-mint" @click="ping">Ping</div>
+      <div class="button-mint" v-if="isPing">Ping...</div>
+      <div class="button-mint" @click="ping" v-else="isPing">Ping</div>
     </div>
     <client-only class="mt-3 relative state">
       <el-select v-model="selectNode" class="w-30 mr-4" placeholder="请选择" @change="selectChange">
