@@ -15,31 +15,6 @@ class Nft {
     // thi
   }
 
-  async get_gas_station() {
-    return [{
-        speed: 'slow'
-        gwei: 199,
-        usd: 18,
-        base: 22,
-        priority: 1
-        time: "~ 1min"
-      },{
-        speed: 'slow'
-        gwei: 199,
-        usd: 18,
-        base: 22,
-        priority: 1
-        time: "~ 30 second"
-      },{
-        speed: 'slow'
-        gwei: 199,
-        usd: 18,
-        base: 22,
-        priority: 1
-        time: "~ 10 second"
-      }]
-  }
-
   /*
     // const rpc_list = [
     //   "https://mainnet-eth.compound.finance/",
@@ -158,7 +133,8 @@ class Nft {
     //  console.log( " " );
 
   }
-  async auto_recognition_mint(hash, logs) {
+  // 根据 tx hash 或者 合约地址去识别 mint 相关参数
+  async auto_recognition_mint(hash) {
     let mint_params =  {
       input_data: '',
       gas_price: '',

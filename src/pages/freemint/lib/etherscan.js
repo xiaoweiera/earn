@@ -4,6 +4,31 @@ const ETHERSCAN_URL = "https://api.etherscan.io/api"
 // const LOCAL_PROXY = { protocol: "http", host: "127.0.0.1", port: "56554" }
 const ETHERSCAN_API = "IJ7QE4T82TG4KMK1J3GF5J1887EZYQZC9I"
 
+// 获取 gas 费用
+/* return {
+    "LastBlock":"13053741",
+     "SafeGasPrice":"20",
+     "ProposeGasPrice":"22",
+     "FastGasPrice":"24",
+     "suggestBaseFee":"19.230609716",
+     "gasUsedRatio":"0.370119078777807,0.8954731,0.550911766666667,0.212457033333333,0.552463633333333"
+     "price": 232323
+  }
+  // Priority = level - base
+*/
+const getGasTracker = async () => {
+  const params = {
+    module: "gastracker",
+    action: "gasoracle"
+  }
+  try {
+    let res = await sendAxiosRequest(params)
+    if (res.status == "200") return res.data.result
+  } catch (error) {
+    console.error(error.message)
+  }
+}
+
 // 根据钱包地址获取交易信息
 const getTxInfoByUserAddress = async (address, startblock, endblock) => {
   const params = {
@@ -63,6 +88,7 @@ const sendAxiosRequest = async (params) => {
 }
 
 export const etherscan = {
+  getGasTracker,
   getTxInfoByUserAddress,
   getTokenInfoByConractAddress,
   getABIbyContractAddress,
