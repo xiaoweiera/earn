@@ -37,7 +37,7 @@ class Nft {
     })
   }
 
-  formate_nft(nft_event) {
+  async formate_nft(nft_event) {
     const tx = await this.api_web3.eth.getTransaction(nft_event.hash)
     const receipt = await this.api_web3.alchemy.getTransactionReceipts({ blockNumber: nft_event.blockNum })
     const mycontract = new this.api_web3.eth.Contract(ABI, nft_event.rawContract.address)

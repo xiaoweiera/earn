@@ -8,9 +8,25 @@ import Button from "./ui/button.vue";
 import Info from "./ui/info.vue";
 import Gas from "./ui/gas.vue";
 import Address from "./ui/address.vue";
+import { toolMode } from "src/types/freemint";
+import { reactive } from "vue";
+const toolModel: toolMode = reactive({
+  node: "", //节点
+  keyList: [], //私钥
+  gasMax: 0,
+  gasPrice: 0,
+  gasLimit: 0,
+  consume: 0, //矿工消费
+  consumeLimit: 0,
+  mintAmount: 0,
+  value: 0,
+  inputData: "",
+});
+// const keyList=(keyList:string[])=>toolModel.keyList=keyList
 </script>
 <template>
   <div class="container-mint">
+    <!--    {{toolModel}}-->
     <div class="state justify-between">
       <div class="text-kd16px22px font-medium text-global-highTitle">一键 Mint NFT</div>
       <div>
@@ -20,13 +36,13 @@ import Address from "./ui/address.vue";
     <!--    卡片-->
     <Card class="mt-4" />
     <!--    节点选择-->
-    <Node class="mt-4" />
+    <Node class="mt-4" :toolModel="toolModel" />
     <!--    hash 或者 合约地址-->
-    <Address class="mt-4" />
+    <Address class="mt-4" :toolModel="toolModel" />
     <!--    私钥-->
-    <Key class="mt-4" />
+    <Key class="mt-4" :toolModel="toolModel" />
     <!--    Gas-->
-    <Gas class="mt-4" />
+    <Gas class="mt-4" :toolModel="toolModel" />
     <!--    Mint日志-->
     <Log class="mt-4" />
     <!--    首页 info 和 Mint按钮-->
