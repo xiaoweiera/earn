@@ -23,7 +23,7 @@ const getMint = (value: object) => {
   <div class="w-full border-css">
     <div class="title">填入 Mint Hash 或 合约地址 可自动识别</div>
     <div class="flex items-center">
-      <el-input v-model="toolModel.address" placeholder="输入 ERC721 合约地址或者输入别人的 Mint Hash" autocomplete="off" />
+      <el-input v-model="toolModel.hash" placeholder="输入 ERC721 合约地址或者输入别人的 Mint Hash" autocomplete="off" />
       <div class="get-mint min-w-20.5" @click="getMint()">
         <span v-if="!isGet">Get Mint</span>
         <IconFont v-else size="14" type="loading" />

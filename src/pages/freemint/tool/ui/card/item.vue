@@ -2,11 +2,24 @@
 /**
  * 状态卡片元素
  */
+import { toNumberCashFormat } from "src/utils/convert/to";
 import _ from "lodash";
 defineProps({
   state: {
     type: String,
     required: true,
+  },
+  totalPrice: {
+    type: [Number, String],
+    default: 0,
+  },
+  base: {
+    type: [Number, String],
+    default: "",
+  },
+  price: {
+    type: [Number, String],
+    default: "",
   },
 });
 </script>
@@ -17,24 +30,17 @@ defineProps({
       <div class="state">{{ _.upperFirst(state) }}</div>
     </div>
     <div class="mt-2" :class="state">
-      <span class="wei">48</span>
+      <span class="wei">{{ toNumberCashFormat(totalPrice) }}</span>
       <span class="text-kd16px22px font-medium">Gwei</span>
     </div>
     <div class="des other">
       <span class="mr-1.5">Base:</span>
-      <span>47</span>
+      <span>{{ toNumberCashFormat(base) }}</span>
       <div class="mx-1.5 gang" />
       <span class="mr-1.5">Priority:</span>
-      <span>1</span>
-    </div>
-    <div class="des other">
-      <span>$1.80</span>
-      <div class="mx-3 gang" />
-      <span>约</span>
-      <span class="mx-2">3</span>
-      <span>mins:</span>
-      <span class="mx-1">0</span>
-      <span>secs</span>
+      <span>{{ toNumberCashFormat(totalPrice - base) }}</span>
+      <div class="mx-1.5 gang" />
+      <span>{{ toNumberCashFormat(price, "$") }}</span>
     </div>
   </div>
 </template>

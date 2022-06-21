@@ -1,7 +1,7 @@
-import { ABI } from "./abi.js"
+import { ABI } from "./nft_contract_abi.js"
 import { ethers } from 'ethers'
 
-class Nft {
+export class Nft {
   constructor(Web3) {
     this.ALCHEMY_KEY = "poUoilj7yipTDB122OglCDp6_K3ddU7o"
     this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o"
@@ -9,6 +9,11 @@ class Nft {
     this.Web3 = Web3
     this.api_web3 = this.Web3.createAlchemyWeb3(this.api_alchemy_url)
     this.ws_web =  this.Web3.createAlchemyWeb3(this.ws_alchemy_url)
+  }
+
+
+  async get_lastest_mint_tx() {
+    // thi
   }
 
   /*
@@ -24,14 +29,15 @@ class Nft {
     return [{url: "", speed: 344 }, {url: "", speed: 344 }]
   */
   async test_rpc_list(rpc_list) {
-    rpc_list_with_speed = rpc_list.map(async url => {
-      return this._testSpeed(url)
+    let rpc_list_with_speed =rpc_list.map(url => {
+      return  this._testSpeed(url)
     })
-
-    // 确保第一条是最优记录
-    return rpc_list_with_speed.sort((a, b) => {
-      return a.speed - b.speed
-    })
+    return Promise.all(rpc_list_with_speed).then(values => {
+      // 确保第一条是最优记录
+      return values.sort((a, b) => {
+        return a.speed - b.speed
+      })
+    });
   }
 
   async _testSpeed(url){
@@ -41,7 +47,7 @@ class Nft {
     }
 
     let startTime = new Date().getTime()
-    const provider = new ethers.providers.JsonRpcProvider(rpcUrl)
+    const provider = new ethers.providers.JsonRpcProvider(url)
     const network = await provider.send('eth_chainId', []).catch(e => {
         return { url: url, speed: 'Failed !'}
     })
@@ -76,7 +82,7 @@ class Nft {
   async mint_nft(mint_params, privateKeys, logs){
     logs.push({ state: 'true', msg: '参数解析中...'})
 
-    privateKeys.map(privateKey => {
+    privateKeys.map(async privateKey => {
       let address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
       let balance = await this.getBalance(address)
       let values = await Number(web3.utils.fromWei(balance ? balance : '')).toFixed(3)
@@ -114,17 +120,17 @@ class Nft {
       mint_number: 1,
       value: 0
     }
-
-    switch this._parse_hash_type(hash) {
-      case 'NFT_CONTRACT_HASH' {
-
-      }
-      case "NFT_MINT_TX_HASH" {
-
-      } final {
-        return alert("The entered hash is neither NFT Mint Hash nor NFT contract address Hash, please re-enter !")
-      }
-    }
+    //
+    // switch parse_hash_type(hash) {
+    //   case 'NFT_CONTRACT_HASH' {
+    //
+    //   }
+    //   case "NFT_MINT_TX_HASH" {
+    //
+    //   } final {
+    //     return alert("输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !")
+    //   }
+    // }
     return mint_params;
   }
 
@@ -140,9 +146,9 @@ class Nft {
     // TODO
   }
 
-  ayync get_lastest_mint_tx() {
-    lastBlock = this.api_web3.eth.getBlockNumber()
-    txs = await his.fetch_nft_mint_transactions(lastBlock - 10000000, lastBlock)
+  async get_lastest_mint_tx() {
+    const lastBlock = this.api_web3.eth.getBlockNumber()
+    const txs = await his.fetch_nft_mint_transactions(lastBlock - 10000000, lastBlock)
     return txs.map(tx => {
       return formate_nft(tx)
     })
@@ -163,7 +169,7 @@ class Nft {
     })
   }
 
-  formate_nft(nft_event) {
+  async formate_nft(nft_event) {
     const tx = await this.api_web3.eth.getTransaction(nft_event.hash)
     const receipt = await this.api_web3.alchemy.getTransactionReceipts({ blockNumber: nft_event.blockNum })
     const mycontract = new this.api_web3.eth.Contract(ABI, nft_event.rawContract.address)

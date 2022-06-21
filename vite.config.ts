@@ -71,8 +71,7 @@ export default defineConfig(async function() {
       "process.env": {
         ...config,
         command: config.VITE_command,
-      },
-      global: 'globalThis'
+      }
     },
     build: buildConfig,
     css: {

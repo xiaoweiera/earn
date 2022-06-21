@@ -1,12 +1,11 @@
 import { config } from "src/router/config";
 import { Router as ExpressRouter } from "express";
+import * as freeMint from "src/controller/freemint";
 
 const Router = function () {
   const router = ExpressRouter();
   //feed
-  router.get(config.freemintLive, function (req, res) {
-    res.send({});
-  });
+  router.get(config.freemintLive, freeMint.toolNft);
   router.get(config.freemintTop, function (req, res) {
     res.send({});
   });

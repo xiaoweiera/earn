@@ -1,6 +1,6 @@
 export interface toolMode {
   node: string;
-  address?: string;
+  hash?: string;
   keyList: string[]; //私钥
   gasMax: number;
   gasPrice: number;
