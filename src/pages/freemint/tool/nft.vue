@@ -24,6 +24,7 @@ const toolModel: toolMode = reactive({
 });
 //@ts-ignore
 const keyList = (keyList: any) => (toolModel.keyList = keyList);
+
 </script>
 <template>
   <div class="container-mint">

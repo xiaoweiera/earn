@@ -22,6 +22,7 @@ defineProps({
     default: "",
   },
 });
+
 </script>
 <template>
   <div class="card font-kdFang text-center">
@@ -40,7 +41,7 @@ defineProps({
       <span class="mr-1.5">Priority:</span>
       <span>{{ toNumberCashFormat(totalPrice - base) }}</span>
       <div class="mx-1.5 gang" />
-      <span>{{ toNumberCashFormat(price, "$") }}</span>
+      <span>{{ toNumberCashFormat(totalPrice * 0.000000001 * price * 21000, "$") }}</span>
     </div>
   </div>
 </template>
