@@ -17,9 +17,6 @@ import WindCSS from "vite-plugin-windicss";
 import {getConfig} from "./src/config/env";
 import {Command, development, ImportMetaEnv, oss, production} from "./src/types/env";
 
-import GlobalsPolyfills from '@esbuild-plugins/node-globals-polyfill'
-import NodeModulesPolyfills from '@esbuild-plugins/node-modules-polyfill'
-
 
 const getSassData = function(env: ImportMetaEnv & ConfigEnv) {
   const root = "./";
@@ -103,11 +100,6 @@ export default defineConfig(async function() {
         resolvers: [ElementPlusResolver({
           importStyle: "sass"
         })],
-      }),
-      NodeModulesPolyfills(),
-      GlobalsPolyfills({
-        process: true,
-        buffer: true,
       }),
 
       Components({
