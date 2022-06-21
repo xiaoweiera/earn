@@ -4,13 +4,26 @@
  */
 import Item from "./item.vue";
 import * as eth from "src/pages/freemint/lib/etherscan.js";
-import { reactive, onMounted } from "vue";
-// const cards = createReactive(alias.freeMint.card, {});
+import { reactive, onMounted, PropType } from "vue";
+import { toolMode } from "src/types/freemint";
+import { toNumberCashFormat } from "src/utils/convert/to";
+const props = defineProps({
+  toolModel: {
+    type: Object as PropType<toolMode>,
+    required: true,
+  },
+});
 let cardInfo = reactive({ value: {} });
 const init = async () => {
   const res = await eth.etherscan.getGasTracker();
   if (res) {
     cardInfo.value = res;
+    //@ts-ignore
+    props.toolModel.baseFeePerGas = toNumberCashFormat(cardInfo.value["suggestBaseFee"]);
+    //@ts-ignore
+    props.toolModel.maxPriorityFeePerGas = toNumberCashFormat(cardInfo.value["FastGasPrice"] - cardInfo.value["suggestBaseFee"]);
+    //@ts-ignore
+    props.toolModel.maxFeePerGas = toNumberCashFormat(cardInfo.value["FastGasPrice"] * 2);
   }
 };
 onMounted(() => init());

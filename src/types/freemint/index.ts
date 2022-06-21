@@ -2,12 +2,11 @@ export interface toolMode {
   node: string;
   hash?: string;
   keyList: string[]; //私钥
-  gasMax: number;
-  gasPrice: number;
-  gasLimit: number;
-  consume: number; //矿工消费
-  consumeLimit: number;
+  baseFeePerGas: number;
+  maxPriorityFeePerGas: number;
+  maxFeePerGas: number;
   mintAmount: number;
-  value: number;
+  mintValue: number;
   inputData: string;
+  logs: object[];
 }

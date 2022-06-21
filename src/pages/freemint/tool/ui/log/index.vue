@@ -4,8 +4,16 @@
  */
 import Tip from "./tip.vue";
 import Info from "./info.vue";
-import { ref } from "vue";
+import { PropType, ref } from "vue";
+import { toolMode } from "src/types/freemint";
+defineProps({
+  toolModel: {
+    type: Object as PropType<toolMode>,
+    required: true,
+  },
+});
 const tagIndex = ref("all");
+
 const tagList = [
   { name: "All", value: "all" },
   { name: "屏蔽", value: "noShow" },
@@ -20,7 +28,7 @@ const selectTag = (value: string) => (tagIndex.value = value);
     <div>
       <div class="flex items-center">
         <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
-        <div class="title">Mint 日志</div>
+        <div class="title" @click="init">Mint 日志</div>
       </div>
       <div class="tips mt-1.5">tips：开始 Auto Mint 后，请不要关闭/刷新页面。关闭/刷新 页面会导致 Auto Mint 程序终止</div>
     </div>
@@ -34,7 +42,9 @@ const selectTag = (value: string) => (tagIndex.value = value);
     <div class="log-content ok-log">
       <div class="ok-log-des">Auto Mint 程序启动成功，自动检测 Free Mint 中...</div>
       <div class="ok-log-des mt-2">基础过滤条件：Value=xx, Gas 上线=xxx, 单合约 Mint 数量 = xx，本次 Mint 总数 无上限</div>
-
+      <template v-for="info in toolModel.logs" :key="info">
+        <div>{{ info }}</div>
+      </template>
       <!--记录列表-->
       <div class="recordList">
         <div class="record">

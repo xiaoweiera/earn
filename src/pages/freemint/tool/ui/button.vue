@@ -3,10 +3,17 @@
  * 首页Mint提交按钮
  */
 import { ElButton } from "element-plus";
-defineProps({
+import { onMounted, PropType, ref } from "vue";
+import { Nft } from "src/pages/freemint/lib/nft";
+import { toolMode } from "src/types/freemint";
+const props = defineProps({
   type: {
     type: String,
     default: "ok", // ok-no-stop-auto
+  },
+  toolModel: {
+    type: Object as PropType<toolMode>,
+    required: true,
   },
 });
 const txt = {
@@ -15,11 +22,19 @@ const txt = {
   stop: "STOP",
   auto: "Auto Mint",
 };
+const NFT = ref();
+const mint = async () => {
+  await NFT.value.mint_nft(props.toolModel, props.toolModel.keyList, props.toolModel.logs);
+};
+onMounted(async () => {
+  //@ts-ignore
+  NFT.value = new Nft(window["AlchemyWeb3"]);
+});
 </script>
 <template>
   <div>
     <div class="mt-4 text-center" :class="type">
-      <el-button native-type="submit">{{ txt[type] ? txt[type] : "Mint" }}</el-button>
+      <el-button native-type="submit" @click="mint">{{ txt[type] ? txt[type] : "Mint" }}</el-button>
     </div>
   </div>
 </template>

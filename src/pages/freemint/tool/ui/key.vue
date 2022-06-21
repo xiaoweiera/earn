@@ -32,11 +32,11 @@ const key = ref("");
 const keyList = ref<string[]>([]);
 const add = () => {
   if (!key.value) return;
-  key.value = "";
   if (!keyList.value.includes(key.value)) {
     keyList.value.push(key.value);
     emit("keyCall", keyList.value);
   }
+  key.value = "";
 };
 const deleteItem = (index: number) => {
   keyList.value.splice(index, 1);

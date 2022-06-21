@@ -80,31 +80,33 @@ export class Nft {
   */
 
   async mint_nft(mint_params, privateKeys, logs){
-    logs.push({ state: 'true', msg: '参数解析中...'})
-
-    privateKeys.map(async privateKey => {
-      let address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
-      let balance = await this.getBalance(address)
-      let values = await Number(web3.utils.fromWei(balance ? balance : '')).toFixed(3)
-
-      let txParams = {
-          data: inputStr,
-          value: web3.utils.toWei(tx.value.toString(), 'ether'),
-          maxFeePerGas: web3.utils.toHex(tx.maxFeePerGas * 10 ** 9), //wei
-          maxPriorityFeePerGas: web3.utils.toHex(tx.maxPriorityFeePerGas * 10 ** 9), //wei
-      }
-      console.log('txParams: ', txParams)
-
-      let mySignTransaction = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
-      console.log('mySignTransaction: ', mySignTransaction)
-
-      let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(mySignTransaction, function (err, address) {
-          console.log('err, address: ', err, address)
-          if (!err) console.log(address) // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
-      })
-      console.log('sendSignedTransaction: ', sendSignedTransaction)
-      logs.push({ state: 'true', msg: sendSignedTransaction})
-    })
+    setInterval(()=>{
+      logs.push({ color: 'true', msg: '参数解析中...'})
+    },2000)
+    // privateKeys.map(async privateKey => {
+    //   let address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
+    //   let balance = await this.getBalance(address)
+    //   let values = await Number(web3.utils.fromWei(balance ? balance : '')).toFixed(3)
+    //
+    //   let txParams = {
+    //       data: inputStr,
+    //       value: web3.utils.toWei(tx.value.toString(), 'ether'),
+    //       maxFeePerGas: web3.utils.toHex(tx.maxFeePerGas * 10 ** 9), //wei
+    //       maxPriorityFeePerGas: web3.utils.toHex(tx.maxPriorityFeePerGas * 10 ** 9), //wei
+    //   }
+    //   console.log('txParams: ', txParams)
+    //
+    //   let mySignTransaction = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
+    //   console.log('mySignTransaction: ', mySignTransaction)
+    //
+    //   let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(mySignTransaction, function (err, address) {
+    //       console.log('err, address: ', err, address)
+    //       if (!err) console.log(address) // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
+    //   })
+    //   console.log('sendSignedTransaction: ', sendSignedTransaction)
+    //   logs.push({ state: 'true', msg: sendSignedTransaction})
+    //   return logs
+    // })
   }
 
 
