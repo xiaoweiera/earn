@@ -23,7 +23,26 @@ const getGasTracker = async () => {
   }
   try {
     let res = await sendAxiosRequest(params)
-    if (res.status == "200") return res.data.result
+    if (res.status == "200") {
+      return {
+        ...res.data.result,        
+        price: await getETHPrice(),
+      }
+    }
+  } catch (error) {
+    console.error(error.message)
+  }
+}
+
+// get ETH price
+const getETHPrice = async () => {
+  const params = {
+    module: "stats",
+    action: "ethprice"
+  }
+  try {
+    let res = await sendAxiosRequest(params)
+    if (res.status == "200") return res.data.result.ethusd
   } catch (error) {
     console.error(error.message)
   }
