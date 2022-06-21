@@ -8,6 +8,35 @@ import Button from "./ui/button.vue";
 import BaseInfo from "./ui/baseinfo/index.vue";
 import Keyword from "./ui/keyword.vue";
 import Info from "./ui/info.vue";
+import { reactive } from "vue";
+import { toolMode } from "src/types/freemint";
+
+const toolModel: toolMode = reactive({
+  node: "", //节点
+  keyList: [], //私钥
+  smartMintList: [], //smart 地址列表
+  baseFeePerGas: 0,
+  maxPriorityFeePerGas: 0,
+  maxFeePerGas: 0,
+  baseInfo: {
+    value: 0,
+    valueType: "eth",
+    gasLimit: 0,
+    gasType: "eth",
+    mintAmount: 0,
+    mintTotal: 0,
+    isNoLimit: false,
+  },
+  mintAmount: 0,
+  mintValue: 0,
+  inputData: "",
+  shieldWord: "", //屏蔽词搜索
+  keyWord: "", //关键词搜索
+  logs: [],
+});
+//@ts-ignore
+const keyList = (keyList: any) => (toolModel.keyList = keyList);
+const smartMintList = (keyList: any) => (toolModel.smartMintList = keyList);
 </script>
 <template>
   <div class="container-mint">
@@ -18,23 +47,23 @@ import Info from "./ui/info.vue";
       </div>
     </div>
     <!--    卡片-->
-    <Card class="mt-4" />
+    <Card class="mt-4" :toolModel="toolModel" />
     <!--    节点选择-->
-    <Node class="mt-4" />
+    <Node class="mt-4" :toolModel="toolModel" />
     <!--    私钥-->
-    <Key class="mt-4" />
+    <Key class="mt-4" :toolModel="toolModel" @keyCall="keyList" />
     <!--    基础信息-->
-    <BaseInfo class="mt-4" />
+    <BaseInfo class="mt-4" :toolModel="toolModel" />
     <!--  Smart Minter地址筛选-->
-    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="如填写了地址字段，将仅跟随这些地址 Mint 的 NFT；多个私钥请点击 Add 后添加。" :isWallet="false" />
+    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="如填写了地址字段，将仅跟随这些地址 Mint 的 NFT；多个私钥请点击 Add 后添加。" :isWallet="false" @keyCall="smartMintList" />
     <!--    NFT 关键词搜索-->
-    <Keyword class="mt-4" />
+    <Keyword class="mt-4" :toolModel="toolModel" />
     <!--    Mint日志-->
-    <Log class="mt-4" />
+    <Log class="mt-4" :toolModel="toolModel" />
     <!--    首页 info 和 Mint按钮-->
     <Info class="mt-4" />
     <!--Mint-->
-    <Button type="auto" />
+    <Button type="auto" :toolModel="toolModel" />
   </div>
 </template>
 <style lang="scss">

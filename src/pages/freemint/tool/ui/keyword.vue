@@ -4,8 +4,15 @@
  */
 import { ref } from "vue";
 import { ElInput } from "element-plus";
-const screenWord = ref(""); //关键词屏蔽
-const selectWord = ref(""); //关键词筛选
+import { toolMode } from "src/types/freemint";
+import { Nft } from "src/pages/freemint/lib/nft.js";
+
+const props = defineProps({
+  toolModel: {
+    type: Object as PropType<toolMode>,
+    required: true,
+  },
+});
 </script>
 <template>
   <div class="border-css kd-input">
@@ -18,12 +25,12 @@ const selectWord = ref(""); //关键词筛选
     </div>
     <div class="item">
       <div class="txt">关键词屏蔽(选填)</div>
-      <el-input v-model="screenWord" class="input-info value-input" placeholder="" autocomplete="off" />
+      <el-input v-model="toolModel.shieldWord" class="input-info value-input" placeholder="" autocomplete="off" />
       <div class="des value-des">名字包含关键词的 NFT将被过滤，多个词请用[,]分隔</div>
     </div>
     <div class="item">
       <div class="txt">关键词筛选(选填)</div>
-      <el-input v-model="selectWord" class="input-info value-input" placeholder="" autocomplete="off" />
+      <el-input v-model="toolModel.keyWord" class="input-info value-input" placeholder="" autocomplete="off" />
       <div class="des value-des">只 Mint 包含关键词的 NFT，多个词请用[,]分隔</div>
     </div>
   </div>

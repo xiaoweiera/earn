@@ -35,7 +35,7 @@ const ping = async () => {
 //更改地址
 const selectChange = (item: any) => {
   selectNode.value = "";
-  props.toolModel.hash = item.url;
+  props.toolModel.node = item.url;
   currentRpc.value = {
     url: item.url,
     speed: item.speed,
