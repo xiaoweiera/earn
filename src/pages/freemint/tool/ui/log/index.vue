@@ -4,16 +4,20 @@
  */
 import Tip from "./tip.vue";
 import Info from "./info.vue";
-import { PropType, ref } from "vue";
+import { PropType, ref, watch } from "vue";
 import { toolMode } from "src/types/freemint";
-defineProps({
+const props = defineProps({
   toolModel: {
     type: Object as PropType<toolMode>,
     required: true,
   },
 });
 const tagIndex = ref("all");
-
+const isBegin = ref(false); //是否存在log日志
+watch(
+  () => props.toolModel.start_running,
+  () => (isBegin.value = true),
+);
 const tagList = [
   { name: "All", value: "all" },
   { name: "屏蔽", value: "noShow" },
@@ -38,10 +42,8 @@ const selectTag = (value: string) => (tagIndex.value = value);
       </template>
     </div>
     <!--    Mint 程序日志  暂时无日志-->
-    <div class="log-content no-log">Mint 程序未启动，暂无 Mint 日志</div>
-    <div class="log-content ok-log">
-      <div class="ok-log-des">Auto Mint 程序启动成功，自动检测 Free Mint 中...</div>
-      <div class="ok-log-des mt-2">基础过滤条件：Value=xx, Gas 上线=xxx, 单合约 Mint 数量 = xx，本次 Mint 总数 无上限</div>
+    <div v-if="!isBegin" class="log-content no-log">Mint 程序未启动，暂无 Mint 日志</div>
+    <div v-else class="log-content ok-log">
       <!--记录列表-->
       <div class="recordList">
         <template v-for="info in toolModel.logs" :key="info">
