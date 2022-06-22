@@ -76,9 +76,31 @@ export class Nft {
     }
   */
 
+  // TODO 结束 mint 状态
+  // mint 个数计数，前端需要显示
   async mint_nft(mint_params, privateKeys, logs){
-    logs.push({ color: 'rgb(62 79 103)', msg: '参数解析中...'})
-    // TODO mint_params 里面 有个 number 参数，要检测一下
+    logs.push({ color: 'rgb(62 79 103)', msg: '✅ 参数解析中...'})
+    const _this = this;
+
+    if (!privateKeys.length) {
+      logs.push({ color: 'rgb(62 79 103)', msg: '❌ privateKey cannot be empty！'})
+      return;
+    }
+
+    if (mint_params.mintAmount < 1) {
+      logs.push({ color: 'rgb(62 79 103)', msg: '❌ Mint number must be greater than 1 !'})
+      return;
+    }
+
+    if (!this.api_web3.utils.isAddress(mint_params.contract)) {
+      logs.push({ color: 'rgb(62 79 103)', msg: '❌ NFT contracts are not properly recognized !'})
+      return;
+    }
+
+    if (!mint_params.inputData) {
+      logs.push({ color: 'rgb(62 79 103)', msg: '❌ InputData cannot be empty !'})
+      return;
+    }    
 
     privateKeys.map(async privateKey => {      
       let address = ''
@@ -87,23 +109,25 @@ export class Nft {
         address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
         const balance = await this.getBalance(address)
 
-       // TODO 检查余额是否足够
         let values = await Number(this.api_web3.utils.fromWei(balance ? balance : '')).toFixed(3)
-      
+
+        if (values < 0) {
+          throw `❌ ${this._formate_hash(address)} balance is 0 ETH !`
+        }
+
         const nonce = await this.api_web3.eth.getTransactionCount(address, 'latest'); // nonce starts counting from 0
 
-        // TO address
         let txParams = {
             from: address,
             to: mint_params.contract,
             nonce,
-            data: mint_params.input_data,
-            
+            data: mint_params.inputData,
             value: this.api_web3.utils.toWei(mint_params.mintValue.toString(), 'ether'),
             maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
             maxPriorityFeePerGas: this.api_web3.utils.toHex(mint_params.maxPriorityFeePerGas * 10 ** 9), //wei
 
             // TODO 设置 gaslimt
+            gasLimit: this.api_web3.utils.toHex( 53000 ),
         }
         console.log('txParams: ', txParams)
       
@@ -111,16 +135,16 @@ export class Nft {
         let signedTx = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
         console.log('mySignTransaction: ', signedTx)
       
-        let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction, function (err, address) {
-          if (!error) {
-            logs.push({ color: "green", msg: `🎉 The hash of your transaction is:  ${hash}, Check Alchemy's Mempool to view the status of your transaction!`})
+        let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction, function (err) {
+          if (!err) {
+            logs.push({ color: "green", msg: `✅ ${_this._formate_hash(address)} mint ${_this._formate_hash(mint_params.contract)} Success!! TX is:  ${_this._formate_hash(signedTx.transactionHash)}`})
           } else {
-            logs.push({ color: "red", msg: `❗Something went wrong while submitting your transaction: ${error}`})
+            logs.push({ color: "red", msg: `❌ ${_this._formate_hash(address)} mint ${err}`})
           }
         })
 
       } catch(e) {
-        logs.push({ color: 'red', msg: `${privateKey}: ${e.message}` })
+        logs.push({ color: 'red', msg: `❌ ${privateKey}: ${e.message}` })
       }
     })
   }
@@ -182,6 +206,11 @@ export class Nft {
          return false
       }
     }
+  }
+
+  _formate_hash(hash) {
+    // return `<span style='color: #0096de'>${hash.slice(0, 5)}...${hash.slice(hash.length - 5, hash.length)}></span>`
+    return hash
   }
 
   _parse_hash_type(hash = "") {
