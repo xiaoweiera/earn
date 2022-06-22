@@ -8,5 +8,6 @@ export interface toolMode {
   mintAmount: number;
   mintValue: number;
   inputData: string;
+  contract: string;
   logs: object[];
 }

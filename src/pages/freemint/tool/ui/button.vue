@@ -22,14 +22,18 @@ const txt = {
   stop: "STOP",
   auto: "Auto Mint",
 };
+
 const NFT = ref();
+
 const mint = async () => {
   await NFT.value.mint_nft(props.toolModel, props.toolModel.keyList, props.toolModel.logs);
 };
+
 onMounted(async () => {
   //@ts-ignore
   NFT.value = new Nft(window["AlchemyWeb3"]);
 });
+
 </script>
 <template>
   <div>
