@@ -64,12 +64,13 @@ export class Nft {
   async auto_mint(mint_params, privateKeys, logs) {
     if(!mint_params.start_running){
       console.log('11')
-      mint_params.start_running=true
+      mint_params.start_running = true
     }else{
       console.log('1122')
-      mint_params.start_running=false
+      mint_params.start_running = false
       return
     }
+
     logs.push({ color: 'rgb(62 79 103)', msg: '✅ 参数解析中...'})
 
     const _this = this;
@@ -180,13 +181,16 @@ export class Nft {
 
           privateKeys.map(async privateKey => { 
             for (let i = 0; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
-              // TODO 你得把 参数 组装起来啊 
-
-
-              // const new_nft = await this._mint_nft(privateKey, logs)
-              // if (new_nft) {
-              //   mint_params.minted[nfts[0]?.contract_address].push(new_nft)
-              // }
+              const new_nft = await this._mint_nft({
+                to: nfts[0].contract_address,
+                input_data: nfts[0].input_data,
+                value: nfts[0].value,
+                maxFeePerGas: nfts[0].maxFeePerGas,
+                maxPriorityFeePerGas: nfts[0].maxPriorityFeePerGas,
+              }, privateKey, logs)
+              if (new_nft) {
+                mint_params.minted[nfts[0]?.contract_address].push(new_nft)
+              }
             }
           })          
         })
@@ -209,7 +213,16 @@ export class Nft {
 
 
   // 单个地址，mint 单个 NFT
-  async _mint_nft(privateKey, logs) {
+  /*  
+    mint_params = {
+      to: String,
+      inputData: String,
+      value: number,
+      maxFeePerGas: number,
+      maxPriorityFeePerGas: number
+    }
+  */
+  async _mint_nft(mint_params, privateKey, logs) {
     let address = ''
 
     try {
@@ -226,10 +239,10 @@ export class Nft {
 
       let txParams = {
           from: address,
-          to: mint_params.contract,
+          to: mint_params.to,
           nonce,
           data: mint_params.inputData,
-          value: this.api_web3.utils.toWei(mint_params.mintValue.toString(), 'ether'),
+          value: this.api_web3.utils.toWei(mint_params.value.toString(), 'ether'),
           maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
           maxPriorityFeePerGas: this.api_web3.utils.toHex(mint_params.maxPriorityFeePerGas * 10 ** 9), //wei
 
@@ -257,9 +270,6 @@ export class Nft {
       return false
     }
   }
-
-
-
 
   // TODO 结束 mint 状态
   // mint 个数计数，前端需要显示
@@ -290,10 +300,15 @@ export class Nft {
     }    
 
     privateKeys.map(async privateKey => {      
-      this._mint_nft(privateKey, logs)
+      this._mint_nft({
+        to: mint_params.contract,
+        input_data: mint_params.inputData,
+        value: mint_params.mintValue,
+        maxFeePerGas: mint_params.maxFeePerGas,
+        maxPriorityFeePerGas: mint_params.maxPriorityFeePerGas
+      }, privateKey, logs)
     })
   }
-
 
   //获取余额
   async getBalance(address) {
@@ -476,7 +491,8 @@ export class Nft {
         metadata: metadata,
 
         // 区块相关的信息
-        blockNumber: nft_event.blockNum
+        blockNumber: nft_event.blockNum,
+        input_data: tx.input
         // blocktime: ???
       }
       console.log(nft)
