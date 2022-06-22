@@ -4,16 +4,13 @@ import { ethers } from 'ethers'
 export class Nft {
   constructor(Web3) {
     this.ALCHEMY_KEY = "poUoilj7yipTDB122OglCDp6_K3ddU7o"
-    this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o"
+    // this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o"
+    this.api_alchemy_url = "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu"
+
     this.ws_alchemy_url = "wss://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o"
     this.Web3 = Web3
     this.api_web3 = this.Web3.createAlchemyWeb3(this.api_alchemy_url)
     this.ws_web =  this.Web3.createAlchemyWeb3(this.ws_alchemy_url)
-  }
-
-
-  async get_lastest_mint_tx() {
-    // thi
   }
 
   /*
@@ -32,12 +29,12 @@ export class Nft {
     let rpc_list_with_speed =rpc_list.map(url => {
       return  this._testSpeed(url)
     })
-    return Promise.all(rpc_list_with_speed).then(values => {
-      // 确保第一条是最优记录
-      return values.sort((a, b) => {
-        return a.speed - b.speed
-      })
-    });
+    const result = await Promise.all(rpc_list_with_speed)
+    console.log(result)
+    // 确保第一条是最优记录
+    return result.sort((a, b) => {
+      return a.speed - b.speed
+    })
   }
 
   async _testSpeed(url){
@@ -80,64 +77,119 @@ export class Nft {
   */
 
   async mint_nft(mint_params, privateKeys, logs){
-    setInterval(()=>{
-      logs.push({ color: 'true', msg: '参数解析中...'})
-    },2000)
-    // privateKeys.map(async privateKey => {
-    //   let address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
-    //   let balance = await this.getBalance(address)
-    //   let values = await Number(web3.utils.fromWei(balance ? balance : '')).toFixed(3)
-    //
-    //   let txParams = {
-    //       data: inputStr,
-    //       value: web3.utils.toWei(tx.value.toString(), 'ether'),
-    //       maxFeePerGas: web3.utils.toHex(tx.maxFeePerGas * 10 ** 9), //wei
-    //       maxPriorityFeePerGas: web3.utils.toHex(tx.maxPriorityFeePerGas * 10 ** 9), //wei
-    //   }
-    //   console.log('txParams: ', txParams)
-    //
-    //   let mySignTransaction = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
-    //   console.log('mySignTransaction: ', mySignTransaction)
-    //
-    //   let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(mySignTransaction, function (err, address) {
-    //       console.log('err, address: ', err, address)
-    //       if (!err) console.log(address) // "0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385"
-    //   })
-    //   console.log('sendSignedTransaction: ', sendSignedTransaction)
-    //   logs.push({ state: 'true', msg: sendSignedTransaction})
-    //   return logs
-    // })
+    logs.push({ color: 'rgb(62 79 103)', msg: '参数解析中...'})
+    // TODO mint_params 里面 有个 number 参数，要检测一下
+
+    privateKeys.map(async privateKey => {      
+      let address = ''
+
+      try {
+        address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
+        const balance = await this.getBalance(address)
+
+       // TODO 检查余额是否足够
+        let values = await Number(this.api_web3.utils.fromWei(balance ? balance : '')).toFixed(3)
+      
+        const nonce = await this.api_web3.eth.getTransactionCount(address, 'latest'); // nonce starts counting from 0
+
+        // TO address
+        let txParams = {
+            from: address,
+            to: mint_params.contract,
+            nonce,
+            data: mint_params.input_data,
+            
+            value: this.api_web3.utils.toWei(mint_params.mintValue.toString(), 'ether'),
+            maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
+            maxPriorityFeePerGas: this.api_web3.utils.toHex(mint_params.maxPriorityFeePerGas * 10 ** 9), //wei
+
+            // TODO 设置 gaslimt
+        }
+        console.log('txParams: ', txParams)
+      
+        // TODO 要 gas 预估一下，然后看 余额是否交手续费
+        let signedTx = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
+        console.log('mySignTransaction: ', signedTx)
+      
+        let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction, function (err, address) {
+          if (!error) {
+            logs.push({ color: "green", msg: `🎉 The hash of your transaction is:  ${hash}, Check Alchemy's Mempool to view the status of your transaction!`})
+          } else {
+            logs.push({ color: "red", msg: `❗Something went wrong while submitting your transaction: ${error}`})
+          }
+        })
+
+      } catch(e) {
+        logs.push({ color: 'red', msg: `${privateKey}: ${e.message}` })
+      }
+    })
   }
 
 
   //获取余额
   async getBalance(address) {
-    return await web3.eth.getBalance(address, 'latest')
+    return await this.api_web3.eth.getBalance(address, 'latest')
   }
 
   // 根据 tx hash 或者 合约地址去识别 mint 相关参数
-  async auto_parse_mint(hash) {
-    let mint_params =  {
+  /* return {
       input_data: '0xefef39a10000000000000000000000000000000000000000000000000000000000000032',
-      mint_number: 1,
       value: 0
+    }  
+  */  
+  async auto_parse_mint(hash) {
+    const hash_obj = this._parse_hash_type(hash)
+    const error_msg = "输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !"
+
+    switch(hash_obj.type) {
+      case 'NFT_CONTRACT_HASH': {
+        // 获取合约的最新一条 mint 记录
+        const lastBlock = await this.api_web3.eth.getBlockNumber()
+        // 获取 alchemy nft 的交易记录
+        const last_mint_tx = await this.fetch_nft_mint_transactions(0, lastBlock, 1, [hash])
+        console.log("last_mint_tx: ", last_mint_tx)
+
+        if (last_mint_tx.transfers.length == 0) {
+          alert(error_msg)
+          console.log(error_msg)
+          return false
+          break;
+        }
+        // 再拉取真正的 链上 tx, 获取 input data
+        const tx = await this.api_web3.eth.getTransaction(last_mint_tx.transfers[0].hash)
+        console.log("the lastest tx: ", tx)
+
+        return {
+          input_data: tx.input,
+          value: tx.value,
+          contract_address: hash
+        }          
+      }
+      case "NFT_MINT_TX_HASH": {
+        // 再拉取真正的 链上 tx, 获取 input data
+        const tx = await this.api_web3.eth.getTransaction(hash)
+        console.log("get tx: ", tx)
+
+        return {
+          input_data: tx.input,
+          value: tx.value,
+          contract_address: tx.to
+        }
+      } 
+      default: {
+          // console.log(error_msg)        
+         // alert("输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !")
+         return false
+      }
     }
-    //
-    // switch parse_hash_type(hash) {
-    //   case 'NFT_CONTRACT_HASH' {
-    //
-    //   }
-    //   case "NFT_MINT_TX_HASH" {
-    //
-    //   } final {
-    //     return alert("输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !")
-    //   }
-    // }
-    return mint_params;
   }
 
-  async _parse_hash_type(hash) {
-    return 'NFT_MINT_TX_HASH';
+  _parse_hash_type(hash = "") {
+    if ([42, 66].includes(hash.length) && this.api_web3.utils.isHex(hash)) {
+      return { status: true, type: hash.length == 42 ? "NFT_CONTRACT_HASH" : "NFT_MINT_TX_HASH" }
+    } else {
+      return { status: false }      
+    }
   }
 
   group_by_block(nft_events) {
@@ -156,7 +208,7 @@ export class Nft {
     })
   }
 
-  async fetch_nft_mint_transactions(from_block, to_block) {
+  async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000, contract = null) {
     return await this.api_web3.alchemy.getAssetTransfers({
       fromBlock: from_block,
       fromAddress: "0x0000000000000000000000000000000000000000",
@@ -164,10 +216,10 @@ export class Nft {
       toBlock: to_block,
       // toAddress: "0xf7996b18ef0fd8838b577021a54e49f276fd5789",
 
-      // contractAddresses: ["0x67d9417c9c3c250f61a83c7e8658dac487b56b09"],
-
+      contractAddresses: contract,
       excludeZeroValue:false,
-      category: ["erc721","erc1155"]
+      category: ["erc721","erc1155"],
+      maxCount
     })
   }
 

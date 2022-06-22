@@ -20,9 +20,9 @@ const getMint = async (value: object) => {
   isGet.value = true;
   const res = await NFT.value.auto_parse_mint(props.toolModel.hash);
   if (res) {
-    props.toolModel.mintAmount = res.mint_number;
     props.toolModel.mintValue = res.value;
     props.toolModel.inputData = res.input_data;
+    props.toolModel.contract =  res.contract_address
   }
   isGet.value = false;
   emit("addressCall", value);
