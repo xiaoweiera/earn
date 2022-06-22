@@ -14,26 +14,26 @@ const props = defineProps({
   },
 });
 const NFT = ref();
-const isping = ref(false)
+const isping = ref(false);
 const nodeList = ref([
-  { url: "https://mainnet-eth.compound.finance/", speed: '~' },
-  { url: "https://geth.mytokenpocket.vip", speed: '~' },
-  { url: "https://cloudflare-eth.com", speed: '~' },
-  { url: "https://api.mycryptoapi.com/eth", speed: '~' },
-  { url: "https://rpc.ankr.com/eth", speed: '~' },
-  { url: "https://rpc.flashbots.net", speed: '~' }
+  { url: "https://mainnet-eth.compound.finance/", speed: "~" },
+  { url: "https://geth.mytokenpocket.vip", speed: "~" },
+  { url: "https://cloudflare-eth.com", speed: "~" },
+  { url: "https://api.mycryptoapi.com/eth", speed: "~" },
+  { url: "https://rpc.ankr.com/eth", speed: "~" },
+  { url: "https://rpc.flashbots.net", speed: "~" },
 ]);
-let currentRpc = reactive({ value: { url: "", speed: '~', isShow: false } });
+let currentRpc = reactive({ value: { url: "", speed: "~", isShow: false } });
 const selectNode = ref(""); //选定的节点值
 
 const ping = async () => {
-  isping.value = true
+  isping.value = true;
   const urlList = nodeList.value.map((item) => item.url);
   const res = await NFT.value.test_rpc_list(urlList);
   const currentRes = await NFT.value._testSpeed(currentRpc.value.url);
   nodeList.value = res;
   currentRpc.value = { ...currentRes, isShow: true };
-  isping.value = false
+  isping.value = false;
 };
 
 //更改地址
@@ -56,7 +56,6 @@ onMounted(async () => {
   await ping();
   currentRpc.value = { ...nodeList.value[0], isShow: true };
 });
-
 </script>
 <template>
   <div class="w-full border-css">
@@ -65,8 +64,8 @@ onMounted(async () => {
         <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
         <span class="text-kd14px18px font-medium text-global-black-title">节点选择</span>
       </div>
-      <div class="button-mint" v-if="isPing">Ping...</div>
-      <div class="button-mint" @click="ping" v-else="isPing">Ping</div>
+      <div v-if="isPing" class="button-mint">Ping...</div>
+      <div v-else class="button-mint" @click="ping">Ping</div>
     </div>
     <client-only class="mt-3 relative state">
       <el-select v-model="selectNode" class="w-30 mr-4" placeholder="请选择" @change="selectChange">

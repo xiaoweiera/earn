@@ -6,7 +6,7 @@ import _ from "lodash";
 defineProps({
   type: {
     type: String,
-    required: true, //free - high
+    required: true, //free - high - low
   },
 });
 </script>
@@ -17,7 +17,8 @@ defineProps({
 .default {
   @apply text-kd12px16px  h-4.5 px-1.5 whitespace-nowrap flex items-center justify-center;
 }
-.free {
+.free,
+.low {
   color: #008f28;
   background: rgba(0, 143, 40, 0.12);
 }

@@ -7,8 +7,12 @@ import { useRoute, useRouter } from "vue-router";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import Level from "./level.vue";
 import document from "src/plugins/browser/document";
-import { dateDiff } from "src/utils";
-
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+  },
+});
 const params = reactive({
   type: getParam<string>("type"),
   sort_field: "",
@@ -40,12 +44,14 @@ const sort = () => {
   key.value++;
 };
 
+//分页初始值
 const initValue = function () {
-  return [];
+  return props.data;
 };
+//分页翻页
 const requestList = async function () {
   // const newParam = Object.assign({}, query);
-  return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  return props.data;
 };
 
 const headerList = [
@@ -54,13 +60,12 @@ const headerList = [
   { key: "minters", name: "5m Minters", sort: true, active: false },
   { key: "nfts", name: "5m Mint NFTs", sort: true, active: false },
   { key: "cost", name: "Avg Mint Cost", sort: true, active: false },
-  { key: "first", name: "First Mint", sort: true, active: false },
   { key: "operate", name: "Operate" },
 ];
 </script>
 <template>
   <div class="showX md:mb-0 mb-4 mt-4">
-    <div :key="key">
+    <div v-if="data" :key="key">
       <ui-pagination :limit="params.page_size" :init-value="initValue()" :request="requestList">
         <template #default="{ list }">
           <div v-show="isLoad">
@@ -76,29 +81,27 @@ const headerList = [
                 </template>
               </el-table-column>
               <template v-for="(header, index) in headerList" :key="index">
-                <el-table-column :fixed="index === 0" :width="header.width ? header.width : 118">
+                <el-table-column :fixed="index === 0" :width="header.width ? header.width : 142">
                   <template #header>
                     <div class="relative h-full flex items-center" :class="{ 'justify-center': index !== 0 }">
                       <ui-sort class="header-name fit" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.key" :field="header.name" :name="header.name" @change="sort" />
                     </div>
                   </template>
-                  <template #default>
+                  <template #default="scope">
                     <div v-if="header.key === 'collection'" class="state">
-                      <ui-image class="w-8 h-8 mr-1.5 rounded-full" src="" />
-                      <span class="text-kd14px18px text-global-highTitle">Free Hand NFT</span>
+                      <ui-image class="w-8 h-8 min-w-8 max-w-8 mr-1.5 rounded-full" :title="scope.row.name" :src="scope.row.image" />
+                      <span class="text-kd14px18px text-global-highTitle">{{ scope.row.name }}</span>
                     </div>
                     <div v-else-if="header.key === 'level'" class="state justify-center">
-                      <Level type="extreme" />
+                      <Level :count="scope.row.sumNumber" />
                     </div>
                     <div v-else-if="header.key === 'cost'">
-                      <div class="free">Free</div>
-                      <div class="desc">54 Gwei</div>
-                    </div>
-                    <div v-else-if="header.key === 'first'" class="text-center text-kd12px16px text-global-highTitle">
-                      {{ dateDiff(1655697373) }}
+                      <div v-if="!scope.row.value" class="free">Free</div>
+                      <div class="desc">{{ toNumberCashFormat(scope.row.gas, "", "", "0") }} Gwei</div>
                     </div>
                     <div v-else-if="header.key === 'operate'" class="mint-button">Mint</div>
-                    <div v-else class="text-kd14px16px text-center text-number">{{ toNumberCashFormat(1421) }}</div>
+                    <div v-else-if="header.key === 'minters'" class="txt text-number">{{ toNumberCashFormat(scope.row.owner) }}</div>
+                    <div v-else-if="header.key === 'nfts'" class="txt text-number">{{ toNumberCashFormat(scope.row.sumNumber) }}</div>
                   </template>
                 </el-table-column>
               </template>
@@ -110,6 +113,9 @@ const headerList = [
   </div>
 </template>
 <style lang="scss" scoped>
+.txt {
+  @apply text-kd14px16px text-center;
+}
 .free {
   color: #008f28;
   @apply text-kd14px18px text-center;

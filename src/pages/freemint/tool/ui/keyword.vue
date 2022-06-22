@@ -2,12 +2,11 @@
 /**
  * 关键词搜错
  */
-import { ref } from "vue";
+import { PropType } from "vue";
 import { ElInput } from "element-plus";
 import { toolMode } from "src/types/freemint";
-import { Nft } from "src/pages/freemint/lib/nft.js";
 
-const props = defineProps({
+defineProps({
   toolModel: {
     type: Object as PropType<toolMode>,
     required: true,

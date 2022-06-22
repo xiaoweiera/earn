@@ -1,5 +1,7 @@
 import { ABI } from "./nft_contract_abi.js"
 import { ethers } from 'ethers'
+import _ from "lodash";
+import safeGet from "@fengqiaogang/safe-get";
 
 export class Nft {
   constructor(Web3) {
@@ -194,13 +196,48 @@ export class Nft {
 
 
   // Feed 流
-  group_by_block(nft_events) {
-    // TODO
-
+  group_by_block(data) {
+    const result=[]
+    //根据block分组
+    const blockList=_.values(_.groupBy(data,'blockNumber'))
+    blockList.map(item=>{
+      //根据address分组分组
+      const addressList=_.values(_.groupBy(item,'contract_address'))
+      addressList.map(itemTwo=>{
+        //插入聚合数据
+        result.push({
+          blockNumber:itemTwo[0].blockNumber,
+          name:itemTwo[0].name?itemTwo[0].name:itemTwo[0].metadata.title,
+          image:safeGet(itemTwo[0],'metadata.metadata.image'),
+          sumNumber:itemTwo.length, //出现次数
+          value:_.sumBy(itemTwo,'value'),
+          gas:_.sumBy(itemTwo,'gas'),
+        })
+      })
+    })
+    //再根据聚合数据分组 block
+    return _.values(_.groupBy(result,'blockNumber'))
   }
 
-  group_by_collection(nft_events) {
-    // TODO
+  group_by_collection(data) {
+    const result=[]
+    //根据address分组分组
+    const addressList=_.values(_.groupBy(data,'contract_address'))
+    console.log(addressList,'lll')
+    addressList.map(itemTwo=>{
+      //插入聚合数据
+      result.push({
+        blockNumber:itemTwo[0].blockNumber,
+        contract_address:itemTwo[0].contract_address,
+        image:safeGet(itemTwo[0],'metadata.metadata.image'),
+        name:itemTwo[0].name?itemTwo[0].name:itemTwo[0].metadata.title,
+        sumNumber:itemTwo.length,//出现次数
+        owner:_.values(_.groupBy(data,'owner')).length,
+        value:_.sumBy(itemTwo,'value'),
+        gas:_.sumBy(itemTwo,'gas'),
+      })
+    })
+    return result
   }
 
 
@@ -210,14 +247,15 @@ export class Nft {
 
   // 拿最近 number 的区块 NFT 数据
   async get_lastest_mint_tx(blockNumbers) {
-    const lastBlock = this.getLasetBlock()
-    const txs = await his.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
-    return txs.map(tx => {
-      return formate_nft(tx)
+    const lastBlock =await this.getLasetBlock()
+    const txs = await this.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
+    const txsWait=txs.transfers.map(tx => {
+      return this.formate_nft(tx)
     })
+   return await Promise.all(txsWait)
   }
 
-  async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000, contract = null) {
+  async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000, contract = []) {
     return await this.api_web3.alchemy.getAssetTransfers({
       fromBlock: from_block,
       fromAddress: "0x0000000000000000000000000000000000000000",
@@ -225,7 +263,7 @@ export class Nft {
       toBlock: to_block,
       // toAddress: "0xf7996b18ef0fd8838b577021a54e49f276fd5789",
 
-      contractAddresses: contract,
+      // contractAddresses: contract,
       excludeZeroValue:false,
       category: ["erc721","erc1155"],
       maxCount
@@ -237,34 +275,33 @@ export class Nft {
     const receipt = await this.api_web3.alchemy.getTransactionReceipts({ blockNumber: nft_event.blockNum })
     const mycontract = new this.api_web3.eth.Contract(ABI, nft_event.rawContract.address)
     const metadata = await this.api_web3.alchemy.getNftMetadata({ contractAddress: nft_event.rawContract.address, tokenId: nft_event.tokenId })
-
+    const name=await this.read_contract(mycontract, "name")
     return {
       // 集合相关的信息
-      symbol: event.asset,
-      name: await this.read_contract(mycontract, "name"),
+      // symbol: nft_event.asset, //没有这个字段
+      name: name,
       // totalSupply: await read_contract(mycontract, "totalSupply"),
-      // owner: await read_contract(mycontract, "owner"),
+      owner:nft_event.to, //minters
       // maxTotalSupply: await read_contract(mycontract, "maxTotalSupply"),
-      contract_address: event.rawContract.address,
+      contract_address: nft_event.rawContract.address,
 
       // 单个NFT 相关的信息
-      minter: event.to,
-      token_id: event.tokenId,
-      tx_id: event.hash,
-      category: event.category,
-      value: tx.value,
+      minter: nft_event.to,
+      token_id: nft_event.tokenId,
+      tx_id: nft_event.hash,
+      category: nft_event.category,
+      value: Number(tx.value),
       maxPriorityFeePerGas: tx.maxPriorityFeePerGas,
       maxFeePerGas: tx.maxFeePerGas,
       input_data: tx.input,
-      hash: event.hash,
+      hash: nft_event.hash,
       gas: tx.gas,
-      gas_price: tx.gasPrice,
+      gas_price: Number(tx.gasPrice),
       metadata: metadata,
 
       // 区块相关的信息
-      blockNumber: event.blockNum
+      blockNumber: nft_event.blockNum
       // blocktime: ???
     }
-    console.log(nft)
   }
 }

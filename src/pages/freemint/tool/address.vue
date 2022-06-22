@@ -51,11 +51,11 @@ const smartMintList = (keyList: any) => (toolModel.smartMintList = keyList);
     <!--    节点选择-->
     <Node class="mt-4" :toolModel="toolModel" />
     <!--    私钥-->
-    <Key class="mt-4" :toolModel="toolModel" @keyCall="keyList" />
+    <Key class="mt-4" :toolModel="toolModel" @key-call="keyList" />
     <!--    基础信息-->
     <BaseInfo class="mt-4" :toolModel="toolModel" />
     <!--  Smart Minter地址筛选-->
-    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="如填写了地址字段，将仅跟随这些地址 Mint 的 NFT；多个私钥请点击 Add 后添加。" :isWallet="false" @keyCall="smartMintList" />
+    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="如填写了地址字段，将仅跟随这些地址 Mint 的 NFT；多个私钥请点击 Add 后添加。" :isWallet="false" @key-call="smartMintList" />
     <!--    NFT 关键词搜索-->
     <Keyword class="mt-4" :toolModel="toolModel" />
     <!--    Mint日志-->
