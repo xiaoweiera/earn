@@ -12,13 +12,17 @@ const props = defineProps({
     ],
   },
 });
+const emit = defineEmits(["change"]);
 const tag = ref("");
 const init = () => {
   if (props.data.length > 0) {
     tag.value = props.data[0].value;
   }
 };
-const selectTag = (value: string) => (tag.value = value);
+const selectTag = (value: string) => {
+  tag.value = value;
+  emit("change", value);
+};
 onMounted(() => {
   init();
 });

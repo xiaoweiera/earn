@@ -20,14 +20,16 @@ defineProps({
       <div class="flex items-center">
         <ui-image class="mr-2 w-5 h-5" oss src="/mint/gas.png" />
         <div class="title">
-          <span>Gas 预估花费 =</span>
-          <span>0.005 ETH</span>
-          <span>($4.21)</span>
+          <span>Gas 预估花费</span>
+          <div class="state">
+            <span>0.005 ETH</span>
+            <span>($4.21)</span>
+          </div>
         </div>
       </div>
     </div>
     <div class="md:flex mt-4">
-      <div class="state md:mr-6">
+      <div class="state w-full">
         <div class="gasItem">
           <div class="des">Base Fee (GWei)</div>
           <el-input v-model="toolModel.baseFeePerGas" placeholder="0" autocomplete="off" />
