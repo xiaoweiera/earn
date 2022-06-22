@@ -192,17 +192,26 @@ export class Nft {
     }
   }
 
+
+  // Feed 流
   group_by_block(nft_events) {
     // TODO
+
   }
 
   group_by_collection(nft_events) {
     // TODO
   }
 
-  async get_lastest_mint_tx() {
-    const lastBlock = this.api_web3.eth.getBlockNumber()
-    const txs = await his.fetch_nft_mint_transactions(lastBlock - 10000000, lastBlock)
+
+  async getLasetBlock() {
+    return await this.api_web3.eth.getBlockNumber();
+  }
+
+  // 拿最近 number 的区块 NFT 数据
+  async get_lastest_mint_tx(blockNumbers) {
+    const lastBlock = this.getLasetBlock()
+    const txs = await his.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
     return txs.map(tx => {
       return formate_nft(tx)
     })
