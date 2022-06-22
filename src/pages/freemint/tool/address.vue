@@ -39,7 +39,7 @@ const toolModel: toolMode = reactive({
   shieldWord: "", //屏蔽词搜索
   keyWord: "", //关键词搜索
   logs: [],
-  start_running: true,
+  start_running: false,
   minted: {}, // { contract_address: []}
 });
 

@@ -42,41 +42,27 @@ const selectTag = (value: string) => (tagIndex.value = value);
     <div class="log-content ok-log">
       <div class="ok-log-des">Auto Mint 程序启动成功，自动检测 Free Mint 中...</div>
       <div class="ok-log-des mt-2">基础过滤条件：Value=xx, Gas 上线=xxx, 单合约 Mint 数量 = xx，本次 Mint 总数 无上限</div>
-      <template v-for="info in toolModel.logs" :key="info">
-        <div>{{ info }}</div>
-      </template>
       <!--记录列表-->
       <div class="recordList">
-        <div class="record">
-          <Tip type="success" />
-          <div class="text">
-            合约
-            <span class="text-global-primary">0xcvaf...sdvaf</span>
-            名字包含：xxx，已屏蔽
+        <template v-for="info in toolModel.logs" :key="info">
+          <div v-show="info['state'] === tagIndex || tagIndex === 'all'" class="record">
+            <Tip v-if="info['state']" :type="info['state']" class="mr-3" />
+            <div :style="{ color: `${info['color']}` }" class="text">{{ info["msg"] }}</div>
           </div>
-        </div>
-        <div class="record">
-          <Tip type="fail" />
-          <div class="text">
-            合约
-            <span class="text-global-primary">0xcvaf...sdvaf</span>
-            名字包含：xxx，已屏蔽
-          </div>
-        </div>
+        </template>
       </div>
-
       <!--运行提示-->
-      <Info type="going" class="mt-4" />
-      <Info type="waring" class="mt-4" />
+      <Info v-if="toolModel.start_running" type="going" class="mt-4" />
+      <!--      <Info type="waring" class="mt-4" />-->
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 .record {
   @apply mt-2.5 flex items-center;
-  .text {
-    @apply text-kd13px18px ml-3;
-  }
+}
+.text {
+  @apply text-kd13px18px;
 }
 .tagList {
   border-bottom: 1px solid rgba(3, 54, 102, 0.04);

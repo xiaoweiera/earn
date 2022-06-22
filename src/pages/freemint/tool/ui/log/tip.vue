@@ -20,7 +20,7 @@ const names = {
 </template>
 <style scoped lang="scss">
 .default {
-  @apply text-kd12px16px  h-5 px-2 whitespace-nowrap flex items-center justify-center;
+  @apply text-kd12px16px rounded-kd2px  h-5 px-2 whitespace-nowrap flex items-center justify-center;
 }
 .noShow {
   color: #989898;

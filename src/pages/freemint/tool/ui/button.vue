@@ -3,7 +3,7 @@
  * 首页Mint提交按钮
  */
 import { ElButton } from "element-plus";
-import { onMounted, PropType, ref } from "vue";
+import { computed, onMounted, PropType, ref } from "vue";
 import { Nft } from "src/pages/freemint/lib/nft";
 import { toolMode } from "src/types/freemint";
 
@@ -26,14 +26,15 @@ const txt = {
 };
 
 const emit = defineEmits(["start_mint"]);
+const changeType = computed(() => (props.toolModel.start_running ? "stop" : props.type));
 const mint = async () => {
   emit("start_mint");
 };
 </script>
 <template>
   <div>
-    <div class="mt-4 text-center" :class="type">
-      <el-button native-type="submit" @click="mint">{{ txt[type] ? txt[type] : "Mint" }}</el-button>
+    <div class="mt-4 text-center" :class="changeType">
+      <el-button native-type="submit" @click="mint">{{ txt[changeType] }}</el-button>
     </div>
   </div>
 </template>
