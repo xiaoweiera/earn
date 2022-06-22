@@ -22,7 +22,7 @@ const getMint = async (value: object) => {
   if (res) {
     props.toolModel.mintValue = res.value;
     props.toolModel.inputData = res.input_data;
-    props.toolModel.contract =  res.contract_address
+    props.toolModel.contract = res.contract_address;
   }
   isGet.value = false;
   emit("addressCall", value);

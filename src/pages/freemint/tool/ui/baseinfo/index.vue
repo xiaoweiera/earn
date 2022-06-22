@@ -12,12 +12,9 @@ const props = defineProps({
     required: true,
   },
 });
-const price = ref(0);
-const gasLimit = ref(0);
-const mintNumber = ref(0);
-const mintTotal = ref(0);
-const isLimit = ref(false);
+//@ts-ignore
 const changeValueType = (value: string) => (props.toolModel.baseInfo.valueType = value);
+//@ts-ignore
 const changeGasType = (value: string) => (props.toolModel.baseInfo.gasType = value);
 </script>
 <template>

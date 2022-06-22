@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import Item from "./item.vue";
+defineProps({
+  data: {
+    type: Object,
+    required: true,
+  },
+});
 </script>
 <template>
   <div>
@@ -7,13 +13,12 @@ import Item from "./item.vue";
       <!--    分组-->
       <div class="yuan-blue"></div>
       <div class="state">
-        <div class="flex-1 mr-1.5 text-kd14px18px text-global-primary">#149381933</div>
-        <div class="text-kd12px16px text-global-text-grey">15分钟前</div>
+        <div class="flex-1 mr-1.5 text-kd14px18px text-global-primary font-kdFang">#{{ data.length > 0 ? data[0].blockNumber : "--" }}</div>
       </div>
     </div>
     <!--    列表card-->
-    <template v-for="(item, i) in 3" :key="item">
-      <Item :class="i === 0 ? 'mt-1.5' : 'mt-4.5'" />
+    <template v-for="(item, i) in data" :key="item">
+      <Item :class="i === 0 ? 'mt-1.5' : 'mt-4.5'" :data="item" />
     </template>
   </div>
 </template>

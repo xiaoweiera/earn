@@ -2,10 +2,26 @@
 import Tag from "../../tool/ui/tag.vue";
 import Card from "./card.vue";
 import Chain from "../chain.vue";
+import { Nft } from "src/pages/freemint/lib/nft.js";
+import { onMounted, ref } from "vue";
+import { data } from "src/pages/freemint/lib/testData";
+const NFT = ref();
+
 const tagList = [
   { name: "Free", value: "free" },
   { name: "All", value: "all" },
 ];
+const list = ref<any>([]);
+const getInit = async () => {
+  // const data=await NFT.value.get_lastest_mint_tx(30)
+  list.value = NFT.value.group_by_block(data);
+};
+
+onMounted(async () => {
+  // @ts-ignore
+  NFT.value = new Nft(window["AlchemyWeb3"]);
+  getInit();
+});
 </script>
 <template>
   <div class="feed-page">
@@ -22,11 +38,11 @@ const tagList = [
       </div>
       <div class="get">领取</div>
     </div>
-    <div class="state justify-between mt-4 h-9.25">
-      <div class="state">
-        <div class="yuan-green"></div>
-        <div class="green">Block：14937360</div>
-      </div>
+    <div class="state justify-end mt-4 h-9.25">
+      <!--      <div class="state">-->
+      <!--        <div class="yuan-green"></div>-->
+      <!--        <div class="green">Block：14937360</div>-->
+      <!--      </div>-->
       <div class="state">
         <span class="text-kd12px16px text-global-black-title font-medium mr-1">地址过滤</span>
         <div class="relative mr-6">
@@ -37,9 +53,9 @@ const tagList = [
       </div>
     </div>
     <!--list-->
-    <!--    <template v-for="(item, i) in 3" :key="item">-->
-    <!--      <Card :class="i === 0 ? 'mt-1' : 'mt-8.25'" />-->
-    <!--    </template>-->
+    <template v-for="(blockItem, i) in list" :key="i">
+      <Card class="mt-1" :data="blockItem" />
+    </template>
   </div>
 </template>
 <style lang="scss">

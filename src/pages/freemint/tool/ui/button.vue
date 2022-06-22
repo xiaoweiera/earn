@@ -29,8 +29,6 @@ const emit = defineEmits(["start_mint"]);
 const mint = async () => {
   emit("start_mint");
 };
-
-
 </script>
 <template>
   <div>

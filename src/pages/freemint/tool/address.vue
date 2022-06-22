@@ -16,9 +16,9 @@ import { Nft } from "src/pages/freemint/lib/nft";
 const toolModel: toolMode = reactive({
   node: "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu", //节点
   keyList: [
-    '71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147', // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
-    'a9d02766e49feb7e640d1e72b76af727da02ca420253953c28536dc2bb929517',  //0xe74d2e4743aBD08bDc64B7b98568015A48145019
-    'test-error'
+    "71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147", // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
+    "a9d02766e49feb7e640d1e72b76af727da02ca420253953c28536dc2bb929517", //0xe74d2e4743aBD08bDc64B7b98568015A48145019
+    "test-error",
   ], //私钥
   smartMintList: [], //smart 地址列表
   baseFeePerGas: 0,
@@ -40,7 +40,7 @@ const toolModel: toolMode = reactive({
   keyWord: "", //关键词搜索
   logs: [],
   start_running: true,
-  minted: { }  // { contract_address: []}
+  minted: {}, // { contract_address: []}
 });
 
 //@ts-ignore
@@ -57,7 +57,6 @@ onMounted(async () => {
   //@ts-ignore
   NFT.value = new Nft(window["AlchemyWeb3"]);
 });
-
 </script>
 <template>
   <div class="container-mint">
@@ -72,11 +71,11 @@ onMounted(async () => {
     <!--    节点选择-->
     <Node class="mt-4" :toolModel="toolModel" />
     <!--    私钥-->
-    <Key class="mt-4" :toolModel="toolModel" @keyCall="keyList" />
+    <Key class="mt-4" :toolModel="toolModel" @key-call="keyList" />
     <!--    基础信息-->
     <BaseInfo class="mt-4" :toolModel="toolModel" />
     <!--  Smart Minter地址筛选-->
-    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="如填写了地址字段，将仅跟随这些地址 Mint 的 NFT；多个私钥请点击 Add 后添加。" :isWallet="false" @keyCall="smartMintList" />
+    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="如填写了地址字段，将仅跟随这些地址 Mint 的 NFT；多个私钥请点击 Add 后添加。" :isWallet="false" @key-call="smartMintList" />
     <!--    NFT 关键词搜索-->
     <Keyword class="mt-4" :toolModel="toolModel" />
     <!--    Mint日志-->

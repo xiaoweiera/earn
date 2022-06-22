@@ -16,16 +16,16 @@ import { Nft } from "src/pages/freemint/lib/nft";
 const toolModel: toolMode = reactive({
   node: "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu", //节点
   keyList: [
-    '71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147', // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
-    'a9d02766e49feb7e640d1e72b76af727da02ca420253953c28536dc2bb929517',  //0xe74d2e4743aBD08bDc64B7b98568015A48145019
-    'test-error'
+    "71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147", // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
+    "a9d02766e49feb7e640d1e72b76af727da02ca420253953c28536dc2bb929517", //0xe74d2e4743aBD08bDc64B7b98568015A48145019
+    "test-error",
   ], //私钥
 
   baseFeePerGas: 50,
   maxPriorityFeePerGas: 2,
   maxFeePerGas: 50,
 
-  contract: '0x608a8e0422d0586d121264ec7981f8b2da299279',
+  contract: "0x608a8e0422d0586d121264ec7981f8b2da299279",
   mintAmount: 3,
   mintValue: 0,
   inputData: "0xfca247ac7926fb9208a20417f0b848065c6fe289da455821d6fc0c117845ad8d5b331d2b000000000000000000000000A68c22160A887ce1E91ce7B650f80FED923650bC0000000000000000000000000000000000000000000000000000000001e13380",
@@ -33,7 +33,6 @@ const toolModel: toolMode = reactive({
 });
 //@ts-ignore
 const keyList = (keyList: any) => (toolModel.keyList = keyList);
-
 
 const NFT = ref();
 
@@ -45,7 +44,6 @@ onMounted(async () => {
   //@ts-ignore
   NFT.value = new Nft(window["AlchemyWeb3"]);
 });
-
 </script>
 <template>
   <div class="container-mint">
@@ -62,7 +60,7 @@ onMounted(async () => {
     <!--    hash 或者 合约地址-->
     <Address class="mt-4" :toolModel="toolModel" />
     <!--    私钥-->
-    <Key class="mt-4" :toolModel="toolModel" @keyCall="keyList" />
+    <Key class="mt-4" :toolModel="toolModel" @key-call="keyList" />
     <!--    Gas-->
     <Gas class="mt-4" :toolModel="toolModel" />
     <!--    Mint日志-->

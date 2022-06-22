@@ -1,6 +1,7 @@
 import { ABI } from "./nft_contract_abi.js"
 import { ethers } from 'ethers'
-import { uniq, groupBy, forEach } from 'lodash'
+import safeGet from "@fengqiaogang/safe-get";
+import { uniq,values,sumBy, groupBy, forEach } from 'lodash'
 
 export class Nft {
   constructor(Web3) {
@@ -62,20 +63,21 @@ export class Nft {
 
   async auto_mint(mint_params, privateKeys, logs, runnning = true) {
     logs.push({ color: 'rgb(62 79 103)', msg: '✅ 参数解析中...'})
+
     const _this = this;
 
     if (!privateKeys.length) {
-      logs.push({ color: 'rgb(62 79 103)', msg: '❌ privateKey cannot be empty！'})
+      logs.push({color: 'rgb(62 79 103)', msg: '❌ privateKey cannot be empty！'})
       return;
     }
 
     if (mint_params.baseInfo.mintTotal < 1) {
-      logs.push({ color: 'rgb(62 79 103)', msg: '❌ MintTotal number must be greater than 1 !'})
+      logs.push({color: 'rgb(62 79 103)', msg: '❌ MintTotal number must be greater than 1 !'})
       return;
-    } 
+    }
 
     if (mint_params.baseInfo.singleContractMintAmount < 1) {
-      logs.push({ color: 'rgb(62 79 103)', msg: '❌ Single NFT Contract Mint number must be greater than 1 !'})
+      logs.push({color: 'rgb(62 79 103)', msg: '❌ Single NFT Contract Mint number must be greater than 1 !'})
       return;
     }
 
@@ -83,20 +85,23 @@ export class Nft {
     let lastest_block = await this.getLasetBlock()
     let from_block = lastest_block
 
-    while(mint_params.start_running) {
+    while (mint_params.start_running) {
       let lastest_block = await this.getLasetBlock()
 
       if (lastest_block == from_block - 1) {
-        logs.push({ color: 'rgb(62 79 103)', msg: `✅ 暂无新块产生，等待3s 后继续检测`})
+        logs.push({color: 'rgb(62 79 103)', msg: `✅ 暂无新块产生，等待3s 后继续检测`})
         await this._sleep(3000)
       } else {
-        logs.push({ color: 'rgb(62 79 103)', msg: `✅ 本次检测最新区块区间：${from_block} ～ ${lastest_block}, 开始解析`})
+        logs.push({color: 'rgb(62 79 103)', msg: `✅ 本次检测最新区块区间：${from_block} ～ ${lastest_block}, 开始解析`})
 
         let nft_origin_events = await this.fetch_nft_mint_transactions(from_block, lastest_block)
         let collections = await this.format_collect(nft_origin_events.transfers)
         console.log(collections)
 
-        logs.push({ color: 'rgb(62 79 103)', msg: `✅ 一共发现 ${Object.values(collections).length} 条记录，涉及 ${Object.keys(collections).length} 个 NFT 合约`})
+        logs.push({
+          color: 'rgb(62 79 103)',
+          msg: `✅ 一共发现 ${Object.values(collections).length} 条记录，涉及 ${Object.keys(collections).length} 个 NFT 合约`
+        })
 
         forEach(collections, (nfts, contract) => {
 
@@ -104,7 +109,7 @@ export class Nft {
           let shieldWord = mint_params.shieldWord
           if (shieldWord) {
             shieldWord = shieldWord.split(',')
-            const includes = false 
+            let includes = false
             shieldWord.map(key => {
               if (nfts[0].metadata.title.includes(key)) {
                 includes = true
@@ -118,10 +123,10 @@ export class Nft {
           }
 
           // 关键词筛选
-          const keyWord = mint_params.keyWord
+          let keyWord = mint_params.keyWord
           if (keyWord) {
             keyWord = keyWord.split(',')
-            const includes = false 
+            let includes = false
             keyWord.map(key => {
               if (nfts[0].metadata.title.includes(key)) {
                 includes = true
@@ -131,7 +136,7 @@ export class Nft {
             if (!includes) {
               logs.push({ color: 'rgb(62 79 103)', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为 不包含关键词 ${shieldWord.join(', ')} `})
               return
-            }            
+            }
           }
 
           // 地址筛选
@@ -140,7 +145,7 @@ export class Nft {
             if (!smartMintList.includes(nfts[0].to)) {
               logs.push({ color: 'rgb(62 79 103)', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为不是聪明钱在Mint! ${smartMintList.join(', ')} `})
               return
-            }            
+            }
           }
 
           // 基本信息的筛选
@@ -165,7 +170,6 @@ export class Nft {
           mint_params.minted[nfts[0].contract_address] = []
 
           privateKeys.map(async privateKey => { 
-
             for (let i = 0; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
               // TODO 你得把 参数 组装起来啊 
 
@@ -354,13 +358,48 @@ export class Nft {
 
 
   // Feed 流
-  group_by_block(nft_events) {
-    // TODO
-
+  group_by_block(data) {
+    const result=[]
+    //根据block分组
+    const blockList=values(groupBy(data,'blockNumber'))
+    blockList.map(item=>{
+      //根据address分组分组
+      const addressList=values(groupBy(item,'contract_address'))
+      addressList.map(itemTwo=>{
+        //插入聚合数据
+        result.push({
+          blockNumber:itemTwo[0].blockNumber,
+          name:itemTwo[0].name?itemTwo[0].name:itemTwo[0].metadata.title,
+          image:safeGet(itemTwo[0],'metadata.metadata.image'),
+          sumNumber:itemTwo.length, //出现次数
+          value:sumBy(itemTwo,'value'),
+          gas:sumBy(itemTwo,'gas'),
+        })
+      })
+    })
+    //再根据聚合数据分组 block
+    return values(_.groupBy(result,'blockNumber'))
   }
 
-  group_by_collection(nft_events) {
-    // TODO
+  group_by_collection(data) {
+    const result=[]
+    //根据address分组分组
+    const addressList=values(groupBy(data,'contract_address'))
+    console.log(addressList,'lll')
+    addressList.map(itemTwo=>{
+      //插入聚合数据
+      result.push({
+        blockNumber:itemTwo[0].blockNumber,
+        contract_address:itemTwo[0].contract_address,
+        image:safeGet(itemTwo[0],'metadata.metadata.image'),
+        name:itemTwo[0].name?itemTwo[0].name:itemTwo[0].metadata.title,
+        sumNumber:itemTwo.length,//出现次数
+        owner:values(groupBy(data,'owner')).length,
+        value:sumBy(itemTwo,'value'),
+        gas:sumBy(itemTwo,'gas'),
+      })
+    })
+    return result
   }
 
 
@@ -370,12 +409,14 @@ export class Nft {
 
   // 拿最近 number 的区块 NFT 数据
   async get_lastest_mint_tx(blockNumbers) {
-    const lastBlock = this.getLasetBlock()
-    const txs = await his.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
-    return txs.map(tx => {
-      return this.formate_nft(tx)
+    const lastBlock =await this.getLasetBlock()
+    const txs = await this.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
+    const txsWait=txs.transfers.map(tx => {
+      return this.formate_nft(tx).bind(this)
     })
+   return await Promise.all(txsWait)
   }
+
 
   async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000, contracts = null) {
     const params = {
@@ -384,7 +425,6 @@ export class Nft {
 
       toBlock: to_block,
       // toAddress: "0xf7996b18ef0fd8838b577021a54e49f276fd5789",
-
       excludeZeroValue:false,
       category: ["erc721","erc1155"],
       maxCount
@@ -416,13 +456,13 @@ export class Nft {
         token_id: nft_event.tokenId,
         tx_id: nft_event.hash,
         category: nft_event.category,
-        value: tx.value,
+        value: Number(tx.value),
         maxPriorityFeePerGas: tx.maxPriorityFeePerGas,
         maxFeePerGas: tx.maxFeePerGas,
         input_data: tx.input,
         hash: nft_event.hash,
         gas: tx.gas,
-        gas_price: tx.gasPrice,
+        gas_price: Number(tx.gasPrice),
         metadata: metadata,
 
         // 区块相关的信息

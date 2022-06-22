@@ -49,7 +49,7 @@ const keyList = (keyList: any) => (toolModel.keyList = keyList);
     <!--    节点选择-->
     <Node class="mt-4" :toolModel="toolModel" />
     <!--    私钥-->
-    <Key class="mt-4" :toolModel="toolModel" @keyCall="keyList" />
+    <Key class="mt-4" :toolModel="toolModel" @key-call="keyList" />
     <!--    基础信息-->
     <BaseInfo class="mt-4" :toolModel="toolModel" />
     <!--    NFT 关键词搜索-->

@@ -1,15 +1,31 @@
 <script setup lang="ts">
 import _ from "lodash";
-
-defineProps({
+import { computed } from "vue";
+const props = defineProps({
   type: {
     type: String,
     required: true,
   },
+  count: {
+    type: Number,
+    default: 0,
+  },
+});
+const typeCss = computed(() => {
+  if (props.count <= 0) {
+    return "none";
+  } else if (props.count <= 2) {
+    return "low";
+  } else if (props.count <= 4) {
+    return "medium";
+  } else if (props.count <= 6) {
+    return "high";
+  }
+  return "extreme";
 });
 </script>
 <template>
-  <div class="tip" :class="type">{{ _.upperFirst(type) }}</div>
+  <div class="tip" :class="typeCss">{{ _.upperFirst(typeCss) }}</div>
 </template>
 <style scoped lang="scss">
 .tip {
