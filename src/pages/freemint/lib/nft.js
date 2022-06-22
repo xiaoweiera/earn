@@ -1,5 +1,6 @@
 import { ABI } from "./nft_contract_abi.js"
 import { ethers } from 'ethers'
+import { uniq, groupBy, forEach } from 'lodash'
 
 export class Nft {
   constructor(Web3) {
@@ -59,26 +60,193 @@ export class Nft {
     return await mycontract.methods[method_name]().call({ from: "0x67d9417c9c3c250f61a83c7e8658dac487b56b09", gasPrice: "0" })
   }
 
+  async auto_mint(mint_params, privateKeys, logs, runnning = true) {
+   logs.push({ color: 'rgb(62 79 103)', msg: '✅ 参数解析中...'})
+    const _this = this;
 
-
-  /*
-    mint_prams = {
-      from: '',
-      to: ''.
-      gasLimit: '',
-      value: '',
-      data: '',
-
-      baseFeePerGas: 10
-      maxPriorityFeePerGas: 20,
-      maxFeePerGas: 30,
-
+    if (!privateKeys.length) {
+      logs.push({ color: 'rgb(62 79 103)', msg: '❌ privateKey cannot be empty！'})
+      return;
     }
-  */
+
+    if (mint_params.baseInfo.mintTotal < 1) {
+      logs.push({ color: 'rgb(62 79 103)', msg: '❌ MintTotal number must be greater than 1 !'})
+      return;
+    } 
+
+    if (mint_params.baseInfo.singleContractMintAmount < 1) {
+      logs.push({ color: 'rgb(62 79 103)', msg: '❌ Single NFT Contract Mint number must be greater than 1 !'})
+      return;
+    } 
+
+
+    let lastest_block = await this.getLasetBlock()
+    let from_block = lastest_block
+
+    while(mint_params.start_running) {
+      let lastest_block = await this.getLasetBlock()
+
+      if (lastest_block == from_block - 1) {
+        logs.push({ color: 'rgb(62 79 103)', msg: `✅ 暂无新块产生，等待3s 后继续检测`})
+        await this._sleep(3000)
+      } else {
+        logs.push({ color: 'rgb(62 79 103)', msg: `✅ 本次检测最新区块区间：${from_block} ～ ${lastest_block}, 开始解析`})
+
+        let collections = await format_collect(await this.fetch_nft_mint_transactions(from_block, lastest_block))
+        console.log(collections)
+
+        logs.push({ color: 'rgb(62 79 103)', msg: `✅ 一共发现 ${Object.values(collections).length} 条记录，涉及 ${Object.keys(collections).length} 个 NFT 合约`})
+
+        forEach(collections, (contract, nfts) => {
+
+          // 关键词的屏蔽
+          let shieldWord = mint_params.shieldWord
+          if (shieldWord) {
+            shieldWord = shieldWord.split(',')
+            const includes = false 
+            shieldWord.map(key => {
+              if (nfts[0].metadata.title.includes(key)) {
+                includes = true
+              }
+            })
+
+            if (includes) {
+              logs.push({ { color: 'rgb(62 79 103)', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经屏蔽，因为 包含屏蔽关键词 ${shieldWord.join(', ')} `}})
+              return
+            }
+          }
+
+          // 关键词筛选
+          const keyWord = mint_params.keyWord
+          if (keyWord) {
+            keyWord = keyWord.split(',')
+            const includes = false 
+            keyWord.map(key => {
+              if (nfts[0].metadata.title.includes(key)) {
+                includes = true
+              }
+            })
+
+            if (!includes) {
+              logs.push({ { color: 'rgb(62 79 103)', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为 不包含关键词 ${shieldWord.join(', ')} `}})
+              return
+            }            
+          }
+
+          // 地址筛选
+          const smartMintList = mint_params.smartMintList
+          if (smartMintList) {
+            if (!smartMintList.includes(nfts[0].to)) {
+              logs.push({ { color: 'rgb(62 79 103)', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为不是聪明钱在Mint! ${smartMintList.join(', ')} `}})
+              return
+            }            
+          }
+
+          // 基本信息的筛选
+          //// TODO 对过滤条件的筛选，忽略
+          if (mint_params.value && nfts[0].value > mint_params.value) {
+            logs.push({ { color: 'rgb(62 79 103)', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为超过预设的单价，预设为： ${mint_params.value}，实际为: ${nfts[0].value} `}})
+            return            
+          }
+
+          // 挖矿总量
+          if (mint_params.baseInfo.mintTotal && object.values(mint_params.minted).length > mint_params.baseInfo.mintTotal) {
+            logs.push({ { color: 'rgb(62 79 103)', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为超过预设 Mint 总量。预设为： ${mint_params.baseInfo.mintTotal}，实际为: ${object.values(mint_params.minted).length} `}})
+            return            
+          }
+
+          // MINT
+          if (mint_params.minted[event.rawContract.address]) {
+            logs.push({ { color: 'rgb(62 79 103)', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为该 NFT 已经 MINT 了足够数据。单个 NFT 合约最多可Mint： ${mint_params.baseInfo.singleContractMintAmount}，实际 MINT为: ${mint_params.minted[event.rawContract.address].length} `}})
+            return
+          }
+          
+          mint_params.minted[event.rawContract.address] = []
+
+          privateKeys.map(async privateKey => {      
+
+            for (let i = 0; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
+              const new_nft = await this._mint_nft(privateKey, logs)
+              if (new_nft) {
+                mint_params.minted[event.rawContract.address].push(new_nft)
+              }
+            }
+        })
+        logs.push({ color: 'rgb(62 79 103)', msg: `✅ 解析完毕，进行下一次链上检测...`})
+        from_block = lastest_block + 1
+      }
+    }
+    logs.push({ color: 'rgb(62 79 103)', msg: `✅ 自动 Mint 程序已停止 !`})    
+  }
+
+  async format_collect(events) (
+    let format_nft = await Promise.all(events.map(this.formate_nft))
+    return groupBy(formate_nft, "contract_address")
+  )
+
+  async _sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
+
+  // 单个地址，mint 单个 NFT
+  async _mint_nft(privateKey, logs) {
+    let address = ''
+
+    try {
+      address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
+      const balance = await this.getBalance(address)
+
+      let values = await Number(this.api_web3.utils.fromWei(balance ? balance : '')).toFixed(3)
+
+      if (values < 0) {
+        throw `❌ ${this._formate_hash(address)} balance is 0 ETH !`
+      }
+
+      const nonce = await this.api_web3.eth.getTransactionCount(address, 'latest'); // nonce starts counting from 0
+
+      let txParams = {
+          from: address,
+          to: mint_params.contract,
+          nonce,
+          data: mint_params.inputData,
+          value: this.api_web3.utils.toWei(mint_params.mintValue.toString(), 'ether'),
+          maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
+          maxPriorityFeePerGas: this.api_web3.utils.toHex(mint_params.maxPriorityFeePerGas * 10 ** 9), //wei
+
+          // TODO 设置 gaslimt
+          gasLimit: this.api_web3.utils.toHex( 53000 ),
+      }
+      console.log('txParams: ', txParams)
+    
+      // TODO 要 gas 预估一下，然后看 余额是否交手续费
+      let signedTx = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
+      console.log('mySignTransaction: ', signedTx)
+    
+      let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction, function (err) {
+        if (!err) {
+          logs.push({ color: "green", msg: `✅ ${_this._formate_hash(address)} mint ${_this._formate_hash(mint_params.contract)} Success!! TX is:  ${_this._formate_hash(signedTx.transactionHash)}`})
+          return signedTx;
+        } else {
+          logs.push({ color: "red", msg: `❌ ${_this._formate_hash(address)} mint ${err}`})
+          return false
+        }
+      })
+
+    } catch(e) {
+      logs.push({ color: 'red', msg: `❌ ${privateKey}: ${e.message}` })
+      return false
+    }
+  }
+
+
+
 
   // TODO 结束 mint 状态
   // mint 个数计数，前端需要显示
-  async mint_nft(mint_params, privateKeys, logs){
+  // 如果 mint number 是3个，还得做个重复计算
+  // node 节点配置，目前没有生效
+  async manual_mint_nft(mint_params, privateKeys, logs){
     logs.push({ color: 'rgb(62 79 103)', msg: '✅ 参数解析中...'})
     const _this = this;
 
@@ -103,49 +271,7 @@ export class Nft {
     }    
 
     privateKeys.map(async privateKey => {      
-      let address = ''
-
-      try {
-        address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
-        const balance = await this.getBalance(address)
-
-        let values = await Number(this.api_web3.utils.fromWei(balance ? balance : '')).toFixed(3)
-
-        if (values < 0) {
-          throw `❌ ${this._formate_hash(address)} balance is 0 ETH !`
-        }
-
-        const nonce = await this.api_web3.eth.getTransactionCount(address, 'latest'); // nonce starts counting from 0
-
-        let txParams = {
-            from: address,
-            to: mint_params.contract,
-            nonce,
-            data: mint_params.inputData,
-            value: this.api_web3.utils.toWei(mint_params.mintValue.toString(), 'ether'),
-            maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
-            maxPriorityFeePerGas: this.api_web3.utils.toHex(mint_params.maxPriorityFeePerGas * 10 ** 9), //wei
-
-            // TODO 设置 gaslimt
-            gasLimit: this.api_web3.utils.toHex( 53000 ),
-        }
-        console.log('txParams: ', txParams)
-      
-        // TODO 要 gas 预估一下，然后看 余额是否交手续费
-        let signedTx = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
-        console.log('mySignTransaction: ', signedTx)
-      
-        let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction, function (err) {
-          if (!err) {
-            logs.push({ color: "green", msg: `✅ ${_this._formate_hash(address)} mint ${_this._formate_hash(mint_params.contract)} Success!! TX is:  ${_this._formate_hash(signedTx.transactionHash)}`})
-          } else {
-            logs.push({ color: "red", msg: `❌ ${_this._formate_hash(address)} mint ${err}`})
-          }
-        })
-
-      } catch(e) {
-        logs.push({ color: 'red', msg: `❌ ${privateKey}: ${e.message}` })
-      }
+      this._mint_nft(privateKey, logs)
     })
   }
 
@@ -246,19 +372,22 @@ export class Nft {
     })
   }
 
-  async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000, contract = null) {
-    return await this.api_web3.alchemy.getAssetTransfers({
+  async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000, contracts = null) {
+    const params = {
       fromBlock: from_block,
       fromAddress: "0x0000000000000000000000000000000000000000",
 
       toBlock: to_block,
       // toAddress: "0xf7996b18ef0fd8838b577021a54e49f276fd5789",
 
-      contractAddresses: contract,
       excludeZeroValue:false,
       category: ["erc721","erc1155"],
       maxCount
-    })
+    }
+    if (contracts) {
+      params.contractAddresses = contracts
+    }
+    return await this.api_web3.alchemy.getAssetTransfers(params)
   }
 
   async formate_nft(nft_event) {
@@ -272,7 +401,7 @@ export class Nft {
       symbol: event.asset,
       name: await this.read_contract(mycontract, "name"),
       // totalSupply: await read_contract(mycontract, "totalSupply"),
-      // owner: await read_contract(mycontract, "owner"),
+      owner: nft_event.to,
       // maxTotalSupply: await read_contract(mycontract, "maxTotalSupply"),
       contract_address: event.rawContract.address,
 

@@ -10,6 +10,9 @@ import Gas from "./ui/gas.vue";
 import Address from "./ui/address.vue";
 import { toolMode } from "src/types/freemint";
 import { reactive } from "vue";
+import { ref, onMounted } from "vue";
+import { Nft } from "src/pages/freemint/lib/nft";
+
 const toolModel: toolMode = reactive({
   node: "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu", //节点
   keyList: [
@@ -30,6 +33,18 @@ const toolModel: toolMode = reactive({
 });
 //@ts-ignore
 const keyList = (keyList: any) => (toolModel.keyList = keyList);
+
+
+const NFT = ref();
+
+const autom_mint = async () => {
+  await NFT.value.manual_mint_nft(toolModel, toolModel.keyList, toolModel.logs);
+};
+
+onMounted(async () => {
+  //@ts-ignore
+  NFT.value = new Nft(window["AlchemyWeb3"]);
+});
 
 </script>
 <template>
@@ -55,7 +70,7 @@ const keyList = (keyList: any) => (toolModel.keyList = keyList);
     <!--    首页 info 和 Mint按钮-->
     <Info class="mt-4" />
     <!--Mint-->
-    <Button type="auto" :toolModel="toolModel" />
+    <Button type="auto" :toolModel="toolModel" @start_mint="autom_mint" />
   </div>
 </template>
 <style lang="scss">

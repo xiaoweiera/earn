@@ -6,6 +6,7 @@ import { ElButton } from "element-plus";
 import { onMounted, PropType, ref } from "vue";
 import { Nft } from "src/pages/freemint/lib/nft";
 import { toolMode } from "src/types/freemint";
+
 const props = defineProps({
   type: {
     type: String,
@@ -16,6 +17,7 @@ const props = defineProps({
     required: true,
   },
 });
+
 const txt = {
   ok: "Mint",
   no: "Mint",
@@ -23,16 +25,11 @@ const txt = {
   auto: "Auto Mint",
 };
 
-const NFT = ref();
-
+const emit = defineEmits(["start_mint"]);
 const mint = async () => {
-  await NFT.value.mint_nft(props.toolModel, props.toolModel.keyList, props.toolModel.logs);
+  emit("start_mint");
 };
 
-onMounted(async () => {
-  //@ts-ignore
-  NFT.value = new Nft(window["AlchemyWeb3"]);
-});
 
 </script>
 <template>

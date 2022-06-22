@@ -3,7 +3,7 @@ interface baseModel {
   valueType?: string;
   gasLimit?: number;
   gasType?: string;
-  mintAmount?: number;
+  singleContractMintAmount?: number;
   mintTotal?: number;
   isNoLimit?: boolean;
 }
@@ -21,4 +21,6 @@ export interface toolMode {
   shieldWord?: string; //屏蔽词搜索
   keyWord?: string; //关键词搜索
   baseInfo?: baseModel;
+  start_running?: boolean;
+  minted?: object
 }
