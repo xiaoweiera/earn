@@ -50,7 +50,7 @@ const changeGasType = (value: string) => (props.toolModel.baseInfo.gasType = val
       <!--      单合约 Mint 数量-->
       <div class="item">
         <div class="txt" v-html="'单合约 Mint 数量 <='"></div>
-        <el-input v-model="toolModel.baseInfo.mintAmount" class="input-info mt-1 md:mt-0" placeholder="" autocomplete="off" />
+        <el-input v-model="toolModel.baseInfo.singleContractMintAmount" class="input-info mt-1 md:mt-0" placeholder="" autocomplete="off" />
       </div>
       <!--      本次 Mint 总数-->
       <div class="item">
