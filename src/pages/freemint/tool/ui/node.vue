@@ -14,7 +14,7 @@ const props = defineProps({
   },
 });
 const NFT = ref();
-const isping = ref(false);
+const isPing = ref(false);
 const nodeList = ref([
   { url: "https://mainnet-eth.compound.finance/", speed: "~" },
   { url: "https://geth.mytokenpocket.vip", speed: "~" },
@@ -27,13 +27,13 @@ let currentRpc = reactive({ value: { url: "", speed: "~", isShow: false } });
 const selectNode = ref(""); //选定的节点值
 
 const ping = async () => {
-  isping.value = true;
+  isPing.value = true;
   const urlList = nodeList.value.map((item) => item.url);
   const res = await NFT.value.test_rpc_list(urlList);
   const currentRes = await NFT.value._testSpeed(currentRpc.value.url);
   nodeList.value = res;
   currentRpc.value = { ...currentRes, isShow: true };
-  isping.value = false;
+  isPing.value = false;
 };
 
 //更改地址
