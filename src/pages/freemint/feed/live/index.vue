@@ -37,14 +37,14 @@ const tagList = [
       </div>
     </div>
     <!--list-->
-    <template v-for="(item, i) in 3" :key="item">
-      <Card :class="i === 0 ? 'mt-1' : 'mt-8.25'" />
-    </template>
+    <!--    <template v-for="(item, i) in 3" :key="item">-->
+    <!--      <Card :class="i === 0 ? 'mt-1' : 'mt-8.25'" />-->
+    <!--    </template>-->
   </div>
 </template>
 <style lang="scss">
 .feed-page {
-  @apply max-w-240 mx-auto pt-6;
+  @apply md:max-w-240 md:mx-auto p-4 md:pt-6 md:px-0;
   .border-css {
     @apply border-1 border-global-highTitle border-opacity-10 rounded-kd6px;
   }
