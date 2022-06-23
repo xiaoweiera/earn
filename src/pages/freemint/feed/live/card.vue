@@ -8,7 +8,7 @@ defineProps({
 });
 </script>
 <template>
-  <div>
+  <div v-if="data">
     <div class="state h-7.75">
       <!--    分组-->
       <div class="yuan-blue"></div>

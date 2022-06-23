@@ -3,26 +3,80 @@ import Tag from "../../tool/ui/tag.vue";
 import Card from "./card.vue";
 import Chain from "../chain.vue";
 import { Nft } from "src/pages/freemint/lib/nft.js";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, reactive } from "vue";
 import { data } from "src/pages/freemint/lib/testData";
-const NFT = ref();
 
 const tagList = [
   { name: "Free", value: "free" },
   { name: "All", value: "all" },
 ];
-const list = ref<any>([]);
+const pageInfo = reactive({
+  page: 1,
+  page_size: 3, //每页条数
+});
+const NFT = ref();
+const key = ref(0); //刷新key
+const tag = ref("all");
+const isMore = ref(false); //是否有加载更多
+const originList = ref<any>([]); //得到的原始数据源（分组过后的）
+const freeList = ref<any>([]); // Free的数据列表
+const list = ref<any>([]); //展示的数据
 const getInit = async () => {
   // const data=await NFT.value.get_lastest_mint_tx(30)
-  console.log(NFT.value.group_by_block(data))
-  
   list.value = NFT.value.group_by_block(data);
+  originList.value = NFT.value.group_by_block(data);
 };
-
+//得到Free的数据
+const getFreeList = () => {
+  const newList: any = [];
+  originList.value.forEach((block: any) => {
+    const newBlock = block.filter((item: any) => item.value === 0);
+    // const newBlock = block.filter((item: any) => item.sumNumber > 1); //可以拿着这个去测试，出现次数大于1的
+    if (newBlock.length > 0) {
+      newList.push(newBlock);
+    }
+  });
+  freeList.value = newList;
+};
+//改变tag
+const changeTag = (value: string) => {
+  tag.value = value;
+  pageInfo.page = 1;
+  list.value = [];
+  list.value = getMoreData();
+  key.value++;
+};
+//得到第一页或者下一页数据
+const getMoreData = () => {
+  let result;
+  let data;
+  if (tag.value === "all") {
+    data = originList.value;
+  } else {
+    data = freeList.value;
+  }
+  if (pageInfo.page === 1) {
+    result = data.slice(0, pageInfo.page_size);
+  } else {
+    const amount = pageInfo.page_size * (pageInfo.page - 1);
+    result = data.slice(amount, amount + pageInfo.page_size);
+  }
+  const listResult = list.value.concat(result);
+  isMore.value = listResult.length === data.length ? false : true;
+  return listResult;
+};
+//加载更多
+const more = () => {
+  pageInfo.page++;
+  list.value = getMoreData();
+};
 onMounted(async () => {
   // @ts-ignore
   NFT.value = new Nft(window["AlchemyWeb3"]);
-  getInit();
+  await getInit();
+  getFreeList();
+  // 初始化的值 默认全部
+  list.value = getMoreData();
 });
 </script>
 <template>
@@ -49,15 +103,18 @@ onMounted(async () => {
         <!-- <span class="text-kd12px16px text-global-black-title font-medium mr-1">地址过滤</span> -->
 <!--         <div class="relative mr-6">
           <ui-image class="w-6 h-6" oss src="/mint/filter.png" />
-          <div class="dian">12</div>
-        </div> -->
-        <Tag :data="tagList" />
+          <div class="dian">{{ list.length }}</div>
+        </div>
+        <Tag :default="tag" :data="tagList" @change="changeTag" />
       </div>
     </div>
     <!--list-->
-    <template v-for="(blockItem, i) in list" :key="i">
-      <Card :class="i === 0 ? 'mt-1' : 'mt-3'" :data="blockItem" />
-    </template>
+    <div :key="key">
+      <template v-for="(blockItem, i) in list" :key="i">
+        <Card :class="i === 0 ? 'mt-1' : 'mt-3'" :data="blockItem" />
+      </template>
+    </div>
+    <div v-if="isMore" class="more mt-5" @click="more">加载更多</div>
   </div>
 </template>
 <style lang="scss">
@@ -66,34 +123,47 @@ onMounted(async () => {
   .border-css {
     @apply border-1 border-global-highTitle border-opacity-10 rounded-kd6px;
   }
+
+  .more {
+    @apply text-kd14px18px text-global-primary font-medium cursor-pointer;
+    @apply h-8 px-8 flex items-center;
+    @apply bg-global-primary bg-opacity-6 max-w-max rounded-kd4px mx-auto;
+  }
+
   .state {
     @apply flex items-center;
   }
+
   .get {
     @apply px-3 h-8;
     @apply flex items-center rounded-kd4px max-w-max cursor-pointer;
     @apply text-global-white text-kd14px18px font-medium bg-global-primary;
   }
+
   .green {
     color: #008f28;
     @apply text-kd14px18px font-medium;
   }
+
   .yuan-green {
     background: rgba(9, 217, 142, 0.12);
     @apply w-5.5 h-5.5 mr-1.5 rounded-full relative flex justify-center items-center;
   }
+
   .yuan-green:before {
     content: "";
     position: absolute;
     background: rgba(9, 217, 142, 1);
     @apply w-3 h-3 rounded-full;
   }
+
   .yuan-green:after {
     content: "";
     position: absolute;
     border-left: 1px solid rgba(3, 54, 102, 0.1);
     @apply top-6 h-3.4;
   }
+
   .dian {
     @apply text-kd12px16px font-medium text-global-white bg-global-numRed;
     @apply w-5 h-5.25 flex items-center justify-center rounded-full;

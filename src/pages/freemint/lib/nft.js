@@ -444,7 +444,6 @@ export class Nft {
     const result=[]
     //根据address分组分组
     const addressList=values(groupBy(data,'contract_address'))
-    console.log(addressList,'lll')
     addressList.map(itemTwo=>{
       //插入聚合数据
       result.push({
@@ -458,6 +457,7 @@ export class Nft {
         gas:sumBy(itemTwo,'gas'),
         contract_address: itemTwo[0].contract_address,
         description: safeGet(itemTwo[0],'metadata.metadata.description'),
+        time: safeGet(itemTwo[0],'metadata.timeLastUpdated')
       })
     })
     return result
