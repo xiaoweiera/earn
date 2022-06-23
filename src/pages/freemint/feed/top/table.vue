@@ -1,67 +1,46 @@
 <script lang="ts" setup>
 import { ElTable, ElTableColumn } from "element-plus";
 import { rowClass, headerCellClass, cellClass } from "src/pages/home/topic/data";
-import { getParam } from "src/utils/router";
 import { reactive, ref, watch, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import Level from "./level.vue";
 import document from "src/plugins/browser/document";
 import window from "src/plugins/browser/window";
+import { dataToTimestamp } from "src/lib/tool";
+
 const props = defineProps({
   data: {
     type: Object,
     required: true,
   },
+  params: {
+    type: Object,
+    required: true,
+  },
 });
+const emit = defineEmits(["sort"]);
 const isPc = ref(true);
-const params = reactive({
-  type: getParam<string>("type"),
-  sort_field: "",
-  sort_type: "", // desc asc
-  page: 1,
-  page_size: 10,
-});
 
 const height = document.body.clientWidth > 375 ? 60 : 50;
 const route = useRoute();
 const router = useRouter();
 const key = ref<number>(0);
-const type = ref("free");
 
 const isLoad = ref(true);
-watch(type, (n: any) => {
-  const value = getParam<object>();
-  router.push({
-    path: `${route.path}`,
-    query: Object.assign({}, value, {
-      search: n,
-    }),
-  });
-});
-
 // 排序
 const sort = () => {
   // todo
   key.value++;
-};
-
-//分页初始值
-const initValue = function () {
-  return props.data;
-};
-//分页翻页
-const requestList = async function () {
-  // const newParam = Object.assign({}, query);
-  return props.data;
+  emit("sort");
 };
 
 const headerList = [
   { key: "collection", name: "NFT Collection", sort: false, active: false },
-  { key: "level", name: "Fomo Level", sort: true, active: true },
-  { key: "minters", name: "5m Minters", sort: true, active: false },
-  { key: "nfts", name: "5m Mint NFTs", sort: true, active: false },
-  { key: "cost", name: "Avg Mint Cost", sort: true, active: false },
+  { key: "level", name: "Fomo Level", sort: true, active: false },
+  { key: "owner", name: "5m Minters", sort: true, active: false },
+  { key: "sumNumber", name: "5m Mint NFTs", sort: true, active: false },
+  { key: "gas", name: "Avg Mint Cost", sort: true, active: false },
   { key: "operate", name: "Operate" },
 ];
 onMounted(() => {
@@ -70,60 +49,58 @@ onMounted(() => {
     isPc.value = document.body.clientWidth > 1024;
   });
 });
+const getTime = (time: any) => {
+  dataToTimestamp(time);
+};
 </script>
 <template>
   <div class="showX md:mb-0 mb-4 mt-4">
-    <div v-if="data" :key="key">
-      <ui-pagination :limit="params.page_size" :init-value="initValue()" :request="requestList">
-        <template #default="{ list }">
-          <div v-show="isLoad">
-            <el-table :data="list" class="w-full table-fixed" :row-style="rowClass(height)" :header-cell-style="headerCellClass" :cell-style="cellClass" @row-click="toProject">
-              <el-table-column class-name="lie" fixed :width="45">
-                <template #header>
-                  <div class="header-name items-center flex h-full">#</div>
-                </template>
-                <template #default="scope">
-                  <span class="text-kd14px16px text-number text-global-highTitle whitespace-nowrap">
-                    <span>{{ scope.$index + 1 }}</span>
-                  </span>
-                </template>
-              </el-table-column>
-              <template v-for="(header, index) in headerList" :key="index">
-                <el-table-column :fixed="index === 0" :width="index === 0 ? (isPc ? 200 : 140) : 142">
-                  <template #header>
-                    <div class="relative h-full flex items-center" :class="{ 'justify-center': index !== 0 }">
-                      <ui-sort class="header-name fit" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.key" :field="header.name" :name="header.name" @change="sort" />
-                    </div>
-                  </template>
-                  <template #default="scope">
-                    <div v-if="header.key === 'collection'" class="state">
-                      <ui-image class="w-8 h-8 min-w-8 max-w-8 mr-1.5 rounded-full" :title="scope.row.name" :src="scope.row.image" />
-                      <span class="text-kd14px18px text-global-highTitle short">{{ scope.row.name }}</span>
-                    </div>
-                    <div v-else-if="header.key === 'level'" class="state justify-center">
-                      <Level :count="scope.row.sumNumber" />
-                    </div>
-                    <div v-else-if="header.key === 'cost'">
-                      <div v-if="!scope.row.value" class="free">Free</div>
-                      <div class="desc">{{ toNumberCashFormat(scope.row.gas, "", "", "0") }} Gwei</div>
-                    </div>
-                    <div v-else-if="header.key === 'operate'" class="mint-button">Mint</div>
-                    <div v-else-if="header.key === 'minters'" class="txt text-number">{{ toNumberCashFormat(scope.row.owner) }}</div>
-                    <div v-else-if="header.key === 'nfts'" class="txt text-number">{{ toNumberCashFormat(scope.row.sumNumber) }}</div>
-                  </template>
-                </el-table-column>
-              </template>
-            </el-table>
-          </div>
+    <el-table :data="data" class="w-full table-fixed" :row-style="rowClass(height)" :header-cell-style="headerCellClass" :cell-style="cellClass">
+      <el-table-column class-name="lie" :fixed="!isPc" :width="45">
+        <template #header>
+          <div class="header-name items-center flex h-full">#</div>
         </template>
-      </ui-pagination>
-    </div>
+        <template #default="scope">
+          <span class="text-kd14px16px text-number text-global-highTitle whitespace-nowrap">
+            <span>{{ scope.$index + 1 }}</span>
+          </span>
+        </template>
+      </el-table-column>
+      <template v-for="(header, index) in headerList" :key="index">
+        <el-table-column :fixed="index === 0 && !isPc" :width="index === 0 ? (isPc ? 200 : 140) : 142">
+          <template #header>
+            <div class="relative h-full flex items-center" :class="{ 'justify-center': index !== 0 }">
+              <ui-sort class="header-name fit" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.key" :field="header.name" :name="header.name" @change="sort" />
+            </div>
+          </template>
+          <template #default="scope">
+            <div v-if="header.key === 'collection'" class="state">
+              <ui-image class="w-8 h-8 min-w-8 max-w-8 mr-1.5 rounded-full" :title="scope.row.name" :src="scope.row.image" />
+              <span class="text-kd14px18px text-global-highTitle short">{{ scope.row.name }}</span>
+            </div>
+            <div v-else-if="header.key === 'level'" class="state justify-center">
+              <Level :count="scope.row.sumNumber" />
+            </div>
+            <div v-else-if="header.key === 'gas'">
+              <div v-if="!scope.row.value" class="free">Free</div>
+              <div class="desc">{{ toNumberCashFormat(scope.row.gas, "", "", "0") }} Gwei</div>
+            </div>
+            <div v-else-if="header.key === 'operate'" class="mint-button">Mint</div>
+            <div v-else-if="header.key === 'owner'" class="txt text-number">{{ toNumberCashFormat(scope.row.owner) }}</div>
+            <div v-else-if="header.key === 'sumNumber'" class="txt text-number">
+              {{ toNumberCashFormat(scope.row.sumNumber) }}
+            </div>
+          </template>
+        </el-table-column>
+      </template>
+    </el-table>
   </div>
 </template>
 <style lang="scss" scoped>
 .txt {
   @apply text-kd14px16px text-center;
 }
+
 .free {
   color: #008f28;
   @apply text-kd14px18px text-center;

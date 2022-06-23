@@ -6,18 +6,18 @@ import { Nft } from "src/pages/freemint/lib/nft.js";
 import { onMounted, ref, reactive } from "vue";
 import { data } from "src/pages/freemint/lib/testData";
 
-const NFT = ref();
-const key = ref(0); //刷新key
-const tag = ref("all");
-const isMore = ref(false); //是否有加载更多
-const pageInfo = reactive({
-  page: 1,
-  page_size: 2,
-});
 const tagList = [
   { name: "Free", value: "free" },
   { name: "All", value: "all" },
 ];
+const pageInfo = reactive({
+  page: 1,
+  page_size: 3, //每页条数
+});
+const NFT = ref();
+const key = ref(0); //刷新key
+const tag = ref("all");
+const isMore = ref(false); //是否有加载更多
 const originList = ref<any>([]); //得到的原始数据源（分组过后的）
 const freeList = ref<any>([]); // Free的数据列表
 const list = ref<any>([]); //展示的数据
@@ -29,8 +29,8 @@ const getInit = async () => {
 const getFreeList = () => {
   const newList: any = [];
   originList.value.forEach((block: any) => {
-    // const newBlock = block.filter((item: any) => item.value === 0)
-    const newBlock = block.filter((item: any) => item.sumNumber > 1); //可以拿着这个去测试，出现次数大于1的
+    const newBlock = block.filter((item: any) => item.value === 0);
+    // const newBlock = block.filter((item: any) => item.sumNumber > 1); //可以拿着这个去测试，出现次数大于1的
     if (newBlock.length > 0) {
       newList.push(newBlock);
     }
@@ -117,16 +117,16 @@ onMounted(async () => {
   </div>
 </template>
 <style lang="scss">
-.more {
-  @apply text-kd14px18px text-global-primary font-medium cursor-pointer;
-  @apply h-8 px-8 flex items-center;
-  @apply bg-global-primary bg-opacity-6 max-w-max rounded-kd4px mx-auto;
-}
-
 .feed-page {
   @apply md:max-w-240 md:mx-auto p-4 md:pt-6 md:px-0;
   .border-css {
     @apply border-1 border-global-highTitle border-opacity-10 rounded-kd6px;
+  }
+
+  .more {
+    @apply text-kd14px18px text-global-primary font-medium cursor-pointer;
+    @apply h-8 px-8 flex items-center;
+    @apply bg-global-primary bg-opacity-6 max-w-max rounded-kd4px mx-auto;
   }
 
   .state {
