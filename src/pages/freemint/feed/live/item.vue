@@ -20,16 +20,21 @@ defineProps({
         <div>
           <div class="state">
             <div class="state">
-              <span class="mr-1.5 text-kd16px22px text-global-balck-title font-medium">{{ data.name }}</span>
+              <span class="mr-1.5 text-kd16px22px text-global-balck-title font-medium">{{ data.name }}<small class="gray"> ({{data.contract_address}})</small></span>
               <span class="text-kd14px18px font-medium text-global-text-grey font-kdFang">{{ data.sumNumber ? `X${data.sumNumber}` : "" }}</span>
               <div class="gang mx-2" />
             </div>
             <div class="state">
-              <ui-image class="w-4 h-4 mr-1.5" oss src="/mint/web.png" />
-              <ui-image class="w-4 h-4 mr-1.5" oss src="/mint/scan.png" />
-              <ui-image class="w-4 h-4" oss src="/mint/open.png" />
+              <a :href="'https://etherscan.io/address/'+ data.contract_address" blank="_blank">
+                <ui-image class="w-4 h-4 mr-1.5" oss src="/mint/scan.png" />
+              </a>
             </div>
+            
           </div>
+          <div class="gray">
+              {{data.description}}
+          </div>
+
           <div class="state mt-3">
             <div class="state mr-12">
               <div class="des-title">Avg Price</div>
@@ -85,7 +90,7 @@ defineProps({
         </div>
       </div>
       <div class="flex items-center mt-3">
-        <div class="fast-mint mr-2">Fast Mint</div>
+        <!-- <div class="fast-mint mr-2">Fast Mint</div> -->
         <div class="copy-mint">Copy Mint</div>
       </div>
     </div>
@@ -95,6 +100,12 @@ defineProps({
 .break-txt {
   word-break: break-word;
 }
+
+.gray {
+  color: #999;
+  font-wight: 300;
+}
+
 .yuan-hui {
   border: 2px solid rgba(211, 214, 219, 1);
   @apply absolute top-0;

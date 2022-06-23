@@ -431,6 +431,8 @@ export class Nft {
           sumNumber:itemTwo.length, //出现次数
           value:sumBy(itemTwo,'value'),
           gas:sumBy(itemTwo,'gas'),
+          contract_address: itemTwo[0].contract_address,
+          description: safeGet(itemTwo[0],'metadata.metadata.description'),          
         })
       })
     })
@@ -454,6 +456,8 @@ export class Nft {
         owner:values(groupBy(data,'owner')).length,
         value:sumBy(itemTwo,'value'),
         gas:sumBy(itemTwo,'gas'),
+        contract_address: itemTwo[0].contract_address,
+        description: safeGet(itemTwo[0],'metadata.metadata.description'),
       })
     })
     return result
