@@ -54,7 +54,7 @@ onMounted(async () => {
     </div>
     <!--list-->
     <template v-for="(blockItem, i) in list" :key="i">
-      <Card class="mt-1" :data="blockItem" />
+      <Card :class="i === 0 ? 'mt-1' : 'mt-3'" :data="blockItem" />
     </template>
   </div>
 </template>

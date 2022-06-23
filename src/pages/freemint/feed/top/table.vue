@@ -2,17 +2,19 @@
 import { ElTable, ElTableColumn } from "element-plus";
 import { rowClass, headerCellClass, cellClass } from "src/pages/home/topic/data";
 import { getParam } from "src/utils/router";
-import { reactive, ref, watch } from "vue";
+import { reactive, ref, watch, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import Level from "./level.vue";
 import document from "src/plugins/browser/document";
+import window from "src/plugins/browser/window";
 const props = defineProps({
   data: {
     type: Object,
     required: true,
   },
 });
+const isPc = ref(true);
 const params = reactive({
   type: getParam<string>("type"),
   sort_field: "",
@@ -55,13 +57,19 @@ const requestList = async function () {
 };
 
 const headerList = [
-  { key: "collection", name: "NFT Collection", width: 200, sort: false, active: false },
+  { key: "collection", name: "NFT Collection", sort: false, active: false },
   { key: "level", name: "Fomo Level", sort: true, active: true },
   { key: "minters", name: "5m Minters", sort: true, active: false },
   { key: "nfts", name: "5m Mint NFTs", sort: true, active: false },
   { key: "cost", name: "Avg Mint Cost", sort: true, active: false },
   { key: "operate", name: "Operate" },
 ];
+onMounted(() => {
+  isPc.value = document.body.clientWidth > 1024;
+  window.addEventListener("resize", () => {
+    isPc.value = document.body.clientWidth > 1024;
+  });
+});
 </script>
 <template>
   <div class="showX md:mb-0 mb-4 mt-4">
@@ -81,7 +89,7 @@ const headerList = [
                 </template>
               </el-table-column>
               <template v-for="(header, index) in headerList" :key="index">
-                <el-table-column :fixed="index === 0" :width="header.width ? header.width : 142">
+                <el-table-column :fixed="index === 0" :width="index === 0 ? (isPc ? 200 : 140) : 142">
                   <template #header>
                     <div class="relative h-full flex items-center" :class="{ 'justify-center': index !== 0 }">
                       <ui-sort class="header-name fit" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.key" :field="header.name" :name="header.name" @change="sort" />
@@ -90,7 +98,7 @@ const headerList = [
                   <template #default="scope">
                     <div v-if="header.key === 'collection'" class="state">
                       <ui-image class="w-8 h-8 min-w-8 max-w-8 mr-1.5 rounded-full" :title="scope.row.name" :src="scope.row.image" />
-                      <span class="text-kd14px18px text-global-highTitle">{{ scope.row.name }}</span>
+                      <span class="text-kd14px18px text-global-highTitle short">{{ scope.row.name }}</span>
                     </div>
                     <div v-else-if="header.key === 'level'" class="state justify-center">
                       <Level :count="scope.row.sumNumber" />
