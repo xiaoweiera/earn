@@ -484,7 +484,6 @@ export class Nft {
         value: Number(tx.value),
         maxPriorityFeePerGas: tx.maxPriorityFeePerGas,
         maxFeePerGas: tx.maxFeePerGas,
-        input_data: tx.input,
         hash: nft_event.hash,
         gas: tx.gas,
         gas_price: Number(tx.gasPrice),

@@ -18,7 +18,7 @@ const isGet = ref(false);
 //赋值或回调
 const getMint = async (value: object) => {
   isGet.value = true;
-  const res = await NFT.value.auto_parse_mint(props.toolModel.hash);
+  const res = await NFT.value.auto_parse_mint(props.toolModel.contract);
   if (res) {
     props.toolModel.mintValue = res.value;
     props.toolModel.inputData = res.input_data;
@@ -37,7 +37,7 @@ onMounted(async () => {
     <div class="title">填入 Mint Hash 或 合约地址 可自动识别</div>
     <div class="flex items-center">
       <el-input v-model="toolModel.hash" placeholder="输入 ERC721 合约地址或者输入别人的 Mint Hash" autocomplete="off" />
-      <div class="get-mint min-w-20.5" @click="getMint()">
+      <div class="get-mint min-w-20.5" @click="getMint">
         <span v-if="!isGet">Get Mint</span>
         <IconFont v-else size="14" type="loading" />
       </div>

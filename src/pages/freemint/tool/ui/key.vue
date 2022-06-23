@@ -42,23 +42,6 @@ const deleteItem = (index: number) => {
   keyList.value.splice(index, 1);
   emit("keyCall", keyList.value);
 };
-//链接钱包
-const onConnect = async function () {
-  // 如果已获取到地址
-  if (isConnect()) {
-    return true;
-  }
-  const wallet = new Wallet();
-  try {
-    const status = await wallet.requestPermissions();
-    if (status) {
-      // todo 授权成功
-    }
-  } catch (e) {
-    const code = safeGet<number>(e as object, "code");
-    messageError(getErrorMessageContent(code));
-  }
-};
 </script>
 <template>
   <div class="w-full border-css">
@@ -69,12 +52,6 @@ const onConnect = async function () {
           <span class="title">{{ title }}</span>
         </div>
         <div class="des mt-1.5">{{ des }}</div>
-      </div>
-      <div v-if="isWallet" class="flex items-center mt-3 md:mt-0 md:ml-4" @click="onConnect">
-        <div class="button-mint">
-          <ui-image class="mr-1 w-4 h-4" oss src="/mint/walletOk.png" />
-          <span>Connect Wallet</span>
-        </div>
       </div>
     </div>
     <client-only class="flex mt-3 items-center">

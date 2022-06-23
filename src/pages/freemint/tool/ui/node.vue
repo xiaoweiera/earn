@@ -64,8 +64,10 @@ onMounted(async () => {
         <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
         <span class="text-kd14px18px font-medium text-global-black-title">节点选择</span>
       </div>
-      <div v-if="isPing" class="button-mint">Ping...</div>
-      <div v-else class="button-mint" @click="ping">Ping</div>
+      <div class="button-mint">
+        <span v-if="!isPing" @click="ping">Ping</span>
+        <IconFont v-else size="14" type="loading" />
+      </div>
     </div>
     <client-only class="mt-3 relative state">
       <el-select v-model="selectNode" class="w-30 mr-4" placeholder="请选择" @change="selectChange">
@@ -109,6 +111,6 @@ onMounted(async () => {
 }
 
 .selectNode {
-  @apply text-kd12px16px absolute whitespace-nowrap right-8 top-2;
+  @apply text-kd12px16px absolute whitespace-nowrap md:right-8 md:top-2 -top-3 right-1;
 }
 </style>

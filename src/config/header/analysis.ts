@@ -60,6 +60,14 @@ export const Analysis = function (lang?: Lang): MenuItem {
     blank: false,
     header: true,
   });
+  db.insert({
+    id: "freeMint",
+    icon: "icon-Token",
+    name: "freeMint",
+    href: routerConfig.freemintNFT,
+    blank: false,
+    header: true,
+  });
   db.insert(dAppList);
   db.insert({
     name: i18n.menu.group.tool,
