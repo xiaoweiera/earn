@@ -61,12 +61,24 @@ export const Analysis = function (lang?: Lang): MenuItem {
     header: true,
   });
   db.insert({
+    name: "Free Mint NFT",
+    header: false,
+    group: true,
+  });
+  db.insert({
     id: "freeMint",
     icon: "icon-Token",
     name: "freeMint",
     href: routerConfig.freemintNFT,
-    blank: false,
     header: true,
+    children: [
+      {
+        id: "nftasdasdasd",
+        name: "freeMintasdad",
+        href: routerConfig.freemintNFT,
+        header: true,
+      },
+    ],
   });
   db.insert(dAppList);
   db.insert({

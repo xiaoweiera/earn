@@ -12,6 +12,7 @@ const Router = function () {
 
   //tool
   router.get(config.freemintNFT, function (req, res) {
+    res.locals.menuActive = "freeMint";
     res.send({});
   });
   router.get(config.freemintBlock, function (req, res) {

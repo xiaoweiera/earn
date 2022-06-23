@@ -10,7 +10,6 @@ import { names } from "src/config/header";
 // freeMint页面
 export const toolNft = async function (req: Request, res: Response) {
   const [card] = await Promise.all([eth.etherscan.getGasTracker()]);
-  res.locals.menuActive = "freeMint";
   const result = {
     [alias.freeMint.card]: card, // 链
   };
