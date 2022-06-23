@@ -69,7 +69,7 @@ onMounted(async () => {
         <IconFont v-else size="14" type="loading" />
       </div>
     </div>
-    <client-only class="mt-3 relative state">
+    <client-only class="mt-3 relative md:flex items-center">
       <el-select v-model="selectNode" class="w-30 mr-4" placeholder="请选择" @change="selectChange">
         <el-option v-for="item in nodeList" :key="item.url" :value="item">
           <div class="w-full h-full">
@@ -80,8 +80,10 @@ onMounted(async () => {
           </div>
         </el-option>
       </el-select>
-      <el-input v-model="currentRpc.value.url" class="input-info value-input" placeholder="" autocomplete="off" @change="inputChange" />
-      <div v-if="currentRpc.value.url && currentRpc.value.isShow" class="selectNode" :class="getColor(currentRpc.value.speed)">{{ currentRpc.value.speed }} ms</div>
+      <div class="state relative md:mt-0 mt-3 flex-1">
+        <el-input v-model="currentRpc.value.url" class="input-info value-input" placeholder="" autocomplete="off" @change="inputChange" />
+        <div v-if="currentRpc.value.url && currentRpc.value.isShow" class="selectNode" :class="getColor(currentRpc.value.speed)">{{ currentRpc.value.speed }} ms</div>
+      </div>
     </client-only>
   </div>
 </template>
@@ -98,8 +100,8 @@ onMounted(async () => {
 }
 
 .el-select-dropdown__item {
-  width: 430px !important;
   padding: 12px 12px 12px 12px !important;
+  @apply w-82 md:w-107;
 }
 
 .green {
@@ -111,6 +113,6 @@ onMounted(async () => {
 }
 
 .selectNode {
-  @apply text-kd12px16px absolute whitespace-nowrap md:right-8 md:top-2 -top-3 right-1;
+  @apply text-kd12px16px absolute whitespace-nowrap right-8 top-2;
 }
 </style>
