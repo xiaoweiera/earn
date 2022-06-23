@@ -69,7 +69,7 @@ export class Nft {
       return
     }
 
-    logs.push({ color: 'rgb(62 79 103)', msg: '✅ 参数解析中...'})
+    logs.push({ color: 'rgb(62 79 103)', msg: '参数解析中...'})
 
     const _this = this;
 
@@ -92,14 +92,15 @@ export class Nft {
     let lastest_block = await this.getLasetBlock()
     let from_block = lastest_block
 
+    logs.push({ color: 'rgb(62 79 103)', msg: '区块记录监听中...'})
+
     while (mint_params.start_running) {
       let lastest_block = await this.getLasetBlock()
 
       if (lastest_block == from_block - 1) {
-        logs.push({color: 'rgb(62 79 103)',state:'success', msg: `✅ 暂无新块产生，等待3s 后继续检测`})
         await this._sleep(3000)
       } else {
-        logs.push({color: 'rgb(62 79 103)',state:'success', msg: `✅ 本次检测最新区块区间：${from_block} ～ ${lastest_block}, 开始解析`})
+        logs.push({color: 'rgb(62 79 103)', msg: `本次检测最新区块区间：${from_block} ～ ${lastest_block}, 开始解析`})
 
         let nft_origin_events = await this.fetch_nft_mint_transactions(from_block, lastest_block)
         let collections = await this.format_collect(nft_origin_events.transfers)
@@ -107,8 +108,7 @@ export class Nft {
 
         logs.push({
           color: 'rgb(62 79 103)',
-          state:'success',
-          msg: `✅ 一共发现 ${Object.values(collections).length} 条记录，涉及 ${Object.keys(collections).length} 个 NFT 合约`
+          msg: `一共发现 ${Object.values(collections).length} 条记录，涉及 ${Object.keys(collections).length} 个 NFT 合约`
         })
 
         forEach(collections, (nfts, contract) => {
@@ -142,7 +142,7 @@ export class Nft {
             })
 
             if (!includes) {
-              logs.push({ color: 'rgb(62 79 103)',state:'fail', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为 不包含关键词 ${shieldWord.join(', ')} `})
+              logs.push({ color: 'rgb(62 79 103)',state:'select', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为 不包含关键词 ${shieldWord.join(', ')} `})
               return
             }
           }
@@ -151,7 +151,7 @@ export class Nft {
           const smartMintList = mint_params.smartMintList
           if (smartMintList.length) {
             if (!smartMintList.includes(nfts[0].to)) {
-              logs.push({ color: 'rgb(62 79 103)',state:'fail', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为不是聪明钱在Mint! ${smartMintList.join(', ')} `})
+              logs.push({ color: 'rgb(62 79 103)',state:'select', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为不是聪明钱在Mint! ${smartMintList.join(', ')} `})
               return
             }
           }
@@ -185,6 +185,7 @@ export class Nft {
                 value: nfts[0].value,
                 maxFeePerGas: nfts[0].maxFeePerGas,
                 maxPriorityFeePerGas: nfts[0].maxPriorityFeePerGas,
+                originNFTOwner: nfts[0].maxPriorityFeePerGas.owner
               }, privateKey, logs)
               if (new_nft) {
                 mint_params.minted[nfts[0]?.contract_address].push(new_nft)
@@ -193,7 +194,6 @@ export class Nft {
           })          
         })
       }
-      logs.push({ color: 'rgb(62 79 103)',state:'success', msg: `✅ 解析完毕，进行下一次链上检测...`})
       from_block = lastest_block + 1
     }
     logs.push({ color: 'rgb(62 79 103)',state:'success', msg: `✅ 自动 Mint 程序已停止 !`})
@@ -241,7 +241,7 @@ export class Nft {
           to: mint_params.to,
           // nonce: Math.floor(Date.now() / 1000000),
           nonce,
-          data: mint_params.inputData,
+          data: mint_params.inputData.replace(mint_params.originNFTOwner.substr(2), address.substr(2)),
           value: this.api_web3.utils.toWei(mint_params.value.toString(), 'ether'),
           // maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
           maxPriorityFeePerGas: this.api_web3.utils.toHex(mint_params.maxPriorityFeePerGas * 10 ** 9), //wei
@@ -249,11 +249,17 @@ export class Nft {
           // TODO 设置 gaslimt
           gasLimit: this.api_web3.utils.toHex( 53000 ),
       }
+      console.log("inputData", mint_params.inputData)
+      console.log("inputData originNFTOwner is: ", mint_params.originNFTOwner.substr(2))
+      console.log("inputData NFT Owner replace to: ", address.substr(2))
+
       console.log('txParams: ', txParams)
-    
+      logs.push({ color: "green", msg: `✅ 打包交易: ${JSON.stringify(txParams)}`})
+      
       // TODO 要 gas 预估一下，然后看 余额是否交手续费
       let signedTx = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
       console.log('mySignTransaction: ', signedTx)
+      logs.push({ color: "green", msg: `✅ 签名交易: ${signedTx.transactionHash}`})
     
       let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction)
       .on('receipt', function(receipt){
@@ -309,7 +315,8 @@ export class Nft {
         inputData: mint_params.inputData,
         value: mint_params.mintValue,
         maxFeePerGas: mint_params.maxFeePerGas,
-        maxPriorityFeePerGas: mint_params.maxPriorityFeePerGas
+        maxPriorityFeePerGas: mint_params.maxPriorityFeePerGas,
+        originNFTOwner: mint_params.hashWithNFTOwner
       }, privateKey, logs)
     })
 
@@ -328,17 +335,17 @@ export class Nft {
       value: 0
     }  
   */  
-  async auto_parse_mint(hash) {
+  async parse_hash(hash) {
     const hash_obj = this._parse_hash_type(hash)
     const error_msg = "输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !"
+    const lastBlock = await this.api_web3.eth.getBlockNumber()
 
     switch(hash_obj.type) {
       case 'NFT_CONTRACT_HASH': {
         // 获取合约的最新一条 mint 记录
-        const lastBlock = await this.api_web3.eth.getBlockNumber()
         // 获取 alchemy nft 的交易记录
         const last_mint_tx = await this.fetch_nft_mint_transactions(0, lastBlock, 1, [hash])
-        console.log("last_mint_tx: ", last_mint_tx)
+        console.log("NFT_CONTRACT_HASH last_mint_tx: ", last_mint_tx)
 
         if (last_mint_tx.transfers.length == 0) {
           alert(error_msg)
@@ -353,7 +360,8 @@ export class Nft {
         return {
           input_data: tx.input,
           value: tx.value,
-          contract_address: hash
+          contract_address: hash,
+          owner: last_mint_tx.transfers[0].to
         }          
       }
       case "NFT_MINT_TX_HASH": {
@@ -361,15 +369,27 @@ export class Nft {
         const tx = await this.api_web3.eth.getTransaction(hash)
         console.log("get tx: ", tx)
 
+        // 获取 alchemy nft 的交易记录
+        const last_mint_tx = await this.fetch_nft_mint_transactions(0, lastBlock, 1, [tx.to])
+        console.log("NFT_MINT_TX_HASH last_mint_tx: ", last_mint_tx)
+
+        if (last_mint_tx.transfers.length == 0) {
+          alert(error_msg)
+          console.log(error_msg)
+          return false
+          break;
+        }
+
         return {
           input_data: tx.input,
           value: tx.value,
-          contract_address: tx.to
+          contract_address: tx.to,
+          owner: last_mint_tx.transfers[0].to          
         }
       } 
       default: {
           // console.log(error_msg)        
-         // alert("输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !")
+         alert("输入的 hash 既不是 NFT Min Hash 也不是 NFT 合约地址 Hash, 请重新输入 !")
          return false
       }
     }

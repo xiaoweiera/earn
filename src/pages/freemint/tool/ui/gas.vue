@@ -50,7 +50,7 @@ defineProps({
       <div class="flex-1 mr-6">
         <div class="flex items-center">
           <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
-          <div class="title">Mint 数量</div>
+          <div class="title">Mint 需要执行次数</div>
         </div>
         <el-input v-model="toolModel.mintAmount" class="mt-4" placeholder="0" autocomplete="off" />
       </div>
@@ -68,7 +68,7 @@ defineProps({
       <div class="flex items-center">
         <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
         <div class="title mr-1.5">Input Data</div>
-        <span class="tips">如无法读懂，请不要修改</span>
+        <span class="tips">无需修改任何内容，程序会在运行过程中自动将 InputData 中 NFT 收款地址替换成私钥对应的地址</span>
       </div>
       <el-input v-model="toolModel.inputData" class="mt-4" :rows="3" type="textarea" placeholder="请输入" />
     </div>
