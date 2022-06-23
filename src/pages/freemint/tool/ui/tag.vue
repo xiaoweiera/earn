@@ -3,6 +3,7 @@
  * tag切换
  */
 import { ref, onMounted } from "vue";
+
 const props = defineProps({
   data: {
     type: Array(Object),
@@ -11,11 +12,17 @@ const props = defineProps({
       { name: "USD", value: "usd" },
     ],
   },
+  default: {
+    type: String,
+    default: "",
+  },
 });
 const emit = defineEmits(["change"]);
 const tag = ref("");
 const init = () => {
-  if (props.data.length > 0) {
+  if (props.default) {
+    tag.value = props.default;
+  } else if (props.data.length > 0) {
     tag.value = props.data[0].value;
   }
 };
@@ -40,13 +47,16 @@ onMounted(() => {
   border: 1px solid rgba(3, 54, 102, 0.04);
   @apply h-7 h-7 flex items-center justify-center rounded-kd6px;
 }
+
 .tag {
   @apply px-2 h-6  flex justify-center items-center cursor-pointer rounded-kd4px;
 }
+
 .tag-ok {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.06);
   @apply text-kd12px16px font-medium text-global-black-title bg-global-white;
 }
+
 .tag-no {
   @apply text-kd12px16px font-medium text-global-text-grey;
 }
