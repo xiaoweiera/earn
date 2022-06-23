@@ -8,7 +8,7 @@ const props = defineProps({
     type: Array(Object),
     default: () => [
       { name: "ETH", value: "eth" },
-      { name: "USD", value: "usd" },
+      // { name: "USD", value: "usd" },
     ],
   },
 });

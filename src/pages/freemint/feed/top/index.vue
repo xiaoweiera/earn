@@ -31,12 +31,15 @@ onMounted(async () => {
 </script>
 <template>
   <div class="top-page">
-    <div class="state justify-between">
-      <div class="text-kd16px22px font-medium text-global-highTitle">Top Mint list</div>
-      <div class="state">
+    <div class="md:flex items-center justify-between">
+      <div class="state justify-between">
+        <div class="text-kd16px22px font-medium text-global-highTitle">Top Mint list</div>
+        <Chain class="mdhidden" />
+      </div>
+      <div class="state justify-between md:mt-0 mt-4">
         <Tag class="mr-6" :data="filter" />
-        <ui-date-day class="mr-6" :shortcuts="dataTime" />
-        <Chain />
+        <ui-date-day class="md:mr-6" :shortcuts="dataTime" />
+        <Chain class="xshidden" />
       </div>
     </div>
     <!--    表格-->
@@ -45,6 +48,6 @@ onMounted(async () => {
 </template>
 <style lang="scss">
 .top-page {
-  @apply max-w-240 mx-auto pt-6 mb-20;
+  @apply md:max-w-240 md:mx-auto p-4 md:pt-6 md:px-0;
 }
 </style>

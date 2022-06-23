@@ -5,7 +5,10 @@ import * as freeMint from "src/controller/freemint";
 const Router = function () {
   const router = ExpressRouter();
   //feed
-  router.get(config.freemintLive, freeMint.toolNft);
+  router.get(config.freemintLive, function (req, res) {
+    res.locals.menuActive = "freeMintLive";
+    res.send({});
+  });
   router.get(config.freemintTop, function (req, res) {
     res.locals.menuActive = "freeMintTop";
     res.send({});

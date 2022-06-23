@@ -15,7 +15,7 @@ defineProps({
 </template>
 <style scoped lang="scss">
 .default {
-  @apply text-kd12px16px  h-4.5 px-1.5 whitespace-nowrap flex items-center justify-center;
+  @apply text-kd12px16px rounded-kd4px h-4.5 px-1.5 whitespace-nowrap flex items-center justify-center;
 }
 .free,
 .low {

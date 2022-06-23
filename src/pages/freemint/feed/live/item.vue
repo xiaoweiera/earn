@@ -9,11 +9,12 @@ defineProps({
 });
 </script>
 <template>
-  <div class="mt-1.5 flex h-min-22">
+  <div class="mt-1.5 flex min-h-22 relative">
     <div class="xian">
       <div class="yuan-hui"></div>
     </div>
-    <div class="border-css p-4 flex flex-1 items-start">
+    <!--      PC-->
+    <div class="border-css xshidden ml-5.5 p-4 flex flex-1 items-start">
       <ui-image class="min-w-14 min-h-14 max-w-14 max-h-14 rounded-full mr-4" :src="data.image" />
       <div class="state w-full justify-between">
         <div>
@@ -51,17 +52,57 @@ defineProps({
         </div>
       </div>
     </div>
+    <!--      Mobile-->
+    <div class="border-css ml-4.5 mdhidden p-4">
+      <div class="state">
+        <ui-image class="min-w-14 min-h-14 max-w-14 max-h-14 rounded-full mr-4" :src="data.image" />
+        <div class="state">
+          <div class="state flex-wrap">
+            <span class="mr-1.5 text-kd16px22px text-global-balck-title font-medium flex flex-wrap break-txt">{{ data.name }}{{ data.name }}</span>
+            <span class="text-kd14px18px font-medium text-global-text-grey font-kdFang flex flex-wrap break-txt">{{ data.sumNumber ? `X${data.sumNumber}` : "" }}</span>
+            <div class="gang mx-2" />
+            <ui-image class="w-4 h-4 mr-1.5" oss src="/mint/web.png" />
+            <ui-image class="w-4 h-4 mr-1.5" oss src="/mint/scan.png" />
+            <ui-image class="w-4 h-4" oss src="/mint/open.png" />
+          </div>
+        </div>
+      </div>
+      <div class="w-full">
+        <div class="mt-3">
+          <div class="state mt-2">
+            <div class="des-title">Avg Price</div>
+            <Tip v-if="!data.value" type="free" />
+            <div v-else class="content-value">{{ toNumberCashFormat(data.value, "$") }}</div>
+          </div>
+          <div class="state mt-2">
+            <div class="des-title">Gas Cost</div>
+            <div class="content-value">{{ toNumberCashFormat(data.gas) }} Gwei</div>
+          </div>
+          <div class="state mt-2">
+            <div class="des-title">Fomo Level</div>
+            <Tip :type="data.sumNumber >= 5 ? 'high' : 'low'" />
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center mt-3">
+        <div class="fast-mint mr-2">Fast Mint</div>
+        <div class="copy-mint">Copy Mint</div>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
+.break-txt {
+  word-break: break-word;
+}
 .yuan-hui {
   border: 2px solid rgba(211, 214, 219, 1);
   @apply absolute top-0;
   @apply w-3 h-3 rounded-full  flex justify-center items-center;
 }
 .xian {
-  height: 95%;
-  @apply w-3 relative  mr-1.5 ml-1.4 rounded-full relative flex justify-center items-center;
+  height: 100%;
+  @apply w-3 absolute  mr-1.5 md:mr-0 md:ml-1.3  rounded-full  flex justify-center items-center;
 }
 .xian:after {
   content: "";
@@ -84,7 +125,7 @@ defineProps({
 }
 
 .button-live {
-  @apply w-18.75 h-6 text-global-white;
+  @apply md:w-18.75 w-full h-6 text-global-white;
   @apply flex items-center justify-center rounded-kd4px cursor-pointer;
   @apply text-kd12px16px font-medium;
 }
