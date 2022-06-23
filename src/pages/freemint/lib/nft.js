@@ -181,7 +181,7 @@ export class Nft {
             for (let i = 0; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
               const new_nft = await this._mint_nft({
                 to: nfts[0].contract_address,
-                input_data: nfts[0].input_data,
+                inputData: nfts[0].input_data,
                 value: nfts[0].value,
                 maxFeePerGas: nfts[0].maxFeePerGas,
                 maxPriorityFeePerGas: nfts[0].maxPriorityFeePerGas,
@@ -239,10 +239,11 @@ export class Nft {
       let txParams = {
           from: address,
           to: mint_params.to,
+          // nonce: Math.floor(Date.now() / 1000000),
           nonce,
           data: mint_params.inputData,
           value: this.api_web3.utils.toWei(mint_params.value.toString(), 'ether'),
-          maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
+          // maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
           maxPriorityFeePerGas: this.api_web3.utils.toHex(mint_params.maxPriorityFeePerGas * 10 ** 9), //wei
 
           // TODO 设置 gaslimt
@@ -254,16 +255,14 @@ export class Nft {
       let signedTx = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
       console.log('mySignTransaction: ', signedTx)
     
-      let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction, function (err) {
-        if (!err) {
-          logs.push({ color: "green",state:'success', msg: `✅ ${_this._formate_hash(address)} mint ${_this._formate_hash(mint_params.contract)} Success!! TX is:  ${_this._formate_hash(signedTx.transactionHash)}`})
-          return signedTx;
-        } else {
-          logs.push({ color: "red",state:'fail', msg: `❌ ${_this._formate_hash(address)} mint ${err}`})
-          return false
-        }
-      })
-
+      let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+      .on('receipt', function(receipt){
+          console.log(receipt)
+          logs.push({ color: "green",state:'success', msg: `✅ ${_this._formate_hash(address)} MINT ${_this._formate_hash(mint_params.to)} Success!! TX is:  ${_this._formate_hash(signedTx.transactionHash)}`})
+          return receipt;  })
+      .on('error', function(err){
+          logs.push({ color: "red",state:'fail', msg: `❌ ${_this._formate_hash(address)} MINT ${err}`})
+          return false })
     } catch(e) {
       logs.push({ color: 'red', state:'fail',msg: `❌ ${privateKey}: ${e.message}` })
       return false
@@ -281,7 +280,7 @@ export class Nft {
       mint_params.start_running = false
       return
     }
-    logs.push({ color: 'rgb(62 79 103)', msg: '✅ 参数解析中...'})
+    logs.push({ color: 'rgb(62 79 103)', msg: '参数解析中...'})
     const _this = this;
 
     if (!privateKeys.length) {
@@ -304,15 +303,18 @@ export class Nft {
       return;
     }    
 
-    privateKeys.map(async privateKey => {      
-      this._mint_nft({
+    const new_nfts = privateKeys.map(async privateKey => {      
+      return this._mint_nft({
         to: mint_params.contract,
-        input_data: mint_params.inputData,
+        inputData: mint_params.inputData,
         value: mint_params.mintValue,
         maxFeePerGas: mint_params.maxFeePerGas,
         maxPriorityFeePerGas: mint_params.maxPriorityFeePerGas
       }, privateKey, logs)
     })
+
+    await Promise.all(new_nfts)
+    mint_params.start_running = false
   }
 
   //获取余额

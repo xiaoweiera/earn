@@ -5,6 +5,7 @@
 import { ElInput } from "element-plus";
 import { PropType } from "vue";
 import { toolMode } from "src/types/freemint";
+import { toNumberCashFormat } from "src/utils/convert/to";
 
 defineProps({
   toolModel: {
@@ -22,13 +23,12 @@ defineProps({
         <div class="title">
           <span>Gas 预估花费</span>
           <div class="state">
-            <span>0.005 ETH</span>
-            <span>($4.21)</span>
+            <span>{{ toNumberCashFormat((Number(toolModel.baseFeePerGas) + Number(toolModel.maxPriorityFeePerGas)) * 0.000000001 * Number(toolModel.ethPrice) * Number(toolModel.gasLimit), "$") }}</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="md:flex mt-4">
+    <div class="md:flex mt-3">
       <div class="state w-full">
         <div class="gasItem">
           <div class="des">Base Fee (GWei)</div>
@@ -40,7 +40,7 @@ defineProps({
         </div>
         <div class="gasItem">
           <div class="des">Gas Limit</div>
-          <el-input v-model="toolModel.maxFeePerGas" placeholder="0" autocomplete="off" />
+          <el-input v-model="toolModel.gasLimit" placeholder="0" autocomplete="off" />
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@ defineProps({
       <div class="flex-1">
         <div class="flex items-center">
           <ui-image class="mr-2 w-5 h-5" oss src="/mint/walletNo.png" />
-          <div class="title">Value</div>
+          <div class="title">Value(Mint Price, 0 is Freemint)</div>
         </div>
         <el-input v-model="toolModel.mintValue" class="mt-4" placeholder="0" autocomplete="off" />
       </div>

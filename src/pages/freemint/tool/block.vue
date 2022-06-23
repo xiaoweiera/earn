@@ -58,7 +58,7 @@ const keyList = (keyList: any) => (toolModel.keyList = keyList);
     <!--    Mint日志-->
     <Log class="mt-4" :toolModel="toolModel" />
     <!--    首页 info 和 Mint按钮-->
-    <Info class="mt-4" />
+    <!-- <Info class="mt-4" /> -->
     <!--Mint-->
     <Button type="auto" :toolModel="toolModel" />
   </div>

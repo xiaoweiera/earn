@@ -24,4 +24,6 @@ export interface toolMode {
   baseInfo?: baseModel;
   start_running?: boolean;
   minted?: object;
+  gasLimit?: number,
+  ethPrice?: number
 }
