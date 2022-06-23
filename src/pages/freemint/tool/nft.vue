@@ -24,7 +24,7 @@ const toolModel: toolMode = reactive({
   baseFeePerGas: 50,
   maxPriorityFeePerGas: 2,
   maxFeePerGas: 50,
-
+  start_running: false,
   contract: "0x608a8e0422d0586d121264ec7981f8b2da299279",
   mintAmount: 3,
   mintValue: 0,

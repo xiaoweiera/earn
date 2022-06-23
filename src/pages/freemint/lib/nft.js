@@ -63,10 +63,8 @@ export class Nft {
 
   async auto_mint(mint_params, privateKeys, logs) {
     if(!mint_params.start_running){
-      console.log('11')
       mint_params.start_running = true
     }else{
-      console.log('1122')
       mint_params.start_running = false
       return
     }
@@ -224,6 +222,7 @@ export class Nft {
   */
   async _mint_nft(mint_params, privateKey, logs) {
     let address = ''
+    const _this = this
 
     try {
       address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
@@ -276,6 +275,12 @@ export class Nft {
   // 如果 mint number 是3个，还得做个重复计算
   // node 节点配置，目前没有生效
   async manual_mint_nft(mint_params, privateKeys, logs){
+    if(!mint_params.start_running){
+      mint_params.start_running = true
+    }else{
+      mint_params.start_running = false
+      return
+    }
     logs.push({ color: 'rgb(62 79 103)', msg: '✅ 参数解析中...'})
     const _this = this;
 

@@ -32,6 +32,7 @@ const toolModel: toolMode = reactive({
   shieldWord: "", //屏蔽词搜索
   keyWord: "", //关键词搜索
   logs: [],
+  start_running: false,
 });
 //@ts-ignore
 const keyList = (keyList: any) => (toolModel.keyList = keyList);
