@@ -416,13 +416,13 @@ export class Nft {
 
   // Feed 流
   group_by_block(data) {
-    const result=[]
+    const result = []
     //根据block分组
-    const blockList=values(groupBy(data,'blockNumber'))
-    blockList.map(item=>{
+    const blockList = values(groupBy(data,'blockNumber'))
+    blockList.map(item=> {
       //根据address分组分组
-      const addressList=values(groupBy(item,'contract_address'))
-      addressList.map(itemTwo=>{
+      const addressList = values(groupBy(item,'contract_address'))
+      addressList.map(itemTwo => {
         //插入聚合数据
         result.push({
           blockNumber:itemTwo[0].blockNumber,
@@ -468,14 +468,16 @@ export class Nft {
     return await this.api_web3.eth.getBlockNumber();
   }
 
-  // 拿最近 number 的区块 NFT 数据
+
   async get_lastest_mint_tx(blockNumbers) {
-    const lastBlock =await this.getLasetBlock()
-    const txs = await this.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
-    const txsWait=txs.transfers.map(tx => {
-      return this.formate_nft(tx).bind(this)
-    })
-   return await Promise.all(txsWait)
+   //  const fromBlock = xxxx
+   //  const tpBlock =await this.getLasetBlock()
+   //  const txs = await this.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
+   //  const txsWait = txs.transfers.map(tx => {
+   //    return this.formate_nft(tx).bind(this)
+   //  })
+   // return await Promise.all(txsWait)
+   
   }
 
 
