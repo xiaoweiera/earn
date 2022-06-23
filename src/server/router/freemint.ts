@@ -7,21 +7,25 @@ const Router = function () {
   //feed
   router.get(config.freemintLive, freeMint.toolNft);
   router.get(config.freemintTop, function (req, res) {
+    res.locals.menuActive = "freeMintTop";
     res.send({});
   });
 
   //tool
   router.get(config.freemintNFT, function (req, res) {
-    res.locals.menuActive = "freeMint";
+    res.locals.menuActive = "freeMintNFT";
     res.send({});
   });
   router.get(config.freemintBlock, function (req, res) {
+    res.locals.menuActive = "freeMintBlock";
     res.send({});
   });
   router.get(config.freemintAddress, function (req, res) {
+    res.locals.menuActive = "freeMintAddress";
     res.send({});
   });
   router.get(config.freemintTimer, function (req, res) {
+    res.locals.menuActive = "freeMintTimere";
     res.send({});
   });
   return router;

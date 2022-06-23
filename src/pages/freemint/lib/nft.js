@@ -403,7 +403,7 @@ export class Nft {
       })
     })
     //再根据聚合数据分组 block
-    return values(_.groupBy(result,'blockNumber'))
+    return values(groupBy(result,'blockNumber'))
   }
 
   group_by_collection(data) {

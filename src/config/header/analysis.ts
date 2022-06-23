@@ -60,27 +60,58 @@ export const Analysis = function (lang?: Lang): MenuItem {
     blank: false,
     header: true,
   });
+  db.insert(dAppList);
   db.insert({
     name: "Free Mint NFT",
     header: false,
     group: true,
   });
   db.insert({
-    id: "freeMint",
     icon: "icon-Token",
-    name: "freeMint",
-    href: routerConfig.freemintNFT,
+    name: "Live Mint Feed",
+    href: routerConfig.freemintLive,
     header: true,
     children: [
       {
-        id: "nftasdasdasd",
-        name: "freeMintasdad",
-        href: routerConfig.freemintNFT,
+        id: "freeMintLive",
+        name: "Live Feeds",
+        href: routerConfig.freemintLive,
+        header: true,
+      },
+      {
+        id: "freeMintTop",
+        name: "Top Mint",
+        href: routerConfig.freemintTop,
         header: true,
       },
     ],
   });
-  db.insert(dAppList);
+  db.insert({
+    icon: "icon-Token",
+    name: "Mint NFT tool",
+    href: routerConfig.freemintNFT,
+    header: true,
+    children: [
+      {
+        id: "freeMintNFT",
+        name: "一键 Mint NFT",
+        href: routerConfig.freemintNFT,
+        header: true,
+      },
+      {
+        id: "freeMintBlock",
+        name: "根据区块自动 Mint",
+        href: routerConfig.freemintBlock,
+        header: true,
+      },
+      {
+        id: "freeMintAddress",
+        name: "跟随地址自动 Mint",
+        href: routerConfig.freemintAddress,
+        header: true,
+      },
+    ],
+  });
   db.insert({
     name: i18n.menu.group.tool,
     header: false,
