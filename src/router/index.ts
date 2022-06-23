@@ -71,10 +71,6 @@ const routes = [
         component: () => import("src/pages/address/index.vue"),
       },
       {
-        path: "/freemint",
-        component: () => import("src/pages/freemint/index.vue"),
-      },
-      {
         path: config.api,
         component: () => import("src/pages/api/index.vue"),
       },

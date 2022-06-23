@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import Tip from "./tip.vue";
+import { toNumberCashFormat } from "src/utils/convert/to";
+defineProps({
+  data: {
+    type: Object,
+    required: true,
+  },
+});
 </script>
 <template>
   <div class="mt-1.5 flex h-min-22">
@@ -7,13 +14,13 @@ import Tip from "./tip.vue";
       <div class="yuan-hui"></div>
     </div>
     <div class="border-css p-4 flex flex-1 items-start">
-      <ui-image class="w-14 h-14 rounded-full mr-4" src="" />
+      <ui-image class="min-w-14 min-h-14 max-w-14 max-h-14 rounded-full mr-4" :src="data.image" />
       <div class="state w-full justify-between">
         <div>
           <div class="state">
             <div class="state">
-              <span class="mr-1.5 text-kd16px22px text-global-balck-title font-medium">dav SEEDS</span>
-              <span class="text-kd14px18px font-medium text-global-text-grey">x5</span>
+              <span class="mr-1.5 text-kd16px22px text-global-balck-title font-medium">{{ data.name }}</span>
+              <span class="text-kd14px18px font-medium text-global-text-grey font-kdFang">{{ data.sumNumber ? `X${data.sumNumber}` : "" }}</span>
               <div class="gang mx-2" />
             </div>
             <div class="state">
@@ -25,15 +32,16 @@ import Tip from "./tip.vue";
           <div class="state mt-3">
             <div class="state mr-12">
               <div class="des-title">Avg Price</div>
-              <Tip type="free" />
+              <Tip v-if="!data.value" type="free" />
+              <div v-else class="content-value">{{ toNumberCashFormat(data.value, "$") }}</div>
             </div>
             <div class="state mr-12">
               <div class="des-title">Gas Cost</div>
-              <div class="content-value">42 Gwei / 0.0041E ($4.1)</div>
+              <div class="content-value">{{ toNumberCashFormat(data.gas) }} Gwei</div>
             </div>
             <div class="state mr-12">
               <div class="des-title">Fomo Level</div>
-              <Tip type="high" />
+              <Tip :type="data.sumNumber >= 5 ? 'high' : 'low'" />
             </div>
           </div>
         </div>

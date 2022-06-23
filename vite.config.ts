@@ -17,6 +17,7 @@ import WindCSS from "vite-plugin-windicss";
 import {getConfig} from "./src/config/env";
 import {Command, development, ImportMetaEnv, oss, production} from "./src/types/env";
 
+
 const getSassData = function(env: ImportMetaEnv & ConfigEnv) {
   const root = "./";
   const staticUrl: string = env.mode === Command.serve ? root : env.VITE_staticDomain;
@@ -99,6 +100,7 @@ export default defineConfig(async function() {
           importStyle: "sass"
         })],
       }),
+
       Components({
         dts: true,
         include: [/\.vue$/],

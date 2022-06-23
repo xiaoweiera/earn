@@ -8,6 +8,55 @@ import Button from "./ui/button.vue";
 import BaseInfo from "./ui/baseinfo/index.vue";
 import Keyword from "./ui/keyword.vue";
 import Info from "./ui/info.vue";
+import { reactive } from "vue";
+import { toolMode } from "src/types/freemint";
+import { ref, onMounted } from "vue";
+import { Nft } from "src/pages/freemint/lib/nft";
+
+const toolModel: toolMode = reactive({
+  node: "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu", //节点
+  keyList: [
+    "71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147", // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
+    "a9d02766e49feb7e640d1e72b76af727da02ca420253953c28536dc2bb929517", //0xe74d2e4743aBD08bDc64B7b98568015A48145019
+    "test-error",
+  ], //私钥
+  smartMintList: [], //smart 地址列表
+  baseFeePerGas: 0,
+  maxPriorityFeePerGas: 0,
+  maxFeePerGas: 0,
+  baseInfo: {
+    value: 0,
+    valueType: "eth",
+    gasLimit: 0,
+    gasType: "eth",
+    singleContractMintAmount: 1,
+    mintTotal: 10,
+    isNoLimit: false,
+  },
+  mintAmount: 10,
+  mintValue: 0,
+  inputData: "",
+  shieldWord: "", //屏蔽词搜索
+  keyWord: "", //关键词搜索
+  logs: [],
+  start_running: false,
+  minted: {}, // { contract_address: []}
+});
+
+//@ts-ignore
+const keyList = (keyList: any) => (toolModel.keyList = keyList);
+const smartMintList = (keyList: any) => (toolModel.smartMintList = keyList);
+
+const NFT = ref();
+
+const autom_mint = async () => {
+  await NFT.value.auto_mint(toolModel, toolModel.keyList, toolModel.logs);
+};
+
+onMounted(async () => {
+  //@ts-ignore
+  NFT.value = new Nft(window["AlchemyWeb3"]);
+});
 </script>
 <template>
   <div class="container-mint">
@@ -18,23 +67,23 @@ import Info from "./ui/info.vue";
       </div>
     </div>
     <!--    卡片-->
-    <Card class="mt-4" />
+    <Card class="mt-4" :toolModel="toolModel" />
     <!--    节点选择-->
-    <Node class="mt-4" />
+    <Node class="mt-4" :toolModel="toolModel" />
     <!--    私钥-->
-    <Key class="mt-4" />
+    <Key class="mt-4" :toolModel="toolModel" @key-call="keyList" />
     <!--    基础信息-->
-    <BaseInfo class="mt-4" />
+    <BaseInfo class="mt-4" :toolModel="toolModel" />
     <!--  Smart Minter地址筛选-->
-    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="如填写了地址字段，将仅跟随这些地址 Mint 的 NFT；多个私钥请点击 Add 后添加。" :isWallet="false" />
+    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="如填写了地址字段，将仅跟随这些地址 Mint 的 NFT；多个私钥请点击 Add 后添加。" :isWallet="false" @key-call="smartMintList" />
     <!--    NFT 关键词搜索-->
-    <Keyword class="mt-4" />
+    <Keyword class="mt-4" :toolModel="toolModel" />
     <!--    Mint日志-->
-    <Log class="mt-4" />
+    <Log class="mt-4" :toolModel="toolModel" />
     <!--    首页 info 和 Mint按钮-->
     <Info class="mt-4" />
     <!--Mint-->
-    <Button type="auto" />
+    <Button type="auto" :toolModel="toolModel" @start_mint="autom_mint" />
   </div>
 </template>
 <style lang="scss">

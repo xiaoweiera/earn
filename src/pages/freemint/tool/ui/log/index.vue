@@ -4,8 +4,20 @@
  */
 import Tip from "./tip.vue";
 import Info from "./info.vue";
-import { ref } from "vue";
+import { PropType, ref, watch } from "vue";
+import { toolMode } from "src/types/freemint";
+const props = defineProps({
+  toolModel: {
+    type: Object as PropType<toolMode>,
+    required: true,
+  },
+});
 const tagIndex = ref("all");
+const isBegin = ref(false); //是否存在log日志
+watch(
+  () => props.toolModel.start_running,
+  () => (isBegin.value = true),
+);
 const tagList = [
   { name: "All", value: "all" },
   { name: "屏蔽", value: "noShow" },
@@ -20,7 +32,7 @@ const selectTag = (value: string) => (tagIndex.value = value);
     <div>
       <div class="flex items-center">
         <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
-        <div class="title">Mint 日志</div>
+        <div class="title" @click="init">Mint 日志</div>
       </div>
       <div class="tips mt-1.5">tips：开始 Auto Mint 后，请不要关闭/刷新页面。关闭/刷新 页面会导致 Auto Mint 程序终止</div>
     </div>
@@ -30,43 +42,29 @@ const selectTag = (value: string) => (tagIndex.value = value);
       </template>
     </div>
     <!--    Mint 程序日志  暂时无日志-->
-    <div class="log-content no-log">Mint 程序未启动，暂无 Mint 日志</div>
-    <div class="log-content ok-log">
-      <div class="ok-log-des">Auto Mint 程序启动成功，自动检测 Free Mint 中...</div>
-      <div class="ok-log-des mt-2">基础过滤条件：Value=xx, Gas 上线=xxx, 单合约 Mint 数量 = xx，本次 Mint 总数 无上限</div>
-
+    <div v-if="!isBegin" class="log-content no-log">Mint 程序未启动，暂无 Mint 日志</div>
+    <div v-else class="log-content ok-log">
       <!--记录列表-->
       <div class="recordList">
-        <div class="record">
-          <Tip type="success" />
-          <div class="text">
-            合约
-            <span class="text-global-primary">0xcvaf...sdvaf</span>
-            名字包含：xxx，已屏蔽
+        <template v-for="info in toolModel.logs" :key="info">
+          <div v-show="info['state'] === tagIndex || tagIndex === 'all'" class="record">
+            <Tip v-if="info['state']" :type="info['state']" class="mr-3" />
+            <div :style="{ color: `${info['color']}` }" class="text">{{ info["msg"] }}</div>
           </div>
-        </div>
-        <div class="record">
-          <Tip type="fail" />
-          <div class="text">
-            合约
-            <span class="text-global-primary">0xcvaf...sdvaf</span>
-            名字包含：xxx，已屏蔽
-          </div>
-        </div>
+        </template>
       </div>
-
       <!--运行提示-->
-      <Info type="going" class="mt-4" />
-      <Info type="waring" class="mt-4" />
+      <Info v-if="toolModel.start_running" type="going" class="mt-4" />
+      <!--      <Info type="waring" class="mt-4" />-->
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 .record {
   @apply mt-2.5 flex items-center;
-  .text {
-    @apply text-kd13px18px ml-3;
-  }
+}
+.text {
+  @apply text-kd13px18px;
 }
 .tagList {
   border-bottom: 1px solid rgba(3, 54, 102, 0.04);

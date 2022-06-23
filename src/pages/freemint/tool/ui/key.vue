@@ -3,6 +3,12 @@
  * 私钥
  */
 import { ElInput } from "element-plus";
+import { ref } from "vue";
+import { isConnect } from "src/logic/common/wallet";
+import Wallet from "src/plugins/web3/wallet";
+import safeGet from "@fengqiaogang/safe-get";
+import { messageError } from "src/lib/tool";
+import { getErrorMessageContent } from "src/plugins/web3/message";
 defineProps({
   icon: {
     type: String,
@@ -21,8 +27,21 @@ defineProps({
     default: true,
   },
 });
-import { ref } from "vue";
+const emit = defineEmits(["keyCall"]);
 const key = ref("");
+const keyList = ref<string[]>([]);
+const add = () => {
+  if (!key.value) return;
+  if (!keyList.value.includes(key.value)) {
+    keyList.value.push(key.value);
+    emit("keyCall", keyList.value);
+  }
+  key.value = "";
+};
+const deleteItem = (index: number) => {
+  keyList.value.splice(index, 1);
+  emit("keyCall", keyList.value);
+};
 </script>
 <template>
   <div class="w-full border-css">
@@ -34,23 +53,17 @@ const key = ref("");
         </div>
         <div class="des mt-1.5">{{ des }}</div>
       </div>
-      <div v-if="isWallet" class="flex items-center mt-3 md:mt-0 md:ml-4">
-        <div class="button-mint">
-          <ui-image class="mr-1 w-4 h-4" oss src="/mint/walletOk.png" />
-          <span>Connect Wallet</span>
-        </div>
-      </div>
     </div>
     <client-only class="flex mt-3 items-center">
       <el-input v-model="key" placeholder="请输入私钥地址" autocomplete="off" />
-      <div class="button-mint ml-4">Add</div>
+      <div class="button-mint ml-4" @click="add">Add</div>
     </client-only>
     <!--私钥列表-->
     <div class="mt-3">
-      <template v-for="item in 4" :key="item">
+      <template v-for="(item, index) in keyList" :key="item">
         <div class="flex items-center justify-between hand keyItem">
-          <div class="text-kd12px16px text-global-black-title">A6Gt6x........ScnsJqE22H3Fb{{ item }}</div>
-          <IconFont class="text-global-numRed" size="16" type="shan" />
+          <div class="text-kd12px16px text-global-black-title">{{ item }}</div>
+          <IconFont class="text-global-numRed" size="16" type="shan" @click="deleteItem(index)" />
         </div>
       </template>
     </div>
