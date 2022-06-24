@@ -22,8 +22,7 @@ const originList = ref<any>([]); //得到的原始数据源（分组过后的）
 const freeList = ref<any>([]); // Free的数据列表
 const list = ref<any>([]); //展示的数据
 const getInit = async () => {
-  // const data=await NFT.value.get_lastest_mint_tx(30)
-  list.value = NFT.value.group_by_block(data);
+  // const datas=await NFT.value.get_lastest_mint_tx(1)
   originList.value = NFT.value.group_by_block(data);
 };
 //得到Free的数据
@@ -81,6 +80,7 @@ onMounted(async () => {
 </script>
 <template>
   <div class="feed-page">
+    {{ list.length }}
     <div class="state justify-between">
       <div class="text-kd16px22px font-medium text-global-highTitle">Live Feeds</div>
       <div>

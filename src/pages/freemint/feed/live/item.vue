@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Tip from "./tip.vue";
 import { toNumberCashFormat } from "src/utils/convert/to";
-import { routerConfig } from "src/router/config";
 defineProps({
   data: {
     type: Object,
@@ -34,7 +33,7 @@ defineProps({
               </a>
             </div>
           </div>
-          <div class="gray">
+          <div class="gray w-180 short">
             {{ data.description }}
           </div>
 
