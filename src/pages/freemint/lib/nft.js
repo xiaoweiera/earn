@@ -245,7 +245,7 @@ export class Nft {
           from: address,
           to: mint_params.to,
           // nonce: Math.floor(Date.now() / 1000000),
-          nonce: nonce + 100,
+          nonce: nonce,
           data: mint_params.inputData.replace(mint_params.originNFTOwner.substr(2), address.substr(2)),
           // value: this.api_web3.utils.toWei(mint_params.value.toString(), 'ether'),
           value: mint_params.value,
@@ -264,10 +264,8 @@ export class Nft {
       let signedTx = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
       // console.log('mySignTransaction: ', signedTx)
       logs.push({ color: "green",state:'success', msg: `✅ 签名交易: ${signedTx.transactionHash}`})
-    
-      await this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+      const res=await this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction)
       .on('receipt', function(receipt){
-          console.log(receipt)
           logs.push({ color: "green",state:'success', msg: `✅ ${_this._formate_hash(address)} MINT ${_this._formate_hash(mint_params.to)} Success!! TX is:  ${_this._formate_hash(signedTx.transactionHash)}`})
           return receipt;  })
       .on('error', function(err){
