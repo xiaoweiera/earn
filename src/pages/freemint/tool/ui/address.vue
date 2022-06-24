@@ -6,7 +6,6 @@ import { ElInput } from "element-plus";
 import { ref, PropType, onMounted } from "vue";
 import { toolMode } from "src/types/freemint";
 import { Nft } from "src/pages/freemint/lib/nft";
-const emit = defineEmits(["addressCall"]);
 const props = defineProps({
   toolModel: {
     type: Object as PropType<toolMode>,
@@ -16,28 +15,30 @@ const props = defineProps({
 const NFT = ref();
 const isGet = ref(false);
 //赋值或回调
-const getMint = async (value: object) => {
+const getMint = async () => {
   isGet.value = true;
-  const res = await NFT.value.parse_hash(props.toolModel.hash);
+  const res = await NFT.value.parse_hash(props.toolModel.contract);
   if (res) {
     props.toolModel.mintValue = res.value;
     props.toolModel.inputData = res.input_data;
     props.toolModel.contract = res.contract_address;
-    props.toolModel.hashWithNFTOwner = res.owner
+    props.toolModel.hashWithNFTOwner = res.owner;
   }
   isGet.value = false;
-  emit("addressCall", value);
 };
 onMounted(async () => {
   //@ts-ignore
   NFT.value = new Nft(window["AlchemyWeb3"]);
+  if (props.toolModel.contract) {
+    await getMint();
+  }
 });
 </script>
 <template>
   <div class="w-full border-css">
     <div class="title">填入 Mint Hash 或 合约地址 可自动识别</div>
     <div class="flex items-center">
-      <el-input v-model="toolModel.hash" placeholder="输入 ERC721 合约地址或者输入别人的 Mint Hash" autocomplete="off" />
+      <el-input v-model="toolModel.contract" placeholder="输入 ERC721 合约地址或者输入别人的 Mint Hash" autocomplete="off" />
       <div class="get-mint min-w-20.5" @click="getMint">
         <span v-if="!isGet">确定</span>
         <IconFont v-else size="14" type="loading" />

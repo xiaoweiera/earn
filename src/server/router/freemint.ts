@@ -1,6 +1,5 @@
 import { config } from "src/router/config";
 import { Router as ExpressRouter } from "express";
-import * as freeMint from "src/controller/freemint";
 
 const Router = function () {
   const router = ExpressRouter();

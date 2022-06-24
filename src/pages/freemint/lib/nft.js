@@ -1,13 +1,13 @@
 import { ABI } from "./nft_contract_abi.js"
 import { ethers } from 'ethers'
 import safeGet from "@fengqiaogang/safe-get";
-import { uniq,values,sumBy, groupBy, forEach } from 'lodash'
+import { values,sumBy, groupBy, forEach } from 'lodash'
 
 export class Nft {
   constructor(Web3) {
     this.ALCHEMY_KEY = "poUoilj7yipTDB122OglCDp6_K3ddU7o"
-    // this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o"
-    this.api_alchemy_url = "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu"
+    this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o" //正式节点
+    // this.api_alchemy_url = "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu" //测试节点
 
     this.ws_alchemy_url = "wss://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o"
     this.Web3 = Web3
@@ -32,7 +32,6 @@ export class Nft {
       return  this._testSpeed(url)
     })
     const result = await Promise.all(rpc_list_with_speed)
-    console.log(result)
     // 确保第一条是最优记录
     return result.sort((a, b) => {
       return a.speed - b.speed
@@ -259,14 +258,14 @@ export class Nft {
       }
 
       // console.log('txParams: ', txParams)
-      logs.push({ color: "green", msg: `✅ 交易参数: ${JSON.stringify(txParams)}`})
+      logs.push({ color: "green",state:'success', msg: `✅ 交易参数: ${JSON.stringify(txParams)}`})
       
       // TODO 要 gas 预估一下，然后看 余额是否交手续费
       let signedTx = await this.api_web3.eth.accounts.signTransaction(txParams, privateKey)
       // console.log('mySignTransaction: ', signedTx)
-      logs.push({ color: "green", msg: `✅ 签名交易: ${signedTx.transactionHash}`})
+      logs.push({ color: "green",state:'success', msg: `✅ 签名交易: ${signedTx.transactionHash}`})
     
-      let sendSignedTransaction = this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+      await this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction)
       .on('receipt', function(receipt){
           console.log(receipt)
           logs.push({ color: "green",state:'success', msg: `✅ ${_this._formate_hash(address)} MINT ${_this._formate_hash(mint_params.to)} Success!! TX is:  ${_this._formate_hash(signedTx.transactionHash)}`})
@@ -426,7 +425,7 @@ export class Nft {
         //插入聚合数据
         result.push({
           blockNumber:itemTwo[0].blockNumber,
-          name:itemTwo[0].name?itemTwo[0].name:itemTwo[0].metadata.title,
+          name:itemTwo[0].name?itemTwo[0].name:safeGet(itemTwo[0],'metadata.title'),
           image:safeGet(itemTwo[0],'metadata.metadata.image'),
           sumNumber:itemTwo.length, //出现次数
           value:sumBy(itemTwo,'value'),
@@ -450,12 +449,11 @@ export class Nft {
         blockNumber:itemTwo[0].blockNumber,
         contract_address:itemTwo[0].contract_address,
         image:safeGet(itemTwo[0],'metadata.metadata.image'),
-        name:itemTwo[0].name?itemTwo[0].name:itemTwo[0].metadata.title,
+        name:itemTwo[0].name?itemTwo[0].name:safeGet(itemTwo[0],'metadata.title'),
         sumNumber:itemTwo.length,//出现次数
         owner:values(groupBy(data,'owner')).length,
         value:sumBy(itemTwo,'value'),
         gas:sumBy(itemTwo,'gas'),
-        contract_address: itemTwo[0].contract_address,
         description: safeGet(itemTwo[0],'metadata.metadata.description'),
         time: safeGet(itemTwo[0],'metadata.timeLastUpdated')
       })

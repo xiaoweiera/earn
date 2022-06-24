@@ -4,7 +4,7 @@
  */
 import Tag from "../tag.vue";
 import { ElInput, ElCheckbox } from "element-plus";
-import { PropType, ref } from "vue";
+import { PropType } from "vue";
 import { toolMode } from "src/types/freemint";
 const props = defineProps({
   toolModel: {

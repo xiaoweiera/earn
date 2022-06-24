@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { ElTable, ElTableColumn } from "element-plus";
 import { rowClass, headerCellClass, cellClass } from "src/pages/home/topic/data";
-import { reactive, ref, watch, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import Level from "./level.vue";
 import document from "src/plugins/browser/document";
 import window from "src/plugins/browser/window";
 import { dataToTimestamp } from "src/lib/tool";
 
-const props = defineProps({
+defineProps({
   data: {
     type: Object,
     required: true,
@@ -23,11 +22,8 @@ const emit = defineEmits(["sort"]);
 const isPc = ref(true);
 
 const height = document.body.clientWidth > 375 ? 60 : 50;
-const route = useRoute();
-const router = useRouter();
 const key = ref<number>(0);
 
-const isLoad = ref(true);
 // 排序
 const sort = () => {
   // todo
@@ -49,9 +45,6 @@ onMounted(() => {
     isPc.value = document.body.clientWidth > 1024;
   });
 });
-const getTime = (time: any) => {
-  dataToTimestamp(time);
-};
 </script>
 <template>
   <div class="showX md:mb-0 mb-4 mt-4">
