@@ -6,7 +6,6 @@ import { toNumberCashFormat } from "src/utils/convert/to";
 import Level from "./level.vue";
 import document from "src/plugins/browser/document";
 import window from "src/plugins/browser/window";
-import { dataToTimestamp } from "src/lib/tool";
 
 defineProps({
   data: {

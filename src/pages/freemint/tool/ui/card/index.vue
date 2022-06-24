@@ -4,9 +4,10 @@
  */
 import Item from "./item.vue";
 import * as eth from "src/pages/freemint/lib/etherscan.js";
-import { reactive, onMounted, PropType } from "vue";
+import { reactive, onMounted, PropType, onUnmounted } from "vue";
 import { toolMode } from "src/types/freemint";
 import { toNumberCashFormat } from "src/utils/convert/to";
+
 const props = defineProps({
   toolModel: {
     type: Object as PropType<toolMode>,
@@ -14,6 +15,7 @@ const props = defineProps({
   },
 });
 let cardInfo = reactive({ value: {} });
+let Timer: any = null;
 const init = async () => {
   const res = await eth.etherscan.getGasTracker();
   if (res) {
@@ -26,10 +28,18 @@ const init = async () => {
     props.toolModel.maxFeePerGas = toNumberCashFormat(cardInfo.value["FastGasPrice"] * 2);
     //@ts-ignore
     props.toolModel.ethPrice = cardInfo.value["price"];
-
   }
 };
-onMounted(() => init());
+onMounted(async () => {
+  await init();
+  Timer = setInterval(async () => {
+    await init();
+  }, 10000);
+});
+onUnmounted(() => {
+  clearInterval(Timer);
+  Timer = null;
+});
 </script>
 <template>
   <div class="w-full flex showX">

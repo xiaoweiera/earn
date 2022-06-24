@@ -29,7 +29,7 @@ const toolModel: toolMode = reactive({
   baseInfo: {
     value: 0,
     valueType: "eth",
-    gasLimit: 54000,
+    gasLimit: 100000,
     gasType: "eth",
     singleContractMintAmount: 1,
     mintTotal: 10,
@@ -77,7 +77,7 @@ onMounted(async () => {
     <!--    基础信息-->
     <BaseInfo class="mt-4" :toolModel="toolModel" />
     <!--  Smart Minter地址筛选-->
-    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="如填写了地址字段，将仅跟随这些地址 Mint 的 NFT；多个私钥请点击 Add 后添加。" :isWallet="false" @key-call="smartMintList" />
+    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="添加你想跟踪的地址，将仅跟踪这些地址 Mint 的 NFT。填入地址后点击 Add 添加。" :isWallet="false" @key-call="smartMintList" />
     <!--    NFT 关键词搜索-->
     <Keyword class="mt-4" :toolModel="toolModel" />
     <!--    Mint日志-->

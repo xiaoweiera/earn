@@ -227,7 +227,7 @@ export class Nft {
     const _this = this
 
     try {
-      address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
+      address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address  //可以检测是否私钥合规
       const balance = await this.getBalance(address)
 
       let values = await Number(this.api_web3.utils.fromWei(balance ? balance : '')).toFixed(3)
@@ -254,7 +254,7 @@ export class Nft {
           maxPriorityFeePerGas: this.api_web3.utils.toHex(mint_params.maxPriorityFeePerGas * 10 ** 9), //wei
 
           // TODO 设置 gaslimt
-          gasLimit: 2100000
+          gasLimit: 210000
       }
 
       // console.log('txParams: ', txParams)
@@ -419,20 +419,23 @@ export class Nft {
     //根据block分组
     const blockList = values(groupBy(data,'blockNumber'))
     blockList.map(item=> {
+      if(!item) return
       //根据address分组分组
       const addressList = values(groupBy(item,'contract_address'))
       addressList.map(itemTwo => {
-        //插入聚合数据
-        result.push({
-          blockNumber:itemTwo[0].blockNumber,
-          name:itemTwo[0].name?itemTwo[0].name:safeGet(itemTwo[0],'metadata.title'),
-          image:safeGet(itemTwo[0],'metadata.metadata.image'),
-          sumNumber:itemTwo.length, //出现次数
-          value:sumBy(itemTwo,'value'),
-          gas:sumBy(itemTwo,'gas'),
-          contract_address: itemTwo[0].contract_address,
-          description: safeGet(itemTwo[0],'metadata.metadata.description'),          
-        })
+        if(itemTwo[0]){
+          //插入聚合数据
+          result.push({
+            blockNumber:itemTwo[0].blockNumber,
+            name:itemTwo[0].name?itemTwo[0].name:safeGet(itemTwo[0],'metadata.title'),
+            image:safeGet(itemTwo[0],'metadata.metadata.image'),
+            sumNumber:itemTwo.length, //出现次数
+            value:sumBy(itemTwo,'value'),
+            gas:sumBy(itemTwo,'gas'),
+            contract_address: itemTwo[0].contract_address,
+            description: safeGet(itemTwo[0],'metadata.metadata.description'),
+          })
+        }
       })
     })
     //再根据聚合数据分组 block
@@ -469,13 +472,15 @@ export class Nft {
 
   async get_lastest_mint_tx(blockNumbers) {
    //  const fromBlock = xxxx
-   //  const tpBlock =await this.getLasetBlock()
-   //  const txs = await this.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
-   //  const txsWait = txs.transfers.map(tx => {
-   //    return this.formate_nft(tx).bind(this)
-   //  })
-   // return await Promise.all(txsWait)
-   
+    const lastBlock =await this.getLasetBlock()
+    const _this=this
+    const txs = await this.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
+    const txsWait = txs.transfers.map(tx => {
+      return _this.formate_nft(tx)
+    })
+
+    const res=await Promise.all(txsWait)
+    return res
   }
 
 
@@ -498,11 +503,15 @@ export class Nft {
 
   async formate_nft(nft_event) {
     try {
-      const tx = await this.api_web3.eth.getTransaction(nft_event.hash)
-      const receipt = await this.api_web3.alchemy.getTransactionReceipts({ blockNumber: nft_event.blockNum })
-      const mycontract = new this.api_web3.eth.Contract(ABI, nft_event.rawContract.address)
-      const metadata = await this.api_web3.alchemy.getNftMetadata({ contractAddress: nft_event.rawContract.address, tokenId: nft_event.tokenId })
-
+      // const tx = await this.api_web3.eth.getTransaction(nft_event.hash)
+      // const receipt = await this.api_web3.alchemy.getTransactionReceipts({ blockNumber: nft_event.blockNum })
+      // const mycontract = new this.api_web3.eth.Contract(ABI, nft_event.rawContract.address)
+      // const metadata = await this.api_web3.alchemy.getNftMetadata({ contractAddress: nft_event.rawContract.address, tokenId: nft_event.tokenId })
+      const [tx,mycontract,metadata] = await Promise.all([
+        this.api_web3.eth.getTransaction(nft_event.hash),
+        new this.api_web3.eth.Contract(ABI, nft_event.rawContract.address),
+        this.api_web3.alchemy.getNftMetadata({ contractAddress: nft_event.rawContract.address, tokenId: nft_event.tokenId })
+      ])
       return {
         // 集合相关的信息
         symbol: nft_event.asset,
