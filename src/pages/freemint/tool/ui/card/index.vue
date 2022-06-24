@@ -24,6 +24,9 @@ const init = async () => {
     props.toolModel.maxPriorityFeePerGas = toNumberCashFormat(cardInfo.value["FastGasPrice"] - cardInfo.value["suggestBaseFee"]);
     //@ts-ignore
     props.toolModel.maxFeePerGas = toNumberCashFormat(cardInfo.value["FastGasPrice"] * 2);
+    //@ts-ignore
+    props.toolModel.ethPrice = cardInfo.value["price"];
+
   }
 };
 onMounted(() => init());

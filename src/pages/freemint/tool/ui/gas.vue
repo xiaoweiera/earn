@@ -5,6 +5,7 @@
 import { ElInput } from "element-plus";
 import { PropType } from "vue";
 import { toolMode } from "src/types/freemint";
+import { toNumberCashFormat } from "src/utils/convert/to";
 
 defineProps({
   toolModel: {
@@ -22,13 +23,12 @@ defineProps({
         <div class="title">
           <span>Gas 预估花费</span>
           <div class="state">
-            <span>0.005 ETH</span>
-            <span>($4.21)</span>
+            <span>{{ toNumberCashFormat((Number(toolModel.baseFeePerGas) + Number(toolModel.maxPriorityFeePerGas)) * 0.000000001 * Number(toolModel.ethPrice) * Number(toolModel.gasLimit), "$") }}</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="md:flex mt-4">
+    <div class="md:flex mt-3">
       <div class="state w-full">
         <div class="gasItem">
           <div class="des">Base Fee (GWei)</div>
@@ -40,7 +40,7 @@ defineProps({
         </div>
         <div class="gasItem">
           <div class="des">Gas Limit</div>
-          <el-input v-model="toolModel.maxFeePerGas" placeholder="0" autocomplete="off" />
+          <el-input v-model="toolModel.gasLimit" placeholder="0" autocomplete="off" />
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@ defineProps({
       <div class="flex-1 mr-6">
         <div class="flex items-center">
           <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
-          <div class="title">Mint 数量</div>
+          <div class="title">Mint 需要执行次数</div>
         </div>
         <el-input v-model="toolModel.mintAmount" class="mt-4" placeholder="0" autocomplete="off" />
       </div>
@@ -58,7 +58,7 @@ defineProps({
       <div class="flex-1">
         <div class="flex items-center">
           <ui-image class="mr-2 w-5 h-5" oss src="/mint/walletNo.png" />
-          <div class="title">Value</div>
+          <div class="title">Value(Mint Price, 0 is Freemint)</div>
         </div>
         <el-input v-model="toolModel.mintValue" class="mt-4" placeholder="0" autocomplete="off" />
       </div>
@@ -68,7 +68,7 @@ defineProps({
       <div class="flex items-center">
         <ui-image class="mr-2 w-5 h-5" oss src="/mint/data.png" />
         <div class="title mr-1.5">Input Data</div>
-        <span class="tips">如无法读懂，请不要修改</span>
+        <span class="tips">无需修改任何内容，程序会在运行过程中自动将 InputData 中 NFT 收款地址替换成私钥对应的地址</span>
       </div>
       <el-input v-model="toolModel.inputData" class="mt-4" :rows="3" type="textarea" placeholder="请输入" />
     </div>

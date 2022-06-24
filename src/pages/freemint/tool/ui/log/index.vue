@@ -2,7 +2,7 @@
 /**
  * Mint日志
  */
-import Tip from "./tip.vue";
+// import Tip from "./tip.vue";
 import Info from "./info.vue";
 import { PropType, ref, watch } from "vue";
 import { toolMode } from "src/types/freemint";
@@ -48,7 +48,7 @@ const selectTag = (value: string) => (tagIndex.value = value);
       <div class="recordList">
         <template v-for="info in toolModel.logs" :key="info">
           <div v-show="info['state'] === tagIndex || tagIndex === 'all'" class="record">
-            <Tip v-if="info['state']" :type="info['state']" class="mr-3" />
+            <!-- <Tip v-if="info['state']" :type="info['state']" class="mr-3" /> -->
             <div :style="{ color: `${info['color']}` }" class="text">{{ info["msg"] }}</div>
           </div>
         </template>
@@ -62,6 +62,7 @@ const selectTag = (value: string) => (tagIndex.value = value);
 <style scoped lang="scss">
 .record {
   @apply mt-2.5 flex items-center;
+  word-break: break-all;
 }
 .text {
   @apply text-kd13px18px;

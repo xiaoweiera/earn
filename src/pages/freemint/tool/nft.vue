@@ -5,31 +5,39 @@ import Key from "./ui/key.vue";
 import Log from "./ui/log/index.vue";
 import Node from "./ui/node.vue";
 import Button from "./ui/button.vue";
-import Info from "./ui/info.vue";
+// import Info from "./ui/info.vue";
 import Gas from "./ui/gas.vue";
 import Address from "./ui/address.vue";
 import { toolMode } from "src/types/freemint";
 import { reactive } from "vue";
 import { ref, onMounted } from "vue";
 import { Nft } from "src/pages/freemint/lib/nft";
+import { getParam } from "src/utils/router";
 
 const toolModel: toolMode = reactive({
-  node: "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu", //节点
-  keyList: [
-    "71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147", // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
-    "a9d02766e49feb7e640d1e72b76af727da02ca420253953c28536dc2bb929517", //0xe74d2e4743aBD08bDc64B7b98568015A48145019
-    "test-error",
-  ], //私钥
-
+  // node: "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu", //节点
+  // keyList: [
+  //   "71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147", // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
+  //   "a9d02766e49feb7e640d1e72b76af727da02ca420253953c28536dc2bb929517", //0xe74d2e4743aBD08bDc64B7b98568015A48145019
+  //   "test-error",
+  // ], //私钥
+  node: "",
+  keyList: [],
   baseFeePerGas: 50,
   maxPriorityFeePerGas: 2,
   maxFeePerGas: 50,
-
-  contract: "0x608a8e0422d0586d121264ec7981f8b2da299279",
+  start_running: false,
+  // contract: "0x608a8e0422d0586d121264ec7981f8b2da299279",
+  contract: getParam<string>("contact"),
   mintAmount: 3,
   mintValue: 0,
-  inputData: "0xfca247ac7926fb9208a20417f0b848065c6fe289da455821d6fc0c117845ad8d5b331d2b000000000000000000000000A68c22160A887ce1E91ce7B650f80FED923650bC0000000000000000000000000000000000000000000000000000000001e13380",
+  inputData: "",
+  // inputData: "0xfca247ac7926fb9208a20417f0b848065c6fe289da455821d6fc0c117845ad8d5b331d2b000000000000000000000000A68c22160A887ce1E91ce7B650f80FED923650bC0000000000000000000000000000000000000000000000000000000001e13380",
   logs: [],
+  gasLimit: 54000,
+  ethPrice: 0,
+  hash: "",
+  hashWithNFTOwner: "",
 });
 //@ts-ignore
 const keyList = (keyList: any) => (toolModel.keyList = keyList);
@@ -66,7 +74,7 @@ onMounted(async () => {
     <!--    Mint日志-->
     <Log class="mt-4" :toolModel="toolModel" />
     <!--    首页 info 和 Mint按钮-->
-    <Info class="mt-4" />
+    <!-- <Info class="mt-4" /> -->
     <!--Mint-->
     <Button type="auto" :toolModel="toolModel" @start_mint="autom_mint" />
   </div>

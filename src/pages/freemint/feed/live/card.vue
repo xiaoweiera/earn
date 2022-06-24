@@ -8,7 +8,7 @@ defineProps({
 });
 </script>
 <template>
-  <div>
+  <div v-if="data">
     <div class="state h-7.75">
       <!--    分组-->
       <div class="yuan-blue"></div>
@@ -26,7 +26,7 @@ defineProps({
 .yuan-blue {
   background: rgba(0, 111, 247, 0.12);
   border: 2px solid rgba(0, 111, 247, 1);
-  @apply w-3 h-3 mr-1.5 ml-1.4 rounded-full relative flex justify-center items-center;
+  @apply w-3 h-3 mr-1.5 md:ml-1.4 rounded-full relative flex justify-center items-center;
 }
 .yuan-blue:after {
   content: "";

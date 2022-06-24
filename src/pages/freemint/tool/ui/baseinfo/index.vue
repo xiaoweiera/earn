@@ -4,7 +4,7 @@
  */
 import Tag from "../tag.vue";
 import { ElInput, ElCheckbox } from "element-plus";
-import { PropType, ref } from "vue";
+import { PropType } from "vue";
 import { toolMode } from "src/types/freemint";
 const props = defineProps({
   toolModel: {
@@ -26,7 +26,7 @@ const changeGasType = (value: string) => (props.toolModel.baseInfo.gasType = val
     <div class="kd-input">
       <!--      Value-->
       <div class="item">
-        <div class="txt" v-html="'Value <='"></div>
+        <div class="txt" v-html="'Mint Price <='"></div>
         <div class="state mt-1 md:mt-0">
           <el-input v-model="toolModel.baseInfo.value" class="input-info" placeholder="" autocomplete="off" />
           <!--切换按钮-->
