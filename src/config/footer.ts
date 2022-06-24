@@ -139,7 +139,7 @@ export const footers = function (lang?: Lang): MenuItem[] {
         // },
         {
           name: i18n.menu.service.mediaCooperation,
-          href: "https://t.me/dydy1019",
+          href: "https://t.me/sue8639313",
           blank: true,
         },
         {
