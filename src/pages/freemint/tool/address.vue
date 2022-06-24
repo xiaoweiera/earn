@@ -29,7 +29,7 @@ const toolModel: toolMode = reactive({
   baseInfo: {
     value: 0,
     valueType: "eth",
-    gasLimit: 100000,
+    gasLimit: 0.05,
     gasType: "eth",
     singleContractMintAmount: 1,
     mintTotal: 10,
