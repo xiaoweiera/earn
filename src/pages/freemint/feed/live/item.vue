@@ -20,19 +20,21 @@ defineProps({
         <div>
           <div class="state">
             <div class="state">
-              <span class="mr-1.5 text-kd16px22px text-global-balck-title font-medium">{{ data.name }}<small class="gray"> ({{data.contract_address}})</small></span>
+              <span class="mr-1.5 text-kd16px22px text-global-balck-title font-medium">
+                {{ data.name }}
+                <small class="gray">({{ data.contract_address }})</small>
+              </span>
               <span class="text-kd14px18px font-medium text-global-text-grey font-kdFang">{{ data.sumNumber ? `X${data.sumNumber}` : "" }}</span>
               <div class="gang mx-2" />
             </div>
             <div class="state">
-              <a :href="'https://etherscan.io/address/'+ data.contract_address" blank="_blank">
+              <a :href="'https://etherscan.io/address/' + data.contract_address" blank="_blank">
                 <ui-image class="w-4 h-4 mr-1.5" oss src="/mint/scan.png" />
               </a>
             </div>
-            
           </div>
-          <div class="gray">
-              {{data.description}}
+          <div class="gray w-180 short">
+            {{ data.description }}
           </div>
 
           <div class="state mt-3">
@@ -52,8 +54,8 @@ defineProps({
           </div>
         </div>
         <div>
-          <div class="fast-mint">Fast Mint</div>
-          <div class="copy-mint mt-2">Copy Mint</div>
+          <!--          <div class="fast-mint">Fast Mint</div>-->
+          <v-router class="copy-mint mt-2" :href="`/freemint/nft?contact=${data.contract_address}`">Copy Mint</v-router>
         </div>
       </div>
     </div>
@@ -91,7 +93,7 @@ defineProps({
       </div>
       <div class="flex items-center mt-3">
         <!-- <div class="fast-mint mr-2">Fast Mint</div> -->
-        <div class="copy-mint">Copy Mint</div>
+        <v-router class="copy-mint" :href="`/freemint/nft?contact=${data.contract_address}`">Copy Mint</v-router>
       </div>
     </div>
   </div>

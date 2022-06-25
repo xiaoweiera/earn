@@ -2,7 +2,7 @@
 /**
  * Mint日志
  */
-import Tip from "./tip.vue";
+// import Tip from "./tip.vue";
 import Info from "./info.vue";
 import { PropType, ref, watch } from "vue";
 import { toolMode } from "src/types/freemint";

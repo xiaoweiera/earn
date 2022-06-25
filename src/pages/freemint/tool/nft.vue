@@ -5,13 +5,14 @@ import Key from "./ui/key.vue";
 import Log from "./ui/log/index.vue";
 import Node from "./ui/node.vue";
 import Button from "./ui/button.vue";
-import Info from "./ui/info.vue";
+// import Info from "./ui/info.vue";
 import Gas from "./ui/gas.vue";
 import Address from "./ui/address.vue";
 import { toolMode } from "src/types/freemint";
 import { reactive } from "vue";
 import { ref, onMounted } from "vue";
 import { Nft } from "src/pages/freemint/lib/nft";
+import { getParam } from "src/utils/router";
 
 const toolModel: toolMode = reactive({
   // node: "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu", //节点
@@ -26,17 +27,17 @@ const toolModel: toolMode = reactive({
   maxPriorityFeePerGas: 2,
   maxFeePerGas: 50,
   start_running: false,
-  // contract: "0xbc04c3c2dca02fbd6ee03a7cd6f9973cfbf53ffd",
-  contact: '',
   mintAmount: 3,
+  // contract: "0x508c58996e46b10b093f9f4ead6ab3416e73f3a1",
+  contract: getParam<string>("contact"),
   mintValue: 0,
-  inputData: '',
+  inputData: "",
   // inputData: "0xfca247ac7926fb9208a20417f0b848065c6fe289da455821d6fc0c117845ad8d5b331d2b000000000000000000000000A68c22160A887ce1E91ce7B650f80FED923650bC0000000000000000000000000000000000000000000000000000000001e13380",
   logs: [],
   gasLimit: 0,
   ethPrice: 0,
-  hash: '',
-  hashWithNFTOwner: '',
+  hash: "",
+  hashWithNFTOwner: "",
 });
 //@ts-ignore
 const keyList = (keyList: any) => (toolModel.keyList = keyList);

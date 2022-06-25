@@ -36,8 +36,8 @@ const getInit = async () => {
 };
 //得到Free的数据
 const getFreeList = () => {
-  // const newBlock = block.filter((item: any) => item.value === 0)
-  freeList.value = originList.value.filter((item: any) => item.sumNumber > 1); //可以拿着这个去测试，出现次数大于1的
+  freeList.value = originList.value.filter((item: any) => item.value === 0);
+  // freeList.value = originList.value.filter((item: any) => item.sumNumber > 1); //可以拿着这个去测试，出现次数大于1的
   freeData.value = freeList.value;
 };
 //得到第一页或者下一页数据

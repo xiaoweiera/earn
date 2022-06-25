@@ -4,11 +4,6 @@
  */
 import { ElInput } from "element-plus";
 import { ref } from "vue";
-import { isConnect } from "src/logic/common/wallet";
-import Wallet from "src/plugins/web3/wallet";
-import safeGet from "@fengqiaogang/safe-get";
-import { messageError } from "src/lib/tool";
-import { getErrorMessageContent } from "src/plugins/web3/message";
 defineProps({
   icon: {
     type: String,
@@ -20,7 +15,7 @@ defineProps({
   },
   des: {
     type: String,
-    default: "本地操作，服务器不会获取你的私钥。为了安全考虑，建议用小号；多个私钥请点击 Add 后添加。",
+    default: "需要本地使用你的私钥进行操作，服务器不会获取你的私钥，为了安全考虑，建议用小号。填入私钥后点击 Add 添加。",
   },
   isWallet: {
     type: Boolean,

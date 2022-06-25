@@ -16,7 +16,7 @@ import { Nft } from "src/pages/freemint/lib/nft";
 const toolModel: toolMode = reactive({
   node: "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu", //节点
   keyList: [
-    "71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147", // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
+    // "71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147", // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
     // "a9d02766e49feb7e640d1e72b76af727da02ca420253953c28536dc2bb929517", //0xe74d2e4743aBD08bDc64B7b98568015A48145019
     // "test-error",
   ], //私钥

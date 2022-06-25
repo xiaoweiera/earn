@@ -1,14 +1,14 @@
 import { ABI } from "./nft_contract_abi.js"
 import { ethers } from 'ethers'
 import safeGet from "@fengqiaogang/safe-get";
-import { uniq,values,sumBy, groupBy, forEach } from 'lodash'
+import { values,sumBy, groupBy, forEach } from 'lodash'
 
 export class Nft {
   constructor(Web3) {
     this.ALCHEMY_KEY = "poUoilj7yipTDB122OglCDp6_K3ddU7o"
-    // this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o"
-    this.api_alchemy_url = "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu"
-
+    this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o" //正式节点
+    // this.api_alchemy_url = "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu" //测试节点
+    this.nonceList={} //nonceList
     this.ws_alchemy_url = "wss://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o"
     this.Web3 = Web3
     this.api_web3 = this.Web3.createAlchemyWeb3(this.api_alchemy_url)
@@ -32,7 +32,6 @@ export class Nft {
       return  this._testSpeed(url)
     })
     const result = await Promise.all(rpc_list_with_speed)
-    console.log(result)
     // 确保第一条是最优记录
     return result.sort((a, b) => {
       return a.speed - b.speed
@@ -237,12 +236,13 @@ export class Nft {
       maxPriorityFeePerGas: number
     }
   */
+
   async _mint_nft(mint_params, privateKey, logs) {
     let address = ''
     const _this = this
 
     try {
-      address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address
+      address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address  //可以检测是否私钥合规
       const balance = await this.getBalance(address)
 
       let values = await Number(this.api_web3.utils.fromWei(balance ? balance : '')).toFixed(3)
@@ -258,6 +258,7 @@ export class Nft {
           from: address,
           to: mint_params.to,
           // nonce: Math.floor(Date.now() / 1000000),
+
           data: mint_params.inputData.replace(mint_params.originNFTOwner.substr(2), address.substr(2)),
           // value: this.api_web3.utils.toWei(mint_params.value.toString(), 'ether'),
           value: mint_params.value,
@@ -297,13 +298,13 @@ export class Nft {
     
       let sendSignedTransaction = await this.api_web3.eth.sendSignedTransaction(signedTx.rawTransaction)
       .on('receipt', function(receipt){
-          console.log(receipt)
           logs.push({ color: "green",state:'success', msg: `✅ ${_this._formate_hash(address)} MINT ${_this._formate_hash(mint_params.to)} Success!! TX is:  ${_this._formate_hash(signedTx.transactionHash)}`})
           logs.push({ msg: `本次 MINT 实际花费手续费: ${receipt.gasUsed  * receipt.effectiveGasPrice / (10 **18)} ETH ！`})
           return receipt;  })
       .on('error', function(err){
-          logs.push({ color: "red",state:'fail', msg: `❌ ${_this._formate_hash(address)} MINT ${err}`})
-          return false })
+        // 这里的错误会跑出去，在 下面的 catch 中处理，所以这里就不处理了，因为现在是同步在处理，不是异步 function
+          return false 
+      })
 
       return sendSignedTransaction;
     } catch(e) {
@@ -460,20 +461,23 @@ export class Nft {
     //根据block分组
     const blockList = values(groupBy(data,'blockNumber'))
     blockList.map(item=> {
+      if(!item) return
       //根据address分组分组
       const addressList = values(groupBy(item,'contract_address'))
       addressList.map(itemTwo => {
-        //插入聚合数据
-        result.push({
-          blockNumber:itemTwo[0].blockNumber,
-          name:itemTwo[0].name?itemTwo[0].name:itemTwo[0].metadata.title,
-          image:safeGet(itemTwo[0],'metadata.metadata.image'),
-          sumNumber:itemTwo.length, //出现次数
-          value:sumBy(itemTwo,'value'),
-          gas:sumBy(itemTwo,'gas'),
-          contract_address: itemTwo[0].contract_address,
-          description: safeGet(itemTwo[0],'metadata.metadata.description'),          
-        })
+        if(itemTwo[0]){
+          //插入聚合数据
+          result.push({
+            blockNumber:itemTwo[0].blockNumber,
+            name:itemTwo[0].name?itemTwo[0].name:safeGet(itemTwo[0],'metadata.title'),
+            image:safeGet(itemTwo[0],'metadata.metadata.image'),
+            sumNumber:itemTwo.length, //出现次数
+            value:sumBy(itemTwo,'value'),
+            gas:sumBy(itemTwo,'gas'),
+            contract_address: itemTwo[0].contract_address,
+            description: safeGet(itemTwo[0],'metadata.metadata.description'),
+          })
+        }
       })
     })
     //再根据聚合数据分组 block
@@ -490,12 +494,11 @@ export class Nft {
         blockNumber:itemTwo[0].blockNumber,
         contract_address:itemTwo[0].contract_address,
         image:safeGet(itemTwo[0],'metadata.metadata.image'),
-        name:itemTwo[0].name?itemTwo[0].name:itemTwo[0].metadata.title,
+        name:itemTwo[0].name?itemTwo[0].name:safeGet(itemTwo[0],'metadata.title'),
         sumNumber:itemTwo.length,//出现次数
         owner:values(groupBy(data,'owner')).length,
         value:sumBy(itemTwo,'value'),
         gas:sumBy(itemTwo,'gas'),
-        contract_address: itemTwo[0].contract_address,
         description: safeGet(itemTwo[0],'metadata.metadata.description'),
         time: safeGet(itemTwo[0],'metadata.timeLastUpdated')
       })
@@ -511,13 +514,15 @@ export class Nft {
 
   async get_lastest_mint_tx(blockNumbers) {
    //  const fromBlock = xxxx
-   //  const tpBlock =await this.getLasetBlock()
-   //  const txs = await this.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
-   //  const txsWait = txs.transfers.map(tx => {
-   //    return this.formate_nft(tx).bind(this)
-   //  })
-   // return await Promise.all(txsWait)
-   
+    const lastBlock =await this.getLasetBlock()
+    const _this=this
+    const txs = await this.fetch_nft_mint_transactions(lastBlock - blockNumbers, lastBlock)
+    const txsWait = txs.transfers.map(tx => {
+      return _this.formate_nft(tx)
+    })
+
+    const res=await Promise.all(txsWait)
+    return res
   }
 
 
@@ -540,10 +545,14 @@ export class Nft {
 
   async formate_nft(nft_event) {
     try {
-      const tx = await this.api_web3.eth.getTransaction(nft_event.hash)
-      const receipt = await this.api_web3.alchemy.getTransactionReceipts({ blockNumber: nft_event.blockNum })
+      // const tx = await this.api_web3.eth.getTransaction(nft_event.hash)
+      // const receipt = await this.api_web3.alchemy.getTransactionReceipts({ blockNumber: nft_event.blockNum })
       // const mycontract = new this.api_web3.eth.Contract(ABI, nft_event.rawContract.address)
-      const metadata = await this.api_web3.alchemy.getNftMetadata({ contractAddress: nft_event.rawContract.address, tokenId: nft_event.tokenId })
+      // const metadata = await this.api_web3.alchemy.getNftMetadata({ contractAddress: nft_event.rawContract.address, tokenId: nft_event.tokenId })
+      const [tx, metadata] = await Promise.all([
+        this.api_web3.eth.getTransaction(nft_event.hash),
+        this.api_web3.alchemy.getNftMetadata({ contractAddress: nft_event.rawContract.address, tokenId: nft_event.tokenId })
+      ])
 
       return {
         // 集合相关的信息

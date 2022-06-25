@@ -22,8 +22,7 @@ const originList = ref<any>([]); //得到的原始数据源（分组过后的）
 const freeList = ref<any>([]); // Free的数据列表
 const list = ref<any>([]); //展示的数据
 const getInit = async () => {
-  // const data=await NFT.value.get_lastest_mint_tx(30)
-  list.value = NFT.value.group_by_block(data);
+  // const datas=await NFT.value.get_lastest_mint_tx(1)
   originList.value = NFT.value.group_by_block(data);
 };
 //得到Free的数据
@@ -81,37 +80,39 @@ onMounted(async () => {
 </script>
 <template>
   <div class="feed-page">
+    {{ list.length }}
     <div class="state justify-between">
       <div class="text-kd16px22px font-medium text-global-highTitle">Live Feeds</div>
       <div>
         <Chain />
       </div>
     </div>
-<!--     <div class="state justify-between h-14 border-css px-3 mt-4">
-      <div class="state">
-        <ui-image class="mr-1.5 w-6 h-6" oss src="/mint/jiqiren.png" />
-        <div class="text-kd14px18px font-medium text-global-black-title">Free Mint 播报机器人</div>
-      </div>
-      <div class="get">领取</div>
-    </div> -->
+    <!--    <div class="state justify-between h-14 border-css px-3 mt-4">-->
+    <!--      <div class="state">-->
+    <!--        <ui-image class="mr-1.5 w-6 h-6" oss src="/mint/jiqiren.png"/>-->
+    <!--        <div class="text-kd14px18px font-medium text-global-black-title">Free Mint 播报机器人</div>-->
+    <!--      </div>-->
+    <!--      <div class="get">领取</div>-->
+    <!--    </div>-->
     <div class="state justify-end mt-4 h-9.25">
       <!--      <div class="state">-->
       <!--        <div class="yuan-green"></div>-->
       <!--        <div class="green">Block：14937360</div>-->
       <!--      </div>-->
       <div class="state">
-        <!-- <span class="text-kd12px16px text-global-black-title font-medium mr-1">地址过滤</span> -->
-<!--         <div class="relative mr-6">
-          <ui-image class="w-6 h-6" oss src="/mint/filter.png" />
-          <div class="dian">{{ list.length }}</div>
-        </div>
+        <!--        <span class="text-kd12px16px text-global-black-title font-medium mr-1">地址过滤</span>-->
+        <!--        <div class="relative mr-6">-->
+        <!--          <ui-image class="w-6 h-6" oss src="/mint/filter.png"/>-->
+        <!--          <div class="dian">{{ list.length }}</div>-->
+        <!--        </div>-->
         <Tag :default="tag" :data="tagList" @change="changeTag" />
       </div>
     </div>
-    <!--list-->
+
+    <!--  list-->
     <div :key="key">
       <template v-for="(blockItem, i) in list" :key="i">
-        <Card :class="i === 0 ? 'mt-1' : 'mt-3'" :data="blockItem" />
+        <Card :class="i === 0 ? 'mt-0' : 'mt-3'" :data="blockItem" />
       </template>
     </div>
     <div v-if="isMore" class="more mt-5" @click="more">加载更多</div>
