@@ -13,11 +13,6 @@ const props = defineProps({
   },
 });
 const tagIndex = ref("all");
-const isBegin = ref(false); //是否存在log日志
-watch(
-  () => props.toolModel.start_running,
-  () => (isBegin.value = true),
-);
 const tagList = [
   { name: "All", value: "all" },
   { name: "屏蔽", value: "noShow" },
@@ -42,7 +37,7 @@ const selectTag = (value: string) => (tagIndex.value = value);
       </template>
     </div>
     <!--    Mint 程序日志  暂时无日志-->
-    <div v-if="!isBegin" class="log-content no-log">Mint 程序未启动，暂无 Mint 日志</div>
+    <div v-if="toolModel.logs.length < 1" class="log-content no-log">Mint 程序未启动，暂无 Mint 日志</div>
     <div v-else class="log-content ok-log">
       <!--记录列表-->
       <div class="recordList">

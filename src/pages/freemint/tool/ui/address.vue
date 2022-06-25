@@ -24,6 +24,7 @@ const getMint = async (value: object) => {
     props.toolModel.inputData = res.input_data;
     props.toolModel.contract = res.contract_address;
     props.toolModel.hashWithNFTOwner = res.owner
+    props.toolModel.gasLimit = res.gasLimit
   }
   isGet.value = false;
   emit("addressCall", value);
