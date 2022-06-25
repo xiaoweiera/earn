@@ -114,6 +114,7 @@ export class Nft {
         forEach(collections, (nfts, contract) => {
 
           if(!nfts || !contract) return
+
           // 关键词的屏蔽
           let shieldWord = mint_params.shieldWord
           if (shieldWord) {
@@ -151,7 +152,7 @@ export class Nft {
           // 地址筛选
           const smartMintList = mint_params.smartMintList
           if (smartMintList.length) {
-            if (!smartMintList.includes(nfts[0].to)) {
+            if (!smartMintList.includes(nfts[0].owner)) {
               logs.push({ color: 'rgb(62 79 103)',state:'select', msg: `❌ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为不是聪明钱在Mint! ${smartMintList.join(', ')} `})
               return
             }
@@ -238,7 +239,7 @@ export class Nft {
       }
       logs.push({ color: "#333", msg: `${this._formate_hash(address)} balance is ${values} ETH`})
 
-      const nonce = await this.api_web3.eth.getTransactionCount(address, 'latest'); // nonce starts counting from 0
+      const nonce = await this.api_web3.eth.getTransactionCount(address, 'pending'); // nonce starts counting from 0
 
       logs.push({ msg: `mint_params.maxPriorityFeePerGas: ${mint_params.maxPriorityFeePerGas}` })
 
@@ -246,17 +247,17 @@ export class Nft {
           from: address,
           to: mint_params.to,
           // nonce: Math.floor(Date.now() / 1000000),
-          nonce: nonce + 100,
+          nonce: nonce,
           data: mint_params.inputData.replace(mint_params.originNFTOwner.substr(2), address.substr(2)),
           // value: this.api_web3.utils.toWei(mint_params.value.toString(), 'ether'),
           value: mint_params.value,
 
-          // maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
+          maxFeePerGas: this.api_web3.utils.toHex(mint_params.maxFeePerGas * 10 ** 9), //wei
           maxPriorityFeePerGas: this.api_web3.utils.toHex(mint_params.maxPriorityFeePerGas * 10 ** 9), //wei
-
-          // TODO 设置 gaslimt
-          gasLimit: 2100000
       }
+
+      const estGas = await this.api_web3.eth.estimateGas(txParams)
+      txParams.gasLimit = estGas
 
       // console.log('txParams: ', txParams)
       logs.push({ color: "green", msg: `✅ 交易参数: ${JSON.stringify(txParams)}`})
