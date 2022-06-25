@@ -31,17 +31,18 @@ const changeGasType = (value: string) => (props.toolModel.baseInfo.gasType = val
           <el-input v-model="toolModel.baseInfo.value" class="input-info" placeholder="" autocomplete="off" />
           <!--切换按钮-->
           <Tag class="ml-3" @change="changeValueType" />
+          <div class="des xshidden" v-html="'Mint Price 超过该值的 Mint 会自动忽略'"></div>          
         </div>
       </div>
       <!--      Gas 上限-->
       <div class="item">
-        <div class="txt" v-html="'Gas 上限 <='"></div>
-        <div class="des mdhidden" v-html="'捋自动获取最优Gas方案，并确保每笔Gas <= Gas 上限'"></div>
+        <div class="txt" v-html="'单词手续费上限 <='"></div>
+        <div class="des mdhidden" v-html="'单次手续费超过该值的 Mint 会自动忽略'"></div>
         <div class="state mt-1 md:mt-0">
           <el-input v-model="toolModel.baseInfo.gasLimit" class="input-info" placeholder="" autocomplete="off" />
           <!--切换按钮-->
           <Tag class="ml-3" @change="changeGasType" />
-          <div class="des xshidden" v-html="'捋自动获取最优Gas方案，并确保每笔Gas <= Gas 上限'"></div>
+          <div class="des xshidden" v-html="'单次手续费超过该值的 Mint 会自动忽略'"></div>
         </div>
       </div>
       <!--      单合约 Mint 数量-->
@@ -54,7 +55,7 @@ const changeGasType = (value: string) => (props.toolModel.baseInfo.gasType = val
         <div class="txt" v-html="'本次 Mint 总数 <='"></div>
         <div class="state mt-1 md:mt-0">
           <el-input v-model="toolModel.baseInfo.mintTotal" class="input-info" placeholder="" autocomplete="off" />
-          <el-checkbox v-model="toolModel.baseInfo.isNoLimit" class="ml-3" label="无上限"></el-checkbox>
+          <div class="des xshidden" v-html="'达到上限后，自动 Mint 程序会自动停止'"></div>          
         </div>
       </div>
     </div>
