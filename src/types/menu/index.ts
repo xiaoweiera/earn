@@ -16,6 +16,7 @@ export interface MenuItem {
   expand?: string;
   more?: boolean; // 是否在更多菜单中展示
   newTip?: boolean; // 是否在菜单右上角展示小红点
+  sideNewTip?: boolean; //左侧导航的new
   active?: boolean; // 是否为选中状态
   message?: number; // 消息数量
   layout?: boolean; // 布局方式
