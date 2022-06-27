@@ -346,7 +346,7 @@ export class Nft {
 
                 data: mint_params.inputData.replace(mint_params.originNFTOwner.substr(2), address.substr(2)),
                 // value: this.api_web3.utils.toWei(mint_params.value.toString(), 'ether'),
-                value: mint_params.value,
+                value: mint_params.metamusk_is_collected ? mint_params.value.toString() : mint_params.value,
 
                 maxFeePerGas: this.api_web3.utils.toHex(parseInt(mint_params.maxFeePerGas * 10 ** 9 * 1.1)), //wei
                 maxPriorityFeePerGas: this.api_web3.utils.toHex(parseInt(mint_params.maxPriorityFeePerGas * 10 ** 9)), //wei
