@@ -27,4 +27,6 @@ export interface toolMode {
   gasLimit?: number;
   ethPrice?: number;
   hashWithNFTOwner?: string;
+  metamusk_is_collected?: boolean;
+  metamusk_address?: string;
 }

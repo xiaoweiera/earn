@@ -3,7 +3,7 @@
  * 基础信息
  */
 import Tag from "../tag.vue";
-import { ElInput, ElCheckbox } from "element-plus";
+import { ElInput } from "element-plus";
 import { PropType } from "vue";
 import { toolMode } from "src/types/freemint";
 const props = defineProps({
@@ -31,7 +31,7 @@ const changeGasType = (value: string) => (props.toolModel.baseInfo.gasType = val
           <el-input v-model="toolModel.baseInfo.value" class="input-info" placeholder="" autocomplete="off" />
           <!--切换按钮-->
           <Tag class="ml-3" @change="changeValueType" />
-          <div class="des xshidden" v-html="'Mint Price 超过该值的 Mint 会自动忽略'"></div>          
+          <div class="des xshidden" v-html="'Mint Price 超过该值的 Mint 会自动忽略'"></div>
         </div>
       </div>
       <!--      Gas 上限-->
@@ -55,7 +55,7 @@ const changeGasType = (value: string) => (props.toolModel.baseInfo.gasType = val
         <div class="txt" v-html="'本次 Mint 总数 <='"></div>
         <div class="state mt-1 md:mt-0">
           <el-input v-model="toolModel.baseInfo.mintTotal" class="input-info" placeholder="" autocomplete="off" />
-          <div class="des xshidden" v-html="'达到上限后，自动 Mint 程序会自动停止'"></div>          
+          <div class="des xshidden" v-html="'达到上限后，自动 Mint 程序会自动停止'"></div>
         </div>
       </div>
     </div>

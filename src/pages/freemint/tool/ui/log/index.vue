@@ -4,9 +4,9 @@
  */
 // import Tip from "./tip.vue";
 import Info from "./info.vue";
-import { PropType, ref, watch } from "vue";
+import { PropType, ref } from "vue";
 import { toolMode } from "src/types/freemint";
-const props = defineProps({
+defineProps({
   toolModel: {
     type: Object as PropType<toolMode>,
     required: true,
