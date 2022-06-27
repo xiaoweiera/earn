@@ -41,7 +41,7 @@ const getInit = async () => {
   updateTime.value = safeGet(data, "updated");
   originList.value = NFT.value.group_by_collection(safeGet(data, "list"));
   originData.value = originList.value;
-  loading.value = true;
+  loading.value = false;
 };
 //得到Free的数据
 const getFreeList = () => {
