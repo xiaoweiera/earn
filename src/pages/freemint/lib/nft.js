@@ -613,6 +613,7 @@ export class Nft {
                         value: sumBy(itemTwo, 'value') / (10 ** 18) / itemTwo.length,
                         gas: avgGas,
                         contract_address: itemTwo[0].contract_address,
+                        hash:itemTwo[0].hash,
                         description: safeGet(itemTwo[0], 'metadata.metadata.description'),
                     })
                 }
@@ -636,6 +637,7 @@ export class Nft {
             result.push({
                 blockNumber: itemTwo[0]['blockNumberInt'],
                 contract_address: itemTwo[0].contract_address,
+                hash:itemTwo[0].hash,
                 image: safeGet(itemTwo[0], 'metadata.metadata.image'),
                 name: itemTwo[0].name ? itemTwo[0].name : safeGet(itemTwo[0], 'metadata.title'),
                 sumNumber: itemTwo.length,//出现次数

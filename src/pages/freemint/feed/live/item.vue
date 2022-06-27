@@ -91,7 +91,7 @@ defineProps({
       </div>
       <div class="flex items-center mt-3">
         <!-- <div class="fast-mint mr-2">Fast Mint</div> -->
-        <v-router class="copy-mint" target="_blank" :href="`/freemint/nft?contact=${data.contract_address}`">Copy Mint</v-router>
+        <v-router class="copy-mint" target="_blank" :href="`/freemint/nft?contact=${data.hash}`">Copy Mint</v-router>
       </div>
     </div>
   </div>

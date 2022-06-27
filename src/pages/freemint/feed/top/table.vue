@@ -86,13 +86,13 @@ onMounted(() => {
             <div v-else-if="header.key === 'gas'">
               <div class="txt text-number">{{ toNumberCashFormat(scope.row.gas, "", "", "0") }} ETH</div>
             </div>
-            <div v-else-if="header.key === 'operate'" class="mint-button">Mint</div>
+            <v-router v-else-if="header.key === 'operate'" class="mint-button" target="_blank" :href="`/freemint/nft?contact=${scope.row.hash}`">Mint</v-router>
             <div v-else-if="header.key === 'owner'" class="txt text-number">{{ toNumberCashFormat(scope.row.owner) }}</div>
             <div v-else-if="header.key === 'sumNumber'" class="txt text-number">
               {{ toNumberCashFormat(scope.row.sumNumber) }}
             </div>
             <div v-else-if="header.key === 'value'" class="">
-              <div v-if="!scope.row.value" class="txt text-number">{{ toNumberCashFormat(scope.row.value) }} ETH</div>
+              <div v-if="scope.row.value" class="txt text-number">{{ toNumberCashFormat(scope.row.value) }} ETH</div>
               <div v-else class="free">Free</div>
             </div>
           </template>
