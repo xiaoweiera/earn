@@ -1,7 +1,7 @@
 import {ABI} from "./nft_contract_abi.js"
 import {ethers} from 'ethers'
 import safeGet from "@fengqiaogang/safe-get";
-import {values, sumBy, groupBy} from 'lodash'
+import {values, sumBy, groupBy, orderBy} from 'lodash'
 import window from "src/plugins/browser/window";
 
 export class Nft {
@@ -76,17 +76,17 @@ export class Nft {
         const _this = this;
 
         if (mint_params.metamusk_is_collected) {
-          if (!mint_params.metamusk_address) {
-            logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamusk address cannot be empty！'})
-            mint_params.start_running = false
-            return; 
-          }
+            if (!mint_params.metamusk_address) {
+                logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamusk address cannot be empty！'})
+                mint_params.start_running = false
+                return;
+            }
         } else {
-          if (!privateKeys.length) {
-              logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ privateKey cannot be empty！'})
-              mint_params.start_running = false
-              return;
-          }
+            if (!privateKeys.length) {
+                logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ privateKey cannot be empty！'})
+                mint_params.start_running = false
+                return;
+            }
         }
 
         if (mint_params.baseInfo.mintTotal < 1) {
@@ -251,29 +251,29 @@ export class Nft {
                         }
 
                     } else {
-                      let privateKey = ''
-                      for (let j = 0; j < privateKeys.length; j++) {
-                          let privateKey = privateKeys[j]
-                          for (let i = 1; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
-                              const new_nft = await this._mint_nft({
-                                  to: nfts[0]?.contract_address,
-                                  inputData: nfts[0].input_data,
-                                  value: nfts[0].value,
-                                  maxFeePerGas: nfts[0].maxFeePerGas || mint_params.maxFeePerGas,
-                                  maxPriorityFeePerGas: nfts[0].maxPriorityFeePerGas || mint_params.maxPriorityFeePerGas,
-                                  originNFTOwner: nfts[0].owner,
-                                  txFeeLimit: mint_params.baseInfo.gasLimit,
-                                  gasLimit: nfts[0].gas * 1.1,
+                        let privateKey = ''
+                        for (let j = 0; j < privateKeys.length; j++) {
+                            let privateKey = privateKeys[j]
+                            for (let i = 1; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
+                                const new_nft = await this._mint_nft({
+                                    to: nfts[0]?.contract_address,
+                                    inputData: nfts[0].input_data,
+                                    value: nfts[0].value,
+                                    maxFeePerGas: nfts[0].maxFeePerGas || mint_params.maxFeePerGas,
+                                    maxPriorityFeePerGas: nfts[0].maxPriorityFeePerGas || mint_params.maxPriorityFeePerGas,
+                                    originNFTOwner: nfts[0].owner,
+                                    txFeeLimit: mint_params.baseInfo.gasLimit,
+                                    gasLimit: nfts[0].gas * 1.1,
 
-                                  metamusk_is_collected: mint_params.metamusk_is_collected,
-                                  metamusk_address: mint_params.metamusk_address
-                              }, privateKey, logs)
-                              if (new_nft) {
-                                  console.log("new_nft", new_nft)
-                                  mint_params.minted[nfts[0]?.contract_address].push(new_nft)
-                              }
-                          }
-                      }
+                                    metamusk_is_collected: mint_params.metamusk_is_collected,
+                                    metamusk_address: mint_params.metamusk_address
+                                }, privateKey, logs)
+                                if (new_nft) {
+                                    console.log("new_nft", new_nft)
+                                    mint_params.minted[nfts[0]?.contract_address].push(new_nft)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -364,23 +364,27 @@ export class Nft {
 
             //小狐狸链接的时候
             if (mint_params.metamusk_is_collected) {
-                logs.push({msg: `交易正在通过 MetaMusk 发送到区块链.....`})              
-                const t =  await window.ethereum.request({
+                logs.push({msg: `交易正在通过 MetaMusk 发送到区块链.....`})
+                const t = await window.ethereum.request({
                     method: 'eth_sendTransaction',
                     params: [txParams],
                 })
-                .then( (txHash) => {
-                  logs.push({
-                      color: "green",
-                      state: 'success',
-                      msg: `✅ ${_this._formate_hash(mint_params.metamusk_address)} MINT ${_this._formate_hash(mint_params.to)} Success!! TX is:  ${_this._formate_hash(txHash)}`
-                  })
-                  return txHash;
-                })
-                .catch((error) => { 
-                  logs.push({color: 'red', state: 'fail', msg: `❌ ${_this._formate_hash(mint_params.metamusk_address)}: ${error.message}`})
-                  return false
-                });
+                    .then((txHash) => {
+                        logs.push({
+                            color: "green",
+                            state: 'success',
+                            msg: `✅ ${_this._formate_hash(mint_params.metamusk_address)} MINT ${_this._formate_hash(mint_params.to)} Success!! TX is:  ${_this._formate_hash(txHash)}`
+                        })
+                        return txHash;
+                    })
+                    .catch((error) => {
+                        logs.push({
+                            color: 'red',
+                            state: 'fail',
+                            msg: `❌ ${_this._formate_hash(mint_params.metamusk_address)}: ${error.message}`
+                        })
+                        return false
+                    });
             } else {
                 //小狐狸 没有 链接的时候
                 // TODO 要 gas 预估一下，然后看 余额是否交手续费
@@ -427,17 +431,17 @@ export class Nft {
         const _this = this;
 
         if (mint_params.metamusk_is_collected) {
-          if (!mint_params.metamusk_address) {
-            logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamusk address cannot be empty！'})
-            mint_params.start_running = false
-            return; 
-          }
+            if (!mint_params.metamusk_address) {
+                logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamusk address cannot be empty！'})
+                mint_params.start_running = false
+                return;
+            }
         } else {
-          if (!privateKeys.length) {
-              logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ privateKey cannot be empty！'})
-              mint_params.start_running = false
-              return;
-          }
+            if (!privateKeys.length) {
+                logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ privateKey cannot be empty！'})
+                mint_params.start_running = false
+                return;
+            }
         }
 
         if (mint_params.mintAmount < 1) {
@@ -469,7 +473,7 @@ export class Nft {
                 gasLimit: mint_params.gasLimit,
 
                 metamusk_is_collected: mint_params.metamusk_is_collected,
-                metamusk_address: mint_params.metamusk_address               
+                metamusk_address: mint_params.metamusk_address
             }, privateKey, logs)
         })
 
@@ -564,9 +568,21 @@ export class Nft {
         }
     }
 
+    formatBlockData(data) {
+        console.log('result',data)
+        const orderList = data.map(item => {
+            return {
+                ...item,
+                token_id_order: Number(item.token_id)
+            }
+        })
+
+        return orderBy(orderList, 'token_id', 'desc')
+    }
 
     // Feed 流
-    group_by_block(data) {
+    group_by_block(originData) {
+        const data = this.formatBlockData(originData)
         const result = []
         //根据block分组
         const blockList = values(groupBy(data, 'blockNumber'))
@@ -594,7 +610,8 @@ export class Nft {
         return values(groupBy(result, 'blockNumber'))
     }
 
-    group_by_collection(data) {
+    group_by_collection(originData) {
+        const data = this.formatBlockData(originData)
         const result = []
         //根据address分组分组
         const addressList = values(groupBy(data, 'contract_address'))

@@ -4,15 +4,15 @@ import Card from "./card.vue";
 import Chain from "../chain.vue";
 import { Nft } from "src/pages/freemint/lib/nft.js";
 import { onMounted, ref, reactive } from "vue";
-import { data } from "src/pages/freemint/lib/testData";
-// import API from "src/api/";
+// import { data } from "src/pages/freemint/lib/testData";
+import API from "src/api/";
 const tagList = [
   { name: "Free", value: "free" },
   { name: "All", value: "all" },
 ];
 const pageInfo = reactive({
   page: 1,
-  page_size: 3, //每页条数
+  page_size: 10, //每页条数
 });
 const NFT = ref();
 const key = ref(0); //刷新key
@@ -21,10 +21,10 @@ const isMore = ref(false); //是否有加载更多
 const originList = ref<any>([]); //得到的原始数据源（分组过后的）
 const freeList = ref<any>([]); // Free的数据列表
 const list = ref<any>([]); //展示的数据
+
 const getInit = async () => {
-  // const api = new API()
-  // const datas=await api.freeMint.blockList()
-  // console.log('resulfjlsdjf',datas)
+  const api = new API();
+  const data = await api.freeMint.blockList();
   originList.value = NFT.value.group_by_block(data);
 };
 //得到Free的数据
