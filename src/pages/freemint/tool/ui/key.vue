@@ -3,7 +3,12 @@
  * 私钥
  */
 import { ElInput } from "element-plus";
-import { ref } from "vue";
+import { isConnect } from "src/logic/common/wallet";
+import Wallet from "src/plugins/web3/wallet";
+import safeGet from "@fengqiaogang/safe-get";
+import { messageError } from "src/lib/tool";
+import { getErrorMessageContent } from "src/plugins/web3/message";
+import { ref, computed, onMounted } from "vue";
 defineProps({
   icon: {
     type: String,
@@ -22,6 +27,8 @@ defineProps({
     default: true,
   },
 });
+const wallet = new Wallet();
+const walletAddress = ref("");
 const emit = defineEmits(["keyCall"]);
 const key = ref("");
 const keyList = ref<string[]>([]);
@@ -33,10 +40,33 @@ const add = () => {
   }
   key.value = "";
 };
+const walletTxt = computed(() => {
+  return walletAddress.value ? `${walletAddress.value.slice(0, 5)}...${walletAddress.value.slice(walletAddress.value.length - 3)}` : "Connect Wallet";
+});
 const deleteItem = (index: number) => {
   keyList.value.splice(index, 1);
   emit("keyCall", keyList.value);
 };
+//链接钱包
+const onConnect = async function () {
+  // 如果已获取到地址
+  if (isConnect() || wallet.getChainAddress()) {
+    return true;
+  }
+  try {
+    const status = await wallet.requestPermissions();
+    if (status) {
+      // todo 授权成功
+      walletAddress.value = wallet.getChainAddress();
+    }
+  } catch (e) {
+    const code = safeGet<number>(e as object, "code");
+    messageError(getErrorMessageContent(code));
+  }
+};
+onMounted(() => {
+  walletAddress.value = wallet.getChainAddress();
+});
 </script>
 <template>
   <div class="w-full border-css">
@@ -48,11 +78,18 @@ const deleteItem = (index: number) => {
         </div>
         <div class="des mt-1.5">{{ des }}</div>
       </div>
+      <div v-if="isWallet" class="flex items-center mt-3 md:mt-0 md:ml-4" @click="onConnect">
+        <div class="button-mint">
+          <ui-image class="mr-1 w-4 h-4" oss src="/mint/walletOk.png" />
+          <span>{{ walletTxt }}</span>
+        </div>
+      </div>
     </div>
-    <client-only class="flex mt-3 items-center">
+    <client-only v-if="!walletAddress" class="flex mt-3 items-center">
       <el-input v-model="key" placeholder="请输入私钥地址" autocomplete="off" />
       <div class="button-mint ml-4" @click="add">Add</div>
     </client-only>
+    <div v-else class="mt-3 text-kd16px24px text-global-highTitle text-number">Account: {{ walletAddress }}</div>
     <!--私钥列表-->
     <div class="mt-3">
       <template v-for="(item, index) in keyList" :key="item">

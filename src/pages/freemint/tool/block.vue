@@ -7,7 +7,7 @@ import Node from "./ui/node.vue";
 import Button from "./ui/button.vue";
 import BaseInfo from "./ui/baseinfo/index.vue";
 import Keyword from "./ui/keyword.vue";
-import Info from "./ui/info.vue";
+// import Info from "./ui/info.vue";
 import { reactive } from "vue";
 import { toolMode } from "src/types/freemint";
 import { ref, onMounted } from "vue";
