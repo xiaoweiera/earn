@@ -6,6 +6,9 @@ import { Nft } from "src/pages/freemint/lib/nft.js";
 import { onMounted, ref, reactive } from "vue";
 // import { data } from "src/pages/freemint/lib/testData";
 import API from "src/api/";
+import safeGet from "@fengqiaogang/safe-get";
+import { dateDiff } from "src/utils";
+
 const tagList = [
   { name: "Free", value: "free" },
   { name: "All", value: "all" },
@@ -21,11 +24,12 @@ const isMore = ref(false); //是否有加载更多
 const originList = ref<any>([]); //得到的原始数据源（分组过后的）
 const freeList = ref<any>([]); // Free的数据列表
 const list = ref<any>([]); //展示的数据
-
+const updateTime = ref("");
 const getInit = async () => {
   const api = new API();
-  const data = await api.freeMint.blockList();
-  originList.value = NFT.value.group_by_block(data);
+  const data: any = await api.freeMint.blockList();
+  updateTime.value = safeGet(data, "updated");
+  originList.value = NFT.value.group_by_block(safeGet(data, "list"));
 };
 //得到Free的数据
 const getFreeList = () => {
@@ -83,7 +87,10 @@ onMounted(async () => {
 <template>
   <div class="feed-page">
     <div class="state justify-between">
-      <div class="text-kd16px22px font-medium text-global-highTitle">Live Feeds</div>
+      <div class="state">
+        <div class="text-kd16px22px font-medium text-global-highTitle">Live Feeds</div>
+        <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">{{ dateDiff(updateTime.slice(0, updateTime?.length - 3)) }}</div>
+      </div>
       <div>
         <Chain />
       </div>

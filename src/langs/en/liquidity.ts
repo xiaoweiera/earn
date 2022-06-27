@@ -55,6 +55,7 @@ export default {
     follow: "Follow",
     analysis: "Data error",
     wuMin: "5M",
+    shiwuMin: "15M",
     sanshiMin: "30M",
     yiHour: "1H",
     yiDay: "1D",

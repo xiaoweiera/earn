@@ -6,6 +6,7 @@ import { toNumberCashFormat } from "src/utils/convert/to";
 import Level from "./level.vue";
 import document from "src/plugins/browser/document";
 import window from "src/plugins/browser/window";
+import { smallToken } from "src/lib/tool";
 
 defineProps({
   data: {
@@ -68,7 +69,10 @@ onMounted(() => {
           <template #default="scope">
             <div v-if="header.key === 'collection'" class="state">
               <ui-image class="w-8 h-8 min-w-8 max-w-8 mr-1.5 rounded-full" :title="scope.row.name" :src="scope.row.image" />
-              <span class="text-kd14px18px text-global-highTitle short">{{ scope.row.name }}</span>
+              <div>
+                <span class="text-kd14px18px text-global-highTitle short">{{ scope.row.name }}</span>
+                <div class="desc text-global-highTitle text-opacity-85">{{ smallToken(scope.row.contract_address) }}</div>
+              </div>
             </div>
             <div v-else-if="header.key === 'level'" class="state justify-center">
               <Level :count="scope.row.sumNumber" />

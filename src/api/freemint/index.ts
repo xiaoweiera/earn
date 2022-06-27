@@ -6,9 +6,7 @@ import * as api from "src/config/api";
 import { DefaultValue, get, tryError, userToken } from "src/plugins/dao/http";
 import ApiTemplate from "../template";
 const config = {
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-  },
+  timeout: 10000,
 };
 export default class extends ApiTemplate {
   //free block

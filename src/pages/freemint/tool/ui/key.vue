@@ -6,7 +6,7 @@ import { ElInput } from "element-plus";
 import { isConnect } from "src/logic/common/wallet";
 import Wallet from "src/plugins/web3/wallet";
 import safeGet from "@fengqiaogang/safe-get";
-import { messageError } from "src/lib/tool";
+import { messageError, smallToken } from "src/lib/tool";
 import { getErrorMessageContent } from "src/plugins/web3/message";
 import { ref, computed, onMounted, PropType } from "vue";
 import { toolMode } from "src/types/freemint";
@@ -47,8 +47,9 @@ const add = () => {
   }
   key.value = "";
 };
+
 const walletTxt = computed(() => {
-  return props.toolModel.metamusk_address ? `${props.toolModel.metamusk_address.slice(0, 5)}...${props.toolModel.metamusk_address.slice(props.toolModel.metamusk_address.length - 3)}` : "Connect Wallet";
+  return props.toolModel.metamusk_address ? `${smallToken(props.toolModel.metamusk_address)}` : "Connect Wallet";
 });
 const deleteItem = (index: number) => {
   keyList.value.splice(index, 1);
