@@ -7,8 +7,8 @@ import window from "src/plugins/browser/window";
 export class Nft {
     constructor(Web3) {
         this.ALCHEMY_KEY = "poUoilj7yipTDB122OglCDp6_K3ddU7o"
-        // this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o" //正式节点
-        this.api_alchemy_url = "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu" //测试节点
+        this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o" //正式节点
+        // this.api_alchemy_url = "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu" //测试节点
         this.nonceList = {} //nonceList
         this.ws_alchemy_url = "wss://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o"
         this.Web3 = Web3

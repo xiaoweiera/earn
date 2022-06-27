@@ -15,6 +15,7 @@ import Activity from "./activity";
 import Upload from "./upload";
 import Chart from "./chart/";
 import WxChat from "./wxchat";
+import FreeMint from "./freemint";
 
 export default class API extends ApiTemplate {
   public home: Home;
@@ -31,6 +32,7 @@ export default class API extends ApiTemplate {
   public upload: Upload;
   public chart: Chart;
   public wx: WxChat;
+  public freeMint: FreeMint;
   constructor(value?: Lang) {
     super(value);
     this.home = new Home(value);
@@ -47,5 +49,6 @@ export default class API extends ApiTemplate {
     this.upload = new Upload(value);
     this.chart = new Chart(value);
     this.wx = new WxChat(value);
+    this.freeMint = new FreeMint(value);
   }
 }

@@ -8,8 +8,15 @@ import Wallet from "src/plugins/web3/wallet";
 import safeGet from "@fengqiaogang/safe-get";
 import { messageError } from "src/lib/tool";
 import { getErrorMessageContent } from "src/plugins/web3/message";
-import { ref, computed, onMounted } from "vue";
-defineProps({
+import { ref, computed, onMounted, PropType } from "vue";
+import { toolMode } from "src/types/freemint";
+import { EventType } from "src/types/web3";
+
+const props = defineProps({
+  toolModel: {
+    type: Object as PropType<toolMode>,
+    required: true,
+  },
   icon: {
     type: String,
     default: "yaoshi",
@@ -22,13 +29,13 @@ defineProps({
     type: String,
     default: "需要本地使用你的私钥进行操作，服务器不会获取你的私钥，为了安全考虑，建议用小号。填入私钥后点击 Add 添加。",
   },
+  //是否有钱包按钮
   isWallet: {
     type: Boolean,
     default: true,
   },
 });
 const wallet = new Wallet();
-const walletAddress = ref("");
 const emit = defineEmits(["keyCall"]);
 const key = ref("");
 const keyList = ref<string[]>([]);
@@ -41,7 +48,7 @@ const add = () => {
   key.value = "";
 };
 const walletTxt = computed(() => {
-  return walletAddress.value ? `${walletAddress.value.slice(0, 5)}...${walletAddress.value.slice(walletAddress.value.length - 3)}` : "Connect Wallet";
+  return props.toolModel.metamusk_address ? `${props.toolModel.metamusk_address.slice(0, 5)}...${props.toolModel.metamusk_address.slice(props.toolModel.metamusk_address.length - 3)}` : "Connect Wallet";
 });
 const deleteItem = (index: number) => {
   keyList.value.splice(index, 1);
@@ -57,7 +64,8 @@ const onConnect = async function () {
     const status = await wallet.requestPermissions();
     if (status) {
       // todo 授权成功
-      walletAddress.value = wallet.getChainAddress();
+      props.toolModel.metamusk_address = wallet.getChainAddress();
+      props.toolModel.metamusk_is_collected = wallet.getChainAddress() ? true : false;
     }
   } catch (e) {
     const code = safeGet<number>(e as object, "code");
@@ -65,7 +73,14 @@ const onConnect = async function () {
   }
 };
 onMounted(() => {
-  walletAddress.value = wallet.getChainAddress();
+  props.toolModel.metamusk_address = wallet.getChainAddress();
+  props.toolModel.metamusk_is_collected = wallet.getChainAddress() ? true : false;
+  wallet.on(EventType.account, function (metaAddress) {
+    if (!metaAddress.length) {
+      props.toolModel.metamusk_address = "";
+      props.toolModel.metamusk_is_collected = false;
+    }
+  });
 });
 </script>
 <template>
@@ -85,11 +100,14 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <client-only v-if="!walletAddress && isWallet" class="flex mt-3 items-center">
+    <client-only v-if="!toolModel['metamusk_address'] || !isWallet" class="flex mt-3 items-center">
       <el-input v-model="key" placeholder="请输入私钥地址" autocomplete="off" />
       <div class="button-mint ml-4" @click="add">Add</div>
     </client-only>
-    <div v-else class="mt-3 text-kd16px24px text-global-highTitle text-number">MetaMusk Account: {{ walletAddress }}</div>
+    <div v-else class="mt-3 text-kd16px24px text-global-highTitle text-number">
+      MetaMusk Account:
+      {{ toolModel.metamusk_address }}
+    </div>
     <!--私钥列表-->
     <div class="mt-3">
       <template v-for="(item, index) in keyList" :key="item">
@@ -112,12 +130,15 @@ onMounted(() => {
   color: #111316 !important;
   @apply text-kd12px16px;
 }
+
 .title {
   @apply text-kd14px18px font-medium text-global-black-title;
 }
+
 .des {
   @apply text-kd12px16px text-global-text-grey;
 }
+
 .keyItem:not(:last-child) {
   @apply mb-1.5;
 }

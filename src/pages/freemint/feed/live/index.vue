@@ -5,7 +5,7 @@ import Chain from "../chain.vue";
 import { Nft } from "src/pages/freemint/lib/nft.js";
 import { onMounted, ref, reactive } from "vue";
 import { data } from "src/pages/freemint/lib/testData";
-
+// import API from "src/api/";
 const tagList = [
   { name: "Free", value: "free" },
   { name: "All", value: "all" },
@@ -22,7 +22,9 @@ const originList = ref<any>([]); //得到的原始数据源（分组过后的）
 const freeList = ref<any>([]); // Free的数据列表
 const list = ref<any>([]); //展示的数据
 const getInit = async () => {
-  // const datas=await NFT.value.get_lastest_mint_tx(1)
+  // const api = new API()
+  // const datas=await api.freeMint.blockList()
+  // console.log('resulfjlsdjf',datas)
   originList.value = NFT.value.group_by_block(data);
 };
 //得到Free的数据
@@ -80,7 +82,6 @@ onMounted(async () => {
 </script>
 <template>
   <div class="feed-page">
-    {{ list.length }}
     <div class="state justify-between">
       <div class="text-kd16px22px font-medium text-global-highTitle">Live Feeds</div>
       <div>

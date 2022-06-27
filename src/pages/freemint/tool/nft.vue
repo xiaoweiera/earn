@@ -39,8 +39,8 @@ const toolModel: toolMode = reactive({
   hash: "",
   hashWithNFTOwner: "",
 
-  metamusk_is_collected: false
-  metamusk_address: ''
+  metamusk_is_collected: false,
+  metamusk_address: "",
 });
 //@ts-ignore
 const keyList = (keyList: any) => (toolModel.keyList = keyList);

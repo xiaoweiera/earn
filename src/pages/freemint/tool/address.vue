@@ -15,7 +15,7 @@ import { Nft } from "src/pages/freemint/lib/nft";
 
 const toolModel: toolMode = reactive({
   node: "",
-  keyList: ["71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147"],
+  keyList: [],
   // node: "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu", //节点
   // keyList: [
   //   "71eb2e2adb04b9a0347e4f3607c30f246c9e84a3e406983cb36a9eb409bbe147", // 0xA68c22160A887ce1E91ce7B650f80FED923650bC
@@ -44,8 +44,8 @@ const toolModel: toolMode = reactive({
   start_running: false,
   minted: {}, // { contract_address: []}
 
-  metamusk_is_collected: false
-  metamusk_address: ''  
+  metamusk_is_collected: false,
+  metamusk_address: "",
 });
 
 //@ts-ignore
@@ -80,7 +80,7 @@ onMounted(async () => {
     <!--    基础信息-->
     <BaseInfo class="mt-4" :toolModel="toolModel" />
     <!--  Smart Minter地址筛选-->
-    <Key class="mt-4" icon="filter" title="Smart Minter 地址筛选" des="添加你想跟踪的地址，将仅跟踪这些地址 Mint 的 NFT。填入地址后点击 Add 添加。" :isWallet="false" @key-call="smartMintList" />
+    <Key class="mt-4" :toolModel="toolModel" icon="filter" title="Smart Minter 地址筛选" des="添加你想跟踪的地址，将仅跟踪这些地址 Mint 的 NFT。填入地址后点击 Add 添加。" :isWallet="false" @key-call="smartMintList" />
     <!--    NFT 关键词搜索-->
     <Keyword class="mt-4" :toolModel="toolModel" />
     <!--    Mint日志-->
