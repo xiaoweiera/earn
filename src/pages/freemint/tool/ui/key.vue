@@ -85,11 +85,11 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <client-only v-if="!walletAddress" class="flex mt-3 items-center">
+    <client-only v-if="!walletAddress && isWallet" class="flex mt-3 items-center">
       <el-input v-model="key" placeholder="请输入私钥地址" autocomplete="off" />
       <div class="button-mint ml-4" @click="add">Add</div>
     </client-only>
-    <div v-else class="mt-3 text-kd16px24px text-global-highTitle text-number">Account: {{ walletAddress }}</div>
+    <div v-else class="mt-3 text-kd16px24px text-global-highTitle text-number">MetaMusk Account: {{ walletAddress }}</div>
     <!--私钥列表-->
     <div class="mt-3">
       <template v-for="(item, index) in keyList" :key="item">

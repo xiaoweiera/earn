@@ -2,12 +2,10 @@ import {ABI} from "./nft_contract_abi.js"
 import {ethers} from 'ethers'
 import safeGet from "@fengqiaogang/safe-get";
 import {values, sumBy, groupBy} from 'lodash'
-import Wallet from "src/plugins/web3/wallet";
 import window from "src/plugins/browser/window";
 
 export class Nft {
     constructor(Web3) {
-        this.wallet = new Wallet()
         this.ALCHEMY_KEY = "poUoilj7yipTDB122OglCDp6_K3ddU7o"
         // this.api_alchemy_url = "https://eth-mainnet.alchemyapi.io/v2/poUoilj7yipTDB122OglCDp6_K3ddU7o" //正式节点
         this.api_alchemy_url = "https://eth-goerli.alchemyapi.io/v2/QbsWpdaiHPxNiBHB297Zq4d9SfSF4Mnu" //测试节点
@@ -77,10 +75,18 @@ export class Nft {
 
         const _this = this;
 
-        if (!privateKeys.length) {
-            logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ privateKey cannot be empty！'})
+        if (mint_params.metamusk_is_collected) {
+          if (!mint_params.metamusk_address) {
+            logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamusk address cannot be empty！'})
             mint_params.start_running = false
-            return;
+            return; 
+          }
+        } else {
+          if (!privateKeys.length) {
+              logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ privateKey cannot be empty！'})
+              mint_params.start_running = false
+              return;
+          }
         }
 
         if (mint_params.baseInfo.mintTotal < 1) {
@@ -131,7 +137,7 @@ export class Nft {
                     contract = collections_address[h]
                     nfts = collections[contract]
 
-                    if (!nfts || !contract) return
+                    if (!nfts || !contract || contract == 'undefined') return
 
                     // 关键词的屏蔽
                     let shieldWord = mint_params.shieldWord
@@ -220,10 +226,10 @@ export class Nft {
                         return
                     }
 
+
                     mint_params.minted[nfts[0]?.contract_address] = []
-                    let privateKey = ''
-                    for (let j = 0; j < privateKeys.length; j++) {
-                        let privateKey = privateKeys[j]
+
+                    if (mint_params.metamusk_is_collected) {
                         for (let i = 1; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
                             const new_nft = await this._mint_nft({
                                 to: nfts[0]?.contract_address,
@@ -233,13 +239,41 @@ export class Nft {
                                 maxPriorityFeePerGas: nfts[0].maxPriorityFeePerGas || mint_params.maxPriorityFeePerGas,
                                 originNFTOwner: nfts[0].owner,
                                 txFeeLimit: mint_params.baseInfo.gasLimit,
-                                gasLimit: nfts[0].gas * 1.1
-                            }, privateKey, logs)
+                                gasLimit: nfts[0].gas * 1.1,
+
+                                metamusk_is_collected: mint_params.metamusk_is_collected,
+                                metamusk_address: mint_params.metamusk_address
+                            }, '', logs)
                             if (new_nft) {
                                 console.log("new_nft", new_nft)
                                 mint_params.minted[nfts[0]?.contract_address].push(new_nft)
                             }
                         }
+
+                    } else {
+                      let privateKey = ''
+                      for (let j = 0; j < privateKeys.length; j++) {
+                          let privateKey = privateKeys[j]
+                          for (let i = 1; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
+                              const new_nft = await this._mint_nft({
+                                  to: nfts[0]?.contract_address,
+                                  inputData: nfts[0].input_data,
+                                  value: nfts[0].value,
+                                  maxFeePerGas: nfts[0].maxFeePerGas || mint_params.maxFeePerGas,
+                                  maxPriorityFeePerGas: nfts[0].maxPriorityFeePerGas || mint_params.maxPriorityFeePerGas,
+                                  originNFTOwner: nfts[0].owner,
+                                  txFeeLimit: mint_params.baseInfo.gasLimit,
+                                  gasLimit: nfts[0].gas * 1.1,
+
+                                  metamusk_is_collected: mint_params.metamusk_is_collected,
+                                  metamusk_address: mint_params.metamusk_address
+                              }, privateKey, logs)
+                              if (new_nft) {
+                                  console.log("new_nft", new_nft)
+                                  mint_params.minted[nfts[0]?.contract_address].push(new_nft)
+                              }
+                          }
+                      }
                     }
                 }
             }
@@ -273,9 +307,10 @@ export class Nft {
     async _mint_nft(mint_params, privateKey, logs) {
         let address = ''
         const _this = this
-        const walletAddress = this.wallet.getChainAddress()
+
         try {
-            address = await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address  //可以检测是否私钥合规
+            address = mint_params.metamusk_is_collected ? mint_params.metamusk_address : await this.api_web3.eth.accounts.privateKeyToAccount(privateKey).address  //可以检测是否私钥合规
+
             const balance = await this.getBalance(address)
 
             let values = await Number(this.api_web3.utils.fromWei(balance ? balance : '')).toFixed(3)
@@ -288,9 +323,11 @@ export class Nft {
             const nonce = await this.api_web3.eth.getTransactionCount(address, 'pending'); // nonce starts counting from 0
 
             let gasLimit = mint_params.gasLimit
+            const estimateGasETH = gasLimit * mint_params.maxFeePerGas / (10 ** 9)
 
             //预估gas费
-            const estimateGasETH = gasLimit * mint_params.maxFeePerGas / (10 ** 9)
+            logs.push({msg: `预估花费 Gas：estimateGas(${gasLimit}) * maxFeePerGas(${mint_params.maxFeePerGas}) / (10 ** 9) = ${estimateGasETH} ETH`})
+
             // 自动 Mint 设置了单条手续费上限
             if (mint_params.txFeeLimit && estimateGasETH > mint_params.txFeeLimit) {
                 logs.push({
@@ -300,9 +337,8 @@ export class Nft {
                 })
                 return false
             }
-            logs.push({msg: `预估花费 Gas：estimateGas(${gasLimit}) * maxFeePerGas(${mint_params.maxFeePerGas}) / (10 ** 9) = ${estimateGasETH} ETH`})
             let txParams = {
-                from: walletAddress ? walletAddress : address,
+                from: address,
                 to: mint_params.to,
                 // nonce: Math.floor(Date.now() / 1000000),
 
@@ -312,13 +348,13 @@ export class Nft {
 
                 maxFeePerGas: this.api_web3.utils.toHex(parseInt(mint_params.maxFeePerGas * 10 ** 9 * 1.1)), //wei
                 maxPriorityFeePerGas: this.api_web3.utils.toHex(parseInt(mint_params.maxPriorityFeePerGas * 10 ** 9)), //wei
-                gasLimit: walletAddress ? gasLimit.toString() : this.api_web3.utils.toHex(parseInt(gasLimit)),
-                nonce: walletAddress ? nonce.toString() : nonce
+
+                gasLimit: this.api_web3.utils.toHex(parseInt(gasLimit)),
+                nonce: mint_params.metamusk_is_collected ? nonce.toString() : nonce
             }
 
 
             // 自动 Mint 也根据当前的交易自动的去获取 gas limt, 而不是我们这里去调用
-
             // 手动Mint 会把之前最近一次 mint 交易记录 的 gas limit 当作 当前的 gas limt
             // if (!gasLimit) {
             // 这种情况下，是自动 Mint, gas Limit 需要手动预估一下
@@ -327,29 +363,24 @@ export class Nft {
             logs.push({color: "green", msg: `✅ 交易参数: ${JSON.stringify(txParams)}`})
 
             //小狐狸链接的时候
-            if (walletAddress) {
-                console.log('参数',txParams)
-                await window.ethereum.request({
+            if (mint_params.metamusk_is_collected) {
+                logs.push({msg: `交易正在通过 MetaMusk 发送到区块链.....`})              
+                const t =  await window.ethereum.request({
                     method: 'eth_sendTransaction',
                     params: [txParams],
-                }) .then((txHash) => console.log('success',txHash))
-                    .catch((error) => console.error);
-
-                //     .on('transactionHash', function (hash) {
-                //     console.log('tag22', hash)
-                //     return hash
-                // }).on('receipt', function (receipt) {
-                //     logs.push({
-                //         color: "green",
-                //         state: 'success',
-                //         msg: `✅ ${_this._formate_hash(walletAddress)} MINT ${_this._formate_hash(mint_params.to)} Success!! TX is:  ${_this._formate_hash(hash)}`
-                //     })
-                //     logs.push({msg: receipt})
-                //     return receipt;
-                // }).on('error', function (err) {
-                //     // 这里的错误会跑出去，在 下面的 catch 中处理，所以这里就不处理了，因为现在是同步在处理，不是异步 function
-                //     return false
-                // })
+                })
+                .then( (txHash) => {
+                  logs.push({
+                      color: "green",
+                      state: 'success',
+                      msg: `✅ ${_this._formate_hash(mint_params.metamusk_address)} MINT ${_this._formate_hash(mint_params.to)} Success!! TX is:  ${_this._formate_hash(txHash)}`
+                  })
+                  return txHash;
+                })
+                .catch((error) => { 
+                  logs.push({color: 'red', state: 'fail', msg: `❌ ${_this._formate_hash(mint_params.metamusk_address)}: ${error.message}`})
+                  return false
+                });
             } else {
                 //小狐狸 没有 链接的时候
                 // TODO 要 gas 预估一下，然后看 余额是否交手续费
@@ -395,10 +426,18 @@ export class Nft {
         logs.push({color: 'rgb(62 79 103)', msg: '参数解析中...'})
         const _this = this;
 
-        if (!privateKeys.length) {
-            logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ privateKey cannot be empty！'})
+        if (mint_params.metamusk_is_collected) {
+          if (!mint_params.metamusk_address) {
+            logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamusk address cannot be empty！'})
             mint_params.start_running = false
-            return;
+            return; 
+          }
+        } else {
+          if (!privateKeys.length) {
+              logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ privateKey cannot be empty！'})
+              mint_params.start_running = false
+              return;
+          }
         }
 
         if (mint_params.mintAmount < 1) {
@@ -427,7 +466,10 @@ export class Nft {
                 maxFeePerGas: mint_params.maxFeePerGas,
                 maxPriorityFeePerGas: mint_params.maxPriorityFeePerGas,
                 originNFTOwner: mint_params.hashWithNFTOwner,
-                gasLimit: mint_params.gasLimit
+                gasLimit: mint_params.gasLimit,
+
+                metamusk_is_collected: mint_params.metamusk_is_collected,
+                metamusk_address: mint_params.metamusk_address               
             }, privateKey, logs)
         })
 

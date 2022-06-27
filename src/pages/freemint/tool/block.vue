@@ -41,6 +41,9 @@ const toolModel: toolMode = reactive({
   logs: [],
   start_running: false,
   minted: {}, // { contract_address: []}
+
+  metamusk_is_collected: false
+  metamusk_address: ''  
 });
 
 //@ts-ignore
