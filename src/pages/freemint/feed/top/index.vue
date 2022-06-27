@@ -2,11 +2,11 @@
 import Chain from "../chain.vue";
 import Tag from "src/pages/freemint/tool/ui/tag.vue";
 import Table from "./table.vue";
-import { data } from "src/pages/freemint/lib/testData";
 import { Nft } from "src/pages/freemint/lib/nft.js";
 import { ref, onMounted, reactive } from "vue";
 import { orderBy } from "lodash";
 import { dataToTimestamp } from "src/lib/tool";
+import API from "src/api";
 const NFT = ref();
 const filter = [
   { name: "Free", value: "free" },
@@ -14,7 +14,7 @@ const filter = [
 ];
 const pageInfo = reactive({
   page: 1,
-  page_size: 3, //每页条数
+  page_size: 10, //每页条数
 });
 const params = reactive({
   sort_field: "",
@@ -30,7 +30,8 @@ const freeData = ref<any>([]); // free操作数据
 const list = ref<any>([]); //展示的数据
 const dataTime = ["all", "1H", "30M", "5M"];
 const getInit = async () => {
-  // const data=await NFT.value.get_lastest_mint_tx(30)
+  const api = new API();
+  const data = await api.freeMint.blockList();
   originList.value = NFT.value.group_by_collection(data);
   originData.value = originList.value;
 };
