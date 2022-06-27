@@ -33,7 +33,7 @@ const freeList = ref<any>([]); // Free的原始数据列表
 const originData = ref<any>([]); //all操作
 const freeData = ref<any>([]); // free操作数据
 const list = ref<any>([]); //展示的数据
-const dataTime = ["5M", "15M", "30M", "all"];
+const dataTime = ["5M", "10M"];
 const updateTime = ref("");
 const getInit = async () => {
   const api = new API();
