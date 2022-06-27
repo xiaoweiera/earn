@@ -89,7 +89,9 @@ onMounted(async () => {
     <div class="state justify-between">
       <div class="state">
         <div class="text-kd16px22px font-medium text-global-highTitle">Live Feeds</div>
-        <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">{{ dateDiff(updateTime.slice(0, updateTime?.length - 3)) }}</div>
+        <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">
+          {{ dateDiff(updateTime.slice(0, updateTime?.length - 3)) }}
+        </div>
       </div>
       <div>
         <Chain />
