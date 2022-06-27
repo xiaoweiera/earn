@@ -36,7 +36,8 @@ const headerList = [
   { key: "level", name: "Fomo Level", sort: true, active: false },
   { key: "owner", name: "5m Minters", sort: true, active: false },
   { key: "sumNumber", name: "5m Mint NFTs", sort: true, active: false },
-  { key: "gas", name: "Avg Mint Cost", sort: true, active: false },
+  { key: "value", name: "Mint Price", sort: true, active: false },
+  { key: "gas", name: "Avg Tx Fee", sort: true, active: false },
   { key: "operate", name: "Operate" },
 ];
 onMounted(() => {
@@ -60,7 +61,7 @@ onMounted(() => {
         </template>
       </el-table-column>
       <template v-for="(header, index) in headerList" :key="index">
-        <el-table-column :fixed="index === 0 && !isPc" :width="index === 0 ? (isPc ? 200 : 140) : 142">
+        <el-table-column :fixed="index === 0 && !isPc" :width="index === 0 ? (isPc ? 200 : 140) : 116">
           <template #header>
             <div class="relative h-full flex items-center" :class="{ 'justify-center': index !== 0 }">
               <ui-sort class="header-name fit" :active="header.active" :sort="header.sort" :sort-data="params" :key-name="header.key" :field="header.name" :name="header.name" @change="sort" />
@@ -71,20 +72,28 @@ onMounted(() => {
               <ui-image class="w-8 h-8 min-w-8 max-w-8 mr-1.5 rounded-full" :title="scope.row.name" :src="scope.row.image" />
               <div>
                 <span class="text-kd14px18px text-global-highTitle short">{{ scope.row.name }}</span>
-                <div class="desc text-global-highTitle text-opacity-85">{{ smallToken(scope.row.contract_address) }}</div>
+                <div class="desc state">
+                  <span class="text-global-highTitle text-opacity-85">{{ smallToken(scope.row.contract_address) }}</span>
+                  <v-copy :value="scope.row.contract_address" message class="flex cursor-pointer">
+                    <IconFont class="ml-1 text-global-highTitle text-opacity-45" size="16" type="icon-copy" />
+                  </v-copy>
+                </div>
               </div>
             </div>
             <div v-else-if="header.key === 'level'" class="state justify-center">
               <Level :count="scope.row.sumNumber" />
             </div>
             <div v-else-if="header.key === 'gas'">
-              <div v-if="!scope.row.value" class="free">Free</div>
-              <div class="desc">{{ toNumberCashFormat(scope.row.gas, "", "", "0") }} Gwei</div>
+              <div class="txt text-number">{{ toNumberCashFormat(scope.row.gas, "", "", "0") }} ETH</div>
             </div>
             <div v-else-if="header.key === 'operate'" class="mint-button">Mint</div>
             <div v-else-if="header.key === 'owner'" class="txt text-number">{{ toNumberCashFormat(scope.row.owner) }}</div>
             <div v-else-if="header.key === 'sumNumber'" class="txt text-number">
               {{ toNumberCashFormat(scope.row.sumNumber) }}
+            </div>
+            <div v-else-if="header.key === 'value'" class="">
+              <div v-if="!scope.row.value" class="txt text-number">{{ toNumberCashFormat(scope.row.value) }} ETH</div>
+              <div v-else class="free">Free</div>
             </div>
           </template>
         </el-table-column>

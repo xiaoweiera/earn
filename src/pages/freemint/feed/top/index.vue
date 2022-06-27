@@ -9,6 +9,7 @@ import { dataToTimestamp } from "src/lib/tool";
 import API from "src/api";
 import safeGet from "@fengqiaogang/safe-get";
 import { dateDiff } from "src/utils";
+
 const NFT = ref();
 const filter = [
   { name: "Free", value: "free" },
@@ -126,20 +127,24 @@ const changeTime = (data: any) => {
       <div class="state justify-between">
         <div class="state">
           <div class="text-kd16px22px font-medium text-global-highTitle">Top Mint list</div>
-          <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">{{ dateDiff(updateTime.slice(0, updateTime?.length - 3)) }}</div>
+          <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">
+            {{ dateDiff(updateTime.slice(0, updateTime?.length - 3)) }}
+          </div>
         </div>
         <Chain class="mdhidden" />
       </div>
 
       <div class="state justify-between md:mt-0 mt-4">
         <Tag class="mr-6" :default="tag" :data="filter" @change="changeTag" />
-        <!--        <ui-date-day :key="key" class="md:mr-6" :shortcuts="dataTime" @change="changeTime" />-->
+        <ui-date-day :key="key" class="md:mr-6" :shortcuts="dataTime" @change="changeTime" />
         <Chain class="xshidden" />
       </div>
     </div>
     <!--    表格-->
     <Table v-if="list.length" :data="list" :params="params" @sort="sort" />
-    <div v-else><ui-empty /></div>
+    <div v-else>
+      <ui-empty />
+    </div>
     <div v-if="isMore" class="more mt-5" @click="more">加载更多</div>
   </div>
 </template>
