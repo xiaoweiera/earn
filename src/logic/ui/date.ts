@@ -46,6 +46,14 @@ export const shortcuts = {
       return [start, today];
     },
   },
+  "10M": {
+    label: i18n.liquidity.mainHeader.shiMin,
+    value: function () {
+      const today = dateNow();
+      const start = dayjs(today).subtract(10, "minute");
+      return [start, today];
+    },
+  },
   "15M": {
     label: i18n.liquidity.mainHeader.shiwuMin,
     value: function () {
