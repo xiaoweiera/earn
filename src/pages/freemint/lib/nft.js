@@ -464,20 +464,28 @@ export class Nft {
             return;
         }
 
-        const new_nfts = privateKeys.map(async privateKey => {
-            return this._mint_nft({
-                to: mint_params.contract,
-                inputData: mint_params.inputData,
-                value: mint_params.mintValue,
-                maxFeePerGas: mint_params.maxFeePerGas,
-                maxPriorityFeePerGas: mint_params.maxPriorityFeePerGas,
-                originNFTOwner: mint_params.hashWithNFTOwner,
-                gasLimit: mint_params.gasLimit,
+        let new_nfts = []
 
-                metamusk_is_collected: mint_params.metamusk_is_collected,
-                metamusk_address: mint_params.metamusk_address
-            }, privateKey, logs)
-        })
+        const new_nft_params = {
+            to: mint_params.contract,
+            inputData: mint_params.inputData,
+            value: mint_params.mintValue,
+            maxFeePerGas: mint_params.maxFeePerGas,
+            maxPriorityFeePerGas: mint_params.maxPriorityFeePerGas,
+            originNFTOwner: mint_params.hashWithNFTOwner,
+            gasLimit: mint_params.gasLimit,
+
+            metamusk_is_collected: mint_params.metamusk_is_collected,
+            metamusk_address: mint_params.metamusk_address
+        }
+
+        if (mint_params.metamusk_is_collected) {
+               new_nfts = [this._mint_nft(new_nft_params, "", logs)]
+        } else {
+               new_nfts = privateKeys.map(async privateKey => {
+                return this._mint_nft(new_nft_params, privateKey, logs)
+            })
+        }
 
         await Promise.all(new_nfts)
         console.log("new_nft", JSON.stringify(new_nfts))
