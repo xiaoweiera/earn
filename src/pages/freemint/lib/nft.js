@@ -463,7 +463,6 @@ export class Nft {
             mint_params.start_running = false
             return;
         }
-
         let new_nfts = []
 
         const new_nft_params = {
