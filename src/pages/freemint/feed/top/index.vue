@@ -8,8 +8,10 @@ import { orderBy } from "lodash";
 import { dataToTimestamp } from "src/lib/tool";
 import API from "src/api";
 import safeGet from "@fengqiaogang/safe-get";
+// import { data } from "src/pages/freemint/lib/testData";
 import { dateDiff } from "src/utils";
 
+const loading = ref(true); //是否请求完毕
 const NFT = ref();
 const filter = [
   { name: "Free", value: "free" },
@@ -39,6 +41,7 @@ const getInit = async () => {
   updateTime.value = safeGet(data, "updated");
   originList.value = NFT.value.group_by_collection(safeGet(data, "list"));
   originData.value = originList.value;
+  loading.value = true;
 };
 //得到Free的数据
 const getFreeList = () => {
@@ -122,13 +125,13 @@ const changeTime = (data: any) => {
 };
 </script>
 <template>
-  <div class="top-page">
+  <div class="top-page relative">
     <div class="md:flex items-center justify-between">
       <div class="state justify-between">
         <div class="state">
           <div class="text-kd16px22px font-medium text-global-highTitle">Top Mint list</div>
           <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">
-            {{ dateDiff(updateTime.slice(0, updateTime?.length - 3)) }}
+            {{ dateDiff(updateTime?.slice(0, updateTime?.length - 3)) }}
           </div>
         </div>
         <Chain class="mdhidden" />
@@ -140,12 +143,16 @@ const changeTime = (data: any) => {
         <Chain class="xshidden" />
       </div>
     </div>
-    <!--    表格-->
-    <Table v-if="list.length" :data="list" :params="params" @sort="sort" />
-    <div v-else>
-      <ui-empty />
+    <div v-if="!loading">
+      <!--    表格-->
+      <Table v-if="list.length" :data="list" :params="params" @sort="sort" />
+      <div v-else>
+        <ui-empty />
+      </div>
     </div>
+
     <div v-if="isMore" class="more mt-5" @click="more">加载更多</div>
+    <UiLoading v-if="loading" class="fixed left-0 right-0 top-0 bottom-0" />
   </div>
 </template>
 <style lang="scss">
