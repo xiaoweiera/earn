@@ -2,10 +2,7 @@
 import { ElSelect, ElOption } from "element-plus";
 import { ref } from "vue";
 const chain = ref("eth");
-const list = [
-  { name: "Ethereum", icon: "eth", key: "eth" },
-  { name: "btc", icon: "btc", key: "btc" },
-];
+const list = [{ name: "Ethereum", icon: "eth", key: "eth" }];
 </script>
 <template>
   <div class="bg-global-primary flex items-center rounded-kd4px h-7 px-2 justify-center">

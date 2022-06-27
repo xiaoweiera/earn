@@ -242,7 +242,7 @@ export const changeRouteParam = (route: any, router: any, param: any) => {
 // 省略token
 export const smallToken = (tokenId: string) => {
   if (!tokenId) return;
-  return `${tokenId.slice(0, 6)}......${tokenId.slice(tokenId.length - 4, tokenId.length)}`;
+  return `${tokenId.slice(0, 5)}......${tokenId.slice(tokenId.length - 4, tokenId.length)}`;
 };
 export const isToken = (token: string) => {
   const i18n = I18n();

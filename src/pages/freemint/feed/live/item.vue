@@ -39,13 +39,13 @@ defineProps({
 
           <div class="state mt-3">
             <div class="state mr-12">
-              <div class="des-title">Avg Price</div>
+              <div class="des-title">Mint Price</div>
               <Tip v-if="!data.value" type="free" />
               <div v-else class="content-value">{{ toNumberCashFormat(data.value, "$") }}</div>
             </div>
             <div class="state mr-12">
-              <div class="des-title">Gas Cost</div>
-              <div class="content-value">{{ toNumberCashFormat(data.gas) }} Gwei</div>
+              <div class="des-title">Avg Tx Fee</div>
+              <div class="content-value">{{ toNumberCashFormat(data.gas) }} ETH</div>
             </div>
             <div class="state mr-12">
               <div class="des-title">Fomo Level</div>
@@ -77,13 +77,13 @@ defineProps({
       <div class="w-full">
         <div class="mt-3">
           <div class="state mt-2">
-            <div class="des-title">Avg Price</div>
+            <div class="des-title">Mint Price</div>
             <Tip v-if="!data.value" type="free" />
             <div v-else class="content-value">{{ toNumberCashFormat(data.value, "$") }}</div>
           </div>
           <div class="state mt-2">
-            <div class="des-title">Gas Cost</div>
-            <div class="content-value">{{ toNumberCashFormat(data.gas) }} Gwei</div>
+            <div class="des-title">Avg Tx Fee</div>
+            <div class="content-value">{{ toNumberCashFormat(data.gas) }} ETH</div>
           </div>
           <div class="state mt-2">
             <div class="des-title">Fomo Level</div>
@@ -93,7 +93,7 @@ defineProps({
       </div>
       <div class="flex items-center mt-3">
         <!-- <div class="fast-mint mr-2">Fast Mint</div> -->
-        <v-router class="copy-mint" :href="`/freemint/nft?contact=${data.contract_address}`">Copy Mint</v-router>
+        <v-router class="copy-mint" target="_blank" :href="`/freemint/nft?contact=${data.contract_address}`">Copy Mint</v-router>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 import {ABI} from "./nft_contract_abi.js"
 import {ethers} from 'ethers'
 import safeGet from "@fengqiaogang/safe-get";
-import {values, sumBy, groupBy, orderBy} from 'lodash'
+import {values, sumBy, groupBy, orderBy, sortBy, keyBy} from 'lodash'
 import window from "src/plugins/browser/window";
 
 export class Nft {
@@ -77,7 +77,7 @@ export class Nft {
 
         if (mint_params.metamusk_is_collected) {
             if (!mint_params.metamusk_address) {
-                logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamusk address cannot be empty！'})
+                logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamask address cannot be empty！'})
                 mint_params.start_running = false
                 return;
             }
@@ -231,6 +231,7 @@ export class Nft {
 
                     if (mint_params.metamusk_is_collected) {
                         for (let i = 1; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
+                            if (!mint_params.start_running) break;
                             const new_nft = await this._mint_nft({
                                 to: nfts[0]?.contract_address,
                                 inputData: nfts[0].input_data,
@@ -255,6 +256,7 @@ export class Nft {
                         for (let j = 0; j < privateKeys.length; j++) {
                             let privateKey = privateKeys[j]
                             for (let i = 1; i <= mint_params.baseInfo.singleContractMintAmount; i++) {
+                                if (!mint_params.start_running) break;
                                 const new_nft = await this._mint_nft({
                                     to: nfts[0]?.contract_address,
                                     inputData: nfts[0].input_data,
@@ -364,7 +366,7 @@ export class Nft {
 
             //小狐狸链接的时候
             if (mint_params.metamusk_is_collected) {
-                logs.push({msg: `交易正在通过 MetaMusk 发送到区块链.....`})
+                logs.push({msg: `交易正在通过 MetaMask 发送到区块链.....`})
                 const t = await window.ethereum.request({
                     method: 'eth_sendTransaction',
                     params: [txParams],
@@ -432,7 +434,7 @@ export class Nft {
 
         if (mint_params.metamusk_is_collected) {
             if (!mint_params.metamusk_address) {
-                logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamusk address cannot be empty！'})
+                logs.push({color: 'rgb(62 79 103)', state: 'fail', msg: '❌ metamask address cannot be empty！'})
                 mint_params.start_running = false
                 return;
             }
@@ -568,16 +570,15 @@ export class Nft {
         }
     }
 
+    //按区块倒序
     formatBlockData(data) {
-        console.log('result',data)
         const orderList = data.map(item => {
             return {
                 ...item,
-                token_id_order: Number(item.token_id)
+                blockNumberInt: Number(item.blockNumber)
             }
         })
-
-        return orderBy(orderList, 'token_id', 'desc')
+        return orderBy(orderList, 'blockNumberInt', 'desc')
     }
 
     // Feed 流
@@ -590,16 +591,20 @@ export class Nft {
             if (!item) return
             //根据address分组分组
             const addressList = values(groupBy(item, 'contract_address'))
+
             addressList.map(itemTwo => {
+                const avgGas = sumBy(itemTwo.map(t => {
+                    return t['gas'] * t['gas_price'] / (10 ** 18)
+                })) / itemTwo.length
                 if (itemTwo[0]) {
                     //插入聚合数据
                     result.push({
-                        blockNumber: itemTwo[0].blockNumber,
+                        blockNumber: itemTwo[0]['blockNumberInt'],
                         name: itemTwo[0].name ? itemTwo[0].name : safeGet(itemTwo[0], 'metadata.title'),
                         image: safeGet(itemTwo[0], 'metadata.metadata.image'),
                         sumNumber: itemTwo.length, //出现次数
-                        value: sumBy(itemTwo, 'value'),
-                        gas: sumBy(itemTwo, 'gas'),
+                        value: sumBy(itemTwo, 'value') / (10 ** 18) / itemTwo.length,
+                        gas: avgGas,
                         contract_address: itemTwo[0].contract_address,
                         description: safeGet(itemTwo[0], 'metadata.metadata.description'),
                     })
@@ -607,7 +612,8 @@ export class Nft {
             })
         })
         //再根据聚合数据分组 block
-        return values(groupBy(result, 'blockNumber'))
+        const blocks = values(groupBy(result, 'blockNumber'))
+        return blocks.reverse()
     }
 
     group_by_collection(originData) {
@@ -616,16 +622,19 @@ export class Nft {
         //根据address分组分组
         const addressList = values(groupBy(data, 'contract_address'))
         addressList.map(itemTwo => {
+            const avgGas = sumBy(itemTwo.map(t => {
+                return t['gas'] * t['gas_price'] / (10 ** 18)
+            })) / itemTwo.length
             //插入聚合数据
             result.push({
-                blockNumber: itemTwo[0].blockNumber,
+                blockNumber: itemTwo[0]['blockNumberInt'],
                 contract_address: itemTwo[0].contract_address,
                 image: safeGet(itemTwo[0], 'metadata.metadata.image'),
                 name: itemTwo[0].name ? itemTwo[0].name : safeGet(itemTwo[0], 'metadata.title'),
                 sumNumber: itemTwo.length,//出现次数
-                owner: values(groupBy(data, 'owner')).length,
-                value: sumBy(itemTwo, 'value'),
-                gas: sumBy(itemTwo, 'gas'),
+                owner: values(groupBy(itemTwo, 'minter')).length,
+                value: sumBy(itemTwo, 'value') / (10 ** 18) / itemTwo.length,
+                gas: avgGas,
                 description: safeGet(itemTwo[0], 'metadata.metadata.description'),
                 time: safeGet(itemTwo[0], 'metadata.timeLastUpdated')
             })
@@ -637,7 +646,6 @@ export class Nft {
     async getLasetBlock() {
         return await this.api_web3.eth.getBlockNumber();
     }
-
 
     async get_lastest_mint_tx(blockNumbers) {
         //  const fromBlock = xxxx
@@ -699,7 +707,7 @@ export class Nft {
                 token_id: nft_event.tokenId,
                 tx_id: nft_event.hash,
                 category: nft_event.category,
-                value: Number(tx.value),
+                value: Number(tx.value) / (10 ** 18),
                 maxPriorityFeePerGas: tx.maxPriorityFeePerGas / (10 ** 9),
                 maxFeePerGas: tx.maxFeePerGas / (10 ** 9),
                 hash: nft_event.hash,
@@ -719,3 +727,4 @@ export class Nft {
         }
     }
 }
+

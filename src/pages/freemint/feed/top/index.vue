@@ -7,6 +7,8 @@ import { ref, onMounted, reactive } from "vue";
 import { orderBy } from "lodash";
 import { dataToTimestamp } from "src/lib/tool";
 import API from "src/api";
+import safeGet from "@fengqiaogang/safe-get";
+import { dateDiff } from "src/utils";
 const NFT = ref();
 const filter = [
   { name: "Free", value: "free" },
@@ -14,11 +16,11 @@ const filter = [
 ];
 const pageInfo = reactive({
   page: 1,
-  page_size: 10, //每页条数
+  page_size: 50, //每页条数
 });
 const params = reactive({
-  sort_field: "",
-  sort_type: "", // desc asc
+  sort_field: "owner",
+  sort_type: "desc", // desc asc
 });
 const key = ref(0); //刷新key
 const tag = ref("all");
@@ -28,11 +30,13 @@ const freeList = ref<any>([]); // Free的原始数据列表
 const originData = ref<any>([]); //all操作
 const freeData = ref<any>([]); // free操作数据
 const list = ref<any>([]); //展示的数据
-const dataTime = ["all", "1H", "30M", "5M"];
+const dataTime = ["5M", "15M", "30M", "all"];
+const updateTime = ref("");
 const getInit = async () => {
   const api = new API();
-  const data = await api.freeMint.blockList();
-  originList.value = NFT.value.group_by_collection(data);
+  const data: any = await api.freeMint.blockList();
+  updateTime.value = safeGet(data, "updated");
+  originList.value = NFT.value.group_by_collection(safeGet(data, "list"));
   originData.value = originList.value;
 };
 //得到Free的数据
@@ -77,7 +81,8 @@ onMounted(async () => {
   await getInit();
   getFreeList();
   // 初始化的值 默认全部
-  list.value = getMoreData();
+  // list.value = getMoreData();
+  sort();
 });
 //排序前重组数据
 const sortData = (origin: any, free: any) => {
@@ -119,12 +124,16 @@ const changeTime = (data: any) => {
   <div class="top-page">
     <div class="md:flex items-center justify-between">
       <div class="state justify-between">
-        <div class="text-kd16px22px font-medium text-global-highTitle">Top Mint list</div>
+        <div class="state">
+          <div class="text-kd16px22px font-medium text-global-highTitle">Top Mint list</div>
+          <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">{{ dateDiff(updateTime.slice(0, updateTime?.length - 3)) }}</div>
+        </div>
         <Chain class="mdhidden" />
       </div>
+
       <div class="state justify-between md:mt-0 mt-4">
         <Tag class="mr-6" :default="tag" :data="filter" @change="changeTag" />
-        <ui-date-day :key="key" class="md:mr-6" :shortcuts="dataTime" @change="changeTime" />
+        <!--        <ui-date-day :key="key" class="md:mr-6" :shortcuts="dataTime" @change="changeTime" />-->
         <Chain class="xshidden" />
       </div>
     </div>

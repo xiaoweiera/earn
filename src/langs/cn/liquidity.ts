@@ -55,6 +55,7 @@ export default {
     follow: "关注",
     analysis: "分析数据异常",
     wuMin: "5分钟",
+    shiwuMin: "15分钟",
     sanshiMin: "30分钟",
     yiHour: "1小时",
     yiDay: "1天",
