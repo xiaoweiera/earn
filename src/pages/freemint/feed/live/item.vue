@@ -33,9 +33,7 @@ defineProps({
               </a>
             </div>
           </div>
-          <div class="gray w-180 short">
-            {{ data.description }}
-          </div>
+          <div class="gray w-180 whitespace-pre-wrap">{{ data.description }}</div>
 
           <div class="state mt-3">
             <div class="state mr-12">
