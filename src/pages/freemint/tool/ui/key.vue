@@ -85,7 +85,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="w-full border-css">
+  <div class="w-full border-css relative">
     <div class="md:flex items-center justify-between">
       <div>
         <div class="flex items-center">
@@ -94,19 +94,27 @@ onMounted(() => {
         </div>
         <div class="des mt-1.5">{{ des }}</div>
       </div>
-      <div v-if="isWallet" class="flex items-center mt-3 md:mt-0 md:ml-4" @click="onConnect">
-        <div class="button-mint">
-          <ui-image class="mr-1 w-4 h-4" oss src="/mint/walletOk.png" />
-          <span>{{ walletTxt }}</span>
-        </div>
-      </div>
+
+      <ui-popover class="break-words" placement="bottom" width="auto" trigger="click">
+        <template #reference>
+          <div v-if="isWallet" class="flex items-center mt-3 md:mt-0 md:ml-4" @click="onConnect">
+            <div class="button-mint">
+              <ui-image class="mr-1 w-4 h-4" oss src="/mint/walletOk.png" />
+              <span>{{ walletTxt }}</span>
+            </div>
+          </div>
+        </template>
+        <template #content>
+          <div class="flex items-center text-kd12px18px px-2 py-1.5">MetaMask 插件中退出</div>
+        </template>
+      </ui-popover>
     </div>
     <client-only v-if="!toolModel['metamusk_address'] || !isWallet" class="flex mt-3 items-center">
       <el-input v-model="key" placeholder="请输入私钥地址" autocomplete="off" />
       <div class="button-mint ml-4" @click="add">Add</div>
     </client-only>
     <div v-else class="mt-3 text-kd16px24px text-global-highTitle text-number">
-      MetaMusk Account:
+      MetaMask Account:
       {{ toolModel.metamusk_address }}
     </div>
     <!--私钥列表-->

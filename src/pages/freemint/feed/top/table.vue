@@ -34,8 +34,8 @@ const sort = () => {
 const headerList = [
   { key: "collection", name: "NFT Collection", sort: false, active: false },
   { key: "level", name: "Fomo Level", sort: true, active: false },
-  { key: "owner", name: "5m Minters", sort: true, active: false },
-  { key: "sumNumber", name: "5m Mint NFTs", sort: true, active: false },
+  { key: "owner", name: "Minters", sort: true, active: false },
+  { key: "sumNumber", name: "Mint NFTs", sort: true, active: false },
   { key: "value", name: "Mint Price", sort: true, active: false },
   { key: "gas", name: "Avg Tx Fee", sort: true, active: false },
   { key: "operate", name: "Operate" },
@@ -86,7 +86,7 @@ onMounted(() => {
             <div v-else-if="header.key === 'gas'">
               <div class="txt text-number">{{ toNumberCashFormat(scope.row.gas, "", "", "0") }} ETH</div>
             </div>
-            <v-router v-else-if="header.key === 'operate'" class="mint-button" target="_blank" :href="`/freemint/nft?contact=${scope.row.hash}`">Mint</v-router>
+            <v-router v-else-if="header.key === 'operate'" class="mint-button" target="_blank" :href="`/freemint/nft?contact=${scope.row.contract_address}`">Mint</v-router>
             <div v-else-if="header.key === 'owner'" class="txt text-number">{{ toNumberCashFormat(scope.row.owner) }}</div>
             <div v-else-if="header.key === 'sumNumber'" class="txt text-number">
               {{ toNumberCashFormat(scope.row.sumNumber) }}

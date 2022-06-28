@@ -68,9 +68,8 @@ export const Analysis = function (lang?: Lang): MenuItem {
   });
   db.insert({
     icon: "icon-Token",
-    name: "Live Mint Feed",
+    name: "Live Mint Feed 🔥",
     href: routerConfig.freemintLive,
-    sideNewTip: true,
     header: true,
     children: [
       {
@@ -89,9 +88,8 @@ export const Analysis = function (lang?: Lang): MenuItem {
   });
   db.insert({
     icon: "icon-NFT",
-    name: "Mint NFT Tool",
+    name: "Mint NFT Tool 🔥",
     href: routerConfig.freemintNFT,
-    sideNewTip: true,
     header: true,
     children: [
       {

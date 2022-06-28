@@ -534,6 +534,7 @@ export class Nft {
                 }
             }
             case "NFT_MINT_TX_HASH": {
+                console.log(hash,'hash')
                 // 再拉取真正的 链上 tx, 获取 input data
                 const tx = await this.api_web3.eth.getTransaction(hash)
                 console.log("NFT_MINT_TX_HASH get tx: ", tx)
