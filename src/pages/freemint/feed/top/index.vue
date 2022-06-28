@@ -90,8 +90,6 @@ onMounted(async () => {
   // @ts-ignore
   NFT.value = new Nft(window["AlchemyWeb3"]);
   await getInit();
-  // 初始化的值 默认全部
-  // list.value = getMoreData();
   sort();
 });
 //排序前重组数据
