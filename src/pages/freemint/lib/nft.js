@@ -144,7 +144,7 @@ export class Nft {
                     // 关键词的屏蔽
                     let shieldWord = mint_params.shieldWord
                     if (shieldWord) {
-                        shieldWord = shieldWord.split(',')
+                        shieldWord = shieldWord?.split(',')
                         let includes = false
                         shieldWord.map(key => {
                             if (nfts[0].metadata.title.includes(key)) {
@@ -156,7 +156,7 @@ export class Nft {
                             logs.push({
                                 color: '#ff9b0afc',
                                 state: 'noShow',
-                                msg: `※屏蔽※ ${contract}(${nfts[0].metadata.title}) 已经屏蔽，因为 包含屏蔽关键词 ${shieldWord.join(', ')} `
+                                msg: `※屏蔽※ ${contract}(${nfts[0].metadata.title}) 已经屏蔽，因为 包含屏蔽关键词 ${shieldWord?.join(', ')} `
                             })
                             continue;
                         }
