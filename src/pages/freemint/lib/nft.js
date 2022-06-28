@@ -512,7 +512,7 @@ export class Nft {
             case 'NFT_CONTRACT_HASH': {
                 // 获取合约的最新一条 mint 记录
                 // 获取 alchemy nft 的交易记录
-                const last_mint_tx = await this.fetch_nft_mint_transactions(0, lastBlock, 1, [hash])
+                const last_mint_tx = await this.fetch_nft_mint_transactions(0, lastBlock, 5, [hash])
                 console.log("NFT_CONTRACT_HASH last_mint_tx: ", last_mint_tx)
 
                 if (last_mint_tx.length == 0) {
@@ -522,14 +522,14 @@ export class Nft {
                     break;
                 }
                 // 再拉取真正的 链上 tx, 获取 input data
-                const tx = await this.api_web3.eth.getTransaction(last_mint_tx[0].hash)
+                const tx = await this.api_web3.eth.getTransaction(last_mint_tx.pop().hash)
                 console.log("NFT_CONTRACT_HASH the lastest tx: ", tx)
 
                 return {
                     input_data: tx.input,
                     value: tx.value,
                     contract_address: hash,
-                    owner: last_mint_tx[0].to,
+                    owner: last_mint_tx.pop().to,
                     gasLimit: tx.gas * 1.1
                 }
             }
@@ -540,7 +540,7 @@ export class Nft {
                 console.log("NFT_MINT_TX_HASH get tx: ", tx)
 
                 // 获取 alchemy nft 的交易记录
-                const last_mint_tx = await this.fetch_nft_mint_transactions(tx.blockNumber, tx.blockNumber, 1, false, tx.from)
+                const last_mint_tx = await this.fetch_nft_mint_transactions(tx.blockNumber, tx.blockNumber, 5, false, tx.from)
                 console.log("NFT_MINT_TX_HASH last_mint_tx: ", last_mint_tx)
 
                 if (last_mint_tx.length == 0) {
@@ -553,8 +553,8 @@ export class Nft {
                 return {
                     input_data: tx.input,
                     value: tx.value,
-                    contract_address: last_mint_tx[0].rawContract.address,
-                    owner: last_mint_tx[0].to,
+                    contract_address: last_mint_tx.pop().rawContract.address,
+                    owner: last_mint_tx.pop().to,
                     gasLimit: tx.gas * 1.1
                 }
             }
