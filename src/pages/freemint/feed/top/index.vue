@@ -26,6 +26,7 @@ const params = reactive({
   sort_type: "desc", // desc asc
 });
 const key = ref(0); //刷新key
+const initTime = ref([]);
 const tag = ref("all");
 const isMore = ref(false); //是否有加载更多
 const originList = ref<any>([]); //得到的原始数据源（分组过后的）
@@ -40,14 +41,20 @@ const getInit = async () => {
   const data: any = await api.freeMint.blockList();
   updateTime.value = safeGet(data, "updated");
   originList.value = NFT.value.group_by_collection(safeGet(data, "list"));
-  originData.value = originList.value;
-  loading.value = false;
-};
-//得到Free的数据
-const getFreeList = () => {
   freeList.value = originList.value.filter((item: any) => item.value === 0);
-  // freeList.value = originList.value.filter((item: any) => item.sumNumber > 1); //可以拿着这个去测试，出现次数大于1的
+  //默认5分钟
+  if (initTime.value[0]) {
+    originList.value = originList.value.filter((item: any) => {
+      return Number(dataToTimestamp(item.time).toFixed(0)) > initTime.value[0] / 1000;
+    });
+    freeList.value = freeList.value.filter((item: any) => {
+      return Number(dataToTimestamp(item.time).toFixed(0)) > initTime.value[0] / 1000;
+    });
+  }
+
+  originData.value = originList.value;
   freeData.value = freeList.value;
+  loading.value = false;
 };
 //得到第一页或者下一页数据
 const getMoreData = () => {
@@ -83,7 +90,6 @@ onMounted(async () => {
   // @ts-ignore
   NFT.value = new Nft(window["AlchemyWeb3"]);
   await getInit();
-  getFreeList();
   // 初始化的值 默认全部
   // list.value = getMoreData();
   sort();
@@ -108,6 +114,7 @@ const reset = () => {
 };
 // let testTime = 0;
 const changeTime = (data: any) => {
+  if (!initTime.value.length) initTime.value = data;
   // todo
   if (data[0]) {
     sortData(originList, freeList);
@@ -139,7 +146,7 @@ const changeTime = (data: any) => {
 
       <div class="state justify-between md:mt-0 mt-4">
         <Tag class="mr-6" :default="tag" :data="filter" @change="changeTag" />
-        <ui-date-day :key="key" class="md:mr-6" :shortcuts="dataTime" @change="changeTime" />
+        <ui-date-day class="md:mr-6" :shortcuts="dataTime" @change="changeTime" />
         <Chain class="xshidden" />
       </div>
     </div>

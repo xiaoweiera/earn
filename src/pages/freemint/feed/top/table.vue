@@ -34,8 +34,8 @@ const sort = () => {
 const headerList = [
   { key: "collection", name: "NFT Collection", sort: false, active: false },
   { key: "level", name: "Fomo Level", sort: true, active: false },
-  { key: "owner", name: "5m Minters", sort: true, active: false },
-  { key: "sumNumber", name: "5m Mint NFTs", sort: true, active: false },
+  { key: "owner", name: "Minters", sort: true, active: false },
+  { key: "sumNumber", name: "Mint NFTs", sort: true, active: false },
   { key: "value", name: "Mint Price", sort: true, active: false },
   { key: "gas", name: "Avg Tx Fee", sort: true, active: false },
   { key: "operate", name: "Operate" },

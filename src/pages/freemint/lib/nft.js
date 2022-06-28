@@ -534,12 +534,13 @@ export class Nft {
                 }
             }
             case "NFT_MINT_TX_HASH": {
+                console.log(hash,'hash')
                 // 再拉取真正的 链上 tx, 获取 input data
                 const tx = await this.api_web3.eth.getTransaction(hash)
                 console.log("NFT_MINT_TX_HASH get tx: ", tx)
 
                 // 获取 alchemy nft 的交易记录
-                const last_mint_tx = await this.fetch_nft_mint_transactions(0, lastBlock, 1, [tx.to])
+                const last_mint_tx = await this.fetch_nft_mint_transactions(0, lastBlock, 1, [tx?.to])
                 console.log("NFT_MINT_TX_HASH last_mint_tx: ", last_mint_tx)
 
                 if (last_mint_tx.length == 0) {
