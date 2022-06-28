@@ -540,7 +540,7 @@ export class Nft {
                 console.log("NFT_MINT_TX_HASH get tx: ", tx)
 
                 // 获取 alchemy nft 的交易记录
-                const last_mint_tx = await this.fetch_nft_mint_transactions(0, lastBlock, 1, [tx?.to])
+                const last_mint_tx = await this.fetch_nft_mint_transactions(tx.blockNumber, tx.blockNumber, 1, false, tx.from)
                 console.log("NFT_MINT_TX_HASH last_mint_tx: ", last_mint_tx)
 
                 if (last_mint_tx.length == 0) {
@@ -553,7 +553,7 @@ export class Nft {
                 return {
                     input_data: tx.input,
                     value: tx.value,
-                    contract_address: tx.to,
+                    contract_address: last_mint_tx[0].rawContract.address,
                     owner: last_mint_tx[0].to,
                     gasLimit: tx.gas * 1.1
                 }
@@ -659,13 +659,14 @@ export class Nft {
     }
 
 
-    async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000, contracts = null) {
+    async fetch_nft_mint_transactions(from_block, to_block, maxCount = 1000, contracts = null, toAddress = null) {
         const params = {
             fromBlock: from_block,
-            fromAddress: "0x0000000000000000000000000000000000000000",
-
             toBlock: to_block,
+
+            fromAddress: "0x0000000000000000000000000000000000000000",
             // toAddress: "0xf7996b18ef0fd8838b577021a54e49f276fd5789",
+
             excludeZeroValue: false,
             // category: ["erc721", "erc1155"],
             category: ["erc721"],
@@ -674,6 +675,11 @@ export class Nft {
         if (contracts) {
             params.contractAddresses = contracts
         }
+
+        if (toAddress) {
+            params.toAddress = toAddress
+        }
+
         const result =  await this.api_web3.alchemy.getAssetTransfers(params)
         return filter(result.transfers, o => o.rawContract.address)
     }
