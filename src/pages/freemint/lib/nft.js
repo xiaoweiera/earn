@@ -479,15 +479,22 @@ export class Nft {
             metamusk_address: mint_params.metamusk_address
         }
 
+
         if (mint_params.metamusk_is_collected) {
-               new_nfts = [this._mint_nft(new_nft_params, "", logs)]
+            for (let i = 1; i <= mint_params.mintAmount; i++) {
+                new_nfts = [this._mint_nft(new_nft_params, "", logs)]
+            }
+
         } else {
                new_nfts = privateKeys.map(async privateKey => {
                 return this._mint_nft(new_nft_params, privateKey, logs)
             })
         }
 
-        await Promise.all(new_nfts)
+        for (let i = 1; i <= mint_params.mintAmount; i++) {
+            await Promise.all(new_nfts)
+        }
+
         console.log("new_nft", JSON.stringify(new_nfts))
         mint_params.start_running = false
     }

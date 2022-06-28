@@ -29,6 +29,10 @@ const props = defineProps({
     type: String,
     default: "需要本地使用你的私钥进行操作，服务器不会获取你的私钥，为了安全考虑，建议用小号。填入私钥后点击 Add 添加。",
   },
+  placeholder: {
+    type: String,
+    default: "请输入私钥地址",
+  },
   //是否有钱包按钮
   isWallet: {
     type: Boolean,

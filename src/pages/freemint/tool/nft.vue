@@ -27,7 +27,7 @@ const toolModel: toolMode = reactive({
   maxPriorityFeePerGas: 2,
   maxFeePerGas: 50,
   start_running: false,
-  mintAmount: 3,
+  mintAmount: 1,
   // contract: "0x508c58996e46b10b093f9f4ead6ab3416e73f3a1",
   contract: getParam<string>("contact"),
   mintValue: 0,
