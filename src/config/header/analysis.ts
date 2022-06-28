@@ -88,7 +88,7 @@ export const Analysis = function (lang?: Lang): MenuItem {
   });
   db.insert({
     icon: "icon-NFT",
-    name: "Mint NFT Tool 🔥",
+    name: "FreeMint Tool 🔥",
     href: routerConfig.freemintNFT,
     header: true,
     children: [
