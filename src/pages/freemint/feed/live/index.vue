@@ -30,6 +30,7 @@ const getInit = async () => {
   const data: any = await api.freeMint.blockList();
   updateTime.value = safeGet(data, "updated");
   originList.value = NFT.value.group_by_block(safeGet(data, "list"));
+  getFreeList();
 };
 //得到Free的数据
 const getFreeList = () => {
@@ -79,7 +80,6 @@ onMounted(async () => {
   // @ts-ignore
   NFT.value = new Nft(window["AlchemyWeb3"]);
   await getInit();
-  getFreeList();
   // 初始化的值 默认全部
   list.value = getMoreData();
 });

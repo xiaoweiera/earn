@@ -15,7 +15,7 @@ defineProps({
     </div>
     <!--      PC-->
     <div class="border-css xshidden ml-5.5 p-4 flex flex-1 items-start">
-      <ui-image class="min-w-14 min-h-14 max-w-14 max-h-14 rounded-full mr-4" :src="data.image" />
+      <ui-image class="min-w-14 min-h-14 max-w-14 max-h-14 h-14 rounded-full mr-4" :title="data.name" :src="data.image" />
       <div class="state w-full justify-between">
         <div>
           <div class="state">
@@ -53,17 +53,17 @@ defineProps({
         </div>
         <div>
           <!--          <div class="fast-mint">Fast Mint</div>-->
-          <v-router class="copy-mint mt-2" :href="`/freemint/nft?contact=${data.contract_address}`">Copy Mint</v-router>
+          <v-router class="copy-mint mt-2" target="_blank" :href="`/freemint/nft?contact=${data.contract_address}`">Copy Mint</v-router>
         </div>
       </div>
     </div>
     <!--      Mobile-->
     <div class="border-css ml-4.5 mdhidden p-4">
       <div class="state">
-        <ui-image class="min-w-14 min-h-14 max-w-14 max-h-14 rounded-full mr-4" :src="data.image" />
+        <ui-image class="min-w-14 min-h-14 max-w-14 max-h-14 h-14 rounded-full mr-4" :title="data.name" :src="data.image" />
         <div class="state">
           <div class="state flex-wrap">
-            <span class="mr-1.5 text-kd16px22px text-global-balck-title font-medium flex flex-wrap break-txt">{{ data.name }}{{ data.name }}</span>
+            <span class="mr-1.5 text-kd16px22px text-global-balck-title font-medium flex flex-wrap break-txt">{{ data.name }}</span>
             <span class="text-kd14px18px font-medium text-global-text-grey font-kdFang flex flex-wrap break-txt">{{ data.sumNumber ? `X${data.sumNumber}` : "" }}</span>
             <div class="gang mx-2" />
             <ui-image class="w-4 h-4 mr-1.5" oss src="/mint/web.png" />
@@ -91,7 +91,7 @@ defineProps({
       </div>
       <div class="flex items-center mt-3">
         <!-- <div class="fast-mint mr-2">Fast Mint</div> -->
-        <v-router class="copy-mint" target="_blank" :href="`/freemint/nft?contact=${data.hash}`">Copy Mint</v-router>
+        <v-router class="copy-mint" target="_blank" :href="`/freemint/nft?contact=${data.contract_address}`">Copy Mint</v-router>
       </div>
     </div>
   </div>
