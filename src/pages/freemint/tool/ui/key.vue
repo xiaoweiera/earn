@@ -2,7 +2,7 @@
 /**
  * 私钥
  */
-import { ElInput, ElPopover } from "element-plus";
+import { ElInput } from "element-plus";
 import { isConnect } from "src/logic/common/wallet";
 import Wallet from "src/plugins/web3/wallet";
 import safeGet from "@fengqiaogang/safe-get";
@@ -114,7 +114,7 @@ onMounted(() => {
       <div class="button-mint ml-4" @click="add">Add</div>
     </client-only>
     <div v-else class="mt-3 text-kd16px24px text-global-highTitle text-number">
-      MetaMusk Account:
+      MetaMask Account:
       {{ toolModel.metamusk_address }}
     </div>
     <!--私钥列表-->
