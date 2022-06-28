@@ -177,7 +177,7 @@ export class Nft {
                             logs.push({
                                 color: '#ff9b0afc',
                                 state: 'noShow',
-                                msg: `※屏蔽※ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为 不包含关键词 ${shieldWord.join(', ')} `
+                                msg: `※屏蔽※ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为 不包含关键词 ${keyWord.join(', ')} `
                             })
                             continue;
                         }
