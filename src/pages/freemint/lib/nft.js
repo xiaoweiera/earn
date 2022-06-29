@@ -202,7 +202,7 @@ export class Nft {
                             color: '#ff9b0afc',
                             state: 'noShow',
                             msg: `※屏蔽※ ${contract}(${nfts[0].metadata.title}) 已经忽略，因为超过预设的单价，预设为： ${mint_params.baseInfo.value} ETH，实际为: ${this.api_web3.utils.fromWei(nfts[0].value.toString(), 'ether')} ETH `
-                    })
+                        })
                         continue;
                     }
 
@@ -482,19 +482,17 @@ export class Nft {
 
         if (mint_params.metamusk_is_collected) {
             for (let i = 1; i <= mint_params.mintAmount; i++) {
-                new_nfts = [this._mint_nft(new_nft_params, "", logs)]
+                new_nfts.push(this._mint_nft(new_nft_params, "", logs))
             }
-
         } else {
-               new_nfts = privateKeys.map(async privateKey => {
-                return this._mint_nft(new_nft_params, privateKey, logs)
+            privateKeys.map(async privateKey => {
+                for (let i = 1; i <= mint_params.mintAmount; i++) {
+                    new_nfts.push(this._mint_nft(new_nft_params, privateKey, logs))
+                }
             })
         }
 
-        for (let i = 1; i <= mint_params.mintAmount; i++) {
-            await Promise.all(new_nfts)
-        }
-
+        await Promise.all(new_nfts)
         console.log("new_nft", JSON.stringify(new_nfts))
         mint_params.start_running = false
     }
@@ -541,7 +539,7 @@ export class Nft {
                 }
             }
             case "NFT_MINT_TX_HASH": {
-                console.log(hash,'hash')
+                console.log(hash, 'hash')
                 // 再拉取真正的 链上 tx, 获取 input data
                 const tx = await this.api_web3.eth.getTransaction(hash)
                 console.log("NFT_MINT_TX_HASH get tx: ", tx)
@@ -622,7 +620,7 @@ export class Nft {
                         value: sumBy(itemTwo, 'value') / (10 ** 18) / itemTwo.length,
                         gas: avgGas,
                         contract_address: itemTwo[0].contract_address,
-                        hash:itemTwo[0].hash,
+                        hash: itemTwo[0].hash,
                         description: safeGet(itemTwo[0], 'metadata.metadata.description'),
                     })
                 }
@@ -646,7 +644,7 @@ export class Nft {
             result.push({
                 blockNumber: itemTwo[0]['blockNumberInt'],
                 contract_address: itemTwo[0].contract_address,
-                hash:itemTwo[0].hash,
+                hash: itemTwo[0].hash,
                 image: safeGet(itemTwo[0], 'metadata.metadata.image'),
                 name: itemTwo[0].name ? itemTwo[0].name : safeGet(itemTwo[0], 'metadata.title'),
                 sumNumber: itemTwo.length,//出现次数
@@ -687,7 +685,7 @@ export class Nft {
             params.toAddress = toAddress
         }
 
-        const result =  await this.api_web3.alchemy.getAssetTransfers(params)
+        const result = await this.api_web3.alchemy.getAssetTransfers(params)
         return filter(result.transfers, o => o.rawContract.address)
     }
 

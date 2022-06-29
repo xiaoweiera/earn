@@ -3,7 +3,6 @@
  * 私钥
  */
 import { ElInput } from "element-plus";
-import { isConnect } from "src/logic/common/wallet";
 import Wallet from "src/plugins/web3/wallet";
 import safeGet from "@fengqiaogang/safe-get";
 import { messageError, smallToken } from "src/lib/tool";
@@ -62,7 +61,7 @@ const deleteItem = (index: number) => {
 //链接钱包
 const onConnect = async function () {
   // 如果已获取到地址
-  if (isConnect() || wallet.getChainAddress()) {
+  if (props.toolModel.metamusk_is_collected) {
     return true;
   }
   try {
@@ -98,7 +97,6 @@ onMounted(() => {
         </div>
         <div class="des mt-1.5">{{ des }}</div>
       </div>
-
       <ui-popover class="break-words" placement="bottom" width="auto" trigger="click">
         <template #reference>
           <div v-if="isWallet" class="flex items-center mt-3 md:mt-0 md:ml-4" @click="onConnect">
@@ -109,12 +107,12 @@ onMounted(() => {
           </div>
         </template>
         <template #content>
-          <div class="flex items-center text-kd12px18px px-2 py-1.5">MetaMask 插件中退出</div>
+          <div v-if="props.toolModel['metamusk_is_collected']" class="flex items-center text-kd12px18px px-2 py-1.5">MetaMask 插件中退出</div>
         </template>
       </ui-popover>
     </div>
     <client-only v-if="!toolModel['metamusk_address'] || !isWallet" class="flex mt-3 items-center">
-      <el-input v-model="key" placeholder="请输入私钥地址" autocomplete="off" />
+      <el-input v-model="key" :placeholder="placeholder" autocomplete="off" />
       <div class="button-mint ml-4" @click="add">Add</div>
     </client-only>
     <div v-else class="mt-3 text-kd16px24px text-global-highTitle text-number">

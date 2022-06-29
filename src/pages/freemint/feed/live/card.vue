@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Item from "./item.vue";
+import { dateDiff } from "src/utils";
 defineProps({
   data: {
     type: Object,
@@ -14,6 +15,7 @@ defineProps({
       <div class="yuan-blue"></div>
       <div class="state">
         <div class="flex-1 mr-1.5 text-kd14px18px text-global-primary font-kdFang">#{{ data.length > 0 ? data[0].blockNumber : "--" }}</div>
+        <div class="text-kd12px18px font-medium text-global-highTitle text-opacity-45">{{ dateDiff(data[0].timestamp) }}</div>
       </div>
     </div>
     <!--    列表card-->

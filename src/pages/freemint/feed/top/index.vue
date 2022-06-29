@@ -17,13 +17,20 @@ const filter = [
   { name: "Free", value: "free" },
   { name: "All", value: "all" },
 ];
+//本地分页
 const pageInfo = reactive({
   page: 1,
   page_size: 50, //每页条数
 });
-const params = reactive({
+const orderParams = reactive({
   sort_field: "owner",
   sort_type: "desc", // desc asc
+});
+//取数据的参数
+const param = reactive({
+  min: 30,
+  page: 1,
+  page_size: 500,
 });
 const key = ref(0); //刷新key
 const initTime = ref([]);
@@ -34,24 +41,23 @@ const freeList = ref<any>([]); // Free的原始数据列表
 const originData = ref<any>([]); //all操作
 const freeData = ref<any>([]); // free操作数据
 const list = ref<any>([]); //展示的数据
-const dataTime = ["5M", "10M"];
+const dataTime = ["30M", "15M", "10M", "5M"];
 const updateTime = ref("");
 const getInit = async () => {
   const api = new API();
-  const data: any = await api.freeMint.blockList();
+  const data: any = await api.freeMint.nftList(param);
   updateTime.value = safeGet(data, "updated");
-  originList.value = NFT.value.group_by_collection(safeGet(data, "list"));
+  originList.value = safeGet(data, "list");
   freeList.value = originList.value.filter((item: any) => item.value === 0);
-  //默认5分钟
-  if (initTime.value[0]) {
-    originList.value = originList.value.filter((item: any) => {
-      return Number(dataToTimestamp(item.time).toFixed(0)) > initTime.value[0] / 1000;
-    });
-    freeList.value = freeList.value.filter((item: any) => {
-      return Number(dataToTimestamp(item.time).toFixed(0)) > initTime.value[0] / 1000;
-    });
-  }
-
+  // //默认5分钟
+  // if (initTime.value[0]) {
+  //   originList.value = originList.value.filter((item: any) => {
+  //     return Number(dataToTimestamp(item.timestamp).toFixed(0)) > initTime.value[0];
+  //   });
+  //   freeList.value = freeList.value.filter((item: any) => {
+  //     return Number(dataToTimestamp(item.timestamp).toFixed(0)) > initTime.value[0];
+  //   });
+  // }
   originData.value = originList.value;
   freeData.value = freeList.value;
   loading.value = false;
@@ -94,11 +100,11 @@ onMounted(async () => {
 });
 //排序前重组数据
 const sortData = (origin: any, free: any) => {
-  const sortField = params.sort_field === "level" ? "sumNumber" : params.sort_field;
+  const sortField = orderParams.sort_field === "level" ? "sumNumber" : orderParams.sort_field;
   //@ts-ignore
-  originData.value = orderBy(origin.value, sortField, params.sort_type);
+  originData.value = orderBy(origin.value, sortField, orderParams.sort_type);
   //@ts-ignore
-  freeData.value = orderBy(free.value, sortField, params.sort_type);
+  freeData.value = orderBy(free.value, sortField, orderParams.sort_type);
 };
 //排序
 const sort = () => {
@@ -117,10 +123,10 @@ const changeTime = (data: any) => {
   if (data[0]) {
     sortData(originList, freeList);
     originData.value = originData.value.filter((item: any) => {
-      return Number(dataToTimestamp(item.time).toFixed(0)) > data[0] / 1000;
+      return Number(dataToTimestamp(item.timestamp).toFixed(0)) > data[0];
     });
     freeData.value = freeData.value.filter((item: any) => {
-      return Number(dataToTimestamp(item.time).toFixed(0)) > data[0] / 1000;
+      return Number(dataToTimestamp(item.timestamp).toFixed(0)) > data[0];
     });
   } else {
     originData.value = originList.value;
@@ -150,7 +156,7 @@ const changeTime = (data: any) => {
     </div>
     <div v-if="!loading">
       <!--    表格-->
-      <Table v-if="list.length" :data="list" :params="params" @sort="sort" />
+      <Table v-if="list.length" :data="list" :params="orderParams" @sort="sort" />
       <div v-else>
         <ui-empty />
       </div>
