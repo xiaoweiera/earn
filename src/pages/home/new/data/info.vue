@@ -2,14 +2,14 @@
 import { onMounted, ref } from "vue";
 import { toNumberCashFormat } from "src/utils/convert/to";
 import { getNumberColor } from "src/lib/tool";
-import { address } from "src/logic/common/wallet";
+import { wallet_address } from "src/logic/common/wallet";
 import Chart from "./chart.vue";
 import Tip from "./tip.vue";
 import I18n from "src/utils/i18n";
 const i18n = I18n();
 import { Model } from "src/logic/home";
 const param = {
-  address: address.value,
+  address: wallet_address.value,
   chain: "all",
 };
 const data: any = ref({});
