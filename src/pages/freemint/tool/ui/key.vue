@@ -4,6 +4,7 @@
  */
 import { ElInput } from "element-plus";
 import Wallet from "src/plugins/web3/wallet";
+import { wallet_address } from "src/logic/common/wallet";
 import safeGet from "@fengqiaogang/safe-get";
 import { messageError, smallToken } from "src/lib/tool";
 import { getErrorMessageContent } from "src/plugins/web3/message";
@@ -61,14 +62,16 @@ const deleteItem = (index: number) => {
 //链接钱包
 const onConnect = async function () {
   // 如果已获取到地址
-  if (props.toolModel.metamusk_is_collected) {
-    return true;
+  if (wallet_address.value) {
+    clear();
+    return;
   }
   try {
     const status = await wallet.requestPermissions();
     if (status) {
       // todo 授权成功
       props.toolModel.metamusk_address = wallet.getChainAddress();
+      wallet_address.value = wallet.getChainAddress();
       props.toolModel.metamusk_is_collected = wallet.getChainAddress() ? true : false;
     }
   } catch (e) {
@@ -76,13 +79,19 @@ const onConnect = async function () {
     messageError(getErrorMessageContent(code));
   }
 };
+//清空本地钱包状态
+const clear = () => {
+  props.toolModel.metamusk_address = "";
+  props.toolModel.metamusk_is_collected = false;
+  wallet_address.value = "";
+};
 onMounted(() => {
   props.toolModel.metamusk_address = wallet.getChainAddress();
   props.toolModel.metamusk_is_collected = wallet.getChainAddress() ? true : false;
+  wallet_address.value = wallet.getChainAddress();
   wallet.on(EventType.account, function (metaAddress) {
     if (!metaAddress.length) {
-      props.toolModel.metamusk_address = "";
-      props.toolModel.metamusk_is_collected = false;
+      clear();
     }
   });
 });
@@ -107,17 +116,17 @@ onMounted(() => {
           </div>
         </template>
         <template #content>
-          <div v-if="props.toolModel['metamusk_is_collected']" class="flex items-center text-kd12px18px px-2 py-1.5">MetaMask 插件中退出</div>
+          <div v-if="wallet_address" class="flex items-center text-kd12px18px px-2 py-1.5">点击退出钱包</div>
         </template>
       </ui-popover>
     </div>
-    <client-only v-if="!toolModel['metamusk_address'] || !isWallet" class="flex mt-3 items-center">
+    <client-only v-if="!wallet_address || !isWallet" class="flex mt-3 items-center">
       <el-input v-model="key" :placeholder="placeholder" autocomplete="off" />
       <div class="button-mint ml-4" @click="add">Add</div>
     </client-only>
     <div v-else class="mt-3 text-kd16px24px text-global-highTitle text-number">
       MetaMask Account:
-      {{ toolModel.metamusk_address }}
+      {{ wallet_address }}
     </div>
     <!--私钥列表-->
     <div class="mt-3">

@@ -30,7 +30,7 @@ defineProps({
 }
 .placement-box {
   position: absolute;
-  left: 12%;
+  left: 30%;
   margin-top: 5px;
   background: #fff;
   border-radius: 6px;

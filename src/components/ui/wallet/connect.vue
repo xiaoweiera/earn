@@ -9,7 +9,7 @@ import { Encryption } from "src/utils/";
 import { ElButton } from "element-plus";
 import Wallet from "src/plugins/web3/wallet";
 import { EventType } from "src/types/web3";
-import { address, isConnect } from "src/logic/common/wallet";
+import { wallet_address, isConnect } from "src/logic/common/wallet";
 import safeGet from "@fengqiaogang/safe-get";
 import { messageError } from "src/lib/tool";
 import { getErrorMessageContent } from "src/plugins/web3/message";
@@ -18,7 +18,7 @@ const i18n = I18n();
 
 const walletAddress = function (): string {
   if (isConnect()) {
-    const encryption = new Encryption(address.value);
+    const encryption = new Encryption(wallet_address.value);
     encryption.set$1Count(6);
     encryption.set$2Count(4);
     return encryption.value();
@@ -52,7 +52,7 @@ const onConnect = async function () {
 const syncAddress = function () {
   // 获取钱包地址
   const wallet = new Wallet();
-  address.value = wallet.getChainAddress();
+  wallet_address.value = wallet.getChainAddress();
 };
 
 onMounted(() => {
@@ -62,7 +62,7 @@ onMounted(() => {
   wallet.on(EventType.account, syncAddress);
   // 断开链接
   wallet.on(EventType.disconnect, () => {
-    address.value = "";
+    wallet_address.value = "";
   });
   syncAddress();
 });
