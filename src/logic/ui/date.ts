@@ -14,7 +14,7 @@ export const formatResult = function (times: any[]): Array<number | string> {
   const [start, end] = times;
   const array: Array<number | string> = [];
   if (start) {
-    const value = dateFormat(start, "YYYY/MM/DD hh:mm:ss");
+    const value = dateFormat(start, "YYYY/MM/DD HH:mm:ss");
     array.push(dateTime(value));
   } else {
     array.push("");

@@ -135,5 +135,6 @@ export const wx = {
 };
 
 export const freemint = {
-  blockList: "/freenft/list",
+  blockList: "/freenft/feeds",
+  nftList: "/freenft/list",
 };

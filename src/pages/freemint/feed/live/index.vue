@@ -13,11 +13,17 @@ const tagList = [
   { name: "Free", value: "free" },
   { name: "All", value: "all" },
 ];
+//本地分页
 const pageInfo = reactive({
   page: 1,
   page_size: 10, //每页条数
 });
+const param = reactive({
+  page: 1,
+  page_size: 500,
+});
 const NFT = ref();
+const loading = ref(true);
 const key = ref(0); //刷新key
 const tag = ref("all");
 const isMore = ref(false); //是否有加载更多
@@ -27,9 +33,10 @@ const list = ref<any>([]); //展示的数据
 const updateTime = ref("");
 const getInit = async () => {
   const api = new API();
-  const data: any = await api.freeMint.blockList();
+  const data: any = await api.freeMint.blockList(param);
   updateTime.value = safeGet(data, "updated");
-  originList.value = NFT.value.group_by_block(safeGet(data, "list"));
+  originList.value = safeGet(data, "list");
+  loading.value = false;
   getFreeList();
 };
 //得到Free的数据
@@ -90,7 +97,7 @@ onMounted(async () => {
       <div class="state">
         <div class="text-kd16px22px font-medium text-global-highTitle">Live Feeds</div>
         <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">
-          {{ dateDiff(updateTime.slice(0, updateTime?.length - 3)) }}
+          {{ dateDiff(updateTime?.slice(0, updateTime?.length - 3)) }}
         </div>
       </div>
       <div>
@@ -126,6 +133,7 @@ onMounted(async () => {
       </template>
     </div>
     <div v-if="isMore" class="more mt-5" @click="more">加载更多</div>
+    <UiLoading v-if="loading" class="fixed left-0 right-0 top-0 bottom-0" />
   </div>
 </template>
 <style lang="scss">
