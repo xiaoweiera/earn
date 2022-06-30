@@ -10,11 +10,11 @@ defineProps({
 </script>
 
 <template>
-  <div class="relative  ui-popover z-100 ">
+  <div class="relative ui-popover z-100">
     <div class="cursor-pointer">
       <slot name="reference" />
     </div>
-    <div class="text-global-default z-11 relative   whitespace-pre-wrap placement-box  text-xs" :class="`placement-${placement}`">
+    <div class="text-global-default z-11 relative whitespace-pre-wrap placement-box text-xs" :class="`placement-${placement}`">
       <slot name="content" />
     </div>
   </div>
@@ -30,7 +30,8 @@ defineProps({
 }
 .placement-box {
   position: absolute;
-  left: 50%;
+  left: 30%;
+  margin-top: 5px;
   background: #fff;
   border-radius: 6px;
   display: none;
@@ -42,7 +43,7 @@ defineProps({
   transform: translate(-50%, -14px);
   &:after {
     position: absolute;
-    content: '';
+    content: "";
     width: 0;
     height: 0;
     left: 50%;

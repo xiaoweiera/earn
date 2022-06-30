@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import I18n from "src/utils/i18n";
 import { computed } from "vue";
-import { address, isConnect } from "src/logic/common/wallet";
+import { wallet_address, isConnect } from "src/logic/common/wallet";
 import { config as routerConfig } from "src/router/config";
 
 const i18n = I18n();
@@ -12,13 +12,12 @@ const href = computed<object | undefined>(() => {
       path: routerConfig.portfolio,
       query: {
         isBeta: "ok",
-        address,
+        wallet_address,
       },
     };
   }
   return void 0;
 });
-
 </script>
 
 <template>

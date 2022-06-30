@@ -6,8 +6,8 @@
 import { ref } from "vue";
 import { isLogin } from "src/logic/user/login";
 
-export const address = ref<string>("");
+export const wallet_address = ref<string>("");
 
-export const isConnect = function() {
-  return !!(isLogin() && address.value);
+export const isConnect = function () {
+  return !!(isLogin() && wallet_address.value);
 };

@@ -24,6 +24,7 @@ import apply from "./apply";
 import agreement from "./agreement";
 import instructions from "./instructions";
 import policys from "./policys";
+import freemint from "./freemint";
 import Web3 from "./web3";
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
@@ -63,6 +64,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(down());
   //申请页面
   router.use(apply());
+  //freemint
+  router.use(freemint());
   // web3 页面
   router.use(Web3());
   router.get(routerConfig.api, function (req: Request, res: Response) {
@@ -77,6 +80,7 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.get("/middle/:type", (req: Request, res: Response) => {
     res.send({});
   });
+
   // 404
   router.get(routerConfig.E404, (req: Request, res: Response) => {
     res.send({});

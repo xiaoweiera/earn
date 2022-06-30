@@ -10,3 +10,4 @@ components.d.ts
 src/config/iconname.ts
 auto-imports.d.ts
 .env.*.local
+coverage

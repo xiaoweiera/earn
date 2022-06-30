@@ -88,6 +88,9 @@ export const rank = {
   dappList: "API.Rank.dappList",
   nftList: "API.Rank.nftList",
 };
+export const freeMint = {
+  card: "API.freeMint.card",
+};
 export const comment = {
   list: "API.Comment.list",
 };

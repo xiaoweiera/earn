@@ -133,3 +133,8 @@ export const chart = {
 export const wx = {
   info: "/api/v1/wechat/sign", //微信签名
 };
+
+export const freemint = {
+  blockList: "/freenft/feeds",
+  nftList: "/freenft/list",
+};

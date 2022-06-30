@@ -4,7 +4,6 @@ import { useRoute, useRouter } from "vue-router";
 import I18n from "src/utils/i18n/index";
 import { ElOption, ElSelect } from "element-plus";
 import { getParam } from "src/utils/router";
-import safeGet from "@fengqiaogang/safe-get";
 import { topicDetail } from "src/types/home";
 
 const props = defineProps({
@@ -23,7 +22,6 @@ const props = defineProps({
 });
 const router = useRouter();
 const route = useRoute();
-const id = props.info.id ? props.info.id : safeGet(route, "params.id");
 const query = getParam<object>();
 const i18n = I18n();
 const chain = ref(getParam<object>("chain") ? getParam<object>("chain") : "All");

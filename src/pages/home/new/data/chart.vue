@@ -4,13 +4,13 @@ import window from "src/plugins/browser/window";
 import document from "src/plugins/browser/document";
 import { Model } from "src/logic/home";
 import { getagoTimeStamp, getTip } from "src/lib/tool";
-import { address } from "src/logic/common/wallet";
+import { wallet_address } from "src/logic/common/wallet";
 import * as echarts from "echarts";
 import { chartConfig } from "src/logic/rank/chartConfig";
 import * as R from "ramda";
 const api = new Model();
 const param: any = reactive({
-  address: address.value ? address.value : "0x6cf9aa65ebad7028536e353393630e2340ca6049",
+  address: wallet_address.value ? wallet_address.value : "0x6cf9aa65ebad7028536e353393630e2340ca6049",
   chain: "all",
   from_ts: getagoTimeStamp(14),
   to_ts: getagoTimeStamp(0),
