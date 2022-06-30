@@ -19,8 +19,8 @@ export default class extends ApiTemplate {
   }
   async blockListAll() {
     const promises = [];
-    for (let i = 1; i <= 5; i++) {
-      promises.push(this.blockList({ page: i, page_size: 100 }));
+    for (let i = 1; i <= 10; i++) {
+      promises.push(this.blockList({ page: i, page_size: 50 }));
     }
     const result = await Promise.all(promises);
     const list: object[] = [];
