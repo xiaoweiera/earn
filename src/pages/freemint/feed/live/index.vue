@@ -4,6 +4,7 @@ import Card from "./card.vue";
 import Chain from "../chain.vue";
 import { Nft } from "src/pages/freemint/lib/nft.js";
 import { onMounted, ref, reactive } from "vue";
+import { concat } from "lodash";
 // import { data } from "src/pages/freemint/lib/testData";
 import API from "src/api/";
 import safeGet from "@fengqiaogang/safe-get";
@@ -18,10 +19,10 @@ const pageInfo = reactive({
   page: 1,
   page_size: 10, //每页条数
 });
-const param = reactive({
+const param = {
   page: 1,
   page_size: 500,
-});
+};
 const NFT = ref();
 const loading = ref(true);
 const key = ref(0); //刷新key
@@ -33,7 +34,7 @@ const list = ref<any>([]); //展示的数据
 const updateTime = ref("");
 const getInit = async () => {
   const api = new API();
-  const data: any = await api.freeMint.blockList(param);
+  const data: any = await api.freeMint.blockListAll();
   updateTime.value = safeGet(data, "updated");
   originList.value = safeGet(data, "list");
   loading.value = false;
@@ -96,7 +97,7 @@ onMounted(async () => {
     <div class="state justify-between">
       <div class="state">
         <div class="text-kd16px22px font-medium text-global-highTitle">Live Feeds</div>
-        <div class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">
+        <div v-if="updateTime" class="text-kd14px18px font-medium text-global-highTitle text-opacity-65 ml-2">
           {{ dateDiff(updateTime?.slice(0, updateTime?.length - 3)) }}
         </div>
       </div>
