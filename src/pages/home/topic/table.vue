@@ -149,7 +149,7 @@ onMounted(() => {
       <ui-pagination :limit="limit" :isMore="isMore" :init-value="initValue()" :request="requestList">
         <template #default="{ list }">
           <div v-show="isLoad">
-            <el-table :data="list" class="w-full table-fixed" :row-style="rowClass(height)" :header-cell-style="headerCellClass" :cell-style="cellClass" @row-click="toProject">
+            <el-table :data="list" class="w-full table-fixed" :row-style="rowClass" :header-cell-style="headerCellClass" :cell-style="cellClass" @row-click="toProject">
               <el-table-column class-name="lie" fixed :width="50">
                 <template #header>
                   <div class="header-name items-center flex h-full">#</div>
@@ -246,6 +246,12 @@ onMounted(() => {
 }
 ::v-deep(.el-table__body) {
   border: 1px solid white !important;
+  position: relative !important;
+  z-index: 99999 !important;
+}
+::v-deep(.el-table__row) {
+  position: relative !important;
+  z-index: 99999 !important;
 }
 .huiClass {
   ::v-deep(td) {

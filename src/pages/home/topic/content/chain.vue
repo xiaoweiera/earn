@@ -29,7 +29,7 @@ const iconList = computed<string>(() => safeGet(props.data, props.field));
     <el-popover v-if="iconList.length > showChainCount" popper-class="chain-popper" placement="bottom" trigger="hover" :append-to-body="false">
       <div class="flex items-center px-2 py-1.5">
         <template v-for="(key, i) in iconList.slice(showChainCount)" :key="i">
-          <IconFont class="popover-icon" size="16" :type="getChainLogo(key)" />
+          <IconFont class="popover-icon w-full h-full" size="16" :type="getChainLogo(key)" />
         </template>
       </div>
       <template #reference>

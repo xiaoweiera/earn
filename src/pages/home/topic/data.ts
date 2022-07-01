@@ -150,11 +150,13 @@ export const getTitleDes = (header: Header) => {
 //   },
 // ];
 
-export const rowClass = (height = 60) => {
+export const rowClass = (row: any) => {
   const styleJson = {
-    height: `${height}px`,
-    border: "none",
-    cursor: "Pointer",
+    "height": "60px",
+    "border": "none",
+    "cursor": "Pointer",
+    "position": "relative !important",
+    "z-index": `${99999 - row.rowIndex} !important`,
   };
   return styleJson;
 };
