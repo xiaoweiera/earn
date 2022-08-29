@@ -61,7 +61,7 @@ const getGas=()=>{
        </div>
        <div class="flex flex-wrap">
          <template v-for="item in 3">
-           <ui-image class="w-16 h-16 mr-2 mt-3" src="./public/images/earn/nft.png"/>
+           <ui-image class="w-16 h-16 mr-2 mt-3" src="/public/images/earn/nft.png"/>
          </template>
        </div>
        <div class="time mt-3">{{dateDiff(data['time'])}}</div>

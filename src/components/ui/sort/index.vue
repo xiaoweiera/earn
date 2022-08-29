@@ -34,9 +34,9 @@ const sortKey = computed<string>(() => (props.keyName ? props.keyName : props.fi
 
 const emit = defineEmits(["change"]);
 const sortIcon: any = {
-  "desc": "./public/images/earn/down.png",
-  "asc": "./public/images/earn/up.png",
-  "": "./public/images/earn/order.png",
+  "desc": "/public/images/earn/down.png",
+  "asc": "/public/images/earn/up.png",
+  "": "/public/images/earn/order.png",
 };
 //icon切换
 const getIcon = () => {
@@ -46,7 +46,7 @@ const getIcon = () => {
   if (type && sortField && sortField === sortKey.value) {
     return sortIcon[type];
   }
-  return "./public/images/earn/order.png";
+  return "/public/images/earn/order.png";
 };
 //更改排序
 const change = () => {

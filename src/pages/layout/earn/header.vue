@@ -5,7 +5,7 @@
   <div>
     <div class="h-15 px-6 flex justify-between">
       <div class="flex items-center">
-        <img class="h-6.5" src="./public/images/earn/logo.png">
+        <img class="h-6.5" src="/public/images/earn/logo.png">
         <v-router href="https:www.baidu.com" class="navItem ml-8" target="_blank">Followed</v-router>
         <v-router href="https:www.baidu.com" class="navItem ml-8" target="_blank">CopyAccounts</v-router>
       </div>
@@ -15,7 +15,7 @@
         <span class="navItem">APP</span>
         <div class="border-right"/>
         <div class="connect">
-          <img class="h-4 w-4 mr-1" src="./public/images/earn/wallet.png">
+          <img class="h-4 w-4 mr-1" src="/public/images/earn/wallet.png">
           <div class="navItem hand">Connect</div>
         </div>
       </div>
@@ -28,7 +28,7 @@
   @apply mx-4 w-1 h-3;
 }
 .layout{
-  background-image: url("./public/images/earn/bg.png");
+  background-image: url("/public/images/earn/bg.png");
   background-size: 100% 800px;
   background-repeat: no-repeat;
 }

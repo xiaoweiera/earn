@@ -123,7 +123,6 @@ class Dao {
       safeSet(req, "params", omit(req.params, ["_user"]));
 
     }
-    console.log('啊啊啊啊啊啊啊',req)
     // safeSet(req, "headers.chain", chainName);
     // 处理 url 中的变量
     const parameter: any = {

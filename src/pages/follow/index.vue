@@ -39,7 +39,7 @@ onMounted(()=>{
       <div class="flex flex-1 items-center border-global-hui08 mr-2.5 border-b-1 ">
         <div :class="tagType==='live'?'tag-selected':'tag-default'" class="mr-10 tag" @click="selectTag('live')">
           <span class="mr-1">Live Feeds</span>
-          <img class="w-5 h-5 mr-1" src="./public/images/earn/live.png">
+          <img class="w-5 h-5 mr-1" src="/public/images/earn/live.png">
           <span class="text-kd16px24px text-global-green03">Live</span>
         </div>
         <div :class="tagType==='follow'?'tag-selected':'tag-default'" class="tag" @click="selectTag('follow')">Followed SmartMoney</div>

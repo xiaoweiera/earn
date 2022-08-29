@@ -1,8 +1,8 @@
 import {ref} from 'vue'
 export const chainName=ref('')
 export const icons={
-    ETH:'./public/images/earn/ethColor.png',
-    SOL:'./public/images/earn/solColor.png'
+    ETH:'/public/images/earn/ethColor.png',
+    SOL:'/public/images/earn/solColor.png'
 }
 export const getAddress = () => {
     if(!localStorage.getItem('followList')) return []

@@ -66,7 +66,6 @@ export const get = function (url: string, expire = 0, config: AxiosRequestConfig
           }
         }
       }
-      console.log(',,,,,',config)
       let result = await self.get(url, { ...config, params });
       if (callback && isFunction(callback)) {
         result = await callback(result);

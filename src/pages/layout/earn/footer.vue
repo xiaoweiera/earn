@@ -9,7 +9,7 @@ const email = ref('')
   <div class="bg-global-hui10 pt-16 huawei-medium h-76 text-global-white px-15 flex items-start ">
     <div class="w-106 max-w-106 h-44 flex flex-col justify-between">
       <div>
-        <ui-image class="w-36.97 h-6.5" src="./public/images/earn/logo2.png"/>
+        <ui-image class="w-36.97 h-6.5" src="/public/images/earn/logo2.png"/>
         <div class="mt-4 text-kd12px20px text-global-hui04">2022 UniEarn - All rights reserved</div>
       </div>
       <div class="email huawei-medium">
@@ -37,10 +37,10 @@ const email = ref('')
     <div class="item">
       <div class="title">App</div>
       <Hover href="https://kingdata.com/download/" class="mt-4">
-        <ui-image class="block w-25.5 h-9" fit="none" src="./public/images/earn/store.png"/>
+        <ui-image class="block w-25.5 h-9" fit="none" src="/public/images/earn/store.png"/>
       </Hover>
       <Hover href="https://kingdata.com/download/" class="mt-4">
-        <ui-image class="block w-25.5 h-9" fit="none" src="./public/images/earn/android.png"/>
+        <ui-image class="block w-25.5 h-9" fit="none" src="/public/images/earn/android.png"/>
       </Hover>
     </div>
 

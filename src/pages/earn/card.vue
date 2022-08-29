@@ -53,13 +53,13 @@ const chartData = (data) => {
           <span class="text-kd16px24px text-global-hui01 huawei-medium">{{ data['addressName'] }}</span>
           <div class="flex items-center">
             <div class="card-button bg-global-lan04 ">
-              <ui-image class="w-3.5 h-3.5" src="./public/images/earn/info.png"/>
+              <ui-image class="w-3.5 h-3.5" src="/public/images/earn/info.png"/>
             </div>
             <div v-if="state" class="card-button bg-global-red08" @click="remove">
-              <ui-image class="w-3.5 h-3.5" src="./public/images/earn/followed.png"/>
+              <ui-image class="w-3.5 h-3.5" src="/public/images/earn/followed.png"/>
             </div>
             <div v-else class="card-button bg-global-hui06" @click="add">
-              <ui-image class="w-3.5 h-3.5" src="./public/images/earn/add.png"/>
+              <ui-image class="w-3.5 h-3.5" src="/public/images/earn/add.png"/>
             </div>
           </div>
         </div>
