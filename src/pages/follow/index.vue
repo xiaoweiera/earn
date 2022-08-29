@@ -4,32 +4,33 @@ import Filter from "src/pages/earn/fiflter/type.vue"
 import {chainName, getAddress} from "src/logic/earn/index"
 import List from "./list.vue"
 import My from "./my.vue"
-import { ref,onMounted } from "vue"
-const tagType=ref('live')
+import {ref, onMounted} from "vue"
+
+const tagType = ref('live')
 //关注的地址列表
-const addressList=ref([])
-const tabList=[
-  {name:'ALL',value:'ALL'},
-  {name:'Buy',value:'Buy'},
-  {name:'Sell',value:'Sell'},
-  {name:'Mint',value:'Mint'},
+const addressList = ref([])
+const tabList = [
+  {name: 'ALL', value: 'ALL'},
+  {name: 'Buy', value: 'Buy'},
+  {name: 'Sell', value: 'Sell'},
+  {name: 'Mint', value: 'Mint'},
 ]
-const key=ref(0)
-const eventType=ref('ALL')
-const changeChain=()=>key.value++
-const selectTag = (type) =>{
-  if(tagType.value===type) return
-  tagType.value=type
-  addressList.value=getAddress()
+const key = ref(0)
+const eventType = ref('ALL')
+const changeChain = () => key.value++
+const selectTag = (type) => {
+  if (tagType.value === type) return
+  tagType.value = type
+  addressList.value = getAddress()
   key.value++
 }
-const tabSubmit=(data)=>{
-  eventType.value=data.value
-  addressList.value=getAddress()
+const tabSubmit = (data) => {
+  eventType.value = data.value
+  addressList.value = getAddress()
   key.value++
 }
-onMounted(()=>{
-  addressList.value=getAddress()
+onMounted(() => {
+  addressList.value = getAddress()
 })
 </script>
 <template>
@@ -42,7 +43,9 @@ onMounted(()=>{
           <img class="w-5 h-5 mr-1" src="/public/images/earn/live.png">
           <span class="text-kd16px24px text-global-green03">Live</span>
         </div>
-        <div :class="tagType==='follow'?'tag-selected':'tag-default'" class="tag" @click="selectTag('follow')">Followed SmartMoney</div>
+        <div :class="tagType==='follow'?'tag-selected':'tag-default'" class="tag" @click="selectTag('follow')">Followed
+          SmartMoney
+        </div>
       </div>
       <Filter :data="tabList" @submit="tabSubmit"/>
     </div>
@@ -57,16 +60,18 @@ onMounted(()=>{
   </div>
 </template>
 <style lang="scss" scoped>
-.tag{
+.tag {
   @apply flex items-center h-9;
   @apply text-kd20px28px  cursor-pointer;
 }
-.tag-selected{
+
+.tag-selected {
   @apply text-global-hui01;
-  border-bottom:2px solid white;
+  border-bottom: 2px solid white;
 }
-.tag-default{
+
+.tag-default {
   @apply text-global-hui02;
-  border-bottom:2px solid #ffffff00;
+  border-bottom: 2px solid #ffffff00;
 }
 </style>

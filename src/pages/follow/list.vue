@@ -3,19 +3,20 @@ import Item from "./item.vue"
 import {reactive, ref, onMounted} from "vue"
 import {chainName} from "src/logic/earn/index"
 import API from "../../api";
+
 const props = defineProps({
   addressList: {
     type: Object,
     required: true
   },
-  eventType:{
-    type:String,
-    required:true
+  eventType: {
+    type: String,
+    required: true
   }
 })
 
 const api = new API()
-const data=ref([])
+const data = ref([])
 const param = reactive({
   chain: chainName,
   addresses: props.addressList ? props.addressList?.join(',') : '',
@@ -23,7 +24,7 @@ const param = reactive({
 })
 
 const getData = async () => {
-  data.value=await api.earn.getFeedList(param)
+  data.value = await api.earn.getFeedList(param)
 }
 onMounted(async () => {
   await getData()

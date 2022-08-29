@@ -8,7 +8,7 @@ import Table from "./table/index.vue"
   </div>
 </template>
 <style lang="scss" scoped>
-.more{
+.more {
   @apply text-kd16px24px text-global-hui01 bg-global-hui06 w-max mx-auto cursor-pointer;
   @apply flex items-center px-12.375 h-10 rounded-kd6px justify-center;
 }
