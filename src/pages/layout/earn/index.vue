@@ -30,7 +30,7 @@ const $route = useRoute();
 
 <style scoped lang="scss">
 .layout{
-  background-image: url("/public/images/earn/bg.png");
+  background-image: url("./public/images/earn/bg.png");
   background-size: 100% 800px;
   background-repeat: no-repeat;
 }
