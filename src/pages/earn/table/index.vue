@@ -4,7 +4,7 @@ import safeGet from "@fengqiaogang/safe-get";
 import { ElTable, ElTableColumn, ElInput, ElPopover } from "element-plus";
 import Filter from "../fiflter/block.vue"
 import {addAddrees, removeAddrees, isFollow} from "src/logic/earn/index"
-import {rowClass, headerCellClass, cellClass, getTitleCnEn, getTitleDes} from "src/pages/home/topic/data";
+import {rowClass, headerCellClass, cellClass, getTitleCnEn, getTitleDes} from "./data";
 import { reactive, ref } from "vue";
 const api =new API()
 import Content from "./content/index.vue";

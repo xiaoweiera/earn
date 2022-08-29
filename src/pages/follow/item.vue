@@ -47,9 +47,9 @@ const getGas=()=>{
               </template>
            </span>
          <span class="small-text mr-1.5">of</span>
-         <ui-image class="small-logo mr-1" src="" rounded/>
+         <ui-image class="small-logo mr-1" :src="data['collectLogo']" rounded/>
          <span class="small-text mr-1.5">Collection</span>
-         <ui-image class="icon mr-1.5" :src="data['collectLogo']" rounded/>
+         <ui-image class="icon mr-1.5" :src="data['exchangeLogo']" rounded/>
          <span class="small-text mr-1.5">at</span>
          <span v-if="data['eventType']!=='mint'" class="small-text">{{getPrice()}} {{_.toUpper(data['currency'])}}</span>
          <span v-else class="small-text">Free Mint</span>

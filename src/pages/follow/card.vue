@@ -41,9 +41,9 @@ const getGas=(type)=>{
         <span class="des mr-1">{{getGas()}}</span>
       </div>
       <div class="flex items-center mt-3">
-        <ui-image class="w-6 h-6 mr-1" rounded src=""/>
+        <ui-image class="w-6 h-6 mr-1" rounded :src="data['collectLogo']"/>
         <span class="text mr-1">Collection</span>
-        <ui-image class="w-4 h-4 mr-2" :src="data['collectLogo']"/>
+        <ui-image class="w-4 h-4 mr-2" :src="data['exchangeLog']"/>
         <span class="des mr-1">Floor Price: </span>
         <ui-image class="w-3.5 h-3.5 mr-1" :src="icons[data['currency']]"/>
         <span class="text">{{getPrice()}}</span>

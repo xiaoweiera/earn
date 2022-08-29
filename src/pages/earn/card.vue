@@ -2,6 +2,7 @@
 import {toNumberCashFormat} from "src/utils/convert/to";
 import {addAddrees, removeAddrees, isFollow} from "src/logic/earn/index"
 import _ from "lodash";
+import {icons} from 'src/logic/earn'
 import {ref} from "vue"
 import {echartTransform} from "src/logic/ui/echart/decorate";
 import {dateDiff} from "src/utils";
@@ -41,6 +42,7 @@ const chartData = (data) => {
   };
   return echartTransform(option);
 }
+
 </script>
 <template>
   <div class="p-4 card">
@@ -85,7 +87,7 @@ const chartData = (data) => {
     <div class="flex items-center">
       <div class="mr-5.4 flex items-center">
         <span class="mr-1 card-txt">NFT Value:</span>
-        <ui-image class="mr-1 w-3 h-3" src="./public/images/earn/ethColor.png"/>
+        <ui-image class="mr-1 w-3 h-3" :src="icons[data['currency']]"/>
         <span class="card-number">{{ toNumberCashFormat(data['nftValue']) }}</span>
       </div>
       <div class="mr-5.4 flex items-center">

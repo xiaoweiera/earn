@@ -1,3 +1,9 @@
+import _ from "lodash";
+import {toUpper} from "ramda";
+import API from "src/api";
+import safeGet from "@fengqiaogang/safe-get";
+import I18n from "src/utils/i18n";
+const i18n = I18n();
 export const headerList = [
     {
         "title": "SmartMoney",
@@ -19,7 +25,7 @@ export const headerList = [
         "center": true,
         "active": false,
         "width": 120,
-        "fields": [["chain", "nftValue"], "nftNum"],
+        "fields": [["currency", "nftValue"], "nftNum"],
         "type": [["chain", "number"], "num"]
     },
     {
@@ -95,101 +101,61 @@ export const headerList = [
         "type": ["time"]
     }
 ]
-export const dataList = [
-    {
-        headPic: './public/image/earn/logo.png',
-        addressName: 'namefoijfe',
-        tagList: [
-            {imgUrl: './public/image/earn/logo.png', text: 'aaa'},
-            {imgUrl: './public/image/earn/logo.png', text: 'bbb'}
-        ],
-        nftValue: 90,
-        nftNum: 10,
-        returnRate: 12,
-        returnRateBy30D: 200,
-        flipRate: 30,
-        flipRateBy30D: 25,
-        lastActivityTime: '3 moth ago',
-        klineData: [
-            [
-                1661417886404,
-                1
-            ],
-            [
-                1661414286404,
-                2
-            ],
-            [
-                1661410686404,
-                3
-            ],
-            [
-                1661407086404,
-                4
-            ],
-            [
-                1661403486404,
-                5
-            ],
-            [
-                1661399886404,
-                6
-            ],
-            [
-                1661396286404,
-                7
-            ],
-            [
-                1661392686404,
-                8
-            ]]
-    },
-    {
-        headPic: './public/image/earn/logo.png',
-        addressName: 'vvvvvv',
-        tagList: [
-            {imgUrl: './public/image/earn/logo.png', text: 'aa3'},
-            {imgUrl: './public/image/earn/logo.png', text: 'aa2'}
-        ],
-        nftValue: 90,
-        nftNum: 10,
-        returnRate: 32,
-        returnRateBy30D: 500,
-        flipRate: 10,
-        flipRateBy30D: 35,
-        lastActivityTime: '4 moth ago',
-        klineData: [
-            [
-                1661417886404,
-                1
-            ],
-            [
-                1661414286404,
-                2
-            ],
-            [
-                1661410686404,
-                3
-            ],
-            [
-                1661407086404,
-                4
-            ],
-            [
-                1661403486404,
-                5
-            ],
-            [
-                1661399886404,
-                6
-            ],
-            [
-                1661396286404,
-                7
-            ],
-            [
-                1661392686404,
-                8
-            ]]
+export const getTitle = (field: string) => {
+    let title = "";
+    //获取基础字段
+    const base = field.includes("_") ? field.split("_")[0] : field;
+    //@ts-ignore 基础字段title
+    const baseTitle = i18n.table[base] ? i18n.table[base] : _.upperFirst(_.camelCase(base));
+    const time = ["24h", "7d", "30d"];
+    //如果是图表 或者 基础字段 title为baseTitle
+    if (field.includes("chart") || !field.includes("_")) return baseTitle;
+    //变化率和变化量都是xxxChg+颗粒度
+    time.forEach((t) => {
+        if (field.includes(t)) {
+            //@ts-ignore
+            title = `${baseTitle} Chg ${toUpper(t)}`;
+            return false;
+        }
+    });
+    return title ? title : _.upperFirst(_.camelCase(field));
+};
+export const getTitleCnEn = (header: any) => {
+    if (i18n.getLang() === "cn") {
+        return header.titleCn ? header.titleCn : getTitle(header.title);
+    } else {
+        return header.titleEn ? header.titleEn : getTitle(header.title);
     }
-]
+};
+export const getTitleDes = (header: any) => {
+    if (i18n.getLang() === "cn") {
+        return header.titleDesCn;
+    } else {
+        return header.titleDesEn;
+    }
+};
+
+export const rowClass = (row: any) => {
+    const styleJson = {
+        "height": "60px",
+        "border": "none",
+        "cursor": "Pointer",
+        "position": "relative !important",
+        // "backgroundColor":"#000000",
+        "z-index": `${99999 - row.rowIndex} !important`,
+    };
+    return styleJson;
+};
+export const headerCellClass = () => {
+    const styleJson = {
+        border: "none",
+        borderTop: "1px solid rgba(3, 54, 102, 0.06) !important",
+        borderBottom: "1px solid rgba(3, 54, 102, 0.06) !important",
+        backgroundColor:"#16181A",
+        padding: "0",
+        height: "46px",
+    };
+    return styleJson;
+};
+
+export const cellClass = () => ({ border: "none" });
