@@ -58,6 +58,15 @@ export const get = function (url: string, expire = 0, config: AxiosRequestConfig
       const self: any = this;
       const [query = {}, callback]: [object, (value?: any) => any] = await Promise.resolve(app.apply(self, args));
       const params = { expire, ...query };
+      if(safeGet(params,'chain')){
+        config={
+          ...config,
+          headers:{
+            chain:safeGet(params,'chain')
+          }
+        }
+      }
+      console.log(',,,,,',config)
       let result = await self.get(url, { ...config, params });
       if (callback && isFunction(callback)) {
         result = await callback(result);

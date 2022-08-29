@@ -26,5 +26,5 @@ const value = computed<string>(function () {
 </script>
 
 <template>
-  <span class="text-global-highTitle text-14-16">{{ value }}</span>
+  <span class="text-kd12px16px md:text-kd14px16px text-global-highTitle short">{{ value }}</span>
 </template>

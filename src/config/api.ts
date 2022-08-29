@@ -1,7 +1,10 @@
-/**
- * @file 接口地址
- * @author svon.me@gmail.com
- */
+
+export const earn = {
+  config:"/uniearn/home/config",
+  tableList:"/uniearn/home/tableList",
+  feedList:"/uniearn/follow/transactions",
+  addressInfo:"/uniearn/address/addressInfo"
+}
 export const home = {
   summary: "/api/v1/dapps/summary", // 数据汇总，基础信息
   topicRank: "/api/v1/dapps/topic/rank", // home页topic table切换

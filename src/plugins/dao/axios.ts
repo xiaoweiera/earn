@@ -16,7 +16,7 @@ import { Equals, isObject, isRequest, toInteger } from "src/utils/";
 import type { Axios, AxiosRequestConfig, AxiosResponse } from "axios";
 import AxiosHttp from "axios";
 import { asyncCheck } from "./response";
-
+// import { chainName } from "src/logic/earn/"
 const timeoutValue = 3 * 1000;
 
 // 用户信息
@@ -121,7 +121,10 @@ class Dao {
       safeSet(req, `params.${languageKey}`, i18n.getLang());
       safeSet(req, "headers.accept-language", i18n.getLang());
       safeSet(req, "params", omit(req.params, ["_user"]));
+
     }
+    console.log('啊啊啊啊啊啊啊',req)
+    // safeSet(req, "headers.chain", chainName);
     // 处理 url 中的变量
     const parameter: any = {
       ...env,

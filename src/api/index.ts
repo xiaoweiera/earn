@@ -1,6 +1,7 @@
 import type { Lang } from "src/types/language";
 import ApiTemplate from "./template";
 
+import Earn from "./earn"
 import Home from "./home";
 import DApp from "./dapp";
 import Blog from "./blog";
@@ -18,6 +19,7 @@ import WxChat from "./wxchat";
 import FreeMint from "./freemint";
 
 export default class API extends ApiTemplate {
+  public earn: Earn;
   public home: Home;
   public blog: Blog;
   public dApp: DApp;
@@ -35,6 +37,7 @@ export default class API extends ApiTemplate {
   public freeMint: FreeMint;
   constructor(value?: Lang) {
     super(value);
+    this.earn = new Earn(value);
     this.home = new Home(value);
     this.blog = new Blog(value);
     this.dApp = new DApp(value);

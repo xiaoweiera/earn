@@ -8,49 +8,61 @@ import formsPlugin from "windicss/plugin/forms";
 import typography from "windicss/plugin/typography";
 
 const cssGlobal = {
-  bgHui: "#F1F3F5",
   body: "#F6FAFD",
-  bodyTwo: "#F8FBFD",
-  default: "#253E6F", /* 37,62,111 */
-  primary: "#006FF7", /* 43, 141, 254 */
-  highTitle: "#033666", /*3,54,102*/
-  mobileBody: "#D8E8FF",
-  numGreen: "#00B464", /* 0, 180, 100 */
-  numRed: "#E9592D", /*233, 89, 45*/
-  darkblue: "#006FF7", /* 0, 111, 247*/
-  blueGg: "#0056C3",
-  time: "#A2A4A8",
-  noSelect: "#A8A8A8",
+  hei:"#000000",
   white: "#FFFFFF",
-  golden: "#D1A300",
-  grey: "#7b8db1",
-  money: "#F88923", /* 248, 137, 35 */
-  disabled: "#cccccc", // 禁用，灰色
-  plat: "#EBF7FF",
-  coin: "#E4FDFF",
-  loan: "#ECFFE6",
-  noAsk: "#FDF4ED",
-  coinTxt: "#03B7AB",
-  loanTxt: "#09B86A",
-  noAskTxt: "#DA9D00",
-  border: "#F0F3F6",
-  hoverHui: "#EDF0F5",
-  topBg: "#FAFBFC",
-  bgFb: "#fbfbfb",
-  none: "#FFF",
-  gemstone: "#F0BF12", // 240, 191, 18 黄宝石
-  media: "#1DA1F2",
-  bgBlack: "#272C33",
-  textBlack: "#212121",
-  hei: "#000000",
-  orange: "#EAB144",
-  navBody: "#FAFBFC",
-  emptyBlue: "#0729F1",
-  "black-title": "#111316",
-  "black-desc": "#50555C",
-  "text-grey": "#989898",
-  "bg-grey": "#F8FAFA",
-  red: "#DD4415",
+  hui01:"#F2F2F2",
+  hui02:"#9BA1A6",
+  hui03:"#787F85",
+  hui04:"#697177",
+  hui05:"#4C5155",
+  hui06:"#3A3F42",
+  hui07:"#313538",
+  hui08:"#2B2F31",
+  hui09:"#26292B",
+  hui10:"#16181A",
+  lan01:"#EAF4FF",
+  lan02:"#3694FF",
+  lan03:"#3694FF",
+  lan04:"#0072F5",
+  lan05:"#0952A5",
+  lan06:"#0A4281",
+  lan07:"#0D3868",
+  lan08:"#0F3158",
+  lan09:"#102C4C",
+  lan010:"#10253E",
+  green01: "#ECFDF4",
+  green02: "#78F2AD",
+  green03: "#41EC8B",
+  green04: "#17C964",
+  green05: "#0F9549",
+  green06: "#0B7439",
+  green07: "#0A6130",
+  green08: "#074A24",
+  green09: "#06381B",
+  green10: "#042F14",
+  red01: "#FDD8E5",
+  red02: "#F75F94",
+  red03: "#F4256D",
+  red04: "#F31260",
+  red05: "#910838",
+  red06: "#6F062B",
+  red07: "#5C0523",
+  red08: "#44041A",
+  red09: "#300313",
+  red10: "#300313",
+  qing01:"#EBFBFE",
+  qing02:"#6FE4FB",
+  qing03:"#33D9FA",
+  qing04:"#06B7DB",
+  qing05:"#048EA9",
+  qing06:"#037086",
+  qing07:"#036072",
+  qing08:"#024B5A",
+  qing09:"#023A46",
+  qing10:"#012A32",
+
+
 };
 
 export default defineConfig({
@@ -157,6 +169,7 @@ export default defineConfig({
         "kd16px22px": ["16px", "22px"],
         "kd14px24px": ["14px", "24px"],
         "kd48px48px": ["48px", "48px"],
+        "kd48px56px": ["48px", "56px"],
       },
       fontWeight: {
         "b": "600",
@@ -182,7 +195,6 @@ export default defineConfig({
         "min430px": "430px"
       },
       colors: {
-        green: "#009955",
         global: cssGlobal,
       },
       typography: {

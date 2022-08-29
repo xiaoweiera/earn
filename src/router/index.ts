@@ -17,7 +17,7 @@ import quota from "./quota";
 import rank from "./rank";
 import invest from "./invest";
 import freemint from "./freemint";
-
+import Earn from "./earn"
 const routes = [
   // 活动
   {
@@ -38,12 +38,12 @@ const routes = [
   },
   {
     path: "/",
-    component: () => import("src/pages/layout/index.vue"),
+    component: () => import("src/pages/layout/earn/index.vue"),
     children: [
       {
         path: "/",
-        name: "home",
-        component: () => import("src/pages/home/index.vue"),
+        name: "earn",
+        component: () => import("src/pages/earn/index.vue"),
       },
       ...User,
       ...Home,
@@ -54,6 +54,7 @@ const routes = [
       ...rank,
       ...invest,
       ...freemint,
+        ...Earn,
       {
         path: `${config.apy}/:name*`,
         component: () => import("src/pages/apy/index.vue"),

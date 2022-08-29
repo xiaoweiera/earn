@@ -76,7 +76,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue({})) // 处理默认值
   @get(api.home.getTopicDetail) // 定义一个 get 请求
   @userToken() // 不需要用户信息
-  getTopicDetail<T>(query: newProjectParams): Promise<T> {
+  getTopicDetail<T>(query: any): Promise<T> {
     // 返回参数
     return [query] as any;
   }
@@ -126,7 +126,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue({})) // 处理默认值
   @get(api.home.lineChart) // 定义一个 get 请求
   @userToken() // 不需要用户信息
-  getLineChart<T>(query: lineModel): Promise<T> {
+  getLineChart<T>(query: any): Promise<T> {
     // 返回参数
     return [query] as any;
   }
@@ -134,7 +134,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue({})) // 处理默认值
   @get(api.home.addressInfo) // 定义一个 get 请求
   @userToken() // 不需要用户信息
-  getHistory<T>(query: infoModel): Promise<T> {
+  getHistory<T>(query: any): Promise<T> {
     // 返回参数
     return [query] as any;
   }
@@ -142,7 +142,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue({})) // 处理默认值
   @get(api.home.getRankTopic) // 定义一个 get 请求
   @userToken() // 不需要用户信息
-  getRankTopic<T>(query: rankTopicModel): Promise<T> {
+  getRankTopic<T>(query: any): Promise<T> {
     // 返回参数
     return [query] as any;
   }

@@ -18,7 +18,7 @@ export default class extends ApiTemplate {
   //得到l轮次列表
   @tryError(DefaultValue([])) // 处理默认值
   @get(api.invest.investment, 0) // 定义一个 get 请求
-  getInvestment<T>(param: investmentModel): Promise<T> {
+  getInvestment<T>(param: any): Promise<T> {
     const query = Object.assign({ page: 1, page_size: 10 }, param);
     return [query] as any;
   }

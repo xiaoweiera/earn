@@ -104,6 +104,7 @@ export const getYAxis = function (yAxisData: object[], legends: LegendItem[], se
     });
     if (textStyle) {
       const temp = safeGet(option, textStyleKey) || {};
+      //@ts-ignore
       safeSet(option, textStyleKey, Object.assign(temp, textStyle));
     }
     return Object.assign(
@@ -239,7 +240,7 @@ const getSeriesList = function (legends: LegendItem[], yAxisOption: object[], se
       if (!autoColor) {
         // 获取Y轴颜色
         const color = safeGet(yAxisOption, "[1].axisLabel.textStyle.color");
-        safeSet(option, "itemStyle.color", color);
+        safeSet(option, "itemStyle.color", 'color');
       }
     }
     if (data.type === SeriesType.bar) {
@@ -272,11 +273,11 @@ const getSeriesList = function (legends: LegendItem[], yAxisOption: object[], se
           colorStops: [
             {
               offset: 0,
-              color: "rgba(43, 141, 255, 0.02)", //之前是 areaColor
+              color: '#17C964', //之前是 areaColor
             },
             {
               offset: 1,
-              color: "#fff",
+              color: "#ffffff00",
             },
           ],
         });

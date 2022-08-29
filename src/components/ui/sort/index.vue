@@ -34,36 +34,36 @@ const sortKey = computed<string>(() => (props.keyName ? props.keyName : props.fi
 
 const emit = defineEmits(["change"]);
 const sortIcon: any = {
-  "desc": "icon-shuangxiangjiantou-down",
-  "asc": "icon-shuangxiangjiantou-up",
-  "": "icon-shuangxiangjiantou",
+  "desc": "./public/images/earn/down.png",
+  "asc": "./public/images/earn/up.png",
+  "": "./public/images/earn/order.png",
 };
 //icon切换
 const getIcon = () => {
   const sortData = props.sortData || {};
-  const type = safeGet<string>(sortData, "sort_type");
-  const sortField = safeGet<string>(sortData, "sort_field");
+  const type = safeGet<string>(sortData, "sortType");
+  const sortField = safeGet<string>(sortData, "sortField");
   if (type && sortField && sortField === sortKey.value) {
     return sortIcon[type];
   }
-  return "icon-shuangxiangjiantou";
+  return "./public/images/earn/order.png";
 };
 //更改排序
 const change = () => {
   if (!props.sort) return;
-  if (!props.sortData.sort_type || props.sortData.sort_field !== sortKey.value) {
-    props.sortData.sort_type = "desc";
-  } else if (props.sortData.sort_type === "desc") {
-    props.sortData.sort_type = "asc";
+  if (!props.sortData.sortType || props.sortData.sortField !== sortKey.value) {
+    props.sortData.sortType = "desc";
+  } else if (props.sortData.sortType === "desc") {
+    props.sortData.sortType = "asc";
   } else {
-    props.sortData.sort_type = "";
+    props.sortData.sortType = "";
   }
-  props.sortData.sort_field = sortKey.value;
+  props.sortData.sortField = sortKey.value;
   getIcon();
-  emit("change", { field: props.sortData.sort_field, type: props.sortData.sort_type });
+  emit("change", { field: props.sortData.sortField, type: props.sortData.sortType });
 };
 const borderCss = computed(() => {
-  if (sortKey.value === props.sortData.sort_field || (props.active && !props.sortData.sort_field)) {
+  if (sortKey.value === props.sortData.sortField || (props.active && !props.sortData.sortField)) {
     return "sort-border";
   }
   return "";
@@ -72,7 +72,7 @@ const borderCss = computed(() => {
 <template>
   <div class="item h-full" :class="sort ? 'hand' : ''" @click="change()">
     <div class="item-content h-full relative" :class="borderCss">
-      <IconFont v-if="sort" class="relative mr-0.5" size="14" :type="getIcon()" />
+      <img v-if="sort" class="relative mr-0.5 w-3.5 h-3.5" :src="getIcon()" />
       <p class="h-full flex items-center">{{ name }}</p>
     </div>
   </div>

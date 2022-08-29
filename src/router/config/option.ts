@@ -74,5 +74,9 @@ export const config = {
   E404: "/404",
   api: "/w-api",
   token: "/token",
+
+
+  earn: "/earn",
+  follow:"/follow",
   user,
 };

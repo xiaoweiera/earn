@@ -38,7 +38,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue([])) // 处理默认值
   @get(api.rank.groups, expire.min10, timeConfig) // 定义一个 get 请求
   @userToken() // 不需要用户信息
-  getGroups<T>(query: groupModel): Promise<T> {
+  getGroups<T>(query: any): Promise<T> {
     const callback = function (data: object[]) {
       const all = { id: "all", initial: { text: "All" }, active: { text: "All" } };
       if (data) {
@@ -53,7 +53,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue({})) // 处理默认值
   @get(api.rank.dappTable, expire.min10, timeConfig) // 定义一个 get 请求
   @userToken() // 不需要用户信息
-  getDappList<T>(query: dappListModel): Promise<T> {
+  getDappList<T>(query: any): Promise<T> {
     const callback = function (data: object) {
       return safeGet(data, "results") || [];
     };
@@ -77,7 +77,7 @@ export default class extends ApiTemplate {
   @tryError(DefaultValue({})) // 处理默认值
   @get(api.rank.nftTable, expire.min10, timeConfig) // 定义一个 get 请求
   @userToken() // 不需要用户信息
-  getNftList<T>(query: dappListModel): Promise<T> {
+  getNftList<T>(query: any): Promise<T> {
     const callback = function (data: object) {
       return safeGet(data, "results") || [];
     };

@@ -156,6 +156,7 @@ export const rowClass = (row: any) => {
     "border": "none",
     "cursor": "Pointer",
     "position": "relative !important",
+    // "backgroundColor":"#000000",
     "z-index": `${99999 - row.rowIndex} !important`,
   };
   return styleJson;
@@ -165,8 +166,9 @@ export const headerCellClass = () => {
     border: "none",
     borderTop: "1px solid rgba(3, 54, 102, 0.06) !important",
     borderBottom: "1px solid rgba(3, 54, 102, 0.06) !important",
+    backgroundColor:"#16181A",
     padding: "0",
-    height: "40px",
+    height: "46px",
   };
   return styleJson;
 };

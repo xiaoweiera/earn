@@ -26,6 +26,7 @@ import instructions from "./instructions";
 import policys from "./policys";
 import freemint from "./freemint";
 import Web3 from "./web3";
+import Earn from "./earn"
 
 const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   const router = ExpressRouter();
@@ -68,6 +69,8 @@ const Router = async function (root: string, env: Env): Promise<ExpressRouter> {
   router.use(freemint());
   // web3 页面
   router.use(Web3());
+
+  router.use(Earn())
   router.get(routerConfig.api, function (req: Request, res: Response) {
     res.locals.menuActive = names.api.api;
     res.send({});
