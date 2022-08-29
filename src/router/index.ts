@@ -5,37 +5,10 @@
 
 import { config as router, config } from "./config";
 import type { Router } from "vue-router";
-import { Activity } from "src/types/common/activity";
 import { createRouter as _createRouter, createMemoryHistory, createWebHistory } from "vue-router";
 
-import Home from "./home";
-import DAppList from "./dapp";
-import BlogList from "./blog";
-import User from "./user";
-import DownLoad from "./download";
-import quota from "./quota";
-import rank from "./rank";
-import invest from "./invest";
-import freemint from "./freemint";
 import Earn from "./earn"
 const routes = [
-  // 活动
-  {
-    path: `/activity/${Activity.invite}/:id`,
-    component: () => import("src/pages/activity/invite.vue"),
-  },
-  {
-    path: router.agreement,
-    component: () => import("src/pages/agreement/index.vue"),
-  },
-  {
-    path: router.instructions,
-    component: () => import("src/pages/instructions/index.vue"),
-  },
-  {
-    path: router.policy,
-    component: () => import("src/pages/policy/index.vue"),
-  },
   {
     path: "/",
     component: () => import("src/pages/layout/earn/index.vue"),
@@ -45,51 +18,10 @@ const routes = [
         name: "earn",
         component: () => import("src/pages/earn/index.vue"),
       },
-      ...User,
-      ...Home,
-      ...DAppList,
-      ...BlogList,
-      ...DownLoad,
-      ...quota,
-      ...rank,
-      ...invest,
-      ...freemint,
         ...Earn,
-      {
-        path: `${config.apy}/:name*`,
-        component: () => import("src/pages/apy/index.vue"),
-      },
-      {
-        path: config.topic,
-        component: () => import("src/pages/apy/index.vue"),
-      },
-      {
-        path: config.portfolio,
-        component: () => import("src/pages/address/index.vue"),
-      },
-      {
-        path: `${config.address}/:name*`,
-        component: () => import("src/pages/address/index.vue"),
-      },
-      {
-        path: config.api,
-        component: () => import("src/pages/api/index.vue"),
-      },
-      {
-        path: config.token,
-        component: () => import("src/pages/api/index.vue"),
-      },
-      {
-        path: "/middle/forward",
-        component: () => import("src/pages/middle/forward.vue"),
-      },
       {
         path: config.E404,
         component: () => import("src/pages/e404/index.vue"),
-      },
-      {
-        path: "/demo",
-        component: () => import("src/pages/demo/index.vue"),
       },
     ],
   },
