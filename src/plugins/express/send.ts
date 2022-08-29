@@ -13,8 +13,6 @@ import safeGet from "@fengqiaogang/safe-get";
 import safeSet from "@fengqiaogang/safe-set";
 import { Language } from "src/types/language";
 import * as alias from "src/utils/root/alias";
-import type { TidingList } from "src/types/common/tiding";
-import { getMenuList } from "src/logic/common/header";
 import { go404 } from "src/controller/common/redirect";
 import type { NextFunction, Request, Response } from "express";
 import * as console from "src/plugins/log/";
@@ -58,8 +56,6 @@ const send = async function (root: string, env: Env) {
       };
       // 获取默认选中的数据
       const menuActive = safeGet<string>(res.locals, "menuActive");
-      // 处理头部导航数据
-      safeSet(data, alias.common.layout.header, getMenuList(menuActive, req, safeGet<TidingList[]>(data, alias.common.tiding.list)));
       // 处理底部导航数据
       safeSet(data, alias.common.layout.footer, footers(req));
 

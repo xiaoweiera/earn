@@ -14,6 +14,7 @@ import * as console from "src/plugins/log/";
 import Site from "src/controller/site/";
 import { getRedisClient } from "./redis";
 // import * as logs from "src/plugins/express/error";
+import Assets from "./router/assets";
 import Router from "./router/index";
 
 const root: string = path.resolve(__dirname, "../..");
@@ -37,6 +38,9 @@ const main = async function () {
 
   app.use(Site(root, config));
   app.use(cors());
+
+  const assets = await Assets(root, config);
+  app.use(assets);
 
   app.use(CookieParser());
 
