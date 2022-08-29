@@ -13,11 +13,11 @@ const routes = [
     path: "/",
     component: () => import("src/pages/layout/earn/index.vue"),
     children: [
-      {
-        path: "/",
-        name: "earn",
-        component: () => import("src/pages/earn/index.vue"),
-      },
+      // {
+      //   path: "/",
+      //   name: "earn",
+      //   component: () => import("src/pages/earn/index.vue"),
+      // },
         ...Earn,
       {
         path: config.E404,

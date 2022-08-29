@@ -6,13 +6,12 @@
 import { compact } from "src/utils";
 import DB from "@fengqiaogang/dblist";
 import { $ } from "src/plugins/browser/event";
-import type { SearchItem } from "src/types/search/";
 
-const filter = function (list: SearchItem[]): SearchItem[] {
+const filter = function (list: any[]): any[] {
   const db = new DB([], "key");
   db.insert(db.flatten(list, "children"));
-  const array: SearchItem[] = [];
-  db.clone<SearchItem>(function (item: SearchItem) {
+  const array: any[] = [];
+  db.clone<any>(function (item: any) {
     if (item && item.id) {
       array.push(item);
     }
@@ -20,14 +19,14 @@ const filter = function (list: SearchItem[]): SearchItem[] {
   return array;
 };
 
-export const selectItem = function (list: SearchItem[], id?: string | number, shift = 0): SearchItem {
+export const selectItem = function (list: any[], id?: string | number, shift = 0): any {
   // 过滤数据
   let array = filter(list);
 
   if (shift !== 0) {
     const $ul = $(".result-list ul");
     if ($ul.length > 0) {
-      const temp = array.map(function (item: SearchItem) {
+      const temp = array.map(function (item: any) {
         const $li = $(`.result-list li[data-id="${item.id}"]`);
         if ($li.length > 0) {
           return item;

@@ -23,7 +23,7 @@ export const redirect = function (req: Request, res: Response, url: string | obj
 };
 
 export const goHome = function (req: Request, res: Response) {
-  return redirect(req, res, routerConfig.home);
+  return redirect(req, res, routerConfig.earn);
 };
 
 export const go404 = function (req: Request, res: Response) {

@@ -14,7 +14,6 @@ import type { SiteConfig } from "src/types/common/chain";
 import type { TidingList } from "src/types/common/tiding";
 import ApiTemplate from "../template";
 import window from "src/plugins/browser/window";
-import type { SearchItem } from "src/types/search/";
 import { routerConfig } from "src/router/config";
 import { createHref } from "src/plugins/router/pack";
 
@@ -116,59 +115,5 @@ export default class extends ApiTemplate {
     const path = window.location.pathname;
     const data = { path };
     return [data] as any;
-  }
-
-  // 获取搜索内容
-  @tryError(DefaultValue([]))
-  @get(api.common.search)
-  @userToken()
-  async getSearchList(keyword?: string): Promise<SearchItem[]> {
-    const createUrl = function (list?: SearchItem[], isDapp?: boolean): SearchItem[] {
-      if (list) {
-        return _.map(list, function (data: SearchItem) {
-          if (data.id) {
-            const url = isDapp ? routerConfig.dapp.idoDetail(data.id) : routerConfig.dapp.nftDetail(data.id);
-            data.url = createHref(url as any);
-          }
-          return data;
-        });
-      }
-      return [];
-    };
-
-    const minCharLength = 2;
-    const value = _.trim(`${keyword || ""}`);
-    const callback = (result: object): SearchItem[] => {
-      if (value && value.length >= minCharLength) {
-        const list1 = createUrl(safeGet<SearchItem[]>(result, "dapps"), true);
-        const list2 = createUrl(safeGet<SearchItem[]>(result, "nfts"), false);
-        if (list1.length > 0 || list2.length > 0) {
-          return [
-            {
-              name: "DApp",
-              key: "dapp",
-              children: list1,
-            },
-            {
-              name: "NFT",
-              key: "nft",
-              children: list2,
-            },
-          ];
-        }
-      }
-      const i18n = I18n(this.lang);
-      return [
-        {
-          key: "hot",
-          name: i18n.liquidity.select.hot + " 🔥",
-          children: createUrl(safeGet<SearchItem[]>(result, "hots") || [], true),
-        },
-      ];
-    };
-    if (value.length >= minCharLength) {
-      return [{ keyword: value }, callback] as any;
-    }
-    return [{ keyword: "" }, callback] as any;
   }
 }

@@ -5,7 +5,6 @@
 
 import _ from "lodash";
 import SSR from "src/plugins/vue";
-import { footers } from "src/config/footer";
 import type { Env } from "src/config";
 import { Command } from "src/config";
 import { languageKey } from "src/config";
@@ -54,11 +53,6 @@ const send = async function (root: string, env: Env) {
         ...res.locals,
         ...value,
       };
-      // 获取默认选中的数据
-      const menuActive = safeGet<string>(res.locals, "menuActive");
-      // 处理底部导航数据
-      safeSet(data, alias.common.layout.footer, footers(req));
-
       try {
         const html = await ssr.render(url, data);
         log();
